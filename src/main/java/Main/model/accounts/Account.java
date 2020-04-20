@@ -10,4 +10,13 @@ public abstract class Account {
     protected String phoneNumber = null;
     protected String passWord = null;
     protected static ArrayList<Account> allAccounts = new ArrayList<Account>();
+
+    public static boolean isThereUserWithUserName(String userName) {
+        for (Account account : allAccounts) {
+            if (account.userName.equals(userName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
