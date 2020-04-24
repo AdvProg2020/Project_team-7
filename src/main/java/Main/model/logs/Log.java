@@ -1,25 +1,30 @@
 package Main.model.logs;
 
+import Main.model.Cart;
 import Main.model.Product;
 
-import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 
 public abstract class Log {
     protected String logId;
-    protected Time time;
+    protected Date date;
     protected double totalCost;
-    protected ArrayList<Product> products = new ArrayList<Product>();
+    protected ArrayList<String> products = new ArrayList<String>();
     protected static ArrayList<Log> allLogs = new ArrayList<Log>();
     protected DeliveryStatus deliveryStatus;
+
+    public Log(String logId, Date date, DeliveryStatus deliveryStatus) {
+        this.logId = logId;
+        this.date = date;
+        setDeliveryStatus(deliveryStatus);
+    }
 
     public void addLog(Log log) {
 
     }
 
-    public String viewLog() {
-        return null;
-    }
+    public abstract String viewLog();
 
     public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
 
@@ -28,4 +33,5 @@ public abstract class Log {
     public String getLogId() {
         return logId;
     }
+
 }

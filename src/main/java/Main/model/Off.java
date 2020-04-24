@@ -34,4 +34,12 @@ public class Off {
     public static void removeOff(Off off) {
 
     }
+
+    public String getOffId() {
+        return offId;
+    }
+
+    public double getOffAmount() {
+        return offAmount;
+    }
 }

@@ -18,4 +18,14 @@ public class CartProduct {
     public void decreaseNumberByOne() {
 
     }
+
+    public String toStringForSellLog() {
+
+        return null;
+    }
+
+    public String toStringForBuyLog() {
+
+        return null;
+    }
 }

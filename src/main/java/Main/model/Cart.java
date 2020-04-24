@@ -5,7 +5,11 @@ import java.util.ArrayList;
 public class Cart {
     private ArrayList<CartProduct> cartProducts = new ArrayList<CartProduct>();
 
-    public double calculateCartTotalPrice() {
+    public double calculateCartTotalPriceConsideringOffs() {
+        return 0;
+    }
+
+    public double calculateCartTotalOffs() {
         return 0;
     }
 
@@ -17,11 +21,12 @@ public class Cart {
         return null;
     }
 
-    public String showCartProducts() {
+    public String viewMe() {
         return null;
     }
 
     public void addCartProduct(CartProduct cartProduct) {
 
     }
+
 }

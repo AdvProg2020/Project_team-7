@@ -22,7 +22,7 @@ public class Product {
     private ProductStatus productStatus;
     private double price;
     private ArrayList<BuyerAccount> buyers;
-
+    private Off off;
 
     public Product(String productId, String name, String brand, int availability, Category category, String description, double averageScore, ArrayList<Comment> comments, Time timeCreated, int openFrequency, ProductStatus productStatus, double price, ArrayList<BuyerAccount> buyers) {
         this.productId = productId;
@@ -92,7 +92,7 @@ public class Product {
         return 0;
     }
 
-    public void addOff(Off off) {
+    public void setOff(Off off) {
 
     }
 
@@ -115,4 +115,25 @@ public class Product {
     public void removeOff(Off off) {
 
     }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public Off getOff() {
+        return off;
+    }
+
 }
