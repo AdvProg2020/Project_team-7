@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class BuyLog extends Log {
     private double discountAmount;
 
-    public BuyLog(String logId, Time time, double paidAmount, double discountAmount, ArrayList<Product> boughtProducts, BuyerAccount buyer,DeliveryStatus deliveryStatus){
+    public BuyLog(String logId, Time time, double paidAmount, double discountAmount, ArrayList<Product> boughtProducts, BuyerAccount buyer, DeliveryStatus deliveryStatus) {
 
     }
 }

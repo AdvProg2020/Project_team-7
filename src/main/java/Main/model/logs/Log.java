@@ -13,15 +13,19 @@ public abstract class Log {
     protected static ArrayList<Log> allLogs = new ArrayList<Log>();
     protected DeliveryStatus deliveryStatus;
 
-    public void addLog(Log log){
+    public void addLog(Log log) {
 
     }
 
-    public String viewLog(){
+    public String viewLog() {
         return null;
     }
 
     public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
 
+    }
+
+    public String getLogId() {
+        return logId;
     }
 }

@@ -10,7 +10,7 @@ public class SellLog extends Log {
     private double offAmount;
     private BuyerAccount buyer;
 
-    public SellLog(String logId, Time time, double recievedAmount, ArrayList<Product> soldProducts, BuyerAccount buyer, DeliveryStatus deliveryStatus){
+    public SellLog(String logId, Time time, double recievedAmount, ArrayList<Product> soldProducts, BuyerAccount buyer, DeliveryStatus deliveryStatus) {
 
     }
 }

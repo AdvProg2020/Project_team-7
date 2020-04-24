@@ -1,6 +1,6 @@
 package Main.model.accounts;
 
-import Main.model.exceptions.invalidInputException;
+import Main.model.exceptions.InvalidInputException;
 
 import java.util.ArrayList;
 
@@ -13,19 +13,19 @@ public abstract class Account {
     protected String passWord;
     protected static ArrayList<Account> allAccounts = new ArrayList<Account>();
 
-    public Account (String userName, String firstName, String lastName, String email, String phoneNumber, String passWord) throws invalidInputException {
-        invalidInputException.validateNameTypeInfo("user name", userName);
-        invalidInputException.validateUsernameUniqueness(userName);
+    public Account(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord) throws InvalidInputException {
+        InvalidInputException.validateNameTypeInfo("user name", userName);
+        InvalidInputException.validateUsernameUniqueness(userName);
         this.userName = userName;
-        invalidInputException.validateNameTypeInfo("first name", firstName);
+        InvalidInputException.validateNameTypeInfo("first name", firstName);
         this.firstName = firstName;
-        invalidInputException.validateNameTypeInfo("last name", lastName);
+        InvalidInputException.validateNameTypeInfo("last name", lastName);
         this.lastName = lastName;
-        invalidInputException.validateEmail(email);
+        InvalidInputException.validateEmail(email);
         this.email = email;
-        invalidInputException.validatePhoneNumber(phoneNumber);
+        InvalidInputException.validatePhoneNumber(phoneNumber);
         this.phoneNumber = phoneNumber;
-        invalidInputException.validatePassWord(passWord);
+        InvalidInputException.validatePassWord(passWord);
         this.passWord = passWord;
     }
 

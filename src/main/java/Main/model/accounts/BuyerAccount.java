@@ -3,6 +3,7 @@ package Main.model.accounts;
 import Main.model.Cart;
 import Main.model.DiscountCode;
 import Main.model.Product;
+import Main.model.exceptions.InvalidInputException;
 import Main.model.logs.BuyLog;
 
 import java.util.ArrayList;
@@ -11,9 +12,11 @@ public class BuyerAccount extends Account {
     private Cart cart = null;
     private ArrayList<BuyLog> buyHistory = new ArrayList<BuyLog>();
     private ArrayList<DiscountCode> discountCodes = new ArrayList<DiscountCode>();
+    private double balance;
 
-    public BuyerAccount(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord, double balance) {
-
+    public BuyerAccount(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord, double balance) throws InvalidInputException {
+        super(userName, firstName, lastName, email, phoneNumber, passWord);
+        this.balance = balance;
     }
 
     public boolean hasBuyerBoughtProduct(Product product) {

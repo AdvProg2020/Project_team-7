@@ -1,6 +1,6 @@
 package Main.model.accounts;
 
-import Main.model.exceptions.invalidInputException;
+import Main.model.exceptions.InvalidInputException;
 
 import java.util.ArrayList;
 
@@ -8,12 +8,12 @@ public class ManagerAccount extends Account {
 
     private static ArrayList<ManagerAccount> allManagers = new ArrayList<ManagerAccount>();
 
-    public ManagerAccount(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord) throws invalidInputException {
+    public ManagerAccount(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord) throws InvalidInputException {
         super(userName, firstName, lastName, email, phoneNumber, passWord);
     }
 
     public static void addManager(ManagerAccount managerAccount) {
-        if(!allManagers.contains(managerAccount)) {
+        if (!allManagers.contains(managerAccount)) {
             allManagers.add(managerAccount);
             allAccounts.add(managerAccount);
         }
