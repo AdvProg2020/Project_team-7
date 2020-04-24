@@ -9,20 +9,7 @@ public class ManagerAccount extends Account {
     private static ArrayList<ManagerAccount> allManagers = new ArrayList<ManagerAccount>();
 
     public ManagerAccount(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord) throws invalidInputException {
-
-        invalidInputException.validateNameTypeInfo("user name", userName);
-        invalidInputException.validateUsernameUniqueness(userName);
-        this.userName = userName;
-        invalidInputException.validateNameTypeInfo("first name", firstName);
-        this.firstName = firstName;
-        invalidInputException.validateNameTypeInfo("last name", lastName);
-        this.lastName = lastName;
-        invalidInputException.validateEmail(email);
-        this.email = email;
-        invalidInputException.validatePhoneNumber(phoneNumber);
-        this.phoneNumber = phoneNumber;
-        invalidInputException.validatePassWord(passWord);
-        this.passWord = passWord;
+        super(userName, firstName, lastName, email, phoneNumber, passWord);
     }
 
     public static void addManager(ManagerAccount managerAccount) {
