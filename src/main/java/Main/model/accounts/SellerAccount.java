@@ -15,6 +15,8 @@ public class SellerAccount extends Account {
     private static ArrayList<SellerAccount> allSellers = new ArrayList<SellerAccount>();
     private double balance;
 
+    //TODO : add field for company extra information & manage related changes example in viewMe and TestUnits
+
     public SellerAccount(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord, String companyName, double balance) throws InvalidInputException {
         super(userName, firstName, lastName, email, phoneNumber, passWord);
         InvalidInputException.validateNameTypeInfo("company name", companyName);

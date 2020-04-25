@@ -1,6 +1,9 @@
 package Main.model;
 
 import Main.model.accounts.SellerAccount;
+import sun.misc.JavaSecurityProtectionDomainAccess;
+
+import java.util.ArrayList;
 
 public class CartProduct {
     private SellerAccount finalSeller;
@@ -27,5 +30,9 @@ public class CartProduct {
     public String toStringForBuyLog() {
 
         return null;
+    }
+
+    public Product getProduct() {
+        return product;
     }
 }

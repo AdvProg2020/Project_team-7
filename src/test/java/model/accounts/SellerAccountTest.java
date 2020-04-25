@@ -49,8 +49,8 @@ public class SellerAccountTest {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName", 100);
 
-        Assert.assertEquals(sellerAccount.viewMe(), "Seller :\n\tfirst name : firstName\n\tlast name : last Name\n\tuser name : userName" +
-                "\n\tcompany name : companyName\n\temail : sampleEmail@sample.sample\n\tphone number : 09001112233\n");
+        Assert.assertEquals("Seller :\n\tfirst name : firstName\n\tlast name : last Name\n\tuser name : userName" +
+                "\n\tcompany name : companyName\n\temail : sampleEmail@sample.sample\n\tphone number : 09001112233\n",sellerAccount.viewMe());
     }
 
     @Test
@@ -62,7 +62,8 @@ public class SellerAccountTest {
                 "sampleEmail@sample.sample2", "09001112234", "password124", "companyName", 100);
         SellerAccount.addSeller(sellerAccount2);
 
-        Assert.assertEquals(SellerAccount.showSellersList(), "Sellers :\n\tuser name : userName\tfull name : firstName last Name\n\tuser name : userName2\tfull name : firstName2 last Name2\n");
+        Assert.assertEquals("Sellers :\n\tuser name : userName\tfull name : firstName last Name\n\tuser name : " +
+                "userName2\tfull name : firstName2 last Name2\n",SellerAccount.showSellersList());
     }
 
     @Test
@@ -71,7 +72,7 @@ public class SellerAccountTest {
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName", 100);
         SellerAccount.addSeller(sellerAccount);
 
-        Assert.assertEquals(SellerAccount.getSellerWithUserName("userName"), sellerAccount);
+        Assert.assertEquals(sellerAccount,SellerAccount.getSellerWithUserName("userName"));
     }
 
     @Test
@@ -89,7 +90,7 @@ public class SellerAccountTest {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName", 100);
 
-        Assert.assertEquals(sellerAccount.viewCompanyInformation(),"company name : companyName\n");
+        Assert.assertEquals("company name : companyName\n",sellerAccount.viewCompanyInformation());
     }
 
     @Test
@@ -98,7 +99,7 @@ public class SellerAccountTest {
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName", 100);
 
         sellerAccount.increaseBalanceBy(20);
-        Assert.assertEquals(sellerAccount.getBalance(),120, 0);
+        Assert.assertEquals(120,sellerAccount.getBalance(),0);
     }
 
     @Test
@@ -106,7 +107,7 @@ public class SellerAccountTest {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName", 100);
 
-        Assert.assertEquals(sellerAccount.viewBalance(),"balance : 100.0\n");
+        Assert.assertEquals("balance : 100.0\n",sellerAccount.viewBalance());
     }
 
     //TODO : write TestUnit for viewSellersOffs, addOff, showSellersProducts, viewSalesHistory, addLog, getLogWithID

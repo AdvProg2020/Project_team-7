@@ -5,6 +5,7 @@ import Main.model.DiscountCode;
 import Main.model.Product;
 import Main.model.exceptions.InvalidInputException;
 import Main.model.logs.BuyLog;
+import Main.model.logs.SellLog;
 
 import java.util.ArrayList;
 
@@ -12,7 +13,9 @@ public class BuyerAccount extends Account {
     private Cart cart = null;
     private ArrayList<BuyLog> buyHistory = new ArrayList<BuyLog>();
     private ArrayList<DiscountCode> discountCodes = new ArrayList<DiscountCode>();
+    private ArrayList<Product> boughtProducts = new ArrayList<Product>();
     private double balance;
+    private static ArrayList<BuyerAccount> allBuyers = new ArrayList<BuyerAccount>();
 
     public BuyerAccount(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord, double balance) throws InvalidInputException {
         super(userName, firstName, lastName, email, phoneNumber, passWord);
@@ -20,58 +23,105 @@ public class BuyerAccount extends Account {
     }
 
     public boolean hasBuyerBoughtProduct(Product product) {
-        return false;
+        return boughtProducts.contains(product);
     }
 
     public static boolean isThereBuyerWithUserName(String userName) {
+        for (BuyerAccount buyer : allBuyers) {
+            if (buyer.userName.equals(userName)) {
+                return true;
+            }
+        }
         return false;
     }
 
     public static String showBuyersList() {
-        return null;
+        StringBuilder buyersList = new StringBuilder();
+        buyersList.append("Buyers :\n");
+        for (BuyerAccount buyer : allBuyers) {
+            String tempBuyerInfo = "\tuser name : " + buyer.userName + "\tfull name : " + buyer.firstName + " " + buyer.lastName + "\n";
+            buyersList.append(tempBuyerInfo);
+        }
+        return buyersList.toString();
     }
 
     public String viewMe() {
-        return null;
+        return "Buyer :\n\tfirst name : " + this.firstName + "\n\tlast name : " + this.lastName + "\n\tuser name : " + this.userName +
+                "\n\temail : " + this.email + "\n\tphone number : " + this.phoneNumber + "\n";
     }
 
     public static BuyerAccount getBuyerWithUserName(String userName) {
+        for (BuyerAccount buyer : allBuyers) {
+            if (buyer.userName.equals(userName)) {
+                return buyer;
+            }
+        }
         return null;
     }
+    //TODO : add some additional exception example up here !
 
     public static void deleteBuyer(BuyerAccount buyer) {
-
+        allBuyers.remove(buyer);
+        allAccounts.remove(buyer);
     }
 
     public BuyLog getLogWithId(String logId) {
+        for (BuyLog buyLog : buyHistory) {
+            if (buyLog.getLogId().equals(logId)) {
+                return buyLog;
+            }
+        }
         return null;
     }
 
     public void addDiscountCode(DiscountCode discountCode) {
-
+        if (!discountCodes.contains(discountCode)) {
+            discountCodes.add(discountCode);
+        }
     }
+    //TODO : check if everyWhere the above condition is considered
 
     public void removeDiscountCode(DiscountCode discountCode) {
-
+        discountCodes.remove(discountCode);
     }
 
     public void addLog(BuyLog buyLog) {
-
+        buyHistory.add(buyLog);
     }
 
     public void emptyCart() {
-
+        this.cart = null;
     }
 
     public String viewBalance() {
-        return null;
+        return "balance : " + balance + "\n";
     }
 
     public String viewOrders() {
-        return null;
+        StringBuilder orders = new StringBuilder();
+        orders.append("Orders :\n");
+        for (BuyLog buyLog : buyHistory) {
+            orders.append(buyLog.viewLog());
+        }
+        return orders.toString();
     }
 
     public void decreaseBalanceBy(double money) {
+        this.balance -= money;
+    }
 
+    public void addCartsProductsToBoughtProducts() {
+        boughtProducts.addAll(cart.getCartsProductList());
+    }
+
+    public static void addBuyer(BuyerAccount buyer){
+        if(!allBuyers.contains(buyer)){
+            allBuyers.add(buyer);
+            allAccounts.add(buyer);
+        }
+    }
+
+    public double getBalance() {
+        return balance;
     }
 }

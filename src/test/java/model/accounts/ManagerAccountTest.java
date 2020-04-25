@@ -51,8 +51,8 @@ public class ManagerAccountTest {
                 "sampleEmail@sample.sample","09001112233","password123");
         ManagerAccount.addManager(managerAccount);
 
-        Assert.assertEquals(managerAccount.viewMe(),"Manager :\n\tfirst name : firstName\n\tlast name : last Name\n\tuser name : userName" +
-                "\n\temail : sampleEmail@sample.sample\n\tphone number : 09001112233\n");
+        Assert.assertEquals("Manager :\n\tfirst name : firstName\n\tlast name : last Name\n\tuser name : userName" +
+                "\n\temail : sampleEmail@sample.sample\n\tphone number : 09001112233\n",managerAccount.viewMe());
     }
 
     @Test
@@ -64,7 +64,7 @@ public class ManagerAccountTest {
                 "sampleEmail@sample.sample2","09001112234","password124");
         ManagerAccount.addManager(managerAccount2);
 
-        Assert.assertEquals(ManagerAccount.showManagersList(),"Mangers :\n\tuser name : userName\tfull name : firstName last Name\n\tuser name : userName2\tfull name : firstName2 last Name2\n");
+        Assert.assertEquals("Mangers :\n\tuser name : userName\tfull name : firstName last Name\n\tuser name : userName2\tfull name : firstName2 last Name2\n",ManagerAccount.showManagersList());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ManagerAccountTest {
                 "sampleEmail@sample.sample","09001112233","password123");
         ManagerAccount.addManager(managerAccount);
 
-        Assert.assertEquals(ManagerAccount.getManagerWithUserName("userName"),managerAccount);
+        Assert.assertEquals(managerAccount,ManagerAccount.getManagerWithUserName("userName"));
     }
 
     @Test

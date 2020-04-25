@@ -29,4 +29,12 @@ public class Cart {
 
     }
 
+
+    public ArrayList<Product> getCartsProductList(){
+        ArrayList<Product> cartsProductList = new ArrayList<Product>();
+        for (CartProduct cartProduct : cartProducts) {
+            cartsProductList.add(cartProduct.getProduct());
+        }
+        return cartsProductList;
+    }
 }
