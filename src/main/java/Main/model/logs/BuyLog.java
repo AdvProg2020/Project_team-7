@@ -1,25 +1,23 @@
 package Main.model.logs;
 
-import Main.model.Product;
-import Main.model.accounts.BuyerAccount;
-
-import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class BuyLog extends Log {
     private double discountAmount;
 
-    public BuyLog(String logId, Date date, double paidAmountWithoutDiscount, double discountAmount, ArrayList<Product> boughtProducts, BuyerAccount buyer, DeliveryStatus deliveryStatus) {
-        super(logId, date, deliveryStatus);
-
+    public BuyLog(String logId, Date date, double paidAmountWithoutDiscount, double discountAmount, String boughtProducts, DeliveryStatus deliveryStatus) {
+        super(logId, date, boughtProducts, deliveryStatus);
+        this.discountAmount = discountAmount;
+        setLogTotalPrice(paidAmountWithoutDiscount, discountAmount);
     }
 
     @Override
     public String viewLog() {
-        return null;
+        return "Buy Log :" + "\n\tLog ID : " + logId + "\n\tTotal Paid Amount : " + totalCost + "\n\tDiscount Amount : %"
+                + discountAmount + "\n\tDate : " + dateFormat.format(date) + products + "\n\tDelivery Status : " + deliveryStatus;
     }
 
     private void setLogTotalPrice(double paidAmountWithoutDiscount, double discountAmount) {
+        this.totalCost = paidAmountWithoutDiscount * (100 - discountAmount) / 100;
     }
 }

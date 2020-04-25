@@ -29,8 +29,12 @@ public class Cart {
 
     }
 
+    public String toStringCartsProductForLog(Cart cart, String status) {
 
-    public ArrayList<Product> getCartsProductList(){
+        return status;
+    }
+
+    public ArrayList<Product> getCartsProductList() {
         ArrayList<Product> cartsProductList = new ArrayList<Product>();
         for (CartProduct cartProduct : cartProducts) {
             cartsProductList.add(cartProduct.getProduct());
