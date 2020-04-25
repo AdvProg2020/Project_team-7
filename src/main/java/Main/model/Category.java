@@ -41,4 +41,20 @@ public class Category {
     public static void removeCategory(Category category) {
 
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<String> getSpecialFeatures() {
+        return specialFeatures;
+    }
+
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
+    public static ArrayList<Category> getAllCategories() {
+        return allCategories;
+    }
 }
