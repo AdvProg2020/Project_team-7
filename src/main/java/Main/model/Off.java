@@ -42,4 +42,6 @@ public class Off {
     public double getOffAmount() {
         return offAmount;
     }
+
+    //TODO : scheduledExecutorService
 }

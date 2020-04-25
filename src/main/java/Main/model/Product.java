@@ -136,4 +136,8 @@ public class Product {
         return off;
     }
 
+    public double getProductFinalPriceConsideringOff(){
+        return 0;
+    }
+
 }

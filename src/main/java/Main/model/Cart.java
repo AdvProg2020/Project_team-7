@@ -6,32 +6,46 @@ public class Cart {
     private ArrayList<CartProduct> cartProducts = new ArrayList<CartProduct>();
 
     public double calculateCartTotalPriceConsideringOffs() {
-        return 0;
+        double cartTotalPriceConsideringOffs = 0;
+        for (CartProduct cartProduct : cartProducts) {
+            cartTotalPriceConsideringOffs += cartProduct.getProduct().getProductFinalPriceConsideringOff();
+        }
+        return cartTotalPriceConsideringOffs;
     }
 
     public double calculateCartTotalOffs() {
-        return 0;
+        double cartTotalOff = 0;
+        for (CartProduct cartProduct : cartProducts) {
+            if (cartProduct.getProduct().getOff() != null) {
+                cartTotalOff += cartProduct.getProduct().getPrice() * cartProduct.getProduct().getOff().getOffAmount() / 100;
+            }
+        }
+        return cartTotalOff;
     }
 
     public void removeProductFromCart(CartProduct cartProduct) {
-
+        cartProducts.remove(cartProduct);
     }
 
     public CartProduct getCartProductByProductId(String productId) {
+        for (CartProduct cartProduct : cartProducts) {
+            if (cartProduct.getProduct().getProductId().equals(productId)) {
+                return cartProduct;
+            }
+        }
         return null;
     }
 
     public String viewMe() {
-        return null;
+        StringBuilder cartsProductsview = new StringBuilder();
+        for (CartProduct cartProduct : cartProducts) {
+            cartsProductsview.append(cartProduct.toStringForBuyLog());
+        }
+        return "Cart :\n" + cartsProductsview;
     }
 
     public void addCartProduct(CartProduct cartProduct) {
-
-    }
-
-    public String toStringCartsProductForLog(Cart cart, String status) {
-
-        return status;
+        cartProducts.add(cartProduct);
     }
 
     public ArrayList<Product> getCartsProductList() {
