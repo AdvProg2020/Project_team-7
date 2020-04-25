@@ -10,4 +10,16 @@ public class Rate {
     public Rate(BuyerAccount buyer, Product product, double score) {
 
     }
+
+    public BuyerAccount getBuyer() {
+        return buyer;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public double getScore() {
+        return score;
+    }
 }

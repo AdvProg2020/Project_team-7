@@ -126,4 +126,8 @@ public class SellerAccount extends Account {
     public double getBalance() {
         return balance;
     }
+
+    public String getCompanyName() {
+        return companyName;
+    }
 }
