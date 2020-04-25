@@ -1,33 +1,28 @@
 package Main.model.logs;
 
-import Main.model.Cart;
-import Main.model.Product;
-
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Log {
     protected String logId;
     protected Date date;
     protected double totalCost;
-    protected ArrayList<String> products = new ArrayList<String>();
-    protected static ArrayList<Log> allLogs = new ArrayList<Log>();
+    protected String products;
     protected DeliveryStatus deliveryStatus;
+    protected DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-    public Log(String logId, Date date, DeliveryStatus deliveryStatus) {
+    public Log(String logId, Date date, String products, DeliveryStatus deliveryStatus) {
         this.logId = logId;
         this.date = date;
+        this.products = products;
         setDeliveryStatus(deliveryStatus);
-    }
-
-    public void addLog(Log log) {
-
     }
 
     public abstract String viewLog();
 
     public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
-
+        this.deliveryStatus = deliveryStatus;
     }
 
     public String getLogId() {
