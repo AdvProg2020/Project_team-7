@@ -9,18 +9,19 @@ import java.util.ArrayList;
 
 public class SellerAccount extends Account {
     private String companyName;
+    private String companyExtraInformation;
     private ArrayList<SellLog> sellHistory = new ArrayList<SellLog>();
     private ArrayList<Product> products = new ArrayList<Product>();
     private ArrayList<Off> offList = new ArrayList<Off>();
     private static ArrayList<SellerAccount> allSellers = new ArrayList<SellerAccount>();
     private double balance;
 
-    //TODO : add field for company extra information & manage related changes example in viewMe and TestUnits
-
-    public SellerAccount(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord, String companyName, double balance) throws InvalidInputException {
+    public SellerAccount(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord
+            , String companyName, String companyExtraInformation, double balance) throws InvalidInputException {
         super(userName, firstName, lastName, email, phoneNumber, passWord);
         InvalidInputException.validateNameTypeInfo("company name", companyName);
         this.companyName = companyName;
+        this.companyExtraInformation = companyExtraInformation;
         this.balance = balance;
     }
 
@@ -45,7 +46,8 @@ public class SellerAccount extends Account {
 
     public String viewMe() {
         return "Seller :\n\tfirst name : " + this.firstName + "\n\tlast name : " + this.lastName + "\n\tuser name : " + this.userName +
-                "\n\tcompany name : " + this.companyName + "\n\temail : " + this.email + "\n\tphone number : " + this.phoneNumber + "\n";
+                "\n\tcompany name : " + this.companyName + "\n\tcompany information : " + companyExtraInformation +
+                "\n\temail : " + this.email + "\n\tphone number : " + this.phoneNumber + "\n";
     }
 
     public static void deleteSeller(SellerAccount sellerAccount) {
@@ -63,11 +65,13 @@ public class SellerAccount extends Account {
     }
 
     public String viewCompanyInformation() {
-        return "company name : " + this.companyName + "\n";
+        return "company name : " + this.companyName + "\n\tcompany information : " + companyExtraInformation + "\n";
     }
 
     public void addLog(SellLog sellLog) {
-        sellHistory.add(sellLog);
+        if (!sellHistory.contains(sellLog)) {
+            sellHistory.add(sellLog);
+        }
     }
 
     public String viewSalesHistory() {
@@ -97,7 +101,9 @@ public class SellerAccount extends Account {
     }
 
     public void addOff(Off off) {
-        offList.add(off);
+        if (!offList.contains(off)) {
+            offList.add(off);
+        }
     }
 
     public String viewSellerOffs() {
@@ -110,8 +116,10 @@ public class SellerAccount extends Account {
     }
 
     public static void addSeller(SellerAccount seller) {
-        allSellers.add(seller);
-        allAccounts.add(seller);
+        if (!allSellers.contains(seller)) {
+            allSellers.add(seller);
+            allAccounts.add(seller);
+        }
     }
 
     public boolean isThereSellerWithUserName(String userName) {

@@ -45,7 +45,9 @@ public class Cart {
     }
 
     public void addCartProduct(CartProduct cartProduct) {
-        cartProducts.add(cartProduct);
+        if (!cartProducts.contains(cartProduct)) {
+            cartProducts.add(cartProduct);
+        }
     }
 
     public ArrayList<Product> getCartsProductList() {

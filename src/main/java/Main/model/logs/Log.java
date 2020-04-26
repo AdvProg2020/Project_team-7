@@ -10,7 +10,7 @@ public abstract class Log {
     protected double totalCost;
     protected String products;
     protected DeliveryStatus deliveryStatus;
-    protected DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    protected static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     public Log(String logId, Date date, String products, DeliveryStatus deliveryStatus) {
         this.logId = logId;

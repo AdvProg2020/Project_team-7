@@ -58,7 +58,6 @@ public class BuyerAccount extends Account {
         }
         return null;
     }
-    //TODO : add some additional exception example up here !
 
     public static void deleteBuyer(BuyerAccount buyer) {
         allBuyers.remove(buyer);
@@ -79,14 +78,15 @@ public class BuyerAccount extends Account {
             discountCodes.add(discountCode);
         }
     }
-    //TODO : check if everyWhere the above condition is considered
 
     public void removeDiscountCode(DiscountCode discountCode) {
         discountCodes.remove(discountCode);
     }
 
     public void addLog(BuyLog buyLog) {
-        buyHistory.add(buyLog);
+        if (!buyHistory.contains(buyLog)) {
+            buyHistory.add(buyLog);
+        }
     }
 
     public void emptyCart() {
@@ -111,11 +111,16 @@ public class BuyerAccount extends Account {
     }
 
     public void addCartsProductsToBoughtProducts() {
-        boughtProducts.addAll(cart.getCartsProductList());
+        ArrayList<Product> cartsProductList = cart.getCartsProductList();
+        for (Product product : cartsProductList) {
+            if (!boughtProducts.contains(product)) {
+                boughtProducts.add(product);
+            }
+        }
     }
 
-    public static void addBuyer(BuyerAccount buyer){
-        if(!allBuyers.contains(buyer)){
+    public static void addBuyer(BuyerAccount buyer) {
+        if (!allBuyers.contains(buyer)) {
             allBuyers.add(buyer);
             allAccounts.add(buyer);
         }
