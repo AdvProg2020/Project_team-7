@@ -37,4 +37,8 @@ public abstract class Account {
         }
         return false;
     }
+
+    public String getUserName() {
+        return userName;
+    }
 }
