@@ -296,4 +296,12 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public int getAvailability() {
+        return availability;
+    }
+
+    public HashMap<String, String> getSpecialFeatures() {
+        return specialFeatures;
+    }
 }

@@ -11,4 +11,11 @@ public class BrandFilter extends Filter {
     public BrandFilter(String name, String brandName, ArrayList<Product> products) {
         this.name = name;
     }
+
+    public void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products){
+        for (Product product : products) {
+            if (product.getBrand().equals(brandName))
+                filterdProducts.add(product);
+        }
+    }
 }

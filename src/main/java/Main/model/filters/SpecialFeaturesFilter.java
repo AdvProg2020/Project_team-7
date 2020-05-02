@@ -12,4 +12,11 @@ public class SpecialFeaturesFilter extends Filter {
     public SpecialFeaturesFilter(String name, String featureTitle, String desiredFilter, ArrayList<Product> products) {
         this.name = name;
     }
+
+    public void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products) {
+        for (Product product : products) {
+            if (product.getSpecialFeatures().get(featureTitle).equals(desiredFilter))
+                filterdProducts.add(product);
+        }
+    }
 }

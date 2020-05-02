@@ -11,4 +11,11 @@ public class ProductNameFilter extends Filter {
     public ProductNameFilter(String name, String productName, ArrayList<Product> products) {
         this.name = name;
     }
+
+    public void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products){
+        for (Product product : products) {
+            if (product.getName().equals(productName))
+                filterdProducts.add(product);
+        }
+    }
 }
