@@ -22,8 +22,8 @@ public class Product {
     private double price;
     private ArrayList<BuyerAccount> buyers;
     private Off off;
-    private ArrayList<Rate> rates=new ArrayList<Rate>();
-    private HashMap<String,String> specialFeatures =new HashMap<String, String>();
+    private ArrayList<Rate> rates = new ArrayList<Rate>();
+    private HashMap<String, String> specialFeatures = new HashMap<String, String>();
 
     public Product(String productId, String name, String brand, int availability, Category category, String description,
                    ArrayList<Comment> comments, double price, ArrayList<String> specialFeatures) {
@@ -33,68 +33,68 @@ public class Product {
         this.availability = availability;
         this.category = category;
         this.description = description;
-        this.averageScore =0;
+        this.averageScore = 0;
         this.comments = comments;
-        this.openFrequency =0;
+        this.openFrequency = 0;
         this.productStatus = ProductStatus.PENDING_CREATION_PRODUCT;
         this.price = price;
-        for(int i=0; i<specialFeatures.size();i++)
-            this.specialFeatures.put(category.getSpecialFeatures().get(i),specialFeatures.get(i));
+        for (int i = 0; i < specialFeatures.size(); i++)
+            this.specialFeatures.put(category.getSpecialFeatures().get(i), specialFeatures.get(i));
     }
 
     public String showProductDigest() {
         return
-                "description: "+description +
-                "\nprice: " + price +
-                "\noff amount: " + makeOffAmount() +
-                "\ncategory: " + category.getName() +
-                "\nseller(s): " + makeSellersList() +
-                "\naverage score: " + calculateAverageScore();
+                "description: " + description +
+                        "\nprice: " + price +
+                        "\noff amount: " + makeOffAmount() +
+                        "\ncategory: " + category.getName() +
+                        "\nseller(s): " + makeSellersList() +
+                        "\naverage score: " + calculateAverageScore();
     }
 
-    public String makeOffAmount(){
-        if(off==null)
+    public String makeOffAmount() {
+        if (off == null)
             return "0%";
         else
-            return off.getOffAmount()+"%";
+            return off.getOffAmount() + "%";
     }
 
-    public String makeSellersList(){
+    public String makeSellersList() {
         StringBuilder list = new StringBuilder();
-        for(int i=0;i<sellers.size()-1;i++)
-            list.append(sellers.get(i).getCompanyName()+", ");
-        list.append(sellers.get(sellers.size()-1).getCompanyName());
+        for (int i = 0; i < sellers.size() - 1; i++)
+            list.append(sellers.get(i).getCompanyName() + ", ");
+        list.append(sellers.get(sellers.size() - 1).getCompanyName());
         return list.toString();
     }
 
     public String showProductAttributes() {
         return
                 "general attributes: \n" + showGeneralAttributes() +
-                "category: " + category.getName() +
-                showSpecialFeatures();
+                        "category: " + category.getName() +
+                        showSpecialFeatures();
     }
 
-    public String showGeneralAttributes(){
+    public String showGeneralAttributes() {
         return
-                "name: "+name+
-                "\nbrand: "+brand +
-                "\nprice: " + price +
-                "\nseller(s): " + makeSellersList() +
-                "\navailability: " + showAvailability() +
-                "\naverage score: " + getAverageScore();
+                "name: " + name +
+                        "\nbrand: " + brand +
+                        "\nprice: " + price +
+                        "\nseller(s): " + makeSellersList() +
+                        "\navailability: " + showAvailability() +
+                        "\naverage score: " + getAverageScore();
 
     }
 
-    public String showSpecialFeatures(){
-        StringBuilder features=new StringBuilder();
+    public String showSpecialFeatures() {
+        StringBuilder features = new StringBuilder();
         for (String key : specialFeatures.keySet()) {
-            features.append("\n"+key+": "+specialFeatures.get(key));
+            features.append("\n" + key + ": " + specialFeatures.get(key));
         }
         return features.toString();
     }
 
-    public String showAvailability(){
-        if(availability==0)
+    public String showAvailability() {
+        if (availability == 0)
             return "unavailable";
         else
             return "available";
@@ -102,7 +102,7 @@ public class Product {
 
     public static Product getProductWithId(String productId) {
         for (Product product : allProducts) {
-            if(product.getProductId().equals(productId))
+            if (product.getProductId().equals(productId))
                 return product;
         }
         return null;
@@ -111,7 +111,7 @@ public class Product {
 
     private static Product getProductWithName(String name) {
         for (Product product : allProducts) {
-            if(product.getName().equals(name))
+            if (product.getName().equals(name))
                 return product;
         }
         return null;
@@ -120,38 +120,38 @@ public class Product {
 
     public String compareProductWithProductWithId(String id) {
         Product productToBeCompared = getProductWithId(id);
-        if(productToBeCompared.getCategory().equals(category) && category!=null) {
-           return compareProductsInSameCategory(productToBeCompared);
+        if (productToBeCompared.getCategory().equals(category) && category != null) {
+            return compareProductsInSameCategory(productToBeCompared);
         } else
             return "Products are not in the Same Category. Comparison is invalid!";
     }
 
-    public String compareProductsInSameCategory(Product product){
+    public String compareProductsInSameCategory(Product product) {
         StringBuilder string = new StringBuilder();
         string.append(compareProductsWithGeneralFeatures(product));
         for (String key : specialFeatures.keySet()) {
-            string.append("\n"+key+": \n1."+specialFeatures.get(key)+"\n2."+product.specialFeatures.get(key));
+            string.append("\n" + key + ": \n1." + specialFeatures.get(key) + "\n2." + product.specialFeatures.get(key));
         }
         return string.toString();
     }
 
-    public String compareProductsWithGeneralFeatures(Product product){
-         return
-                 "name: \n" +
-                 "1." + name + "\n" +
-                 "2." + product.getName() + "\n" +
-                 "brand: \n" +
-                 "1." + brand + "\n" +
-                 "2." + product.getBrand() + "\n" +
-                 "price: \n" +
-                 "1." + price + "\n" +
-                 "2." + product.getPrice() + "\n" +
-                 "availability: \n" +
-                 "1." + showAvailability() + "\n" +
-                 "2." + product.showAvailability() + "\n" +
-                 "average score: \n" +
-                 "1." + getAverageScore() + "\n" +
-                 "2." + product.getAverageScore();
+    public String compareProductsWithGeneralFeatures(Product product) {
+        return
+                "name: \n" +
+                        "1." + name + "\n" +
+                        "2." + product.getName() + "\n" +
+                        "brand: \n" +
+                        "1." + brand + "\n" +
+                        "2." + product.getBrand() + "\n" +
+                        "price: \n" +
+                        "1." + price + "\n" +
+                        "2." + product.getPrice() + "\n" +
+                        "availability: \n" +
+                        "1." + showAvailability() + "\n" +
+                        "2." + product.showAvailability() + "\n" +
+                        "average score: \n" +
+                        "1." + getAverageScore() + "\n" +
+                        "2." + product.getAverageScore();
     }
 
 
@@ -164,20 +164,20 @@ public class Product {
     }
 
     public String showComments() {
-        StringBuilder allComments=new StringBuilder();
-        if(comments.isEmpty())
+        StringBuilder allComments = new StringBuilder();
+        if (comments.isEmpty())
             return "No comment has been recorded for this product.";
-        else{
+        else {
             allComments.append("comments:");
             for (Comment comment : comments) {
-                allComments.append("\nTitle: "+comment.getTitle()+"\nContent: "+comment.getContent());
+                allComments.append("\nTitle: " + comment.getTitle() + "\nContent: " + comment.getContent());
             }
             return allComments.toString();
         }
     }
 
     public void decreaseAvailabilityBy(int number) {
-        availability-=number;
+        availability -= number;
     }
 
     public static void removeProduct(Product product) {
@@ -185,12 +185,16 @@ public class Product {
     }
 
     public static String showAllProducts() {
-        StringBuilder string = new StringBuilder();
-        string.append("All products:");
-        for (Product product : allProducts) {
-            string.append("\n"+product.getName()+"    Id: "+product.getProductId());
+        if (allProducts.isEmpty())
+            return "No product is available!";
+        else {
+            StringBuilder string = new StringBuilder();
+            string.append("All products:");
+            for (Product product : allProducts) {
+                string.append("\n" + product.getName() + "    Id: " + product.getProductId());
+            }
+            return string.toString();
         }
-        return string.toString();
     }
 
     public void addRate(Rate rate) {
@@ -202,20 +206,20 @@ public class Product {
     }
 
     public String viewBuyers() {
-        StringBuilder allBuyers=new StringBuilder();
-        if(buyers.isEmpty())
+        StringBuilder allBuyers = new StringBuilder();
+        if (buyers.isEmpty())
             return "Nobody has bought this product yet!";
-        else{
+        else {
             allBuyers.append("Buyers: ");
             for (BuyerAccount buyer : buyers) {
-                allBuyers.append("\n"+buyer.getUserName());
+                allBuyers.append("\n" + buyer.getUserName());
             }
             return allBuyers.toString();
         }
     }
 
     public void setProductStatus(ProductStatus productStatus) {
-        this.productStatus=productStatus;
+        this.productStatus = productStatus;
     }
 
     public void increaseVisitFrequencyByOne() {
@@ -226,12 +230,12 @@ public class Product {
         setOff(null);
     }
 
-    private double calculateAverageScore(){
-        double sum=0;
+    private double calculateAverageScore() {
+        double sum = 0;
         for (Rate rate : rates) {
-            sum+=rate.getScore();
+            sum += rate.getScore();
         }
-        return sum/(double) rates.size();
+        return sum / (double) rates.size();
     }
 
     public String getProductId() {
@@ -262,11 +266,11 @@ public class Product {
         return category;
     }
 
-    public double getProductFinalPriceConsideringOff(){
-        if(off==null)
+    public double getProductFinalPriceConsideringOff() {
+        if (off == null)
             return price;
         else
-            return price*((double) 1-(off.getOffAmount()/(double) 100));
+            return price * ((double) 1 - (off.getOffAmount() / (double) 100));
     }
 
     public void setOff(Off off) {
