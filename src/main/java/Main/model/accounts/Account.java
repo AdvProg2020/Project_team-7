@@ -38,6 +38,24 @@ public abstract class Account {
         return false;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getType() {
+        if (this instanceof BuyerAccount)
+            return "Buyer";
+        else if (this instanceof SellerAccount)
+            return "Seller";
+        else if (this instanceof ManagerAccount)
+            return "Manager";
+        return null;
+    }
+
     public String getUserName() {
         return userName;
     }

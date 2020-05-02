@@ -8,7 +8,9 @@ public class Rate {
     private double score;
 
     public Rate(BuyerAccount buyer, Product product, double score) {
-
+        this.buyer = buyer;
+        this.product = product;
+        this.score = score;
     }
 
     public BuyerAccount getBuyer() {

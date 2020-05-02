@@ -254,7 +254,7 @@ public class Product {
         return off;
     }
 
-    public double getAverageScore() {
+    public Double getAverageScore() {
         return calculateAverageScore();
     }
 
@@ -271,5 +271,29 @@ public class Product {
 
     public void setOff(Off off) {
         this.off = off;
+    }
+
+    public Integer getOpenFrequency() {
+        return openFrequency;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setAvailability(int availability) {
+        this.availability = availability;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

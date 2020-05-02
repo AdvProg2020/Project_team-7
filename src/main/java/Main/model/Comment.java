@@ -11,54 +11,31 @@ public class Comment {
     private CommentStatus commentStatus;
 
     public Comment(BuyerAccount user, Product product, String title, String content, CommentStatus commentStatus, boolean isBoughtByUser) {
-
+        this.user = user;
+        this.product = product;
+        this.title = title;
+        this.content = content;
+        this.isBoughtByUser = isBoughtByUser;
+        this.commentStatus = CommentStatus.PENDING_APPROVAL_COMMENT;
     }
 
     public void setCommentStatus(CommentStatus commentStatus) {
-
-    }
-
-    public BuyerAccount getUser() {
-        return user;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public boolean isBoughtByUser() {
-        return isBoughtByUser;
+        this.commentStatus = commentStatus;
     }
 
     public Product getProduct() {
         return product;
     }
 
-    public CommentStatus getCommentStatus() {
-        return commentStatus;
+    public String getContent() {
+        return content;
     }
 
-    public void setUser(BuyerAccount user) {
-        this.user = user;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setBoughtByUser(boolean boughtByUser) {
-        isBoughtByUser = boughtByUser;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
+    public BuyerAccount getUser() {
+        return user;
     }
 }

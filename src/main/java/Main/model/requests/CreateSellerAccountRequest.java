@@ -10,4 +10,18 @@ public class CreateSellerAccountRequest extends Request {
         this.sellerAccount = sellerAccount;
         this.name = name;
     }
+
+    public String showRequest() {
+        String show = "Add New Off Request:\n" +
+                "Request ID: " + this.requestId + "\n" +
+                sellerAccount.viewMe() + "\n";
+        return show;
+    }
+
+    public void acceptRequest() {
+        SellerAccount.addSeller(sellerAccount);
+    }
+
+    public void declineRequest() {
+    }
 }
