@@ -10,36 +10,65 @@ public class Category {
     private static ArrayList<Category> allCategories = new ArrayList<Category>();
 
     public Category(String name, ArrayList<String> specialFeatures) {
-
+        this.name = name;
+        this.specialFeatures = specialFeatures;
+        allCategories.add(this);
     }
 
     public static String showAllCategories() {
-        return null;
+        if (allCategories.isEmpty())
+            return "NO categories have been created yet!";
+        else {
+            StringBuilder listOfCategories = new StringBuilder();
+            listOfCategories.append("categories:");
+            for (Category category : allCategories) {
+                listOfCategories.append("\n" + category.getName());
+            }
+            return listOfCategories.toString();
+        }
     }
 
-    public String showAvailableFilters() {
-        return null;
+    public String showSpecialFeatures() {
+        StringBuilder features = new StringBuilder();
+        features.append("specialFeatures:");
+        for (String specialFeature : specialFeatures) {
+            features.append("\n"+specialFeature);
+        }
+        return features.toString();
     }
 
     public String showAllProducts() {
-        return null;
+        if (products.isEmpty())
+            return "No products have been added to this category!";
+        else {
+            StringBuilder listOfProducts = new StringBuilder();
+            listOfProducts.append("Products in this category:");
+            for (Product product : products) {
+                listOfProducts.append("\n" + product.getName() + "    Id: " + product.getProductId());
+            }
+            return listOfProducts.toString();
+        }
     }
 
     public void editCategory(HashMap<String, String> changes) {
 
     }
 
-    //id is the name of the category
-    public static Category getCategoryWithId(String categoryId) {
+    public static Category getCategoryWithName(String categoryName) {
+        for (Category category : allCategories) {
+            if (category.getName().equalsIgnoreCase(categoryName))
+                return category;
+        }
         return null;
+        //TODO invalid name exception
     }
 
     public static void addCategory(Category category) {
-
+        allCategories.add(category);
     }
 
     public static void removeCategory(Category category) {
-
+        allCategories.remove(category);
     }
 
     public String getName() {
