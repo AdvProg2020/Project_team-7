@@ -28,8 +28,13 @@ public class Category {
         }
     }
 
-    public String showAvailableFilters() {
-        return null;
+    public String showSpecialFeatures() {
+        StringBuilder features = new StringBuilder();
+        features.append("specialFeatures:");
+        for (String specialFeature : specialFeatures) {
+            features.append("\n"+specialFeature);
+        }
+        return features.toString();
     }
 
     public String showAllProducts() {
