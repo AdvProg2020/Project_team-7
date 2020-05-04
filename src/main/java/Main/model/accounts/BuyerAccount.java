@@ -89,10 +89,6 @@ public class BuyerAccount extends Account {
         }
     }
 
-    public void emptyCart() {
-        this.cart = null;
-    }
-
     public String viewBalance() {
         return "balance : " + balance + "\n";
     }
@@ -128,5 +124,9 @@ public class BuyerAccount extends Account {
 
     public double getBalance() {
         return balance;
+    }
+
+    public Cart getCart() {
+        return cart;
     }
 }

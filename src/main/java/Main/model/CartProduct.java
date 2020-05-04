@@ -6,18 +6,24 @@ public class CartProduct {
     private SellerAccount finalSeller;
     private Product product;
     private int numberOfProduct;
+    private Cart cart;
 
-    public CartProduct(Product product, SellerAccount finalSeller) {
+    public CartProduct(Product product, SellerAccount finalSeller,Cart cart) {
         this.product = product;
         this.finalSeller = finalSeller;
         this.numberOfProduct = 1;
+        this.cart = cart;
     }
 
     public void increaseNumberByOne() {
         this.numberOfProduct += 1;
     }
 
-    public void decreaseNumberByOne() {
+    public void decreaseNumberByOne() throws Exception {
+        if(numberOfProduct==1){
+           cart.removeProductFromCart(this);
+           throw new Exception("prodduct removed from cart !");
+        }
         this.numberOfProduct -= 1;
     }
 

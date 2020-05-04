@@ -57,4 +57,17 @@ public class Cart {
         }
         return cartsProductList;
     }
+
+    public boolean isThereProductWithID(String ID){
+        for (CartProduct cartProduct : cartProducts) {
+            if(cartProduct.getProduct().getProductId().equals(ID)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void emptyCart() {
+        cartProducts.removeAll(cartProducts);
+    }
 }

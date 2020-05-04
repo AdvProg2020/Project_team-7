@@ -8,7 +8,7 @@ import Main.model.filters.Filter;
 import java.util.ArrayList;
 
 public class GeneralController {
-    public Account currentUser = null;
+    public static Account currentUser = null;
     public Product currentProduct = null;
     public Category currentCategory = null;
     public String currentSort = null;
