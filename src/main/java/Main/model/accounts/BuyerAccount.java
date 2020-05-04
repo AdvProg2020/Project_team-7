@@ -129,4 +129,13 @@ public class BuyerAccount extends Account {
     public Cart getCart() {
         return cart;
     }
+
+    public boolean isThereLogWithID(String logID){
+        for (BuyLog buyLog : buyHistory) {
+            if(buyLog.getLogId().equals(logID)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

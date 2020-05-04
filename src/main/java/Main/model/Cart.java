@@ -58,9 +58,9 @@ public class Cart {
         return cartsProductList;
     }
 
-    public boolean isThereProductWithID(String ID){
+    public boolean isThereProductWithID(String productID){
         for (CartProduct cartProduct : cartProducts) {
-            if(cartProduct.getProduct().getProductId().equals(ID)){
+            if(cartProduct.getProduct().getProductId().equals(productID)){
                 return true;
             }
         }
@@ -68,6 +68,6 @@ public class Cart {
     }
 
     public void emptyCart() {
-        cartProducts.removeAll(cartProducts);
+        cartProducts.clear();
     }
 }

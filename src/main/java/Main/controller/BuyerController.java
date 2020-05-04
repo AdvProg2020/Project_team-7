@@ -1,6 +1,8 @@
 package Main.controller;
 
 import Main.model.Cart;
+import Main.model.Product;
+import Main.model.Rate;
 import Main.model.accounts.BuyerAccount;
 
 import java.util.ArrayList;
@@ -33,11 +35,11 @@ public class BuyerController {
             currentBuyersCart.getCartProductByProductId(productId).decreaseNumberByOne();
             return;
         }
-        throw new Exception("There is no product with given Id in the cart");
+        throw new Exception("There is no product with given ID in the cart");
     }
 
     public String showTotalCartPrice() {
-        return null;
+        return "Cart's Total Price Considering Offs : "+currentBuyersCart.calculateCartTotalPriceConsideringOffs();
     }
 
     public void purchase() {
@@ -57,7 +59,7 @@ public class BuyerController {
     }
 
     public String viewBuyerBalance() {
-        return null;
+        return "balance : " + currentBuyer.getBalance();
     }
 
     public String viewBuyerDiscountCodes() {
@@ -65,14 +67,17 @@ public class BuyerController {
     }
 
     public String viewBuyerOrders() {
-        return null;
+        return currentBuyer.viewOrders();
     }
 
-    public String showOrderWithId(String orderId) {
-        return null;
+    public String showOrderWithId(String orderId) throws Exception {
+        if(currentBuyer.isThereLogWithID(orderId)){
+            return currentBuyer.getLogWithId(orderId).viewLog();
+        }
+        throw new Exception("there is no order with this ID !");
     }
 
-    public void rateProductWithId(String productId, int score) {
-
+    public void rateProductWithId(String productId, double score) {
+        Rate rate = new Rate(currentBuyer, Product.getProductWithId(productId),score);
     }
 }
