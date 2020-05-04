@@ -1,9 +1,12 @@
 package Main.model;
 
+import Main.model.accounts.SellerAccount;
+
 import java.sql.Time;
 import java.util.ArrayList;
 
 public class Off {
+    private SellerAccount seller;
     private String offId;
     private ArrayList<Product> products = new ArrayList<Product>();
     private Time startTime;
@@ -12,28 +15,47 @@ public class Off {
     private OffStatus offStatus;
     private static ArrayList<Off> allOffs = new ArrayList<Off>();
 
-    public Off(String offId, ArrayList<Product> products, OffStatus offStatus, Time startTime, Time endTime, double offAmount) {
+    public Off(String offId, ArrayList<Product> products, OffStatus offStatus, Time startTime, Time endTime,
+               double offAmount, SellerAccount seller) {
+
 
     }
 
     public static void addOff(Off off) {
-
+        allOffs.add(off);
     }
 
-    public static String viewAllOffs() {
-        return null;
-    }
 
     public String viewMe() {
-        return null;
+        return
+                "Id: " + offId +
+                "\nseller: " + seller.getCompanyName() +
+                "\nproducts: " + makeProductList() +
+                "\noff amount: " + offAmount + "%" +
+                "\nstart time:" + startTime.toString() +
+                "\nend time: " + endTime.toString();
+    }
+
+    public String makeProductList(){
+        StringBuilder list = new StringBuilder();
+        for (Product product : products) {
+            list.append("\n" + product.getProductId());
+        }
+        return list.toString();
     }
 
     public static Off getOffWithId(String offId) {
+        for (Off off : allOffs) {
+            if(off.offId.equalsIgnoreCase(offId))
+                return off;
+        }
         return null;
+
+        //TODO invalid id exception
     }
 
     public static void removeOff(Off off) {
-
+        allOffs.remove(off);
     }
 
     public String getOffId() {
