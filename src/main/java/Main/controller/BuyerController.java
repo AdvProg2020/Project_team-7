@@ -27,7 +27,7 @@ public class BuyerController {
             currentBuyersCart.getCartProductByProductId(productId).increaseNumberByOne();
             return;
         }
-        throw new Exception("There is no product with given Id in the cart");
+        throw new Exception("There is no product with given Id in the cart !\n");
     }
 
     public void decreaseProductWithId(String productId) throws Exception {
@@ -35,7 +35,7 @@ public class BuyerController {
             currentBuyersCart.getCartProductByProductId(productId).decreaseNumberByOne();
             return;
         }
-        throw new Exception("There is no product with given ID in the cart");
+        throw new Exception("There is no product with given ID in the cart !\n");
     }
 
     public String showTotalCartPrice() {

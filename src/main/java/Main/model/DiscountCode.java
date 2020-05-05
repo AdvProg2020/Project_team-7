@@ -29,8 +29,7 @@ public class DiscountCode {
         }
     }
 
-    public void addDiscountCode(DiscountCode discountCode) {
-        allDiscountCodes.add(discountCode);
+    public static void addDiscountCode(DiscountCode discountCode) { allDiscountCodes.add(discountCode);
     }
 
     public static String showAllDiscountCodes() {
@@ -74,8 +73,11 @@ public class DiscountCode {
 
     }
 
-    public static void removeDiscountCode(DiscountCode discountCode) {
-        allDiscountCodes.remove(discountCode);
+    public void removeDiscountCode() {
+        allDiscountCodes.remove(this);
+        for (BuyerAccount buyerAccount : users.keySet()) {
+            buyerAccount.removeDiscountCode(this);
+        }
     }
 
     //time format: 2/27,14:50

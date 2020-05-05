@@ -92,7 +92,7 @@ public class SellerAccountTest {
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
                 ,"this company is great!", 100);
         SellerAccount.addSeller(sellerAccount);
-        SellerAccount.deleteSeller(sellerAccount);
+        sellerAccount.deleteSeller();
 
         Assert.assertFalse(SellerAccount.isThereUserWithUserName("userName") || Account.isThereUserWithUserName("userName"));
     }
