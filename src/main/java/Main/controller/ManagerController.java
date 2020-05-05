@@ -1,5 +1,6 @@
 package Main.controller;
 
+import Main.model.Category;
 import Main.model.DiscountCode;
 import Main.model.Product;
 import Main.model.accounts.Account;
@@ -121,19 +122,37 @@ public class ManagerController {
     }
 
     public String showRequestDetailsWithId(String requestId) {
-        return null;
+        Request request = Request.getRequestWithId(requestId);
+        if(request==null){
+            return "There is no request with given ID !\n";
+        }
+        else {
+            return request.showRequest();
+        }
     }
 
-    public void acceptRequestWithId(String requestId) {
-
+    public void acceptRequestWithId(String requestId) throws Exception {
+        Request request = Request.getRequestWithId(requestId);
+        if(request==null){
+            throw new Exception("There is no request with given ID !\n");
+        }
+        else {
+            request.accept();
+        }
     }
 
-    public void declineRequestWithId(String requestId) {
-
+    public void declineRequestWithId(String requestId) throws Exception {
+        Request request = Request.getRequestWithId(requestId);
+        if(request==null){
+            throw new Exception("There is no request with given ID !\n");
+        }
+        else {
+            request.decline();
+        }
     }
 
     public void editCategoryWithId(String categoryId) {
-
+        //TODO
     }
 
     public void addCategoryWithId(String categoryId) {
@@ -144,11 +163,19 @@ public class ManagerController {
 
     }
 
-    public void removeCategoryWithId(String categoryId) {
-
-    }
+    public void removeCategoryWithId(String categoryId) throws Exception {
+        /**
+        Category category = Category.getCategoryWithName(categoryId);
+        if(category==null){
+            throw new Exception("There is no category with given ID !\n");
+        }
+        Category.removeCategory(category);
+    */
+        //TODO : delayed 'cause of specialFeatures mishandling :(
+         }
 
     public void createDiscountCode(String discountCode) {
 
     }
+
 }

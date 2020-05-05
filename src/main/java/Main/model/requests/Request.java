@@ -8,7 +8,7 @@ public abstract class Request {
 
     public abstract String showRequest();
 
-    public Request getRequestWithId(String requestId){
+    public static Request getRequestWithId(String requestId){
         for (Request request : allRequests) {
             if (request.requestId.equals(requestId))
                 return request;
