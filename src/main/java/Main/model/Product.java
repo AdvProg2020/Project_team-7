@@ -31,7 +31,7 @@ public class Product {
         this.name = name;
         this.brand = brand;
         this.availability = availability;
-        this.category = category;
+        setCategory(category);
         this.description = description;
         this.averageScore = 0;
         this.comments = comments;
@@ -40,6 +40,11 @@ public class Product {
         this.price = price;
         for (int i = 0; i < specialFeatures.size(); i++)
             this.specialFeatures.put(category.getSpecialFeatures().get(i), specialFeatures.get(i));
+    }
+
+    private void setCategory(Category category) {
+        this.category = category;
+        category.addProduct(this);
     }
 
     public String showProductDigest() {
@@ -314,7 +319,15 @@ public class Product {
         return specialFeatures;
     }
 
-    public void removeSeller(SellerAccount sellerAccount){
+    public void removeSeller(SellerAccount sellerAccount) {
         sellers.remove(sellerAccount);
+    }
+
+    public void emptySpecialFeatures() {
+        specialFeatures.clear();
+    }
+
+    public void removeCategory() {
+        category = null;
     }
 }

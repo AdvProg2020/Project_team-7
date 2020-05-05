@@ -58,8 +58,8 @@ public class ManagerController {
     }
 
     public void removeProductWithId(String productId) throws Exception {
-        Product product =  Product.getProductWithId(productId);
-        if(product==null){
+        Product product = Product.getProductWithId(productId);
+        if (product == null) {
             throw new Exception("There is no product with given ID !\n");
         }
         product.removeProduct();
@@ -67,8 +67,8 @@ public class ManagerController {
 
     public void createDiscountCode(ArrayList<String> discountInfo) throws Exception {
         ArrayList<BuyerAccount> buyersList = extractDiscountBuyersList(discountInfo);
-        DiscountCode discountCode = new DiscountCode(discountInfo.get(0),discountInfo.get(1),discountInfo.get(2),
-                Double.parseDouble(discountInfo.get(3)),Double.parseDouble(discountInfo.get(4)),Integer.parseInt(discountInfo.get(5)),
+        DiscountCode discountCode = new DiscountCode(discountInfo.get(0), discountInfo.get(1), discountInfo.get(2),
+                Double.parseDouble(discountInfo.get(3)), Double.parseDouble(discountInfo.get(4)), Integer.parseInt(discountInfo.get(5)),
                 buyersList);
 
         DiscountCode.addDiscountCode(discountCode);
@@ -81,12 +81,12 @@ public class ManagerController {
         ArrayList<BuyerAccount> buyersList = new ArrayList<BuyerAccount>();
 
         int discountInfoSize = discountInfo.size();
-        for(int i = 6 ; i<discountInfoSize;i++){
+        for (int i = 6; i < discountInfoSize; i++) {
             BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(discountInfo.get(i));
-            if(buyerAccount==null){
+            if (buyerAccount == null) {
                 throw new Exception("There are some invalid user names in the given inforamtion !\n" +
                         "Please check user names and try again !\n");
-            }else {
+            } else {
                 buyersList.add(buyerAccount);
             }
         }
@@ -99,7 +99,7 @@ public class ManagerController {
 
     public String viewDiscountCodeWithCode(String code) {
         DiscountCode discountCode = DiscountCode.getDiscountCodeWithCode(code);
-        if(discountCode==null){
+        if (discountCode == null) {
             return "There is no discount code with given code !";
         }
         return discountCode.viewMe();
@@ -111,7 +111,7 @@ public class ManagerController {
 
     public void removeDiscountCodeWithCode(String code) throws Exception {
         DiscountCode discountCode = DiscountCode.getDiscountCodeWithCode(code);
-        if(discountCode==null){
+        if (discountCode == null) {
             throw new Exception("There is no discount code with given code !\n");
         }
         discountCode.removeDiscountCode();
@@ -123,30 +123,27 @@ public class ManagerController {
 
     public String showRequestDetailsWithId(String requestId) {
         Request request = Request.getRequestWithId(requestId);
-        if(request==null){
+        if (request == null) {
             return "There is no request with given ID !\n";
-        }
-        else {
+        } else {
             return request.showRequest();
         }
     }
 
     public void acceptRequestWithId(String requestId) throws Exception {
         Request request = Request.getRequestWithId(requestId);
-        if(request==null){
+        if (request == null) {
             throw new Exception("There is no request with given ID !\n");
-        }
-        else {
+        } else {
             request.accept();
         }
     }
 
     public void declineRequestWithId(String requestId) throws Exception {
         Request request = Request.getRequestWithId(requestId);
-        if(request==null){
+        if (request == null) {
             throw new Exception("There is no request with given ID !\n");
-        }
-        else {
+        } else {
             request.decline();
         }
     }
@@ -155,27 +152,36 @@ public class ManagerController {
         //TODO
     }
 
-    public void addCategoryWithId(String categoryId) {
-
+    public void createCategory(String name, ArrayList<String> specialFeatures) {
+        Category category = new Category(name, specialFeatures);
+        Category.addCategory(category);
     }
 
-    public void getCategoryInformation(ArrayList<String> categoryInfo) {
+    /**
+     public void addCategoryWithId(String categoryId) {
 
-    }
+     }
+     */
+
+    /**
+     * public void getCategoryInformation(ArrayList<String> categoryInfo) {
+     * <p>
+     * }
+     */
 
     public void removeCategoryWithId(String categoryId) throws Exception {
-        /**
         Category category = Category.getCategoryWithName(categoryId);
-        if(category==null){
+        if (category == null) {
             throw new Exception("There is no category with given ID !\n");
         }
-        Category.removeCategory(category);
-    */
-        //TODO : delayed 'cause of specialFeatures mishandling :(
-         }
-
-    public void createDiscountCode(String discountCode) {
-
+        category.removeCategory();
     }
+
+    /**
+     public void createDiscountCode(String discountCode) {
+
+     }
+     */
+
 
 }

@@ -2,6 +2,7 @@ package Main.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.PropertyPermission;
 
 public class Category {
     private String name;
@@ -10,9 +11,9 @@ public class Category {
     private static ArrayList<Category> allCategories = new ArrayList<Category>();
 
     public Category(String name, ArrayList<String> specialFeatures) {
+        //TODO : validate category name's uniqueness and throw exception
         this.name = name;
         this.specialFeatures = specialFeatures;
-        allCategories.add(this);
     }
 
     public static String showAllCategories() {
@@ -67,8 +68,12 @@ public class Category {
         allCategories.add(category);
     }
 
-    public static void removeCategory(Category category) {
-        allCategories.remove(category);
+    public void removeCategory() {
+        allCategories.remove(this);
+        for (Product product : this.products) {
+            product.removeCategory();
+            product.emptySpecialFeatures();
+        }
     }
 
     public String getName() {
@@ -89,5 +94,9 @@ public class Category {
 
     public void removeProduct(Product product) {
         products.remove(product);
+    }
+
+    public void addProduct(Product product) {
+        products.add(product);
     }
 }
