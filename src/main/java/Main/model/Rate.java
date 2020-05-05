@@ -10,6 +10,7 @@ public class Rate {
     public Rate(BuyerAccount buyer, Product product, double score) {
         this.buyer = buyer;
         this.product = product;
+        //TODO : WHY THIS FIELD??
         this.score = score;
     }
 

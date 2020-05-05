@@ -59,8 +59,7 @@ public class BuyerController {
     }
 
     public String viewBuyerDiscountCodes() {
-        //TODO
-        return null;
+        return currentBuyer.viewAllDiscountCodes();
     }
 
     public String viewBuyerOrders() {
@@ -74,8 +73,12 @@ public class BuyerController {
         return "there is no order with this ID !";
     }
 
-    public void rateProductWithId(String productId, double score) {
-        Rate rate = new Rate(currentBuyer, Product.getProductWithId(productId), score);
-        //TODO : SOME ACTION MUST BE TAKEN IN HERE!
+    public void rateProductWithId(String productId, double score) throws Exception {
+        Product product = Product.getProductWithId(productId);
+        if(product==null){
+            throw new Exception("There is no product with given ID !\n");
+        }
+        Rate rate = new Rate(currentBuyer, product, score);
+        product.addRate(rate);
     }
 }

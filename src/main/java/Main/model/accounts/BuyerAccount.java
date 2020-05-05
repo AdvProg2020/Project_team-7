@@ -142,4 +142,12 @@ public class BuyerAccount extends Account {
         }
         return false;
     }
+
+    public String viewAllDiscountCodes(){
+        StringBuilder allDiscountCodesDisplay = new StringBuilder("Available discount codes :\n");
+        for (DiscountCode discountCode : discountCodes) {
+            allDiscountCodesDisplay.append(discountCode.viewMeAsBuyer(this));
+        }
+        return allDiscountCodesDisplay.toString();
+    }
 }

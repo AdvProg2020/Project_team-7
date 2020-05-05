@@ -102,7 +102,7 @@ public class ManagerController {
         if (discountCode == null) {
             return "There is no discount code with given code !";
         }
-        return discountCode.viewMe();
+        return discountCode.viewMeAsManager();
     }
 
     public void editDiscountCodeWithCode(String code) {

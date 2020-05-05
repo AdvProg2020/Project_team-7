@@ -41,15 +41,26 @@ public class DiscountCode {
         return list.toString();
     }
 
-    public String viewMe() {
+    public String viewMeAsManager() {
         return
                 "code: " + code +
-                "\npercent: " + percent + "%" +
-                "\nmaximum amount to be decreased: " + maxAmount +
-                "\nmaximum number of use for each user: " + maxNumberOfUse +
-                "\nlist of users who have this discount code: " + makeListOfBuyers() +
-                "\nstart time:" + startTime.toString() +
-                "\nend time: " + endTime.toString();
+                        "\n\tpercent: " + percent + "%" +
+                        "\n\tmaximum amount to be decreased: " + maxAmount +
+                        "\n\tmaximum number of use for each user: " + maxNumberOfUse +
+                        "\n\tlist of users who have this discount code: " + makeListOfBuyers() +
+                        "\n\tstart time:" + startTime.toString() +
+                        "\n\tend time: " + endTime.toString() + "\n";
+    }
+
+    public String viewMeAsBuyer(BuyerAccount buyerAccount) {
+        return
+                "code: " + code +
+                        "\n\tpercent: " + percent + "%" +
+                        "\n\tmaximum amount to be decreased: " + maxAmount +
+                        "\n\tmaximum number of use for each user: " + maxNumberOfUse +
+                        "\n\ttimes you have used this code so far : " + users.get(buyerAccount) +
+                        "\n\tstart time:" + startTime.toString() +
+                        "\n\tend time: " + endTime.toString() + "\n";
     }
 
     public String makeListOfBuyers(){
