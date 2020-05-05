@@ -12,18 +12,18 @@ public class BuyerController {
     private Cart currentBuyersCart = null;
 
     public BuyerController() {
-     if(GeneralController.currentUser instanceof BuyerAccount){
-         BuyerAccount currentBuyer = (BuyerAccount) GeneralController.currentUser;
-         currentBuyersCart = currentBuyer.getCart();
-     }
+        if (GeneralController.currentUser instanceof BuyerAccount) {
+            BuyerAccount currentBuyer = (BuyerAccount) GeneralController.currentUser;
+            currentBuyersCart = currentBuyer.getCart();
+        }
     }
 
-    public String showCartProducts(){
+    public String showCartProducts() {
         return currentBuyersCart.viewMe();
     }
 
     public void increaseProductWithId(String productId) throws Exception {
-        if(currentBuyersCart.isThereProductWithID(productId)){
+        if (currentBuyersCart.isThereProductWithID(productId)) {
             currentBuyersCart.getCartProductByProductId(productId).increaseNumberByOne();
             return;
         }
@@ -31,7 +31,7 @@ public class BuyerController {
     }
 
     public void decreaseProductWithId(String productId) throws Exception {
-        if(currentBuyersCart.isThereProductWithID(productId)){
+        if (currentBuyersCart.isThereProductWithID(productId)) {
             currentBuyersCart.getCartProductByProductId(productId).decreaseNumberByOne();
             return;
         }
@@ -39,23 +39,19 @@ public class BuyerController {
     }
 
     public String showTotalCartPrice() {
-        return "Cart's Total Price Considering Offs : "+currentBuyersCart.calculateCartTotalPriceConsideringOffs();
+        return "Cart's Total Price Considering Offs : " + currentBuyersCart.calculateCartTotalPriceConsideringOffs();
     }
 
     public void purchase() {
-
+//TODO
     }
 
     public void getReceiverInformation(ArrayList<String> receiverInfo) {
-
-    }
-
-    public void createDiscountCode(String discountCode) {
-
+//TODO
     }
 
     public void payment() {
-
+//TODO
     }
 
     public String viewBuyerBalance() {
@@ -63,6 +59,7 @@ public class BuyerController {
     }
 
     public String viewBuyerDiscountCodes() {
+        //TODO
         return null;
     }
 
@@ -70,14 +67,15 @@ public class BuyerController {
         return currentBuyer.viewOrders();
     }
 
-    public String showOrderWithId(String orderId) throws Exception {
-        if(currentBuyer.isThereLogWithID(orderId)){
+    public String showOrderWithId(String orderId) {
+        if (currentBuyer.isThereLogWithID(orderId)) {
             return currentBuyer.getLogWithId(orderId).viewLog();
         }
-        throw new Exception("there is no order with this ID !");
+        return "there is no order with this ID !";
     }
 
     public void rateProductWithId(String productId, double score) {
-        Rate rate = new Rate(currentBuyer, Product.getProductWithId(productId),score);
+        Rate rate = new Rate(currentBuyer, Product.getProductWithId(productId), score);
+        //TODO : SOME ACTION MUST BE TAKEN IN HERE!
     }
 }

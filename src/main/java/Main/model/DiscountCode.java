@@ -45,5 +45,9 @@ public class DiscountCode {
 
     }
 
+    public void removeUser(BuyerAccount buyerAccount){
+        users.remove(buyerAccount);
+    }
+
     //TODO : scheduledExecutorService
 }

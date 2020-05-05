@@ -50,9 +50,12 @@ public class SellerAccount extends Account {
                 "\n\temail : " + this.email + "\n\tphone number : " + this.phoneNumber + "\n";
     }
 
-    public static void deleteSeller(SellerAccount sellerAccount) {
-        allSellers.remove(sellerAccount);
-        allAccounts.remove(sellerAccount);
+    public void deleteSeller() {
+        allSellers.remove(this);
+        allAccounts.remove(this);
+        for (Product product : products) {
+            product.removeSeller(this);
+        }
     }
 
     public SellLog getLogWithId(String logId) {
@@ -137,5 +140,9 @@ public class SellerAccount extends Account {
 
     public String getCompanyName() {
         return companyName;
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(product);
     }
 }

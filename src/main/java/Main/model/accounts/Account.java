@@ -59,4 +59,13 @@ public abstract class Account {
     public String getUserName() {
         return userName;
     }
+
+    public static Account getUserWithUserName(String userName) {
+        for (Account account : allAccounts) {
+            if (account.userName.equals(userName)) {
+                return account;
+            }
+        }
+        return null;
+    }
 }

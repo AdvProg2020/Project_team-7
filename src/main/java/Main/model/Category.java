@@ -32,7 +32,7 @@ public class Category {
         StringBuilder features = new StringBuilder();
         features.append("specialFeatures:");
         for (String specialFeature : specialFeatures) {
-            features.append("\n"+specialFeature);
+            features.append("\n" + specialFeature);
         }
         return features.toString();
     }
@@ -85,5 +85,9 @@ public class Category {
 
     public static ArrayList<Category> getAllCategories() {
         return allCategories;
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(product);
     }
 }

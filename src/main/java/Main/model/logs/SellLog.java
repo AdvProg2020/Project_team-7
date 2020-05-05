@@ -8,8 +8,9 @@ public class SellLog extends Log {
     private double offAmount;
     private BuyerAccount buyer;
 
-    public SellLog(String logId, Date date, double receivedAmount, String soldProducts, BuyerAccount buyer, double offAmount, DeliveryStatus deliveryStatus) {
-        super(logId, date, soldProducts, deliveryStatus);
+    public SellLog(String logId, Date date, double receivedAmount, String soldProducts, BuyerAccount buyer, double offAmount
+            , DeliveryStatus deliveryStatus, String receiverInfo) {
+        super(logId, date, soldProducts, deliveryStatus, receiverInfo);
         this.totalCost = receivedAmount;
         this.buyer = buyer;
         this.offAmount = offAmount;
@@ -19,7 +20,7 @@ public class SellLog extends Log {
     public String viewLog() {
         return "Buy Log :" + "\n\tLog ID : " + logId + "\n\tTotal Received Amount : " + totalCost + "\n\tOff Amount : " +
                 offAmount + "\n\tDate : " + dateFormat.format(date) + "\n\tBuyer : " + buyer.viewMe() + products +
-                "\n\tDelivery Status : " + deliveryStatus;
+                "\n\tDelivery Status : " + deliveryStatus + "\n\tReceiver Information : " + receiverInfo + "\n";
     }
 
 }

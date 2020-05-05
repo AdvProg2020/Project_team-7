@@ -180,8 +180,13 @@ public class Product {
         availability -= number;
     }
 
-    public static void removeProduct(Product product) {
-        allProducts.remove(product);
+    public void removeProduct() {
+        allProducts.remove(this);
+        for (SellerAccount seller : this.sellers) {
+            seller.removeProduct(this);
+        }
+        this.category.removeProduct(this);
+        this.off.removeProduct(this);
     }
 
     public static String showAllProducts() {
@@ -307,5 +312,9 @@ public class Product {
 
     public HashMap<String, String> getSpecialFeatures() {
         return specialFeatures;
+    }
+
+    public void removeSeller(SellerAccount sellerAccount){
+        sellers.remove(sellerAccount);
     }
 }

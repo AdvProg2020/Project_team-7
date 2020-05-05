@@ -51,7 +51,7 @@ public class Off {
     //time format: 2/27,14:50
     public void setStartTime(String startTime) {
         String[] splitted = startTime.split("[/,:]");
-        this.startTime.setMonth(Integer.parseInt(splitted[0])-1);
+        this.startTime.setMonth(Integer.parseInt(splitted[0]) - 1);
         this.startTime.setDate(Integer.parseInt(splitted[1]));
         this.startTime.setHours(Integer.parseInt(splitted[2]));
         this.startTime.setMinutes(Integer.parseInt(splitted[3]));
@@ -59,7 +59,7 @@ public class Off {
 
     public void setEndTime(String endTime) {
         String[] splitted = endTime.split("[/,:]");
-        this.endTime.setMonth(Integer.parseInt(splitted[0])-1);
+        this.endTime.setMonth(Integer.parseInt(splitted[0]) - 1);
         this.endTime.setDate(Integer.parseInt(splitted[1]));
         this.endTime.setHours(Integer.parseInt(splitted[2]));
         this.endTime.setMinutes(Integer.parseInt(splitted[3]));
@@ -71,4 +71,8 @@ public class Off {
     }
 
     //TODO : scheduledExecutorService
+
+    public void removeProduct(Product product) {
+        products.remove(product);
+    }
 }

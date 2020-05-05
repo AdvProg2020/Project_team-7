@@ -10,12 +10,14 @@ public abstract class Log {
     protected double totalCost;
     protected String products;
     protected DeliveryStatus deliveryStatus;
+    protected String receiverInfo;
     protected static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-    public Log(String logId, Date date, String products, DeliveryStatus deliveryStatus) {
+    public Log(String logId, Date date, String products, DeliveryStatus deliveryStatus, String receiverInfo) {
         this.logId = logId;
         this.date = date;
         this.products = products;
+        this.receiverInfo = receiverInfo;
         setDeliveryStatus(deliveryStatus);
     }
 

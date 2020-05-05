@@ -6,6 +6,7 @@ import Main.model.Product;
 import Main.model.exceptions.InvalidInputException;
 import Main.model.logs.BuyLog;
 import Main.model.logs.SellLog;
+import sun.java2d.windows.GDIWindowSurfaceData;
 
 import java.util.ArrayList;
 
@@ -59,9 +60,12 @@ public class BuyerAccount extends Account {
         return null;
     }
 
-    public static void deleteBuyer(BuyerAccount buyer) {
-        allBuyers.remove(buyer);
-        allAccounts.remove(buyer);
+    public void deleteBuyer() {
+        allBuyers.remove(this);
+        allAccounts.remove(this);
+        for (DiscountCode discountCode : discountCodes) {
+            discountCode.removeUser(this);
+        }
     }
 
     public BuyLog getLogWithId(String logId) {
