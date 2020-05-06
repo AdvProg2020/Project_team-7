@@ -41,4 +41,8 @@ public class CartProduct {
     public Product getProduct() {
         return product;
     }
+
+    public SellerAccount getFinalSeller() {
+        return finalSeller;
+    }
 }

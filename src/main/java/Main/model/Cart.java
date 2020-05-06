@@ -1,6 +1,9 @@
 package Main.model;
 
+import Main.model.accounts.SellerAccount;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Cart {
     private ArrayList<CartProduct> cartProducts = new ArrayList<CartProduct>();
@@ -36,12 +39,32 @@ public class Cart {
         return null;
     }
 
-    public String viewMe() {
+    public String toStringForBuyer() {
         StringBuilder cartsProductsview = new StringBuilder();
         for (CartProduct cartProduct : cartProducts) {
             cartsProductsview.append(cartProduct.toStringForBuyLog());
         }
-        return "Cart :\n" + cartsProductsview + "\n\ncart total cost : " + getCartTotalPriceConsideringOffs() + "\n";
+        return "Cart :\n" + cartsProductsview + "\n\ncart total cost (not considering discount codes): " +
+                getCartTotalPriceConsideringOffs() + "\n";
+    }
+
+    public HashMap<SellerAccount, Cart> getAllSellersCarts() {
+        HashMap<SellerAccount, Cart> allSellersCart = new HashMap<SellerAccount, Cart>();
+        for (CartProduct cartProduct : cartProducts) {
+            addProductToRelevantSellersCart(allSellersCart, cartProduct);
+        }
+        return allSellersCart;
+    }
+
+    private void addProductToRelevantSellersCart(HashMap<SellerAccount, Cart> toStringForAllSellers, CartProduct cartProduct) {
+        SellerAccount seller = cartProduct.getFinalSeller();
+        if (toStringForAllSellers.containsKey(seller)) {
+            toStringForAllSellers.get(seller).addCartProduct(cartProduct);
+        } else {
+            Cart cart = new Cart();
+            cart.addCartProduct(cartProduct);
+            toStringForAllSellers.put(seller,cart);
+        }
     }
 
     public void addCartProduct(CartProduct cartProduct) {
@@ -58,9 +81,9 @@ public class Cart {
         return cartsProductList;
     }
 
-    public boolean isThereProductWithID(String productID){
+    public boolean isThereProductWithID(String productID) {
         for (CartProduct cartProduct : cartProducts) {
-            if(cartProduct.getProduct().getProductId().equals(productID)){
+            if (cartProduct.getProduct().getProductId().equals(productID)) {
                 return true;
             }
         }

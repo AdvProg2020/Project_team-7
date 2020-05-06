@@ -1,10 +1,14 @@
 package Main.controller;
 
-import Main.model.Cart;
-import Main.model.DiscountCode;
-import Main.model.Product;
-import Main.model.Rate;
+import Main.model.*;
 import Main.model.accounts.BuyerAccount;
+import Main.model.accounts.SellerAccount;
+import Main.model.logs.BuyLog;
+import Main.model.logs.DeliveryStatus;
+import Main.model.logs.SellLog;
+
+import java.util.Date;
+import java.util.HashMap;
 
 public class BuyerController {
     private BuyerAccount currentBuyer = null;
@@ -20,7 +24,7 @@ public class BuyerController {
     }
 
     public String showCartProducts() {
-        return currentBuyersCart.viewMe();
+        return currentBuyersCart.toStringForBuyer();
     }
 
     public void increaseProductWithId(String productId) throws Exception {
@@ -64,7 +68,7 @@ public class BuyerController {
 
     public void rateProductWithId(String productId, double score) throws Exception {
         Product product = Product.getProductWithId(productId);
-        if(product==null){
+        if (product == null) {
             throw new Exception("There is no product with given ID !\n");
         }
         Rate rate = new Rate(currentBuyer, product, score);
@@ -77,35 +81,73 @@ public class BuyerController {
 
     public void setPurchaseDiscountCode(String code) throws Exception {
         DiscountCode discountCode = DiscountCode.getDiscountCodeWithCode(code);
-        if(discountCode==null){
+        if (discountCode == null) {
             throw new Exception("There is no discount code with given code !\n");
         }
-        if(getToTalPaymentConsideringDiscount()>discountCode.getMaxAmount()){
+        if (getToTalPaymentConsideringDiscount() > discountCode.getMaxAmount()) {
             throw new Exception("This discount code cant be applied on your cart because it's total cost exceeds discount max amount !\n");
         }
-        this.discountCode =discountCode ;
+        this.discountCode = discountCode;
     }
 
-    public String showPurchaseInfo(){
+    public String showPurchaseInfo() {
         return "Purchase Information :" + "\n\nReceiver Information : \n\t" + receiverInformation + "\n\n" +
-                currentBuyersCart.viewMe() + "\n\ntotal amount you got to pay : " + getToTalPaymentConsideringDiscount() +
-                "\nDiscount Code : " + (discountCode==null?"no discount code applied yet !":"" + discountCode.getDiscountCodeAmount());
+                currentBuyersCart.toStringForBuyer() + "\n\ntotal amount you got to pay : " + getToTalPaymentConsideringDiscount() +
+                "\nDiscount Code : " + (discountCode == null ? "no discount code applied yet !" : "" + discountCode.getDiscountCodeAmount());
     }
 
-    private double getToTalPaymentConsideringDiscount(){
-        return currentBuyersCart.getCartTotalPriceConsideringOffs()*(100-discountCode.getDiscountCodeAmount())/100;
+    private double getToTalPaymentConsideringDiscount() {
+        return currentBuyersCart.getCartTotalPriceConsideringOffs() * (100 - discountCode.getDiscountCodeAmount()) / 100;
     }
 
-    public void finalizePurchaseAndPay() {
-        finalizePurchase();
+    public void finalizePurchaseAndPay() throws Exception {
         pay();
+        createPurchaseHistoryElements();
+        currentBuyersCart.emptyCart();
     }
 
-    private void finalizePurchase(){
-
+    private void createPurchaseHistoryElements(){
+        String logID = IDGenerator.getLogID();
+        Date date = new Date();
+        createPurchaseHistoryElementsForBuyer(date,logID);
+        createPurchaseHistoryElementsForSellers(date,logID);
     }
 
-    private void pay(){
-//TODO:Expire discount for this Buyer
+    private void createPurchaseHistoryElementsForBuyer(Date date, String logID) {
+        BuyLog buyLog = new BuyLog(logID, date, getToTalPaymentConsideringDiscount(),
+                discountCode.getDiscountCodeAmount(), currentBuyersCart.toStringForBuyer(), DeliveryStatus.PENDING_DELIVERY, receiverInformation);
+        currentBuyer.addLog(buyLog);
+        currentBuyer.addCartsProductsToBoughtProducts();
     }
+
+    private void createPurchaseHistoryElementsForSellers(Date date,String logID) {
+        HashMap<SellerAccount, Cart> allSellersCart = currentBuyersCart.getAllSellersCarts();
+        for (SellerAccount sellerAccount : allSellersCart.keySet()) {
+            Cart cart = allSellersCart.get(sellerAccount);
+            SellLog sellLog = new SellLog(logID,date,cart.getCartTotalPriceConsideringOffs(),cart.toStringForBuyer(),
+                    currentBuyer,cart.calculateCartTotalOffs(),DeliveryStatus.PENDING_DELIVERY,receiverInformation);
+            sellerAccount.addLog(sellLog);
+        }
+    }
+
+    private void pay() throws Exception {
+        buyerPayment();
+        sellersPayment();
+    }
+
+    private void buyerPayment() throws Exception {
+        if(currentBuyer.getBalance()<getToTalPaymentConsideringDiscount()){
+            throw new Exception("Your balance isn't enough ! Purchase couldn't be done !\n");
+        }
+        currentBuyer.decreaseBalanceBy(getToTalPaymentConsideringDiscount());
+        discountCode.removeDiscountCodeIfBuyerHasUsedUpDiscountCode(currentBuyer);
+    }
+
+    private void sellersPayment(){
+        HashMap<SellerAccount,Cart> sellers = currentBuyersCart.getAllSellersCarts();
+        for (SellerAccount sellerAccount : sellers.keySet()) {
+            sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs());
+        }
+    }
+
 }

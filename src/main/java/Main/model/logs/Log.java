@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Log {
-    //TODO : is it good practice to save histories as plain String ?
     protected String logId;
     protected Date date;
     protected double totalCost;

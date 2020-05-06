@@ -121,11 +121,11 @@ public class DiscountCode {
         return percent;
     }
 
-    public boolean hasBuyerUsedUpDiscountCode(BuyerAccount buyerAccount){
+    public void removeDiscountCodeIfBuyerHasUsedUpDiscountCode(BuyerAccount buyerAccount){
         if(users.get(buyerAccount)==maxNumberOfUse){
-            return true;
+            this.removeUser(buyerAccount);
+            buyerAccount.removeDiscountCode(this);
         }
-        return false;
     }
 
     public double getMaxAmount() {

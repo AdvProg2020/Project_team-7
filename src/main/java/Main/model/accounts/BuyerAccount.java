@@ -83,14 +83,14 @@ public class BuyerAccount extends Account {
         }
     }
 
+    //TODO remove most if contains
+
     public void removeDiscountCode(DiscountCode discountCode) {
         discountCodes.remove(discountCode);
     }
 
     public void addLog(BuyLog buyLog) {
-        if (!buyHistory.contains(buyLog)) {
             buyHistory.add(buyLog);
-        }
     }
 
     public String viewBalance() {
