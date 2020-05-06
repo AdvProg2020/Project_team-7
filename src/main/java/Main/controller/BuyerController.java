@@ -1,6 +1,7 @@
 package Main.controller;
 
 import Main.model.Cart;
+import Main.model.DiscountCode;
 import Main.model.Product;
 import Main.model.Rate;
 import Main.model.accounts.BuyerAccount;
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 public class BuyerController {
     private BuyerAccount currentBuyer = null;
     private Cart currentBuyersCart = null;
+    private String receiverInformation = null;
+    private DiscountCode discountCode = null;
 
     public BuyerController() {
         if (GeneralController.currentUser instanceof BuyerAccount) {
@@ -42,18 +45,6 @@ public class BuyerController {
         return "Cart's Total Price Considering Offs : " + currentBuyersCart.calculateCartTotalPriceConsideringOffs();
     }
 
-    public void purchase() {
-//TODO
-    }
-
-    public void getReceiverInformation(ArrayList<String> receiverInfo) {
-//TODO
-    }
-
-    public void payment() {
-//TODO
-    }
-
     public String viewBuyerBalance() {
         return "balance : " + currentBuyer.getBalance();
     }
@@ -80,5 +71,37 @@ public class BuyerController {
         }
         Rate rate = new Rate(currentBuyer, product, score);
         product.addRate(rate);
+    }
+
+    public void setReceiverInformation(String receiverInformation) {
+        this.receiverInformation = receiverInformation;
+    }
+
+    public void setPurchaseDiscountCode(String code){
+        //TODO : Exeptions
+        this.discountCode = DiscountCode.getDiscountCodeWithCode(code);
+    }
+
+    public String showPurchaseInfo(){
+        return "Purchase Information :" + "\n\nReceiver Information : \n\t" + receiverInformation + "\n\n" +
+                currentBuyersCart.viewMe() + "\n\ntotal amount you got to pay : " + getToTalPaymentConsideringDiscount() +
+                "\nDiscount Code : " + (discountCode==null?"no discount code applied yet !":"" + discountCode.getDiscountCodeAmount());
+    }
+
+    private double getToTalPaymentConsideringDiscount(){
+        return currentBuyersCart.calculateCartTotalPriceConsideringOffs()*(100-discountCode.getDiscountCodeAmount())/100;
+    }
+
+    public void finalizePurchaseAndPay() {
+        finalizePurchase();
+        pay();
+    }
+
+    private void finalizePurchase(){
+
+    }
+
+    private void pay(){
+
     }
 }

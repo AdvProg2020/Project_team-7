@@ -117,5 +117,8 @@ public class DiscountCode {
         users.remove(buyerAccount);
     }
 
+    public double getDiscountCodeAmount (){
+        return percent;
+    }
     //TODO : scheduledExecutorService
 }

@@ -41,7 +41,7 @@ public class Cart {
         for (CartProduct cartProduct : cartProducts) {
             cartsProductsview.append(cartProduct.toStringForBuyLog());
         }
-        return "Cart :\n" + cartsProductsview;
+        return "Cart :\n" + cartsProductsview + "\n\ncart total cost : " + calculateCartTotalPriceConsideringOffs() + "\n";
     }
 
     public void addCartProduct(CartProduct cartProduct) {

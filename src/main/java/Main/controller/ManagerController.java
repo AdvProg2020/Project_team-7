@@ -105,10 +105,6 @@ public class ManagerController {
         return discountCode.viewMeAsManager();
     }
 
-    public void editDiscountCodeWithCode(String code) {
-//TODO
-    }
-
     public void removeDiscountCodeWithCode(String code) throws Exception {
         DiscountCode discountCode = DiscountCode.getDiscountCodeWithCode(code);
         if (discountCode == null) {
@@ -148,10 +144,6 @@ public class ManagerController {
         }
     }
 
-    public void editCategoryWithId(String categoryId) {
-        //TODO
-    }
-
     public void createCategory(String name, ArrayList<String> specialFeatures) {
         Category category = new Category(name, specialFeatures);
         Category.addCategory(category);
@@ -163,5 +155,13 @@ public class ManagerController {
             throw new Exception("There is no category with given ID !\n");
         }
         category.removeCategory();
+    }
+
+    public void editDiscountCodeWithCode(String code) {
+        //TODO
+    }
+
+    public void editCategoryWithId(String categoryId) {
+        //TODO
     }
 }
