@@ -6,8 +6,6 @@ import Main.model.Product;
 import Main.model.Rate;
 import Main.model.accounts.BuyerAccount;
 
-import java.util.ArrayList;
-
 public class BuyerController {
     private BuyerAccount currentBuyer = null;
     private Cart currentBuyersCart = null;
@@ -42,7 +40,7 @@ public class BuyerController {
     }
 
     public String showTotalCartPrice() {
-        return "Cart's Total Price Considering Offs : " + currentBuyersCart.calculateCartTotalPriceConsideringOffs();
+        return "Cart's Total Price Considering Offs : " + currentBuyersCart.getCartTotalPriceConsideringOffs();
     }
 
     public String viewBuyerBalance() {
@@ -77,9 +75,15 @@ public class BuyerController {
         this.receiverInformation = receiverInformation;
     }
 
-    public void setPurchaseDiscountCode(String code){
-        //TODO : Exeptions
-        this.discountCode = DiscountCode.getDiscountCodeWithCode(code);
+    public void setPurchaseDiscountCode(String code) throws Exception {
+        DiscountCode discountCode = DiscountCode.getDiscountCodeWithCode(code);
+        if(discountCode==null){
+            throw new Exception("There is no discount code with given code !\n");
+        }
+        if(getToTalPaymentConsideringDiscount()>discountCode.getMaxAmount()){
+            throw new Exception("This discount code cant be applied on your cart because it's total cost exceeds discount max amount !\n");
+        }
+        this.discountCode =discountCode ;
     }
 
     public String showPurchaseInfo(){
@@ -89,7 +93,7 @@ public class BuyerController {
     }
 
     private double getToTalPaymentConsideringDiscount(){
-        return currentBuyersCart.calculateCartTotalPriceConsideringOffs()*(100-discountCode.getDiscountCodeAmount())/100;
+        return currentBuyersCart.getCartTotalPriceConsideringOffs()*(100-discountCode.getDiscountCodeAmount())/100;
     }
 
     public void finalizePurchaseAndPay() {
@@ -102,6 +106,6 @@ public class BuyerController {
     }
 
     private void pay(){
-
+//TODO:Expire discount for this Buyer
     }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Cart {
     private ArrayList<CartProduct> cartProducts = new ArrayList<CartProduct>();
 
-    public double calculateCartTotalPriceConsideringOffs() {
+    public double getCartTotalPriceConsideringOffs() {
         double cartTotalPriceConsideringOffs = 0;
         for (CartProduct cartProduct : cartProducts) {
             cartTotalPriceConsideringOffs += cartProduct.getProduct().getProductFinalPriceConsideringOff();
@@ -41,7 +41,7 @@ public class Cart {
         for (CartProduct cartProduct : cartProducts) {
             cartsProductsview.append(cartProduct.toStringForBuyLog());
         }
-        return "Cart :\n" + cartsProductsview + "\n\ncart total cost : " + calculateCartTotalPriceConsideringOffs() + "\n";
+        return "Cart :\n" + cartsProductsview + "\n\ncart total cost : " + getCartTotalPriceConsideringOffs() + "\n";
     }
 
     public void addCartProduct(CartProduct cartProduct) {

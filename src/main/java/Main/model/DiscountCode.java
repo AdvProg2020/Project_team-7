@@ -120,5 +120,17 @@ public class DiscountCode {
     public double getDiscountCodeAmount (){
         return percent;
     }
+
+    public boolean hasBuyerUsedUpDiscountCode(BuyerAccount buyerAccount){
+        if(users.get(buyerAccount)==maxNumberOfUse){
+            return true;
+        }
+        return false;
+    }
+
+    public double getMaxAmount() {
+        return maxAmount;
+    }
+
     //TODO : scheduledExecutorService
 }
