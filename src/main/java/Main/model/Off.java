@@ -29,14 +29,22 @@ public class Off {
     public String viewMe() {
         return
                 "Id: " + offId +
-                "\nseller: " + seller.getCompanyName() +
-                "\nproducts: " + makeProductList() +
-                "\noff amount: " + offAmount + "%" +
-                "\nstart time:" + startTime.toString() +
-                "\nend time: " + endTime.toString();
+                        "\nseller: " + seller.getCompanyName() +
+                        "\nproducts: " + makeProductList() +
+                        "\noff amount: " + offAmount + "%" +
+                        "\nstart time:" + startTime.toString() +
+                        "\nend time: " + endTime.toString();
     }
 
-    public String makeProductList(){
+    public static String viewAllOffs() {
+        String viewAll = "";
+        for (Off off : allOffs) {
+            viewAll = viewAll.concat(off.viewMe());
+        }
+        return viewAll;
+    }
+
+    public String makeProductList() {
         StringBuilder list = new StringBuilder();
         for (Product product : products) {
             list.append("\n" + product.getProductId());
@@ -46,7 +54,7 @@ public class Off {
 
     public static Off getOffWithId(String offId) {
         for (Off off : allOffs) {
-            if(off.offId.equalsIgnoreCase(offId))
+            if (off.offId.equalsIgnoreCase(offId))
                 return off;
         }
         return null;
@@ -70,21 +78,23 @@ public class Off {
         this.offStatus = offStatus;
     }
 
-    //time format: 2/27,14:50
+    //time format: 2020/2/27,14:50
     public void setStartTime(String startTime) {
         String[] splitted = startTime.split("[/,:]");
-        this.startTime.setMonth(Integer.parseInt(splitted[0]) - 1);
-        this.startTime.setDate(Integer.parseInt(splitted[1]));
-        this.startTime.setHours(Integer.parseInt(splitted[2]));
-        this.startTime.setMinutes(Integer.parseInt(splitted[3]));
+        this.startTime.setYear(Integer.parseInt(splitted[0]));
+        this.startTime.setMonth(Integer.parseInt(splitted[1]) - 1);
+        this.startTime.setDate(Integer.parseInt(splitted[2]));
+        this.startTime.setHours(Integer.parseInt(splitted[3]));
+        this.startTime.setMinutes(Integer.parseInt(splitted[4]));
     }
 
     public void setEndTime(String endTime) {
         String[] splitted = endTime.split("[/,:]");
-        this.endTime.setMonth(Integer.parseInt(splitted[0]) - 1);
-        this.endTime.setDate(Integer.parseInt(splitted[1]));
-        this.endTime.setHours(Integer.parseInt(splitted[2]));
-        this.endTime.setMinutes(Integer.parseInt(splitted[3]));
+        this.endTime.setYear(Integer.parseInt(splitted[0]));
+        this.endTime.setMonth(Integer.parseInt(splitted[1]) - 1);
+        this.endTime.setDate(Integer.parseInt(splitted[2]));
+        this.endTime.setHours(Integer.parseInt(splitted[3]));
+        this.endTime.setMinutes(Integer.parseInt(splitted[4]));
 
     }
 

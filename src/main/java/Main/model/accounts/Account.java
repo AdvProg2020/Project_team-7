@@ -68,4 +68,11 @@ public abstract class Account {
         }
         return null;
     }
+
+    public boolean isPassWordCorrect(String passWord) {
+        if (passWord.equals(this.passWord))
+            return true;
+        else
+            return false;
+    }
 }

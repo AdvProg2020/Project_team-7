@@ -8,7 +8,7 @@ public abstract class Request {
 
     public abstract String showRequest();
 
-    public static Request getRequestWithId(String requestId){
+    public static Request getRequestWithId(String requestId) {
         for (Request request : allRequests) {
             if (request.requestId.equals(requestId))
                 return request;
@@ -16,7 +16,7 @@ public abstract class Request {
         return null;//TODO exception for not found request id
     }
 
-    public static String showAllRequests(){
+    public static String showAllRequests() {
         if (allRequests.isEmpty())
             return "There is no Requests to show.";
         for (Request request : allRequests) {
@@ -25,11 +25,7 @@ public abstract class Request {
         return null;
     }
 
-//    public String showRequestPossibleFields(){
-//        return null;
-//    }
-
-    public void addRequest(Request request){
+    public void addRequest(Request request) {
         allRequests.add(request);
     }
 
@@ -37,12 +33,12 @@ public abstract class Request {
 
     public abstract void declineRequest();
 
-    public void accept(){
+    public void accept() {
         acceptRequest();
         allRequests.remove(this);
     }
 
-    public void decline(){
+    public void decline() {
         declineRequest();
         allRequests.remove(this);
     }
@@ -51,8 +47,8 @@ public abstract class Request {
         return requestId;
     }
 
-    public String getType(){
-        if(this instanceof EditProductRequest)
+    public String getType() {
+        if (this instanceof EditProductRequest)
             return "Edit Product";
         else if (this instanceof EditOffRequest)
             return "Edit Off";

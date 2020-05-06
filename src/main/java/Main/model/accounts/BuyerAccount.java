@@ -6,7 +6,7 @@ import Main.model.Product;
 import Main.model.exceptions.InvalidInputException;
 import Main.model.logs.BuyLog;
 import Main.model.logs.SellLog;
-import sun.java2d.windows.GDIWindowSurfaceData;
+//import sun.java2d.windows.GDIWindowSurfaceData;
 
 import java.util.ArrayList;
 
@@ -134,16 +134,16 @@ public class BuyerAccount extends Account {
         return cart;
     }
 
-    public boolean isThereLogWithID(String logID){
+    public boolean isThereLogWithID(String logID) {
         for (BuyLog buyLog : buyHistory) {
-            if(buyLog.getLogId().equals(logID)){
+            if (buyLog.getLogId().equals(logID)) {
                 return true;
             }
         }
         return false;
     }
 
-    public String viewAllDiscountCodes(){
+    public String viewAllDiscountCodes() {
         StringBuilder allDiscountCodesDisplay = new StringBuilder("Available discount codes :\n");
         for (DiscountCode discountCode : discountCodes) {
             allDiscountCodesDisplay.append(discountCode.viewMeAsBuyer(this));

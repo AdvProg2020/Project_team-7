@@ -11,7 +11,7 @@ public class DeleteProductRequest extends Request {
         this.name = name;
     }
 
-    public String showRequest(){
+    public String showRequest() {
         String show = "Delete Product Request:\n" +
                 "Request ID: " + this.requestId + "\n" +
                 "Product ID: " + product.getProductId() + "\n" +
@@ -20,11 +20,11 @@ public class DeleteProductRequest extends Request {
         return show;
     }
 
-    public void acceptRequest(){
+    public void acceptRequest() {
 
     }
 
-    public void declineRequest(){
+    public void declineRequest() {
 
     }
 }

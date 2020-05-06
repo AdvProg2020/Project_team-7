@@ -1,22 +1,26 @@
 package Main.controller;
 
+import Main.model.Off;
+import Main.model.Product;
+import Main.model.accounts.SellerAccount;
+
 import java.util.ArrayList;
 
 public class SellerController {
     public String viewCompanyInformation() {
-        return null;
+        return ((SellerAccount) GeneralController.currentUser).viewCompanyInformation();
     }
 
     public String viewSalesHistory() {
-        return null;
+        return ((SellerAccount) GeneralController.currentUser).viewSalesHistory();
     }
 
     public String showSellerProducts() {
-        return null;
+        return ((SellerAccount) GeneralController.currentUser).showSellerProducts();
     }
 
     public String viewSellerProductWithId(String productId) {
-        return null;
+        return ((SellerAccount) GeneralController.currentUser).viewSellerProductWithId(productId);
     }
 
     public void editProductWithId(String productId) {
@@ -24,7 +28,7 @@ public class SellerController {
     }
 
     public String viewBuyersOfProductWithId(String productId) {
-        return null;
+        return Product.getProductWithId(productId).viewBuyers();
     }
 
     public void addProduct(ArrayList<String> productInfo) {
@@ -32,15 +36,15 @@ public class SellerController {
     }
 
     public String viewSellerOffs() {
-        return null;
+        return ((SellerAccount) GeneralController.currentUser).viewSellerOffs();
     }
 
     public String viewAllOffs() {
-        return null;
+        return Off.viewAllOffs();
     }
 
     public String viewOffWithId(String offId) {
-        return null;
+        return Off.getOffWithId(offId).viewMe();
     }
 
     public void editOffWithId(String offId) {
@@ -52,6 +56,6 @@ public class SellerController {
     }
 
     public String viewSellerBalance() {
-        return null;
+        return ((SellerAccount) GeneralController.currentUser).viewBalance();
     }
 }

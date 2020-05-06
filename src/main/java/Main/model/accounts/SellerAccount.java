@@ -145,4 +145,12 @@ public class SellerAccount extends Account {
     public void removeProduct(Product product) {
         products.remove(product);
     }
+
+    public String viewSellerProductWithId(String id) {
+        for (Product product : products) {
+            if (product.getProductId().equals(id))
+                return product.showProductAttributes();
+        }
+        return "invalid product id for this seller";
+    }
 }

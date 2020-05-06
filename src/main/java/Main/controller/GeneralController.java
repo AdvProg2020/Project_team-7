@@ -9,25 +9,25 @@ import java.util.ArrayList;
 
 public class GeneralController {
     public static Account currentUser = null;
-    public Product currentProduct = null;
-    public Category currentCategory = null;
-    public String currentSort = null;
-    public ArrayList<Filter> currentFilters = new ArrayList<Filter>();
+    public static Product currentProduct = null;
+    public static Category currentCategory = null;
+    public static String currentSort = null;
+    public static ArrayList<Filter> currentFilters = new ArrayList<Filter>();
 
     public void setCurrentProductWithId(String id) {
 
     }
 
     public String showProductDigest() {
-        return null;
+        return currentProduct.showProductDigest();
     }
 
     public String showProductAttributes() {
-        return null;
+        return currentProduct.showProductAttributes();
     }
 
-    public String compareProductWithProductWithName(String name) {
-        return null;
+    public String compareProductWithProductWithName(String id) {
+        return currentProduct.compareProductWithProductWithId(id);
     }
 
     public void addProductToCart() {
@@ -59,7 +59,7 @@ public class GeneralController {
     }
 
     public String showCurrentFilters() {
-        return null;
+        return Filter.showCurrentFilters();
     }
 
     public void disableFilter(String filterType) {
@@ -98,8 +98,15 @@ public class GeneralController {
 
     }
 
-    public void login(String userName, String password) {
-
+    public String login(String userName, String password) {
+        if (!Account.isThereUserWithUserName(userName))
+            return "There is not any user with this user name.";
+        else if (!Account.getUserWithUserName(userName).isPassWordCorrect(password))
+            return "Password is not correct.";
+        else {
+            currentUser = Account.getUserWithUserName(userName);
+            return "Logged in successfully.";
+        }
     }
 
     public int recognizeUserType() {

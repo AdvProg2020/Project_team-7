@@ -14,29 +14,30 @@ public class DiscountCode {
     private double percent;
     private double maxAmount;
     private int maxNumberOfUse;
-    private HashMap<BuyerAccount,Integer> users = new HashMap<BuyerAccount, Integer>();
+    private HashMap<BuyerAccount, Integer> users = new HashMap<BuyerAccount, Integer>();
     private static ArrayList<DiscountCode> allDiscountCodes = new ArrayList<DiscountCode>();
 
     public DiscountCode(String code, String startTime, String endTime, double percent, double maxAmount, int maxNumberOfUse, ArrayList<BuyerAccount> users) {
-        this.code=code;
+        this.code = code;
         this.setStartTime(startTime);
         this.setEndTime(endTime);
-        this.percent=percent;
-        this.maxAmount=maxAmount;
-        this.maxNumberOfUse=maxNumberOfUse;
+        this.percent = percent;
+        this.maxAmount = maxAmount;
+        this.maxNumberOfUse = maxNumberOfUse;
         for (BuyerAccount user : users) {
-            this.users.put(user,maxNumberOfUse);
+            this.users.put(user, maxNumberOfUse);
         }
     }
 
-    public static void addDiscountCode(DiscountCode discountCode) { allDiscountCodes.add(discountCode);
+    public static void addDiscountCode(DiscountCode discountCode) {
+        allDiscountCodes.add(discountCode);
     }
 
     public static String showAllDiscountCodes() {
-        StringBuilder list=new StringBuilder();
+        StringBuilder list = new StringBuilder();
         list.append("List of discount codes:");
         for (DiscountCode discountCode : allDiscountCodes) {
-            list.append("\n"+discountCode.getCode());
+            list.append("\n" + discountCode.getCode());
         }
         return list.toString();
     }
@@ -63,17 +64,17 @@ public class DiscountCode {
                         "\n\tend time: " + endTime.toString() + "\n";
     }
 
-    public String makeListOfBuyers(){
+    public String makeListOfBuyers() {
         StringBuilder list = new StringBuilder();
         for (BuyerAccount user : users.keySet()) {
-            list.append("\n"+user.getUserName());
+            list.append("\n" + user.getUserName());
         }
         return list.toString();
     }
 
     public static DiscountCode getDiscountCodeWithCode(String code) {
         for (DiscountCode discountCode : allDiscountCodes) {
-            if(discountCode.code.equals(code))
+            if (discountCode.code.equals(code))
                 return discountCode;
         }
         return null;
@@ -94,7 +95,7 @@ public class DiscountCode {
     //time format: 2/27,14:50
     public void setStartTime(String startTime) {
         String[] splitted = startTime.split("[/,:]");
-        this.startTime.setMonth(Integer.parseInt(splitted[0])-1);
+        this.startTime.setMonth(Integer.parseInt(splitted[0]) - 1);
         this.startTime.setDate(Integer.parseInt(splitted[1]));
         this.startTime.setHours(Integer.parseInt(splitted[2]));
         this.startTime.setMinutes(Integer.parseInt(splitted[3]));
@@ -102,7 +103,7 @@ public class DiscountCode {
 
     public void setEndTime(String endTime) {
         String[] splitted = endTime.split("[/,:]");
-        this.endTime.setMonth(Integer.parseInt(splitted[0])-1);
+        this.endTime.setMonth(Integer.parseInt(splitted[0]) - 1);
         this.endTime.setDate(Integer.parseInt(splitted[1]));
         this.endTime.setHours(Integer.parseInt(splitted[2]));
         this.endTime.setMinutes(Integer.parseInt(splitted[3]));
@@ -113,7 +114,7 @@ public class DiscountCode {
         return code;
     }
 
-    public void removeUser(BuyerAccount buyerAccount){
+    public void removeUser(BuyerAccount buyerAccount) {
         users.remove(buyerAccount);
     }
 

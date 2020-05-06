@@ -8,7 +8,7 @@ public class CartProduct {
     private int numberOfProduct;
     private Cart cart;
 
-    public CartProduct(Product product, SellerAccount finalSeller,Cart cart) {
+    public CartProduct(Product product, SellerAccount finalSeller, Cart cart) {
         this.product = product;
         this.finalSeller = finalSeller;
         this.numberOfProduct = 1;
@@ -20,9 +20,9 @@ public class CartProduct {
     }
 
     public void decreaseNumberByOne() throws Exception {
-        if(numberOfProduct==1){
-           cart.removeProductFromCart(this);
-           throw new Exception("prodduct removed from cart !");
+        if (numberOfProduct == 1) {
+            cart.removeProductFromCart(this);
+            throw new Exception("prodduct removed from cart !");
         }
         this.numberOfProduct -= 1;
     }

@@ -9,8 +9,8 @@ public class PriceRangeFilter extends Filter {
     private double startRange;
     private double endRange;
 
-    public PriceRangeFilter(String name, double startRange, double endRange, ArrayList<Product> products) {
-        this.name = name;
+    public PriceRangeFilter(double startRange, double endRange, ArrayList<Product> products) {
+        this.name = "Price Range";
     }
 
     public void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products) {
@@ -18,5 +18,9 @@ public class PriceRangeFilter extends Filter {
             if (product.getPrice() >= startRange && product.getPrice() <= endRange)
                 filterdProducts.add(product);
         }
+    }
+
+    protected String show() {
+        return name + " : " + startRange + " - " + endRange;
     }
 }
