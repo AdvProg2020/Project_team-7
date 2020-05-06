@@ -157,18 +157,6 @@ public class ManagerController {
         Category.addCategory(category);
     }
 
-    /**
-     public void addCategoryWithId(String categoryId) {
-
-     }
-     */
-
-    /**
-     * public void getCategoryInformation(ArrayList<String> categoryInfo) {
-     * <p>
-     * }
-     */
-
     public void removeCategoryWithId(String categoryId) throws Exception {
         Category category = Category.getCategoryWithName(categoryId);
         if (category == null) {
@@ -176,12 +164,4 @@ public class ManagerController {
         }
         category.removeCategory();
     }
-
-    /**
-     public void createDiscountCode(String discountCode) {
-
-     }
-     */
-
-
 }
