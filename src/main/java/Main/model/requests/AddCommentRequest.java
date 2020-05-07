@@ -8,7 +8,7 @@ public class AddCommentRequest extends Request {
     private Comment comment;
     private final String name;
 
-    public AddCommentRequest(Off off, String name) {
+    public AddCommentRequest(Comment comment, String name) {
         this.comment = comment;
         this.name = name;
     }

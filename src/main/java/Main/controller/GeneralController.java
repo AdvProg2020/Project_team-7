@@ -1,9 +1,14 @@
 package Main.controller;
 
 import Main.model.Category;
+import Main.model.Comment;
 import Main.model.Product;
 import Main.model.accounts.Account;
+import Main.model.accounts.BuyerAccount;
+import Main.model.accounts.ManagerAccount;
 import Main.model.filters.Filter;
+import Main.model.requests.AddCommentRequest;
+import Main.model.requests.Request;
 
 import java.util.ArrayList;
 
@@ -14,8 +19,10 @@ public class GeneralController {
     public static String currentSort = null;
     public static ArrayList<Filter> currentFilters = new ArrayList<Filter>();
 
-    public void setCurrentProductWithId(String id) {
-
+    public String setCurrentProductWithId(String id) {
+        //TODO wrong product id
+        currentProduct = Product.getProductWithId(id);
+        return "Product page opened successfully.";
     }
 
     public String showProductDigest() {
@@ -39,15 +46,17 @@ public class GeneralController {
     }
 
     public void addComment(String title, String content) {
-
+        Comment comment = new Comment(((BuyerAccount) currentUser), currentProduct, title, content, ((BuyerAccount) currentUser).hasBuyerBoughtProduct(currentProduct));
+        Request commentRequest = new AddCommentRequest(comment, "Add comment request");
+        Request.addRequest(commentRequest);
     }
 
     public String showCommentsOfProduct() {
-        return null;
+        return currentProduct.showComments();
     }
 
     public String showAllCategories() {
-        return null;
+        return Category.showAllCategories();
     }
 
     public String showAvailableFilters() {
@@ -55,15 +64,21 @@ public class GeneralController {
     }
 
     public void createFilter(String filterType) {
-
+        Filter filter;
     }
 
     public String showCurrentFilters() {
         return Filter.showCurrentFilters();
     }
 
-    public void disableFilter(String filterType) {
-
+    public String disableFilter(String filterType) {
+        for (Filter currentFilter : currentFilters) {
+            if (currentFilter.getName().equals(filterType)) {
+                currentFilters.remove(currentFilter);
+                return "Filter disabled successfully.";
+            }
+        }
+        return "Could not disable filter.";
     }
 
     public String showAvailableSorts() {
@@ -71,15 +86,21 @@ public class GeneralController {
     }
 
     public void makeSort(String sortType) {
-
+        currentSort = sortType;
+        //TODO implementation?
     }
 
     public String showCurrentSort() {
-        return null;
+        return currentSort;
     }
 
     public String showFilteredAndSortedProducts() {
-        return null;
+        String filtered = "";
+        for (Product product : Filter.applyFilter(Product.allProducts)) {
+            filtered = filtered.concat(product.showProductDigest());
+            filtered = filtered.concat("\n");
+        }
+        return filtered;
     }
 
     public void createAccount(String type, String userName) {

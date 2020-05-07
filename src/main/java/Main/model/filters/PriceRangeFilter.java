@@ -20,7 +20,18 @@ public class PriceRangeFilter extends Filter {
         }
     }
 
+    public void removeDiffs(ArrayList<Product> filterdProducts, ArrayList<Product> products) {
+        for (Product product : products) {
+            if (product.getPrice() <= startRange || product.getPrice() >= endRange)
+                filterdProducts.remove(product);
+        }
+    }
+
     protected String show() {
         return name + " : " + startRange + " - " + endRange;
+    }
+
+    public String getName() {
+        return name;
     }
 }

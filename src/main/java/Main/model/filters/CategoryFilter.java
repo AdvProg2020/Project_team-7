@@ -4,31 +4,30 @@ import Main.model.Product;
 
 import java.util.ArrayList;
 
-public class SpecialFeaturesFilter extends Filter {
+public class CategoryFilter extends Filter {
     private final String name;
-    private String featureTitle;
-    private String desiredFilter;
+    private String productName;
 
-    public SpecialFeaturesFilter(String featureTitle, String desiredFilter, ArrayList<Product> products) {
-        this.name = featureTitle;
+    public CategoryFilter(String productName, ArrayList<Product> products) {
+        this.name = "Product Name";
     }
 
     public void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products) {
         for (Product product : products) {
-            if (product.getSpecialFeatures().get(featureTitle).equals(desiredFilter))
+            if (product.getCategory().getName().equals(productName))
                 filterdProducts.add(product);
         }
     }
 
     public void removeDiffs(ArrayList<Product> filterdProducts, ArrayList<Product> products) {
         for (Product product : products) {
-            if (!product.getSpecialFeatures().get(featureTitle).equals(desiredFilter))
+            if (!product.getCategory().getName().equals(productName))
                 filterdProducts.remove(product);
         }
     }
 
     protected String show() {
-        return featureTitle + " : " + desiredFilter;
+        return name + " : " + productName;
     }
 
     public String getName() {

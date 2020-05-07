@@ -5,8 +5,6 @@ import Main.model.DiscountCode;
 import Main.model.Product;
 import Main.model.exceptions.InvalidInputException;
 import Main.model.logs.BuyLog;
-import Main.model.logs.SellLog;
-//import sun.java2d.windows.GDIWindowSurfaceData;
 
 import java.util.ArrayList;
 
