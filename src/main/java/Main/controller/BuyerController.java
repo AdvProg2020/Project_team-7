@@ -107,30 +107,6 @@ public class BuyerController {
         currentBuyersCart.emptyCart();
     }
 
-    private void createPurchaseHistoryElements(){
-        String logID = IDGenerator.getNewID(Log.getLastUsedLogID());
-        Date date = new Date();
-        createPurchaseHistoryElementsForBuyer(date,logID);
-        createPurchaseHistoryElementsForSellers(date,logID);
-    }
-
-    private void createPurchaseHistoryElementsForBuyer(Date date, String logID) {
-        BuyLog buyLog = new BuyLog(logID, date, getToTalPaymentConsideringDiscount(),
-                discountCode.getDiscountCodeAmount(), currentBuyersCart.toStringForBuyer(), DeliveryStatus.PENDING_DELIVERY, receiverInformation);
-        currentBuyer.addLog(buyLog);
-        currentBuyer.addCartsProductsToBoughtProducts();
-    }
-
-    private void createPurchaseHistoryElementsForSellers(Date date,String logID) {
-        HashMap<SellerAccount, Cart> allSellersCart = currentBuyersCart.getAllSellersCarts();
-        for (SellerAccount sellerAccount : allSellersCart.keySet()) {
-            Cart cart = allSellersCart.get(sellerAccount);
-            SellLog sellLog = new SellLog(logID,date,cart.getCartTotalPriceConsideringOffs(),cart.toStringForBuyer(),
-                    currentBuyer,cart.calculateCartTotalOffs(),DeliveryStatus.PENDING_DELIVERY,receiverInformation);
-            sellerAccount.addLog(sellLog);
-        }
-    }
-
     private void pay() throws Exception {
         buyerPayment();
         sellersPayment();
@@ -151,4 +127,27 @@ public class BuyerController {
         }
     }
 
+    private void createPurchaseHistoryElements(){
+        String logID = IDGenerator.getNewID(Log.getLastUsedLogID());
+        Date date = new Date();
+        createPurchaseHistoryElementsForBuyer(date,logID);
+        createPurchaseHistoryElementsForSellers(date,logID);
+    }
+
+    private void createPurchaseHistoryElementsForBuyer(Date date, String logID) {
+        BuyLog buyLog = new BuyLog(logID, date, getToTalPaymentConsideringDiscount(),
+                discountCode.getDiscountCodeAmount(), currentBuyersCart.toStringForBuyer(), DeliveryStatus.PENDING_DELIVERY, receiverInformation);
+        currentBuyer.addLog(buyLog);
+        currentBuyer.addCartsProductsToBoughtProducts();
+    }
+
+    private void createPurchaseHistoryElementsForSellers(Date date,String logID) {
+        HashMap<SellerAccount, Cart> allSellersCart = currentBuyersCart.getAllSellersCarts();
+        for (SellerAccount sellerAccount : allSellersCart.keySet()) {
+            Cart cart = allSellersCart.get(sellerAccount);
+            SellLog sellLog = new SellLog(logID,date,cart.getCartTotalPriceConsideringOffs(),cart.toStringForSeller(),
+                    currentBuyer,cart.calculateCartTotalOffs(),DeliveryStatus.PENDING_DELIVERY,receiverInformation);
+            sellerAccount.addLog(sellLog);
+        }
+    }
 }

@@ -39,13 +39,17 @@ public class Product {
         this.openFrequency = 0;
         this.productStatus = ProductStatus.PENDING_CREATION_PRODUCT;
         this.price = price;
-        for (int i = 0; i < specialFeatures.size(); i++)
-            this.specialFeatures.put(category.getSpecialFeatures().get(i), specialFeatures.get(i));
+        if(specialFeatures!=null) {
+            for (int i = 0; i < specialFeatures.size(); i++)
+                this.specialFeatures.put(category.getSpecialFeatures().get(i), specialFeatures.get(i));
+        }
     }
 
     private void setCategory(Category category) {
         this.category = category;
-        category.addProduct(this);
+        if(category!=null) {
+            category.addProduct(this);
+        }
     }
 
     public String showProductDigest() {

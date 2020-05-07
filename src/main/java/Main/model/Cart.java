@@ -48,6 +48,14 @@ public class Cart {
                 getCartTotalPriceConsideringOffs() + "\n";
     }
 
+    public String toStringForSeller() {
+        StringBuilder soldProductsView = new StringBuilder();
+        for (CartProduct cartProduct : cartProducts) {
+            soldProductsView.append(cartProduct.toStringForSellLog());
+        }
+        return "Sold products :\n" + soldProductsView + "\n";
+    }
+
     public HashMap<SellerAccount, Cart> getAllSellersCarts() {
         HashMap<SellerAccount, Cart> allSellersCart = new HashMap<SellerAccount, Cart>();
         for (CartProduct cartProduct : cartProducts) {
@@ -56,14 +64,14 @@ public class Cart {
         return allSellersCart;
     }
 
-    private void addProductToRelevantSellersCart(HashMap<SellerAccount, Cart> toStringForAllSellers, CartProduct cartProduct) {
+    private void addProductToRelevantSellersCart(HashMap<SellerAccount, Cart> allSellersCarts, CartProduct cartProduct) {
         SellerAccount seller = cartProduct.getFinalSeller();
-        if (toStringForAllSellers.containsKey(seller)) {
-            toStringForAllSellers.get(seller).addCartProduct(cartProduct);
+        if (allSellersCarts.containsKey(seller)) {
+            allSellersCarts.get(seller).addCartProduct(cartProduct);
         } else {
             Cart cart = new Cart();
             cart.addCartProduct(cartProduct);
-            toStringForAllSellers.put(seller,cart);
+            allSellersCarts.put(seller,cart);
         }
     }
 

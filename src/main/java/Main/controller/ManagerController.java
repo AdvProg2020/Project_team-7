@@ -67,7 +67,7 @@ public class ManagerController {
 
     public void createDiscountCode(ArrayList<String> discountInfo) throws Exception {
         ArrayList<BuyerAccount> buyersList = extractDiscountBuyersList(discountInfo);
-        DiscountCode discountCode = new DiscountCode(discountInfo.get(0), discountInfo.get(1), discountInfo.get(2),
+        DiscountCode discountCode = new DiscountCode(discountInfo.get(1), discountInfo.get(2),
                 Double.parseDouble(discountInfo.get(3)), Double.parseDouble(discountInfo.get(4)), Integer.parseInt(discountInfo.get(5)),
                 buyersList);
 

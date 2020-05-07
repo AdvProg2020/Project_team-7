@@ -28,14 +28,15 @@ public class CartProduct {
     }
 
     public String toStringForSellLog() {
-        return "[Product ID : " + product.getProductId() + "    Product Name : " + product.getName() + "    Brand : " +
-                product.getBrand() + "\nPrice : " + product.getPrice() + "  Off : %" + product.getOff().getOffAmount() + "]\n";
+        return "[Product ID : " + product.getProductId() + "\tProduct Name : " + product.getName() + "\tBrand : " +
+                product.getBrand() + "\nPrice : " + product.getPrice() + "\tOff : " + (product.getOff() != null ? "%" +
+                product.getOff().getOffAmount() : "no off is set for this product") + "]\n";
     }
 
     public String toStringForBuyLog() {
-        return "[Product ID : " + product.getProductId() + "    Product Name : " + product.getName() + "Brand : " +
-                product.getBrand() + "\nFinal Seller : " + finalSeller + "  Price : " + product.getPrice() + "  Off : %"
-                + product.getOff().getOffAmount() + "]\n";
+        return "[Product ID : " + product.getProductId() + "\tProduct Name : " + product.getName() + "\tBrand : " +
+                product.getBrand() + "\n" + finalSeller.viewMe() + "  Price : " + product.getPrice() + "\tOff : "
+                + (product.getOff() != null ? "%" + product.getOff().getOffAmount() : "no off is set for this product") + "]\n";
     }
 
     public Product getProduct() {
