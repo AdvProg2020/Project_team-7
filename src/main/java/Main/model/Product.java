@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Product {
+    private static StringBuilder lastUsedProductID = new StringBuilder("A");
     private String productId;
     private String name;
     private String brand;
@@ -25,9 +26,9 @@ public class Product {
     private ArrayList<Rate> rates = new ArrayList<Rate>();
     private HashMap<String, String> specialFeatures = new HashMap<String, String>();
 
-    public Product(String productId, String name, String brand, int availability, Category category, String description,
+    public Product(String name, String brand, int availability, Category category, String description,
                    ArrayList<Comment> comments, double price, ArrayList<String> specialFeatures) {
-        this.productId = productId;
+        this.productId = IDGenerator.getNewID(lastUsedProductID);
         this.name = name;
         this.brand = brand;
         this.availability = availability;

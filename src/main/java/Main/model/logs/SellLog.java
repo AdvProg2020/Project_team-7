@@ -8,9 +8,9 @@ public class SellLog extends Log {
     private double offAmount;
     private BuyerAccount buyer;
 
-    public SellLog(String logId, Date date, double receivedAmount, String soldProducts, BuyerAccount buyer, double offAmount
+    public SellLog(String logID, Date date, double receivedAmount, String soldProducts, BuyerAccount buyer, double offAmount
             , DeliveryStatus deliveryStatus, String receiverInfo) {
-        super(logId, date, soldProducts, deliveryStatus, receiverInfo, receivedAmount);
+        super(logID, date, soldProducts, deliveryStatus, receiverInfo, receivedAmount);
         this.buyer = buyer;
         this.offAmount = offAmount;
     }

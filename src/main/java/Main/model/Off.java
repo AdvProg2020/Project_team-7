@@ -6,6 +6,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 
 public class Off {
+    private static StringBuilder lastUsedOffID = new StringBuilder("A");
     private SellerAccount seller;
     private String offId;
     private ArrayList<Product> products = new ArrayList<Product>();
@@ -15,9 +16,10 @@ public class Off {
     private OffStatus offStatus;
     private static ArrayList<Off> allOffs = new ArrayList<Off>();
 
-    public Off(String offId, ArrayList<Product> products, OffStatus offStatus, Time startTime, Time endTime,
+    public Off(ArrayList<Product> products, OffStatus offStatus, Time startTime, Time endTime,
                double offAmount, SellerAccount seller) {
-
+        this.offId = IDGenerator.getNewID(lastUsedOffID);
+//TODO
 
     }
 

@@ -5,9 +5,9 @@ import java.util.Date;
 public class BuyLog extends Log {
     private double discountAmount;
 
-    public BuyLog(String logId, Date date, double paidAmountConsideringDiscount, double discountAmount, String boughtProducts
+    public BuyLog(String logID, Date date, double paidAmountConsideringDiscount, double discountAmount, String boughtProducts
             , DeliveryStatus deliveryStatus, String receiverInfo) {
-        super(logId, date, boughtProducts, deliveryStatus, receiverInfo, paidAmountConsideringDiscount);
+        super(logID, date, boughtProducts, deliveryStatus, receiverInfo, paidAmountConsideringDiscount);
         this.discountAmount = discountAmount;
     }
 

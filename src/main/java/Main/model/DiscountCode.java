@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DiscountCode {
+    private static StringBuilder lastUsedCodeID = new StringBuilder("A");
     private String code;
     private Time startTime;
     private Time endTime;
@@ -17,8 +18,8 @@ public class DiscountCode {
     private HashMap<BuyerAccount, Integer> users = new HashMap<BuyerAccount, Integer>();
     private static ArrayList<DiscountCode> allDiscountCodes = new ArrayList<DiscountCode>();
 
-    public DiscountCode(String code, String startTime, String endTime, double percent, double maxAmount, int maxNumberOfUse, ArrayList<BuyerAccount> users) {
-        this.code = code;
+    public DiscountCode( String startTime, String endTime, double percent, double maxAmount, int maxNumberOfUse, ArrayList<BuyerAccount> users) {
+        this.code = IDGenerator.getNewID(lastUsedCodeID);
         this.setStartTime(startTime);
         this.setEndTime(endTime);
         this.percent = percent;
