@@ -16,15 +16,22 @@ public abstract class Filter {
         return current;
     }
 
-    public ArrayList<Product> applyFilter(ArrayList<Product> products) {
+    public static ArrayList<Product> applyFilter(ArrayList<Product> products) {
         ArrayList<Product> filteredProducts = new ArrayList<Product>();
         for (Filter currentFilter : GeneralController.currentFilters) {
             currentFilter.apply(filteredProducts, products);
+        }
+        for (Filter currentFilter : GeneralController.currentFilters) {
+            currentFilter.removeDiffs(filteredProducts,products);
         }
         return filteredProducts;
     }
 
     public abstract void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products);
 
+    public abstract void removeDiffs(ArrayList<Product> filteredProducts, ArrayList<Product> products);
+
     protected abstract String show();
+
+    public abstract String getName();
 }

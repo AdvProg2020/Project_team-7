@@ -25,7 +25,7 @@ public abstract class Request {
         return null;
     }
 
-    public void addRequest(Request request) {
+    public static void addRequest(Request request) {
         allRequests.add(request);
     }
 

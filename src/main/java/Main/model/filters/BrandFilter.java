@@ -19,7 +19,18 @@ public class BrandFilter extends Filter {
         }
     }
 
+    public void removeDiffs(ArrayList<Product> filterdProducts, ArrayList<Product> products) {
+        for (Product product : products) {
+            if (!product.getBrand().equals(brandName))
+                filterdProducts.remove(product);
+        }
+    }
+
     protected String show() {
         return name + " : " + brandName;
+    }
+
+    public String getName() {
+        return name;
     }
 }

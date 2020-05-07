@@ -10,7 +10,7 @@ public class Comment {
     private Product product;
     private CommentStatus commentStatus;
 
-    public Comment(BuyerAccount user, Product product, String title, String content, CommentStatus commentStatus, boolean isBoughtByUser) {
+    public Comment(BuyerAccount user, Product product, String title, String content, boolean isBoughtByUser) {
         this.user = user;
         this.product = product;
         this.title = title;

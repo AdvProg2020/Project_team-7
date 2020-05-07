@@ -17,7 +17,7 @@ public class Product {
     private String description;
     private double averageScore;
     private ArrayList<Comment> comments = new ArrayList<Comment>();
-    private static ArrayList<Product> allProducts = new ArrayList<Product>();
+    public static ArrayList<Product> allProducts = new ArrayList<Product>();
     private int openFrequency;
     private ProductStatus productStatus;
     private double price;

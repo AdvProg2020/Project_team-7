@@ -19,7 +19,18 @@ public class ProductNameFilter extends Filter {
         }
     }
 
+    public void removeDiffs(ArrayList<Product> filterdProducts, ArrayList<Product> products) {
+        for (Product product : products) {
+            if (!product.getName().equals(productName))
+                filterdProducts.remove(product);
+        }
+    }
+
     protected String show() {
         return name + " : " + productName;
+    }
+
+    public String getName() {
+        return name;
     }
 }
