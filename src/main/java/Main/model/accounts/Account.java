@@ -14,7 +14,7 @@ public abstract class Account {
     protected static ArrayList<Account> allAccounts = new ArrayList<Account>();
 
     public Account(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord) throws InvalidInputException {
-        InvalidInputException.validateNameTypeInfo("user name", userName);
+        InvalidInputException.validateUserName(userName);
         InvalidInputException.validateUsernameUniqueness(userName);
         this.userName = userName;
         InvalidInputException.validateNameTypeInfo("first name", firstName);

@@ -17,6 +17,12 @@ public class InvalidInputException extends Exception {
         }
     }
 
+    public static void validateUserName(String userName) throws invalidUserNameException {
+        if (!userName.matches("[A-Za-z_0-9.\\-]*")) {
+            throw new InvalidInputException.invalidUserNameException();
+        }
+    }
+
     public static void validateNameTypeInfo(String nameTypeInfoTitle, String nameTypeInfo) throws InvalidInputException {
         if (!nameTypeInfo.matches("[A-Za-z_0-9.\\-][A-Za-z_0-9. \\-]*[A-Za-z_0-9.\\-]")) {
             throw new InvalidInputException.invalidNameTypeInfoException(nameTypeInfoTitle);
@@ -74,6 +80,13 @@ public class InvalidInputException extends Exception {
     public static class invalidPhoneNumberException extends InvalidInputException {
         public invalidPhoneNumberException() {
             this.errorMessage = "Phone number is invalid. It must be in format of 09XXXXXXXXX .";
+        }
+    }
+
+    public static class invalidUserNameException extends InvalidInputException {
+        public invalidUserNameException() {
+            this.errorMessage = "Invalid character ! user name  can only contain English letters, numbers" +
+                    ", '_','.' and '-' . make sure that it doesn't contain spaces !";
         }
     }
 }
