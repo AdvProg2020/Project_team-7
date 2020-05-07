@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DiscountCode {
-    private static StringBuilder lastUsedCodeID = new StringBuilder("A");
+    private static StringBuilder lastUsedCodeID = new StringBuilder("@");
     private String code;
     private Time startTime;
     private Time endTime;

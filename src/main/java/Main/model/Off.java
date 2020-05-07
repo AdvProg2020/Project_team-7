@@ -6,7 +6,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 
 public class Off {
-    private static StringBuilder lastUsedOffID = new StringBuilder("A");
+    private static StringBuilder lastUsedOffID = new StringBuilder("@");
     private SellerAccount seller;
     private String offId;
     private ArrayList<Product> products = new ArrayList<Product>();

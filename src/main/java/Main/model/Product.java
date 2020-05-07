@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Product {
-    private static StringBuilder lastUsedProductID = new StringBuilder("A");
+    private static StringBuilder lastUsedProductID = new StringBuilder("@");
     private String productId;
     private String name;
     private String brand;

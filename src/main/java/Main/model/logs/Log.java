@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Log {
-    private static StringBuilder lastUsedLogID = new StringBuilder("A");
+    private static StringBuilder lastUsedLogID = new StringBuilder("@");
     protected String logId;
     protected Date date;
     protected double totalCost;
