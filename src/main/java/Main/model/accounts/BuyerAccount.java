@@ -78,12 +78,8 @@ public class BuyerAccount extends Account {
     }
 
     public void addDiscountCode(DiscountCode discountCode) {
-        if (!discountCodes.contains(discountCode)) {
             discountCodes.add(discountCode);
-        }
     }
-
-    //TODO remove most if contains
 
     public void removeDiscountCode(DiscountCode discountCode) {
         discountCodes.remove(discountCode);
@@ -120,10 +116,8 @@ public class BuyerAccount extends Account {
     }
 
     public static void addBuyer(BuyerAccount buyer) {
-        if (!allBuyers.contains(buyer)) {
             allBuyers.add(buyer);
             allAccounts.add(buyer);
-        }
     }
 
     public double getBalance() {

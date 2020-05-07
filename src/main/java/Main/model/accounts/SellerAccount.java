@@ -72,9 +72,7 @@ public class SellerAccount extends Account {
     }
 
     public void addLog(SellLog sellLog) {
-        if (!sellHistory.contains(sellLog)) {
             sellHistory.add(sellLog);
-        }
     }
 
     public String viewSalesHistory() {
@@ -104,9 +102,7 @@ public class SellerAccount extends Account {
     }
 
     public void addOff(Off off) {
-        if (!offList.contains(off)) {
             offList.add(off);
-        }
     }
 
     public String viewSellerOffs() {
@@ -119,10 +115,8 @@ public class SellerAccount extends Account {
     }
 
     public static void addSeller(SellerAccount seller) {
-        if (!allSellers.contains(seller)) {
             allSellers.add(seller);
             allAccounts.add(seller);
-        }
     }
 
     public boolean isThereSellerWithUserName(String userName) {

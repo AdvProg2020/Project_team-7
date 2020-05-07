@@ -13,10 +13,8 @@ public class ManagerAccount extends Account {
     }
 
     public static void addManager(ManagerAccount managerAccount) {
-        if (!allManagers.contains(managerAccount)) {
             allManagers.add(managerAccount);
             allAccounts.add(managerAccount);
-        }
     }
 
     public static boolean isThereManagerWithUserName(String userName) {

@@ -5,6 +5,7 @@ import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.logs.BuyLog;
 import Main.model.logs.DeliveryStatus;
+import Main.model.logs.Log;
 import Main.model.logs.SellLog;
 
 import java.util.Date;
@@ -107,7 +108,7 @@ public class BuyerController {
     }
 
     private void createPurchaseHistoryElements(){
-        String logID = IDGenerator.getLogID();
+        String logID = IDGenerator.getNewID(Log.getLastUsedLogID());
         Date date = new Date();
         createPurchaseHistoryElementsForBuyer(date,logID);
         createPurchaseHistoryElementsForSellers(date,logID);
