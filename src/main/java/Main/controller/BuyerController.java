@@ -17,6 +17,8 @@ public class BuyerController {
     private String receiverInformation = null;
     private DiscountCode discountCode = null;
 
+    //TODO : fix it if its good practice to add NO_..._FOUND exception to getters
+
     public BuyerController() {
         if (GeneralController.currentUser instanceof BuyerAccount) {
             BuyerAccount currentBuyer = (BuyerAccount) GeneralController.currentUser;
