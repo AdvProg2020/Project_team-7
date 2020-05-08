@@ -20,10 +20,14 @@ public class ManagerController {
     }
 
     public String viewUserWithUserName(String userName) {
-        Account account = Account.getUserWithUserName(userName);
-        if (account == null) {
-            return "There is no user with given userName !";
-        } else if (account instanceof ManagerAccount) {
+        Account account = null;
+        try {
+            account = Account.getUserWithUserName(userName);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+
+        if (account instanceof ManagerAccount) {
             ManagerAccount managerAccount = (ManagerAccount) account;
             return managerAccount.viewMe();
         } else if (account instanceof SellerAccount) {
@@ -37,9 +41,8 @@ public class ManagerController {
 
     public void deleteUserWithUserName(String userName) throws Exception {
         Account account = Account.getUserWithUserName(userName);
-        if (account == null) {
-            throw new Exception("There is no user with given userName !\n");
-        } else if (account instanceof ManagerAccount) {
+
+         if (account instanceof ManagerAccount) {
             ManagerAccount managerAccount = (ManagerAccount) account;
             ManagerAccount.deleteManager(managerAccount);
         } else if (account instanceof SellerAccount) {
@@ -59,9 +62,7 @@ public class ManagerController {
 
     public void removeProductWithId(String productId) throws Exception {
         Product product = Product.getProductWithId(productId);
-        if (product == null) {
-            throw new Exception("There is no product with given ID !\n");
-        }
+
         product.removeProduct();
     }
 
@@ -84,7 +85,7 @@ public class ManagerController {
         for (int i = 6; i < discountInfoSize; i++) {
             BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(discountInfo.get(i));
             if (buyerAccount == null) {
-                throw new Exception("There are some invalid user names in the given inforamtion !\n" +
+                throw new Exception("There are some invalid user names in the given information !\n" +
                         "Please check user names and try again !\n");
             } else {
                 buyersList.add(buyerAccount);
@@ -98,18 +99,19 @@ public class ManagerController {
     }
 
     public String viewDiscountCodeWithCode(String code) {
-        DiscountCode discountCode = DiscountCode.getDiscountCodeWithCode(code);
-        if (discountCode == null) {
-            return "There is no discount code with given code !";
+        DiscountCode discountCode = null;
+        try {
+            discountCode = DiscountCode.getDiscountCodeWithCode(code);
+        } catch (Exception e) {
+            return e.getMessage();
         }
+
         return discountCode.viewMeAsManager();
     }
 
     public void removeDiscountCodeWithCode(String code) throws Exception {
         DiscountCode discountCode = DiscountCode.getDiscountCodeWithCode(code);
-        if (discountCode == null) {
-            throw new Exception("There is no discount code with given code !\n");
-        }
+
         discountCode.removeDiscountCode();
     }
 
@@ -118,30 +120,26 @@ public class ManagerController {
     }
 
     public String showRequestDetailsWithId(String requestId) {
-        Request request = Request.getRequestWithId(requestId);
-        if (request == null) {
-            return "There is no request with given ID !\n";
-        } else {
-            return request.showRequest();
+        Request request = null;
+        try {
+            request = Request.getRequestWithId(requestId);
+        } catch (Exception e) {
+            return e.getMessage();
         }
+
+        return request.showRequest();
     }
 
     public void acceptRequestWithId(String requestId) throws Exception {
         Request request = Request.getRequestWithId(requestId);
-        if (request == null) {
-            throw new Exception("There is no request with given ID !\n");
-        } else {
+
             request.accept();
-        }
     }
 
     public void declineRequestWithId(String requestId) throws Exception {
         Request request = Request.getRequestWithId(requestId);
-        if (request == null) {
-            throw new Exception("There is no request with given ID !\n");
-        } else {
+
             request.decline();
-        }
     }
 
     public void createCategory(String name, ArrayList<String> specialFeatures) {
@@ -151,9 +149,7 @@ public class ManagerController {
 
     public void removeCategoryWithId(String categoryId) throws Exception {
         Category category = Category.getCategoryWithName(categoryId);
-        if (category == null) {
-            throw new Exception("There is no category with given ID !\n");
-        }
+
         category.removeCategory();
     }
 

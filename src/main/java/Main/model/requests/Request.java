@@ -8,12 +8,13 @@ public abstract class Request {
 
     public abstract String showRequest();
 
-    public static Request getRequestWithId(String requestId) {
+    public static Request getRequestWithId(String requestId) throws Exception {
         for (Request request : allRequests) {
             if (request.requestId.equals(requestId))
                 return request;
         }
-        return null;//TODO exception for not found request id
+        throw new Exception("There is no request with given ID !\n");
+        //TODO exception for not found request id
     }
 
     public static String showAllRequests() {

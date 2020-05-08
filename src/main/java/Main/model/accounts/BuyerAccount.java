@@ -66,13 +66,13 @@ public class BuyerAccount extends Account {
         }
     }
 
-    public BuyLog getLogWithId(String logId) {
+    public BuyLog getLogWithId(String logId) throws Exception {
         for (BuyLog buyLog : buyHistory) {
             if (buyLog.getLogId().equals(logId)) {
                 return buyLog;
             }
         }
-        return null;
+        throw new Exception("There is no product with given ID !\n");
     }
 
     public void addDiscountCode(DiscountCode discountCode) {
@@ -100,7 +100,10 @@ public class BuyerAccount extends Account {
         return orders.toString();
     }
 
-    public void decreaseBalanceBy(double money) {
+    public void decreaseBalanceBy(double money) throws Exception {
+        if(balance<money){
+            throw new Exception("Your balance isn't enough ! Purchase couldn't be done !\n");
+        }
         this.balance -= money;
     }
 

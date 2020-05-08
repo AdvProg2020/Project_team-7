@@ -110,12 +110,12 @@ public class Product {
             return "available";
     }
 
-    public static Product getProductWithId(String productId) {
+    public static Product getProductWithId(String productId) throws Exception {
         for (Product product : allProducts) {
             if (product.getProductId().equals(productId))
                 return product;
         }
-        return null;
+       throw new Exception("There is no product with given ID !\n");
         //TODO invalid id exception
     }
 
@@ -128,7 +128,7 @@ public class Product {
         //TODO invalid id exception
     }
 
-    public String compareProductWithProductWithId(String id) {
+    public String compareProductWithProductWithId(String id) throws Exception {
         Product productToBeCompared = getProductWithId(id);
         if (productToBeCompared.getCategory().equals(category) && category != null) {
             return compareProductsInSameCategory(productToBeCompared);

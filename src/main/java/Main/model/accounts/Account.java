@@ -60,13 +60,13 @@ public abstract class Account {
         return userName;
     }
 
-    public static Account getUserWithUserName(String userName) {
+    public static Account getUserWithUserName(String userName) throws Exception {
         for (Account account : allAccounts) {
             if (account.userName.equals(userName)) {
                 return account;
             }
         }
-        return null;
+        throw new Exception("There is no user with given userName !\n");
     }
 
     public boolean isPassWordCorrect(String passWord) {

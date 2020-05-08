@@ -31,19 +31,11 @@ public class BuyerController {
     }
 
     public void increaseProductWithId(String productId) throws Exception {
-        if (currentBuyersCart.isThereProductWithID(productId)) {
             currentBuyersCart.getCartProductByProductId(productId).increaseNumberByOne();
-            return;
-        }
-        throw new Exception("There is no product with given Id in the cart !\n");
     }
 
     public void decreaseProductWithId(String productId) throws Exception {
-        if (currentBuyersCart.isThereProductWithID(productId)) {
             currentBuyersCart.getCartProductByProductId(productId).decreaseNumberByOne();
-            return;
-        }
-        throw new Exception("There is no product with given ID in the cart !\n");
     }
 
     public String showTotalCartPrice() {
@@ -63,17 +55,16 @@ public class BuyerController {
     }
 
     public String showOrderWithId(String orderId) {
-        if (currentBuyer.isThereLogWithID(orderId)) {
+        try {
             return currentBuyer.getLogWithId(orderId).viewLog();
+        } catch (Exception e) {
+            return e.getMessage();
         }
-        return "there is no order with this ID !";
     }
 
     public void rateProductWithId(String productId, double score) throws Exception {
         Product product = Product.getProductWithId(productId);
-        if (product == null) {
-            throw new Exception("There is no product with given ID !\n");
-        }
+
         Rate rate = new Rate(currentBuyer, product, score);
         product.addRate(rate);
     }
@@ -84,9 +75,7 @@ public class BuyerController {
 
     public void setPurchaseDiscountCode(String code) throws Exception {
         DiscountCode discountCode = DiscountCode.getDiscountCodeWithCode(code);
-        if (discountCode == null) {
-            throw new Exception("There is no discount code with given code !\n");
-        }
+
         if (getToTalPaymentConsideringDiscount() > discountCode.getMaxAmount()) {
             throw new Exception("This discount code cant be applied on your cart because it's total cost exceeds discount max amount !\n");
         }
@@ -115,9 +104,6 @@ public class BuyerController {
     }
 
     private void buyerPayment() throws Exception {
-        if(currentBuyer.getBalance()<getToTalPaymentConsideringDiscount()){
-            throw new Exception("Your balance isn't enough ! Purchase couldn't be done !\n");
-        }
         currentBuyer.decreaseBalanceBy(getToTalPaymentConsideringDiscount());
         discountCode.removeDiscountCodeIfBuyerHasUsedUpDiscountCode(currentBuyer);
     }

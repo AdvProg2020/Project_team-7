@@ -73,12 +73,12 @@ public class DiscountCode {
         return list.toString();
     }
 
-    public static DiscountCode getDiscountCodeWithCode(String code) {
+    public static DiscountCode getDiscountCodeWithCode(String code) throws Exception {
         for (DiscountCode discountCode : allDiscountCodes) {
             if (discountCode.code.equals(code))
                 return discountCode;
         }
-        return null;
+        throw new Exception("There is no discount code with given code !\n");
         //TODO invalid code exception
     }
 

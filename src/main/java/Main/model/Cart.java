@@ -30,13 +30,13 @@ public class Cart {
         cartProducts.remove(cartProduct);
     }
 
-    public CartProduct getCartProductByProductId(String productId) {
+    public CartProduct getCartProductByProductId(String productId) throws Exception {
         for (CartProduct cartProduct : cartProducts) {
             if (cartProduct.getProduct().getProductId().equals(productId)) {
                 return cartProduct;
             }
         }
-        return null;
+        throw new Exception("There is no product with given Id in the cart !\n");
     }
 
     public String toStringForBuyer() {

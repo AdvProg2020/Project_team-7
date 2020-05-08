@@ -55,12 +55,12 @@ public class Category {
 
     }
 
-    public static Category getCategoryWithName(String categoryName) {
+    public static Category getCategoryWithName(String categoryName) throws Exception {
         for (Category category : allCategories) {
             if (category.getName().equalsIgnoreCase(categoryName))
                 return category;
         }
-        return null;
+        throw new Exception("There is no category with given ID !\n");
         //TODO invalid name exception
     }
 
