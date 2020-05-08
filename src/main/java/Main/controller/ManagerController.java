@@ -8,6 +8,7 @@ import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.exceptions.InvalidInputException;
+import Main.model.requests.EditCategory;
 import Main.model.requests.EditDiscountCode;
 import Main.model.requests.Request;
 
@@ -158,7 +159,7 @@ public class ManagerController {
         editDiscountCode.acceptRequest();
     }
 
-    public void editCategoryWithId(String categoryId) {
-        //TODO
+    public void editCategoryWithId(EditCategory editCategory) {
+        editCategory.acceptRequest();
     }
 }

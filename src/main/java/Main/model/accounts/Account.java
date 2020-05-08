@@ -76,5 +76,4 @@ public abstract class Account {
             return false;
     }
 
-    //TODO isTHEREs should be optimized
 }
