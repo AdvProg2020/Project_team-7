@@ -70,41 +70,69 @@ public class EditDiscountCode{
 
     public void acceptRequest() throws Exception {
         String errors = new String();
+
+        acceptStartTime(errors);
+        acceptEndTime(errors);
+        acceptPercent(errors);
+        acceptMaxAmount(errors);
+        acceptMaxNumberOfUse(errors);
+        acceptBuyersToBeAdded();
+        acceptBuyersToBeRemoved();
+
+        if(errors.length()!=0){
+            throw new Exception(errors);
+        }
+    }
+
+    private void acceptStartTime(String errors){
         try {
             discountCode.setStartTime(startTime);
         }catch (Exception e){
             errors.concat(e.getMessage());
         }
+    }
+
+    private void acceptEndTime(String errors){
         try {
             discountCode.setEndTime(endTime);
         }catch (Exception e){
             errors.concat(e.getMessage());
         }
+    }
+
+    private void acceptPercent(String errors){
         try{
             discountCode.setPercent(this.percent);
         }catch (Exception e){
             errors.concat(e.getMessage());
         }
+    }
+
+    private void acceptMaxAmount(String errors){
         try{
             discountCode.setMaxAmount(this.maxAmount);
         }catch (Exception e){
             errors.concat(e.getMessage());
         }
+    }
+
+    private void acceptMaxNumberOfUse(String errors){
         try{
             discountCode.setMaxNumberOfUse(this.maxNumberOfUse);
         }catch (Exception e){
             errors.concat(e.getMessage());
         }
+    }
 
+    private void acceptBuyersToBeAdded(){
         for (BuyerAccount buyerAccount : usersToBeAdded) {
             discountCode.addUser(buyerAccount);
         }
-                for (BuyerAccount buyerAccount : usersToBeRemoved) {
-                discountCode.removeUser(buyerAccount);
-        }
+    }
 
-        if(errors.length()!=0){
-            throw new Exception(errors);
+    private void acceptBuyersToBeRemoved(){
+        for (BuyerAccount buyerAccount : usersToBeRemoved) {
+            discountCode.removeUser(buyerAccount);
         }
     }
 }

@@ -338,4 +338,8 @@ public class Product {
     public void addSpecialFeature(String specialFeature, String specialFeatureValue){
         specialFeatures.put(specialFeature,specialFeatureValue);
     }
+
+    public void removeSpecialFeature(String specialFeature){
+        specialFeatures.remove(specialFeature);
+    }
 }

@@ -112,10 +112,7 @@ public class Category {
         return products.contains(product);
     }
 
-    public void addSpecialFeature(String specialFeature) throws Exception {
-        if(specialFeatures.contains(specialFeature)){
-            throw new Exception("There is already a special feature with title \"" + specialFeature +"\" in this category !\n");
-        }
+    public void addSpecialFeature(String specialFeature) {
         specialFeatures.add(specialFeature);
         addSpecialFeatureToProducts(specialFeature);
     }
@@ -124,5 +121,20 @@ public class Category {
         for (Product product : products) {
             product.addSpecialFeature(specialFeature,null);
         }
+    }
+
+    public void removeSpecialFeature(String specialFeature){
+        specialFeatures.remove(specialFeature);
+        removeSpecialFeatureFromProducts(specialFeature);
+    }
+
+    private void removeSpecialFeatureFromProducts(String specialFeature){
+        for (Product product : products) {
+            product.removeSpecialFeature(specialFeature);
+        }
+    }
+
+    public boolean isThereSpecialFeature(String specialFeature){
+        return specialFeatures.contains(specialFeature);
     }
 }

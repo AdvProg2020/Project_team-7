@@ -115,7 +115,7 @@ public class DiscountCode {
         return code;
     }
 
-    public void removeUser(BuyerAccount buyerAccount) throws Exception {
+    public void removeUser(BuyerAccount buyerAccount) {
         users.remove(buyerAccount);
         buyerAccount.removeDiscountCode(this);
     }
