@@ -79,7 +79,6 @@ public class DiscountCode {
                 return discountCode;
         }
         throw new Exception("There is no discount code with given code !\n");
-        //TODO invalid code exception
     }
 
     public void edit(HashMap<String, String> changes) {
@@ -116,17 +115,19 @@ public class DiscountCode {
         return code;
     }
 
-    public void removeUser(BuyerAccount buyerAccount) {
+    public void removeUser(BuyerAccount buyerAccount) throws Exception {
+        if(!users.containsKey(buyerAccount)){
+            throw new Exception("Buyer eith user name \"" + buyerAccount.getUserName() + "\" isn't in this discount code's user list ! \n" );
+        }
         users.remove(buyerAccount);
         buyerAccount.removeDiscountCode(this);
-        //TODO : Exception if user not found : BUYER WITH USERNAME ... ISNT IN ...
     }
 
     public double getDiscountCodeAmount (){
         return percent;
     }
 
-    public void removeDiscountCodeIfBuyerHasUsedUpDiscountCode(BuyerAccount buyerAccount){
+    public void removeDiscountCodeIfBuyerHasUsedUpDiscountCode(BuyerAccount buyerAccount) throws Exception {
         if(users.get(buyerAccount)==maxNumberOfUse){
             this.removeUser(buyerAccount);
             buyerAccount.removeDiscountCode(this);
@@ -137,19 +138,25 @@ public class DiscountCode {
         return maxAmount;
     }
 
-    public void setPercent(double percent) {
+    public void setPercent(double percent) throws Exception {
+        if(maxAmount<=0){
+            throw new Exception("discount percent must be a positive double");
+        }
         this.percent = percent;
-        //TODO : Exception negative numbers
     }
 
-    public void setMaxAmount(double maxAmount) {
+    public void setMaxAmount(double maxAmount) throws Exception {
+        if(maxAmount<=0){
+            throw new Exception("max amount must be a positive double");
+        }
         this.maxAmount = maxAmount;
-        //TODO : Exception negative numbers
     }
 
-    public void setMaxNumberOfUse(int maxNumberOfUse) {
+    public void setMaxNumberOfUse(int maxNumberOfUse) throws Exception {
+        if(maxNumberOfUse<=0){
+            throw new Exception("max number of use must be a positive Integer");
+        }
         this.maxNumberOfUse = maxNumberOfUse;
-        //TODO : Exception negative numbers
     }
 
     public void addUser(BuyerAccount buyerAccount){

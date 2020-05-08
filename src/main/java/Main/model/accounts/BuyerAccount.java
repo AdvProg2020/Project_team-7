@@ -58,7 +58,7 @@ public class BuyerAccount extends Account {
         throw new Exception("There is no buyer with this user name");
     }
 
-    public void deleteBuyer() {
+    public void deleteBuyer() throws Exception {
         allBuyers.remove(this);
         allAccounts.remove(this);
         for (DiscountCode discountCode : discountCodes) {

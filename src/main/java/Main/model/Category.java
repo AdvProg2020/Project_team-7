@@ -61,7 +61,6 @@ public class Category {
                 return category;
         }
         throw new Exception("There is no category with given ID !\n");
-        //TODO invalid name exception
     }
 
     public static void addCategory(Category category) {

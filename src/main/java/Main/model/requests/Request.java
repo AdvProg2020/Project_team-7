@@ -14,7 +14,6 @@ public abstract class Request {
                 return request;
         }
         throw new Exception("There is no request with given ID !\n");
-        //TODO exception for not found request id
     }
 
     public static String showAllRequests() {

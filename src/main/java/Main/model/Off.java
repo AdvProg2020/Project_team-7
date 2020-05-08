@@ -54,14 +54,12 @@ public class Off {
         return list.toString();
     }
 
-    public static Off getOffWithId(String offId) {
+    public static Off getOffWithId(String offId) throws Exception {
         for (Off off : allOffs) {
             if (off.offId.equalsIgnoreCase(offId))
                 return off;
         }
-        return null;
-
-        //TODO invalid id exception
+        throw new Exception("There is no off with this ID !\n");
     }
 
     public static void removeOff(Off off) {

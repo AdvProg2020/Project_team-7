@@ -116,16 +116,14 @@ public class Product {
                 return product;
         }
        throw new Exception("There is no product with given ID !\n");
-        //TODO invalid id exception
     }
 
-    private static Product getProductWithName(String name) {
+    private static Product getProductWithName(String name) throws Exception {
         for (Product product : allProducts) {
             if (product.getName().equals(name))
                 return product;
         }
-        return null;
-        //TODO invalid id exception
+        throw new Exception("There is no product with this name !\n");
     }
 
     public String compareProductWithProductWithId(String id) throws Exception {
