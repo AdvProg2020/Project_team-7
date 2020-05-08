@@ -41,13 +41,13 @@ public class ManagerAccount extends Account {
                 "\n\temail : " + this.email + "\n\tphone number : " + this.phoneNumber + "\n";
     }
 
-    public static ManagerAccount getManagerWithUserName(String userName) {
+    public static ManagerAccount getManagerWithUserName(String userName) throws Exception {
         for (ManagerAccount manager : allManagers) {
             if (manager.userName.equals(userName)) {
                 return manager;
             }
         }
-        return null;
+        throw new Exception("There is no manager with this user name");
     }
 
     public static void deleteManager(ManagerAccount managerAccount) {

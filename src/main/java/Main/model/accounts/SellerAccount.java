@@ -35,13 +35,13 @@ public class SellerAccount extends Account {
         return sellersList.toString();
     }
 
-    public static SellerAccount getSellerWithUserName(String userName) {
+    public static SellerAccount getSellerWithUserName(String userName) throws Exception {
         for (SellerAccount seller : allSellers) {
             if (seller.userName.equals(userName)) {
                 return seller;
             }
         }
-        return null;
+        throw new Exception("There is no seller with this user name");
     }
 
     public String viewMe() {
