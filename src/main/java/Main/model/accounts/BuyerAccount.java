@@ -49,13 +49,13 @@ public class BuyerAccount extends Account {
                 "\n\temail : " + this.email + "\n\tphone number : " + this.phoneNumber + "\n";
     }
 
-    public static BuyerAccount getBuyerWithUserName(String userName) {
+    public static BuyerAccount getBuyerWithUserName(String userName) throws Exception {
         for (BuyerAccount buyer : allBuyers) {
             if (buyer.userName.equals(userName)) {
                 return buyer;
             }
         }
-        return null;
+        throw new Exception("There is no buyer with this user name");
     }
 
     public void deleteBuyer() {

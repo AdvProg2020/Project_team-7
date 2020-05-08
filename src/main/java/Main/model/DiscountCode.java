@@ -100,6 +100,7 @@ public class DiscountCode {
         this.startTime.setDate(Integer.parseInt(splitted[1]));
         this.startTime.setHours(Integer.parseInt(splitted[2]));
         this.startTime.setMinutes(Integer.parseInt(splitted[3]));
+        //TODO : add Exception
     }
 
     public void setEndTime(String endTime) {
@@ -108,7 +109,7 @@ public class DiscountCode {
         this.endTime.setDate(Integer.parseInt(splitted[1]));
         this.endTime.setHours(Integer.parseInt(splitted[2]));
         this.endTime.setMinutes(Integer.parseInt(splitted[3]));
-
+        //TODO : add Exception
     }
 
     public String getCode() {
@@ -117,6 +118,8 @@ public class DiscountCode {
 
     public void removeUser(BuyerAccount buyerAccount) {
         users.remove(buyerAccount);
+        buyerAccount.removeDiscountCode(this);
+        //TODO : Exception if user not found : BUYER WITH USERNAME ... ISNT IN ...
     }
 
     public double getDiscountCodeAmount (){
@@ -134,5 +137,24 @@ public class DiscountCode {
         return maxAmount;
     }
 
+    public void setPercent(double percent) {
+        this.percent = percent;
+        //TODO : Exception negative numbers
+    }
+
+    public void setMaxAmount(double maxAmount) {
+        this.maxAmount = maxAmount;
+        //TODO : Exception negative numbers
+    }
+
+    public void setMaxNumberOfUse(int maxNumberOfUse) {
+        this.maxNumberOfUse = maxNumberOfUse;
+        //TODO : Exception negative numbers
+    }
+
+    public void addUser(BuyerAccount buyerAccount){
+        users.put(buyerAccount,0);
+        buyerAccount.addDiscountCode(this);
+    }
     //TODO : scheduledExecutorService
 }
