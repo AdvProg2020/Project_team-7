@@ -75,4 +75,6 @@ public abstract class Account {
         else
             return false;
     }
+
+    //TODO isTHEREs should be optimized
 }

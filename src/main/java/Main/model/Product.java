@@ -188,7 +188,7 @@ public class Product {
         availability -= number;
     }
 
-    public void removeProduct() {
+    public void removeProduct() throws Exception {
         allProducts.remove(this);
         for (SellerAccount seller : this.sellers) {
             seller.removeProduct(this);
@@ -332,5 +332,10 @@ public class Product {
 
     public void removeCategory() {
         category = null;
+        specialFeatures =null;
+    }
+
+    public void addSpecialFeature(String specialFeature, String specialFeatureValue){
+        specialFeatures.put(specialFeature,specialFeatureValue);
     }
 }

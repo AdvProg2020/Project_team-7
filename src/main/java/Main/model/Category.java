@@ -11,9 +11,13 @@ public class Category {
     private static ArrayList<Category> allCategories = new ArrayList<Category>();
 
     public Category(String name, ArrayList<String> specialFeatures) {
-        //TODO : validate category name's uniqueness and throw exception
-        this.name = name;
+        setName(name);
         this.specialFeatures = specialFeatures;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        //TODO : validate category name's uniqueness and throw exception
     }
 
     public static String showAllCategories() {
@@ -93,9 +97,32 @@ public class Category {
 
     public void removeProduct(Product product) {
         products.remove(product);
+        product.removeCategory();
     }
 
     public void addProduct(Product product) {
         products.add(product);
+        for (String specialFeature : specialFeatures) {
+            product.addSpecialFeature(specialFeature,null);
+        }
+
+    }
+
+    public boolean isThereProductWithReference(Product product){
+        return products.contains(product);
+    }
+
+    public void addSpecialFeature(String specialFeature) throws Exception {
+        if(specialFeatures.contains(specialFeature)){
+            throw new Exception("There is already a special feature with title \"" + specialFeature +"\" in this category !\n");
+        }
+        specialFeatures.add(specialFeature);
+        addSpecialFeatureToProducts(specialFeature);
+    }
+
+    private void addSpecialFeatureToProducts(String specialFeature){
+        for (Product product : products) {
+            product.addSpecialFeature(specialFeature,null);
+        }
     }
 }

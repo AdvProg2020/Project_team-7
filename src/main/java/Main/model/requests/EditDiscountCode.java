@@ -62,7 +62,9 @@ public class EditDiscountCode{
 
     public void addUserToBeRemoved(String userName) throws Exception {
         BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(userName);
-
+        if(!discountCode.isThereBuyerWithReference(buyerAccount)){
+            throw new Exception("There is no buyer with this user name in discount code's user list !\n");
+        }
         usersToBeAdded.add(buyerAccount);
     }
 
@@ -93,16 +95,14 @@ public class EditDiscountCode{
         }catch (Exception e){
             errors.concat(e.getMessage());
         }
+
         for (BuyerAccount buyerAccount : usersToBeAdded) {
             discountCode.addUser(buyerAccount);
         }
-        for (BuyerAccount buyerAccount : usersToBeRemoved) {
-            try {
+                for (BuyerAccount buyerAccount : usersToBeRemoved) {
                 discountCode.removeUser(buyerAccount);
-            }catch (Exception e){
-                errors.concat(e.getMessage());
-            }
         }
+
         if(errors.length()!=0){
             throw new Exception(errors);
         }

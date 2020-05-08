@@ -116,9 +116,6 @@ public class DiscountCode {
     }
 
     public void removeUser(BuyerAccount buyerAccount) throws Exception {
-        if(!users.containsKey(buyerAccount)){
-            throw new Exception("Buyer eith user name \"" + buyerAccount.getUserName() + "\" isn't in this discount code's user list ! \n" );
-        }
         users.remove(buyerAccount);
         buyerAccount.removeDiscountCode(this);
     }
@@ -162,6 +159,10 @@ public class DiscountCode {
     public void addUser(BuyerAccount buyerAccount){
         users.put(buyerAccount,0);
         buyerAccount.addDiscountCode(this);
+    }
+
+    public boolean isThereBuyerWithReference(BuyerAccount buyerAccount){
+        return users.containsKey(buyerAccount);
     }
     //TODO : scheduledExecutorService
 }
