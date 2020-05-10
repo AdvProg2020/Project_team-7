@@ -33,7 +33,7 @@ public class GeneralController {
         return currentProduct.showProductAttributes();
     }
 
-    public String compareProductWithProductWithName(String id) {
+    public String compareProductWithProductWithId(String id) {
         return currentProduct.compareProductWithProductWithId(id);
     }
 

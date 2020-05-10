@@ -6,7 +6,7 @@ public class OffMenu extends Menu {
         this.subMenus.put(1,new FilteringMenu(this));
         this.subMenus.put(2,new SortingMenu(this));
         this.subMenus.put(3,showProduct());
-
+        this.subMenus.put(4, new UserPanelMenu(this));
     }
 
     private Menu showProduct() {
