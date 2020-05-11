@@ -2,22 +2,20 @@ package model.accounts;
 
 import Main.model.accounts.Account;
 import Main.model.accounts.BuyerAccount;
-import Main.model.accounts.ManagerAccount;
-import Main.model.accounts.SellerAccount;
-import Main.model.exceptions.InvalidInputException;
+import Main.model.exceptions.AccountsException;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class BuyerAccountTest {
 
-    @Test(expected = InvalidInputException.class)
-    public void invalidNameException() throws InvalidInputException {
+    @Test(expected = AccountsException.class)
+    public void invalidNameException() throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("userName","firs*tName","las#t Name",
                 "sampleEmail@sample.sample","09001112233","password123",100);
     }
 
-    @Test(expected = InvalidInputException.class)
-    public void duplicateUserNameException() throws InvalidInputException {
+    @Test(expected = AccountsException.class)
+    public void duplicateUserNameException() throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("userName","firstName","last Name",
                 "sampleEmail@sample.sample","09001112233","password123",100);
         BuyerAccount.addBuyer(buyerAccount);
@@ -25,20 +23,20 @@ public class BuyerAccountTest {
                 "sampleEmail@sample.sample","09001112233","password123",100);
     }
 
-    @Test(expected = InvalidInputException.class)
-    public void invalidPhoneNumberException() throws InvalidInputException {
+    @Test(expected = AccountsException.class)
+    public void invalidPhoneNumberException() throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("userName","firstName","las#t Name",
                 "sampleEmail@sample.sample","090011112233","password123",100);
     }
 
-    @Test(expected = InvalidInputException.class)
-    public void invalidPasswordException() throws InvalidInputException {
+    @Test(expected = AccountsException.class)
+    public void invalidPasswordException() throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("userName","firstName","las#t Name",
                 "sampleEmail@sample.sample","09001112233","pass",100);
     }
 
     @Test
-    public void addBuyerAndIsThereBuyerTest () throws InvalidInputException {
+    public void addBuyerAndIsThereBuyerTest () throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("username","firstname","lastname"
                 ,"example@exp.exp","09000000000","00000000",100);
 
@@ -48,7 +46,7 @@ public class BuyerAccountTest {
     }
 
     @Test
-    public void viewMeTest () throws InvalidInputException {
+    public void viewMeTest () throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("userName","firstName","last Name",
                 "sampleEmail@sample.sample","09001112233","password123",100);
         BuyerAccount.addBuyer(buyerAccount);
@@ -58,7 +56,7 @@ public class BuyerAccountTest {
     }
 
     @Test
-    public void showBuyerList() throws InvalidInputException {
+    public void showBuyerList() throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("userName","firstName","last Name",
                 "sampleEmail@sample.sample","09001112233","password123",100);
         BuyerAccount.addBuyer(buyerAccount);
@@ -71,7 +69,7 @@ public class BuyerAccountTest {
     }
 
     @Test
-    public void getBuyerWithNameTest() throws InvalidInputException {
+    public void getBuyerWithNameTest() throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("userName","firstName","last Name",
                 "sampleEmail@sample.sample","09001112233","password123",100);
         BuyerAccount.addBuyer(buyerAccount);
@@ -80,7 +78,7 @@ public class BuyerAccountTest {
     }
 
     @Test
-    public void deleteBuyerTest() throws InvalidInputException {
+    public void deleteBuyerTest() throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("userName","firstName","last Name",
                 "sampleEmail@sample.sample","09001112233","password123",100);
         BuyerAccount.addBuyer(buyerAccount);
@@ -90,7 +88,7 @@ public class BuyerAccountTest {
     }
 
     @Test
-    public void decreaseBalanceByTest() throws InvalidInputException {
+    public void decreaseBalanceByTest() throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123",100);
 
@@ -101,7 +99,7 @@ public class BuyerAccountTest {
     //TODO : write test for : addCartsProductsToBoughtProducts, viewOrders, emptyCart, addLog, removeDiscountCode, addDiscountCod, getLogWithId, hasBuyerBoughtProduct
 
     @Test
-    public void viewBalanceTest() throws InvalidInputException {
+    public void viewBalanceTest() throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", 100);
 

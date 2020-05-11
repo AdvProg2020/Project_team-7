@@ -6,7 +6,7 @@ import Main.model.IDGenerator;
 import Main.model.Product;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
-import Main.model.exceptions.InvalidInputException;
+import Main.model.exceptions.AccountsException;
 import Main.model.logs.BuyLog;
 import Main.model.logs.DeliveryStatus;
 import Main.model.logs.Log;
@@ -17,12 +17,11 @@ import org.junit.Test;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 public class LogTest {
 
     @Test
-    public void viewBuyLog() throws InvalidInputException {
+    public void viewBuyLog() throws AccountsException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 
@@ -63,7 +62,7 @@ public class LogTest {
     }
 
     @Test
-    public void viewSellLog() throws InvalidInputException {
+    public void viewSellLog() throws AccountsException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
         Product product = new Product("laptop", "ASUS", 2, null,

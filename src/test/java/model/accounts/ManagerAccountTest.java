@@ -1,21 +1,21 @@
 package model.accounts;
 
 import Main.model.accounts.Account;
-import Main.model.exceptions.InvalidInputException;
+import Main.model.exceptions.AccountsException;
 import Main.model.accounts.ManagerAccount;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class ManagerAccountTest {
 
-    @Test(expected = InvalidInputException.class)
-    public void invalidNameException() throws InvalidInputException {
+    @Test(expected = AccountsException.class)
+    public void invalidNameException() throws AccountsException {
         ManagerAccount managerAccount = new ManagerAccount("userName","firs*tName","las#t Name",
                 "sampleEmail@sample.sample","09001112233","password123");
     }
 
-    @Test(expected = InvalidInputException.class)
-    public void duplicateUserNameException() throws InvalidInputException {
+    @Test(expected = AccountsException.class)
+    public void duplicateUserNameException() throws AccountsException {
         ManagerAccount managerAccount = new ManagerAccount("userName","firstName","last Name",
                 "sampleEmail@sample.sample","09001112233","password123");
         ManagerAccount.addManager(managerAccount);
@@ -23,20 +23,20 @@ public class ManagerAccountTest {
                 "sampleEmail@sample.sample","09001112233","password123");
     }
 
-    @Test(expected = InvalidInputException.class)
-    public void invalidPhoneNumberException() throws InvalidInputException {
+    @Test(expected = AccountsException.class)
+    public void invalidPhoneNumberException() throws AccountsException {
         ManagerAccount managerAccount = new ManagerAccount("userName","firstName","las#t Name",
                 "sampleEmail@sample.sample","090011112233","password123");
     }
 
-    @Test(expected = InvalidInputException.class)
-    public void invalidPasswordException() throws InvalidInputException {
+    @Test(expected = AccountsException.class)
+    public void invalidPasswordException() throws AccountsException {
         ManagerAccount managerAccount = new ManagerAccount("userName","firstName","las#t Name",
                 "sampleEmail@sample.sample","09001112233","pass");
     }
 
     @Test
-    public void addManagerAndIsThereManagerTest () throws InvalidInputException {
+    public void addManagerAndIsThereManagerTest () throws AccountsException {
         ManagerAccount managerAccount = new ManagerAccount("username","firstname","lastname"
                 ,"example@exp.exp","09000000000","00000000");
 
@@ -46,7 +46,7 @@ public class ManagerAccountTest {
     }
 
     @Test
-    public void viewMeTest () throws InvalidInputException {
+    public void viewMeTest () throws AccountsException {
         ManagerAccount managerAccount = new ManagerAccount("userName","firstName","last Name",
                 "sampleEmail@sample.sample","09001112233","password123");
         ManagerAccount.addManager(managerAccount);
@@ -56,7 +56,7 @@ public class ManagerAccountTest {
     }
 
     @Test
-    public void showManagerList() throws InvalidInputException {
+    public void showManagerList() throws AccountsException {
         ManagerAccount managerAccount = new ManagerAccount("userName","firstName","last Name",
                 "sampleEmail@sample.sample","09001112233","password123");
         ManagerAccount.addManager(managerAccount);
@@ -68,7 +68,7 @@ public class ManagerAccountTest {
     }
 
     @Test
-    public void getManagerWithNameTest() throws InvalidInputException {
+    public void getManagerWithNameTest() throws AccountsException {
         ManagerAccount managerAccount = new ManagerAccount("userName","firstName","last Name",
                 "sampleEmail@sample.sample","09001112233","password123");
         ManagerAccount.addManager(managerAccount);
@@ -77,7 +77,7 @@ public class ManagerAccountTest {
     }
 
     @Test
-    public void deleteManagerTest() throws InvalidInputException {
+    public void deleteManagerTest() throws AccountsException {
         ManagerAccount managerAccount = new ManagerAccount("userName","firstName","last Name",
                 "sampleEmail@sample.sample","09001112233","password123");
         ManagerAccount.addManager(managerAccount);

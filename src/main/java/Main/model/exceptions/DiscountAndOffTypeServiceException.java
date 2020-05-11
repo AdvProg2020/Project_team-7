@@ -1,6 +1,6 @@
 package Main.model.exceptions;
 
-public class DiscountAndOffInputException {
+public class DiscountAndOffTypeServiceException {
 
     public static void validateInputAmount(double maxAmount) throws Exception {
         if(maxAmount<=0){

@@ -1,4 +1,4 @@
-package Main.model;
+package Main.model.discountAndOffTypeService;
 
 public enum OffStatus {
     APPROVED_OFF,

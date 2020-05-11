@@ -1,5 +1,7 @@
-package Main.model;
+package Main.model.discountAndOffTypeService;
 
+import Main.model.IDGenerator;
+import Main.model.Product;
 import Main.model.accounts.SellerAccount;
 
 import java.text.DateFormat;
@@ -8,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Off {
+public class Off extends DiscountAndOffTypeService{
     private static StringBuilder lastUsedOffID = new StringBuilder("@");
     private SellerAccount seller;
     private String offId;

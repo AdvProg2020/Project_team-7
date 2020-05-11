@@ -7,7 +7,7 @@ import Main.model.accounts.Account;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
 import Main.model.accounts.SellerAccount;
-import Main.model.exceptions.InvalidInputException;
+import Main.model.exceptions.AccountsException;
 import Main.model.requests.EditCategory;
 import Main.model.requests.EditDiscountCode;
 import Main.model.requests.Request;
@@ -56,7 +56,7 @@ public class ManagerController {
         }
     }
 
-    public void createManagerProfile(ArrayList<String> managerInfo) throws InvalidInputException {
+    public void createManagerProfile(ArrayList<String> managerInfo) throws AccountsException {
         ManagerAccount managerAccount = new ManagerAccount(managerInfo.get(0), managerInfo.get(1), managerInfo.get(2),
                 managerInfo.get(3), managerInfo.get(4), managerInfo.get(5));
         ManagerAccount.addManager(managerAccount);

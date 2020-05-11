@@ -1,5 +1,6 @@
-package Main.model;
+package Main.model.discountAndOffTypeService;
 
+import Main.model.IDGenerator;
 import Main.model.accounts.BuyerAccount;
 
 import java.text.DateFormat;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-public class DiscountCode {
+public class DiscountCode extends DiscountAndOffTypeService {
     private static StringBuilder lastUsedCodeID = new StringBuilder("@");
     private String code;
     private Date startDate;

@@ -2,7 +2,7 @@ package Main.model.requests;
 
 import Main.model.DiscountCode;
 import Main.model.accounts.BuyerAccount;
-import Main.model.exceptions.DiscountAndOffInputException;
+import Main.model.exceptions.DiscountAndOffTypeServiceException;
 
 import java.util.ArrayList;
 
@@ -22,12 +22,12 @@ public class EditDiscountCode {
     }
 
     public void setStartDate(String startDate) throws Exception {
-        DiscountAndOffInputException.validateInputDate(startDate);
+        DiscountAndOffTypeServiceException.validateInputDate(startDate);
         this.startDate = startDate;
     }
 
     public void setEndDate(String endDate) throws Exception {
-        DiscountAndOffInputException.validateInputDate(endDate);
+        DiscountAndOffTypeServiceException.validateInputDate(endDate);
         this.endDate = endDate;
     }
 
@@ -38,7 +38,7 @@ public class EditDiscountCode {
         } catch (Exception e) {
             throw new Exception("invalid input number !");
         }
-        DiscountAndOffInputException.validateInputPercent(discountPrecent);
+        DiscountAndOffTypeServiceException.validateInputPercent(discountPrecent);
         this.percent = discountPrecent;
     }
 
@@ -49,7 +49,7 @@ public class EditDiscountCode {
         } catch (Exception e) {
             throw new Exception("invalid input number !");
         }
-        DiscountAndOffInputException.validateInputAmount(discountMaxAmount);
+        DiscountAndOffTypeServiceException.validateInputAmount(discountMaxAmount);
         this.maxAmount = discountMaxAmount;
     }
 
@@ -60,7 +60,7 @@ public class EditDiscountCode {
         } catch (Exception e) {
             throw new Exception("invalid input number !");
         }
-        DiscountAndOffInputException.validateInputMaxNumOfUse(discountMaxNumOfUse);
+        DiscountAndOffTypeServiceException.validateInputMaxNumOfUse(discountMaxNumOfUse);
         this.maxNumberOfUse = discountMaxNumOfUse;
     }
 

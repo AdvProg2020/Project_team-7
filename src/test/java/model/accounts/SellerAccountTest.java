@@ -2,21 +2,20 @@ package model.accounts;
 
 import Main.model.accounts.Account;
 import Main.model.accounts.SellerAccount;
-import Main.model.exceptions.InvalidInputException;
-import Main.model.logs.SellLog;
+import Main.model.exceptions.AccountsException;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class SellerAccountTest {
-    @Test(expected = InvalidInputException.class)
-    public void invalidNameException() throws InvalidInputException {
+    @Test(expected = AccountsException.class)
+    public void invalidNameException() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firs*tName", "las#t Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
                 ,"this company is great!", 100);
     }
 
-    @Test(expected = InvalidInputException.class)
-    public void duplicateUserNameException() throws InvalidInputException {
+    @Test(expected = AccountsException.class)
+    public void duplicateUserNameException() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName",
                 "this company is great!", 100);
@@ -26,22 +25,22 @@ public class SellerAccountTest {
                 "this company is great!",100);
     }
 
-    @Test(expected = InvalidInputException.class)
-    public void invalidPhoneNumberException() throws InvalidInputException {
+    @Test(expected = AccountsException.class)
+    public void invalidPhoneNumberException() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "las#t Name",
                 "sampleEmail@sample.sample", "090011112233", "password123", "companyName",
                 "this company is great!",100);
     }
 
-    @Test(expected = InvalidInputException.class)
-    public void invalidPasswordException() throws InvalidInputException {
+    @Test(expected = AccountsException.class)
+    public void invalidPasswordException() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "las#t Name",
                 "sampleEmail@sample.sample", "09001112233", "pass", "companyName"
                 ,"this company is great!", 100);
     }
 
     @Test
-    public void addSellerAndIsThereSellerTest() throws InvalidInputException {
+    public void addSellerAndIsThereSellerTest() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("username", "firstname", "lastname"
                 , "example@exp.exp", "09000000000", "00000000", "companyName"
                 ,"this company is great!", 100);
@@ -51,7 +50,7 @@ public class SellerAccountTest {
     }
 
     @Test
-    public void viewMeTest() throws InvalidInputException {
+    public void viewMeTest() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
                 ,"this company is great!", 100);
@@ -62,7 +61,7 @@ public class SellerAccountTest {
     }
 
     @Test
-    public void showSellerList() throws InvalidInputException {
+    public void showSellerList() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
                 ,"this company is great!", 100);
@@ -77,7 +76,7 @@ public class SellerAccountTest {
     }
 
     @Test
-    public void getSellerWithNameTest() throws InvalidInputException {
+    public void getSellerWithNameTest() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
                 ,"this company is great!", 100);
@@ -87,7 +86,7 @@ public class SellerAccountTest {
     }
 
     @Test
-    public void deleteSellerTest() throws InvalidInputException {
+    public void deleteSellerTest() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
                 ,"this company is great!", 100);
@@ -98,7 +97,7 @@ public class SellerAccountTest {
     }
 
     @Test
-    public void viewCompanyInformationTest() throws InvalidInputException {
+    public void viewCompanyInformationTest() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
                 ,"this company is great!", 100);
@@ -107,7 +106,7 @@ public class SellerAccountTest {
     }
 
     @Test
-    public void increaseBalanceByTest() throws InvalidInputException {
+    public void increaseBalanceByTest() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
                 ,"this company is great!", 100);
@@ -117,7 +116,7 @@ public class SellerAccountTest {
     }
 
     @Test
-    public void viewBalanceTest() throws InvalidInputException {
+    public void viewBalanceTest() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
                 ,"this company is great!", 100);

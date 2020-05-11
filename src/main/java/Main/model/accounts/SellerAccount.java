@@ -2,7 +2,7 @@ package Main.model.accounts;
 
 import Main.model.Off;
 import Main.model.Product;
-import Main.model.exceptions.InvalidInputException;
+import Main.model.exceptions.AccountsException;
 import Main.model.logs.SellLog;
 
 import java.util.ArrayList;
@@ -17,9 +17,9 @@ public class SellerAccount extends Account {
     private double balance;
 
     public SellerAccount(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord
-            , String companyName, String companyExtraInformation, double balance) throws InvalidInputException {
+            , String companyName, String companyExtraInformation, double balance) throws AccountsException {
         super(userName, firstName, lastName, email, phoneNumber, passWord);
-        InvalidInputException.validateNameTypeInfo("company name", companyName);
+        AccountsException.validateNameTypeInfo("company name", companyName);
         this.companyName = companyName;
         this.companyExtraInformation = companyExtraInformation;
         this.balance = balance;
