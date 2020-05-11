@@ -2,21 +2,23 @@ package Main.model;
 
 import Main.model.accounts.SellerAccount;
 
-import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Off {
     private static StringBuilder lastUsedOffID = new StringBuilder("@");
     private SellerAccount seller;
     private String offId;
     private ArrayList<Product> products = new ArrayList<Product>();
-    private Time startTime;
-    private Time endTime;
+    private Date startDate;
+    private Date endDate;
     private double offAmount;
     private OffStatus offStatus;
     private static ArrayList<Off> allOffs = new ArrayList<Off>();
 
-    public Off(ArrayList<Product> products, OffStatus offStatus, Time startTime, Time endTime,
+    public Off(ArrayList<Product> products, OffStatus offStatus, String startDate, String endDate,
                double offAmount, SellerAccount seller) {
         this.offId = IDGenerator.getNewID(lastUsedOffID);
 //TODO
@@ -34,8 +36,8 @@ public class Off {
                         "\nseller: " + seller.getCompanyName() +
                         "\nproducts: " + makeProductList() +
                         "\noff amount: " + offAmount + "%" +
-                        "\nstart time:" + startTime.toString() +
-                        "\nend time: " + endTime.toString();
+                        "\nstart time:" + startDate.toString() +
+                        "\nend time: " + endDate.toString();
     }
 
     public static String viewAllOffs() {
@@ -78,24 +80,16 @@ public class Off {
         this.offStatus = offStatus;
     }
 
-    //time format: 2020/2/27,14:50
-    public void setStartTime(String startTime) {
-        String[] splitted = startTime.split("[/,:]");
-        this.startTime.setYear(Integer.parseInt(splitted[0]));
-        this.startTime.setMonth(Integer.parseInt(splitted[1]) - 1);
-        this.startTime.setDate(Integer.parseInt(splitted[2]));
-        this.startTime.setHours(Integer.parseInt(splitted[3]));
-        this.startTime.setMinutes(Integer.parseInt(splitted[4]));
+    public void setStartDate(String startDate) throws ParseException {
+        String dateFormat = "yyyy/MM/dd HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+        this.startDate = simpleDateFormat.parse(startDate);
     }
 
-    public void setEndTime(String endTime) {
-        String[] splitted = endTime.split("[/,:]");
-        this.endTime.setYear(Integer.parseInt(splitted[0]));
-        this.endTime.setMonth(Integer.parseInt(splitted[1]) - 1);
-        this.endTime.setDate(Integer.parseInt(splitted[2]));
-        this.endTime.setHours(Integer.parseInt(splitted[3]));
-        this.endTime.setMinutes(Integer.parseInt(splitted[4]));
-
+    public void setEndDate(String endDate) throws ParseException {
+        String dateFormat = "yyyy/MM/dd HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+        this.endDate = simpleDateFormat.parse(endDate);
     }
 
     public void setOffAmount(double offAmount) {

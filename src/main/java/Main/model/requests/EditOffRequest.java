@@ -3,7 +3,6 @@ package Main.model.requests;
 import Main.model.Off;
 import Main.model.OffStatus;
 
-import java.sql.Time;
 import java.util.HashMap;
 
 public class EditOffRequest extends Request {
@@ -38,11 +37,11 @@ public class EditOffRequest extends Request {
                 //TODO if off started, throw exception it is not possible
                 //TODO check time format with regex
                 //time regex: "^((1[0-2])|(0?[1-9]))/((0?[1-9])|([12][0-9])|(3[01])),((0?[0-9])|(1[0-9])|(2[0-3])):((0?[0-9])|([12345][0-9]))$"
-                off.setStartTime((changes.get(changeField)));
+                off.setStartDate((changes.get(changeField)));
             } else if (changeField.equals("endTime")) {
                 //TODO check time format with regex
                 //time regex: "^((1[0-2])|(0?[1-9]))/((0?[1-9])|([12][0-9])|(3[01])),((0?[0-9])|(1[0-9])|(2[0-3])):((0?[0-9])|([12345][0-9]))$"
-                off.setEndTime((changes.get(changeField)));
+                off.setEndDate((changes.get(changeField)));
             } else if (changeField.equals("offAmount")) {
                 //TODO wrong off amount
                 off.setOffAmount(Double.parseDouble(changeField));

@@ -1,8 +1,8 @@
 package Main.model.exceptions;
 
-public class DiscountCodeInputException {
+public class DiscountAndOffInputException {
 
-    public static void validateInputMaxAmount(double maxAmount) throws Exception {
+    public static void validateInputAmount(double maxAmount) throws Exception {
         if(maxAmount<=0){
             throw new Exception("max amount must be a positive double");
         }
