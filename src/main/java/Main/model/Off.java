@@ -2,6 +2,7 @@ package Main.model;
 
 import Main.model.accounts.SellerAccount;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class Off {
     private double offAmount;
     private OffStatus offStatus;
     private static ArrayList<Off> allOffs = new ArrayList<Off>();
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     public Off(ArrayList<Product> products, OffStatus offStatus, String startDate, String endDate,
                double offAmount, SellerAccount seller) {
@@ -36,8 +38,8 @@ public class Off {
                         "\nseller: " + seller.getCompanyName() +
                         "\nproducts: " + makeProductList() +
                         "\noff amount: " + offAmount + "%" +
-                        "\nstart time:" + startDate.toString() +
-                        "\nend time: " + endDate.toString();
+                        "\nstart date:" + dateFormat.format(startDate) +
+                        "\nend date: " + dateFormat.format(endDate);
     }
 
     public static String viewAllOffs() {

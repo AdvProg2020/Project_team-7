@@ -2,6 +2,7 @@ package Main.model;
 
 import Main.model.accounts.BuyerAccount;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class DiscountCode {
     private int maxNumberOfUse;
     private HashMap<BuyerAccount, Integer> users = new HashMap<BuyerAccount, Integer>();
     private static ArrayList<DiscountCode> allDiscountCodes = new ArrayList<DiscountCode>();
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     public DiscountCode(String startDate, String endDate, double percent, double maxAmount, int maxNumberOfUse, ArrayList<BuyerAccount> users) throws ParseException {
         this.code = IDGenerator.getNewID(lastUsedCodeID);
@@ -51,8 +53,8 @@ public class DiscountCode {
                         "\n\tmaximum amount to be decreased: " + maxAmount +
                         "\n\tmaximum number of use for each user: " + maxNumberOfUse +
                         "\n\tlist of users who have this discount code: " + makeListOfBuyers() +
-                        "\n\tstart time:" + startDate.toString() +
-                        "\n\tend time: " + endDate.toString() + "\n";
+                        "\n\tstart date:" + dateFormat.format(startDate) +
+                        "\n\tend date: " + dateFormat.format(endDate) + "\n";
     }
 
     public String viewMeAsBuyer(BuyerAccount buyerAccount) {
@@ -62,8 +64,8 @@ public class DiscountCode {
                         "\n\tmaximum amount to be decreased: " + maxAmount +
                         "\n\tmaximum number of use for each user: " + maxNumberOfUse +
                         "\n\ttimes you have used this code so far : " + users.get(buyerAccount) +
-                        "\n\tstart time:" + startDate.toString() +
-                        "\n\tend time: " + endDate.toString() + "\n";
+                        "\n\tstart date:" + dateFormat.format(startDate) +
+                        "\n\tend date: " + dateFormat.format(endDate) + "\n";
     }
 
     public String makeListOfBuyers() {
