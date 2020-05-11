@@ -15,25 +15,17 @@ public abstract class DiscountAndOffTypeService {
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(inputDateFormat);
 
     public DiscountAndOffTypeService(String startDate, String endDate) throws Exception {
+        DiscountAndOffTypeServiceException.validateInputDate(startDate);
+        DiscountAndOffTypeServiceException.validateInputDate(endDate);
         setDates(startDate, endDate);
     }
 
-    private void setDates(String startDate, String endDate) throws Exception {
-        DiscountAndOffTypeServiceException.validateInputDate(startDate);
-        DiscountAndOffTypeServiceException.validateInputDate(endDate);
+    public void setDates(String startDate, String endDate) throws Exception {
         Date inputStartDate = simpleDateFormat.parse(startDate);
         Date inputEndDate = simpleDateFormat.parse(endDate);
         DiscountAndOffTypeServiceException.compareStartAndEndDate(inputStartDate, inputEndDate);
         this.startDate = inputStartDate;
         this.endDate = inputEndDate;
-    }
-
-    public void setStartDate(String startDate) throws ParseException {
-        this.startDate = simpleDateFormat.parse(startDate);
-    }
-
-    public void setEndDate(String endDate) throws ParseException {
-        this.endDate = simpleDateFormat.parse(endDate);
     }
 
     protected abstract void expire();
@@ -45,4 +37,14 @@ public abstract class DiscountAndOffTypeService {
         }
         return false;
     }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    //TODO : basics are done but real expiration left
 }

@@ -4,15 +4,11 @@ import Main.model.accounts.BuyerAccount;
 import Main.model.discountAndOffTypeService.DiscountCode;
 import Main.model.exceptions.DiscountAndOffTypeServiceException;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class EditDiscountCode {
-
-    //TODO : not all fields modified unhandled
-
-    //TODO : tartib start end date
-
-    //TODO : change validations and Exceptions
 
     private DiscountCode discountCode;
     private String startDate;
@@ -22,6 +18,8 @@ public class EditDiscountCode {
     private int maxNumberOfUse;
     private ArrayList<BuyerAccount> usersToBeAdded = new ArrayList<BuyerAccount>();
     private ArrayList<BuyerAccount> usersToBeRemoved = new ArrayList<BuyerAccount>();
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
 
     public EditDiscountCode(DiscountCode discountCode) {
         this.discountCode = discountCode;
@@ -38,36 +36,18 @@ public class EditDiscountCode {
     }
 
     public void setPercent(String percent) throws Exception {
-        double discountPrecent;
-        try {
-             discountPrecent = Double.parseDouble(percent);
-        } catch (Exception e) {
-            throw new Exception("invalid input number !");
-        }
-        DiscountAndOffTypeServiceException.validateInputPercent(discountPrecent);
-        this.percent = discountPrecent;
+        DiscountAndOffTypeServiceException.validateInputPercent(percent);
+        this.percent = Double.parseDouble(percent);
     }
 
     public void setMaxAmount(String maxAmount) throws Exception {
-        double discountMaxAmount;
-        try {
-            discountMaxAmount = Double.parseDouble(maxAmount);
-        } catch (Exception e) {
-            throw new Exception("invalid input number !");
-        }
-        DiscountAndOffTypeServiceException.validateInputAmount(discountMaxAmount);
-        this.maxAmount = discountMaxAmount;
+        DiscountAndOffTypeServiceException.validateInputAmount(maxAmount);
+        this.maxAmount = Double.parseDouble(maxAmount);
     }
 
     public void setMaxNumberOfUse(String maxNumberOfUse) throws Exception {
-        int discountMaxNumOfUse;
-        try {
-            discountMaxNumOfUse = Integer.parseInt(maxNumberOfUse);
-        } catch (Exception e) {
-            throw new Exception("invalid input number !");
-        }
-        DiscountAndOffTypeServiceException.validateInputMaxNumOfUse(discountMaxNumOfUse);
-        this.maxNumberOfUse = discountMaxNumOfUse;
+        DiscountAndOffTypeServiceException.validateInputMaxNumOfUse(maxNumberOfUse);
+        this.maxNumberOfUse = Integer.parseInt(maxNumberOfUse);
     }
 
     public void addUserToBeAdded(String userName) throws Exception {
@@ -87,8 +67,7 @@ public class EditDiscountCode {
     public void acceptRequest() throws Exception {
         String errors = new String();
 
-        acceptStartTime(errors);
-        acceptEndTime(errors);
+        acceptDates(errors);
         acceptPercent(errors);
         acceptMaxAmount(errors);
         acceptMaxNumberOfUse(errors);
@@ -100,43 +79,31 @@ public class EditDiscountCode {
         }
     }
 
-    private void acceptStartTime(String errors) {
+    private void acceptDates(String errors) {
+        String finalStartDate = (startDate == null ? dateFormat.format(discountCode.getStartDate()) : startDate);
+        String finalEndDate = (endDate == null ? dateFormat.format(discountCode.getEndDate()) : endDate);
         try {
-            discountCode.setStartDate(startDate);
-        } catch (Exception e) {
-            errors.concat(e.getMessage());
-        }
-    }
-
-    private void acceptEndTime(String errors) {
-        try {
-            discountCode.setEndDate(endDate);
+            discountCode.setDates(finalStartDate, finalEndDate);
         } catch (Exception e) {
             errors.concat(e.getMessage());
         }
     }
 
     private void acceptPercent(String errors) {
-        try {
-            discountCode.setPercent(this.percent);
-        } catch (Exception e) {
-            errors.concat(e.getMessage());
-        }
+       if(percent!=0){
+           discountCode.setPercent(this.percent);
+       }
     }
 
     private void acceptMaxAmount(String errors) {
-        try {
+        if(maxAmount!=0){
             discountCode.setMaxAmount(this.maxAmount);
-        } catch (Exception e) {
-            errors.concat(e.getMessage());
         }
     }
 
     private void acceptMaxNumberOfUse(String errors) {
-        try {
+        if(maxNumberOfUse!=0){
             discountCode.setMaxNumberOfUse(this.maxNumberOfUse);
-        } catch (Exception e) {
-            errors.concat(e.getMessage());
         }
     }
 

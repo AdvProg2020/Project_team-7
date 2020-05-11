@@ -49,7 +49,7 @@ public class EditCategory {
         specialFeaturesToBeRemoved.add(specialFeature);
     }
 
-    public void acceptRequest() {
+    public void acceptRequest() throws Exception {
         String errors = new String();
         acceptName(errors);
         acceptSpecialFeaturesToBeAdded();
@@ -57,13 +57,18 @@ public class EditCategory {
         acceptProductsToBeAdded();
         acceptProductsToBeRemoved();
 
+        if (errors.length() != 0) {
+            throw new Exception(errors);
+        }
     }
 
     private void acceptName(String errors) {
-        try {
-            category.setName(this.name);
-        } catch (Exception e) {
-            errors.concat(e.getMessage());
+        if(name!=null){
+            try {
+                category.setName(this.name);
+            } catch (Exception e) {
+                errors.concat(e.getMessage());
+            }
         }
     }
 
