@@ -143,7 +143,7 @@ public class ManagerController {
             request.decline();
     }
 
-    public void createCategory(String name, ArrayList<String> specialFeatures) {
+    public void createCategory(String name, ArrayList<String> specialFeatures) throws Exception{
         Category category = new Category(name, specialFeatures);
         Category.addCategory(category);
     }

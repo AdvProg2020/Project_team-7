@@ -76,4 +76,5 @@ public abstract class Account {
             return false;
     }
 
+    public abstract String editPersonalInfo(String field, String newContent);
 }

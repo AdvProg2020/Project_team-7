@@ -2,7 +2,6 @@ package Main.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.PropertyPermission;
 
 public class Category {
     private String name;
@@ -10,7 +9,7 @@ public class Category {
     private ArrayList<Product> products = new ArrayList<Product>();
     private static ArrayList<Category> allCategories = new ArrayList<Category>();
 
-    public Category(String name, ArrayList<String> specialFeatures) {
+    public Category (String name, ArrayList<String> specialFeatures) throws Exception{
         setName(name);
         this.specialFeatures = specialFeatures;
     }
