@@ -2,26 +2,27 @@ package Main.model;
 
 import Main.model.accounts.BuyerAccount;
 
-import javax.swing.*;
-import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class DiscountCode {
     private static StringBuilder lastUsedCodeID = new StringBuilder("@");
     private String code;
-    private Time startTime;
-    private Time endTime;
+    private Date startDate;
+    private Date endDate;
     private double percent;
     private double maxAmount;
     private int maxNumberOfUse;
     private HashMap<BuyerAccount, Integer> users = new HashMap<BuyerAccount, Integer>();
     private static ArrayList<DiscountCode> allDiscountCodes = new ArrayList<DiscountCode>();
 
-    public DiscountCode( String startTime, String endTime, double percent, double maxAmount, int maxNumberOfUse, ArrayList<BuyerAccount> users) {
+    public DiscountCode(String startDate, String endDate, double percent, double maxAmount, int maxNumberOfUse, ArrayList<BuyerAccount> users) throws ParseException {
         this.code = IDGenerator.getNewID(lastUsedCodeID);
-        this.setStartTime(startTime);
-        this.setEndTime(endTime);
+        this.setStartDate(startDate);
+        this.setEndDate(endDate);
         this.percent = percent;
         this.maxAmount = maxAmount;
         this.maxNumberOfUse = maxNumberOfUse;
@@ -50,8 +51,8 @@ public class DiscountCode {
                         "\n\tmaximum amount to be decreased: " + maxAmount +
                         "\n\tmaximum number of use for each user: " + maxNumberOfUse +
                         "\n\tlist of users who have this discount code: " + makeListOfBuyers() +
-                        "\n\tstart time:" + startTime.toString() +
-                        "\n\tend time: " + endTime.toString() + "\n";
+                        "\n\tstart time:" + startDate.toString() +
+                        "\n\tend time: " + endDate.toString() + "\n";
     }
 
     public String viewMeAsBuyer(BuyerAccount buyerAccount) {
@@ -61,8 +62,8 @@ public class DiscountCode {
                         "\n\tmaximum amount to be decreased: " + maxAmount +
                         "\n\tmaximum number of use for each user: " + maxNumberOfUse +
                         "\n\ttimes you have used this code so far : " + users.get(buyerAccount) +
-                        "\n\tstart time:" + startTime.toString() +
-                        "\n\tend time: " + endTime.toString() + "\n";
+                        "\n\tstart time:" + startDate.toString() +
+                        "\n\tend time: " + endDate.toString() + "\n";
     }
 
     public String makeListOfBuyers() {
@@ -81,10 +82,6 @@ public class DiscountCode {
         throw new Exception("There is no discount code with given code !\n");
     }
 
-    public void edit(HashMap<String, String> changes) {
-
-    }
-
     public void removeDiscountCode() {
         allDiscountCodes.remove(this);
         for (BuyerAccount buyerAccount : users.keySet()) {
@@ -92,23 +89,16 @@ public class DiscountCode {
         }
     }
 
-    //time format: 2/27,14:50
-    public void setStartTime(String startTime) {
-        String[] splitted = startTime.split("[/,:]");
-        this.startTime.setMonth(Integer.parseInt(splitted[0]) - 1);
-        this.startTime.setDate(Integer.parseInt(splitted[1]));
-        this.startTime.setHours(Integer.parseInt(splitted[2]));
-        this.startTime.setMinutes(Integer.parseInt(splitted[3]));
-        //TODO : add Exception
+    public void setStartDate(String startDate) throws ParseException {
+        String dateFormat = "yyyy/MM/dd HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+        this.startDate = simpleDateFormat.parse(startDate);
     }
 
-    public void setEndTime(String endTime) {
-        String[] splitted = endTime.split("[/,:]");
-        this.endTime.setMonth(Integer.parseInt(splitted[0]) - 1);
-        this.endTime.setDate(Integer.parseInt(splitted[1]));
-        this.endTime.setHours(Integer.parseInt(splitted[2]));
-        this.endTime.setMinutes(Integer.parseInt(splitted[3]));
-        //TODO : add Exception
+    public void setEndDate(String endDate) throws ParseException {
+        String dateFormat = "yyyy/MM/dd HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+        this.endDate = simpleDateFormat.parse(endDate);
     }
 
     public String getCode() {
@@ -124,7 +114,7 @@ public class DiscountCode {
         return percent;
     }
 
-    public void removeDiscountCodeIfBuyerHasUsedUpDiscountCode(BuyerAccount buyerAccount) throws Exception {
+    public void removeDiscountCodeIfBuyerHasUsedUpDiscountCode(BuyerAccount buyerAccount) {
         if(users.get(buyerAccount)==maxNumberOfUse){
             this.removeUser(buyerAccount);
             buyerAccount.removeDiscountCode(this);
@@ -135,24 +125,15 @@ public class DiscountCode {
         return maxAmount;
     }
 
-    public void setPercent(double percent) throws Exception {
-        if(maxAmount<=0){
-            throw new Exception("discount percent must be a positive double");
-        }
+    public void setPercent(double percent) {
         this.percent = percent;
     }
 
-    public void setMaxAmount(double maxAmount) throws Exception {
-        if(maxAmount<=0){
-            throw new Exception("max amount must be a positive double");
-        }
+    public void setMaxAmount(double maxAmount) {
         this.maxAmount = maxAmount;
     }
 
-    public void setMaxNumberOfUse(int maxNumberOfUse) throws Exception {
-        if(maxNumberOfUse<=0){
-            throw new Exception("max number of use must be a positive Integer");
-        }
+    public void setMaxNumberOfUse(int maxNumberOfUse) {
         this.maxNumberOfUse = maxNumberOfUse;
     }
 
