@@ -3,7 +3,6 @@ package Main.model.discountAndOffTypeService;
 import Main.model.exceptions.DiscountAndOffTypeServiceException;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,15 +27,18 @@ public abstract class DiscountAndOffTypeService {
         this.endDate = inputEndDate;
     }
 
-    protected abstract void expire();
-
-    protected boolean isDiscountOrOffActiveNow(Date startDate, Date endDate) {
+    public DiscountAndOffStat getDiscountOrOffStat() {
         Date dateNow = new Date();
-        if ((startDate.compareTo(dateNow) <= 0) && (endDate.compareTo(dateNow) > 0)) {
-            return true;
+        if(startDate.compareTo(dateNow)>0){
+            return DiscountAndOffStat.NOT_STARTED;
         }
-        return false;
+        if(endDate.compareTo(dateNow)>=0){
+            return DiscountAndOffStat.EXPIRED;
+        }
+        return DiscountAndOffStat.ACTIVE;
     }
+
+    public abstract void expireIfNeeded();
 
     public Date getStartDate() {
         return startDate;

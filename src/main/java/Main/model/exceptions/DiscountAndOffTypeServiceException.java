@@ -41,6 +41,7 @@ public class DiscountAndOffTypeServiceException {
         }
     }
 
+    //TODO : months over 12 and Days over 31 in general :)
     public static void validateInputDate(String inputDate) throws Exception {
         if(!inputDate.matches("[0-9]{1,4}/[0-9]{1,2}/[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}")) {
             throw new Exception("this date isn't acceptable! please enter date in format yyyy/MM/dd HH:mm:ss \n");

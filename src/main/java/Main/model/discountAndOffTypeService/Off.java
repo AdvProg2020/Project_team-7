@@ -98,9 +98,4 @@ public class Off extends DiscountAndOffTypeService{
         }
     }
 
-    protected void expire() {
-        if(isDiscountOrOffActiveNow(startDate,endDate)){
-            this.removeOff();
-        }
-    }
 }

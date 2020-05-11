@@ -3,6 +3,7 @@ package Main.controller;
 import Main.model.*;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
+import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.DiscountCode;
 import Main.model.logs.BuyLog;
 import Main.model.logs.DeliveryStatus;
@@ -13,16 +14,20 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class BuyerController {
-    private BuyerAccount currentBuyer = null;
-    private Cart currentBuyersCart = null;
-    private String receiverInformation = null;
-    private DiscountCode discountCode = null;
+    private static BuyerAccount currentBuyer = null;
+    private static Cart currentBuyersCart = null;
+    private static String receiverInformation = null;
+    private static DiscountCode discountCode = null;
 
     public BuyerController() {
         if (GeneralController.currentUser instanceof BuyerAccount) {
             BuyerAccount currentBuyer = (BuyerAccount) GeneralController.currentUser;
             currentBuyersCart = currentBuyer.getCart();
         }
+        currentBuyer = null;
+        currentBuyersCart = null;
+        receiverInformation = null;
+        deselectDiscountCode();
     }
 
     public String showCartProducts() {
@@ -82,13 +87,17 @@ public class BuyerController {
     }
 
     public String showPurchaseInfo() {
+        discountCode.expireIfNeeded();
         return "Purchase Information :" + "\n\nReceiver Information : \n\t" + receiverInformation + "\n\n" +
                 currentBuyersCart.toStringForBuyer() + "\n\ntotal amount you got to pay : " + getToTalPaymentConsideringDiscount() +
-                "\nDiscount Code : " + (discountCode == null ? "no discount code applied yet !" : "" + discountCode.getDiscountCodeAmount());
+                "\nDiscount Code : " + (discountCode == null ? "no active discount code applied yet !\n" : "" +
+                discountCode.getDiscountCodeAmount()) + "\n";
     }
 
     private double getToTalPaymentConsideringDiscount() {
-        return currentBuyersCart.getCartTotalPriceConsideringOffs() * (100 - discountCode.getDiscountCodeAmount()) / 100;
+        discountCode.expireIfNeeded();
+        double percentOfCostToBePaid = (discountCode==null?100:100-discountCode.getDiscountCodeAmount());
+        return currentBuyersCart.getCartTotalPriceConsideringOffs() * percentOfCostToBePaid / 100;
     }
 
     public void finalizePurchaseAndPay() throws Exception {
@@ -99,12 +108,14 @@ public class BuyerController {
 
     private void pay() throws Exception {
         buyerPayment();
+        if(discountCode!=null){
+            discountCode.removeDiscountCodeIfBuyerHasUsedUpDiscountCode(currentBuyer);
+        }
         sellersPayment();
     }
 
     private void buyerPayment() throws Exception {
         currentBuyer.decreaseBalanceBy(getToTalPaymentConsideringDiscount());
-        discountCode.removeDiscountCodeIfBuyerHasUsedUpDiscountCode(currentBuyer);
     }
 
     private void sellersPayment(){
@@ -123,7 +134,7 @@ public class BuyerController {
 
     private void createPurchaseHistoryElementsForBuyer(Date date, String logID) {
         BuyLog buyLog = new BuyLog(logID, date, getToTalPaymentConsideringDiscount(),
-                discountCode.getDiscountCodeAmount(), currentBuyersCart.toStringForBuyer(), DeliveryStatus.PENDING_DELIVERY, receiverInformation);
+                (discountCode==null?0:discountCode.getDiscountCodeAmount()), currentBuyersCart.toStringForBuyer(), DeliveryStatus.PENDING_DELIVERY, receiverInformation);
         currentBuyer.addLog(buyLog);
         currentBuyer.addCartsProductsToBoughtProducts();
     }
@@ -136,5 +147,9 @@ public class BuyerController {
                     currentBuyer,cart.calculateCartTotalOffs(),DeliveryStatus.PENDING_DELIVERY,receiverInformation);
             sellerAccount.addLog(sellLog);
         }
+    }
+
+    public static void deselectDiscountCode(){
+        discountCode = null;
     }
 }

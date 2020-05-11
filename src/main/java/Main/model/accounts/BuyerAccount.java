@@ -2,6 +2,7 @@ package Main.model.accounts;
 
 import Main.model.Cart;
 import Main.model.Product;
+import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.DiscountCode;
 import Main.model.exceptions.AccountsException;
 import Main.model.logs.BuyLog;
@@ -141,7 +142,11 @@ public class BuyerAccount extends Account {
     public String viewAllDiscountCodes() {
         StringBuilder allDiscountCodesDisplay = new StringBuilder("Available discount codes :\n");
         for (DiscountCode discountCode : discountCodes) {
-            allDiscountCodesDisplay.append(discountCode.viewMeAsBuyer(this));
+            if(discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+                discountCode.removeDiscountCode();
+            }else{
+                allDiscountCodesDisplay.append(discountCode.viewMeAsBuyer(this));
+            }
         }
         return allDiscountCodesDisplay.toString();
     }

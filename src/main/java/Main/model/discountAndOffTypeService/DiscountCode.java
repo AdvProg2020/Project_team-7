@@ -1,10 +1,11 @@
 package Main.model.discountAndOffTypeService;
 
+import Main.controller.BuyerController;
 import Main.model.IDGenerator;
 import Main.model.accounts.BuyerAccount;
 import Main.model.exceptions.DiscountAndOffTypeServiceException;
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class DiscountCode extends DiscountAndOffTypeService {
@@ -38,7 +39,11 @@ public class DiscountCode extends DiscountAndOffTypeService {
         StringBuilder list = new StringBuilder();
         list.append("List of discount codes:");
         for (DiscountCode discountCode : allDiscountCodes) {
-            list.append("\n" + discountCode.getCode());
+            if(discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+                discountCode.removeDiscountCode();
+            }else{
+                list.append("\n" + discountCode.getCode());
+            }
         }
         return list.toString();
     }
@@ -74,11 +79,20 @@ public class DiscountCode extends DiscountAndOffTypeService {
     }
 
     public static DiscountCode getDiscountCodeWithCode(String code) throws Exception {
+        DiscountCode foundDiscountCode=null;
         for (DiscountCode discountCode : allDiscountCodes) {
-            if (discountCode.code.equals(code))
-                return discountCode;
+            if (discountCode.code.equals(code)){
+                foundDiscountCode = discountCode;
+            }
         }
-        throw new Exception("There is no discount code with given code !\n");
+        if(foundDiscountCode==null){
+            throw new Exception("There is no discount code with given code !\n");
+        }
+        if(foundDiscountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+            foundDiscountCode.removeDiscountCode();
+            throw new Exception("sorry this discount code is expired !\n");
+        }
+        return foundDiscountCode;
     }
 
     public void removeDiscountCode() {
@@ -86,6 +100,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
         for (BuyerAccount buyerAccount : users.keySet()) {
             buyerAccount.removeDiscountCode(this);
         }
+        BuyerController.deselectDiscountCode();
     }
 
     public String getCode() {
@@ -133,9 +148,9 @@ public class DiscountCode extends DiscountAndOffTypeService {
         return users.containsKey(buyerAccount);
     }
 
-    protected void expire() {
-        if (isDiscountOrOffActiveNow(startDate, endDate)) {
-            this.removeDiscountCode();
+    public void expireIfNeeded() {
+        if(this.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+            removeDiscountCode();
         }
     }
 }
