@@ -15,9 +15,10 @@ public class Category {
         this.specialFeatures = specialFeatures;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws Exception {
         this.name = name;
         //TODO : validate category name's uniqueness and throw exception
+        throw new Exception();
     }
 
     public static String showAllCategories() {

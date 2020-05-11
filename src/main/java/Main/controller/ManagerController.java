@@ -158,8 +158,7 @@ public class ManagerController {
         editDiscountCode.acceptRequest();
     }
 
-    public void editCategoryWithId(EditCategory editCategory) {
+    public void editCategoryWithId(EditCategory editCategory) throws Exception {
         editCategory.acceptRequest();
     }
-    //TODO : MaxnumOfUseDecrease or Increase?
 }

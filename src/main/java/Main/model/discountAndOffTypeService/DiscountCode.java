@@ -26,7 +26,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
         DiscountAndOffTypeServiceException.validateInputMaxNumOfUse(maxNumberOfUse);
         this.maxNumberOfUse = Integer.parseInt(maxNumberOfUse);
         for (BuyerAccount user : users) {
-            this.users.put(user, this.maxNumberOfUse);
+            this.users.put(user, 0);
         }
     }
 
@@ -138,5 +138,4 @@ public class DiscountCode extends DiscountAndOffTypeService {
             this.removeDiscountCode();
         }
     }
-    //TODO : scheduledExecutorService
 }

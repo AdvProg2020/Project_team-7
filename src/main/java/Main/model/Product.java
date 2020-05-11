@@ -2,6 +2,7 @@ package Main.model;
 
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
+import Main.model.discountAndOffTypeService.Off;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -69,7 +69,7 @@ public class Off extends DiscountAndOffTypeService{
 
     public void removeOff() {
         allOffs.remove(this);
-        //TODO : more remove is needed
+        removeOffFromProducts();
     }
 
     public String getOffId() {
@@ -88,10 +88,14 @@ public class Off extends DiscountAndOffTypeService{
         this.offAmount = offAmount;
     }
 
-    //TODO : scheduledExecutorService
-
     public void removeProduct(Product product) {
         products.remove(product);
+    }
+
+    private void removeOffFromProducts(){
+        for (Product product : products) {
+            product.removeOff(this);
+        }
     }
 
     protected void expire() {
