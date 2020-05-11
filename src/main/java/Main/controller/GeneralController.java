@@ -137,4 +137,9 @@ public class GeneralController {
     public void editPersonalInfo(String field, String newContent) {
 
     }
+
+    public void logout(){
+        currentUser=null;
+        //TODO reset everything?
+    }
 }

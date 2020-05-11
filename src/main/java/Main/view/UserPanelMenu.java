@@ -2,10 +2,25 @@ package Main.view;
 
 public class UserPanelMenu extends Menu {
     public UserPanelMenu(Menu parentMenu) {
+        super("User Panel Menu", parentMenu);
+        this.subMenus.put(1, new SignInMenu(this));
+        this.subMenus.put(3, logOut());
+        this.subMenus.put(4, new UserMenu(this));
 
     }
 
     private Menu logOut() {
-        return null;
+        return new Menu("Logout",this){
+            @Override
+            public void show(){
+                System.out.println(this.getName() + ":");
+            }
+            @Override
+            public void execute(){
+                System.out.println("You have logged out successfully.");
+                generalController.logout();
+                this.parentMenu.run();
+            }
+        };
     }
 }
