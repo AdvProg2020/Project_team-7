@@ -67,8 +67,9 @@ public class Off extends DiscountAndOffTypeService{
         throw new Exception("There is no off with this ID !\n");
     }
 
-    public static void removeOff(Off off) {
-        allOffs.remove(off);
+    public void removeOff() {
+        allOffs.remove(this);
+        //TODO : more remove is needed
     }
 
     public String getOffId() {
@@ -91,5 +92,11 @@ public class Off extends DiscountAndOffTypeService{
 
     public void removeProduct(Product product) {
         products.remove(product);
+    }
+
+    protected void expire() {
+        if(isDiscountOrOffActiveNow(startDate,endDate)){
+            this.removeOff();
+        }
     }
 }

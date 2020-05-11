@@ -1,5 +1,7 @@
 package Main.model.exceptions;
 
+import java.util.Date;
+
 public class DiscountAndOffTypeServiceException {
 
     public static void validateInputAmount(String maxAmount) throws Exception {
@@ -42,6 +44,12 @@ public class DiscountAndOffTypeServiceException {
     public static void validateInputDate(String inputDate) throws Exception {
         if(!inputDate.matches("[0-9]{1,4}/[0-9]{1,2}/[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}")) {
             throw new Exception("this date isn't acceptable! please enter date in format yyyy/MM/dd HH:mm:ss \n");
+        }
+    }
+
+    public static void compareStartAndEndDate(Date startDate, Date endDate) throws Exception {
+        if(!(startDate.compareTo(endDate) <0)){
+            throw new Exception("start date must be before end date !\n");
         }
     }
 }

@@ -3,6 +3,7 @@ package Main.model.discountAndOffTypeService;
 import Main.model.IDGenerator;
 import Main.model.accounts.BuyerAccount;
 import Main.model.exceptions.DiscountAndOffTypeServiceException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,7 +17,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
     private static ArrayList<DiscountCode> allDiscountCodes = new ArrayList<DiscountCode>();
 
     public DiscountCode(String startDate, String endDate, String percent, String maxAmount, String maxNumberOfUse, ArrayList<BuyerAccount> users) throws Exception {
-        super(startDate,endDate);
+        super(startDate, endDate);
         this.code = IDGenerator.getNewID(lastUsedCodeID);
         DiscountAndOffTypeServiceException.validateInputPercent(percent);
         this.percent = Double.parseDouble(percent);
@@ -96,12 +97,12 @@ public class DiscountCode extends DiscountAndOffTypeService {
         buyerAccount.removeDiscountCode(this);
     }
 
-    public double getDiscountCodeAmount (){
+    public double getDiscountCodeAmount() {
         return percent;
     }
 
     public void removeDiscountCodeIfBuyerHasUsedUpDiscountCode(BuyerAccount buyerAccount) {
-        if(users.get(buyerAccount)==maxNumberOfUse){
+        if (users.get(buyerAccount) == maxNumberOfUse) {
             this.removeUser(buyerAccount);
             buyerAccount.removeDiscountCode(this);
         }
@@ -123,13 +124,19 @@ public class DiscountCode extends DiscountAndOffTypeService {
         this.maxNumberOfUse = maxNumberOfUse;
     }
 
-    public void addUser(BuyerAccount buyerAccount){
-        users.put(buyerAccount,0);
+    public void addUser(BuyerAccount buyerAccount) {
+        users.put(buyerAccount, 0);
         buyerAccount.addDiscountCode(this);
     }
 
-    public boolean isThereBuyerWithReference(BuyerAccount buyerAccount){
+    public boolean isThereBuyerWithReference(BuyerAccount buyerAccount) {
         return users.containsKey(buyerAccount);
+    }
+
+    protected void expire() {
+        if (isDiscountOrOffActiveNow(startDate, endDate)) {
+            this.removeDiscountCode();
+        }
     }
     //TODO : scheduledExecutorService
 }

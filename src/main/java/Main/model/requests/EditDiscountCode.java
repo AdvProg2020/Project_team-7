@@ -10,6 +10,10 @@ public class EditDiscountCode {
 
     //TODO : not all fields modified unhandled
 
+    //TODO : tartib start end date
+
+    //TODO : change validations and Exceptions
+
     private DiscountCode discountCode;
     private String startDate;
     private String endDate;
