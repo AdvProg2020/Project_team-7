@@ -1,15 +1,19 @@
 package Main.controller;
 
-import Main.model.Category;
-import Main.model.Comment;
-import Main.model.Product;
+import Main.Main;
+import Main.model.*;
 import Main.model.accounts.Account;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
+import Main.model.accounts.SellerAccount;
+import Main.model.discountAndOffTypeService.Off;
 import Main.model.filters.Filter;
 import Main.model.requests.AddCommentRequest;
+import Main.model.requests.CreateSellerAccountRequest;
 import Main.model.requests.Request;
+import Main.model.sorting.ProductsSort;
 
+import javax.naming.Name;
 import java.util.ArrayList;
 
 public class GeneralController {
@@ -19,8 +23,7 @@ public class GeneralController {
     public static String currentSort = null;
     public static ArrayList<Filter> currentFilters = new ArrayList<Filter>();
 
-    public String setCurrentProductWithId(String id) {
-        //TODO wrong product id
+    public String setCurrentProductWithId(String id) throws Exception {
         currentProduct = Product.getProductWithId(id);
         return "Product page opened successfully.";
     }
@@ -33,7 +36,7 @@ public class GeneralController {
         return currentProduct.showProductAttributes();
     }
 
-    public String compareProductWithProductWithId(String id) {
+    public String compareProductWithProductWithId(String id) throws Exception {
         return currentProduct.compareProductWithProductWithId(id);
     }
 
@@ -41,7 +44,7 @@ public class GeneralController {
 
     }
 
-    public void selectSellerWithName(String name) {
+    public void selectSellerWithId(String id) {
 
     }
 
@@ -96,30 +99,65 @@ public class GeneralController {
 
     public String showFilteredAndSortedProducts() {
         String filtered = "";
-        for (Product product : Filter.applyFilter(Product.allProducts)) {
+        ArrayList<Product> sorted = Filter.applyFilter(Product.allProducts);
+        if (currentSort.equals("Name A-Z"))
+            sorted.sort(new ProductsSort.productSortByNameAscending());
+        else if (currentSort.equals("Name Z-A"))
+            sorted.sort(new ProductsSort.productSortByNameDescending());
+        else if (currentSort.equals("Views"))
+            sorted.sort(new ProductsSort.productSortByView());
+        else if (currentSort.equals("Product Score"))
+            sorted.sort(new ProductsSort.productSortByRate());
+        else return "wrong sort input.";
+        for (Product product : sorted) {
             filtered = filtered.concat(product.showProductDigest());
             filtered = filtered.concat("\n");
         }
         return filtered;
     }
 
-    public void createAccount(String type, String userName) {
-
+    public String createAccount(String userName) {
+        if (Account.isThereUserWithUserName(userName))
+            return "this userName is already taken.";
+        else return "account Created.";
     }
 
-    public void getBuyerInformation(ArrayList<String> buyerInfo) {
-
+    public void getBuyerInformation(ArrayList<String> buyerInfo, String userName) throws Exception {
+        BuyerAccount buyerAccount = new BuyerAccount(userName,
+                buyerInfo.get(1),
+                buyerInfo.get(2),
+                buyerInfo.get(3),
+                buyerInfo.get(4),
+                buyerInfo.get(0),
+                Double.parseDouble(buyerInfo.get(5)));
+        BuyerAccount.addBuyer(buyerAccount);
     }
 
-    public void getSellerInformation(ArrayList<String> sellerInfo) {
-
+    public void getSellerInformation(ArrayList<String> sellerInfo,String userName) throws Exception {
+        SellerAccount sellerAccount = new SellerAccount(userName,
+                sellerInfo.get(1),
+                sellerInfo.get(2),
+                sellerInfo.get(3),
+                sellerInfo.get(4),
+                sellerInfo.get(0),
+                sellerInfo.get(5),
+                sellerInfo.get(6),
+                0);
+        CreateSellerAccountRequest createSellerAccountRequest = new CreateSellerAccountRequest(sellerAccount, "create seller account");
+        Request.addRequest(createSellerAccountRequest);
     }
 
-    public void getManagerInformation(ArrayList<String> managerInfo) {
-
+    public void getManagerInformation(ArrayList<String> managerInfo, String userName) throws Exception {
+        ManagerAccount managerAccount = new ManagerAccount(userName,
+                managerInfo.get(1),
+                managerInfo.get(2),
+                managerInfo.get(3),
+                managerInfo.get(4),
+                managerInfo.get(0));
+        ManagerAccount.addManager(managerAccount);
     }
 
-    public String login(String userName, String password) {
+    public String login(String userName, String password) throws Exception {
         if (!Account.isThereUserWithUserName(userName))
             return "There is not any user with this user name.";
         else if (!Account.getUserWithUserName(userName).isPassWordCorrect(password))
@@ -134,8 +172,28 @@ public class GeneralController {
         return 0;
     }
 
-    public void editPersonalInfo(String field, String newContent) {
+    public String editPersonalInfo(String field, String newContent) {
+        return currentUser.editPersonalInfo(field,newContent);
+    }
 
+    public String showAllProducts(){
+        String allProducts = "";
+        for (Product allProduct : Product.allProducts) {
+            allProducts = allProducts.concat(allProduct.showProductDigest());
+            allProducts = allProducts.concat("\n");
+        }
+        return allProducts;
+    }
+
+    public String showAllOffProducts(){
+        String offProducts = "";
+        for (Off allOff : Off.allOffs) {
+            for (Product product : allOff.getProducts()) {
+                offProducts = offProducts.concat(product.showProductDigest());
+                offProducts = offProducts.concat("\n");
+            }
+        }
+        return offProducts;
     }
 
     public void logout(){

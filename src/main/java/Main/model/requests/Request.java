@@ -29,7 +29,7 @@ public abstract class Request {
         allRequests.add(request);
     }
 
-    public abstract void acceptRequest();
+    public abstract void acceptRequest() throws Exception;
 
     public abstract void declineRequest();
 

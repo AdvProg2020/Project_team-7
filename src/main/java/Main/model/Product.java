@@ -40,7 +40,7 @@ public class Product {
         this.openFrequency = 0;
         this.productStatus = ProductStatus.PENDING_CREATION_PRODUCT;
         this.price = price;
-        if(specialFeatures!=null) {
+        if (specialFeatures != null) {
             for (int i = 0; i < specialFeatures.size(); i++)
                 this.specialFeatures.put(category.getSpecialFeatures().get(i), specialFeatures.get(i));
         }
@@ -48,14 +48,16 @@ public class Product {
 
     private void setCategory(Category category) {
         this.category = category;
-        if(category!=null) {
+        if (category != null) {
             category.addProduct(this);
         }
     }
 
     public String showProductDigest() {
         return
-                "description: " + description +
+                "name: " + name +
+                        "\nid: " + productId +
+                        "\ndescription: " + description +
                         "\nprice: " + price +
                         "\noff amount: " + makeOffAmount() +
                         "\ncategory: " + category.getName() +
@@ -116,7 +118,7 @@ public class Product {
             if (product.getProductId().equals(productId))
                 return product;
         }
-       throw new Exception("There is no product with given ID !\n");
+        throw new Exception("There is no product with given ID !\n");
     }
 
     private static Product getProductWithName(String name) throws Exception {
@@ -333,14 +335,14 @@ public class Product {
 
     public void removeCategory() {
         category = null;
-        specialFeatures =null;
+        specialFeatures = null;
     }
 
-    public void addSpecialFeature(String specialFeature, String specialFeatureValue){
-        specialFeatures.put(specialFeature,specialFeatureValue);
+    public void addSpecialFeature(String specialFeature, String specialFeatureValue) {
+        specialFeatures.put(specialFeature, specialFeatureValue);
     }
 
-    public void removeSpecialFeature(String specialFeature){
+    public void removeSpecialFeature(String specialFeature) {
         specialFeatures.remove(specialFeature);
     }
 }

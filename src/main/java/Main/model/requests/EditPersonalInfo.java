@@ -1,3 +1,4 @@
+/*
 package Main.model.requests;
 
 import Main.model.accounts.Account;
@@ -44,3 +45,4 @@ public class EditPersonalInfo {
 
     }
 }
+*/

@@ -1,7 +1,6 @@
 package Main.model.requests;
 
-import Main.model.Off;
-import Main.model.OffStatus;
+import Main.model.discountAndOffTypeService.*;
 
 public class AddOffRequest extends Request {
     private Off off;
@@ -25,6 +24,6 @@ public class AddOffRequest extends Request {
     }
 
     public void declineRequest() {
-        Off.removeOff(off);
+        off.removeOff();
     }
 }
