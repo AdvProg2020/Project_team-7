@@ -41,9 +41,9 @@ public class DiscountAndOffTypeServiceException {
         }
     }
 
-    //TODO : months over 12 and Days over 31 in general :)
+
     public static void validateInputDate(String inputDate) throws Exception {
-        if(!inputDate.matches("[0-9]{1,4}/[0-9]{1,2}/[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}")) {
+        if(!inputDate.matches("[1-9]{1,4}/(0[1-9]|1[012]|[1-9])/(0[1-9]|[12][0-9]|3[01]|[1-9]) ([01][0-9]|2[0123]|[0-9]):([0-5][0-9]|[0-9]):([0-5][0-9]|[0-9])")) {
             throw new Exception("this date isn't acceptable! please enter date in format yyyy/MM/dd HH:mm:ss \n");
         }
     }
