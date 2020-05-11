@@ -3,10 +3,8 @@ package Main.model.discountAndOffTypeService;
 import Main.model.IDGenerator;
 import Main.model.Product;
 import Main.model.accounts.SellerAccount;
+import Main.model.exceptions.DiscountAndOffTypeServiceException;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -20,13 +18,14 @@ public class Off extends DiscountAndOffTypeService{
     private double offAmount;
     private OffStatus offStatus;
     private static ArrayList<Off> allOffs = new ArrayList<Off>();
-    private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     public Off(ArrayList<Product> products, OffStatus offStatus, String startDate, String endDate,
-               double offAmount, SellerAccount seller) {
+               String offAmount, SellerAccount seller) throws Exception {
+        super(startDate,endDate);
         this.offId = IDGenerator.getNewID(lastUsedOffID);
+        DiscountAndOffTypeServiceException.validateInputAmount(offAmount);
+        this.offAmount = Double.parseDouble(offAmount);
 //TODO
-
     }
 
     public static void addOff(Off off) {
@@ -82,18 +81,6 @@ public class Off extends DiscountAndOffTypeService{
 
     public void setOffStatus(OffStatus offStatus) {
         this.offStatus = offStatus;
-    }
-
-    public void setStartDate(String startDate) throws ParseException {
-        String dateFormat = "yyyy/MM/dd HH:mm:ss";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
-        this.startDate = simpleDateFormat.parse(startDate);
-    }
-
-    public void setEndDate(String endDate) throws ParseException {
-        String dateFormat = "yyyy/MM/dd HH:mm:ss";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
-        this.endDate = simpleDateFormat.parse(endDate);
     }
 
     public void setOffAmount(double offAmount) {

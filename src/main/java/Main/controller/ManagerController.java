@@ -1,12 +1,12 @@
 package Main.controller;
 
 import Main.model.Category;
-import Main.model.DiscountCode;
 import Main.model.Product;
 import Main.model.accounts.Account;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
 import Main.model.accounts.SellerAccount;
+import Main.model.discountAndOffTypeService.DiscountCode;
 import Main.model.exceptions.AccountsException;
 import Main.model.requests.EditCategory;
 import Main.model.requests.EditDiscountCode;
@@ -70,9 +70,8 @@ public class ManagerController {
 
     public void createDiscountCode(ArrayList<String> discountInfo) throws Exception {
         ArrayList<BuyerAccount> buyersList = extractDiscountBuyersList(discountInfo);
-        DiscountCode discountCode = new DiscountCode(discountInfo.get(1), discountInfo.get(2),
-                Double.parseDouble(discountInfo.get(3)), Double.parseDouble(discountInfo.get(4)), Integer.parseInt(discountInfo.get(5)),
-                buyersList);
+        DiscountCode discountCode = new DiscountCode(discountInfo.get(1), discountInfo.get(2), discountInfo.get(3),
+                discountInfo.get(4), discountInfo.get(5), buyersList);
 
         DiscountCode.addDiscountCode(discountCode);
         for (BuyerAccount buyerAccount : buyersList) {
@@ -162,4 +161,5 @@ public class ManagerController {
     public void editCategoryWithId(EditCategory editCategory) {
         editCategory.acceptRequest();
     }
+    //TODO : MaxnumOfUseDecrease or Increase?
 }

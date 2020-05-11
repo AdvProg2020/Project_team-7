@@ -2,35 +2,30 @@ package Main.model.discountAndOffTypeService;
 
 import Main.model.IDGenerator;
 import Main.model.accounts.BuyerAccount;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import Main.model.exceptions.DiscountAndOffTypeServiceException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 public class DiscountCode extends DiscountAndOffTypeService {
     private static StringBuilder lastUsedCodeID = new StringBuilder("@");
     private String code;
-    private Date startDate;
-    private Date endDate;
     private double percent;
     private double maxAmount;
     private int maxNumberOfUse;
     private HashMap<BuyerAccount, Integer> users = new HashMap<BuyerAccount, Integer>();
     private static ArrayList<DiscountCode> allDiscountCodes = new ArrayList<DiscountCode>();
-    private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-    public DiscountCode(String startDate, String endDate, double percent, double maxAmount, int maxNumberOfUse, ArrayList<BuyerAccount> users) throws ParseException {
+    public DiscountCode(String startDate, String endDate, String percent, String maxAmount, String maxNumberOfUse, ArrayList<BuyerAccount> users) throws Exception {
+        super(startDate,endDate);
         this.code = IDGenerator.getNewID(lastUsedCodeID);
-        this.setStartDate(startDate);
-        this.setEndDate(endDate);
-        this.percent = percent;
-        this.maxAmount = maxAmount;
-        this.maxNumberOfUse = maxNumberOfUse;
+        DiscountAndOffTypeServiceException.validateInputPercent(percent);
+        this.percent = Double.parseDouble(percent);
+        DiscountAndOffTypeServiceException.validateInputAmount(maxAmount);
+        this.maxAmount = Double.parseDouble(maxAmount);
+        DiscountAndOffTypeServiceException.validateInputMaxNumOfUse(maxNumberOfUse);
+        this.maxNumberOfUse = Integer.parseInt(maxNumberOfUse);
         for (BuyerAccount user : users) {
-            this.users.put(user, maxNumberOfUse);
+            this.users.put(user, this.maxNumberOfUse);
         }
     }
 
@@ -90,18 +85,6 @@ public class DiscountCode extends DiscountAndOffTypeService {
         for (BuyerAccount buyerAccount : users.keySet()) {
             buyerAccount.removeDiscountCode(this);
         }
-    }
-
-    public void setStartDate(String startDate) throws ParseException {
-        String dateFormat = "yyyy/MM/dd HH:mm:ss";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
-        this.startDate = simpleDateFormat.parse(startDate);
-    }
-
-    public void setEndDate(String endDate) throws ParseException {
-        String dateFormat = "yyyy/MM/dd HH:mm:ss";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
-        this.endDate = simpleDateFormat.parse(endDate);
     }
 
     public String getCode() {

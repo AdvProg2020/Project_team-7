@@ -2,21 +2,40 @@ package Main.model.exceptions;
 
 public class DiscountAndOffTypeServiceException {
 
-    public static void validateInputAmount(double maxAmount) throws Exception {
-        if(maxAmount<=0){
-            throw new Exception("max amount must be a positive double");
+    public static void validateInputAmount(String maxAmount) throws Exception {
+        double discountMaxAmount;
+        try{
+            discountMaxAmount = Double.parseDouble(maxAmount);
+        }catch (Exception e){
+            throw new Exception("discount max amount and off amount must be of double type! \n");
+        }
+        if(discountMaxAmount<=0){
+            throw new Exception("discount max amount and off amount must be positive!\n");
         }
     }
 
-    public static void validateInputMaxNumOfUse(int maxNumberOfUse) throws Exception {
-        if(maxNumberOfUse<=0){
-            throw new Exception("max number of use must be a positive integer");
+    public static void validateInputMaxNumOfUse(String maxNumberOfUse) throws Exception {
+        int discountMaxNumOfUse;
+        try{
+            discountMaxNumOfUse = Integer.parseInt(maxNumberOfUse);
+        }catch (Exception e){
+            throw new Exception("discount max number of use must be of integer type! \n");
+        }
+
+        if(discountMaxNumOfUse<=0){
+            throw new Exception("max number of use must be positive!\n");
         }
     }
 
-    public static void validateInputPercent(double percent) throws Exception {
-        if(percent<=0){
-            throw new Exception("discount percent must be a positive double");
+    public static void validateInputPercent(String percent) throws Exception {
+        double discountPercent;
+        try{
+            discountPercent = Double.parseDouble(percent);
+        }catch (Exception e){
+            throw new Exception("discount percent must be of double type! \n");
+        }
+        if(discountPercent<=0){
+            throw new Exception("discount percent must be positive!\n");
         }
     }
 

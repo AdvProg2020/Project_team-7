@@ -1,12 +1,14 @@
 package Main.model.requests;
 
-import Main.model.DiscountCode;
 import Main.model.accounts.BuyerAccount;
+import Main.model.discountAndOffTypeService.DiscountCode;
 import Main.model.exceptions.DiscountAndOffTypeServiceException;
 
 import java.util.ArrayList;
 
 public class EditDiscountCode {
+
+    //TODO : not all fields modified unhandled
 
     private DiscountCode discountCode;
     private String startDate;
