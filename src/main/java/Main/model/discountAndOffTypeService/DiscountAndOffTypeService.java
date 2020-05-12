@@ -45,6 +45,4 @@ public abstract class DiscountAndOffTypeService {
     public Date getEndDate() {
         return endDate;
     }
-
-    //TODO : basics are done but real expiration left
 }

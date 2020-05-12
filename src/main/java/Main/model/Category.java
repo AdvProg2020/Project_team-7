@@ -10,15 +10,25 @@ public class Category {
     private ArrayList<Product> products = new ArrayList<Product>();
     private static ArrayList<Category> allCategories = new ArrayList<Category>();
 
-    public Category(String name, ArrayList<String> specialFeatures) {
+    public Category(String name, ArrayList<String> specialFeatures) throws Exception {
         setName(name);
         this.specialFeatures = specialFeatures;
     }
 
     public void setName(String name) throws Exception {
+        if(isThereCategoryWithName(name)){
+            throw new Exception("there is already a category with name : \'" + name + "\' !\n");
+        }
         this.name = name;
-        //TODO : validate category name's uniqueness and throw exception
-        throw new Exception();
+    }
+
+    private boolean isThereCategoryWithName(String name){
+        for (Category category : allCategories) {
+            if(category.name.equals(name)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public static String showAllCategories() {

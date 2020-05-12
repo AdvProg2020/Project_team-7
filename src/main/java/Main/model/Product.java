@@ -243,7 +243,7 @@ public class Product {
     public void increaseVisitFrequencyByOne() {
         this.openFrequency++;
     }
-    //TODO  : where to apply this 0_0 !!!
+    //TODO  : where to apply this 0_0 !!! in view?
 
     public void removeOff(Off off) {
         setOff(null);

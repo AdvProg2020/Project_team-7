@@ -7,7 +7,6 @@ import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountCode;
-import Main.model.exceptions.AccountsException;
 import Main.model.requests.EditCategory;
 import Main.model.requests.EditDiscountCode;
 import Main.model.requests.Request;
@@ -95,6 +94,7 @@ public class ManagerController {
         int discountInfoSize = discountInfo.size();
         for (int i = 6; i < discountInfoSize; i++) {
             BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(discountInfo.get(i));
+            //TODO : due to view implementation this can be removed
             if (buyerAccount == null) {
                 throw new Exception("There are some invalid user names in the given information !\n" +
                         "Please check user names and try again !\n");
@@ -153,7 +153,7 @@ public class ManagerController {
             request.decline();
     }
 
-    public void createCategory(String name, ArrayList<String> specialFeatures) {
+    public void createCategory(String name, ArrayList<String> specialFeatures) throws Exception {
         Category category = new Category(name, specialFeatures);
         Category.addCategory(category);
     }
