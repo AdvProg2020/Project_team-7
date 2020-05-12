@@ -18,17 +18,18 @@ public class OffMenu extends Menu {
             }
 
             @Override
-            public void execute() {
+            public void execute() throws Exception {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
-                    String messageFromProductIdRecognizer = generalController.setCurrentProductWithId(input);
-                    System.out.println(messageFromProductIdRecognizer);
-                    if (messageFromProductIdRecognizer.equals("Product page opened successfully.")) {
+                    try {
+                        System.out.println(generalController.setCurrentProductWithId(input));
                         ProductPageMenu productPageMenu = new ProductPageMenu(this);
                         productPageMenu.run();
-                    } else {
+                    }
+                    catch (Exception e){
+                        System.out.println("Invalid Id!");
                         this.run();
                     }
                 }
@@ -37,8 +38,8 @@ public class OffMenu extends Menu {
     }
 
     @Override
-    public void run() {
-        //TODO show list of offProducts
+    public void run() throws Exception {
+        System.out.println(generalController.showAllOffProducts());
         this.show();
         this.execute();
     }

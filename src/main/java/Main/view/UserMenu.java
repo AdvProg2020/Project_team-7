@@ -13,7 +13,7 @@ public class UserMenu extends Menu {
     }
 
     @Override
-    public void run() {
+    public void run() throws Exception {
         System.out.println("Enter View panel or Back to return:");
         String input = scanner.nextLine();
         if(input.equalsIgnoreCase("back"))

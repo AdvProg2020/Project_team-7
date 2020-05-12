@@ -21,7 +21,7 @@ public class DigestMenu extends Menu {
             }
 
             @Override
-            public void execute() {
+            public void execute() throws Exception {
                 if (GeneralController.currentUser == null || GeneralController.currentUser instanceof SellerAccount ||
                         GeneralController.currentUser instanceof ManagerAccount) {
                     System.out.println("You have not logged in yet! ");
@@ -45,7 +45,7 @@ public class DigestMenu extends Menu {
             }
 
             @Override
-            public void execute() {
+            public void execute() throws Exception {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
@@ -58,7 +58,7 @@ public class DigestMenu extends Menu {
     }
 
     @Override
-    public void run() {
+    public void run() throws Exception {
         System.out.println(generalController.showProductDigest());
         this.show();
         this.execute();

@@ -16,7 +16,7 @@ public class CommentMenu extends Menu {
             }
 
             @Override
-            public void execute() {
+            public void execute() throws Exception {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
@@ -35,7 +35,7 @@ public class CommentMenu extends Menu {
     }
 
     @Override
-    public void run() {
+    public void run() throws Exception {
         System.out.println(generalController.showCommentsOfProduct());
         this.show();
         this.execute();

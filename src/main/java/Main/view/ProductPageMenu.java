@@ -20,7 +20,7 @@ public class ProductPageMenu extends Menu {
             }
 
             @Override
-            public void execute() {
+            public void execute() throws Exception {
                 System.out.println(generalController.showProductAttributes());
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
@@ -34,18 +34,27 @@ public class ProductPageMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
+                System.out.println(generalController.showAllProducts());
                 System.out.println("Enter another product's Id or Back to return");
-                //TODO list of products with ids
+
             }
 
             @Override
-            public void execute() {
+            public void execute() throws Exception {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
-                    System.out.println(generalController.compareProductWithProductWithId(input));
-                    this.run();
+                    try {
+                        System.out.println(generalController.compareProductWithProductWithId(input));
+                        this.run();
+                    }
+                    catch (Exception e){
+                        System.out.println("invalid Id!");
+                        this.run();
+                    }
+
+
                 }
             }
         };

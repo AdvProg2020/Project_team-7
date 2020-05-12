@@ -68,7 +68,7 @@ public class Menu {
         nextMenu.run();
     }
 
-    public void run() {
+    public void run() throws Exception {
         this.show();
         this.execute();
     }
