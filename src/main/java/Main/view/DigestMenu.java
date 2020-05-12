@@ -48,7 +48,7 @@ public class DigestMenu extends Menu {
                 if(input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else{
-                    generalController.selectSellerWithName(input);
+                    generalController.selectSellerWithId(input);
                     this.run();
                 }
             }

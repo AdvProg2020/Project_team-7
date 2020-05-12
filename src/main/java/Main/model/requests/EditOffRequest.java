@@ -26,7 +26,7 @@ public class EditOffRequest extends Request {
         return show;
     }
 
-    public void acceptRequest() throws Exception{
+    public void acceptRequest() throws Exception {
         for (String changeField : changes.keySet()) {
             if (changeField.equals("offId")) {
                 //TODO exception you are not allowed to edit this field

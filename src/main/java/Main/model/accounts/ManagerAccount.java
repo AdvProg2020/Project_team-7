@@ -17,7 +17,11 @@ public class ManagerAccount extends Account {
         super(userName, firstName, lastName, email, phoneNumber, passWord);
     }
 
-    public String editPersonalInfo(String field, String newContent){
+    public static ArrayList<ManagerAccount> getAllManagers() {
+        return allManagers;
+    }
+
+    public String editPersonalInfo(String field, String newContent) {
         if (field.equals("userName"))
             return "you are not allowed to edit this";
         else {
@@ -37,8 +41,8 @@ public class ManagerAccount extends Account {
     }
 
     public static void addManager(ManagerAccount managerAccount) {
-            allManagers.add(managerAccount);
-            allAccounts.add(managerAccount);
+        allManagers.add(managerAccount);
+        allAccounts.add(managerAccount);
     }
 
     public static boolean isThereManagerWithUserName(String userName) {

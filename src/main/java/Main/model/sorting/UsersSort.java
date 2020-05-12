@@ -20,13 +20,13 @@ public abstract class UsersSort implements Comparator {
 
     public static class productSortByFirstNameDescending implements Comparator<Account> {
         public int compare(Account one, Account two) {
-            return (-1)*(one.getFirstName().compareToIgnoreCase(two.getFirstName()));
+            return (-1) * (one.getFirstName().compareToIgnoreCase(two.getFirstName()));
         }
     }
 
     public static class productSortByLastNameDescending implements Comparator<Account> {
         public int compare(Account one, Account two) {
-            return (-1)*(one.getLastName().compareToIgnoreCase(two.getLastName()));
+            return (-1) * (one.getLastName().compareToIgnoreCase(two.getLastName()));
         }
     }
 

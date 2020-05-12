@@ -20,7 +20,7 @@ public class BuyerController {
     private DiscountCode discountCode = null;
 
     public BuyerController() {
-        if(GeneralController.currentUser instanceof BuyerAccount){
+        if (GeneralController.currentUser instanceof BuyerAccount) {
             currentBuyer = (BuyerAccount) GeneralController.currentUser;
             currentBuyersCart = currentBuyer.getCart();
         }
@@ -31,11 +31,11 @@ public class BuyerController {
     }
 
     public void increaseProductWithId(String productId) throws Exception {
-            currentBuyersCart.getCartProductByProductId(productId).increaseNumberByOne();
+        currentBuyersCart.getCartProductByProductId(productId).increaseNumberByOne();
     }
 
     public void decreaseProductWithId(String productId) throws Exception {
-            currentBuyersCart.getCartProductByProductId(productId).decreaseNumberByOne();
+        currentBuyersCart.getCartProductByProductId(productId).decreaseNumberByOne();
     }
 
     public String showTotalCartPrice() {
@@ -76,7 +76,7 @@ public class BuyerController {
     public void setPurchaseDiscountCode(String code) throws Exception {
         DiscountCode discountCode = DiscountCode.getDiscountCodeWithCode(code);
 
-        if(discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.NOT_STARTED)){
+        if (discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.NOT_STARTED)) {
             throw new Exception("This discount code hasn't started yet !\n");
         }
         if (getToTalPaymentConsideringDiscount() > discountCode.getMaxAmount()) {
@@ -86,7 +86,7 @@ public class BuyerController {
     }
 
     public String showPurchaseInfo() {
-        if(discountCode!=null&&discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+        if (discountCode != null && discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
             discountCode.removeDiscountCode();
             discountCode = null;
         }
@@ -97,11 +97,11 @@ public class BuyerController {
     }
 
     private double getToTalPaymentConsideringDiscount() {
-        if(discountCode!=null&&discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+        if (discountCode != null && discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
             discountCode.removeDiscountCode();
             discountCode = null;
         }
-        double percentOfCostToBePaid = (discountCode==null?100:100-discountCode.getDiscountCodeAmount());
+        double percentOfCostToBePaid = (discountCode == null ? 100 : 100 - discountCode.getDiscountCodeAmount());
         return currentBuyersCart.getCartTotalPriceConsideringOffs() * percentOfCostToBePaid / 100;
     }
 
@@ -113,7 +113,7 @@ public class BuyerController {
 
     private void pay() throws Exception {
         buyerPayment();
-        if(discountCode!=null){
+        if (discountCode != null) {
             discountCode.removeDiscountCodeIfBuyerHasUsedUpDiscountCode(currentBuyer);
         }
         sellersPayment();
@@ -123,34 +123,34 @@ public class BuyerController {
         currentBuyer.decreaseBalanceBy(getToTalPaymentConsideringDiscount());
     }
 
-    private void sellersPayment(){
-        HashMap<SellerAccount,Cart> sellers = currentBuyersCart.getAllSellersCarts();
+    private void sellersPayment() {
+        HashMap<SellerAccount, Cart> sellers = currentBuyersCart.getAllSellersCarts();
         for (SellerAccount sellerAccount : sellers.keySet()) {
             sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs());
         }
     }
 
-    private void createPurchaseHistoryElements(){
+    private void createPurchaseHistoryElements() {
         String logID = IDGenerator.getNewID(Log.getLastUsedLogID());
         Date date = new Date();
-        createPurchaseHistoryElementsForBuyer(date,logID);
-        createPurchaseHistoryElementsForSellers(date,logID);
+        createPurchaseHistoryElementsForBuyer(date, logID);
+        createPurchaseHistoryElementsForSellers(date, logID);
     }
 
     private void createPurchaseHistoryElementsForBuyer(Date date, String logID) {
         BuyLog buyLog = new BuyLog(logID, date, getToTalPaymentConsideringDiscount(),
-                (discountCode==null?0:discountCode.getDiscountCodeAmount()), currentBuyersCart.toStringForBuyer(),
+                (discountCode == null ? 0 : discountCode.getDiscountCodeAmount()), currentBuyersCart.toStringForBuyer(),
                 DeliveryStatus.PENDING_DELIVERY, receiverInformation);
         currentBuyer.addLog(buyLog);
         currentBuyer.addCartsProductsToBoughtProducts();
     }
 
-    private void createPurchaseHistoryElementsForSellers(Date date,String logID) {
+    private void createPurchaseHistoryElementsForSellers(Date date, String logID) {
         HashMap<SellerAccount, Cart> allSellersCart = currentBuyersCart.getAllSellersCarts();
         for (SellerAccount sellerAccount : allSellersCart.keySet()) {
             Cart cart = allSellersCart.get(sellerAccount);
-            SellLog sellLog = new SellLog(logID,date,cart.getCartTotalPriceConsideringOffs(),cart.toStringForSeller(),
-                    currentBuyer,cart.calculateCartTotalOffs(),DeliveryStatus.PENDING_DELIVERY,receiverInformation);
+            SellLog sellLog = new SellLog(logID, date, cart.getCartTotalPriceConsideringOffs(), cart.toStringForSeller(),
+                    currentBuyer, cart.calculateCartTotalOffs(), DeliveryStatus.PENDING_DELIVERY, receiverInformation);
             sellerAccount.addLog(sellLog);
         }
     }

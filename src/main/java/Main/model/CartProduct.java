@@ -31,7 +31,7 @@ public class CartProduct {
 
     public String toStringForSellLog() {
         Off off = product.getOff();
-        if(off!=null&&off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+        if (off != null && off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
             off.removeOff();
         }
         return "[Product ID : " + product.getProductId() + "\tProduct Name : " + product.getName() + "\tBrand : " +
@@ -41,7 +41,7 @@ public class CartProduct {
 
     public String toStringForBuyLog() {
         Off off = product.getOff();
-        if(off!=null&&off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+        if (off != null && off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
             off.removeOff();
         }
         return "[Product ID : " + product.getProductId() + "\tProduct Name : " + product.getName() + "\tBrand : " +

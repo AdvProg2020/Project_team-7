@@ -22,7 +22,7 @@ public class SellerAccount extends Account {
                          String lastName,
                          String email,
                          String phoneNumber,
-                         String passWord ,
+                         String passWord,
                          String companyName,
                          String companyExtraInformation,
                          double balance) throws AccountsException {
@@ -33,7 +33,7 @@ public class SellerAccount extends Account {
         this.balance = balance;
     }
 
-    public String editPersonalInfo(String field, String newContent){
+    public String editPersonalInfo(String field, String newContent) {
         if (field.equals("userName"))
             return "you are not allowed to edit this";
         else {
@@ -103,7 +103,7 @@ public class SellerAccount extends Account {
     }
 
     public void addLog(SellLog sellLog) {
-            sellHistory.add(sellLog);
+        sellHistory.add(sellLog);
     }
 
     public String viewSalesHistory() {
@@ -133,16 +133,16 @@ public class SellerAccount extends Account {
     }
 
     public void addOff(Off off) {
-            offList.add(off);
+        offList.add(off);
     }
 
     public String viewSellerOffs() {
         StringBuilder offListStr = new StringBuilder();
         offListStr.append("offs :\n");
         for (Off off : offList) {
-            if(off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+            if (off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
                 off.removeOff();
-            }else {
+            } else {
                 offListStr.append(off.viewMe());
             }
         }
@@ -150,8 +150,8 @@ public class SellerAccount extends Account {
     }
 
     public static void addSeller(SellerAccount seller) {
-            allSellers.add(seller);
-            allAccounts.add(seller);
+        allSellers.add(seller);
+        allAccounts.add(seller);
     }
 
     public boolean isThereSellerWithUserName(String userName) {

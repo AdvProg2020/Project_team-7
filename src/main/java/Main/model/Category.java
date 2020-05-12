@@ -10,21 +10,21 @@ public class Category {
     private ArrayList<Product> products = new ArrayList<Product>();
     private static ArrayList<Category> allCategories = new ArrayList<Category>();
 
-    public Category (String name, ArrayList<String> specialFeatures) throws Exception{
+    public Category(String name, ArrayList<String> specialFeatures) throws Exception {
         setName(name);
         this.specialFeatures = specialFeatures;
     }
 
     public void setName(String name) throws Exception {
-        if(isThereCategoryWithName(name)){
+        if (isThereCategoryWithName(name)) {
             throw new Exception("there is already a category with name : \'" + name + "\' !\n");
         }
         this.name = name;
     }
 
-    private boolean isThereCategoryWithName(String name){
+    private boolean isThereCategoryWithName(String name) {
         for (Category category : allCategories) {
-            if(category.name.equals(name)){
+            if (category.name.equals(name)) {
                 return true;
             }
         }
@@ -114,12 +114,12 @@ public class Category {
     public void addProduct(Product product) {
         products.add(product);
         for (String specialFeature : specialFeatures) {
-            product.addSpecialFeature(specialFeature,null);
+            product.addSpecialFeature(specialFeature, null);
         }
 
     }
 
-    public boolean isThereProductWithReference(Product product){
+    public boolean isThereProductWithReference(Product product) {
         return products.contains(product);
     }
 
@@ -128,24 +128,24 @@ public class Category {
         addSpecialFeatureToProducts(specialFeature);
     }
 
-    private void addSpecialFeatureToProducts(String specialFeature){
+    private void addSpecialFeatureToProducts(String specialFeature) {
         for (Product product : products) {
-            product.addSpecialFeature(specialFeature,null);
+            product.addSpecialFeature(specialFeature, null);
         }
     }
 
-    public void removeSpecialFeature(String specialFeature){
+    public void removeSpecialFeature(String specialFeature) {
         specialFeatures.remove(specialFeature);
         removeSpecialFeatureFromProducts(specialFeature);
     }
 
-    private void removeSpecialFeatureFromProducts(String specialFeature){
+    private void removeSpecialFeatureFromProducts(String specialFeature) {
         for (Product product : products) {
             product.removeSpecialFeature(specialFeature);
         }
     }
 
-    public boolean isThereSpecialFeature(String specialFeature){
+    public boolean isThereSpecialFeature(String specialFeature) {
         return specialFeatures.contains(specialFeature);
     }
 }

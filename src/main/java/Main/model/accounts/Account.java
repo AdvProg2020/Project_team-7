@@ -77,4 +77,6 @@ public abstract class Account {
     }
 
     public abstract String editPersonalInfo(String field, String newContent);
+
+    public abstract String viewMe();
 }

@@ -28,7 +28,7 @@ public class BuyerAccount extends Account {
         this.balance = balance;
     }
 
-    public String editPersonalInfo(String field, String newContent){
+    public String editPersonalInfo(String field, String newContent) {
         if (field.equals("userName"))
             return "you are not allowed to edit this";
         else {
@@ -104,7 +104,7 @@ public class BuyerAccount extends Account {
     }
 
     public void addDiscountCode(DiscountCode discountCode) {
-            discountCodes.add(discountCode);
+        discountCodes.add(discountCode);
     }
 
     public void removeDiscountCode(DiscountCode discountCode) {
@@ -112,7 +112,7 @@ public class BuyerAccount extends Account {
     }
 
     public void addLog(BuyLog buyLog) {
-            buyHistory.add(buyLog);
+        buyHistory.add(buyLog);
     }
 
     public String viewBalance() {
@@ -129,7 +129,7 @@ public class BuyerAccount extends Account {
     }
 
     public void decreaseBalanceBy(double money) throws Exception {
-        if(balance<money){
+        if (balance < money) {
             throw new Exception("Your balance isn't enough ! Purchase couldn't be done !\n");
         }
         this.balance -= money;
@@ -145,8 +145,8 @@ public class BuyerAccount extends Account {
     }
 
     public static void addBuyer(BuyerAccount buyer) {
-            allBuyers.add(buyer);
-            allAccounts.add(buyer);
+        allBuyers.add(buyer);
+        allAccounts.add(buyer);
     }
 
     public double getBalance() {
@@ -169,9 +169,9 @@ public class BuyerAccount extends Account {
     public String viewAllDiscountCodes() {
         StringBuilder allDiscountCodesDisplay = new StringBuilder("Available discount codes :\n");
         for (DiscountCode discountCode : discountCodes) {
-            if(discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+            if (discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
                 discountCode.removeDiscountCode();
-            }else{
+            } else {
                 allDiscountCodesDisplay.append(discountCode.viewMeAsBuyer(this));
             }
         }

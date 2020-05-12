@@ -22,7 +22,7 @@ public class Cart {
         double cartTotalOff = 0;
         for (CartProduct cartProduct : cartProducts) {
             Off off = cartProduct.getProduct().getOff();
-            if(off!=null&&off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+            if (off != null && off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
                 off.removeOff();
             } else if (off != null) {
                 cartTotalOff += cartProduct.getProduct().getPrice() * off.getOffAmount() / 100;
@@ -76,7 +76,7 @@ public class Cart {
         } else {
             Cart cart = new Cart();
             cart.addCartProduct(cartProduct);
-            allSellersCarts.put(seller,cart);
+            allSellersCarts.put(seller, cart);
         }
     }
 

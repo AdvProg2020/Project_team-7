@@ -15,19 +15,19 @@ public abstract class ProductsSort implements Comparator {
 
     public static class productSortByNameDescending implements Comparator<Product> {
         public int compare(Product one, Product two) {
-            return (-1)*(one.getName().compareToIgnoreCase(two.getName()));
+            return (-1) * (one.getName().compareToIgnoreCase(two.getName()));
         }
     }
 
     public static class productSortByView implements Comparator<Product> {
         public int compare(Product one, Product two) {
-            return (-1)*(one.getOpenFrequency().compareTo(two.getOpenFrequency()));
+            return (-1) * (one.getOpenFrequency().compareTo(two.getOpenFrequency()));
         }
     }
 
     public static class productSortByRate implements Comparator<Product> {
         public int compare(Product one, Product two) {
-            return (-1)*(one.getAverageScore().compareTo(two.getAverageScore()));
+            return (-1) * (one.getAverageScore().compareTo(two.getAverageScore()));
         }
     }
 }

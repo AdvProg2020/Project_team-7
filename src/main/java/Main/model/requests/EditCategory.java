@@ -63,7 +63,7 @@ public class EditCategory {
     }
 
     private void acceptName(String errors) {
-        if(name!=null){
+        if (name != null) {
             try {
                 category.setName(this.name);
             } catch (Exception e) {

@@ -200,9 +200,4 @@ public class GeneralController {
         }
         return offProducts;
     }
-
-    public void logout(){
-        currentUser=null;
-        //TODO reset everything?
-    }
 }

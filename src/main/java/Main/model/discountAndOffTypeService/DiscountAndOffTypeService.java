@@ -29,10 +29,10 @@ public abstract class DiscountAndOffTypeService {
 
     public DiscountAndOffStat getDiscountOrOffStat() {
         Date dateNow = new Date();
-        if(startDate.compareTo(dateNow)>0){
+        if (startDate.compareTo(dateNow) > 0) {
             return DiscountAndOffStat.NOT_STARTED;
         }
-        if(endDate.compareTo(dateNow)>=0){
+        if (endDate.compareTo(dateNow) >= 0) {
             return DiscountAndOffStat.EXPIRED;
         }
         return DiscountAndOffStat.ACTIVE;

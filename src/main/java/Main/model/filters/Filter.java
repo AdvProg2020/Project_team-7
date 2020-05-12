@@ -22,7 +22,7 @@ public abstract class Filter {
             currentFilter.apply(filteredProducts, products);
         }
         for (Filter currentFilter : GeneralController.currentFilters) {
-            currentFilter.removeDiffs(filteredProducts,products);
+            currentFilter.removeDiffs(filteredProducts, products);
         }
         return filteredProducts;
     }
