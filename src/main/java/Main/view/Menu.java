@@ -55,7 +55,7 @@ public class Menu {
             System.out.println((subMenus.size() + 1) + ". Exit");
     }
 
-    public void execute() {
+    public void execute() throws Exception {
         Menu nextMenu = null;
         int chosenMenu = Integer.parseInt(scanner.nextLine());
         if (chosenMenu == subMenus.size() + 1) {
