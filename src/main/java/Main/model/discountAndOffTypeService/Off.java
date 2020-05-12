@@ -8,7 +8,7 @@ import Main.model.exceptions.DiscountAndOffTypeServiceException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Off extends DiscountAndOffTypeService{
+public class Off extends DiscountAndOffTypeService {
     private static StringBuilder lastUsedOffID = new StringBuilder("@");
     private SellerAccount seller;
     private String offId;
@@ -21,7 +21,7 @@ public class Off extends DiscountAndOffTypeService{
 
     public Off(ArrayList<Product> products, OffStatus offStatus, String startDate, String endDate,
                String offAmount, SellerAccount seller) throws Exception {
-        super(startDate,endDate);
+        super(startDate, endDate);
         this.offId = IDGenerator.getNewID(lastUsedOffID);
         DiscountAndOffTypeServiceException.validateInputAmount(offAmount);
         this.offAmount = Double.parseDouble(offAmount);
@@ -31,7 +31,6 @@ public class Off extends DiscountAndOffTypeService{
     public static void addOff(Off off) {
         allOffs.add(off);
     }
-
 
     public String viewMe() {
         return
@@ -46,7 +45,11 @@ public class Off extends DiscountAndOffTypeService{
     public static String viewAllOffs() {
         String viewAll = "";
         for (Off off : allOffs) {
-            viewAll = viewAll.concat(off.viewMe());
+            if (off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
+                off.removeOff();
+            } else {
+                viewAll = viewAll.concat(off.viewMe());
+            }
         }
         return viewAll;
     }
@@ -60,11 +63,20 @@ public class Off extends DiscountAndOffTypeService{
     }
 
     public static Off getOffWithId(String offId) throws Exception {
+        Off foundOff = null;
         for (Off off : allOffs) {
-            if (off.offId.equalsIgnoreCase(offId))
-                return off;
+            if (off.offId.equalsIgnoreCase(offId)){
+                foundOff = off;
+            }
         }
-        throw new Exception("There is no off with this ID !\n");
+        if(foundOff==null){
+            throw new Exception("There is no off with this ID !\n");
+        }
+        if(foundOff.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+            foundOff.removeOff();
+            throw new Exception("this off has expired !\n");
+        }
+        return foundOff;
     }
 
     public void removeOff() {
@@ -92,10 +104,9 @@ public class Off extends DiscountAndOffTypeService{
         products.remove(product);
     }
 
-    private void removeOffFromProducts(){
+    private void removeOffFromProducts() {
         for (Product product : products) {
             product.removeOff(this);
         }
     }
-
 }

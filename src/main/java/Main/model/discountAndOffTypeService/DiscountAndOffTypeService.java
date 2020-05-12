@@ -38,8 +38,6 @@ public abstract class DiscountAndOffTypeService {
         return DiscountAndOffStat.ACTIVE;
     }
 
-    public abstract void expireIfNeeded();
-
     public Date getStartDate() {
         return startDate;
     }

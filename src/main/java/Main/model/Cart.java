@@ -1,6 +1,8 @@
 package Main.model;
 
 import Main.model.accounts.SellerAccount;
+import Main.model.discountAndOffTypeService.DiscountAndOffStat;
+import Main.model.discountAndOffTypeService.Off;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,8 +21,11 @@ public class Cart {
     public double calculateCartTotalOffs() {
         double cartTotalOff = 0;
         for (CartProduct cartProduct : cartProducts) {
-            if (cartProduct.getProduct().getOff() != null) {
-                cartTotalOff += cartProduct.getProduct().getPrice() * cartProduct.getProduct().getOff().getOffAmount() / 100;
+            Off off = cartProduct.getProduct().getOff();
+            if(off!=null&&off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+                off.removeOff();
+            } else if (off != null) {
+                cartTotalOff += cartProduct.getProduct().getPrice() * off.getOffAmount() / 100;
             }
         }
         return cartTotalOff;

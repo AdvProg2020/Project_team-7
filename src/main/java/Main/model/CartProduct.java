@@ -1,6 +1,8 @@
 package Main.model;
 
 import Main.model.accounts.SellerAccount;
+import Main.model.discountAndOffTypeService.DiscountAndOffStat;
+import Main.model.discountAndOffTypeService.Off;
 
 public class CartProduct {
     private SellerAccount finalSeller;
@@ -28,12 +30,20 @@ public class CartProduct {
     }
 
     public String toStringForSellLog() {
+        Off off = product.getOff();
+        if(off!=null&&off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+            off.removeOff();
+        }
         return "[Product ID : " + product.getProductId() + "\tProduct Name : " + product.getName() + "\tBrand : " +
                 product.getBrand() + "\nPrice : " + product.getPrice() + "\tOff : " + (product.getOff() != null ? "%" +
                 product.getOff().getOffAmount() : "no off is set for this product") + "]\n";
     }
 
     public String toStringForBuyLog() {
+        Off off = product.getOff();
+        if(off!=null&&off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+            off.removeOff();
+        }
         return "[Product ID : " + product.getProductId() + "\tProduct Name : " + product.getName() + "\tBrand : " +
                 product.getBrand() + "\n" + finalSeller.viewMe() + "  Price : " + product.getPrice() + "\tOff : "
                 + (product.getOff() != null ? "%" + product.getOff().getOffAmount() : "no off is set for this product") + "]\n";

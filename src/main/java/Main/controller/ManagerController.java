@@ -15,7 +15,11 @@ import Main.model.requests.Request;
 import java.util.ArrayList;
 
 public class ManagerController {
-    public ManagerAccount chiefManager = null;
+    public static ManagerAccount chiefManager = null;
+
+    public void setChiefManager(ManagerAccount manager){
+        chiefManager = manager;
+    }
 
     public String showUsersList() {
         return ManagerAccount.showManagersList() + SellerAccount.showSellersList() + BuyerAccount.showBuyersList();
@@ -45,6 +49,9 @@ public class ManagerController {
         Account account = Account.getUserWithUserName(userName);
 
          if (account instanceof ManagerAccount) {
+             if(GeneralController.currentUser!=chiefManager){
+                 throw new Exception("only chief mananger can delete managers !\n");
+             }
             ManagerAccount managerAccount = (ManagerAccount) account;
             ManagerAccount.deleteManager(managerAccount);
         } else if (account instanceof SellerAccount) {
@@ -56,7 +63,10 @@ public class ManagerController {
         }
     }
 
-    public void createManagerProfile(ArrayList<String> managerInfo) throws AccountsException {
+    public void createManagerProfile(ArrayList<String> managerInfo) throws Exception {
+        if(GeneralController.currentUser!=chiefManager){
+            throw new Exception("only chief manager can create manager profile!\n");
+        }
         ManagerAccount managerAccount = new ManagerAccount(managerInfo.get(0), managerInfo.get(1), managerInfo.get(2),
                 managerInfo.get(3), managerInfo.get(4), managerInfo.get(5));
         ManagerAccount.addManager(managerAccount);
@@ -154,11 +164,11 @@ public class ManagerController {
         category.removeCategory();
     }
 
-    public void editDiscountCodeWithCode(EditDiscountCode editDiscountCode) throws Exception {
+    public void acceptEditDiscountCode(EditDiscountCode editDiscountCode) throws Exception {
         editDiscountCode.acceptRequest();
     }
 
-    public void editCategoryWithId(EditCategory editCategory) throws Exception {
+    public void acceptEditCategory(EditCategory editCategory) throws Exception {
         editCategory.acceptRequest();
     }
 }
