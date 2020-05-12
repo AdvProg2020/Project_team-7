@@ -16,11 +16,6 @@ import Main.model.requests.Request;
 import java.util.ArrayList;
 
 public class ManagerController {
-    public static ManagerAccount chiefManager = null;
-
-    public void setChiefManager(ManagerAccount manager) {
-        chiefManager = manager;
-    }
 
     public String showUsersList() {
         return ManagerAccount.showManagersList() + SellerAccount.showSellersList() + BuyerAccount.showBuyersList();
@@ -50,9 +45,6 @@ public class ManagerController {
         Account account = Account.getUserWithUserName(userName);
 
         if (account instanceof ManagerAccount) {
-            if (GeneralController.currentUser != chiefManager) {
-                throw new Exception("only chief mananger can delete managers !\n");
-            }
             ManagerAccount managerAccount = (ManagerAccount) account;
             ManagerAccount.deleteManager(managerAccount);
         } else if (account instanceof SellerAccount) {
@@ -64,10 +56,7 @@ public class ManagerController {
         }
     }
 
-    public void createManagerProfile(ArrayList<String> managerInfo) throws Exception {
-        if (GeneralController.currentUser != chiefManager) {
-            throw new Exception("only chief manager can create manager profile!\n");
-        }
+    public void createManagerProfile(ArrayList<String> managerInfo){
         ManagerAccount managerAccount = new ManagerAccount(managerInfo.get(0), managerInfo.get(1), managerInfo.get(2),
                 managerInfo.get(3), managerInfo.get(4), managerInfo.get(5));
         ManagerAccount.addManager(managerAccount);
