@@ -19,11 +19,8 @@ public class DiscountCode extends DiscountAndOffTypeService {
     public DiscountCode(String startDate, String endDate, String percent, String maxAmount, String maxNumberOfUse, ArrayList<BuyerAccount> users) throws Exception {
         super(startDate, endDate);
         this.code = IDGenerator.getNewID(lastUsedCodeID);
-        DiscountAndOffTypeServiceException.validateInputPercent(percent);
         this.percent = Double.parseDouble(percent);
-        DiscountAndOffTypeServiceException.validateInputAmount(maxAmount);
         this.maxAmount = Double.parseDouble(maxAmount);
-        DiscountAndOffTypeServiceException.validateInputMaxNumOfUse(maxNumberOfUse);
         this.maxNumberOfUse = Integer.parseInt(maxNumberOfUse);
         for (BuyerAccount user : users) {
             this.users.put(user, 0);

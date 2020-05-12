@@ -1,8 +1,12 @@
 package Main.model.exceptions;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DiscountAndOffTypeServiceException {
+
+    private static String inputDateFormat = "yyyy/MM/dd HH:mm:ss";
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(inputDateFormat);
 
     public static void validateInputAmount(String maxAmount) throws Exception {
         double discountMaxAmount;
@@ -49,8 +53,10 @@ public class DiscountAndOffTypeServiceException {
         }
     }
 
-    public static void compareStartAndEndDate(Date startDate, Date endDate) throws Exception {
-        if (!(startDate.compareTo(endDate) < 0)) {
+    public static void compareStartAndEndDate(String startDate, String endDate) throws Exception {
+        Date inputStartDate = simpleDateFormat.parse(startDate);
+        Date inputEndDate = simpleDateFormat.parse(endDate);
+        if (!(inputStartDate.compareTo(inputEndDate) < 0)) {
             throw new Exception("start date must be before end date !\n");
         }
     }

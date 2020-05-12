@@ -7,6 +7,8 @@ import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountCode;
+import Main.model.exceptions.AccountsException;
+import Main.model.exceptions.DiscountAndOffTypeServiceException;
 import Main.model.requests.EditCategory;
 import Main.model.requests.EditDiscountCode;
 import Main.model.requests.Request;
@@ -78,6 +80,8 @@ public class ManagerController {
     }
 
     public void createDiscountCode(ArrayList<String> discountInfo) throws Exception {
+        validateInputDiscountInfo(discountInfo);
+
         ArrayList<BuyerAccount> buyersList = extractDiscountBuyersList(discountInfo);
         DiscountCode discountCode = new DiscountCode(discountInfo.get(1), discountInfo.get(2), discountInfo.get(3),
                 discountInfo.get(4), discountInfo.get(5), buyersList);
@@ -85,6 +89,47 @@ public class ManagerController {
         DiscountCode.addDiscountCode(discountCode);
         for (BuyerAccount buyerAccount : buyersList) {
             buyerAccount.addDiscountCode(discountCode);
+        }
+    }
+
+    private void validateInputDiscountInfo(ArrayList<String> discountInfo) throws Exception {
+        String discountCreationErrors = new String();
+
+        try {
+            DiscountAndOffTypeServiceException.validateInputDate(discountInfo.get(0));
+        } catch (Exception e) {
+            discountCreationErrors.concat(e.getMessage());
+        }
+        try {
+            DiscountAndOffTypeServiceException.validateInputDate(discountInfo.get(1));
+        } catch (Exception e) {
+            discountCreationErrors.concat(e.getMessage());
+        }
+        if (discountCreationErrors.isEmpty()) {
+            try {
+                DiscountAndOffTypeServiceException.compareStartAndEndDate(discountInfo.get(0), discountInfo.get(1));
+            } catch (Exception e) {
+                discountCreationErrors.concat(e.getMessage());
+            }
+        }
+        try {
+            DiscountAndOffTypeServiceException.validateInputPercent(discountInfo.get(2));
+        } catch (Exception e) {
+            discountCreationErrors.concat(e.getMessage());
+        }
+        try {
+            DiscountAndOffTypeServiceException.validateInputAmount(discountInfo.get(3));
+        } catch (Exception e) {
+            discountCreationErrors.concat(e.getMessage());
+        }
+        try {
+            DiscountAndOffTypeServiceException.validateInputMaxNumOfUse(discountInfo.get(4));
+        } catch (Exception e) {
+            discountCreationErrors.concat(e.getMessage());
+        }
+
+        if (discountCreationErrors.isEmpty()) {
+            throw new Exception("sorry there where some errors in discount creation : \n" + discountCreationErrors);
         }
     }
 

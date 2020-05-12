@@ -1,6 +1,5 @@
 package Main.controller;
 
-import Main.Main;
 import Main.model.*;
 import Main.model.accounts.Account;
 import Main.model.accounts.BuyerAccount;
@@ -8,11 +7,13 @@ import Main.model.accounts.ManagerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
+import Main.model.exceptions.AccountsException;
 import Main.model.filters.Filter;
 import Main.model.requests.AddCommentRequest;
 import Main.model.requests.CreateSellerAccountRequest;
 import Main.model.requests.Request;
 import Main.model.sorting.ProductsSort;
+
 import java.util.ArrayList;
 
 public class GeneralController {
@@ -126,6 +127,7 @@ public class GeneralController {
     }
 
     public void getBuyerInformation(ArrayList<String> buyerInfo, String userName) throws Exception {
+        validateInputAccountInfo(buyerInfo, userName);
         BuyerAccount buyerAccount = new BuyerAccount(userName,
                 buyerInfo.get(1),
                 buyerInfo.get(2),
@@ -137,6 +139,7 @@ public class GeneralController {
     }
 
     public void getSellerInformation(ArrayList<String> sellerInfo, String userName) throws Exception {
+        validateInputSellerInfo(sellerInfo, userName);
         SellerAccount sellerAccount = new SellerAccount(userName,
                 sellerInfo.get(1),
                 sellerInfo.get(2),
@@ -151,6 +154,7 @@ public class GeneralController {
     }
 
     public void getManagerInformation(ArrayList<String> managerInfo, String userName) throws Exception {
+        validateInputAccountInfo(managerInfo, userName);
         ManagerAccount managerAccount = new ManagerAccount(userName,
                 managerInfo.get(1),
                 managerInfo.get(2),
@@ -158,6 +162,95 @@ public class GeneralController {
                 managerInfo.get(4),
                 managerInfo.get(0));
         ManagerAccount.addManager(managerAccount);
+    }
+
+    private void validateInputAccountInfo(ArrayList<String> accountInfo, String userName) throws Exception {
+        String accountCreationErrors = new String();
+        try {
+            AccountsException.validateUserName(userName);
+        } catch (AccountsException.invalidUserNameException e) {
+            accountCreationErrors.concat(e.getErrorMessage());
+        }
+        try {
+            AccountsException.validateUsernameUniqueness(userName);
+        } catch (AccountsException e) {
+            accountCreationErrors.concat(e.getErrorMessage());
+        }
+        try {
+            AccountsException.validateNameTypeInfo("first name", accountInfo.get(1));
+        } catch (AccountsException e) {
+            accountCreationErrors.concat(e.getErrorMessage());
+        }
+        try {
+            AccountsException.validateNameTypeInfo("last name", accountInfo.get(2));
+        } catch (AccountsException e) {
+            accountCreationErrors.concat(e.getErrorMessage());
+        }
+        try {
+            AccountsException.validateEmail(accountInfo.get(3));
+        } catch (AccountsException e) {
+            accountCreationErrors.concat(e.getErrorMessage());
+        }
+        try {
+            AccountsException.validatePhoneNumber(accountInfo.get(4));
+        } catch (AccountsException e) {
+            accountCreationErrors.concat(e.getErrorMessage());
+        }
+        try {
+            AccountsException.validatePassWord(accountInfo.get(0));
+        } catch (AccountsException e) {
+            accountCreationErrors.concat(e.getErrorMessage());
+        }
+        if (accountCreationErrors.isEmpty()) {
+            throw new Exception("sorry there where some errors in account creation : \n" + accountCreationErrors);
+        }
+    }
+
+    private void validateInputSellerInfo(ArrayList<String> sellerInfo, String userName) throws Exception {
+        String sellerCreationErrors = new String();
+        try {
+            AccountsException.validateUserName(userName);
+        } catch (AccountsException.invalidUserNameException e) {
+            sellerCreationErrors.concat(e.getErrorMessage());
+        }
+        try {
+            AccountsException.validateUsernameUniqueness(userName);
+        } catch (AccountsException e) {
+            sellerCreationErrors.concat(e.getErrorMessage());
+        }
+        try {
+            AccountsException.validateNameTypeInfo("first name", sellerInfo.get(1));
+        } catch (AccountsException e) {
+            sellerCreationErrors.concat(e.getErrorMessage());
+        }
+        try {
+            AccountsException.validateNameTypeInfo("last name", sellerInfo.get(2));
+        } catch (AccountsException e) {
+            sellerCreationErrors.concat(e.getErrorMessage());
+        }
+        try {
+            AccountsException.validateEmail(sellerInfo.get(3));
+        } catch (AccountsException e) {
+            sellerCreationErrors.concat(e.getErrorMessage());
+        }
+        try {
+            AccountsException.validatePhoneNumber(sellerInfo.get(4));
+        } catch (AccountsException e) {
+            sellerCreationErrors.concat(e.getErrorMessage());
+        }
+        try {
+            AccountsException.validatePassWord(sellerInfo.get(0));
+        } catch (AccountsException e) {
+            sellerCreationErrors.concat(e.getErrorMessage());
+        }
+        try {
+            AccountsException.validateNameTypeInfo("company name", sellerInfo.get(5));
+        } catch (AccountsException.invalidNameTypeInfoException e) {
+            sellerCreationErrors.concat(e.getErrorMessage());
+        }
+        if (sellerCreationErrors.isEmpty()) {
+            throw new Exception("sorry there where some errors in account creation : \n" + sellerCreationErrors);
+        }
     }
 
     public String login(String userName, String password) throws Exception {
@@ -199,11 +292,11 @@ public class GeneralController {
         return offProducts;
     }
 
-    public String viewPersonalInfo(){
+    public String viewPersonalInfo() {
         return currentUser.viewMe();
     }
 
-    public void logout(){
+    public void logout() {
         currentUser = null;
     }
 }

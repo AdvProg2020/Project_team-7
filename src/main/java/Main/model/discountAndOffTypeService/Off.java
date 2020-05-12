@@ -22,10 +22,12 @@ public class Off extends DiscountAndOffTypeService {
     public Off(ArrayList<Product> products, OffStatus offStatus, String startDate, String endDate,
                String offAmount, SellerAccount seller) throws Exception {
         super(startDate, endDate);
+        this.products=products;
+        this.offStatus= offStatus;
         this.offId = IDGenerator.getNewID(lastUsedOffID);
         DiscountAndOffTypeServiceException.validateInputAmount(offAmount);
         this.offAmount = Double.parseDouble(offAmount);
-//TODO
+        this.seller = seller;
     }
 
     public static void addOff(Off off) {

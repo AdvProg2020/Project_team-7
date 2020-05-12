@@ -59,6 +59,8 @@ public class SellerController {
 
     public void addOff(ArrayList<String> offInfo) throws Exception {
         //TODO
+        //TODO : controller catch exceptions
+        //TODO: something like extractDiscountBuyersList in manager controller might be needed
         //Off off = new Off(, OffStatus.PENDING_CREATION_OFF,offInfo.get(0),offInfo.get(1),offInfo.get(2),SellerAccount.getSellerWithUserName(offInfo.get(3)));
     }
 

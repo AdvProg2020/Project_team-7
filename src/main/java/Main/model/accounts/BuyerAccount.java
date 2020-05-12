@@ -23,7 +23,7 @@ public class BuyerAccount extends Account {
                         String email,
                         String phoneNumber,
                         String passWord,
-                        double balance) throws AccountsException {
+                        double balance) {
         super(userName, firstName, lastName, email, phoneNumber, passWord);
         this.balance = balance;
     }

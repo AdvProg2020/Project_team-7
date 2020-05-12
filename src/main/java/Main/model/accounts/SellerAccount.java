@@ -25,9 +25,8 @@ public class SellerAccount extends Account {
                          String passWord,
                          String companyName,
                          String companyExtraInformation,
-                         double balance) throws AccountsException {
+                         double balance) {
         super(userName, firstName, lastName, email, phoneNumber, passWord);
-        AccountsException.validateNameTypeInfo("company name", companyName);
         this.companyName = companyName;
         this.companyExtraInformation = companyExtraInformation;
         this.balance = balance;

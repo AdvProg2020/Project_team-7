@@ -13,7 +13,7 @@ public class ManagerAccount extends Account {
                           String lastName,
                           String email,
                           String phoneNumber,
-                          String passWord) throws AccountsException {
+                          String passWord) {
         super(userName, firstName, lastName, email, phoneNumber, passWord);
     }
 
