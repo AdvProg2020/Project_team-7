@@ -8,7 +8,7 @@ import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.exceptions.AccountsException;
-import Main.model.filters.Filter;
+import Main.model.filters.*;
 import Main.model.requests.AddCommentRequest;
 import Main.model.requests.CreateSellerAccountRequest;
 import Main.model.requests.Request;
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class GeneralController {
     public static Account currentUser = null;
     public static Product currentProduct = null;
+    public static CartProduct currentCartProduct = null;
     public static Category currentCategory = null;
     public static String currentSort = null;
     public static ArrayList<Filter> currentFilters = new ArrayList<Filter>();
@@ -42,11 +43,12 @@ public class GeneralController {
     }
 
     public void addProductToCart() {
-        //CartProduct cartProduct = new CartProduct(currentProduct, , ((BuyerAccount) currentUser).getCart());
+        ((BuyerAccount) currentUser).getCart().addCartProduct(currentCartProduct);
     }
 
-    public void selectSellerWithId(String id) {
-
+    public void selectSellerWithId(String id) throws Exception{
+        CartProduct cartProduct = new CartProduct(currentProduct, SellerAccount.getSellerWithUserName(id), ((BuyerAccount) currentUser).getCart());
+        currentCartProduct = cartProduct;
     }
 
     public void addComment(String title, String content) {
@@ -64,13 +66,41 @@ public class GeneralController {
     }
 
     public String showAvailableFilters() {
-        return null;
+        String availableFilters = "";
+        availableFilters = availableFilters.concat("Brand\nPrice\nName\nAvailable\n");
+        if (currentCategory == null){
+            availableFilters = availableFilters.concat("Category\n");
+        } else {
+            for (String specialFeature : currentCategory.getSpecialFeatures()) {
+                availableFilters = availableFilters.concat(specialFeature + "\n");
+            }
+        }
+        return availableFilters;
     }
 
-    public void createFilter(String filterType) {
-        Filter filter;
-        /*if (filterType.equalsIgnoreCase("Brand"))
-            filter = new B*/
+    public String createFilter(String filterType, String filterInput) {
+        Filter filter = null;
+        if (filterType.equalsIgnoreCase("Brand")) {
+            filter = new BrandFilter(filterInput, currentCategory == null ? Product.allProducts : currentCategory.getProducts());
+        } else if (filterType.equalsIgnoreCase("Price")){
+            String[] words=filterInput.split("[\\s-,_]");
+            filter = new PriceRangeFilter(Double.parseDouble(words[0]),Double.parseDouble(words[1]),currentCategory == null ? Product.allProducts : currentCategory.getProducts());
+        } else if (filterType.equalsIgnoreCase("Name")){
+            filter = new ProductNameFilter(filterInput, currentCategory == null ? Product.allProducts : currentCategory.getProducts());
+        } else if (filterType.equalsIgnoreCase("Available")){
+            filter = new StockFilter(currentCategory == null ? Product.allProducts : currentCategory.getProducts());
+        } else if (currentCategory == null && filterType.equalsIgnoreCase("Category")){
+            filter = new CategoryFilter(filterInput, Product.allProducts);
+        } else if (currentCategory!=null){
+            for (String specialFeature : currentCategory.getSpecialFeatures()) {
+                if (filterType.equalsIgnoreCase(specialFeature))
+                    filter = new SpecialFeaturesFilter(specialFeature, filterInput, currentCategory.getProducts());
+            }
+        }
+        if (filter == null)
+            return "Wrong filter selected.";
+        currentFilters.add(filter);
+        return "Filter was created.";
     }
 
     public String showCurrentFilters() {
