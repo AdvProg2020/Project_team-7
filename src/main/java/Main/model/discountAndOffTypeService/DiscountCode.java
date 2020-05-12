@@ -3,6 +3,7 @@ package Main.model.discountAndOffTypeService;
 import Main.model.IDGenerator;
 import Main.model.accounts.BuyerAccount;
 import Main.model.exceptions.DiscountAndOffTypeServiceException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -37,9 +38,9 @@ public class DiscountCode extends DiscountAndOffTypeService {
         StringBuilder list = new StringBuilder();
         list.append("List of discount codes:");
         for (DiscountCode discountCode : allDiscountCodes) {
-            if(discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+            if (discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
                 discountCode.removeDiscountCode();
-            }else{
+            } else {
                 list.append("\n" + discountCode.getCode());
             }
         }
@@ -77,16 +78,16 @@ public class DiscountCode extends DiscountAndOffTypeService {
     }
 
     public static DiscountCode getDiscountCodeWithCode(String code) throws Exception {
-        DiscountCode foundDiscountCode=null;
+        DiscountCode foundDiscountCode = null;
         for (DiscountCode discountCode : allDiscountCodes) {
-            if (discountCode.code.equals(code)){
+            if (discountCode.code.equals(code)) {
                 foundDiscountCode = discountCode;
             }
         }
-        if(foundDiscountCode==null){
+        if (foundDiscountCode == null) {
             throw new Exception("There is no discount code with given code !\n");
         }
-        if(foundDiscountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+        if (foundDiscountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
             foundDiscountCode.removeDiscountCode();
             throw new Exception("this discount code has expired !\n");
         }

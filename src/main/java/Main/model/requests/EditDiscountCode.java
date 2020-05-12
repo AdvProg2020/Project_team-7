@@ -90,19 +90,19 @@ public class EditDiscountCode {
     }
 
     private void acceptPercent(String errors) {
-       if(percent!=0){
-           discountCode.setPercent(this.percent);
-       }
+        if (percent != 0) {
+            discountCode.setPercent(this.percent);
+        }
     }
 
     private void acceptMaxAmount(String errors) {
-        if(maxAmount!=0){
+        if (maxAmount != 0) {
             discountCode.setMaxAmount(this.maxAmount);
         }
     }
 
     private void acceptMaxNumberOfUse(String errors) {
-        if(maxNumberOfUse!=0){
+        if (maxNumberOfUse != 0) {
             discountCode.setMaxNumberOfUse(this.maxNumberOfUse);
         }
     }

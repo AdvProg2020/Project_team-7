@@ -109,4 +109,8 @@ public class Off extends DiscountAndOffTypeService {
             product.removeOff(this);
         }
     }
+
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
 }

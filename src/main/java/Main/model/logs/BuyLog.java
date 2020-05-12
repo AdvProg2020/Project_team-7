@@ -14,7 +14,7 @@ public class BuyLog extends Log {
     @Override
     public String viewLog() {
         return "Buy Log :" + "\n\tLog ID : " + logId + "\n\tTotal Paid Amount (considering discount codes): " + totalCost
-                + "\n\tDiscount Amount : %" + discountAmount + "\n\tDate : " + dateFormat.format(date) + "\n" +  products +
+                + "\n\tDiscount Amount : %" + discountAmount + "\n\tDate : " + dateFormat.format(date) + "\n" + products +
                 "\n\tDelivery Status : " + deliveryStatus + "\n\tReceiver Information : " + receiverInfo + "\n";
     }
 }

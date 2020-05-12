@@ -16,7 +16,7 @@ public abstract class Log {
     protected String receiverInfo;
     protected static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-    public Log(String logID,Date date, String products, DeliveryStatus deliveryStatus, String receiverInfo, double totalCost) {
+    public Log(String logID, Date date, String products, DeliveryStatus deliveryStatus, String receiverInfo, double totalCost) {
         this.logId = logID;
         this.date = date;
         this.products = products;

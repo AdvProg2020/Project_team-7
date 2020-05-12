@@ -33,7 +33,7 @@ public abstract class Request {
 
     public abstract void declineRequest();
 
-    public void accept() {
+    public void accept() throws Exception{
         acceptRequest();
         allRequests.remove(this);
     }

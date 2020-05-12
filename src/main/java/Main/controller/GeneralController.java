@@ -13,8 +13,6 @@ import Main.model.requests.AddCommentRequest;
 import Main.model.requests.CreateSellerAccountRequest;
 import Main.model.requests.Request;
 import Main.model.sorting.ProductsSort;
-
-import javax.naming.Name;
 import java.util.ArrayList;
 
 public class GeneralController {
@@ -42,7 +40,7 @@ public class GeneralController {
     }
 
     public void addProductToCart() {
-
+        //CartProduct cartProduct = new CartProduct(currentProduct, , ((BuyerAccount) currentUser).getCart());
     }
 
     public void selectSellerWithId(String id) {
@@ -69,6 +67,8 @@ public class GeneralController {
 
     public void createFilter(String filterType) {
         Filter filter;
+        /*if (filterType.equalsIgnoreCase("Brand"))
+            filter = new B*/
     }
 
     public String showCurrentFilters() {
@@ -91,7 +91,6 @@ public class GeneralController {
 
     public void makeSort(String sortType) {
         currentSort = sortType;
-        //TODO implementation?
     }
 
     public String showCurrentSort() {
@@ -117,7 +116,9 @@ public class GeneralController {
         return filtered;
     }
 
-    public String createAccount(String userName) {
+    public String createAccount(String type, String userName) {
+        if (type.equalsIgnoreCase("Manager") && !ManagerAccount.getAllManagers().isEmpty())
+            return "you can not create more than one manager account directly.";
         if (Account.isThereUserWithUserName(userName))
             return "this userName is already taken.";
         else return "account Created.";
@@ -134,7 +135,7 @@ public class GeneralController {
         BuyerAccount.addBuyer(buyerAccount);
     }
 
-    public void getSellerInformation(ArrayList<String> sellerInfo,String userName) throws Exception {
+    public void getSellerInformation(ArrayList<String> sellerInfo, String userName) throws Exception {
         SellerAccount sellerAccount = new SellerAccount(userName,
                 sellerInfo.get(1),
                 sellerInfo.get(2),
@@ -169,15 +170,11 @@ public class GeneralController {
         }
     }
 
-    public int recognizeUserType() {
-        return 0;
-    }
-
     public String editPersonalInfo(String field, String newContent) {
-        return currentUser.editPersonalInfo(field,newContent);
+        return currentUser.editPersonalInfo(field, newContent);
     }
 
-    public String showAllProducts(){
+    public String showAllProducts() {
         String allProducts = "";
         for (Product allProduct : Product.allProducts) {
             allProducts = allProducts.concat(allProduct.showProductDigest());
@@ -186,12 +183,12 @@ public class GeneralController {
         return allProducts;
     }
 
-    public String showAllOffProducts(){
+    public String showAllOffProducts() {
         String offProducts = "";
         for (Off allOff : Off.allOffs) {
-            if(allOff.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+            if (allOff.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
                 allOff.removeOff();
-            }else {
+            } else {
                 for (Product product : allOff.getProducts()) {
                     offProducts = offProducts.concat(product.showProductDigest());
                     offProducts = offProducts.concat("\n");
@@ -199,5 +196,9 @@ public class GeneralController {
             }
         }
         return offProducts;
+    }
+
+    public String viewPersonalInfo(){
+        return currentUser.viewMe();
     }
 }

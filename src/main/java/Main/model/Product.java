@@ -55,7 +55,7 @@ public class Product {
     }
 
     public String showProductDigest() {
-        if(off!=null&&off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+        if (off != null && off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
             off.removeOff();
         }
         return
@@ -288,7 +288,7 @@ public class Product {
     }
 
     public double getProductFinalPriceConsideringOff() {
-        if(off!=null&&off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+        if (off != null && off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
             off.removeOff();
         }
         if (off == null)
