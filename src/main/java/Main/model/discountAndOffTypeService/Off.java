@@ -17,7 +17,7 @@ public class Off extends DiscountAndOffTypeService {
     private Date endDate;
     private double offAmount;
     private OffStatus offStatus;
-    private static ArrayList<Off> allOffs = new ArrayList<Off>();
+    public static ArrayList<Off> allOffs = new ArrayList<Off>();
 
     public Off(ArrayList<Product> products, OffStatus offStatus, String startDate, String endDate,
                String offAmount, SellerAccount seller) throws Exception {

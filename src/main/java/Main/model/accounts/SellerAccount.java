@@ -17,13 +17,43 @@ public class SellerAccount extends Account {
     private static ArrayList<SellerAccount> allSellers = new ArrayList<SellerAccount>();
     private double balance;
 
-    public SellerAccount(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord
-            , String companyName, String companyExtraInformation, double balance) throws AccountsException {
+    public SellerAccount(String userName,
+                         String firstName,
+                         String lastName,
+                         String email,
+                         String phoneNumber,
+                         String passWord ,
+                         String companyName,
+                         String companyExtraInformation,
+                         double balance) throws AccountsException {
         super(userName, firstName, lastName, email, phoneNumber, passWord);
         AccountsException.validateNameTypeInfo("company name", companyName);
         this.companyName = companyName;
         this.companyExtraInformation = companyExtraInformation;
         this.balance = balance;
+    }
+
+    public String editPersonalInfo(String field, String newContent){
+        if (field.equals("userName"))
+            return "you are not allowed to edit this";
+        else {
+            if (field.equals("firstName"))
+                firstName = newContent;
+            else if (field.equals("lastName"))
+                lastName = newContent;
+            else if (field.equals("email"))
+                email = newContent;
+            else if (field.equals("phoneNumber"))
+                phoneNumber = newContent;
+            else if (field.equals("passWord"))
+                passWord = newContent;
+            else if (field.equals("companyName"))
+                companyName = newContent;
+            else if (field.equals("companyExtraInformation"))
+                companyExtraInformation = newContent;
+            else return "wrong field to edit";
+            return "edit done successfully.";
+        }
     }
 
     public static String showSellersList() {

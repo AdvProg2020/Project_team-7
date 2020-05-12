@@ -10,7 +10,7 @@ public class Category {
     private ArrayList<Product> products = new ArrayList<Product>();
     private static ArrayList<Category> allCategories = new ArrayList<Category>();
 
-    public Category(String name, ArrayList<String> specialFeatures) throws Exception {
+    public Category (String name, ArrayList<String> specialFeatures) throws Exception{
         setName(name);
         this.specialFeatures = specialFeatures;
     }

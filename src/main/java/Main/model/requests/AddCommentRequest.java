@@ -2,7 +2,6 @@ package Main.model.requests;
 
 import Main.model.Comment;
 import Main.model.CommentStatus;
-import Main.model.Off;
 
 public class AddCommentRequest extends Request {
     private Comment comment;

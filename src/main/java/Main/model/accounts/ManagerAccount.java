@@ -8,8 +8,32 @@ public class ManagerAccount extends Account {
 
     private static ArrayList<ManagerAccount> allManagers = new ArrayList<ManagerAccount>();
 
-    public ManagerAccount(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord) throws AccountsException {
+    public ManagerAccount(String userName,
+                          String firstName,
+                          String lastName,
+                          String email,
+                          String phoneNumber,
+                          String passWord) throws AccountsException {
         super(userName, firstName, lastName, email, phoneNumber, passWord);
+    }
+
+    public String editPersonalInfo(String field, String newContent){
+        if (field.equals("userName"))
+            return "you are not allowed to edit this";
+        else {
+            if (field.equals("firstName"))
+                firstName = newContent;
+            else if (field.equals("lastName"))
+                lastName = newContent;
+            else if (field.equals("email"))
+                email = newContent;
+            else if (field.equals("phoneNumber"))
+                phoneNumber = newContent;
+            else if (field.equals("passWord"))
+                passWord = newContent;
+            else return "wrong field to edit";
+            return "edit done successfully.";
+        }
     }
 
     public static void addManager(ManagerAccount managerAccount) {
