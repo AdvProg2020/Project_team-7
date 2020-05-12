@@ -21,6 +21,7 @@ public class GeneralController {
     public static Category currentCategory = null;
     public static String currentSort = null;
     public static ArrayList<Filter> currentFilters = new ArrayList<Filter>();
+    public static String selectedUsername;
 
     public String setCurrentProductWithId(String id) throws Exception {
         currentProduct = Product.getProductWithId(id);
@@ -200,5 +201,9 @@ public class GeneralController {
 
     public String viewPersonalInfo(){
         return currentUser.viewMe();
+    }
+
+    public void logout(){
+        currentUser = null;
     }
 }

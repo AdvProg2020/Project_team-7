@@ -25,8 +25,8 @@ public class DigestMenu extends Menu {
                 if (GeneralController.currentUser == null || GeneralController.currentUser instanceof SellerAccount ||
                         GeneralController.currentUser instanceof ManagerAccount) {
                     System.out.println("You have not logged in yet! ");
-                    UserPanelMenu userPanelMenu = new UserPanelMenu(this);
-                    userPanelMenu.run();
+                    SignInMenu signInMenu = new SignInMenu(this);
+                    signInMenu.run();
                 } else {
                     generalController.addProductToCart();
                 }
