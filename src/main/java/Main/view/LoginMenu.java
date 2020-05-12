@@ -15,7 +15,7 @@ public class LoginMenu extends Menu {
                 System.out.println("Enter your username or Back to return:");
             }
             @Override
-            public void execute(){
+            public void execute() throws Exception {
                 String input = scanner.nextLine();
                 if(input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
