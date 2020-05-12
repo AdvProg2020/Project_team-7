@@ -7,7 +7,6 @@ import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountCode;
-import Main.model.exceptions.AccountsException;
 import Main.model.requests.EditCategory;
 import Main.model.requests.EditDiscountCode;
 import Main.model.requests.Request;
@@ -15,7 +14,11 @@ import Main.model.requests.Request;
 import java.util.ArrayList;
 
 public class ManagerController {
-    public ManagerAccount chiefManager = null;
+    public static ManagerAccount chiefManager = null;
+
+    public void setChiefManager(ManagerAccount manager){
+        chiefManager = manager;
+    }
 
     public String showUsersList() {
         return ManagerAccount.showManagersList() + SellerAccount.showSellersList() + BuyerAccount.showBuyersList();
@@ -45,6 +48,9 @@ public class ManagerController {
         Account account = Account.getUserWithUserName(userName);
 
          if (account instanceof ManagerAccount) {
+             if(GeneralController.currentUser!=chiefManager){
+                 throw new Exception("only chief mananger can delete managers !\n");
+             }
             ManagerAccount managerAccount = (ManagerAccount) account;
             ManagerAccount.deleteManager(managerAccount);
         } else if (account instanceof SellerAccount) {
@@ -56,7 +62,10 @@ public class ManagerController {
         }
     }
 
-    public void createManagerProfile(ArrayList<String> managerInfo) throws AccountsException {
+    public void createManagerProfile(ArrayList<String> managerInfo) throws Exception {
+        if(GeneralController.currentUser!=chiefManager){
+            throw new Exception("only chief manager can create manager profile!\n");
+        }
         ManagerAccount managerAccount = new ManagerAccount(managerInfo.get(0), managerInfo.get(1), managerInfo.get(2),
                 managerInfo.get(3), managerInfo.get(4), managerInfo.get(5));
         ManagerAccount.addManager(managerAccount);
@@ -85,6 +94,7 @@ public class ManagerController {
         int discountInfoSize = discountInfo.size();
         for (int i = 6; i < discountInfoSize; i++) {
             BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(discountInfo.get(i));
+            //TODO : due to view implementation this can be removed
             if (buyerAccount == null) {
                 throw new Exception("There are some invalid user names in the given information !\n" +
                         "Please check user names and try again !\n");
@@ -143,7 +153,7 @@ public class ManagerController {
             request.decline();
     }
 
-    public void createCategory(String name, ArrayList<String> specialFeatures) throws Exception{
+    public void createCategory(String name, ArrayList<String> specialFeatures) throws Exception {
         Category category = new Category(name, specialFeatures);
         Category.addCategory(category);
     }
@@ -154,11 +164,11 @@ public class ManagerController {
         category.removeCategory();
     }
 
-    public void editDiscountCodeWithCode(EditDiscountCode editDiscountCode) throws Exception {
+    public void acceptEditDiscountCode(EditDiscountCode editDiscountCode) throws Exception {
         editDiscountCode.acceptRequest();
     }
 
-    public void editCategoryWithId(EditCategory editCategory) throws Exception {
+    public void acceptEditCategory(EditCategory editCategory) throws Exception {
         editCategory.acceptRequest();
     }
 }

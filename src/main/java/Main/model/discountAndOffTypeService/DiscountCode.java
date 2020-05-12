@@ -1,11 +1,9 @@
 package Main.model.discountAndOffTypeService;
 
-import Main.controller.BuyerController;
 import Main.model.IDGenerator;
 import Main.model.accounts.BuyerAccount;
 import Main.model.exceptions.DiscountAndOffTypeServiceException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 public class DiscountCode extends DiscountAndOffTypeService {
@@ -90,7 +88,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
         }
         if(foundDiscountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
             foundDiscountCode.removeDiscountCode();
-            throw new Exception("sorry this discount code is expired !\n");
+            throw new Exception("this discount code has expired !\n");
         }
         return foundDiscountCode;
     }
@@ -100,7 +98,6 @@ public class DiscountCode extends DiscountAndOffTypeService {
         for (BuyerAccount buyerAccount : users.keySet()) {
             buyerAccount.removeDiscountCode(this);
         }
-        BuyerController.deselectDiscountCode();
     }
 
     public String getCode() {
@@ -146,11 +143,5 @@ public class DiscountCode extends DiscountAndOffTypeService {
 
     public boolean isThereBuyerWithReference(BuyerAccount buyerAccount) {
         return users.containsKey(buyerAccount);
-    }
-
-    public void expireIfNeeded() {
-        if(this.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
-            removeDiscountCode();
-        }
     }
 }

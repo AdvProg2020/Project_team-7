@@ -14,20 +14,16 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class BuyerController {
-    private static BuyerAccount currentBuyer = null;
-    private static Cart currentBuyersCart = null;
-    private static String receiverInformation = null;
-    private static DiscountCode discountCode = null;
+    private BuyerAccount currentBuyer = null;
+    private Cart currentBuyersCart = null;
+    private String receiverInformation = null;
+    private DiscountCode discountCode = null;
 
     public BuyerController() {
-        if (GeneralController.currentUser instanceof BuyerAccount) {
-            BuyerAccount currentBuyer = (BuyerAccount) GeneralController.currentUser;
+        if(GeneralController.currentUser instanceof BuyerAccount){
+            currentBuyer = (BuyerAccount) GeneralController.currentUser;
             currentBuyersCart = currentBuyer.getCart();
         }
-        currentBuyer = null;
-        currentBuyersCart = null;
-        receiverInformation = null;
-        deselectDiscountCode();
     }
 
     public String showCartProducts() {
@@ -80,6 +76,9 @@ public class BuyerController {
     public void setPurchaseDiscountCode(String code) throws Exception {
         DiscountCode discountCode = DiscountCode.getDiscountCodeWithCode(code);
 
+        if(discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.NOT_STARTED)){
+            throw new Exception("This discount code hasn't started yet !\n");
+        }
         if (getToTalPaymentConsideringDiscount() > discountCode.getMaxAmount()) {
             throw new Exception("This discount code cant be applied on your cart because it's total cost exceeds discount max amount !\n");
         }
@@ -87,7 +86,10 @@ public class BuyerController {
     }
 
     public String showPurchaseInfo() {
-        discountCode.expireIfNeeded();
+        if(discountCode!=null&&discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+            discountCode.removeDiscountCode();
+            discountCode = null;
+        }
         return "Purchase Information :" + "\n\nReceiver Information : \n\t" + receiverInformation + "\n\n" +
                 currentBuyersCart.toStringForBuyer() + "\n\ntotal amount you got to pay : " + getToTalPaymentConsideringDiscount() +
                 "\nDiscount Code : " + (discountCode == null ? "no active discount code applied yet !\n" : "" +
@@ -95,7 +97,10 @@ public class BuyerController {
     }
 
     private double getToTalPaymentConsideringDiscount() {
-        discountCode.expireIfNeeded();
+        if(discountCode!=null&&discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+            discountCode.removeDiscountCode();
+            discountCode = null;
+        }
         double percentOfCostToBePaid = (discountCode==null?100:100-discountCode.getDiscountCodeAmount());
         return currentBuyersCart.getCartTotalPriceConsideringOffs() * percentOfCostToBePaid / 100;
     }
@@ -134,7 +139,8 @@ public class BuyerController {
 
     private void createPurchaseHistoryElementsForBuyer(Date date, String logID) {
         BuyLog buyLog = new BuyLog(logID, date, getToTalPaymentConsideringDiscount(),
-                (discountCode==null?0:discountCode.getDiscountCodeAmount()), currentBuyersCart.toStringForBuyer(), DeliveryStatus.PENDING_DELIVERY, receiverInformation);
+                (discountCode==null?0:discountCode.getDiscountCodeAmount()), currentBuyersCart.toStringForBuyer(),
+                DeliveryStatus.PENDING_DELIVERY, receiverInformation);
         currentBuyer.addLog(buyLog);
         currentBuyer.addCartsProductsToBoughtProducts();
     }
@@ -147,9 +153,5 @@ public class BuyerController {
                     currentBuyer,cart.calculateCartTotalOffs(),DeliveryStatus.PENDING_DELIVERY,receiverInformation);
             sellerAccount.addLog(sellLog);
         }
-    }
-
-    public static void deselectDiscountCode(){
-        discountCode = null;
     }
 }

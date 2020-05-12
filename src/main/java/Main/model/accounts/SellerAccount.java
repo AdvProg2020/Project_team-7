@@ -1,7 +1,8 @@
 package Main.model.accounts;
 
-import Main.model.discountAndOffTypeService.Off;
 import Main.model.Product;
+import Main.model.discountAndOffTypeService.DiscountAndOffStat;
+import Main.model.discountAndOffTypeService.Off;
 import Main.model.exceptions.AccountsException;
 import Main.model.logs.SellLog;
 
@@ -139,7 +140,11 @@ public class SellerAccount extends Account {
         StringBuilder offListStr = new StringBuilder();
         offListStr.append("offs :\n");
         for (Off off : offList) {
-            offListStr.append(off.viewMe());
+            if(off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+                off.removeOff();
+            }else {
+                offListStr.append(off.viewMe());
+            }
         }
         return offListStr.toString();
     }

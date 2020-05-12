@@ -2,6 +2,7 @@ package Main.model;
 
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
+import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
 
 import java.util.ArrayList;
@@ -54,6 +55,9 @@ public class Product {
     }
 
     public String showProductDigest() {
+        if(off!=null&&off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+            off.removeOff();
+        }
         return
                 "name: " + name +
                         "\nid: " + productId +
@@ -241,6 +245,7 @@ public class Product {
     public void increaseVisitFrequencyByOne() {
         this.openFrequency++;
     }
+    //TODO  : where to apply this 0_0 !!! in view?
 
     public void removeOff(Off off) {
         setOff(null);
@@ -283,6 +288,9 @@ public class Product {
     }
 
     public double getProductFinalPriceConsideringOff() {
+        if(off!=null&&off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+            off.removeOff();
+        }
         if (off == null)
             return price;
         else

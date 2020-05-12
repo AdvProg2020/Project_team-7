@@ -2,6 +2,7 @@ package Main.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.PropertyPermission;
 
 public class Category {
     private String name;
@@ -15,9 +16,19 @@ public class Category {
     }
 
     public void setName(String name) throws Exception {
+        if(isThereCategoryWithName(name)){
+            throw new Exception("there is already a category with name : \'" + name + "\' !\n");
+        }
         this.name = name;
-        //TODO : validate category name's uniqueness and throw exception
-        throw new Exception();
+    }
+
+    private boolean isThereCategoryWithName(String name){
+        for (Category category : allCategories) {
+            if(category.name.equals(name)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public static String showAllCategories() {
