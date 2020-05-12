@@ -6,6 +6,7 @@ import Main.model.accounts.Account;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
 import Main.model.accounts.SellerAccount;
+import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.filters.Filter;
 import Main.model.requests.AddCommentRequest;
@@ -188,9 +189,13 @@ public class GeneralController {
     public String showAllOffProducts(){
         String offProducts = "";
         for (Off allOff : Off.allOffs) {
-            for (Product product : allOff.getProducts()) {
-                offProducts = offProducts.concat(product.showProductDigest());
-                offProducts = offProducts.concat("\n");
+            if(allOff.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+                allOff.removeOff();
+            }else {
+                for (Product product : allOff.getProducts()) {
+                    offProducts = offProducts.concat(product.showProductDigest());
+                    offProducts = offProducts.concat("\n");
+                }
             }
         }
         return offProducts;
