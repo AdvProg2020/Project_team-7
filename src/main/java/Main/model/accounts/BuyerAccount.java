@@ -29,20 +29,20 @@ public class BuyerAccount extends Account {
     }
 
     public String editPersonalInfo(String field, String newContent) {
-        if (field.equals("userName"))
+        if (field.equalsIgnoreCase("username"))
             return "you are not allowed to edit this";
         else {
-            if (field.equals("firstName"))
+            if (field.equalsIgnoreCase("first name"))
                 firstName = newContent;
-            else if (field.equals("lastName"))
+            else if (field.equalsIgnoreCase("last name"))
                 lastName = newContent;
-            else if (field.equals("email"))
+            else if (field.equalsIgnoreCase("email"))
                 email = newContent;
-            else if (field.equals("phoneNumber"))
+            else if (field.equalsIgnoreCase("phone number"))
                 phoneNumber = newContent;
-            else if (field.equals("passWord"))
+            else if (field.equalsIgnoreCase("password"))
                 passWord = newContent;
-            else if (field.equals("balance"))
+            else if (field.equalsIgnoreCase("balance"))
                 balance = Double.parseDouble(newContent);
             else return "wrong field to edit";
             return "edit done successfully.";

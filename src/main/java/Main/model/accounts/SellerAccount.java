@@ -37,19 +37,19 @@ public class SellerAccount extends Account {
         if (field.equals("userName"))
             return "you are not allowed to edit this";
         else {
-            if (field.equals("firstName"))
+            if (field.equalsIgnoreCase("first name"))
                 firstName = newContent;
-            else if (field.equals("lastName"))
+            else if (field.equalsIgnoreCase("last name"))
                 lastName = newContent;
-            else if (field.equals("email"))
+            else if (field.equalsIgnoreCase("email"))
                 email = newContent;
-            else if (field.equals("phoneNumber"))
+            else if (field.equalsIgnoreCase("phone number"))
                 phoneNumber = newContent;
-            else if (field.equals("passWord"))
+            else if (field.equalsIgnoreCase("password"))
                 passWord = newContent;
-            else if (field.equals("companyName"))
+            else if (field.equalsIgnoreCase("company name"))
                 companyName = newContent;
-            else if (field.equals("companyExtraInformation"))
+            else if (field.equalsIgnoreCase("company extra information"))
                 companyExtraInformation = newContent;
             else return "wrong field to edit";
             return "edit done successfully.";
