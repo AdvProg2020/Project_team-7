@@ -11,65 +11,40 @@ public class EditCategory {
     private String name;
     private ArrayList<String> specialFeaturesToBeAdded = new ArrayList<String>();
     private ArrayList<String> specialFeaturesToBeRemoved = new ArrayList<String>();
-    private ArrayList<Product> productsToBeAdded = new ArrayList<Product>();
-    private ArrayList<Product> productsToBeRemoved = new ArrayList<Product>();
+    private ArrayList<String> productsToBeAdded = new ArrayList<>();
+    private ArrayList<String> productsToBeRemoved = new ArrayList<>();
 
     public EditCategory(Category category) {
         this.category = category;
+        this.name = category.getName();
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void addProductToBeAdded(String productID) throws Exception {
-        Product product = Product.getProductWithId(productID);
-        productsToBeAdded.add(product);
+    public void addProductToBeAdded(String productID){
+        productsToBeAdded.add(productID);
     }
 
-    public void addProductToBeRemoved(String productID) throws Exception {
-        Product product = Product.getProductWithId(productID);
-        if (!category.isThereProductWithReference(product)) {
-            throw new Exception("There is no product with this ID in this category !\n");
-        }
-        productsToBeRemoved.add(product);
+    public void addProductToBeRemoved(String productID){
+        productsToBeRemoved.add(productID);
     }
 
-    public void addSpecialFeatureToBeAdded(String specialFeature) throws Exception {
-        if (category.isThereSpecialFeature(specialFeature)) {
-            throw new Exception("There is already a special feature with title \"" + specialFeature + "\" in this category !\n");
-        }
+    public void addSpecialFeatureToBeAdded(String specialFeature) {
         specialFeaturesToBeAdded.add(specialFeature);
     }
 
-    public void addSpecialFeatureToBeRemoved(String specialFeature) throws Exception {
-        if (!category.isThereSpecialFeature(specialFeature)) {
-            throw new Exception("There is no special feature with this title in this category!\n");
-        }
+    public void addSpecialFeatureToBeRemoved(String specialFeature){
         specialFeaturesToBeRemoved.add(specialFeature);
     }
 
     public void acceptRequest() throws Exception {
-        String errors = new String();
-        acceptName(errors);
+        category.setName(name);
         acceptSpecialFeaturesToBeAdded();
         acceptSpecialFeaturesToBeRemoved();
         acceptProductsToBeAdded();
         acceptProductsToBeRemoved();
-
-        if (errors.length() != 0) {
-            throw new Exception(errors);
-        }
-    }
-
-    private void acceptName(String errors) {
-        if (name != null) {
-            try {
-                category.setName(this.name);
-            } catch (Exception e) {
-                errors.concat(e.getMessage());
-            }
-        }
     }
 
     private void acceptSpecialFeaturesToBeAdded() {
@@ -84,15 +59,39 @@ public class EditCategory {
         }
     }
 
-    private void acceptProductsToBeAdded() {
-        for (Product product : productsToBeAdded) {
-            category.addProduct(product);
+    private void acceptProductsToBeAdded() throws Exception {
+        for (String productID : productsToBeAdded) {
+            category.addProduct(Product.getProductWithId(productID));
         }
     }
 
-    private void acceptProductsToBeRemoved() {
-        for (Product product : productsToBeRemoved) {
-            category.removeProduct(product);
+    private void acceptProductsToBeRemoved() throws Exception {
+        for (String productID : productsToBeAdded) {
+            category.removeProduct(Product.getProductWithId(productID));
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<String> getSpecialFeaturesToBeAdded() {
+        return specialFeaturesToBeAdded;
+    }
+
+    public ArrayList<String> getSpecialFeaturesToBeRemoved() {
+        return specialFeaturesToBeRemoved;
+    }
+
+    public ArrayList<String> getProductsToBeAdded() {
+        return productsToBeAdded;
+    }
+
+    public ArrayList<String> getProductsToBeRemoved() {
+        return productsToBeRemoved;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 }

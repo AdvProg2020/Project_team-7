@@ -298,7 +298,108 @@ public class ManagerController {
         }
     }
 
-    public void acceptEditCategory(EditCategory editCategory) throws Exception {
+    public EditCategory getCategoryToEdit(String categoryName) throws Exception {
+        return new EditCategory(Category.getCategoryWithName(categoryName));
+    }
+
+    public void submitCategoryEdits(EditCategory editCategory) throws Exception {
+        validateInputEditCategoryInfo(editCategory);
         editCategory.acceptRequest();
+    }
+
+    private void validateInputEditCategoryInfo(EditCategory editCategory) throws Exception {
+        String editCategoryErrors = new String();
+
+        try {
+            Category.isThereCategoryWithName(editCategory.getName());
+        } catch (Exception e) {
+            editCategoryErrors.concat(e.getMessage());
+        }
+        try {
+            validateCategoryProductsToBeAdded(editCategory);
+        } catch (Exception e) {
+            editCategoryErrors.concat(e.getMessage());
+        }
+        try {
+            validateEditCategoryProductsToBeRemoved(editCategory);
+        } catch (Exception e) {
+            editCategoryErrors.concat(e.getMessage());
+        }
+
+        try {
+            validateEditCategorySpecialFeaturesToBeAdded(editCategory);
+        } catch (Exception e) {
+            editCategoryErrors.concat(e.getMessage());
+        }
+
+        try {
+            validateEditCategorySpecialFeaturesToBeRemoved(editCategory);
+        } catch (Exception e) {
+            editCategoryErrors.concat(e.getMessage());
+        }
+
+        if (editCategoryErrors.isEmpty()) {
+            throw new Exception("there where some errors in category edit : \n" + editCategoryErrors);
+        }
+    }
+
+
+    private void validateCategoryProductsToBeAdded(EditCategory editCategory) throws Exception {
+        String invalidProductIDs = new String();
+        for (String productID : editCategory.getProductsToBeAdded()) {
+            try {
+                Product.getProductWithId(productID);
+            } catch (Exception e) {
+                invalidProductIDs.concat(e.getMessage());
+            }
+        }
+        if (!invalidProductIDs.isEmpty()) {
+            throw new Exception("there where some errors in adding products : \n" + invalidProductIDs);
+        }
+    }
+
+    private void validateEditCategoryProductsToBeRemoved(EditCategory editCategory) throws Exception {
+        String invalidProductIDs = new String();
+        for (String productID : editCategory.getProductsToBeAdded()) {
+            try {
+                Product product = Product.getProductWithId(productID);
+                if (!editCategory.getCategory().isThereProductWithReference(product)) {
+                    throw new Exception("There is no product with this ID in this category !\n");
+                }
+            } catch (Exception e) {
+                invalidProductIDs.concat(e.getMessage());
+            }
+        }
+        if (!invalidProductIDs.isEmpty()) {
+            throw new Exception("there where some errors in removing products : \n" + invalidProductIDs);
+        }
+    }
+
+    private void validateEditCategorySpecialFeaturesToBeAdded(EditCategory editCategory) throws Exception {
+        String specialFeaturesToBeAddedErrors = new String();
+
+        Category category = editCategory.getCategory();
+        for (String specialFeaturesToBeAdded : editCategory.getSpecialFeaturesToBeAdded()) {
+            if (category.isThereSpecialFeature(specialFeaturesToBeAdded)) {
+                specialFeaturesToBeAddedErrors.concat("There is already a special feature with title \"" + specialFeaturesToBeAdded + "\" in this category !\n");
+            }
+        }
+        if (!specialFeaturesToBeAddedErrors.isEmpty()) {
+            throw new Exception("there were some errors in adding special features : \n" + specialFeaturesToBeAddedErrors);
+        }
+    }
+
+    private void validateEditCategorySpecialFeaturesToBeRemoved(EditCategory editCategory) throws Exception {
+        String specialFeaturesToBeRemovedErrors = new String();
+
+        Category category = editCategory.getCategory();
+        for (String specialFeatureToBeRemoved : editCategory.getSpecialFeaturesToBeRemoved()) {
+            if (!category.isThereSpecialFeature(specialFeatureToBeRemoved)) {
+                specialFeaturesToBeRemovedErrors.concat("There is no special feature with title : " + specialFeatureToBeRemoved + "in this category!\n");
+            }
+        }
+        if (!specialFeaturesToBeRemovedErrors.isEmpty()) {
+            throw new Exception("there were some errors in removing special features : \n" + specialFeaturesToBeRemovedErrors);
+        }
     }
 }

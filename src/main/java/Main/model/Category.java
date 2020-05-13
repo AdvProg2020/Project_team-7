@@ -15,6 +15,10 @@ public class Category {
         this.specialFeatures = specialFeatures;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public static boolean isThereCategoryWithName(String name) {
         for (Category category : allCategories) {
             if (category.name.equals(name)) {
