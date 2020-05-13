@@ -19,16 +19,17 @@ public class Off extends DiscountAndOffTypeService {
     private OffStatus offStatus;
     public static ArrayList<Off> allOffs = new ArrayList<Off>();
 
-    public Off(ArrayList<Product> products, OffStatus offStatus, String startDate, String endDate,
-               String offAmount, SellerAccount seller) throws Exception {
+    //TODO : Change Dates type from String to date if u can:)
+    public Off(ArrayList<Product> products, String startDate, String endDate,
+               double offAmount, SellerAccount seller) throws Exception {
         super(startDate, endDate);
-        this.products=products;
-        this.offStatus= offStatus;
+        this.products = products;
+        this.offStatus= OffStatus.PENDING_CREATION_OFF;
         this.offId = IDGenerator.getNewID(lastUsedOffID);
-        DiscountAndOffTypeServiceException.validateInputAmount(offAmount);
-        this.offAmount = Double.parseDouble(offAmount);
+        this.offAmount = offAmount;
         this.seller = seller;
     }
+
 
     public static void addOff(Off off) {
         allOffs.add(off);

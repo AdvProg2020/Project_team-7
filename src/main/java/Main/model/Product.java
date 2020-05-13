@@ -28,19 +28,21 @@ public class Product {
     private ArrayList<Rate> rates = new ArrayList<Rate>();
     private HashMap<String, String> specialFeatures = new HashMap<String, String>();
 
-    public Product(String name, String brand, int availability, Category category, String description,
-                   ArrayList<Comment> comments, double price, ArrayList<String> specialFeatures) {
+    public Product(String name, String brand, int availability, Category category, String description, double price, ArrayList<String> specialFeatures) {
         this.productId = IDGenerator.getNewID(lastUsedProductID);
         this.name = name;
         this.brand = brand;
-        this.availability = availability;
-        setCategory(category);
+        //this.availability = availability;
+        //setCategory(category);
         this.description = description;
         this.averageScore = 0;
-        this.comments = comments;
         this.openFrequency = 0;
         this.productStatus = ProductStatus.PENDING_CREATION_PRODUCT;
-        this.price = price;
+        //this.price = price;
+        setSpecialFeatures(specialFeatures);
+    }
+
+    private void setSpecialFeatures(ArrayList<String> specialFeatures){
         if (specialFeatures != null) {
             for (int i = 0; i < specialFeatures.size(); i++)
                 this.specialFeatures.put(category.getSpecialFeatures().get(i), specialFeatures.get(i));

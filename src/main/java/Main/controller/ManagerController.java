@@ -87,12 +87,12 @@ public class ManagerController {
         try {
             DiscountAndOffTypeServiceException.validateInputDate(discountInfo.get(0));
         } catch (Exception e) {
-            discountCreationErrors.concat(e.getMessage());
+            discountCreationErrors.concat("start date is invalid :\n" + e.getMessage());
         }
         try {
             DiscountAndOffTypeServiceException.validateInputDate(discountInfo.get(1));
         } catch (Exception e) {
-            discountCreationErrors.concat(e.getMessage());
+            discountCreationErrors.concat("end date is invalid :\n" + e.getMessage());
         }
         if (discountCreationErrors.isEmpty()) {
             try {
@@ -116,9 +116,31 @@ public class ManagerController {
         } catch (Exception e) {
             discountCreationErrors.concat(e.getMessage());
         }
+        try{
+            validateDiscountBuyersToBeSet(discountInfo);
+        }catch (Exception e){
+            discountCreationErrors.concat(e.getMessage());
+        }
 
         if (discountCreationErrors.isEmpty()) {
             throw new Exception("there where some errors in discount creation : \n" + discountCreationErrors);
+        }
+    }
+
+    private void validateDiscountBuyersToBeSet(ArrayList<String> discountInfo) throws Exception {
+        String discountBuyersToBeSetErrors = new String();
+
+        int discountInfoSize = discountInfo.size();
+        for (int i = 6; i < discountInfoSize; i++) {
+            try {
+                BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(discountInfo.get(i));
+            } catch (Exception e) {
+                discountBuyersToBeSetErrors.concat(e.getMessage());
+            }
+        }
+
+        if (!discountBuyersToBeSetErrors.isEmpty()) {
+            throw new Exception("there were some errors in setting buyers : \n" + discountBuyersToBeSetErrors);
         }
     }
 
@@ -128,12 +150,7 @@ public class ManagerController {
         int discountInfoSize = discountInfo.size();
         for (int i = 6; i < discountInfoSize; i++) {
             BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(discountInfo.get(i));
-            if (buyerAccount == null) {
-                throw new Exception("There are some invalid user names in the given information !\n" +
-                        "Please check user names and try again !\n");
-            } else {
                 buyersList.add(buyerAccount);
-            }
         }
         return buyersList;
     }
