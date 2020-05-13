@@ -19,6 +19,7 @@ public class Off extends DiscountAndOffTypeService {
     private OffStatus offStatus;
     public static ArrayList<Off> allOffs = new ArrayList<Off>();
 
+    //TODO : trim :\\\\\\ therefore not allowed spaces some where :((((
     //TODO : Change Dates type from String to date if u can:)
     public Off(ArrayList<Product> products, String startDate, String endDate,
                double offAmount, SellerAccount seller) throws Exception {

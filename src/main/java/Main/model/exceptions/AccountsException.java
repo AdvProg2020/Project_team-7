@@ -2,7 +2,7 @@ package Main.model.exceptions;
 
 import Main.model.accounts.Account;
 
-public class AccountsException extends Exception {
+public abstract class AccountsException extends Exception {
 
     protected String errorMessage;
 

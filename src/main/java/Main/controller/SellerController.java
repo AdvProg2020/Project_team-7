@@ -4,6 +4,8 @@ import Main.model.Category;
 import Main.model.Product;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.Off;
+import Main.model.exceptions.AccountsException;
+import Main.model.exceptions.CreateProductException;
 import Main.model.exceptions.DiscountAndOffTypeServiceException;
 import Main.model.requests.AddOffRequest;
 import Main.model.requests.AddProductRequest;
@@ -36,10 +38,65 @@ public class SellerController {
         return Product.getProductWithId(productId).viewBuyers();
     }
 
-    public void addProduct(ArrayList<String> productInfo) throws Exception {
-        Product product = new Product(productInfo.get(0), productInfo.get(1), Integer.parseInt(productInfo.get(2)), Category.getCategoryWithName(productInfo.get(3)), productInfo.get(4), null, Double.parseDouble(productInfo.get(5)), ((ArrayList) productInfo.subList(6, productInfo.size())));
+    public void addProduct(ArrayList<String> productInfo) throws CreateProductException.InvalidProductInputInfo,
+            CreateProductException.GetCategoryFromUser {
+        validateAddProductInfo(productInfo);
+        Product product = new Product(productInfo.get(0), productInfo.get(1), Integer.parseInt(productInfo.get(2)),
+                productInfo.get(3), Double.parseDouble(productInfo.get(4)));
         Request request = new AddProductRequest(product, "Add product request");
         Request.addRequest(request);
+
+        doesNewProductsHaveInitialCategory(product, productInfo.get(5), productInfo.get(6));
+    }
+
+    private void doesNewProductsHaveInitialCategory(Product product, String doesUserWantToAddCategory, String categoryName)
+            throws CreateProductException.GetCategoryFromUser {
+        if (doesUserWantToAddCategory.trim().equalsIgnoreCase("yes")) {
+            Category category = null;
+            try {
+                category = Category.getCategoryWithName(categoryName);
+            } catch (Exception e) {
+            }
+            product.setCategory(category);
+            throw new CreateProductException.GetCategoryFromUser(category, product);
+        }
+    }
+
+    public void setSpecialFeatures(Product product, ArrayList<String> specialFeatures) {
+        product.setSpecialFeatures(specialFeatures);
+    }
+
+    private void validateAddProductInfo(ArrayList<String> productInfo) throws CreateProductException.InvalidProductInputInfo {
+        String addProductErrors = new String();
+
+        try {
+            AccountsException.validateNameTypeInfo("product name", productInfo.get(0));
+        } catch (AccountsException e) {
+            addProductErrors.concat(e.getErrorMessage());
+        }
+        try {
+            CreateProductException.validateAvailability(productInfo.get(2));
+        } catch (Exception e) {
+            addProductErrors.concat(e.getMessage());
+        }
+        try {
+            CreateProductException.validatePrice(productInfo.get(4));
+        } catch (Exception e) {
+            addProductErrors.concat(e.getMessage());
+        }
+        if (productInfo.get(5).trim().equalsIgnoreCase("yes")) {
+            try {
+                Category.getCategoryWithName(productInfo.get(6));
+            } catch (Exception e) {
+                addProductErrors.concat(e.getMessage());
+            }
+        } else if (!productInfo.get(5).trim().equalsIgnoreCase("no")) {
+            addProductErrors.concat("we couldn't recognize if you want to add category or not !\nplease either write 'yes' or 'no' !\n");
+        }
+
+        if (!addProductErrors.isEmpty()) {
+            throw new CreateProductException.InvalidProductInputInfo("there were some errors in product creation : \n" + addProductErrors);
+        }
     }
 
     public String viewSellerOffs() {
@@ -59,7 +116,7 @@ public class SellerController {
     }
 
     public void addOff(ArrayList<String> productIDs, ArrayList<String> offInfo) throws Exception {
-        validateOffInputInfo(productIDs,offInfo);
+        validateOffInputInfo(productIDs, offInfo);
         ArrayList<Product> products = extractOffProductsList(productIDs);
         Off off = new Off(products, offInfo.get(0), offInfo.get(1), Double.parseDouble(offInfo.get(2)), SellerAccount.getSellerWithUserName(offInfo.get(3)));
         AddOffRequest addOffRequest = new AddOffRequest(off, "Add New Off Request");

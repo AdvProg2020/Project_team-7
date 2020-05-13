@@ -7,6 +7,7 @@ import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountCode;
+import Main.model.exceptions.AccountsException;
 import Main.model.exceptions.DiscountAndOffTypeServiceException;
 import Main.model.requests.EditCategory;
 import Main.model.requests.EditDiscountCode;
@@ -68,12 +69,12 @@ public class ManagerController {
         product.removeProduct();
     }
 
-    public void createDiscountCode(ArrayList<String> discountInfo) throws Exception {
+    public void createDiscountCode(ArrayList<String> buyersUserNamesList,ArrayList<String> discountInfo) throws Exception {
         validateInputDiscountInfo(discountInfo);
 
-        ArrayList<BuyerAccount> buyersList = extractDiscountBuyersList(discountInfo);
-        DiscountCode discountCode = new DiscountCode(discountInfo.get(1), discountInfo.get(2), discountInfo.get(3),
-                discountInfo.get(4), discountInfo.get(5), buyersList);
+        ArrayList<BuyerAccount> buyersList = extractDiscountBuyersList(buyersUserNamesList);
+        DiscountCode discountCode = new DiscountCode(discountInfo.get(0), discountInfo.get(1), discountInfo.get(2),
+                discountInfo.get(3), discountInfo.get(4), buyersList);
 
         DiscountCode.addDiscountCode(discountCode);
         for (BuyerAccount buyerAccount : buyersList) {
@@ -127,13 +128,12 @@ public class ManagerController {
         }
     }
 
-    private void validateDiscountBuyersToBeSet(ArrayList<String> discountInfo) throws Exception {
+    private void validateDiscountBuyersToBeSet(ArrayList<String> buyerUserNamesList) throws Exception {
         String discountBuyersToBeSetErrors = new String();
 
-        int discountInfoSize = discountInfo.size();
-        for (int i = 6; i < discountInfoSize; i++) {
+        for (String username : buyerUserNamesList) {
             try {
-                BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(discountInfo.get(i));
+                BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(username);
             } catch (Exception e) {
                 discountBuyersToBeSetErrors.concat(e.getMessage());
             }
@@ -144,13 +144,10 @@ public class ManagerController {
         }
     }
 
-    private ArrayList<BuyerAccount> extractDiscountBuyersList(ArrayList<String> discountInfo) throws Exception {
+    private ArrayList<BuyerAccount> extractDiscountBuyersList(ArrayList<String> buyerUserNamesList) throws Exception {
         ArrayList<BuyerAccount> buyersList = new ArrayList<BuyerAccount>();
-
-        int discountInfoSize = discountInfo.size();
-        for (int i = 6; i < discountInfoSize; i++) {
-            BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(discountInfo.get(i));
-                buyersList.add(buyerAccount);
+        for (String username : buyerUserNamesList) {
+            buyersList.add(BuyerAccount.getBuyerWithUserName(username));
         }
         return buyersList;
     }
@@ -210,9 +207,20 @@ public class ManagerController {
     }
 
     private void validateInputCategoryInfo(String name) throws Exception {
+        String inputCategoryInfoErrors = new String();
+
         if (Category.isThereCategoryWithName(name)) {
-            throw new Exception("there where some errors in category creation : \nthere is already a category with name :" +
+            inputCategoryInfoErrors.concat("there is already a category with name :" +
                     " \'" + name + "\' !\n");
+        }
+        try {
+            AccountsException.validateNameTypeInfo("category name", name);
+        } catch (AccountsException e) {
+            inputCategoryInfoErrors.concat(e.getErrorMessage());
+        }
+
+        if(!inputCategoryInfoErrors.isEmpty()){
+            throw new Exception("there were some errors in category name : \n" + inputCategoryInfoErrors);
         }
     }
 
@@ -328,7 +336,7 @@ public class ManagerController {
         String editCategoryErrors = new String();
 
         try {
-            Category.isThereCategoryWithName(editCategory.getName());
+            validateInputCategoryInfo(editCategory.getName());
         } catch (Exception e) {
             editCategoryErrors.concat(e.getMessage());
         }

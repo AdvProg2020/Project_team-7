@@ -28,32 +28,26 @@ public class Product {
     private ArrayList<Rate> rates = new ArrayList<Rate>();
     private HashMap<String, String> specialFeatures = new HashMap<String, String>();
 
-    public Product(String name, String brand, int availability, Category category, String description, double price, ArrayList<String> specialFeatures) {
+    public Product(String name, String brand, int availability, String description, double price) {
         this.productId = IDGenerator.getNewID(lastUsedProductID);
         this.name = name;
         this.brand = brand;
-        //this.availability = availability;
-        //setCategory(category);
+        this.availability = availability;
         this.description = description;
         this.averageScore = 0;
         this.openFrequency = 0;
         this.productStatus = ProductStatus.PENDING_CREATION_PRODUCT;
-        //this.price = price;
-        setSpecialFeatures(specialFeatures);
+        this.price = price;
     }
 
-    private void setSpecialFeatures(ArrayList<String> specialFeatures){
-        if (specialFeatures != null) {
-            for (int i = 0; i < specialFeatures.size(); i++)
-                this.specialFeatures.put(category.getSpecialFeatures().get(i), specialFeatures.get(i));
+    public void setSpecialFeatures(ArrayList<String> specialFeatures) {
+        for (int i = 0; i < specialFeatures.size(); i++) {
+            this.specialFeatures.put(category.getSpecialFeatures().get(i), specialFeatures.get(i));
         }
     }
 
-    private void setCategory(Category category) {
+    public void setCategory(Category category) {
         this.category = category;
-        if (category != null) {
-            category.addProduct(this);
-        }
     }
 
     public String showProductDigest() {

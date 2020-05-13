@@ -169,7 +169,7 @@ public class GeneralController {
     }
 
     public void getSellerInformation(ArrayList<String> sellerInfo, String userName) throws Exception {
-        validateInputSellerInfo(sellerInfo, userName);
+        validateInputAccountInfo(sellerInfo, userName);
         SellerAccount sellerAccount = new SellerAccount(userName,
                 sellerInfo.get(1),
                 sellerInfo.get(2),
@@ -233,53 +233,6 @@ public class GeneralController {
         }
         if (accountCreationErrors.isEmpty()) {
             throw new Exception("sorry there where some errors in account creation : \n" + accountCreationErrors);
-        }
-    }
-
-    private void validateInputSellerInfo(ArrayList<String> sellerInfo, String userName) throws Exception {
-        String sellerCreationErrors = new String();
-        try {
-            AccountsException.validateUserName(userName);
-        } catch (AccountsException.invalidUserNameException e) {
-            sellerCreationErrors.concat(e.getErrorMessage());
-        }
-        try {
-            AccountsException.validateUsernameUniqueness(userName);
-        } catch (AccountsException e) {
-            sellerCreationErrors.concat(e.getErrorMessage());
-        }
-        try {
-            AccountsException.validateNameTypeInfo("first name", sellerInfo.get(1));
-        } catch (AccountsException e) {
-            sellerCreationErrors.concat(e.getErrorMessage());
-        }
-        try {
-            AccountsException.validateNameTypeInfo("last name", sellerInfo.get(2));
-        } catch (AccountsException e) {
-            sellerCreationErrors.concat(e.getErrorMessage());
-        }
-        try {
-            AccountsException.validateEmail(sellerInfo.get(3));
-        } catch (AccountsException e) {
-            sellerCreationErrors.concat(e.getErrorMessage());
-        }
-        try {
-            AccountsException.validatePhoneNumber(sellerInfo.get(4));
-        } catch (AccountsException e) {
-            sellerCreationErrors.concat(e.getErrorMessage());
-        }
-        try {
-            AccountsException.validatePassWord(sellerInfo.get(0));
-        } catch (AccountsException e) {
-            sellerCreationErrors.concat(e.getErrorMessage());
-        }
-        try {
-            AccountsException.validateNameTypeInfo("company name", sellerInfo.get(5));
-        } catch (AccountsException.invalidNameTypeInfoException e) {
-            sellerCreationErrors.concat(e.getErrorMessage());
-        }
-        if (sellerCreationErrors.isEmpty()) {
-            throw new Exception("sorry there where some errors in account creation : \n" + sellerCreationErrors);
         }
     }
 
