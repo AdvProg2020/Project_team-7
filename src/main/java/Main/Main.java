@@ -21,6 +21,10 @@ public class Main {
         Menu.setManagerController(managerController);
         Menu.setSellerController(sellerController);
         Menu currentMenu = new MainMenu();
-        currentMenu.run();
+        try {
+            currentMenu.run();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

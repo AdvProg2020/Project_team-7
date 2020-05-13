@@ -108,13 +108,17 @@ public class GeneralController {
     }
 
     public String disableFilter(String filterType) {
+        boolean disabled = false;
         for (Filter currentFilter : currentFilters) {
             if (currentFilter.getName().equals(filterType)) {
                 currentFilters.remove(currentFilter);
-                return "Filter disabled successfully.";
+                disabled = true;
             }
         }
-        return "Could not disable filter.";
+        if (disabled)
+            return "Filter disabled successfully.";
+        else
+            return "Could not disable filter.";
     }
 
     public String showAvailableSorts() {
