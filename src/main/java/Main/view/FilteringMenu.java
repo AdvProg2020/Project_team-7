@@ -3,13 +3,17 @@ package Main.view;
 public class FilteringMenu extends Menu {
     public FilteringMenu(Menu parentMenu) {
         super("Filtering", parentMenu);
+        this.subMenus.put(1, showAvailableFilters());
+        this.subMenus.put(2, filter());
+        this.subMenus.put(3, filter());
+        this.subMenus.put(4, disableFilter());
     }
 
     private Menu showAvailableFilters() {
         return new Menu("Show available filters", this) {
             @Override
             public void show() {
-                //System.out.println(this.getName() + ":");
+                System.out.println(this.getName() + ":");
                 System.out.println("Enter Show available filters or Back to return");
             }
 
@@ -41,6 +45,7 @@ public class FilteringMenu extends Menu {
         return new Menu("Filter by", this) {
             @Override
             public void show() {
+                System.out.println(this.getName() + ":");
                 System.out.println("Enter one of the available filters or back to return");
             }
 
@@ -73,6 +78,7 @@ public class FilteringMenu extends Menu {
         return new Menu("Show current filters", this) {
             @Override
             public void show() {
+                System.out.println(this.getName() + ":");
                 System.out.println("Enter show current filters or Back to return");
             }
 
@@ -103,6 +109,7 @@ public class FilteringMenu extends Menu {
         return new Menu("Disable filter", this) {
             @Override
             public void show() {
+                System.out.println(this.getName() + ":");
                 System.out.println("Enter disable filter or back to return");
             }
 

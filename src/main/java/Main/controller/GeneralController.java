@@ -121,8 +121,14 @@ public class GeneralController {
             return "Could not disable filter.";
     }
 
-    public String showAvailableSorts() {
-        return null;
+    public String showAvailableSorts(String listType) {
+        if (listType.equalsIgnoreCase("product"))
+            return "Sort by name A-Z\nSort by name Z-A\nSort by view\nSort by average score\n";
+        else if (listType.equalsIgnoreCase("request"))
+            return "Sort by type\nSort by Id\n";
+        else if (listType.equalsIgnoreCase("user"))
+            return "Sort by first name A-Z\nSort by last name A-Z\nSort by first name Z-A\nSort by last name Z-A\n";
+        return "";
     }
 
     public void makeSort(String sortType) {
@@ -133,16 +139,21 @@ public class GeneralController {
         return currentSort;
     }
 
+    public String disableSort(){
+        currentSort = null;
+        return "Sort disabled";
+    }
+
     public String showFilteredAndSortedProducts() {
         String filtered = "";
         ArrayList<Product> sorted = Filter.applyFilter(Product.allProducts);
-        if (currentSort.equals("Name A-Z"))
+        if (currentSort.contains("name A-Z"))
             sorted.sort(new ProductsSort.productSortByNameAscending());
-        else if (currentSort.equals("Name Z-A"))
+        else if (currentSort.contains("name Z-A"))
             sorted.sort(new ProductsSort.productSortByNameDescending());
-        else if (currentSort.equals("Views"))
+        else if (currentSort.contains("view"))
             sorted.sort(new ProductsSort.productSortByView());
-        else if (currentSort.equals("Product Score"))
+        else if (currentSort.contains("average Score"))
             sorted.sort(new ProductsSort.productSortByRate());
         else return "wrong sort input.";
         for (Product product : sorted) {
