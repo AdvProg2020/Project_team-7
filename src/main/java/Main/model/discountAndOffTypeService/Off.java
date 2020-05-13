@@ -72,7 +72,7 @@ public class Off extends DiscountAndOffTypeService {
             }
         }
         if(foundOff==null){
-            throw new Exception("There is no off with this ID !\n");
+            throw new Exception("There is no off with ID : " + offId + "\n");
         }
         if(foundOff.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
             foundOff.removeOff();

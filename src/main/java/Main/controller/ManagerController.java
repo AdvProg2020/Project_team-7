@@ -7,7 +7,6 @@ import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountCode;
-import Main.model.exceptions.AccountsException;
 import Main.model.exceptions.DiscountAndOffTypeServiceException;
 import Main.model.requests.EditCategory;
 import Main.model.requests.EditDiscountCode;
@@ -37,7 +36,7 @@ public class ManagerController {
             return sellerAccount.viewMe();
         } else {
             BuyerAccount buyerAccount = (BuyerAccount) account;
-            return buyerAccount.viewOrders();
+            return buyerAccount.viewMe();
         }
     }
 
@@ -56,9 +55,10 @@ public class ManagerController {
         }
     }
 
-    public void createManagerProfile(ArrayList<String> managerInfo){
-        ManagerAccount managerAccount = new ManagerAccount(managerInfo.get(0), managerInfo.get(1), managerInfo.get(2),
-                managerInfo.get(3), managerInfo.get(4), managerInfo.get(5));
+    public void createManagerProfile(ArrayList<String> managerInfo) throws Exception {
+        GeneralController.validateInputAccountInfo(managerInfo, managerInfo.get(1));
+        ManagerAccount managerAccount = new ManagerAccount(managerInfo.get(1), managerInfo.get(2), managerInfo.get(3),
+                managerInfo.get(4), managerInfo.get(5), managerInfo.get(0));
         ManagerAccount.addManager(managerAccount);
     }
 
@@ -118,7 +118,7 @@ public class ManagerController {
         }
 
         if (discountCreationErrors.isEmpty()) {
-            throw new Exception("sorry there where some errors in discount creation : \n" + discountCreationErrors);
+            throw new Exception("there where some errors in discount creation : \n" + discountCreationErrors);
         }
     }
 
@@ -128,7 +128,6 @@ public class ManagerController {
         int discountInfoSize = discountInfo.size();
         for (int i = 6; i < discountInfoSize; i++) {
             BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(discountInfo.get(i));
-            //TODO : due to view implementation this can be removed
             if (buyerAccount == null) {
                 throw new Exception("There are some invalid user names in the given information !\n" +
                         "Please check user names and try again !\n");
@@ -188,8 +187,16 @@ public class ManagerController {
     }
 
     public void createCategory(String name, ArrayList<String> specialFeatures) throws Exception {
+        validateInputCategoryInfo(name);
         Category category = new Category(name, specialFeatures);
         Category.addCategory(category);
+    }
+
+    private void validateInputCategoryInfo(String name) throws Exception {
+        if (Category.isThereCategoryWithName(name)) {
+            throw new Exception("there where some errors in category creation : \nthere is already a category with name :" +
+                    " \'" + name + "\' !\n");
+        }
     }
 
     public void removeCategoryWithId(String categoryId) throws Exception {
@@ -198,8 +205,97 @@ public class ManagerController {
         category.removeCategory();
     }
 
-    public void acceptEditDiscountCode(EditDiscountCode editDiscountCode) throws Exception {
+    public EditDiscountCode getDiscountCodeToEdit(String discountCode) throws Exception {
+        return new EditDiscountCode(DiscountCode.getDiscountCodeWithCode(discountCode));
+    }
+
+    public void submitDiscountCodeEdits(EditDiscountCode editDiscountCode) throws Exception {
+        validateInputEditDiscountInfo(editDiscountCode);
         editDiscountCode.acceptRequest();
+    }
+
+    private void validateInputEditDiscountInfo(EditDiscountCode editDiscountCode) throws Exception {
+        String editDiscountCodeErrors = new String();
+
+        try {
+            DiscountAndOffTypeServiceException.validateInputDate(editDiscountCode.getStartDate());
+        } catch (Exception e) {
+            editDiscountCodeErrors.concat("start date is invalid :\n" + e.getMessage());
+        }
+        try {
+            DiscountAndOffTypeServiceException.validateInputDate(editDiscountCode.getEndDate());
+        } catch (Exception e) {
+            editDiscountCodeErrors.concat("end date is invalid :\n" + e.getMessage());
+        }
+        if (editDiscountCodeErrors.isEmpty()) {
+            try {
+                DiscountAndOffTypeServiceException.compareStartAndEndDate(editDiscountCode.getStartDate(), editDiscountCode.getEndDate());
+            } catch (Exception e) {
+                editDiscountCodeErrors.concat(e.getMessage());
+            }
+        }
+        try {
+            DiscountAndOffTypeServiceException.validateInputPercent(editDiscountCode.getPercent());
+        } catch (Exception e) {
+            editDiscountCodeErrors.concat(e.getMessage());
+        }
+
+        try {
+            DiscountAndOffTypeServiceException.validateInputAmount(editDiscountCode.getMaxAmount());
+        } catch (Exception e) {
+            editDiscountCodeErrors.concat(e.getMessage());
+        }
+
+        try {
+            DiscountAndOffTypeServiceException.validateInputMaxNumOfUse(editDiscountCode.getMaxNumberOfUse());
+        } catch (Exception e) {
+            editDiscountCodeErrors.concat(e.getMessage());
+        }
+        try {
+            validateEditDiscountUsersToBeAdded(editDiscountCode);
+        } catch (Exception e) {
+            editDiscountCodeErrors.concat(e.getMessage());
+        }
+        try {
+            validateEditDiscountUsersToBeRemoved(editDiscountCode);
+        } catch (Exception e) {
+            validateEditDiscountUsersToBeRemoved(editDiscountCode);
+        }
+
+        if (editDiscountCodeErrors.isEmpty()) {
+            throw new Exception("there where some errors in discount edit : \n" + editDiscountCodeErrors);
+        }
+    }
+
+    private void validateEditDiscountUsersToBeAdded(EditDiscountCode editDiscountCode) throws Exception {
+        String invalidUserNames = new String();
+        for (String userNameToBeAdded : editDiscountCode.getUsersToBeAdded()) {
+            try {
+                BuyerAccount.getBuyerWithUserName(userNameToBeAdded);
+            } catch (Exception e) {
+                invalidUserNames.concat(e.getMessage());
+            }
+        }
+        if (!invalidUserNames.isEmpty()) {
+            throw new Exception("there where some errors in adding users : \n" + invalidUserNames);
+        }
+    }
+
+    private void validateEditDiscountUsersToBeRemoved(EditDiscountCode editDiscountCode) throws Exception {
+        String invalidUserNames = new String();
+        for (String userNameToBeRemoved : editDiscountCode.getUsersToBeRemoved()) {
+            try {
+                BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(userNameToBeRemoved);
+                if (!editDiscountCode.getDiscountCode().isThereBuyerWithReference(buyerAccount)) {
+                    throw new Exception("There is no buyer with user name : " + userNameToBeRemoved + " in discount code's user list !\n");
+                }
+            } catch (Exception e) {
+                invalidUserNames.concat(e.getMessage());
+            }
+        }
+        if (!invalidUserNames.isEmpty()) {
+            throw new Exception("there where some errors in removing users : \n" + invalidUserNames);
+        }
     }
 
     public void acceptEditCategory(EditCategory editCategory) throws Exception {

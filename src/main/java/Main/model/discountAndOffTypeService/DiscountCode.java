@@ -82,7 +82,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
             }
         }
         if (foundDiscountCode == null) {
-            throw new Exception("There is no discount code with given code !\n");
+            throw new Exception("There is no discount code with code : " + code + "\n");
         }
         if (foundDiscountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
             foundDiscountCode.removeDiscountCode();
@@ -141,5 +141,9 @@ public class DiscountCode extends DiscountAndOffTypeService {
 
     public boolean isThereBuyerWithReference(BuyerAccount buyerAccount) {
         return users.containsKey(buyerAccount);
+    }
+
+    public int getMaxNumberOfUse() {
+        return maxNumberOfUse;
     }
 }

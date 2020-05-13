@@ -2,8 +2,6 @@ package Main.model.requests;
 
 import Main.model.accounts.BuyerAccount;
 import Main.model.discountAndOffTypeService.DiscountCode;
-import Main.model.exceptions.DiscountAndOffTypeServiceException;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,109 +11,103 @@ public class EditDiscountCode {
     private DiscountCode discountCode;
     private String startDate;
     private String endDate;
-    private double percent;
-    private double maxAmount;
-    private int maxNumberOfUse;
-    private ArrayList<BuyerAccount> usersToBeAdded = new ArrayList<BuyerAccount>();
-    private ArrayList<BuyerAccount> usersToBeRemoved = new ArrayList<BuyerAccount>();
+    private String percent;
+    private String maxAmount;
+    private String maxNumberOfUse;
+    private ArrayList<String> usersToBeAdded = new ArrayList<>();
+    private ArrayList<String> usersToBeRemoved = new ArrayList<>();
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-
 
     public EditDiscountCode(DiscountCode discountCode) {
         this.discountCode = discountCode;
+        this.startDate = dateFormat.format(discountCode.getStartDate());
+        this.endDate = dateFormat.format(discountCode.getEndDate());
+        this.percent = "" + discountCode.getDiscountCodeAmount();
+        this.maxAmount = "" + discountCode.getMaxAmount();
+        this.maxNumberOfUse = "" + discountCode.getMaxNumberOfUse();
     }
 
-    public void setStartDate(String startDate) throws Exception {
-        DiscountAndOffTypeServiceException.validateInputDate(startDate);
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(String endDate) throws Exception {
-        DiscountAndOffTypeServiceException.validateInputDate(endDate);
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
-    public void setPercent(String percent) throws Exception {
-        DiscountAndOffTypeServiceException.validateInputPercent(percent);
-        this.percent = Double.parseDouble(percent);
+    public void setPercent(String percent) {
+        this.percent = percent;
     }
 
-    public void setMaxAmount(String maxAmount) throws Exception {
-        DiscountAndOffTypeServiceException.validateInputAmount(maxAmount);
-        this.maxAmount = Double.parseDouble(maxAmount);
+    public void setMaxAmount(String maxAmount) {
+        this.maxAmount = maxAmount;
     }
 
-    public void setMaxNumberOfUse(String maxNumberOfUse) throws Exception {
-        DiscountAndOffTypeServiceException.validateInputMaxNumOfUse(maxNumberOfUse);
-        this.maxNumberOfUse = Integer.parseInt(maxNumberOfUse);
+    public void setMaxNumberOfUse(String maxNumberOfUse) {
+        this.maxNumberOfUse = maxNumberOfUse;
     }
 
-    public void addUserToBeAdded(String userName) throws Exception {
-        BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(userName);
-
-        usersToBeAdded.add(buyerAccount);
+    public void addUserToBeAdded(String userName) {
+        usersToBeAdded.add(userName);
     }
 
-    public void addUserToBeRemoved(String userName) throws Exception {
-        BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(userName);
-        if (!discountCode.isThereBuyerWithReference(buyerAccount)) {
-            throw new Exception("There is no buyer with this user name in discount code's user list !\n");
-        }
-        usersToBeAdded.add(buyerAccount);
+    public void addUserToBeRemoved(String userName){
+        usersToBeAdded.add(userName);
     }
 
     public void acceptRequest() throws Exception {
-        String errors = new String();
-
-        acceptDates(errors);
-        acceptPercent(errors);
-        acceptMaxAmount(errors);
-        acceptMaxNumberOfUse(errors);
+        discountCode.setDates(startDate,endDate);
+        discountCode.setPercent(Double.parseDouble(percent));
+        discountCode.setMaxAmount(Double.parseDouble(maxAmount));
+        discountCode.setMaxNumberOfUse(Integer.parseInt(maxNumberOfUse));
         acceptBuyersToBeAdded();
         acceptBuyersToBeRemoved();
-
-        if (errors.length() != 0) {
-            throw new Exception(errors);
-        }
     }
 
-    private void acceptDates(String errors) {
-        String finalStartDate = (startDate == null ? dateFormat.format(discountCode.getStartDate()) : startDate);
-        String finalEndDate = (endDate == null ? dateFormat.format(discountCode.getEndDate()) : endDate);
-        try {
-            discountCode.setDates(finalStartDate, finalEndDate);
-        } catch (Exception e) {
-            errors.concat(e.getMessage());
-        }
-    }
 
-    private void acceptPercent(String errors) {
-        if (percent != 0) {
-            discountCode.setPercent(this.percent);
-        }
-    }
-
-    private void acceptMaxAmount(String errors) {
-        if (maxAmount != 0) {
-            discountCode.setMaxAmount(this.maxAmount);
-        }
-    }
-
-    private void acceptMaxNumberOfUse(String errors) {
-        if (maxNumberOfUse != 0) {
-            discountCode.setMaxNumberOfUse(this.maxNumberOfUse);
-        }
-    }
-
-    private void acceptBuyersToBeAdded() {
-        for (BuyerAccount buyerAccount : usersToBeAdded) {
+    private void acceptBuyersToBeAdded() throws Exception {
+        for (String userName : usersToBeAdded) {
+            BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(userName);
             discountCode.addUser(buyerAccount);
         }
     }
 
-    private void acceptBuyersToBeRemoved() {
-        for (BuyerAccount buyerAccount : usersToBeRemoved) {
+    private void acceptBuyersToBeRemoved() throws Exception {
+        for (String userName : usersToBeRemoved) {
+            BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(userName);
             discountCode.removeUser(buyerAccount);
         }
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public String getPercent() {
+        return percent;
+    }
+
+    public String getMaxAmount() {
+        return maxAmount;
+    }
+
+    public String getMaxNumberOfUse() {
+        return maxNumberOfUse;
+    }
+
+    public ArrayList<String> getUsersToBeAdded() {
+        return usersToBeAdded;
+    }
+
+    public ArrayList<String> getUsersToBeRemoved() {
+        return usersToBeRemoved;
+    }
+
+    public DiscountCode getDiscountCode() {
+        return discountCode;
     }
 }

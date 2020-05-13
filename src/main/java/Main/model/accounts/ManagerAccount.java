@@ -75,7 +75,7 @@ public class ManagerAccount extends Account {
                 return manager;
             }
         }
-        throw new Exception("There is no manager with this user name");
+        throw new Exception("There is no manager with user name : " + userName + "\n");
     }
 
     public static void deleteManager(ManagerAccount managerAccount) {

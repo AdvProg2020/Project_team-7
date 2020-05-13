@@ -71,7 +71,7 @@ public class SellerAccount extends Account {
                 return seller;
             }
         }
-        throw new Exception("There is no seller with this user name");
+        throw new Exception("There is no seller with user name : " + userName + "\n");
     }
 
     public String viewMe() {
@@ -88,13 +88,13 @@ public class SellerAccount extends Account {
         }
     }
 
-    public SellLog getLogWithId(String logId) {
+    public SellLog getLogWithId(String logId) throws Exception {
         for (SellLog sellLog : sellHistory) {
             if (sellLog.getLogId().equals(logId)) {
                 return sellLog;
             }
         }
-        return null;
+        throw new Exception("there is no log with ID : " + logId + "\n");
     }
 
     public String viewCompanyInformation() {

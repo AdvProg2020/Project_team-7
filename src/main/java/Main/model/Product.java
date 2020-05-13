@@ -122,7 +122,7 @@ public class Product {
             if (product.getProductId().equals(productId))
                 return product;
         }
-        throw new Exception("There is no product with given ID !\n");
+        throw new Exception("There is no product with ID : " + productId + "\n");
     }
 
     private static Product getProductWithName(String name) throws Exception {

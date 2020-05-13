@@ -10,19 +10,12 @@ public class Category {
     private ArrayList<Product> products = new ArrayList<Product>();
     private static ArrayList<Category> allCategories = new ArrayList<Category>();
 
-    public Category(String name, ArrayList<String> specialFeatures) throws Exception {
-        setName(name);
+    public Category(String name, ArrayList<String> specialFeatures){
+        this.name = name;
         this.specialFeatures = specialFeatures;
     }
 
-    public void setName(String name) throws Exception {
-        if (isThereCategoryWithName(name)) {
-            throw new Exception("there is already a category with name : \'" + name + "\' !\n");
-        }
-        this.name = name;
-    }
-
-    private boolean isThereCategoryWithName(String name) {
+    public static boolean isThereCategoryWithName(String name) {
         for (Category category : allCategories) {
             if (category.name.equals(name)) {
                 return true;
@@ -75,7 +68,7 @@ public class Category {
             if (category.getName().equalsIgnoreCase(categoryName))
                 return category;
         }
-        throw new Exception("There is no category with given ID !\n");
+        throw new Exception("There is no category with name : " + categoryName + "\n");
     }
 
     public static void addCategory(Category category) {

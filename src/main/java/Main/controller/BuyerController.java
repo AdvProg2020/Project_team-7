@@ -9,7 +9,6 @@ import Main.model.logs.BuyLog;
 import Main.model.logs.DeliveryStatus;
 import Main.model.logs.Log;
 import Main.model.logs.SellLog;
-
 import java.util.Date;
 import java.util.HashMap;
 
@@ -62,11 +61,30 @@ public class BuyerController {
         }
     }
 
-    public void rateProductWithId(String productId, double score) throws Exception {
-        Product product = Product.getProductWithId(productId);
+    public void rateProductWithId(String productId, String score) throws Exception {
+        validateInputRateInfo(productId,score);
 
-        Rate rate = new Rate(currentBuyer, product, score);
+        Product product = Product.getProductWithId(productId);
+        Rate rate = new Rate(currentBuyer, product, Double.parseDouble(score));
         product.addRate(rate);
+    }
+
+    private void validateInputRateInfo(String productId, String score) throws Exception {
+        String rateCreationErrors = new String();
+
+        try {
+            Product.getProductWithId(productId);
+        } catch (Exception e) {
+            rateCreationErrors.concat(e.getMessage());
+        }
+        try {
+            Double.parseDouble(score);
+        } catch (Exception e) {
+            rateCreationErrors.concat("score must be of double type !\n");
+        }
+        if (rateCreationErrors.isEmpty()) {
+            throw new Exception("there where some errors in rating : \n" + rateCreationErrors);
+        }
     }
 
     public void setReceiverInformation(String receiverInformation) {

@@ -83,7 +83,7 @@ public class BuyerAccount extends Account {
                 return buyer;
             }
         }
-        throw new Exception("There is no buyer with this user name");
+        throw new Exception("There is no buyer with user name : " + userName + "\n");
     }
 
     public void deleteBuyer() throws Exception {
@@ -100,7 +100,7 @@ public class BuyerAccount extends Account {
                 return buyLog;
             }
         }
-        throw new Exception("There is no product with given ID !\n");
+        throw new Exception("There is no product with ID : " + logId + "\n");
     }
 
     public void addDiscountCode(DiscountCode discountCode) {

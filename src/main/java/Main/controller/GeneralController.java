@@ -46,7 +46,7 @@ public class GeneralController {
         ((BuyerAccount) currentUser).getCart().addCartProduct(currentCartProduct);
     }
 
-    public void selectSellerWithId(String id) throws Exception{
+    public void selectSellerWithId(String id) throws Exception {
         CartProduct cartProduct = new CartProduct(currentProduct, SellerAccount.getSellerWithUserName(id), ((BuyerAccount) currentUser).getCart());
         currentCartProduct = cartProduct;
     }
@@ -68,7 +68,7 @@ public class GeneralController {
     public String showAvailableFilters() {
         String availableFilters = "";
         availableFilters = availableFilters.concat("Brand\nPrice\nName\nAvailable\n");
-        if (currentCategory == null){
+        if (currentCategory == null) {
             availableFilters = availableFilters.concat("Category\n");
         } else {
             for (String specialFeature : currentCategory.getSpecialFeatures()) {
@@ -82,16 +82,16 @@ public class GeneralController {
         Filter filter = null;
         if (filterType.equalsIgnoreCase("Brand")) {
             filter = new BrandFilter(filterInput, currentCategory == null ? Product.allProducts : currentCategory.getProducts());
-        } else if (filterType.equalsIgnoreCase("Price")){
-            String[] words=filterInput.split("[\\s-,_]");
-            filter = new PriceRangeFilter(Double.parseDouble(words[0]),Double.parseDouble(words[1]),currentCategory == null ? Product.allProducts : currentCategory.getProducts());
-        } else if (filterType.equalsIgnoreCase("Name")){
+        } else if (filterType.equalsIgnoreCase("Price")) {
+            String[] words = filterInput.split("[\\s-,_]");
+            filter = new PriceRangeFilter(Double.parseDouble(words[0]), Double.parseDouble(words[1]), currentCategory == null ? Product.allProducts : currentCategory.getProducts());
+        } else if (filterType.equalsIgnoreCase("Name")) {
             filter = new ProductNameFilter(filterInput, currentCategory == null ? Product.allProducts : currentCategory.getProducts());
-        } else if (filterType.equalsIgnoreCase("Available")){
+        } else if (filterType.equalsIgnoreCase("Available")) {
             filter = new StockFilter(currentCategory == null ? Product.allProducts : currentCategory.getProducts());
-        } else if (currentCategory == null && filterType.equalsIgnoreCase("Category")){
+        } else if (currentCategory == null && filterType.equalsIgnoreCase("Category")) {
             filter = new CategoryFilter(filterInput, Product.allProducts);
-        } else if (currentCategory!=null){
+        } else if (currentCategory != null) {
             for (String specialFeature : currentCategory.getSpecialFeatures()) {
                 if (filterType.equalsIgnoreCase(specialFeature))
                     filter = new SpecialFeaturesFilter(specialFeature, filterInput, currentCategory.getProducts());
@@ -194,7 +194,7 @@ public class GeneralController {
         ManagerAccount.addManager(managerAccount);
     }
 
-    private void validateInputAccountInfo(ArrayList<String> accountInfo, String userName) throws Exception {
+    public static void validateInputAccountInfo(ArrayList<String> accountInfo, String userName) throws Exception {
         String accountCreationErrors = new String();
         try {
             AccountsException.validateUserName(userName);
