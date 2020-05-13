@@ -37,7 +37,14 @@ public class SellerController {
     }
 
     public void addProduct(ArrayList<String> productInfo) throws Exception {
-        Product product = new Product(productInfo.get(0), productInfo.get(1), Integer.parseInt(productInfo.get(2)), Category.getCategoryWithName(productInfo.get(3)), productInfo.get(4), null, Double.parseDouble(productInfo.get(5)), ((ArrayList) productInfo.subList(6, productInfo.size())));
+        Product product = new Product(productInfo.get(0),
+                productInfo.get(1),
+                Integer.parseInt(productInfo.get(2)),
+                Category.getCategoryWithName(productInfo.get(3)),
+                productInfo.get(4),
+                null,
+                Double.parseDouble(productInfo.get(5)),
+                ((ArrayList) productInfo.subList(6, productInfo.size())));
         Request request = new AddProductRequest(product, "Add product request");
         Request.addRequest(request);
     }
