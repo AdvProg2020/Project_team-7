@@ -21,7 +21,7 @@ public class RegistrationMenu extends Menu {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws Exception {
         String input = scanner.nextLine();
         if(input.equalsIgnoreCase("back"))
             this.parentMenu.run();
@@ -40,8 +40,8 @@ public class RegistrationMenu extends Menu {
                     registerBuyer().run();
                 else if (input.equalsIgnoreCase("seller"))
                     registerSeller().run();
+                this.parentMenu.run();
             }
-            this.parentMenu.run();
         }
     }
 
@@ -53,9 +53,16 @@ public class RegistrationMenu extends Menu {
             }
             @Override
             public void execute() throws Exception {
-                ArrayList<String> managerInfo = new ArrayList<>();
-                getManagerInfo(managerInfo);
-                generalController.getManagerInformation(managerInfo,GeneralController.selectedUsername);
+                try{
+                    ArrayList<String> managerInfo = new ArrayList<>();
+                    getManagerInfo(managerInfo);
+                    generalController.getManagerInformation(managerInfo,GeneralController.selectedUsername);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                    this.run();
+                }
+
             }
         };
     }
@@ -86,9 +93,16 @@ public class RegistrationMenu extends Menu {
             }
             @Override
             public void execute() throws Exception {
-                ArrayList<String> buyerInfo = new ArrayList<>();
-                getBuyerInfo(buyerInfo);
-                generalController.getBuyerInformation(buyerInfo, GeneralController.selectedUsername);
+                try {
+                    ArrayList<String> buyerInfo = new ArrayList<>();
+                    getBuyerInfo(buyerInfo);
+                    generalController.getBuyerInformation(buyerInfo, GeneralController.selectedUsername);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                    this.run();
+                }
+
             }
         };
     }
@@ -122,9 +136,16 @@ public class RegistrationMenu extends Menu {
             }
             @Override
             public void execute() throws Exception {
-                ArrayList<String> sellerInfo = new ArrayList<>();
-                getSellerInfo(sellerInfo);
-                generalController.getSellerInformation(sellerInfo, GeneralController.selectedUsername);
+                try {
+                    ArrayList<String> sellerInfo = new ArrayList<>();
+                    getSellerInfo(sellerInfo);
+                    generalController.getSellerInformation(sellerInfo, GeneralController.selectedUsername);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                    this.run();
+                }
+
             }
         };
     }
@@ -153,5 +174,3 @@ public class RegistrationMenu extends Menu {
         sellerInfo.add(companyInfo);
     }
 }
-
-//TODO check validations
