@@ -47,6 +47,9 @@ public class GeneralController {
     }
 
     public void selectSellerWithId(String id) throws Exception {
+        if(!currentProduct.getProductStatus().equals(ProductStatus.APPROVED_PRODUCT)){
+            throw new Exception("this product is not available now!\n");
+        }
         CartProduct cartProduct = new CartProduct(currentProduct, SellerAccount.getSellerWithUserName(id), ((BuyerAccount) currentUser).getCart());
         currentCartProduct = cartProduct;
     }

@@ -3,6 +3,7 @@ package Main.model;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
+import Main.model.discountAndOffTypeService.OffStatus;
 
 public class CartProduct {
     private SellerAccount finalSeller;
@@ -35,8 +36,10 @@ public class CartProduct {
             off.removeOff();
         }
         return "[Product ID : " + product.getProductId() + "\tProduct Name : " + product.getName() + "\tBrand : " +
-                product.getBrand() + "\nPrice : " + product.getPrice() + "\tOff : " + (product.getOff() != null ? "%" +
-                product.getOff().getOffAmount() : "no off is set for this product") + "]\n";
+                product.getBrand() + "\nPrice : " + product.getPrice() + "\tOff : " +
+                (product.getOff() != null ? "%" + product.getOff().getOffAmount() + "\toff status : " +
+                        (product.getOff().getOffStatus().equals(OffStatus.APPROVED_OFF) ? "available" : "not available")
+                        : "no off is set for this product") + "]\n";
     }
 
     public String toStringForBuyLog() {

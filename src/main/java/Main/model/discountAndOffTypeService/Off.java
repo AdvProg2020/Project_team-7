@@ -52,7 +52,8 @@ public class Off extends DiscountAndOffTypeService {
                         "\nproducts: " + makeProductList() +
                         "\noff amount: " + offAmount + "%" +
                         "\nstart date:" + dateFormat.format(startDate) +
-                        "\nend date: " + dateFormat.format(endDate);
+                        "\nend date: " + dateFormat.format(endDate)+
+                        "\nstatus: " + offStatus ;
     }
 
     public static String viewAllOffs() {

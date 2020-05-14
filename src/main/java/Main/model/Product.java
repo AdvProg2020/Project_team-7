@@ -355,4 +355,8 @@ public class Product {
     public String getDescription() {
         return description;
     }
+
+    public ProductStatus getProductStatus() {
+        return productStatus;
+    }
 }
