@@ -141,7 +141,14 @@ public class SellerPanelMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
-                    //TODO remove product
+                    try {
+                        sellerController.removeProductWithID(input);
+                        System.out.println("Product removed successfully.");
+                        this.run();
+                    } catch (Exception e){
+                        System.out.println(e.getMessage());
+                        this.run();
+                    }
                 }
             }
         };
