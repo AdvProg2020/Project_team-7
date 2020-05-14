@@ -29,7 +29,7 @@ public class Product {
     private ArrayList<Rate> rates = new ArrayList<Rate>();
     private HashMap<String, String> specialFeatures = new HashMap<String, String>();
 
-    public Product(String name, String brand, int availability, String description, double price) {
+    public Product(String name, String brand, int availability, String description, double price,SellerAccount sellerAccount) {
         this.productId = IDGenerator.getNewID(lastUsedProductID);
         this.name = name;
         this.brand = brand;
@@ -37,6 +37,7 @@ public class Product {
         this.description = description;
         this.averageScore = 0;
         this.openFrequency = 0;
+        sellers.add(sellerAccount);
         this.productStatus = ProductStatus.PENDING_CREATION_PRODUCT;
         this.price = price;
     }
@@ -192,7 +193,7 @@ public class Product {
         availability -= number;
     }
 
-    public void removeProduct() throws Exception {
+    public void removeProduct() {
         allProducts.remove(this);
         for (SellerAccount seller : this.sellers) {
             seller.removeProduct(this);
@@ -349,5 +350,9 @@ public class Product {
 
     public void removeSpecialFeature(String specialFeature) {
         specialFeatures.remove(specialFeature);
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

@@ -2,7 +2,6 @@ package Main.model.requests;
 
 import Main.model.Product;
 import Main.model.discountAndOffTypeService.*;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,11 +28,11 @@ public class EditOffRequest extends Request {
         String show = "Edit Off Request:\n" +
                 "Request ID: " + this.requestId + "\n" +
                 "Off ID: " + off.getOffId() + "\n" +
-                "Editing Following Fields:\n" + extractEditedFields(editedFieldTitles);
+                "Editing Following Fields:\n" + extractEditedFields();
         return show;
     }
 
-    private String extractEditedFields(TreeSet<String> editedFieldTitles) {
+    private String extractEditedFields() {
         String editedFields = new String();
 
         for (String editedFieldTitle : editedFieldTitles) {
