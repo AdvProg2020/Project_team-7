@@ -13,10 +13,6 @@ public class EditOffRequest extends Request {
     private String startDate;
     private String endDate;
     private String offAmount;
-    //OffStatus
-    //empty treeSet
-    //pending edit
-    //handle pending edit
     private ArrayList<String> productIDsToBeAdded;
     private ArrayList<String> productIDsToBeRemoved;
     private TreeSet<String> editedFieldTitles;

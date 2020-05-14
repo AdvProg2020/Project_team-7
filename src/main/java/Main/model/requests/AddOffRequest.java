@@ -20,7 +20,7 @@ public class AddOffRequest extends Request {
 
     public void acceptRequest() {
         off.setOffStatus(OffStatus.APPROVED_OFF);
-        Off.addOff(off);//TODO add off is not completed
+        off.addOff(off);
     }
 
     public void declineRequest() {

@@ -141,6 +141,8 @@ public class SellerAccount extends Account {
         return "balance : " + balance + "\n";
     }
 
+
+    //TODO : use this in addOffRequest
     public void addOff(Off off) {
         offList.add(off);
     }
@@ -190,5 +192,13 @@ public class SellerAccount extends Account {
                 return product.showProductAttributes();
         }
         return "invalid product id for this seller";
+    }
+
+    public boolean doesSellerHaveOffWithReference(Off off){
+        return offList.contains(off);
+    }
+
+    public boolean doesSellerHaveProductWithReference(Product product){
+        return products.contains(product);
     }
 }

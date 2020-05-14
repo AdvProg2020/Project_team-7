@@ -111,7 +111,16 @@ public class SellerController {
     }
 
     public EditOffRequest getOffToEdit(String offID) throws Exception {
-        return new EditOffRequest(Off.getOffWithId(offID));
+        Off off = Off.getOffWithId(offID);
+        validateOffEditPermission(off);
+        return new EditOffRequest(off);
+    }
+
+    private void validateOffEditPermission(Off off) throws Exception {
+        SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
+        if (!sellerAccount.doesSellerHaveOffWithReference(off)) {
+            throw new Exception("this off doesn't belong to any of your products !\n");
+        }
     }
 
     public void submitOffEdits(EditOffRequest editOffRequest) throws Exception {
@@ -123,7 +132,7 @@ public class SellerController {
     private void validateInputEditOffInfo(EditOffRequest editOffRequest) throws Exception {
         String esitOffErrors = new String();
 
-        if(editOffRequest.getEditedFieldTitles().isEmpty()){
+        if (editOffRequest.getEditedFieldTitles().isEmpty()) {
             esitOffErrors.concat("you must edit at least one field!\n");
         }
         try {
@@ -159,7 +168,7 @@ public class SellerController {
             esitOffErrors.concat(e.getMessage());
         }
 
-        if(!esitOffErrors.isEmpty()){
+        if (!esitOffErrors.isEmpty()) {
             throw new Exception("there were some errors in editing off : \n" + esitOffErrors);
         }
 
@@ -168,11 +177,17 @@ public class SellerController {
 
     private void validateEditOffProductsToBeAdded(EditOffRequest editOffRequest) throws Exception {
         String invalidIDs = new String();
+
+        SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
         for (String productIDToBeAdded : editOffRequest.getProductIDsToBeAdded()) {
+            Product product = null;
             try {
-                Product.getProductWithId(productIDToBeAdded);
+                product = Product.getProductWithId(productIDToBeAdded);
             } catch (Exception e) {
                 invalidIDs.concat(e.getMessage());
+            }
+            if(!sellerAccount.doesSellerHaveProductWithReference(product)){
+                invalidIDs.concat("product with ID : " + productIDToBeAdded + " doesn't belong to you!\n");
             }
         }
         if (!invalidIDs.isEmpty()) {
@@ -184,7 +199,7 @@ public class SellerController {
         String invalidIDs = new String();
         for (String productIDToBeRemoved : editOffRequest.getProductIDsToBeRemoved()) {
             try {
-               Product product = Product.getProductWithId(productIDToBeRemoved);
+                Product product = Product.getProductWithId(productIDToBeRemoved);
                 if (!editOffRequest.getOff().isThereProductWithReference(product)) {
                     throw new Exception("There is no product with ID : " + productIDToBeRemoved + " in off's product list !\n");
                 }
