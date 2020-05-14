@@ -3,6 +3,7 @@ package Main.model;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
+import Main.model.discountAndOffTypeService.OffStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public class Cart {
             Off off = cartProduct.getProduct().getOff();
             if (off != null && off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
                 off.removeOff();
-            } else if (off != null) {
+            } else if (off != null && off.getOffStatus().equals(OffStatus.APPROVED_OFF)) {
                 cartTotalOff += cartProduct.getProduct().getPrice() * off.getOffAmount() / 100;
             }
         }

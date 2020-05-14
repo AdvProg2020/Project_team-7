@@ -131,4 +131,8 @@ public class Off extends DiscountAndOffTypeService {
     public boolean isThereProductWithReference(Product product){
         return products.contains(product);
     }
+
+    public OffStatus getOffStatus() {
+        return offStatus;
+    }
 }

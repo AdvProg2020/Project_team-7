@@ -4,6 +4,7 @@ import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
+import Main.model.discountAndOffTypeService.OffStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -287,10 +288,10 @@ public class Product {
         if (off != null && off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
             off.removeOff();
         }
-        if (off == null)
-            return price;
-        else
+        if (off!=null&&off.getOffStatus().equals(OffStatus.APPROVED_OFF)) {
             return price * ((double) 1 - (off.getOffAmount() / (double) 100));
+        }
+        else return price;
     }
 
     public void setOff(Off off) {

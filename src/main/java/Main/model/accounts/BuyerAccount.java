@@ -5,14 +5,15 @@ import Main.model.Cart;
 import Main.model.Product;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.DiscountCode;
-import Main.model.exceptions.AccountsException;
 import Main.model.logs.BuyLog;
-import Main.model.sorting.ProductsSort;
 import Main.model.sorting.UsersSort;
 
 import java.util.ArrayList;
 
 public class BuyerAccount extends Account {
+
+    //TODO : not allowing more than one editRequest???
+
     private Cart cart = null;
     private ArrayList<BuyLog> buyHistory = new ArrayList<BuyLog>();
     private ArrayList<DiscountCode> discountCodes = new ArrayList<DiscountCode>();
