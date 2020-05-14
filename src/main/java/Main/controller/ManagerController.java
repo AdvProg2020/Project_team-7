@@ -224,8 +224,8 @@ public class ManagerController {
         }
     }
 
-    public void removeCategoryWithId(String categoryId) throws Exception {
-        Category category = Category.getCategoryWithName(categoryId);
+    public void removeCategoryWithName(String categoryName) throws Exception {
+        Category category = Category.getCategoryWithName(categoryName);
 
         category.removeCategory();
     }

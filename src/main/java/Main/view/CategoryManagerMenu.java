@@ -2,6 +2,8 @@ package Main.view;
 
 import Main.model.requests.EditCategory;
 
+import java.util.ArrayList;
+
 public class CategoryManagerMenu extends Menu {
     public CategoryManagerMenu(Menu parentMenu) {
         super("Manage categories", parentMenu);
@@ -44,7 +46,7 @@ public class CategoryManagerMenu extends Menu {
         System.out.println("Fields you are allowed to edit:(You can insert any field you want to edit unless you insert" +
                 " Submit.)\nName\nProduct Id to be added\nProduct Id to be removed\nSpecial feature to be added\n" +
                 "Special feature to be removed");
-        String input = new String();
+        String input;
         while (!(input = scanner.nextLine().trim()).equalsIgnoreCase("submit")) {
             System.out.println("Enter the content:");
             String newContent = scanner.nextLine();
@@ -64,11 +66,67 @@ public class CategoryManagerMenu extends Menu {
     }
 
     private Menu addCategory() {
-        return null;
+        return new Menu("Add category", this) {
+            @Override
+            public void show() {
+                System.out.println(this.getName() + ":");
+                System.out.println("Enter category name or Back to return:");
+            }
+
+            @Override
+            public void execute() throws Exception {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.parentMenu.run();
+                else {
+                    try {
+                        ArrayList<String> specialFeatures = new ArrayList<>();
+                        getSpecialFeatures(specialFeatures);
+                        managerController.createCategory(input, specialFeatures);
+                        System.out.println("Category created successfully.");
+                        this.run();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        this.run();
+                    }
+                }
+            }
+        };
+    }
+
+    public void getSpecialFeatures(ArrayList<String> specialFeatures) {
+        System.out.println("Enter special features: (You can add special features unless you insert Done)");
+        String input;
+        while (!(input = scanner.nextLine().trim()).equalsIgnoreCase("done")) {
+            specialFeatures.add(input);
+        }
     }
 
     private Menu removeCategory() {
-        return null;
+        return new Menu("Remove category", this) {
+            @Override
+            public void show() {
+                System.out.println(this.getName() + ":");
+                System.out.println("Enter a category Id or Back to return:");
+            }
+
+            @Override
+            public void execute() throws Exception {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.parentMenu.run();
+                else {
+                    try {
+                        managerController.removeCategoryWithName(input);
+                        System.out.println("Category removed successfully.");
+                        this.run();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        this.run();
+                    }
+                }
+            }
+        };
     }
 
     @Override
