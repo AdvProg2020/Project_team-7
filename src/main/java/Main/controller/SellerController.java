@@ -4,12 +4,11 @@ import Main.model.Category;
 import Main.model.Product;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.Off;
+import Main.model.discountAndOffTypeService.OffStatus;
 import Main.model.exceptions.AccountsException;
 import Main.model.exceptions.CreateProductException;
 import Main.model.exceptions.DiscountAndOffTypeServiceException;
-import Main.model.requests.AddOffRequest;
-import Main.model.requests.AddProductRequest;
-import Main.model.requests.Request;
+import Main.model.requests.*;
 
 import java.util.ArrayList;
 
@@ -111,8 +110,91 @@ public class SellerController {
         return Off.getOffWithId(offId).viewMe();
     }
 
-    public void editOffWithId(String offId) {
+    public EditOffRequest getOffToEdit(String offID) throws Exception {
+        return new EditOffRequest(Off.getOffWithId(offID));
+    }
 
+    public void submitOffEdits(EditOffRequest editOffRequest) throws Exception {
+        validateInputEditOffInfo(editOffRequest);
+        editOffRequest.getOff().setOffStatus(OffStatus.PENDING_EDIT_OFF);
+        Request.addRequest(editOffRequest);
+    }
+
+    private void validateInputEditOffInfo(EditOffRequest editOffRequest) throws Exception {
+        String esitOffErrors = new String();
+
+        if(editOffRequest.getEditedFieldTitles().isEmpty()){
+            esitOffErrors.concat("you must edit at least one field!\n");
+        }
+        try {
+            DiscountAndOffTypeServiceException.validateInputDate(editOffRequest.getStartDate());
+        } catch (Exception e) {
+            esitOffErrors.concat("start date is invalid :\n" + e.getMessage());
+        }
+        try {
+            DiscountAndOffTypeServiceException.validateInputDate(editOffRequest.getEndDate());
+        } catch (Exception e) {
+            esitOffErrors.concat("end date is invalid :\n" + e.getMessage());
+        }
+        if (esitOffErrors.isEmpty()) {
+            try {
+                DiscountAndOffTypeServiceException.compareStartAndEndDate(editOffRequest.getStartDate(), editOffRequest.getEndDate());
+            } catch (Exception e) {
+                esitOffErrors.concat(e.getMessage());
+            }
+        }
+        try {
+            DiscountAndOffTypeServiceException.validateInputAmount(editOffRequest.getOffAmount());
+        } catch (Exception e) {
+            esitOffErrors.concat(e.getMessage());
+        }
+        try {
+            validateEditOffProductsToBeAdded(editOffRequest);
+        } catch (Exception e) {
+            esitOffErrors.concat(e.getMessage());
+        }
+        try {
+            validateEditOffProductsToBeRemoved(editOffRequest);
+        } catch (Exception e) {
+            esitOffErrors.concat(e.getMessage());
+        }
+
+        if(!esitOffErrors.isEmpty()){
+            throw new Exception("there were some errors in editing off : \n" + esitOffErrors);
+        }
+
+    }
+
+
+    private void validateEditOffProductsToBeAdded(EditOffRequest editOffRequest) throws Exception {
+        String invalidIDs = new String();
+        for (String productIDToBeAdded : editOffRequest.getProductIDsToBeAdded()) {
+            try {
+                Product.getProductWithId(productIDToBeAdded);
+            } catch (Exception e) {
+                invalidIDs.concat(e.getMessage());
+            }
+        }
+        if (!invalidIDs.isEmpty()) {
+            throw new Exception("there where some errors in adding products : \n" + invalidIDs);
+        }
+    }
+
+    private void validateEditOffProductsToBeRemoved(EditOffRequest editOffRequest) throws Exception {
+        String invalidIDs = new String();
+        for (String productIDToBeRemoved : editOffRequest.getProductIDsToBeRemoved()) {
+            try {
+               Product product = Product.getProductWithId(productIDToBeRemoved);
+                if (!editOffRequest.getOff().isThereProductWithReference(product)) {
+                    throw new Exception("There is no product with ID : " + productIDToBeRemoved + " in off's product list !\n");
+                }
+            } catch (Exception e) {
+                invalidIDs.concat(e.getMessage());
+            }
+        }
+        if (!invalidIDs.isEmpty()) {
+            throw new Exception("there where some errors in removing products : \n" + invalidIDs);
+        }
     }
 
     public void addOff(ArrayList<String> productIDs, ArrayList<String> offInfo) throws Exception {

@@ -10,7 +10,7 @@ public class Category {
     private ArrayList<Product> products = new ArrayList<Product>();
     private static ArrayList<Category> allCategories = new ArrayList<Category>();
 
-    public Category(String name, ArrayList<String> specialFeatures){
+    public Category(String name, ArrayList<String> specialFeatures) {
         this.name = name;
         this.specialFeatures = specialFeatures;
     }
@@ -109,11 +109,12 @@ public class Category {
     }
 
     public void addProduct(Product product) {
-        products.add(product);
-        for (String specialFeature : specialFeatures) {
-            product.addSpecialFeature(specialFeature, null);
+        if (!products.contains(product)) {
+            products.add(product);
+            for (String specialFeature : specialFeatures) {
+                product.addSpecialFeature(specialFeature, null);
+            }
         }
-
     }
 
     public boolean isThereProductWithReference(Product product) {
@@ -121,8 +122,10 @@ public class Category {
     }
 
     public void addSpecialFeature(String specialFeature) {
-        specialFeatures.add(specialFeature);
-        addSpecialFeatureToProducts(specialFeature);
+        if(!specialFeatures.contains(specialFeature)) {
+            specialFeatures.add(specialFeature);
+            addSpecialFeatureToProducts(specialFeature);
+        }
     }
 
     private void addSpecialFeatureToProducts(String specialFeature) {

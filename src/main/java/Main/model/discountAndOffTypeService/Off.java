@@ -19,6 +19,8 @@ public class Off extends DiscountAndOffTypeService {
     private OffStatus offStatus;
     public static ArrayList<Off> allOffs = new ArrayList<Off>();
 
+    //TODO: allow edit to owners only
+
     //TODO : trim :\\\\\\ therefore not allowed spaces some where :((((
     //TODO : Change Dates type from String to date if u can:)
     public Off(ArrayList<Product> products, String startDate, String endDate,
@@ -106,6 +108,7 @@ public class Off extends DiscountAndOffTypeService {
 
     public void removeProduct(Product product) {
         products.remove(product);
+        product.removeOff(this);
     }
 
     private void removeOffFromProducts() {
@@ -114,7 +117,18 @@ public class Off extends DiscountAndOffTypeService {
         }
     }
 
+    public void addProduct(Product product){
+        if(products.contains(product)){
+            products.add(product);
+            product.setOff(this);
+        }
+    }
+
     public ArrayList<Product> getProducts() {
         return products;
+    }
+
+    public boolean isThereProductWithReference(Product product){
+        return products.contains(product);
     }
 }
