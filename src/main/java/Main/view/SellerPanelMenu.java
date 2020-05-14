@@ -7,29 +7,33 @@ import java.util.ArrayList;
 
 public class SellerPanelMenu extends Menu {
     public SellerPanelMenu(Menu parentMenu) {
-        super("Buyer panel",parentMenu);
+        super("Buyer panel", parentMenu);
         this.subMenus.put(1, new PersonalInfoMenu(this));
         this.subMenus.put(2, viewCompanyInfo());
         this.subMenus.put(3, viewSalesHistory());
         this.subMenus.put(4, new SellerProductsManagerMenu(this));
         this.subMenus.put(5, addProduct());
         this.subMenus.put(6, removeProduct());
+        this.subMenus.put(7, showCategories());
+        this.subMenus.put(8, new OffManagerMenu(this));
+        this.subMenus.put(9, viewBalance());
 
     }
 
     private Menu viewCompanyInfo() {
-        return new Menu("View company information", this){
+        return new Menu("View company information", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter Continue to view information or Back to return:");
             }
+
             @Override
-            public void execute() throws Exception{
+            public void execute() throws Exception {
                 String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if(input.equalsIgnoreCase("continue")){
+                else if (input.equalsIgnoreCase("continue")) {
                     System.out.println(sellerController.viewCompanyInformation());
                     this.run();
                 }
@@ -38,18 +42,19 @@ public class SellerPanelMenu extends Menu {
     }
 
     private Menu viewSalesHistory() {
-        return new Menu("View sales history", this){
+        return new Menu("View sales history", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter Continue to view information or Back to return:");
             }
+
             @Override
             public void execute() throws Exception {
                 String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if(input.equalsIgnoreCase("continue")){
+                else if (input.equalsIgnoreCase("continue")) {
                     System.out.println(sellerController.viewSalesHistory());
                     this.run();
                 }
@@ -58,36 +63,37 @@ public class SellerPanelMenu extends Menu {
     }
 
     private Menu addProduct() {
-        return new Menu("Add product", this){
+        return new Menu("Add product", this) {
             @Override
-            public void show(){
-                System.out.println(this.getName()+":");
+            public void show() {
+                System.out.println(this.getName() + ":");
                 System.out.println("Enter Continue to create a product or Back to return");
             }
+
             @Override
             public void execute() throws Exception {
                 String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else{
+                else {
                     try {
                         ArrayList<String> productInfo = new ArrayList<>();
                         getFieldsToCreateProduct(productInfo);
                         sellerController.addProduct(productInfo);
-                    } catch (CreateProductException.InvalidProductInputInfo e){
+                    } catch (CreateProductException.InvalidProductInputInfo e) {
                         System.out.println(e.getMessage());
                         this.run();
-                    } catch (CreateProductException.GetCategoryFromUser e){
+                    } catch (CreateProductException.GetCategoryFromUser e) {
                         ArrayList specialFeatures = new ArrayList();
                         getSpecialFeatures(specialFeatures, e.getCategory());
-                        sellerController.setSpecialFeatures(e.getProduct() , specialFeatures);
+                        sellerController.setSpecialFeatures(e.getProduct(), specialFeatures);
                     }
                 }
             }
         };
     }
 
-    public void getFieldsToCreateProduct(ArrayList<String> productInfo){
+    public void getFieldsToCreateProduct(ArrayList<String> productInfo) {
         System.out.println("Name:");
         String name = scanner.nextLine();
         productInfo.add(name);
@@ -112,7 +118,7 @@ public class SellerPanelMenu extends Menu {
 
     }
 
-    public void getSpecialFeatures(ArrayList<String> specialFeatures, Category category){
+    public void getSpecialFeatures(ArrayList<String> specialFeatures, Category category) {
         for (String feature : category.getSpecialFeatures()) {
             System.out.println(feature + ":");
             String input = scanner.nextLine();
@@ -122,18 +128,19 @@ public class SellerPanelMenu extends Menu {
     }
 
     private Menu removeProduct() {
-        return new Menu("Remove product", this){
+        return new Menu("Remove product", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter a product Id or Back to return:");
             }
+
             @Override
             public void execute() throws Exception {
                 String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else{
+                else {
                     //TODO remove product
                 }
             }
@@ -141,10 +148,44 @@ public class SellerPanelMenu extends Menu {
     }
 
     private Menu showCategories() {
-        return null;
+        return new Menu("Show categories", this) {
+            @Override
+            public void show() {
+                System.out.println(this.getName() + ":");
+                System.out.println("Enter View or Back to return:");
+            }
+
+            @Override
+            public void execute() throws Exception {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.parentMenu.run();
+                else if (input.equalsIgnoreCase("view")) {
+                    System.out.println(generalController.showAllCategories());
+                    this.run();
+                }
+            }
+        };
     }
 
     private Menu viewBalance() {
-        return null;
+        return new Menu("View Balance", this) {
+            @Override
+            public void show() {
+                System.out.println(this.getName() + ":");
+                System.out.println("Enter View or Back to return:");
+            }
+
+            @Override
+            public void execute() throws Exception {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.parentMenu.run();
+                else if (input.equalsIgnoreCase("view")) {
+                    System.out.println(sellerController.viewSellerBalance());
+                    this.run();
+                }
+            }
+        };
     }
 }

@@ -9,18 +9,19 @@ public class SellerProductsManagerMenu extends Menu {
     }
 
     private Menu viewProduct() {
-        return new Menu("View product", this){
+        return new Menu("View product", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter a product Id or Back to return:");
             }
+
             @Override
             public void execute() throws Exception {
                 String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else{
+                else {
                     sellerController.viewSellerProductWithId(input);
                     this.run();
                 }
@@ -29,22 +30,23 @@ public class SellerProductsManagerMenu extends Menu {
     }
 
     private Menu viewBuyers() {
-        return new Menu("View buyers", this){
+        return new Menu("View buyers", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter a product Id or Back to return:");
             }
+
             @Override
             public void execute() throws Exception {
                 String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else{
+                else {
                     try {
                         sellerController.viewBuyersOfProductWithId(input);
                         this.run();
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                         this.run();
                     }

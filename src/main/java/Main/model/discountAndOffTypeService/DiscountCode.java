@@ -135,7 +135,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
     }
 
     public void addUser(BuyerAccount buyerAccount) {
-        if(!users.containsKey(buyerAccount)) {
+        if (!users.containsKey(buyerAccount)) {
             users.put(buyerAccount, 0);
             buyerAccount.addDiscountCode(this);
         }

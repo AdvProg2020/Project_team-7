@@ -70,7 +70,7 @@ public class GeneralController {
 
     public String showAvailableFilters() {
         String availableFilters = "";
-        availableFilters = availableFilters.concat("Brand\nPrice\nName\nAvailable\n");
+        availableFilters = availableFilters.concat("Brand\nPrice\nName\nAvailable\nSeller\n");
         if (currentCategory == null) {
             availableFilters = availableFilters.concat("Category\n");
         } else {
@@ -90,6 +90,8 @@ public class GeneralController {
             filter = new PriceRangeFilter(Double.parseDouble(words[0]), Double.parseDouble(words[1]), currentCategory == null ? Product.allProducts : currentCategory.getProducts());
         } else if (filterType.equalsIgnoreCase("Name")) {
             filter = new ProductNameFilter(filterInput, currentCategory == null ? Product.allProducts : currentCategory.getProducts());
+        } else if (filterType.equalsIgnoreCase("Seller")) {
+            filter = new SellerFilter(filterInput, currentCategory == null ? Product.allProducts : currentCategory.getProducts());
         } else if (filterType.equalsIgnoreCase("Available")) {
             filter = new StockFilter(currentCategory == null ? Product.allProducts : currentCategory.getProducts());
         } else if (currentCategory == null && filterType.equalsIgnoreCase("Category")) {
@@ -142,12 +144,12 @@ public class GeneralController {
         return currentSort;
     }
 
-    public String disableSort(){
+    public String disableSort() {
         currentSort = null;
         return "Sort disabled";
     }
 
-    public String showFilteredAndSortedProducts() {
+    public String showFilteredAndSortedProducts() throws Exception {
         String filtered = "";
         ArrayList<Product> sorted = Filter.applyFilter(Product.allProducts);
         if (currentSort.contains("name A-Z"))

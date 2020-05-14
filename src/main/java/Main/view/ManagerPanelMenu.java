@@ -46,7 +46,7 @@ public class ManagerPanelMenu extends Menu {
     }
 
     public void getDiscountInfo(ArrayList<String> discountInfo) {
-        System.out.println("Enter discount code information:\nStart date: (The input date  should be in " +
+        System.out.println("Enter discount code information:\nStart date: (The input date should be in " +
                 "<yyyy/MM/dd HH:mm:ss>format)");
         String startDate = scanner.nextLine();
         discountInfo.add(startDate);

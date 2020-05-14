@@ -59,7 +59,7 @@ public abstract class Account {
                 return account;
             }
         }
-        throw new Exception("There is no user with userName : " + userName +"\n");
+        throw new Exception("There is no user with userName : " + userName + "\n");
     }
 
     public boolean isPassWordCorrect(String passWord) {
