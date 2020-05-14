@@ -2,7 +2,6 @@ package Main.view;
 
 import Main.controller.GeneralController;
 import Main.model.accounts.BuyerAccount;
-import Main.model.accounts.ManagerAccount;
 import Main.model.accounts.SellerAccount;
 
 public class PersonalInfoMenu extends Menu {

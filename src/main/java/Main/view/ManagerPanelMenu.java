@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ManagerPanelMenu extends Menu {
     public ManagerPanelMenu(Menu parentMenu) {
-        super("manager Panel", parentMenu);
+        super("Manager panel", parentMenu);
         this.subMenus.put(1, new PersonalInfoMenu(this));
         this.subMenus.put(2, new UsersManagerMenu(this));
         this.subMenus.put(3, new AllProductsManagerMenu(this));
