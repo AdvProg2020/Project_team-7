@@ -23,11 +23,11 @@ public class EditCategory {
         this.name = name;
     }
 
-    public void addProductToBeAdded(String productID){
+    public void addProductToBeAdded(String productID) {
         productsToBeAdded.add(productID);
     }
 
-    public void addProductToBeRemoved(String productID){
+    public void addProductToBeRemoved(String productID) {
         productsToBeRemoved.add(productID);
     }
 
@@ -35,7 +35,7 @@ public class EditCategory {
         specialFeaturesToBeAdded.add(specialFeature);
     }
 
-    public void addSpecialFeatureToBeRemoved(String specialFeature){
+    public void addSpecialFeatureToBeRemoved(String specialFeature) {
         specialFeaturesToBeRemoved.add(specialFeature);
     }
 
@@ -66,7 +66,7 @@ public class EditCategory {
     }
 
     private void acceptProductsToBeRemoved() throws Exception {
-        for (String productID : productsToBeAdded) {
+        for (String productID : productsToBeRemoved) {
             category.removeProduct(Product.getProductWithId(productID));
         }
     }

@@ -69,7 +69,7 @@ public class ManagerController {
         product.removeProduct();
     }
 
-    public void createDiscountCode(ArrayList<String> buyersUserNamesList,ArrayList<String> discountInfo) throws Exception {
+    public void createDiscountCode(ArrayList<String> buyersUserNamesList, ArrayList<String> discountInfo) throws Exception {
         validateInputDiscountInfo(discountInfo);
 
         ArrayList<BuyerAccount> buyersList = extractDiscountBuyersList(buyersUserNamesList);
@@ -117,9 +117,9 @@ public class ManagerController {
         } catch (Exception e) {
             discountCreationErrors.concat(e.getMessage());
         }
-        try{
+        try {
             validateDiscountBuyersToBeSet(discountInfo);
-        }catch (Exception e){
+        } catch (Exception e) {
             discountCreationErrors.concat(e.getMessage());
         }
 
@@ -219,7 +219,7 @@ public class ManagerController {
             inputCategoryInfoErrors.concat(e.getErrorMessage());
         }
 
-        if(!inputCategoryInfoErrors.isEmpty()){
+        if (!inputCategoryInfoErrors.isEmpty()) {
             throw new Exception("there were some errors in category name : \n" + inputCategoryInfoErrors);
         }
     }
@@ -385,7 +385,7 @@ public class ManagerController {
 
     private void validateEditCategoryProductsToBeRemoved(EditCategory editCategory) throws Exception {
         String invalidProductIDs = new String();
-        for (String productID : editCategory.getProductsToBeAdded()) {
+        for (String productID : editCategory.getProductsToBeRemoved()) {
             try {
                 Product product = Product.getProductWithId(productID);
                 if (!editCategory.getCategory().isThereProductWithReference(product)) {
