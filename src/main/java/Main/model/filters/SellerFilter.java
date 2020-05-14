@@ -13,14 +13,14 @@ public class SellerFilter extends Filter {
         this.name = "Product Name";
     }
 
-    public void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products) throws Exception{
+    public void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products) throws Exception {
         for (Product product : products) {
             if (product.getSellers().contains(SellerAccount.getSellerWithUserName(sellerUserName)))
                 filterdProducts.add(product);
         }
     }
 
-    public void removeDiffs(ArrayList<Product> filterdProducts, ArrayList<Product> products) throws Exception{
+    public void removeDiffs(ArrayList<Product> filterdProducts, ArrayList<Product> products) throws Exception {
         for (Product product : products) {
             if (!product.getSellers().contains(SellerAccount.getSellerWithUserName(sellerUserName)))
                 filterdProducts.remove(product);

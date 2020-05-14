@@ -122,7 +122,7 @@ public class Category {
     }
 
     public void addSpecialFeature(String specialFeature) {
-        if(!specialFeatures.contains(specialFeature)) {
+        if (!specialFeatures.contains(specialFeature)) {
             specialFeatures.add(specialFeature);
             addSpecialFeatureToProducts(specialFeature);
         }

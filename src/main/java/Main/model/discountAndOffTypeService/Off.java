@@ -26,7 +26,7 @@ public class Off extends DiscountAndOffTypeService {
                double offAmount, SellerAccount seller) throws Exception {
         super(startDate, endDate);
         this.products = products;
-        this.offStatus= OffStatus.PENDING_CREATION_OFF;
+        this.offStatus = OffStatus.PENDING_CREATION_OFF;
         this.offId = IDGenerator.getNewID(lastUsedOffID);
         this.offAmount = offAmount;
         this.seller = seller;
@@ -39,7 +39,7 @@ public class Off extends DiscountAndOffTypeService {
         addOffToProducts();
     }
 
-    private void addOffToProducts(){
+    private void addOffToProducts() {
         for (Product product : products) {
             product.setOff(this);
         }
@@ -78,14 +78,14 @@ public class Off extends DiscountAndOffTypeService {
     public static Off getOffWithId(String offId) throws Exception {
         Off foundOff = null;
         for (Off off : allOffs) {
-            if (off.offId.equalsIgnoreCase(offId)){
+            if (off.offId.equalsIgnoreCase(offId)) {
                 foundOff = off;
             }
         }
-        if(foundOff==null){
+        if (foundOff == null) {
             throw new Exception("There is no off with ID : " + offId + "\n");
         }
-        if(foundOff.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)){
+        if (foundOff.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
             foundOff.removeOff();
             throw new Exception("this off has expired !\n");
         }
@@ -124,8 +124,8 @@ public class Off extends DiscountAndOffTypeService {
         }
     }
 
-    public void addProduct(Product product){
-        if(products.contains(product)){
+    public void addProduct(Product product) {
+        if (products.contains(product)) {
             products.add(product);
             product.setOff(this);
         }
@@ -135,7 +135,7 @@ public class Off extends DiscountAndOffTypeService {
         return products;
     }
 
-    public boolean isThereProductWithReference(Product product){
+    public boolean isThereProductWithReference(Product product) {
         return products.contains(product);
     }
 

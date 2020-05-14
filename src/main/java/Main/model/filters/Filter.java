@@ -16,7 +16,7 @@ public abstract class Filter {
         return current;
     }
 
-    public static ArrayList<Product> applyFilter(ArrayList<Product> products) throws Exception{
+    public static ArrayList<Product> applyFilter(ArrayList<Product> products) throws Exception {
         ArrayList<Product> filteredProducts = new ArrayList<Product>();
         for (Filter currentFilter : GeneralController.currentFilters) {
             currentFilter.apply(filteredProducts, products);

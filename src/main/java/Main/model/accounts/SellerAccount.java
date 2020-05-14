@@ -194,11 +194,11 @@ public class SellerAccount extends Account {
         return "invalid product id for this seller";
     }
 
-    public boolean doesSellerHaveOffWithReference(Off off){
+    public boolean doesSellerHaveOffWithReference(Off off) {
         return offList.contains(off);
     }
 
-    public boolean doesSellerHaveProductWithReference(Product product){
+    public boolean doesSellerHaveProductWithReference(Product product) {
         return products.contains(product);
     }
 }

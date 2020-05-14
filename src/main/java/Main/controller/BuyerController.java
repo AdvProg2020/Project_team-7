@@ -9,6 +9,7 @@ import Main.model.logs.BuyLog;
 import Main.model.logs.DeliveryStatus;
 import Main.model.logs.Log;
 import Main.model.logs.SellLog;
+
 import java.util.Date;
 import java.util.HashMap;
 
@@ -62,7 +63,7 @@ public class BuyerController {
     }
 
     public void rateProductWithId(String productId, String score) throws Exception {
-        validateInputRateInfo(productId,score);
+        validateInputRateInfo(productId, score);
 
         Product product = Product.getProductWithId(productId);
         Rate rate = new Rate(currentBuyer, product, Double.parseDouble(score));

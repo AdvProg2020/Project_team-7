@@ -186,7 +186,7 @@ public class SellerController {
             } catch (Exception e) {
                 invalidIDs.concat(e.getMessage());
             }
-            if(!sellerAccount.doesSellerHaveProductWithReference(product)){
+            if (!sellerAccount.doesSellerHaveProductWithReference(product)) {
                 invalidIDs.concat("product with ID : " + productIDToBeAdded + " doesn't belong to you!\n");
             }
         }

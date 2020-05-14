@@ -288,10 +288,9 @@ public class Product {
         if (off != null && off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
             off.removeOff();
         }
-        if (off!=null&&off.getOffStatus().equals(OffStatus.APPROVED_OFF)) {
+        if (off != null && off.getOffStatus().equals(OffStatus.APPROVED_OFF)) {
             return price * ((double) 1 - (off.getOffAmount() / (double) 100));
-        }
-        else return price;
+        } else return price;
     }
 
     public void setOff(Off off) {
