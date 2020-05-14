@@ -14,7 +14,7 @@ public class OffMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product's Id or Back to return ");
+                System.out.println("Enter product Id or Back to return:");
             }
 
             @Override
@@ -28,7 +28,7 @@ public class OffMenu extends Menu {
                         ProductPageMenu productPageMenu = new ProductPageMenu(this);
                         productPageMenu.run();
                     } catch (Exception e) {
-                        System.out.println("Invalid Id!");
+                        System.out.println(e.getMessage());
                         this.run();
                     }
                 }

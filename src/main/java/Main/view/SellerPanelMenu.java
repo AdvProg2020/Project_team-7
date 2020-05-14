@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class SellerPanelMenu extends Menu {
     public SellerPanelMenu(Menu parentMenu) {
-        super("Buyer panel", parentMenu);
+        super("Seller panel", parentMenu);
         this.subMenus.put(1, new PersonalInfoMenu(this));
         this.subMenus.put(2, viewCompanyInfo());
         this.subMenus.put(3, viewSalesHistory());

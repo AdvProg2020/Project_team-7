@@ -9,28 +9,23 @@ public class ProductsMenu extends Menu {
         this.subMenus.put(2, new FilteringMenu(this));
         this.subMenus.put(3, new SortingMenu(this));
         this.subMenus.put(4, showProducts());
+        this.subMenus.put(5, showProduct());
     }
 
     private Menu showCategories() {
-        return new Menu("Show Categories", this) {
+        return new Menu("Show categories", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter Back to return");
+                System.out.println("Enter View or Back to return:");
             }
 
             @Override
             public void execute() throws Exception {
                 String input = scanner.nextLine();
-                if (input.equalsIgnoreCase("back")) {
-                    try {
-                        this.parentMenu.run();
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        this.run();
-                    }
-                }
-                else {
+                if (input.equalsIgnoreCase("back"))
+                    this.parentMenu.run();
+                else if (input.equalsIgnoreCase("view")) {
                     System.out.println(generalController.showAllCategories());
                     this.run();
                 }
@@ -39,27 +34,49 @@ public class ProductsMenu extends Menu {
     }
 
     private Menu showProducts() {
-        return new Menu("Show Products", this) {
+        return new Menu("Show products", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter Back to return");
+                System.out.println("Enter View or Back to return");
             }
 
             @Override
             public void execute() throws Exception {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("back")) {
-                    try {
-                        this.parentMenu.run();
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        this.run();
-                    }
+                    this.parentMenu.run();
                 }
                 else {
                     System.out.println(generalController.showFilteredAndSortedProducts());
                     this.run();
+                }
+            }
+        };
+    }
+
+    private Menu showProduct() {
+        return new Menu("Show product", this) {
+            @Override
+            public void show() {
+                System.out.println(this.getName() + ":");
+                System.out.println("Enter product Id or Back to return:");
+            }
+
+            @Override
+            public void execute() throws Exception {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.parentMenu.run();
+                else {
+                    try {
+                        System.out.println(generalController.setCurrentProductWithId(input));
+                        ProductPageMenu productPageMenu = new ProductPageMenu(this);
+                        productPageMenu.run();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        this.run();
+                    }
                 }
             }
         };
