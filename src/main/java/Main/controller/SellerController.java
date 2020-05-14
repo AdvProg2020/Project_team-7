@@ -2,6 +2,7 @@ package Main.controller;
 
 import Main.model.Category;
 import Main.model.Product;
+import Main.model.ProductStatus;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.discountAndOffTypeService.OffStatus;
@@ -29,8 +30,70 @@ public class SellerController {
         return ((SellerAccount) GeneralController.currentUser).viewSellerProductWithId(productId);
     }
 
-    public void editProductWithId(String productId) {
+    public EditProductRequest getProductToEdit(String productID) throws Exception {
+        Product product = Product.getProductWithId(productID);
+        validateProductEditPermission(product);
+        return new EditProductRequest(product);
+    }
 
+    private void validateProductEditPermission(Product product) throws Exception {
+        SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
+        if (!sellerAccount.doesSellerHaveProductWithReference(product)) {
+            throw new Exception("this product doesn't belong to you !\n");
+        }
+    }
+
+    public void submitProductEdits(EditProductRequest editProductRequest) throws Exception {
+        validateInputEditEditProductInfo(editProductRequest);
+        editProductRequest.getProduct().setProductStatus(ProductStatus.PENDING_EDIT_PRODUCT);
+        Request.addRequest(editProductRequest);
+    }
+
+    private void validateInputEditEditProductInfo(EditProductRequest editProductRequest) throws Exception {
+        String editProductErrors = new String();
+
+        try {
+            AccountsException.validateNameTypeInfo("product name", editProductRequest.getName());
+        } catch (AccountsException e) {
+            editProductErrors.concat(e.getErrorMessage());
+        }
+        try {
+            CreateProductException.validateAvailability(editProductRequest.getAvailability());
+        } catch (Exception e) {
+            editProductErrors.concat(e.getMessage());
+        }
+        try {
+            CreateProductException.validatePrice(editProductRequest.getPrice());
+        } catch (Exception e) {
+            editProductErrors.concat(e.getMessage());
+        }
+        Off off = null;
+        try {
+            off = Off.getOffWithId(editProductRequest.getOffID());
+            SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
+            if (!sellerAccount.doesSellerHaveOffWithReference(off)) {
+                throw new Exception("off with ID : " + editProductRequest.getOffID() + " doesn't belong to you!\n");
+            }
+        } catch (Exception e) {
+            editProductErrors.concat(e.getMessage());
+        }
+
+        if(!editProductErrors.isEmpty()){
+            throw new Exception("there were some errors in editing product :\n" + editProductErrors);
+        }
+    }
+
+    public void removeProductWithID(String productID) throws Exception {
+        Product product = Product.getProductWithId(productID);
+        validateRemoveProductPermission(product);
+        product.removeProduct();
+    }
+
+    private void validateRemoveProductPermission(Product product) throws Exception {
+        SellerAccount sellerAccount = (SellerAccount)GeneralController.currentUser;
+        if(!sellerAccount.doesSellerHaveProductWithReference(product)){
+            throw new Exception("this product doesn't belong to you!\n");
+        }
     }
 
     public String viewBuyersOfProductWithId(String productId) throws Exception {
@@ -41,7 +104,7 @@ public class SellerController {
             CreateProductException.GetCategoryFromUser {
         validateAddProductInfo(productInfo);
         Product product = new Product(productInfo.get(0), productInfo.get(1), Integer.parseInt(productInfo.get(2)),
-                productInfo.get(3), Double.parseDouble(productInfo.get(4)));
+                productInfo.get(3), Double.parseDouble(productInfo.get(4)),(SellerAccount)GeneralController.currentUser);
         Request request = new AddProductRequest(product, "Add product request");
         Request.addRequest(request);
 
@@ -215,7 +278,7 @@ public class SellerController {
     public void addOff(ArrayList<String> productIDs, ArrayList<String> offInfo) throws Exception {
         validateOffInputInfo(productIDs, offInfo);
         ArrayList<Product> products = extractOffProductsList(productIDs);
-        Off off = new Off(products, offInfo.get(0), offInfo.get(1), Double.parseDouble(offInfo.get(2)), SellerAccount.getSellerWithUserName(offInfo.get(3)));
+        Off off = new Off(products, offInfo.get(0), offInfo.get(1), Double.parseDouble(offInfo.get(2)), (SellerAccount)GeneralController.currentUser);
         AddOffRequest addOffRequest = new AddOffRequest(off, "Add New Off Request");
         Request.addRequest(addOffRequest);
     }
