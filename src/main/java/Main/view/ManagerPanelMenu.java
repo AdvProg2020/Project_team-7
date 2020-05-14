@@ -4,38 +4,39 @@ import java.util.ArrayList;
 
 public class ManagerPanelMenu extends Menu {
     public ManagerPanelMenu(Menu parentMenu) {
-        super("manager Panel",parentMenu);
+        super("manager Panel", parentMenu);
         this.subMenus.put(1, new PersonalInfoMenu(this));
         this.subMenus.put(2, new UsersManagerMenu(this));
         this.subMenus.put(3, new AllProductsManagerMenu(this));
         this.subMenus.put(4, createDiscountCode());
         this.subMenus.put(5, new DiscountCodeManagerMenu(this));
         this.subMenus.put(6, new RequestManagerMenu(this));
+        this.subMenus.put(7, new CategoryManagerMenu(this));
     }
 
     private Menu createDiscountCode() {
-        return new Menu("Create discount code",this){
+        return new Menu("Create discount code", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter Continue to create discount code or Back to return:");
             }
+
             @Override
             public void execute() throws Exception {
                 String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if(input.equalsIgnoreCase("continue")){
-                    try{
+                else if (input.equalsIgnoreCase("continue")) {
+                    try {
                         ArrayList<String> discountInfo = new ArrayList<>();
                         getDiscountInfo(discountInfo);
                         ArrayList<String> buyersList = new ArrayList<>();
                         getBuyerIdList(buyersList);
-                        managerController.createDiscountCode(buyersList,discountInfo);
+                        managerController.createDiscountCode(buyersList, discountInfo);
                         System.out.println("Discount code created successfully.");
                         this.run();
-                    }
-                    catch(Exception e){
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                         this.run();
                     }
@@ -44,7 +45,7 @@ public class ManagerPanelMenu extends Menu {
         };
     }
 
-    public void getDiscountInfo(ArrayList<String> discountInfo){
+    public void getDiscountInfo(ArrayList<String> discountInfo) {
         System.out.println("Enter discount code information:\nStart date: (The input date  should be in " +
                 "<yyyy/MM/dd HH:mm:ss>format)");
         String startDate = scanner.nextLine();
@@ -63,13 +64,13 @@ public class ManagerPanelMenu extends Menu {
         discountInfo.add(muxNumberOfUse);
     }
 
-    public void getBuyerIdList(ArrayList<String> buyersList){
+    public void getBuyerIdList(ArrayList<String> buyersList) {
         System.out.println("Number of buyer accounts receiving this discount code:");
         int numberOfBuyers = scanner.nextInt();
         System.out.println();
-        for(int i=0; i<numberOfBuyers ; i++){
-            String buyerId = scanner.nextLine();
-            buyersList.add(buyerId);
+        for (int i = 0; i < numberOfBuyers; i++) {
+            String buyerUsername = scanner.nextLine();
+            buyersList.add(buyerUsername);
         }
     }
 }

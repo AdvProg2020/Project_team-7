@@ -18,7 +18,7 @@ public class FilteringMenu extends Menu {
             }
 
             @Override
-            public void execute() throws Exception{
+            public void execute() throws Exception {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back")) {
                     try {
@@ -27,10 +27,9 @@ public class FilteringMenu extends Menu {
                         System.out.println(e.getMessage());
                         this.run();
                     }
-                }
-                else if (input.equalsIgnoreCase("show available filters"))
+                } else if (input.equalsIgnoreCase("show available filters"))
                     System.out.println("Available filters are: ");
-                    System.out.println(generalController.showAvailableFilters());
+                System.out.println(generalController.showAvailableFilters());
                 try {
                     this.run();
                 } catch (Exception e) {
@@ -50,7 +49,7 @@ public class FilteringMenu extends Menu {
             }
 
             @Override
-            public void execute() throws Exception{
+            public void execute() throws Exception {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back")) {
                     try {
@@ -83,7 +82,7 @@ public class FilteringMenu extends Menu {
             }
 
             @Override
-            public void execute() throws Exception{
+            public void execute() throws Exception {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back")) {
                     try {
@@ -92,7 +91,7 @@ public class FilteringMenu extends Menu {
                         System.out.println(e.getMessage());
                         this.run();
                     }
-                } else if (input.equalsIgnoreCase("show current filters")){
+                } else if (input.equalsIgnoreCase("show current filters")) {
                     System.out.println(generalController.showCurrentFilters());
                 }
                 try {
@@ -116,14 +115,14 @@ public class FilteringMenu extends Menu {
             @Override
             public void execute() throws Exception {
                 String input = scanner.nextLine();
-                if (input.equalsIgnoreCase("back")){
+                if (input.equalsIgnoreCase("back")) {
                     try {
                         this.parentMenu.run();
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                         this.parentMenu.run();
                     }
-                } else if (input.equalsIgnoreCase("disable filter")){
+                } else if (input.equalsIgnoreCase("disable filter")) {
                     System.out.println("Enter the filter type you want to disable");
                     String disablingFilter = scanner.nextLine();
                     System.out.println(generalController.disableFilter(disablingFilter));

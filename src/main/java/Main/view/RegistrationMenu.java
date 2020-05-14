@@ -23,16 +23,16 @@ public class RegistrationMenu extends Menu {
     @Override
     public void execute() throws Exception {
         String input = scanner.nextLine();
-        if(input.equalsIgnoreCase("back"))
+        if (input.equalsIgnoreCase("back"))
             this.parentMenu.run();
         else {
             System.out.println("Enter your username");
             String username = scanner.nextLine();
-            String messageFromCreateAccountMethod = generalController.createAccount(input,username);
+            String messageFromCreateAccountMethod = generalController.createAccount(input, username);
             System.out.println(messageFromCreateAccountMethod);
-            if(messageFromCreateAccountMethod.startsWith("this") || messageFromCreateAccountMethod.startsWith("you")){
+            if (messageFromCreateAccountMethod.startsWith("this") || messageFromCreateAccountMethod.startsWith("you")) {
                 this.run();
-            }else{
+            } else {
                 GeneralController.selectedUsername = username;
                 if (input.equalsIgnoreCase("manager"))
                     registerManager().run();
@@ -51,14 +51,14 @@ public class RegistrationMenu extends Menu {
             public void show() {
                 System.out.println(this.getName() + ":");
             }
+
             @Override
             public void execute() throws Exception {
-                try{
+                try {
                     ArrayList<String> managerInfo = new ArrayList<>();
                     getManagerInfo(managerInfo);
-                    generalController.getManagerInformation(managerInfo,GeneralController.selectedUsername);
-                }
-                catch (Exception e){
+                    generalController.getManagerInformation(managerInfo, GeneralController.selectedUsername);
+                } catch (Exception e) {
                     System.out.println(e.getMessage());
                     this.run();
                 }
@@ -67,7 +67,7 @@ public class RegistrationMenu extends Menu {
         };
     }
 
-    public void getManagerInfo(ArrayList<String> managerInfo){
+    public void getManagerInfo(ArrayList<String> managerInfo) {
         System.out.println("Enter your personal information:\nPassword:");
         String password = scanner.nextLine();
         managerInfo.add(password);
@@ -86,19 +86,19 @@ public class RegistrationMenu extends Menu {
     }
 
     private Menu registerBuyer() {
-        return new Menu("Register Buyer", this){
+        return new Menu("Register Buyer", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
             }
+
             @Override
             public void execute() throws Exception {
                 try {
                     ArrayList<String> buyerInfo = new ArrayList<>();
                     getBuyerInfo(buyerInfo);
                     generalController.getBuyerInformation(buyerInfo, GeneralController.selectedUsername);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     System.out.println(e.getMessage());
                     this.run();
                 }
@@ -107,7 +107,7 @@ public class RegistrationMenu extends Menu {
         };
     }
 
-    public void getBuyerInfo(ArrayList<String> buyerInfo){
+    public void getBuyerInfo(ArrayList<String> buyerInfo) {
         System.out.println("Enter your personal information:\nPassword:");
         String password = scanner.nextLine();
         buyerInfo.add(password);
@@ -129,19 +129,19 @@ public class RegistrationMenu extends Menu {
     }
 
     private Menu registerSeller() {
-        return new Menu("Register seller" , this){
+        return new Menu("Register seller", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
             }
+
             @Override
             public void execute() throws Exception {
                 try {
                     ArrayList<String> sellerInfo = new ArrayList<>();
                     getSellerInfo(sellerInfo);
                     generalController.getSellerInformation(sellerInfo, GeneralController.selectedUsername);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     System.out.println(e.getMessage());
                     this.run();
                 }
@@ -150,7 +150,7 @@ public class RegistrationMenu extends Menu {
         };
     }
 
-    public void getSellerInfo(ArrayList<String> sellerInfo){
+    public void getSellerInfo(ArrayList<String> sellerInfo) {
         System.out.println("Enter your personal information:\nPassword:");
         String password = scanner.nextLine();
         sellerInfo.add(password);

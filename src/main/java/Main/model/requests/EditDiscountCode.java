@@ -2,6 +2,7 @@ package Main.model.requests;
 
 import Main.model.accounts.BuyerAccount;
 import Main.model.discountAndOffTypeService.DiscountCode;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,12 +52,12 @@ public class EditDiscountCode {
         usersToBeAdded.add(userName);
     }
 
-    public void addUserToBeRemoved(String userName){
-        usersToBeAdded.add(userName);
+    public void addUserToBeRemoved(String userName) {
+        usersToBeRemoved.add(userName);
     }
 
     public void acceptRequest() throws Exception {
-        discountCode.setDates(startDate,endDate);
+        discountCode.setDates(startDate, endDate);
         discountCode.setPercent(Double.parseDouble(percent));
         discountCode.setMaxAmount(Double.parseDouble(maxAmount));
         discountCode.setMaxNumberOfUse(Integer.parseInt(maxNumberOfUse));

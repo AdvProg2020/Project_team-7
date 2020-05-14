@@ -9,11 +9,12 @@ public class UserPanelMenu extends Menu {
     }
 
     private Menu logOut() {
-        return new Menu("Logout",this){
+        return new Menu("Logout", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
             }
+
             @Override
             public void execute() throws Exception {
                 System.out.println("You have logged out successfully.");

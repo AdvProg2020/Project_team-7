@@ -4,26 +4,27 @@ import java.util.ArrayList;
 
 public class UsersManagerMenu extends Menu {
     public UsersManagerMenu(Menu parentMenu) {
-        super("Manage users",parentMenu);
-        this.subMenus.put(1,view());
-        this.subMenus.put(2,deleteUser());
-        this.subMenus.put(3,createManagerProfile());
+        super("Manage users", parentMenu);
+        this.subMenus.put(1, view());
+        this.subMenus.put(2, deleteUser());
+        this.subMenus.put(3, createManagerProfile());
 
     }
 
     private Menu view() {
-        return new Menu("View user",this){
+        return new Menu("View user", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter a username or Back to return");
             }
+
             @Override
             public void execute() throws Exception {
                 String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else{
+                else {
                     System.out.println(managerController.viewUserWithUserName(input));
                     this.run();
                 }
@@ -32,24 +33,24 @@ public class UsersManagerMenu extends Menu {
     }
 
     private Menu deleteUser() {
-        return new Menu("Delete user",this){
+        return new Menu("Delete user", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter a username or Back to return");
             }
+
             @Override
             public void execute() throws Exception {
                 String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else{
-                    try{
+                else {
+                    try {
                         managerController.deleteUserWithUserName(input);
                         System.out.println("User deleted successfully");
                         this.run();
-                    }
-                    catch(Exception e){
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                         this.run();
                     }
@@ -59,26 +60,26 @@ public class UsersManagerMenu extends Menu {
     }
 
     private Menu createManagerProfile() {
-        return new Menu("Create manager profile",this){
+        return new Menu("Create manager profile", this) {
             @Override
-            public void show(){
-                System.out.println(this.getName()+":");
+            public void show() {
+                System.out.println(this.getName() + ":");
                 System.out.println("Enter Create profile or Back to return:");
             }
+
             @Override
             public void execute() throws Exception {
                 String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if(input.equalsIgnoreCase("create profile")){
+                else if (input.equalsIgnoreCase("create profile")) {
                     try {
                         ArrayList<String> managerInfo = new ArrayList<>();
                         getManagerInfo(managerInfo);
                         managerController.createManagerProfile(managerInfo);
                         System.out.println("Manager account created successfully");
                         this.run();
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                         this.run();
                     }
@@ -87,7 +88,7 @@ public class UsersManagerMenu extends Menu {
         };
     }
 
-    public void getManagerInfo(ArrayList<String> managerInfo){
+    public void getManagerInfo(ArrayList<String> managerInfo) {
         System.out.println("Password:");
         String password = scanner.nextLine();
         managerInfo.add(password);

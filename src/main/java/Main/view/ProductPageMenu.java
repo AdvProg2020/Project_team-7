@@ -48,13 +48,10 @@ public class ProductPageMenu extends Menu {
                     try {
                         System.out.println(generalController.compareProductWithProductWithId(input));
                         this.run();
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("invalid Id!");
                         this.run();
                     }
-
-
                 }
             }
         };

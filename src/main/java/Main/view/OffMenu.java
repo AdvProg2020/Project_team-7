@@ -27,8 +27,7 @@ public class OffMenu extends Menu {
                         System.out.println(generalController.setCurrentProductWithId(input));
                         ProductPageMenu productPageMenu = new ProductPageMenu(this);
                         productPageMenu.run();
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("Invalid Id!");
                         this.run();
                     }

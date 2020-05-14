@@ -16,16 +16,16 @@ public class UserMenu extends Menu {
     public void run() throws Exception {
         System.out.println("Enter View panel or Back to return:");
         String input = scanner.nextLine();
-        if(input.equalsIgnoreCase("back"))
+        if (input.equalsIgnoreCase("back"))
             this.parentMenu.run();
-        else{
-            if(GeneralController.currentUser==null){
+        else {
+            if (GeneralController.currentUser == null) {
                 System.out.println("You have not logged in yet!");
                 SignInMenu signInMenu = new SignInMenu(this);
                 signInMenu.run();
-            } else if(GeneralController.currentUser instanceof ManagerAccount)
+            } else if (GeneralController.currentUser instanceof ManagerAccount)
                 subMenus.get(1).run();
-            else if(GeneralController.currentUser instanceof SellerAccount)
+            else if (GeneralController.currentUser instanceof SellerAccount)
                 subMenus.get(2).run();
             else
                 subMenus.get(3).run();

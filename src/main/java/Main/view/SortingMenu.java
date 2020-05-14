@@ -2,7 +2,7 @@ package Main.view;
 
 public class SortingMenu extends Menu {
     public SortingMenu(Menu parentMenu) {
-        super("Sorting",parentMenu);
+        super("Sorting", parentMenu);
         this.subMenus.put(1, showAvailableSorts());
         this.subMenus.put(2, sort());
         this.subMenus.put(3, currentSort());
@@ -10,9 +10,9 @@ public class SortingMenu extends Menu {
     }
 
     private Menu showAvailableSorts() {
-        return new Menu("Show available sorts", this){
+        return new Menu("Show available sorts", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter show available sorts or Back to return");
             }
@@ -27,7 +27,7 @@ public class SortingMenu extends Menu {
                         System.out.println(e.getMessage());
                         this.run();
                     }
-                } else if (input.equalsIgnoreCase("show available sorts")){
+                } else if (input.equalsIgnoreCase("show available sorts")) {
                     if (this.parentMenu instanceof RequestManagerMenu)
                         System.out.println(generalController.showAvailableSorts("request"));
                     else if (this.parentMenu instanceof ProductsMenu || this.parentMenu instanceof InCartProductManagerMenu || this.parentMenu instanceof AllProductsManagerMenu || this.parentMenu instanceof SellerProductsManagerMenu)
@@ -46,9 +46,9 @@ public class SortingMenu extends Menu {
     }
 
     private Menu sort() {
-        return new Menu("Sort by", this){
+        return new Menu("Sort by", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter sort or Back to return");
             }
@@ -63,7 +63,7 @@ public class SortingMenu extends Menu {
                         System.out.println(e.getMessage());
                         this.run();
                     }
-                } else if (input.equalsIgnoreCase("sort")){
+                } else if (input.equalsIgnoreCase("sort")) {
                     System.out.println("Enter sort type: ");
                     String sortType = scanner.nextLine();
                     generalController.makeSort(sortType);
@@ -79,9 +79,9 @@ public class SortingMenu extends Menu {
     }
 
     private Menu currentSort() {
-        return new Menu("Show current sort", this){
+        return new Menu("Show current sort", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter show current sort or Back to return");
             }
@@ -96,7 +96,7 @@ public class SortingMenu extends Menu {
                         System.out.println(e.getMessage());
                         this.run();
                     }
-                } else if (input.equalsIgnoreCase("show current sort")){
+                } else if (input.equalsIgnoreCase("show current sort")) {
                     System.out.println(generalController.showCurrentSort());
                 }
                 try {
@@ -110,9 +110,9 @@ public class SortingMenu extends Menu {
     }
 
     private Menu disableSort() {
-        return new Menu("Disable sort", this){
+        return new Menu("Disable sort", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter disable sort or Back to return");
             }
@@ -127,7 +127,7 @@ public class SortingMenu extends Menu {
                         System.out.println(e.getMessage());
                         this.run();
                     }
-                } else if (input.equalsIgnoreCase("disable sort")){
+                } else if (input.equalsIgnoreCase("disable sort")) {
                     System.out.println(generalController.disableSort());
                 }
                 try {
