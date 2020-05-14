@@ -16,7 +16,7 @@ public abstract class Filter {
         return current;
     }
 
-    public static ArrayList<Product> applyFilter(ArrayList<Product> products) {
+    public static ArrayList<Product> applyFilter(ArrayList<Product> products) throws Exception{
         ArrayList<Product> filteredProducts = new ArrayList<Product>();
         for (Filter currentFilter : GeneralController.currentFilters) {
             currentFilter.apply(filteredProducts, products);
@@ -27,9 +27,9 @@ public abstract class Filter {
         return filteredProducts;
     }
 
-    public abstract void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products);
+    public abstract void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products) throws Exception;
 
-    public abstract void removeDiffs(ArrayList<Product> filteredProducts, ArrayList<Product> products);
+    public abstract void removeDiffs(ArrayList<Product> filteredProducts, ArrayList<Product> products) throws Exception;
 
     protected abstract String show();
 

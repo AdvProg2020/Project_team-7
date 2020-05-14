@@ -350,4 +350,8 @@ public class Product {
     public void removeSpecialFeature(String specialFeature) {
         specialFeatures.remove(specialFeature);
     }
+
+    public ArrayList<SellerAccount> getSellers() {
+        return sellers;
+    }
 }
