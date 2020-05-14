@@ -123,7 +123,7 @@ public class GeneralController {
 
     public String showAvailableSorts(String listType) {
         if (listType.equalsIgnoreCase("product"))
-            return "Sort by name A-Z\nSort by name Z-A\nSort by view\nSort by average score\n";
+            return "Sort by name A-Z\nSort by name Z-A\nSort by view\nSort by average score\nSort by price ascending\nSort by price descending\n";
         else if (listType.equalsIgnoreCase("request"))
             return "Sort by type\nSort by Id\n";
         else if (listType.equalsIgnoreCase("user"))
@@ -155,6 +155,10 @@ public class GeneralController {
             sorted.sort(new ProductsSort.productSortByView());
         else if (currentSort.contains("average Score"))
             sorted.sort(new ProductsSort.productSortByRate());
+        else if (currentSort.contains("price ascending"))
+            sorted.sort(new ProductsSort.productSortByPriceAscendingly());
+        else if (currentSort.contains("price descending"))
+            sorted.sort(new ProductsSort.productSortByPriceDescendingly());
         else return "wrong sort input.";
         for (Product product : sorted) {
             filtered = filtered.concat(product.showProductDigest());

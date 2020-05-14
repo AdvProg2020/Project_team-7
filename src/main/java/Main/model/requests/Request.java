@@ -1,5 +1,9 @@
 package Main.model.requests;
 
+import Main.controller.GeneralController;
+import Main.model.sorting.RequestsSort;
+import Main.model.sorting.UsersSort;
+
 import java.util.ArrayList;
 
 public abstract class Request {
@@ -17,6 +21,10 @@ public abstract class Request {
     }
 
     public static String showAllRequests() {
+        if (GeneralController.currentSort.equalsIgnoreCase("type"))
+            allRequests.sort(new RequestsSort.requestsSortByType());
+        else if (GeneralController.currentSort.equalsIgnoreCase("id"))
+            allRequests.sort(new RequestsSort.requestsSortById());
         if (allRequests.isEmpty())
             return "There is no Requests to show.";
         for (Request request : allRequests) {

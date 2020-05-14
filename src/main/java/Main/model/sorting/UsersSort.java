@@ -6,25 +6,25 @@ import Main.model.accounts.Account;
 import java.util.Comparator;
 
 public abstract class UsersSort implements Comparator {
-    public static class productSortByFirstNameAscending implements Comparator<Account> {
+    public static class usersSortByFirstNameAscending implements Comparator<Account> {
         public int compare(Account one, Account two) {
             return one.getFirstName().compareToIgnoreCase(two.getFirstName());
         }
     }
 
-    public static class productSortByLastNameAscending implements Comparator<Account> {
+    public static class usersSortByLastNameAscending implements Comparator<Account> {
         public int compare(Account one, Account two) {
             return one.getLastName().compareToIgnoreCase(two.getLastName());
         }
     }
 
-    public static class productSortByFirstNameDescending implements Comparator<Account> {
+    public static class usersSortByFirstNameDescending implements Comparator<Account> {
         public int compare(Account one, Account two) {
             return (-1) * (one.getFirstName().compareToIgnoreCase(two.getFirstName()));
         }
     }
 
-    public static class productSortByLastNameDescending implements Comparator<Account> {
+    public static class usersSortByLastNameDescending implements Comparator<Account> {
         public int compare(Account one, Account two) {
             return (-1) * (one.getLastName().compareToIgnoreCase(two.getLastName()));
         }

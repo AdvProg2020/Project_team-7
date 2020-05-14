@@ -1,6 +1,8 @@
 package Main.model.accounts;
 
+import Main.controller.GeneralController;
 import Main.model.exceptions.AccountsException;
+import Main.model.sorting.UsersSort;
 
 import java.util.ArrayList;
 
@@ -55,6 +57,14 @@ public class ManagerAccount extends Account {
     }
 
     public static String showManagersList() {
+        if (GeneralController.currentSort.equalsIgnoreCase("first name A-Z"))
+            allManagers.sort(new UsersSort.usersSortByFirstNameAscending());
+        else if (GeneralController.currentSort.equalsIgnoreCase("first name Z-A"))
+            allManagers.sort(new UsersSort.usersSortByFirstNameDescending());
+        else if (GeneralController.currentSort.equalsIgnoreCase("last name A-Z"))
+            allManagers.sort(new UsersSort.usersSortByLastNameAscending());
+        else if (GeneralController.currentSort.equalsIgnoreCase("last name Z-A"))
+            allManagers.sort(new UsersSort.usersSortByLastNameDescending());
         StringBuilder managersList = new StringBuilder();
         managersList.append("Mangers :\n");
         for (ManagerAccount manager : allManagers) {

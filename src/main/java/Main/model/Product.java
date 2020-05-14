@@ -283,7 +283,7 @@ public class Product {
         return category;
     }
 
-    public double getProductFinalPriceConsideringOff() {
+    public Double getProductFinalPriceConsideringOff() {
         if (off != null && off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
             off.removeOff();
         }

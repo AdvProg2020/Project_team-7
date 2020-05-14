@@ -30,4 +30,16 @@ public abstract class ProductsSort implements Comparator {
             return (-1) * (one.getAverageScore().compareTo(two.getAverageScore()));
         }
     }
+
+    public static class productSortByPriceAscendingly implements Comparator<Product> {
+        public int compare(Product one, Product two) {
+            return (one.getProductFinalPriceConsideringOff().compareTo(two.getProductFinalPriceConsideringOff()));
+        }
+    }
+
+    public static class productSortByPriceDescendingly implements Comparator<Product> {
+        public int compare(Product one, Product two) {
+            return (-1) * (one.getProductFinalPriceConsideringOff().compareTo(two.getProductFinalPriceConsideringOff()));
+        }
+    }
 }

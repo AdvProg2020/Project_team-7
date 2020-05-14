@@ -1,10 +1,12 @@
 package Main.model.accounts;
 
+import Main.controller.GeneralController;
 import Main.model.Product;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.exceptions.AccountsException;
 import Main.model.logs.SellLog;
+import Main.model.sorting.UsersSort;
 
 import java.util.ArrayList;
 
@@ -56,6 +58,14 @@ public class SellerAccount extends Account {
     }
 
     public static String showSellersList() {
+        if (GeneralController.currentSort.equalsIgnoreCase("first name A-Z"))
+            allSellers.sort(new UsersSort.usersSortByFirstNameAscending());
+        else if (GeneralController.currentSort.equalsIgnoreCase("first name Z-A"))
+            allSellers.sort(new UsersSort.usersSortByFirstNameDescending());
+        else if (GeneralController.currentSort.equalsIgnoreCase("last name A-Z"))
+            allSellers.sort(new UsersSort.usersSortByLastNameAscending());
+        else if (GeneralController.currentSort.equalsIgnoreCase("last name Z-A"))
+            allSellers.sort(new UsersSort.usersSortByLastNameDescending());
         StringBuilder sellersList = new StringBuilder();
         sellersList.append("Sellers :\n");
         for (SellerAccount seller : allSellers) {
