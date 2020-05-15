@@ -2,18 +2,112 @@ package Main.view;
 
 public class InCartProductManagerMenu extends Menu {
     public InCartProductManagerMenu(Menu parentMenu) {
+        super("Manage products in cart", parentMenu);
+        this.subMenus.put(1, showProducts());
+        this.subMenus.put(2, viewProduct());
+        this.subMenus.put(3, increaseProductNumber());
+        this.subMenus.put(4, decreaseProductNumber());
 
+    }
+
+    private Menu showProducts(){
+        return new Menu("Show product", this){
+            @Override
+            public void show(){
+                System.out.println(this.getName() + ":");
+                System.out.println("Enter Show or Back to return:");
+            }
+            @Override
+            public void execute() throws Exception{
+                String input = scanner.nextLine();
+                if(input.equalsIgnoreCase("back"))
+                    this.parentMenu.run();
+                else if(input.equalsIgnoreCase("show")){
+                    System.out.println(buyerController.showCartProducts());
+                    this.run();
+                }
+            }
+        };
     }
 
     private Menu viewProduct() {
-        return null;
+        return new Menu("View product", this) {
+            @Override
+            public void show() {
+                System.out.println(this.getName() + ":");
+                System.out.println("Enter product Id or Back to return:");
+            }
+
+            @Override
+            public void execute() throws Exception {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.parentMenu.run();
+                else {
+                    try {
+                        System.out.println(generalController.setCurrentProductWithId(input));
+                        ProductPageMenu productPageMenu = new ProductPageMenu(this);
+                        productPageMenu.run();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        this.run();
+                    }
+                }
+            }
+        };
     }
 
     private Menu increaseProductNumber() {
-        return null;
+        return new Menu("Increase product number",this){
+            @Override
+            public void show() {
+                System.out.println(this.getName() + ":");
+                System.out.println("Enter product Id or Back to return:");
+            }
+            @Override
+            public void execute() throws Exception {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.parentMenu.run();
+                else {
+                    try {
+                        buyerController.increaseProductWithId(input);
+                        System.out.println("Product number increased successfully.");
+                        this.run();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        this.run();
+                    }
+                }
+            }
+
+        };
     }
 
     private Menu decreaseProductNumber() {
-        return null;
+        return new Menu("Decrease product number",this){
+            @Override
+            public void show() {
+                System.out.println(this.getName() + ":");
+                System.out.println("Enter product Id or Back to return:");
+            }
+            @Override
+            public void execute() throws Exception {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("back"))
+                    this.parentMenu.run();
+                else {
+                    try {
+                        buyerController.decreaseProductWithId(input);
+                        System.out.println("Product number decreased successfully.");
+                        this.run();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        this.run();
+                    }
+                }
+            }
+
+        };
     }
 }

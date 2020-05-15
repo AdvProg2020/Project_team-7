@@ -89,7 +89,8 @@ public class SellerProductsManagerMenu extends Menu {
 
     public void getFieldsToEdit(EditProductRequest editProductRequest) {
         System.out.println("Fields you are allowed to edit:(You can insert any field you want to edit unless you insert" +
-                " Submit.)\nName\nBrand\nAvailability\nDescription\nPrice\nOff Id");
+                " Submit.)\nName\nBrand\nAvailability\nDescription\nPrice\nOff Id (You can insert off Id or 'delete' to" +
+                " remove off for product)");
         String input;
         while (!(input = scanner.nextLine().trim()).equalsIgnoreCase("submit")) {
             System.out.println("Enter the content:");
