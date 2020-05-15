@@ -3,8 +3,6 @@ package Main.model.requests;
 import Main.model.Product;
 import Main.model.ProductStatus;
 import Main.model.discountAndOffTypeService.Off;
-
-import java.util.HashMap;
 import java.util.TreeSet;
 
 public class EditProductRequest extends Request {
@@ -65,8 +63,20 @@ public class EditProductRequest extends Request {
         product.setDescription(description);
         product.setAvailability(Integer.parseInt(availability));
         product.setPrice(Double.parseDouble(price));
-        product.setOff((offID!=null?Off.getOffWithId(offID):null));
+        acceptOff(offID);
         product.setProductStatus(ProductStatus.APPROVED_PRODUCT);
+    }
+
+    private void acceptOff(String offID) throws Exception {
+        if(offID==null){
+            product.setOff(null);
+        }
+        if(offID.equalsIgnoreCase("delete")){
+            product.setOff(null);
+        }
+        else {
+            product.setOff(Off.getOffWithId(offID));
+        }
     }
 
     public void declineRequest() {
