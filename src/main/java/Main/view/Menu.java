@@ -57,16 +57,22 @@ public class Menu {
 
     public void execute() throws Exception {
         Menu nextMenu = null;
-        int chosenMenu = Integer.parseInt(scanner.nextLine());
-        if (chosenMenu == subMenus.size() + 1) {
-            if (this.parentMenu == null) {
-                System.out.println(GeneralController.writeData());
-                System.exit(1);
+        String number = scanner.nextLine();
+        if ((!number.matches("\\d+")) || Integer.parseInt(number) > subMenus.size() + 1) {
+            System.out.println("Invalid input!");
+            this.run();
+        } else {
+            int chosenMenu = Integer.parseInt(number);
+            if (chosenMenu == subMenus.size() + 1) {
+                if (this.parentMenu == null) {
+                    System.out.println(GeneralController.writeData());
+                    System.exit(1);
+                } else
+                    nextMenu = this.parentMenu;
             } else
-                nextMenu = this.parentMenu;
-        } else
-            nextMenu = subMenus.get(chosenMenu);
-        nextMenu.run();
+                nextMenu = subMenus.get(chosenMenu);
+            nextMenu.run();
+        }
     }
 
     public void run() throws Exception {
