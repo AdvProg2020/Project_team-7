@@ -69,7 +69,7 @@ public class BuyerAccountTest {
     }
 
     @Test
-    public void getBuyerWithNameTest() throws AccountsException {
+    public void getBuyerWithNameTest() throws Exception {
         BuyerAccount buyerAccount = new BuyerAccount("userName","firstName","last Name",
                 "sampleEmail@sample.sample","09001112233","password123",100);
         BuyerAccount.addBuyer(buyerAccount);
@@ -78,7 +78,7 @@ public class BuyerAccountTest {
     }
 
     @Test
-    public void deleteBuyerTest() throws AccountsException {
+    public void deleteBuyerTest() throws Exception {
         BuyerAccount buyerAccount = new BuyerAccount("userName","firstName","last Name",
                 "sampleEmail@sample.sample","09001112233","password123",100);
         BuyerAccount.addBuyer(buyerAccount);
@@ -88,7 +88,7 @@ public class BuyerAccountTest {
     }
 
     @Test
-    public void decreaseBalanceByTest() throws AccountsException {
+    public void decreaseBalanceByTest() throws Exception {
         BuyerAccount buyerAccount = new BuyerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123",100);
 

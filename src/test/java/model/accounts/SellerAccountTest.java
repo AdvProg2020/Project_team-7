@@ -76,7 +76,7 @@ public class SellerAccountTest {
     }
 
     @Test
-    public void getSellerWithNameTest() throws AccountsException {
+    public void getSellerWithNameTest() throws Exception {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
                 ,"this company is great!", 100);

@@ -25,8 +25,8 @@ public class LogTest {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 
-        Product product = new Product("laptop", "ASUS", 2, null,
-                "nice thing it is:)", null, 100, null);
+        Product product = new Product("laptop", "ASUS", 2,
+                "nice thing it is:)", 100, null);
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
                 , "this company is great!", 100);
@@ -65,8 +65,8 @@ public class LogTest {
     public void viewSellLog() throws AccountsException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-        Product product = new Product("laptop", "ASUS", 2, null,
-                "nice thing it is:)", null, 100, null);
+        Product product = new Product("laptop", "ASUS", 2,
+                "nice thing it is:)", 100, null);
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
                 , "this company is great!", 100);

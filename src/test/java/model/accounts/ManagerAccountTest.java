@@ -68,7 +68,7 @@ public class ManagerAccountTest {
     }
 
     @Test
-    public void getManagerWithNameTest() throws AccountsException {
+    public void getManagerWithNameTest() throws Exception {
         ManagerAccount managerAccount = new ManagerAccount("userName","firstName","last Name",
                 "sampleEmail@sample.sample","09001112233","password123");
         ManagerAccount.addManager(managerAccount);
