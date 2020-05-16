@@ -266,7 +266,7 @@ public class GeneralController {
         } catch (AccountsException e) {
             accountCreationErrors.append(e.getErrorMessage());
         }
-        if (accountCreationErrors.length()!=0) {
+        if (accountCreationErrors.length() != 0) {
             throw new Exception("sorry there where some errors in account creation : \n" + accountCreationErrors);
         }
     }
@@ -278,7 +278,7 @@ public class GeneralController {
             return "Password is not correct.";
         else {
             currentUser = Account.getUserWithUserName(userName);
-            if(currentUser instanceof BuyerAccount){
+            if (currentUser instanceof BuyerAccount) {
                 BuyerController.setBuyerController();
             }
             return "Logged in successfully.";
@@ -328,6 +328,7 @@ public class GeneralController {
                 "\n" + Category.readData() +
                 "\n" + DiscountCode.readData() +
                 "\n" + Off.readData() +
+                "\n" + Request.readData() +
                 "\n" + BuyerAccount.readData() +
                 "\n" + SellerAccount.readData() +
                 "\n" + ManagerAccount.readData() +
@@ -339,6 +340,7 @@ public class GeneralController {
                 "\n" + Category.writeData() +
                 "\n" + DiscountCode.writeData() +
                 "\n" + Off.writeData() +
+                "\n" + Request.writeData() +
                 "\n" + BuyerAccount.writeData() +
                 "\n" + SellerAccount.writeData() +
                 "\n" + ManagerAccount.writeData() +

@@ -3,6 +3,3 @@
 *.xml
 *.iml
 *.class
-*.json
-
-src/main/JSON/

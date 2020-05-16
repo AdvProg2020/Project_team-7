@@ -86,7 +86,7 @@ public class RequestManagerMenu extends Menu {
 
     @Override
     public void run() throws Exception {
-        managerController.showAllRequests();
+        System.out.println(managerController.showAllRequests());
         this.show();
         this.execute();
     }
