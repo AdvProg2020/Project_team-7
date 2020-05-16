@@ -29,7 +29,7 @@ public class GeneralController {
     public static ArrayList<Filter> currentFilters = new ArrayList<Filter>();
     public static String selectedUsername;
 
-    public static YaGson yagsonMapper;
+    public static YaGson yagsonMapper = new YaGson();
     public static JsonReader jsonReader;
     public static FileWriter fileWriter;
 
