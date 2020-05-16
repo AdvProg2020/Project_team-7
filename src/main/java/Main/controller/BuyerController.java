@@ -71,19 +71,19 @@ public class BuyerController {
     }
 
     private void validateInputRateInfo(String productId, String score) throws Exception {
-        String rateCreationErrors = new String();
+        StringBuilder rateCreationErrors = new StringBuilder();
 
         try {
             Product.getProductWithId(productId);
         } catch (Exception e) {
-            rateCreationErrors.concat(e.getMessage());
+            rateCreationErrors.append(e.getMessage());
         }
         try {
             Double.parseDouble(score);
         } catch (Exception e) {
-            rateCreationErrors.concat("score must be of double type !\n");
+            rateCreationErrors.append("score must be of double type !\n");
         }
-        if (rateCreationErrors.isEmpty()) {
+        if (rateCreationErrors.length()!=0) {
             throw new Exception("there where some errors in rating : \n" + rateCreationErrors);
         }
     }

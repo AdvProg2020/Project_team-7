@@ -50,30 +50,30 @@ public class SellerController {
     }
 
     private void validateInputEditEditProductInfo(EditProductRequest editProductRequest) throws Exception {
-        String editProductErrors = new String();
+        StringBuilder editProductErrors = new StringBuilder();
 
         try {
             AccountsException.validateNameTypeInfo("product name", editProductRequest.getName());
         } catch (AccountsException e) {
-            editProductErrors.concat(e.getErrorMessage());
+            editProductErrors.append(e.getErrorMessage());
         }
         try {
             CreateProductException.validateAvailability(editProductRequest.getAvailability());
         } catch (Exception e) {
-            editProductErrors.concat(e.getMessage());
+            editProductErrors.append(e.getMessage());
         }
         try {
             CreateProductException.validatePrice(editProductRequest.getPrice());
         } catch (Exception e) {
-            editProductErrors.concat(e.getMessage());
+            editProductErrors.append(e.getMessage());
         }
         try {
             validateEditProductEditedOff(editProductRequest.getOffID());
         } catch (Exception e) {
-            editProductErrors.concat(e.getMessage());
+            editProductErrors.append(e.getMessage());
         }
 
-        if (!editProductErrors.isEmpty()) {
+        if (editProductErrors.length()!=0) {
             throw new Exception("there were some errors in editing product :\n" + editProductErrors);
         }
     }
@@ -136,34 +136,34 @@ public class SellerController {
     }
 
     private void validateAddProductInfo(ArrayList<String> productInfo) throws CreateProductException.InvalidProductInputInfo {
-        String addProductErrors = new String();
+        StringBuilder addProductErrors = new StringBuilder();
 
         try {
             AccountsException.validateNameTypeInfo("product name", productInfo.get(0));
         } catch (AccountsException e) {
-            addProductErrors.concat(e.getErrorMessage());
+            addProductErrors.append(e.getErrorMessage());
         }
         try {
             CreateProductException.validateAvailability(productInfo.get(2));
         } catch (Exception e) {
-            addProductErrors.concat(e.getMessage());
+            addProductErrors.append(e.getMessage());
         }
         try {
             CreateProductException.validatePrice(productInfo.get(4));
         } catch (Exception e) {
-            addProductErrors.concat(e.getMessage());
+            addProductErrors.append(e.getMessage());
         }
         if (productInfo.get(5).trim().equalsIgnoreCase("yes")) {
             try {
                 Category.getCategoryWithName(productInfo.get(6));
             } catch (Exception e) {
-                addProductErrors.concat(e.getMessage());
+                addProductErrors.append(e.getMessage());
             }
         } else if (!productInfo.get(5).trim().equalsIgnoreCase("no")) {
-            addProductErrors.concat("we couldn't recognize if you want to add category or not !\nplease either write 'yes' or 'no' !\n");
+            addProductErrors.append("we couldn't recognize if you want to add category or not !\nplease either write 'yes' or 'no' !\n");
         }
 
-        if (!addProductErrors.isEmpty()) {
+        if (addProductErrors.length()!=0) {
             throw new CreateProductException.InvalidProductInputInfo("there were some errors in product creation : \n" + addProductErrors);
         }
     }
@@ -200,45 +200,45 @@ public class SellerController {
     }
 
     private void validateInputEditOffInfo(EditOffRequest editOffRequest) throws Exception {
-        String esitOffErrors = new String();
+        StringBuilder esitOffErrors = new StringBuilder();
 
         if (editOffRequest.getEditedFieldTitles().isEmpty()) {
-            esitOffErrors.concat("you must edit at least one field!\n");
+            esitOffErrors.append("you must edit at least one field!\n");
         }
         try {
             DiscountAndOffTypeServiceException.validateInputDate(editOffRequest.getStartDate());
         } catch (Exception e) {
-            esitOffErrors.concat("start date is invalid :\n" + e.getMessage());
+            esitOffErrors.append("start date is invalid :\n" + e.getMessage());
         }
         try {
             DiscountAndOffTypeServiceException.validateInputDate(editOffRequest.getEndDate());
         } catch (Exception e) {
-            esitOffErrors.concat("end date is invalid :\n" + e.getMessage());
+            esitOffErrors.append("end date is invalid :\n" + e.getMessage());
         }
-        if (esitOffErrors.isEmpty()) {
+        if (esitOffErrors.length()==0) {
             try {
                 DiscountAndOffTypeServiceException.compareStartAndEndDate(editOffRequest.getStartDate(), editOffRequest.getEndDate());
             } catch (Exception e) {
-                esitOffErrors.concat(e.getMessage());
+                esitOffErrors.append(e.getMessage());
             }
         }
         try {
             DiscountAndOffTypeServiceException.validateInputAmount(editOffRequest.getOffAmount());
         } catch (Exception e) {
-            esitOffErrors.concat(e.getMessage());
+            esitOffErrors.append(e.getMessage());
         }
         try {
             validateEditOffProductsToBeAdded(editOffRequest);
         } catch (Exception e) {
-            esitOffErrors.concat(e.getMessage());
+            esitOffErrors.append(e.getMessage());
         }
         try {
             validateEditOffProductsToBeRemoved(editOffRequest);
         } catch (Exception e) {
-            esitOffErrors.concat(e.getMessage());
+            esitOffErrors.append(e.getMessage());
         }
 
-        if (!esitOffErrors.isEmpty()) {
+        if (esitOffErrors.length()!=0) {
             throw new Exception("there were some errors in editing off : \n" + esitOffErrors);
         }
 
@@ -246,7 +246,7 @@ public class SellerController {
 
 
     private void validateEditOffProductsToBeAdded(EditOffRequest editOffRequest) throws Exception {
-        String invalidIDs = new String();
+        StringBuilder invalidIDs = new StringBuilder();
 
         SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
         for (String productIDToBeAdded : editOffRequest.getProductIDsToBeAdded()) {
@@ -254,19 +254,19 @@ public class SellerController {
             try {
                 product = Product.getProductWithId(productIDToBeAdded);
             } catch (Exception e) {
-                invalidIDs.concat(e.getMessage());
+                invalidIDs.append(e.getMessage());
             }
             if (!sellerAccount.doesSellerHaveProductWithReference(product)) {
-                invalidIDs.concat("product with ID : " + productIDToBeAdded + " doesn't belong to you!\n");
+                invalidIDs.append("product with ID : " + productIDToBeAdded + " doesn't belong to you!\n");
             }
         }
-        if (!invalidIDs.isEmpty()) {
+        if (invalidIDs.length()!=0) {
             throw new Exception("there where some errors in adding products : \n" + invalidIDs);
         }
     }
 
     private void validateEditOffProductsToBeRemoved(EditOffRequest editOffRequest) throws Exception {
-        String invalidIDs = new String();
+        StringBuilder invalidIDs = new StringBuilder();
         for (String productIDToBeRemoved : editOffRequest.getProductIDsToBeRemoved()) {
             try {
                 Product product = Product.getProductWithId(productIDToBeRemoved);
@@ -274,10 +274,10 @@ public class SellerController {
                     throw new Exception("There is no product with ID : " + productIDToBeRemoved + " in off's product list !\n");
                 }
             } catch (Exception e) {
-                invalidIDs.concat(e.getMessage());
+                invalidIDs.append(e.getMessage());
             }
         }
-        if (!invalidIDs.isEmpty()) {
+        if (invalidIDs.length()!=0) {
             throw new Exception("there where some errors in removing products : \n" + invalidIDs);
         }
     }
@@ -291,42 +291,42 @@ public class SellerController {
     }
 
     private void validateOffInputInfo(ArrayList<String> productIDs, ArrayList<String> offInfo) throws Exception {
-        String addOffErrors = new String();
+        StringBuilder addOffErrors = new StringBuilder();
 
         try {
             validateAddOffProducts(productIDs);
         } catch (Exception e) {
-            addOffErrors.concat(e.getMessage());
+            addOffErrors.append(e.getMessage());
         }
         try {
             DiscountAndOffTypeServiceException.validateInputDate(offInfo.get(0));
         } catch (Exception e) {
-            addOffErrors.concat("start date is invalid :\n" + e.getMessage());
+            addOffErrors.append("start date is invalid :\n" + e.getMessage());
         }
         try {
             DiscountAndOffTypeServiceException.validateInputDate(offInfo.get(1));
         } catch (Exception e) {
-            addOffErrors.concat("end date is invalid :\n" + e.getMessage());
+            addOffErrors.append("end date is invalid :\n" + e.getMessage());
         }
-        if (addOffErrors.isEmpty()) {
+        if (addOffErrors.length()==0) {
             try {
                 DiscountAndOffTypeServiceException.compareStartAndEndDate(offInfo.get(0), offInfo.get(1));
             } catch (Exception e) {
-                addOffErrors.concat(e.getMessage());
+                addOffErrors.append(e.getMessage());
             }
         }
         try {
             DiscountAndOffTypeServiceException.validateInputAmount(offInfo.get(2));
         } catch (Exception e) {
-            addOffErrors.concat(e.getMessage());
+            addOffErrors.append(e.getMessage());
         }
         try {
             SellerAccount.getSellerWithUserName(offInfo.get(3));
         } catch (Exception e) {
-            addOffErrors.concat(e.getMessage());
+            addOffErrors.append(e.getMessage());
         }
 
-        if (!addOffErrors.isEmpty()) {
+        if (addOffErrors.length()!=0) {
             throw new Exception("there were some errors in adding Off : \n" + addOffErrors);
         }
     }
@@ -340,17 +340,17 @@ public class SellerController {
     }
 
     private void validateAddOffProducts(ArrayList<String> productIDs) throws Exception {
-        String invalidProductsOffErrors = new String();
+        StringBuilder invalidProductsOffErrors = new StringBuilder();
 
         for (String productID : productIDs) {
             try {
                 Product.getProductWithId(productID);
             } catch (Exception e) {
-                invalidProductsOffErrors.concat(e.getMessage());
+                invalidProductsOffErrors.append(e.getMessage());
             }
         }
 
-        if (!invalidProductsOffErrors.isEmpty()) {
+        if (invalidProductsOffErrors.length()!=0) {
             throw new Exception("there were some errors in setting off products : \n" + invalidProductsOffErrors);
         }
     }

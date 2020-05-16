@@ -227,43 +227,43 @@ public class GeneralController {
     }
 
     public static void validateInputAccountInfo(ArrayList<String> accountInfo, String userName) throws Exception {
-        String accountCreationErrors = new String();
+        StringBuilder accountCreationErrors = new StringBuilder();
         try {
             AccountsException.validateUserName(userName);
         } catch (AccountsException.invalidUserNameException e) {
-            accountCreationErrors.concat(e.getErrorMessage());
+            accountCreationErrors.append(e.getErrorMessage());
         }
         try {
             AccountsException.validateUsernameUniqueness(userName);
         } catch (AccountsException e) {
-            accountCreationErrors.concat(e.getErrorMessage());
+            accountCreationErrors.append(e.getErrorMessage());
         }
         try {
             AccountsException.validateNameTypeInfo("first name", accountInfo.get(1));
         } catch (AccountsException e) {
-            accountCreationErrors.concat(e.getErrorMessage());
+            accountCreationErrors.append(e.getErrorMessage());
         }
         try {
             AccountsException.validateNameTypeInfo("last name", accountInfo.get(2));
         } catch (AccountsException e) {
-            accountCreationErrors.concat(e.getErrorMessage());
+            accountCreationErrors.append(e.getErrorMessage());
         }
         try {
             AccountsException.validateEmail(accountInfo.get(3));
         } catch (AccountsException e) {
-            accountCreationErrors.concat(e.getErrorMessage());
+            accountCreationErrors.append(e.getErrorMessage());
         }
         try {
             AccountsException.validatePhoneNumber(accountInfo.get(4));
         } catch (AccountsException e) {
-            accountCreationErrors.concat(e.getErrorMessage());
+            accountCreationErrors.append(e.getErrorMessage());
         }
         try {
             AccountsException.validatePassWord(accountInfo.get(0));
         } catch (AccountsException e) {
-            accountCreationErrors.concat(e.getErrorMessage());
+            accountCreationErrors.append(e.getErrorMessage());
         }
-        if (!accountCreationErrors.isEmpty()) {
+        if (accountCreationErrors.length()!=0) {
             throw new Exception("sorry there where some errors in account creation : \n" + accountCreationErrors);
         }
     }

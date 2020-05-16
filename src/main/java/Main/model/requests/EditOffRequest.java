@@ -33,22 +33,22 @@ public class EditOffRequest extends Request {
     }
 
     private String extractEditedFields() {
-        String editedFields = new String();
+        StringBuilder editedFields = new StringBuilder();
 
         for (String editedFieldTitle : editedFieldTitles) {
             if (editedFieldTitle.equalsIgnoreCase("start date")) {
-                editedFields.concat("\tstart date : " + startDate + "\n");
+                editedFields.append("\tstart date : " + startDate + "\n");
             } else if (editedFieldTitle.equalsIgnoreCase("end date")) {
-                editedFields.concat("\tend date : " + endDate + "\n");
+                editedFields.append("\tend date : " + endDate + "\n");
             } else if (editedFieldTitle.equalsIgnoreCase("off amount")) {
-                editedFields.concat("\toff amount : " + offAmount + "\n");
+                editedFields.append("\toff amount : " + offAmount + "\n");
             } else if (editedFieldTitle.equalsIgnoreCase("add product")) {
-                editedFields.concat("\tadding products with following IDs :\n" + "\t\t" + productIDsToBeAdded.toString());
+                editedFields.append("\tadding products with following IDs :\n" + "\t\t" + productIDsToBeAdded.toString());
             } else if (editedFieldTitle.equalsIgnoreCase("remove product")) {
-                editedFields.concat("\tadding products with following IDs :\n" + "\t\t" + productIDsToBeRemoved.toString());
+                editedFields.append("\tadding products with following IDs :\n" + "\t\t" + productIDsToBeRemoved.toString());
             }
         }
-        return editedFields;
+        return editedFields.toString();
     }
 
 

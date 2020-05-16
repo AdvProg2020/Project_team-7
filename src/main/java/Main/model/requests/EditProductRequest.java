@@ -37,24 +37,24 @@ public class EditProductRequest extends Request {
     }
 
     private String extractEditedFields() {
-        String editedFields = new String();
+        StringBuilder editedFields = new StringBuilder();
 
         for (String editedFieldTitle : editedFieldTitles) {
             if (editedFieldTitle.equalsIgnoreCase("name")) {
-                editedFields.concat("\tname : " + name + "\n");
+                editedFields.append("\tname : " + name + "\n");
             } else if (editedFieldTitle.equalsIgnoreCase("price")) {
-                editedFields.concat("\tprice : " + price + "\n");
+                editedFields.append("\tprice : " + price + "\n");
             } else if (editedFieldTitle.equalsIgnoreCase("brand")) {
-                editedFields.concat("\tbrand : " + brand + "\n");
+                editedFields.append("\tbrand : " + brand + "\n");
             } else if (editedFieldTitle.equalsIgnoreCase("availability")) {
-                editedFields.concat("\tavailability : " + availability + "\n");
+                editedFields.append("\tavailability : " + availability + "\n");
             } else if (editedFieldTitle.equalsIgnoreCase("description")) {
-                editedFields.concat("\tdescription : " + description + "\n");
+                editedFields.append("\tdescription : " + description + "\n");
             }else if (editedFieldTitle.equalsIgnoreCase("off")) {
-                editedFields.concat("\toff : " + offID + "\n");
+                editedFields.append("\toff : " + offID + "\n");
             }
         }
-        return editedFields;
+        return editedFields.toString();
     }
 
     public void acceptRequest() throws Exception {
