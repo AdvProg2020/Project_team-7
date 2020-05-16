@@ -255,7 +255,7 @@ public class GeneralController {
         } catch (AccountsException e) {
             accountCreationErrors.concat(e.getErrorMessage());
         }
-        if (accountCreationErrors.isEmpty()) {
+        if (!accountCreationErrors.isEmpty()) {
             throw new Exception("sorry there where some errors in account creation : \n" + accountCreationErrors);
         }
     }
