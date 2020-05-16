@@ -51,7 +51,7 @@ public abstract class AccountsException extends Exception {
     public static class invalidEmailException extends AccountsException {
         public invalidEmailException() {
             this.errorMessage = "Email is invalid !\nEmail must be in format of [username@EmailMessenger.domain] ." +
-                    "\nUsername can only contain alphabetical and numeric characters, '_', '-' and single '.' at middle .";
+                    "\nUsername can only contain alphabetical and numeric characters, '_', '-' and single '.' at middle .\n";
         }
     }
 
@@ -61,32 +61,32 @@ public abstract class AccountsException extends Exception {
         public invalidNameTypeInfoException(String nameTypeInfoTitle) {
             this.nameTypeInfoTitle = nameTypeInfoTitle;
             this.errorMessage = "Invalid character ! " + nameTypeInfoTitle + " can only contain English letters, numbers" +
-                    ", spaces in middle, '_','.' and '-' .";
+                    ", spaces in middle, '_','.' and '-' .\n";
         }
     }
 
     public static class duplicateUserNameException extends AccountsException {
         public duplicateUserNameException() {
-            this.errorMessage = "This user name already exists ! Try another one .";
+            this.errorMessage = "This user name already exists ! Try another one .\n";
         }
     }
 
     public static class invalidPassWordException extends AccountsException {
         public invalidPassWordException() {
-            this.errorMessage = "PassWord must be at least 8 valid characters";
+            this.errorMessage = "PassWord must be at least 8 valid characters\n";
         }
     }
 
     public static class invalidPhoneNumberException extends AccountsException {
         public invalidPhoneNumberException() {
-            this.errorMessage = "Phone number is invalid. It must be in format of 09XXXXXXXXX .";
+            this.errorMessage = "Phone number is invalid. It must be in format of 09XXXXXXXXX .\n";
         }
     }
 
     public static class invalidUserNameException extends AccountsException {
         public invalidUserNameException() {
             this.errorMessage = "Invalid character ! user name  can only contain English letters, numbers" +
-                    ", '_','.' and '-' . make sure that it doesn't contain spaces !";
+                    ", '_','.' and '-' . make sure that it doesn't contain spaces !\n";
         }
     }
 }
