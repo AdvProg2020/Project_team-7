@@ -278,6 +278,9 @@ public class GeneralController {
             return "Password is not correct.";
         else {
             currentUser = Account.getUserWithUserName(userName);
+            if(currentUser instanceof BuyerAccount){
+                BuyerController.setBuyerController();
+            }
             return "Logged in successfully.";
         }
     }

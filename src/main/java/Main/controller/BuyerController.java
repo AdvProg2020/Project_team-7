@@ -14,16 +14,16 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class BuyerController {
-    private BuyerAccount currentBuyer = null;
-    private Cart currentBuyersCart = null;
+    private static BuyerAccount currentBuyer = null;
+    private static Cart currentBuyersCart = null;
     private String receiverInformation = null;
     private DiscountCode discountCode = null;
 
-    public BuyerController() {
-        if (GeneralController.currentUser instanceof BuyerAccount) {
-            currentBuyer = (BuyerAccount) GeneralController.currentUser;
-            currentBuyersCart = currentBuyer.getCart();
-        }
+    //TODO: null cart
+
+    public static void setBuyerController(){
+        currentBuyer = (BuyerAccount) GeneralController.currentUser;
+        currentBuyersCart = currentBuyer.getCart();
     }
 
     public String showCartProducts() {
