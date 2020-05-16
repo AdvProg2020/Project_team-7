@@ -1,13 +1,18 @@
 package Main.model;
 
+import Main.controller.GeneralController;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.discountAndOffTypeService.OffStatus;
+import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static java.util.Arrays.asList;
 
 public class Product {
     private static StringBuilder lastUsedProductID = new StringBuilder("@");
@@ -29,7 +34,7 @@ public class Product {
     private ArrayList<Rate> rates = new ArrayList<Rate>();
     private HashMap<String, String> specialFeatures = new HashMap<String, String>();
 
-    public Product(String name, String brand, int availability, String description, double price,SellerAccount sellerAccount) {
+    public Product(String name, String brand, int availability, String description, double price, SellerAccount sellerAccount) {
         this.productId = IDGenerator.getNewID(lastUsedProductID);
         this.name = name;
         this.brand = brand;
@@ -361,5 +366,29 @@ public class Product {
 
     public ArrayList<SellerAccount> getSellers() {
         return sellers;
+    }
+
+    public static String readData() {
+        try {
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/products.json")));
+            Product[] allPro = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Product[].class);
+            allProducts = (allPro == null) ? new ArrayList<>() : new ArrayList<>(asList(allPro));
+            return "Read Products Data Successfully.";
+        } catch (FileNotFoundException e) {
+            return "Problem loading data from product.json";
+        }
+    }
+
+    public static String writeData() {
+        try {
+            GeneralController.fileWriter = new FileWriter("src/main/products.json");
+            Product[] allPro = new Product[allProducts.size()];
+            allPro = allProducts.toArray(allPro);
+            GeneralController.yagsonMapper.toJson(allPro, Product[].class, GeneralController.fileWriter);
+            GeneralController.fileWriter.close();
+            return "Saved Products Data Successfully.";
+        } catch (IOException e) {
+            return "Problem saving products data.";
+        }
     }
 }

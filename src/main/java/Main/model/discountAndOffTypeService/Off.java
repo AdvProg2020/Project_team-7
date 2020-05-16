@@ -1,12 +1,18 @@
 package Main.model.discountAndOffTypeService;
 
+import Main.controller.GeneralController;
+import Main.model.Category;
 import Main.model.IDGenerator;
 import Main.model.Product;
 import Main.model.accounts.SellerAccount;
 import Main.model.exceptions.DiscountAndOffTypeServiceException;
+import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static java.util.Arrays.asList;
 
 public class Off extends DiscountAndOffTypeService {
     private static StringBuilder lastUsedOffID = new StringBuilder("@");
@@ -52,8 +58,8 @@ public class Off extends DiscountAndOffTypeService {
                         "\nproducts: " + makeProductList() +
                         "\noff amount: " + offAmount + "%" +
                         "\nstart date:" + dateFormat.format(startDate) +
-                        "\nend date: " + dateFormat.format(endDate)+
-                        "\nstatus: " + offStatus ;
+                        "\nend date: " + dateFormat.format(endDate) +
+                        "\nstatus: " + offStatus;
     }
 
     public static String viewAllOffs() {
@@ -142,5 +148,29 @@ public class Off extends DiscountAndOffTypeService {
 
     public OffStatus getOffStatus() {
         return offStatus;
+    }
+
+    public static String readData() {
+        try {
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/offs.json")));
+            Off[] allOff = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Off[].class);
+            allOffs = (allOff == null) ? new ArrayList<>() : new ArrayList<>(asList(allOff));
+            return "Read Offs Data Successfully.";
+        } catch (FileNotFoundException e) {
+            return "Problem loading data from offs.json";
+        }
+    }
+
+    public static String writeData() {
+        try {
+            GeneralController.fileWriter = new FileWriter("src/main/offs.json");
+            Off[] allOff = new Off[allOffs.size()];
+            allOff = allOffs.toArray(allOff);
+            GeneralController.yagsonMapper.toJson(allOff, Off[].class, GeneralController.fileWriter);
+            GeneralController.fileWriter.close();
+            return "Saved Offs Data Successfully.";
+        } catch (IOException e) {
+            return "Problem saving offs data.";
+        }
     }
 }

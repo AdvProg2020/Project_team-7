@@ -6,6 +6,7 @@ import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
+import Main.model.discountAndOffTypeService.DiscountCode;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.exceptions.AccountsException;
 import Main.model.filters.*;
@@ -13,7 +14,10 @@ import Main.model.requests.AddCommentRequest;
 import Main.model.requests.CreateSellerAccountRequest;
 import Main.model.requests.Request;
 import Main.model.sorting.ProductsSort;
+import com.gilecode.yagson.YaGson;
+import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class GeneralController {
@@ -24,6 +28,10 @@ public class GeneralController {
     public static String currentSort = null;
     public static ArrayList<Filter> currentFilters = new ArrayList<Filter>();
     public static String selectedUsername;
+
+    public static YaGson yagsonMapper;
+    public static JsonReader jsonReader;
+    public static FileWriter fileWriter;
 
     public String setCurrentProductWithId(String id) throws Exception {
         currentProduct = Product.getProductWithId(id);
@@ -47,7 +55,7 @@ public class GeneralController {
     }
 
     public void selectSellerWithId(String id) throws Exception {
-        if(!currentProduct.getProductStatus().equals(ProductStatus.APPROVED_PRODUCT)){
+        if (!currentProduct.getProductStatus().equals(ProductStatus.APPROVED_PRODUCT)) {
             throw new Exception("this product is not available now!\n");
         }
         CartProduct cartProduct = new CartProduct(currentProduct, SellerAccount.getSellerWithUserName(id), ((BuyerAccount) currentUser).getCart());
@@ -305,5 +313,27 @@ public class GeneralController {
 
     public void logout() {
         currentUser = null;
+    }
+
+    public static String readData() {
+        return Product.readData() +
+                "\n" + Category.readData() +
+                "\n" + DiscountCode.readData() +
+                "\n" + Off.readData() +
+                "\n" + BuyerAccount.readData() +
+                "\n" + SellerAccount.readData() +
+                "\n" + ManagerAccount.readData() +
+                "\n";
+    }
+
+    public static String writeData() {
+        return Product.writeData() +
+                "\n" + Category.writeData() +
+                "\n" + DiscountCode.writeData() +
+                "\n" + Off.writeData() +
+                "\n" + BuyerAccount.writeData() +
+                "\n" + SellerAccount.writeData() +
+                "\n" + ManagerAccount.writeData() +
+                "\n";
     }
 }

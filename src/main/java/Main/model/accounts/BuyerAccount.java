@@ -2,13 +2,18 @@ package Main.model.accounts;
 
 import Main.controller.GeneralController;
 import Main.model.Cart;
+import Main.model.Category;
 import Main.model.Product;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.DiscountCode;
 import Main.model.logs.BuyLog;
 import Main.model.sorting.UsersSort;
+import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
+import java.io.*;
 import java.util.ArrayList;
+
+import static java.util.Arrays.asList;
 
 public class BuyerAccount extends Account {
 
@@ -188,5 +193,30 @@ public class BuyerAccount extends Account {
             }
         }
         return allDiscountCodesDisplay.toString();
+    }
+
+    public static String readData() {
+        try {
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/buyers.json")));
+            BuyerAccount[] allBuy = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, BuyerAccount[].class);
+            allBuyers = (allBuy == null) ? new ArrayList<>() : new ArrayList<>(asList(allBuy));
+            allAccounts.addAll(allBuyers);
+            return "Read Buyers Data Successfully.";
+        } catch (FileNotFoundException e) {
+            return "Problem loading data from buyers.json";
+        }
+    }
+
+    public static String writeData() {
+        try {
+            GeneralController.fileWriter = new FileWriter("src/main/buyers.json");
+            BuyerAccount[] allBuy = new BuyerAccount[allBuyers.size()];
+            allBuy = allBuyers.toArray(allBuy);
+            GeneralController.yagsonMapper.toJson(allBuy, BuyerAccount[].class, GeneralController.fileWriter);
+            GeneralController.fileWriter.close();
+            return "Saved Buyers Data Successfully.";
+        } catch (IOException e) {
+            return "Problem saving buyers data.";
+        }
     }
 }

@@ -1,11 +1,17 @@
 package Main.model.discountAndOffTypeService;
 
+import Main.controller.GeneralController;
+import Main.model.Category;
 import Main.model.IDGenerator;
 import Main.model.accounts.BuyerAccount;
 import Main.model.exceptions.DiscountAndOffTypeServiceException;
+import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static java.util.Arrays.asList;
 
 public class DiscountCode extends DiscountAndOffTypeService {
     private static StringBuilder lastUsedCodeID = new StringBuilder("@");
@@ -147,5 +153,29 @@ public class DiscountCode extends DiscountAndOffTypeService {
 
     public int getMaxNumberOfUse() {
         return maxNumberOfUse;
+    }
+
+    public static String readData() {
+        try {
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/discounts.json")));
+            DiscountCode[] allDis = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, DiscountCode[].class);
+            allDiscountCodes = (allDis == null) ? new ArrayList<>() : new ArrayList<>(asList(allDis));
+            return "Read Discounts Data Successfully.";
+        } catch (FileNotFoundException e) {
+            return "Problem loading data from discounts.json";
+        }
+    }
+
+    public static String writeData() {
+        try {
+            GeneralController.fileWriter = new FileWriter("src/main/discounts.json");
+            DiscountCode[] allDis = new DiscountCode[allDiscountCodes.size()];
+            allDis = allDiscountCodes.toArray(allDis);
+            GeneralController.yagsonMapper.toJson(allDis, DiscountCode[].class, GeneralController.fileWriter);
+            GeneralController.fileWriter.close();
+            return "Saved Discounts Data Successfully.";
+        } catch (IOException e) {
+            return "Problem saving discounts data.";
+        }
     }
 }

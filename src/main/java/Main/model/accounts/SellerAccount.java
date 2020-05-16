@@ -1,14 +1,19 @@
 package Main.model.accounts;
 
 import Main.controller.GeneralController;
+import Main.model.Category;
 import Main.model.Product;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.exceptions.AccountsException;
 import Main.model.logs.SellLog;
 import Main.model.sorting.UsersSort;
+import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
+import java.io.*;
 import java.util.ArrayList;
+
+import static java.util.Arrays.asList;
 
 public class SellerAccount extends Account {
     private String companyName;
@@ -200,5 +205,30 @@ public class SellerAccount extends Account {
 
     public boolean doesSellerHaveProductWithReference(Product product) {
         return products.contains(product);
+    }
+
+    public static String readData() {
+        try {
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/sellers.json")));
+            SellerAccount[] allSel = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, SellerAccount[].class);
+            allSellers = (allSel == null) ? new ArrayList<>() : new ArrayList<>(asList(allSel));
+            allAccounts.addAll(allSellers);
+            return "Read Sellers Data Successfully.";
+        } catch (FileNotFoundException e) {
+            return "Problem loading data from sellers.json";
+        }
+    }
+
+    public static String writeData() {
+        try {
+            GeneralController.fileWriter = new FileWriter("src/main/sellers.json");
+            SellerAccount[] allSel = new SellerAccount[allSellers.size()];
+            allSel = allSellers.toArray(allSel);
+            GeneralController.yagsonMapper.toJson(allSel, SellerAccount[].class, GeneralController.fileWriter);
+            GeneralController.fileWriter.close();
+            return "Saved Sellers Data Successfully.";
+        } catch (IOException e) {
+            return "Problem saving sellers data.";
+        }
     }
 }

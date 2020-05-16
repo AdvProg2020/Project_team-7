@@ -1,8 +1,14 @@
 package Main.model;
 
+import Main.controller.GeneralController;
+import com.gilecode.yagson.com.google.gson.stream.JsonReader;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PropertyPermission;
+
+import static java.util.Arrays.asList;
 
 public class Category {
     private String name;
@@ -147,5 +153,29 @@ public class Category {
 
     public boolean isThereSpecialFeature(String specialFeature) {
         return specialFeatures.contains(specialFeature);
+    }
+
+    public static String readData() {
+        try {
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/categories.json")));
+            Category[] allcat = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Category[].class);
+            allCategories = (allcat == null) ? new ArrayList<>() : new ArrayList<>(asList(allcat));
+            return "Read Categories Data Successfully.";
+        } catch (FileNotFoundException e) {
+            return "Problem loading data from categories.json";
+        }
+    }
+
+    public static String writeData() {
+        try {
+            GeneralController.fileWriter = new FileWriter("src/main/categories.json");
+            Category[] allcat = new Category[allCategories.size()];
+            allcat = allCategories.toArray(allcat);
+            GeneralController.yagsonMapper.toJson(allcat, Category[].class, GeneralController.fileWriter);
+            GeneralController.fileWriter.close();
+            return "Saved Categories Data Successfully.";
+        } catch (IOException e) {
+            return "Problem saving categories data.";
+        }
     }
 }

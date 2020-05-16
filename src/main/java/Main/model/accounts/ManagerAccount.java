@@ -1,10 +1,15 @@
 package Main.model.accounts;
 
 import Main.controller.GeneralController;
+import Main.model.Category;
 import Main.model.exceptions.AccountsException;
 import Main.model.sorting.UsersSort;
+import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
+import java.io.*;
 import java.util.ArrayList;
+
+import static java.util.Arrays.asList;
 
 public class ManagerAccount extends Account {
 
@@ -93,4 +98,28 @@ public class ManagerAccount extends Account {
         allAccounts.remove(managerAccount);
     }
 
+    public static String readData() {
+        try {
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/managers.json")));
+            ManagerAccount[] allMan = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, ManagerAccount[].class);
+            allManagers = (allMan == null) ? new ArrayList<>() : new ArrayList<>(asList(allMan));
+            allAccounts.addAll(allManagers);
+            return "Read Managers Data Successfully.";
+        } catch (FileNotFoundException e) {
+            return "Problem loading data from managers.json";
+        }
+    }
+
+    public static String writeData() {
+        try {
+            GeneralController.fileWriter = new FileWriter("src/main/managers.json");
+            ManagerAccount[] allMan = new ManagerAccount[allManagers.size()];
+            allMan = allManagers.toArray(allMan);
+            GeneralController.yagsonMapper.toJson(allMan, ManagerAccount[].class, GeneralController.fileWriter);
+            GeneralController.fileWriter.close();
+            return "Saved Managers Data Successfully.";
+        } catch (IOException e) {
+            return "Problem saving managers data.";
+        }
+    }
 }
