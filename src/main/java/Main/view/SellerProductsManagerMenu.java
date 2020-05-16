@@ -9,6 +9,7 @@ public class SellerProductsManagerMenu extends Menu {
         this.subMenus.put(1, viewProduct());
         this.subMenus.put(2, viewBuyers());
         this.subMenus.put(3, editProduct());
+        this.subMenus.put(4, new SortingMenu(this));
     }
 
     private Menu viewProduct() {

@@ -13,7 +13,7 @@ public class BuyerOrdersManagerMenu extends Menu {
             @Override
             public void show(){
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter an order Id or Back to return:");
+                System.out.println("Enter order Id or 'Back' to return:");
             }
             @Override
             public void execute() throws Exception{
@@ -33,7 +33,7 @@ public class BuyerOrdersManagerMenu extends Menu {
             @Override
             public void show(){
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product Id or Back to return:");
+                System.out.println("Enter product Id or 'Back' to return:");
             }
             @Override
             public void execute() throws Exception{

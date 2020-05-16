@@ -7,6 +7,7 @@ public class InCartProductManagerMenu extends Menu {
         this.subMenus.put(2, viewProduct());
         this.subMenus.put(3, increaseProductNumber());
         this.subMenus.put(4, decreaseProductNumber());
+        this.subMenus.put(5, new SortingMenu(this));
 
     }
 

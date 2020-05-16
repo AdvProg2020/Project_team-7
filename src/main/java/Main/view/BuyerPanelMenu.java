@@ -16,7 +16,7 @@ public class BuyerPanelMenu extends Menu {
             @Override
             public void show(){
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter View or Back to return:");
+                System.out.println("Enter 'View' or 'Back' to return:");
             }
             @Override
             public void execute() throws Exception{
@@ -25,6 +25,9 @@ public class BuyerPanelMenu extends Menu {
                     this.parentMenu.run();
                 else if(input.equalsIgnoreCase("view")){
                     System.out.println(buyerController.viewBuyerBalance());
+                    this.run();
+                } else{
+                    System.out.println("Invalid input!");
                     this.run();
                 }
             }

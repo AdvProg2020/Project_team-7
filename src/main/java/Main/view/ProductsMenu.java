@@ -10,6 +10,7 @@ public class ProductsMenu extends Menu {
         this.subMenus.put(3, new SortingMenu(this));
         this.subMenus.put(4, showProducts());
         this.subMenus.put(5, showProduct());
+        this.subMenus.put(6, new SortingMenu(this));
     }
 
     private Menu showCategories() {

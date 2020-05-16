@@ -6,6 +6,7 @@ public class RequestManagerMenu extends Menu {
         this.subMenus.put(1, viewRequestDetails());
         this.subMenus.put(2, acceptRequest());
         this.subMenus.put(3, declineRequest());
+        this.subMenus.put(4, new SortingMenu(this));
 
     }
 

@@ -4,6 +4,7 @@ public class AllProductsManagerMenu extends Menu {
     public AllProductsManagerMenu(Menu parentMenu) {
         super("Manage all products", parentMenu);
         this.subMenus.put(1, removeProduct());
+        this.subMenus.put(2, new SortingMenu(this));
 
     }
 
@@ -12,7 +13,7 @@ public class AllProductsManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product Id or Back to return:");
+                System.out.println("Enter product Id or 'Back' to return:");
             }
 
             @Override

@@ -8,6 +8,7 @@ public class UsersManagerMenu extends Menu {
         this.subMenus.put(1, view());
         this.subMenus.put(2, deleteUser());
         this.subMenus.put(3, createManagerProfile());
+        this.subMenus.put(4, new SortingMenu(this));
 
     }
 
