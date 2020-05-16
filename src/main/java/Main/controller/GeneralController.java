@@ -25,7 +25,7 @@ public class GeneralController {
     public static Product currentProduct = null;
     public static CartProduct currentCartProduct = null;
     public static Category currentCategory = null;
-    public static String currentSort = null;
+    public static String currentSort = "";
     public static ArrayList<Filter> currentFilters = new ArrayList<Filter>();
     public static String selectedUsername;
 
@@ -153,7 +153,7 @@ public class GeneralController {
     }
 
     public String disableSort() {
-        currentSort = null;
+        currentSort = "";
         return "Sort disabled";
     }
 
@@ -172,11 +172,14 @@ public class GeneralController {
             sorted.sort(new ProductsSort.productSortByPriceAscendingly());
         else if (currentSort.contains("price descending"))
             sorted.sort(new ProductsSort.productSortByPriceDescendingly());
-        else return "wrong sort input.";
+        else if (!currentSort.equals(""))
+            return "wrong sort input.";
         for (Product product : sorted) {
             filtered = filtered.concat(product.showProductDigest());
             filtered = filtered.concat("\n");
         }
+        if (filtered.equals("") || filtered == null)
+            return showAllProducts();
         return filtered;
     }
 
@@ -289,6 +292,8 @@ public class GeneralController {
             allProducts = allProducts.concat(allProduct.showProductDigest());
             allProducts = allProducts.concat("\n");
         }
+        if (allProducts.equals(""))
+            return "No Product to show!";
         return allProducts;
     }
 

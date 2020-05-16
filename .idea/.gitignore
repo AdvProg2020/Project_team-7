@@ -5,4 +5,4 @@
 *.class
 *.json
 
-dir_to_ignore/src/main/JSON/
+src/main/JSON/
