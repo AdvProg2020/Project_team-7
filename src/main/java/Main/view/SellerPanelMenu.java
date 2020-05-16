@@ -87,6 +87,9 @@ public class SellerPanelMenu extends Menu {
                         ArrayList specialFeatures = new ArrayList();
                         getSpecialFeatures(specialFeatures, e.getCategory());
                         sellerController.setSpecialFeatures(e.getProduct(), specialFeatures);
+                        System.out.println("Product created successfully.");
+                        this.run();
+
                     }
                 }
             }
