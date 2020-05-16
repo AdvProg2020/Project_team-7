@@ -10,7 +10,7 @@ import Main.view.Menu;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         GeneralController generalController = new GeneralController();
         SellerController sellerController = new SellerController();
         BuyerController buyerController = new BuyerController();
@@ -22,10 +22,6 @@ public class Main {
         Menu.setSellerController(sellerController);
         Menu currentMenu = new MainMenu();
         System.out.println(GeneralController.readData());
-        try {
-            currentMenu.run();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        currentMenu.run();
     }
 }
