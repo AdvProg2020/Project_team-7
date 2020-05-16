@@ -10,6 +10,7 @@ public class AddCommentRequest extends Request {
     public AddCommentRequest(Comment comment, String name) {
         this.comment = comment;
         this.name = name;
+        this.requestId = Integer.toString(Request.allRequests.size()*100+1);
     }
 
     public String showRequest() {

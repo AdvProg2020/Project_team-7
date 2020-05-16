@@ -9,6 +9,7 @@ public class AddOffRequest extends Request {
     public AddOffRequest(Off off, String name) {
         this.off = off;
         this.name = name;
+        this.requestId = Integer.toString(Request.allRequests.size()*100+1);
     }
 
     public String showRequest() {

@@ -22,6 +22,7 @@ public class EditOffRequest extends Request {
         this.startDate = dateFormat.format(off.getStartDate());
         this.endDate = dateFormat.format(off.getEndDate());
         this.offAmount = "" + off.getOffAmount();
+        this.requestId = Integer.toString(Request.allRequests.size()*100+1);
     }
 
     public String showRequest() {

@@ -24,6 +24,7 @@ public class EditProductRequest extends Request {
         this.description = product.getDescription();
         this.price = "" + product.getPrice();
         this.offID = (product.getOff()!=null?product.getOff().getOffId():null);
+        this.requestId = Integer.toString(Request.allRequests.size()*100+1);
     }
 
     public String showRequest() {
