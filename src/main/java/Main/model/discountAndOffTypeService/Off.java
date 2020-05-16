@@ -152,7 +152,7 @@ public class Off extends DiscountAndOffTypeService {
 
     public static String readData() {
         try {
-            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/offs.json")));
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/offs.json")));
             Off[] allOff = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Off[].class);
             allOffs = (allOff == null) ? new ArrayList<>() : new ArrayList<>(asList(allOff));
             return "Read Offs Data Successfully.";
@@ -163,7 +163,7 @@ public class Off extends DiscountAndOffTypeService {
 
     public static String writeData() {
         try {
-            GeneralController.fileWriter = new FileWriter("src/main/offs.json");
+            GeneralController.fileWriter = new FileWriter("src/main/JSON/offs.json");
             Off[] allOff = new Off[allOffs.size()];
             allOff = allOffs.toArray(allOff);
             GeneralController.yagsonMapper.toJson(allOff, Off[].class, GeneralController.fileWriter);

@@ -370,7 +370,7 @@ public class Product {
 
     public static String readData() {
         try {
-            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/products.json")));
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/products.json")));
             Product[] allPro = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Product[].class);
             allProducts = (allPro == null) ? new ArrayList<>() : new ArrayList<>(asList(allPro));
             return "Read Products Data Successfully.";
@@ -381,7 +381,7 @@ public class Product {
 
     public static String writeData() {
         try {
-            GeneralController.fileWriter = new FileWriter("src/main/products.json");
+            GeneralController.fileWriter = new FileWriter("src/main/JSON/products.json");
             Product[] allPro = new Product[allProducts.size()];
             allPro = allProducts.toArray(allPro);
             GeneralController.yagsonMapper.toJson(allPro, Product[].class, GeneralController.fileWriter);

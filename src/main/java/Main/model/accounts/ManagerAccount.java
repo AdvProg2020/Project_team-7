@@ -100,7 +100,7 @@ public class ManagerAccount extends Account {
 
     public static String readData() {
         try {
-            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/managers.json")));
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/managers.json")));
             ManagerAccount[] allMan = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, ManagerAccount[].class);
             allManagers = (allMan == null) ? new ArrayList<>() : new ArrayList<>(asList(allMan));
             allAccounts.addAll(allManagers);
@@ -112,7 +112,7 @@ public class ManagerAccount extends Account {
 
     public static String writeData() {
         try {
-            GeneralController.fileWriter = new FileWriter("src/main/managers.json");
+            GeneralController.fileWriter = new FileWriter("src/main/JSON/managers.json");
             ManagerAccount[] allMan = new ManagerAccount[allManagers.size()];
             allMan = allManagers.toArray(allMan);
             GeneralController.yagsonMapper.toJson(allMan, ManagerAccount[].class, GeneralController.fileWriter);

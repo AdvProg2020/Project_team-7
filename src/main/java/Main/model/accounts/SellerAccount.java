@@ -209,7 +209,7 @@ public class SellerAccount extends Account {
 
     public static String readData() {
         try {
-            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/sellers.json")));
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/sellers.json")));
             SellerAccount[] allSel = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, SellerAccount[].class);
             allSellers = (allSel == null) ? new ArrayList<>() : new ArrayList<>(asList(allSel));
             allAccounts.addAll(allSellers);
@@ -221,7 +221,7 @@ public class SellerAccount extends Account {
 
     public static String writeData() {
         try {
-            GeneralController.fileWriter = new FileWriter("src/main/sellers.json");
+            GeneralController.fileWriter = new FileWriter("src/main/JSON/sellers.json");
             SellerAccount[] allSel = new SellerAccount[allSellers.size()];
             allSel = allSellers.toArray(allSel);
             GeneralController.yagsonMapper.toJson(allSel, SellerAccount[].class, GeneralController.fileWriter);

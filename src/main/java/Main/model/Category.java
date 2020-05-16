@@ -157,7 +157,7 @@ public class Category {
 
     public static String readData() {
         try {
-            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/categories.json")));
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/categories.json")));
             Category[] allcat = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Category[].class);
             allCategories = (allcat == null) ? new ArrayList<>() : new ArrayList<>(asList(allcat));
             return "Read Categories Data Successfully.";
@@ -168,7 +168,7 @@ public class Category {
 
     public static String writeData() {
         try {
-            GeneralController.fileWriter = new FileWriter("src/main/categories.json");
+            GeneralController.fileWriter = new FileWriter("src/main/JSON/categories.json");
             Category[] allcat = new Category[allCategories.size()];
             allcat = allCategories.toArray(allcat);
             GeneralController.yagsonMapper.toJson(allcat, Category[].class, GeneralController.fileWriter);

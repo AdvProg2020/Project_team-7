@@ -157,7 +157,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
 
     public static String readData() {
         try {
-            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/discounts.json")));
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/discounts.json")));
             DiscountCode[] allDis = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, DiscountCode[].class);
             allDiscountCodes = (allDis == null) ? new ArrayList<>() : new ArrayList<>(asList(allDis));
             return "Read Discounts Data Successfully.";
@@ -168,7 +168,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
 
     public static String writeData() {
         try {
-            GeneralController.fileWriter = new FileWriter("src/main/discounts.json");
+            GeneralController.fileWriter = new FileWriter("src/main/JSON/discounts.json");
             DiscountCode[] allDis = new DiscountCode[allDiscountCodes.size()];
             allDis = allDiscountCodes.toArray(allDis);
             GeneralController.yagsonMapper.toJson(allDis, DiscountCode[].class, GeneralController.fileWriter);
