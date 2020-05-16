@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Menu {
     private String name;
-    protected HashMap<Integer, Menu> subMenus;
+    protected HashMap<Integer, Menu> subMenus = new HashMap<>();
     protected Menu parentMenu;
     public static Scanner scanner;
     protected static GeneralController generalController;

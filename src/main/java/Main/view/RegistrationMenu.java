@@ -29,7 +29,7 @@ public class RegistrationMenu extends Menu {
             System.out.println("Enter your username");
             String username = scanner.nextLine();
             String messageFromCreateAccountMethod = generalController.createAccount(input, username);
-            System.out.println(messageFromCreateAccountMethod);
+
             if (messageFromCreateAccountMethod.startsWith("this") || messageFromCreateAccountMethod.startsWith("you")) {
                 this.run();
             } else {
@@ -40,6 +40,7 @@ public class RegistrationMenu extends Menu {
                     registerBuyer().run();
                 else if (input.equalsIgnoreCase("seller"))
                     registerSeller().run();
+                System.out.println(messageFromCreateAccountMethod);
                 this.parentMenu.run();
             }
         }
