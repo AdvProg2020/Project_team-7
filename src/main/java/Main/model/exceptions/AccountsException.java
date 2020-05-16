@@ -61,7 +61,7 @@ public abstract class AccountsException extends Exception {
         public invalidNameTypeInfoException(String nameTypeInfoTitle) {
             this.nameTypeInfoTitle = nameTypeInfoTitle;
             this.errorMessage = "Invalid character ! " + nameTypeInfoTitle + " can only contain English letters, numbers" +
-                    ", spaces in middle, '_','.' and '-' .\n";
+                    ", spaces in middle, '_','.' and '-' .\nnote that you must enter at least two characters !\n";
         }
     }
 
