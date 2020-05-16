@@ -10,19 +10,23 @@ public class CartManagerMenu extends Menu {
     }
 
     private Menu showTotalPrice() {
-        return new Menu("Show total price", this){
+        return new Menu("Show total price", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter Show or Back to return:");
+                System.out.println("Enter 'Show' or 'Back' to return:");
             }
+
             @Override
-            public void execute() throws Exception{
-                String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+            public void execute() throws Exception {
+                String input = scanner.nextLine().trim();
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if(input.equalsIgnoreCase("show")){
+                else if (input.equalsIgnoreCase("show")) {
                     System.out.println(buyerController.showTotalCartPrice());
+                    this.run();
+                } else {
+                    System.out.println("Invalid input!");
                     this.run();
                 }
             }

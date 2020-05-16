@@ -54,16 +54,18 @@ public class GeneralController {
         ((BuyerAccount) currentUser).getCart().addCartProduct(currentCartProduct);
     }
 
-    public void selectSellerWithId(String id) throws Exception {
+    public void selectSellerWithUsername(String username) throws Exception {
         if (!currentProduct.getProductStatus().equals(ProductStatus.APPROVED_PRODUCT)) {
             throw new Exception("this product is not available now!\n");
         }
-        CartProduct cartProduct = new CartProduct(currentProduct, SellerAccount.getSellerWithUserName(id), ((BuyerAccount) currentUser).getCart());
+        CartProduct cartProduct = new CartProduct(currentProduct, SellerAccount.getSellerWithUserName(username),
+                ((BuyerAccount) currentUser).getCart());
         currentCartProduct = cartProduct;
     }
 
     public void addComment(String title, String content) {
-        Comment comment = new Comment(((BuyerAccount) currentUser), currentProduct, title, content, ((BuyerAccount) currentUser).hasBuyerBoughtProduct(currentProduct));
+        Comment comment = new Comment(((BuyerAccount) currentUser), currentProduct, title, content,
+                ((BuyerAccount) currentUser).hasBuyerBoughtProduct(currentProduct));
         Request commentRequest = new AddCommentRequest(comment, "Add comment request");
         Request.addRequest(commentRequest);
     }

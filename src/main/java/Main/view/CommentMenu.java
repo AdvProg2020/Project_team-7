@@ -12,7 +12,7 @@ public class CommentMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter Add comment or Back to return");
+                System.out.println("Enter 'Add comment' or 'Back' to return:");
             }
 
             @Override
@@ -22,14 +22,16 @@ public class CommentMenu extends Menu {
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("add comment")) {
                     System.out.println("Enter the title:");
-                    String title = scanner.nextLine();
+                    String title = scanner.nextLine().trim();
                     System.out.println("Enter the content:");
-                    String content = scanner.nextLine();
+                    String content = scanner.nextLine().trim();
                     generalController.addComment(title, content);
-                    System.out.println("Your comment sent successfully");
+                    System.out.println("Your comment sent successfully.");
+                    this.run();
+                } else {
+                    System.out.println("Invalid input!");
                     this.run();
                 }
-
             }
         };
     }
