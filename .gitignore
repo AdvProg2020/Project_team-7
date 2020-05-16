@@ -1,8 +1,7 @@
+/src/main/JSON/
 # Default ignored files
 /workspace.xml
 *.xml
 *.iml
 *.class
 *.json
-
-dir_to_ignore/src/main/JSON/
