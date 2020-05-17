@@ -12,6 +12,7 @@ public abstract class Account {
     protected String phoneNumber;
     protected String passWord;
     protected static ArrayList<Account> allAccounts = new ArrayList<Account>();
+    private static ArrayList<String> reservedUserNames = new ArrayList<>();
 
     public Account(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord) {
         this.userName = userName;
@@ -72,4 +73,16 @@ public abstract class Account {
     public abstract String editPersonalInfo(String field, String newContent);
 
     public abstract String viewMe();
+
+    public static ArrayList<String> getReservedUserNames() {
+        return reservedUserNames;
+    }
+
+    public static boolean isThereReservedUserName(String userName){
+        for (String reservedUserName : reservedUserNames) {
+            if (reservedUserName.equals(userName))
+                return true;
+        }
+        return false;
+    }
 }

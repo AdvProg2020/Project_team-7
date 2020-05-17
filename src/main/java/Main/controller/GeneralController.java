@@ -190,6 +190,10 @@ public class GeneralController {
             return "you can not create more than one manager account directly.";
         if (Account.isThereUserWithUserName(userName))
             return "this userName is already taken.";
+        if (Account.isThereReservedUserName(userName))
+            return "this userName is already reserved.";
+        else if (type.equalsIgnoreCase("seller"))
+            return "your creating account request was sent to manager successfully.";
         else return "account Created.";
     }
 
@@ -218,6 +222,7 @@ public class GeneralController {
                 0);
         CreateSellerAccountRequest createSellerAccountRequest = new CreateSellerAccountRequest(sellerAccount, "create seller account");
         Request.addRequest(createSellerAccountRequest);
+        Account.getReservedUserNames().add(userName);
     }
 
     public void getManagerInformation(ArrayList<String> managerInfo, String userName) throws Exception {
@@ -314,6 +319,8 @@ public class GeneralController {
                 }
             }
         }
+        if (offProducts.equals(""))
+            return "No products with off to show";
         return offProducts;
     }
 
