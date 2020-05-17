@@ -195,6 +195,14 @@ public class BuyerAccount extends Account {
         return allDiscountCodesDisplay.toString();
     }
 
+    public static ArrayList<BuyerAccount> getAllBuyers() {
+        return allBuyers;
+    }
+
+    public int getNumberOfBoughtProducts() {
+        return boughtProducts.size();
+    }
+
     public static String readData() {
         try {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/buyers.json")));

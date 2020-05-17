@@ -1,14 +1,14 @@
 package Main.model.discountAndOffTypeService;
 
 import Main.controller.GeneralController;
-import Main.model.Category;
 import Main.model.IDGenerator;
 import Main.model.accounts.BuyerAccount;
-import Main.model.exceptions.DiscountAndOffTypeServiceException;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
+import org.apache.commons.lang3.time.DateUtils;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import static java.util.Arrays.asList;
@@ -28,13 +28,20 @@ public class DiscountCode extends DiscountAndOffTypeService {
         this.percent = Double.parseDouble(percent);
         this.maxAmount = Double.parseDouble(maxAmount);
         this.maxNumberOfUse = Integer.parseInt(maxNumberOfUse);
-        for (BuyerAccount user : users) {
-            this.users.put(user, 0);
+        setUsers(users);
+    }
+
+    public void setUsers(ArrayList<BuyerAccount> buyers) {
+        for (BuyerAccount buyer : buyers) {
+            users.put(buyer,maxNumberOfUse);
         }
     }
 
-    public static void addDiscountCode(DiscountCode discountCode) {
-        allDiscountCodes.add(discountCode);
+    public void addDiscountCode() {
+        allDiscountCodes.add(this);
+        for (BuyerAccount buyer : users.keySet()) {
+            buyer.addDiscountCode(this);
+        }
     }
 
     public static String showAllDiscountCodes() {
@@ -155,12 +162,49 @@ public class DiscountCode extends DiscountAndOffTypeService {
         return maxNumberOfUse;
     }
 
+    public void giveDiscountCodeToSpecialBuyers() throws Exception {
+        Date startDate = new Date();
+        DiscountCode discountCodeLevelOne = new DiscountCode(dateFormat.format(startDate),
+                dateFormat.format(getDateForAfterWeeks(startDate, 2)), "20",
+                "40", "1",getLevelOneSpecialBuyers());
+        discountCodeLevelOne.addDiscountCode();
+
+        DiscountCode discountCodeLevelTwo = new DiscountCode(dateFormat.format(startDate),
+                dateFormat.format(getDateForAfterWeeks(startDate, 4)), "40",
+                "60", "2",getLevelTwoSpecialBuyers());
+        discountCodeLevelTwo.addDiscountCode();
+    }
+
+    private ArrayList<BuyerAccount> getLevelTwoSpecialBuyers() {
+        ArrayList<BuyerAccount> levelTwoSpecialBuyers = new ArrayList<>();
+        for (BuyerAccount buyer : BuyerAccount.getAllBuyers()) {
+            if (buyer.getNumberOfBoughtProducts() >= 50) {
+                levelTwoSpecialBuyers.add(buyer);
+            }
+        }
+        return levelTwoSpecialBuyers;
+    }
+
+    private ArrayList<BuyerAccount> getLevelOneSpecialBuyers() {
+        ArrayList<BuyerAccount> levelOneSpecialBuyers = new ArrayList<>();
+        for (BuyerAccount buyer : BuyerAccount.getAllBuyers()) {
+            if (buyer.getNumberOfBoughtProducts() >= 20) {
+                levelOneSpecialBuyers.add(buyer);
+            }
+        }
+        return levelOneSpecialBuyers;
+    }
+
+    private Date getDateForAfterWeeks(Date startDate, int numberOfWeeksToBeAdded) {
+        return DateUtils.addWeeks(startDate, numberOfWeeksToBeAdded);
+    }
+
     public static String readData() {
         try {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/discounts.json")));
             DiscountCode[] allDis = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, DiscountCode[].class);
             allDiscountCodes = (allDis == null) ? new ArrayList<>() : new ArrayList<>(asList(allDis));
-           setLastUsedCodeID();
+            setLastUsedCodeID();
             return "Read Discounts Data Successfully.";
         } catch (FileNotFoundException e) {
             return "Problem loading data from discounts.json";
