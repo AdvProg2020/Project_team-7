@@ -17,7 +17,7 @@ public class UserPanelMenu extends Menu {
 
             @Override
             public void execute() throws Exception {
-                System.out.println("You have logged out successfully.");
+                System.out.println("You have logged out successfully.\n");
                 generalController.logout();
                 this.parentMenu.run();
             }

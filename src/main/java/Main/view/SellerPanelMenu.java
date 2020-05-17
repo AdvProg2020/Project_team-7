@@ -58,10 +58,10 @@ public class SellerPanelMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("continue")) {
-                    System.out.println(sellerController.viewSalesHistory());
+                    System.out.println(sellerController.viewSalesHistory() + "\n");
                     this.run();
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }
@@ -86,20 +86,21 @@ public class SellerPanelMenu extends Menu {
                         ArrayList<String> productInfo = new ArrayList<>();
                         getFieldsToCreateProduct(productInfo);
                         sellerController.addProduct(productInfo);
+                        System.out.println("Product created successfully.\n");
                         this.run();
                     } catch (CreateProductException.InvalidProductInputInfo e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     } catch (CreateProductException.GetCategoryFromUser e) {
                         ArrayList specialFeatures = new ArrayList();
                         getSpecialFeatures(specialFeatures, e.getCategory());
                         sellerController.setSpecialFeatures(e.getProduct(), specialFeatures);
-                        System.out.println("Product created successfully.");
+                        System.out.println("Product created successfully.\n");
                         this.run();
 
                     }
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }
@@ -156,10 +157,10 @@ public class SellerPanelMenu extends Menu {
                 else {
                     try {
                         sellerController.removeProductWithID(input);
-                        System.out.println("Product removed successfully.");
+                        System.out.println("Product removed successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }
@@ -181,10 +182,10 @@ public class SellerPanelMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("show")) {
-                    System.out.println(generalController.showAllCategories());
+                    System.out.println(generalController.showAllCategories() + "\n");
                     this.run();
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }
@@ -205,10 +206,10 @@ public class SellerPanelMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("view")) {
-                    System.out.println(sellerController.viewSellerBalance());
+                    System.out.println(sellerController.viewSellerBalance() + "\n");
                     this.run();
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }

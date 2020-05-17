@@ -47,10 +47,10 @@ public class RequestManagerMenu extends Menu {
                 else {
                     try {
                         managerController.acceptRequestWithId(input);
-                        System.out.println("Request accepted successfully.");
+                        System.out.println("Request accepted successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }
@@ -74,10 +74,10 @@ public class RequestManagerMenu extends Menu {
                 else {
                     try {
                         managerController.declineRequestWithId(input);
-                        System.out.println("Request declines successfully.");
+                        System.out.println("Request declines successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }
@@ -87,7 +87,7 @@ public class RequestManagerMenu extends Menu {
 
     @Override
     public void run() throws Exception {
-        System.out.println(managerController.showAllRequests());
+        System.out.println(managerController.showAllRequests() + "\n");
         this.show();
         this.execute();
     }

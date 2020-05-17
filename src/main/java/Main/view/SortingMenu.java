@@ -87,10 +87,10 @@ public class SortingMenu extends Menu {
                 if (input.equalsIgnoreCase("back")) {
                     this.parentMenu.run();
                 } else if (input.equalsIgnoreCase("show")) {
-                    System.out.println(generalController.showCurrentSort());
+                    System.out.println(generalController.showCurrentSort() + "\n");
                     this.run();
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }
@@ -111,10 +111,10 @@ public class SortingMenu extends Menu {
                 if (input.equalsIgnoreCase("back")) {
                     this.parentMenu.run();
                 } else if (input.equalsIgnoreCase("disable")) {
-                    System.out.println(generalController.disableSort());
+                    System.out.println(generalController.disableSort() + "\n");
                     this.run();
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }

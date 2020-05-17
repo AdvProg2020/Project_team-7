@@ -30,7 +30,7 @@ public class UserMenu extends Menu {
             else
                 subMenus.get(3).run();
         } else {
-            System.out.println("Invalid input!");
+            System.out.println("Invalid input!\n");
             this.run();
         }
     }
