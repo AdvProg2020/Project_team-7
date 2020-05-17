@@ -80,6 +80,7 @@ public class SellerPanelMenu extends Menu {
                         ArrayList<String> productInfo = new ArrayList<>();
                         getFieldsToCreateProduct(productInfo);
                         sellerController.addProduct(productInfo);
+                        this.run();
                     } catch (CreateProductException.InvalidProductInputInfo e) {
                         System.out.println(e.getMessage());
                         this.run();
