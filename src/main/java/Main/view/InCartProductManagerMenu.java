@@ -16,15 +16,18 @@ public class InCartProductManagerMenu extends Menu {
             @Override
             public void show(){
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter Show or Back to return:");
+                System.out.println("Enter 'Show' or 'Back' to return:");
             }
             @Override
             public void execute() throws Exception{
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if(input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if(input.equalsIgnoreCase("show")){
                     System.out.println(buyerController.showCartProducts());
+                    this.run();
+                }else{
+                    System.out.println("Invalid input!");
                     this.run();
                 }
             }
@@ -36,12 +39,12 @@ public class InCartProductManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product Id or Back to return:");
+                System.out.println("Enter product Id or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
@@ -63,11 +66,11 @@ public class InCartProductManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product Id or Back to return:");
+                System.out.println("Enter product Id or 'Back' to return:");
             }
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
@@ -90,11 +93,11 @@ public class InCartProductManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product Id or Back to return:");
+                System.out.println("Enter product Id or 'Back' to return:");
             }
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
