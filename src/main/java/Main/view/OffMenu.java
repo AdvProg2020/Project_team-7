@@ -28,7 +28,7 @@ public class OffMenu extends Menu {
                         ProductPageMenu productPageMenu = new ProductPageMenu(this);
                         productPageMenu.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }

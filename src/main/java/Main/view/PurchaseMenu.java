@@ -34,10 +34,10 @@ public class PurchaseMenu extends Menu {
                         else {
                             try {
                                 buyerController.finalizePurchaseAndPay();
-                                System.out.println("Purchase finished successfully.");
+                                System.out.println("Purchase finished successfully.\n");
                                 this.run();
                             } catch (Exception e) {
-                                System.out.println(e.getMessage());
+                                System.out.println(e.getMessage() + "\n");
                                 this.run();
                             }
                         }
@@ -51,16 +51,16 @@ public class PurchaseMenu extends Menu {
                                 this.run();
                             else {
                                 buyerController.finalizePurchaseAndPay();
-                                System.out.println("Purchase finished successfully.");
+                                System.out.println("Purchase finished successfully.\n");
                                 this.run();
                             }
                         } catch (Exception e) {
-                            System.out.println(e.getMessage());
+                            System.out.println(e.getMessage() + "\n");
                             this.run();
                         }
                     }
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }

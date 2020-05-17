@@ -28,7 +28,7 @@ public class LoginMenu extends Menu {
                         System.out.println(messageFromLoginPage);
                         this.parentMenu.parentMenu.run();
                     } else {
-                        System.out.println(messageFromLoginPage);
+                        System.out.println(messageFromLoginPage + "\n");
                         this.run();
                     }
                 }

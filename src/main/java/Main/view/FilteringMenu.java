@@ -72,10 +72,10 @@ public class FilteringMenu extends Menu {
                 if (input.equalsIgnoreCase("back")) {
                     this.parentMenu.run();
                 } else if (input.equalsIgnoreCase("show")) {
-                    System.out.println(generalController.showCurrentFilters());
+                    System.out.println(generalController.showCurrentFilters() + "\n");
                     this.run();
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }
@@ -98,10 +98,10 @@ public class FilteringMenu extends Menu {
                 } else if (input.equalsIgnoreCase("disable")) {
                     System.out.println("Enter the filter type you want to disable");
                     String disablingFilter = scanner.nextLine().trim();
-                    System.out.println(generalController.disableFilter(disablingFilter));
+                    System.out.println(generalController.disableFilter(disablingFilter) + "\n");
                     this.run();
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }
