@@ -26,7 +26,7 @@ public class GeneralController {
     public static CartProduct currentCartProduct = null;
     public static Category currentCategory = null;
     public static String currentSort = "";
-    public static ArrayList<Filter> currentFilters = new ArrayList<Filter>();
+    public static ArrayList<Filter> currentFilters = new ArrayList<>();
     public static String selectedUsername;
 
     public static YaGson yagsonMapper = new YaGson();
@@ -58,9 +58,8 @@ public class GeneralController {
         if (!currentProduct.getProductStatus().equals(ProductStatus.APPROVED_PRODUCT)) {
             throw new Exception("this product is not available now!\n");
         }
-        CartProduct cartProduct = new CartProduct(currentProduct, SellerAccount.getSellerWithUserName(username),
+        currentCartProduct = new CartProduct(currentProduct, SellerAccount.getSellerWithUserName(username),
                 ((BuyerAccount) currentUser).getCart());
-        currentCartProduct = cartProduct;
     }
 
     public void addComment(String title, String content) {
@@ -199,7 +198,7 @@ public class GeneralController {
             filtered = filtered.concat(product.showProductDigest());
             filtered = filtered.concat("\n\n");
         }
-        if (filtered.equals("") || filtered == null)
+        if (filtered.equals(""))
             return showAllProducts();
         return filtered;
     }

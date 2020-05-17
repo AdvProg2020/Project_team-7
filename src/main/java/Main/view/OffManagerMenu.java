@@ -27,7 +27,7 @@ public class OffManagerMenu extends Menu {
                     this.parentMenu.run();
                 else {
                     try {
-                        sellerController.viewOffWithId(input);
+                        System.out.println(sellerController.viewOffWithId(input));
                         this.run();
                     } catch (Exception e) {
                         System.out.println(e.getMessage());

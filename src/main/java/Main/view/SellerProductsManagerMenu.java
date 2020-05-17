@@ -25,7 +25,7 @@ public class SellerProductsManagerMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
-                    sellerController.viewSellerProductWithId(input);
+                    System.out.println(sellerController.viewSellerProductWithId(input));
                     this.run();
                 }
             }
@@ -47,7 +47,7 @@ public class SellerProductsManagerMenu extends Menu {
                     this.parentMenu.run();
                 else {
                     try {
-                        sellerController.viewBuyersOfProductWithId(input);
+                        System.out.println(sellerController.viewBuyersOfProductWithId(input));
                         this.run();
                     } catch (Exception e) {
                         System.out.println(e.getMessage());

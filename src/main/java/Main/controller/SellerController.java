@@ -82,8 +82,7 @@ public class SellerController {
         if (!editedOff.equalsIgnoreCase("delete")) {
             return;
         }
-        Off off = null;
-        off = Off.getOffWithId(editedOff);
+        Off off = Off.getOffWithId(editedOff);
         SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
         if (!sellerAccount.doesSellerHaveOffWithReference(off)) {
             throw new Exception("off with ID : " + editedOff + " doesn't belong to you!\n");
