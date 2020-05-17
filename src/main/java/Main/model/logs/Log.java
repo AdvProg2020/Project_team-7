@@ -32,6 +32,10 @@ public abstract class Log {
         setDeliveryStatus(deliveryStatus);
     }
 
+    public static void addLog(Log log){
+        allLogs.add(log);
+    }
+
     public abstract String viewLog();
 
     public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
