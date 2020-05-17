@@ -25,16 +25,19 @@ public class SellerPanelMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter Continue to view information or Back to return:");
+                System.out.println("Enter 'Continue' to view information or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("continue")) {
                     System.out.println(sellerController.viewCompanyInformation());
+                    this.run();
+                } else {
+                    System.out.println("Invalid input!");
                     this.run();
                 }
             }
@@ -46,16 +49,19 @@ public class SellerPanelMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter Continue to view information or Back to return:");
+                System.out.println("Enter 'Continue' to view history or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("continue")) {
                     System.out.println(sellerController.viewSalesHistory());
+                    this.run();
+                } else {
+                    System.out.println("Invalid input!");
                     this.run();
                 }
             }
@@ -67,15 +73,15 @@ public class SellerPanelMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter Continue to create a product or Back to return");
+                System.out.println("Enter 'Continue' to create a product or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else {
+                else if (input.equalsIgnoreCase("continue")) {
                     try {
                         ArrayList<String> productInfo = new ArrayList<>();
                         getFieldsToCreateProduct(productInfo);
@@ -92,6 +98,9 @@ public class SellerPanelMenu extends Menu {
                         this.run();
 
                     }
+                } else {
+                    System.out.println("Invalid input!");
+                    this.run();
                 }
             }
         };
@@ -99,25 +108,25 @@ public class SellerPanelMenu extends Menu {
 
     public void getFieldsToCreateProduct(ArrayList<String> productInfo) {
         System.out.println("Name:");
-        String name = scanner.nextLine();
+        String name = scanner.nextLine().trim();
         productInfo.add(name);
         System.out.println("Brand:");
-        String brand = scanner.nextLine();
+        String brand = scanner.nextLine().trim();
         productInfo.add(brand);
         System.out.println("Availability:");
-        String availability = scanner.nextLine();
+        String availability = scanner.nextLine().trim();
         productInfo.add(availability);
         System.out.println("Description:");
-        String description = scanner.nextLine();
+        String description = scanner.nextLine().trim();
         productInfo.add(description);
         System.out.println("Price:");
-        String price = scanner.nextLine();
+        String price = scanner.nextLine().trim();
         productInfo.add(price);
         System.out.println("Do you want to allocate a category for this product? please insert yes or no:");
-        String beingInACategory = scanner.nextLine();
+        String beingInACategory = scanner.nextLine().trim();
         productInfo.add(beingInACategory);
         System.out.println("If yes, Insert category name, otherwise just ignore this part:");
-        String categoryName = scanner.nextLine();
+        String categoryName = scanner.nextLine().trim();
         productInfo.add(categoryName);
 
     }
@@ -125,7 +134,7 @@ public class SellerPanelMenu extends Menu {
     public void getSpecialFeatures(ArrayList<String> specialFeatures, Category category) {
         for (String feature : category.getSpecialFeatures()) {
             System.out.println(feature + ":");
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
             specialFeatures.add(input);
         }
 
@@ -136,12 +145,12 @@ public class SellerPanelMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a product Id or Back to return:");
+                System.out.println("Enter product Id or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
@@ -149,7 +158,7 @@ public class SellerPanelMenu extends Menu {
                         sellerController.removeProductWithID(input);
                         System.out.println("Product removed successfully.");
                         this.run();
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                         this.run();
                     }
@@ -163,16 +172,19 @@ public class SellerPanelMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter View or Back to return:");
+                System.out.println("Enter 'Show' or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if (input.equalsIgnoreCase("view")) {
+                else if (input.equalsIgnoreCase("show")) {
                     System.out.println(generalController.showAllCategories());
+                    this.run();
+                } else {
+                    System.out.println("Invalid input!");
                     this.run();
                 }
             }
@@ -184,16 +196,19 @@ public class SellerPanelMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter View or Back to return:");
+                System.out.println("Enter 'View' or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("view")) {
                     System.out.println(sellerController.viewSellerBalance());
+                    this.run();
+                } else {
+                    System.out.println("Invalid input!");
                     this.run();
                 }
             }

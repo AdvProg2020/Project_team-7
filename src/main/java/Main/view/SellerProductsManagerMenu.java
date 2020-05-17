@@ -1,6 +1,5 @@
 package Main.view;
 
-import Main.model.requests.EditOffRequest;
 import Main.model.requests.EditProductRequest;
 
 public class SellerProductsManagerMenu extends Menu {
@@ -17,7 +16,7 @@ public class SellerProductsManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a product Id or Back to return:");
+                System.out.println("Enter product Id or 'Back' to return:");
             }
 
             @Override
@@ -38,7 +37,7 @@ public class SellerProductsManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a product Id or Back to return:");
+                System.out.println("Enter product Id or 'Back' to return:");
             }
 
             @Override
@@ -64,7 +63,7 @@ public class SellerProductsManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter an Id or Back to return:");
+                System.out.println("Enter an Id or 'Back' to return:");
             }
 
             @Override
@@ -95,7 +94,7 @@ public class SellerProductsManagerMenu extends Menu {
         String input;
         while (!(input = scanner.nextLine().trim()).equalsIgnoreCase("submit")) {
             System.out.println("Enter the content:");
-            String newContent = scanner.nextLine();
+            String newContent = scanner.nextLine().trim();
             if (input.equalsIgnoreCase("name")) {
                 editProductRequest.addEditedFieldTitle("name");
                 editProductRequest.setName(newContent);
@@ -115,7 +114,7 @@ public class SellerProductsManagerMenu extends Menu {
                 editProductRequest.addEditedFieldTitle("off");
                 editProductRequest.setOffID(newContent);
             } else
-                System.out.println("there is no field with this name!");
+                System.out.println("There is no field with this name!");
 
         }
     }
