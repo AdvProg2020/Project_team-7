@@ -173,6 +173,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
             allDis = allDiscountCodes.toArray(allDis);
             GeneralController.yagsonMapper.toJson(allDis, DiscountCode[].class, GeneralController.fileWriter);
             GeneralController.fileWriter.close();
+            lastUsedCodeID = new StringBuilder(allDiscountCodes.get(allDiscountCodes.size()-1).getCode());
             return "Saved Discounts Data Successfully.";
         } catch (IOException e) {
             return "Problem saving discounts data.";

@@ -389,6 +389,7 @@ public class Product {
             allPro = allProducts.toArray(allPro);
             GeneralController.yagsonMapper.toJson(allPro, Product[].class, GeneralController.fileWriter);
             GeneralController.fileWriter.close();
+            lastUsedProductID = new StringBuilder(allProducts.get(allProducts.size()-1).getProductId());
             return "Saved Products Data Successfully.";
         } catch (IOException e) {
             return "Problem saving products data.";
