@@ -14,11 +14,11 @@ public class UserMenu extends Menu {
 
     @Override
     public void run() throws Exception {
-        System.out.println("Enter View panel or Back to return:");
-        String input = scanner.nextLine();
+        System.out.println("Enter 'View' or 'Back' to return:");
+        String input = scanner.nextLine().trim();
         if (input.equalsIgnoreCase("back"))
             this.parentMenu.run();
-        else {
+        else if (input.equalsIgnoreCase("view")) {
             if (GeneralController.currentUser == null) {
                 System.out.println("You have not logged in yet!");
                 SignInMenu signInMenu = new SignInMenu(this);
@@ -29,6 +29,9 @@ public class UserMenu extends Menu {
                 subMenus.get(2).run();
             else
                 subMenus.get(3).run();
+        } else {
+            System.out.println("Invalid input!");
+            this.run();
         }
     }
 }

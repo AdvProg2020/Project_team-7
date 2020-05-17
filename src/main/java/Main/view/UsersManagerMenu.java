@@ -17,7 +17,7 @@ public class UsersManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a username or Back to return");
+                System.out.println("Enter a username or 'Back' to return");
             }
 
             @Override
@@ -38,18 +38,18 @@ public class UsersManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a username or Back to return");
+                System.out.println("Enter a username or 'Back' to return");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
                     try {
                         managerController.deleteUserWithUserName(input);
-                        System.out.println("User deleted successfully");
+                        System.out.println("User deleted successfully.");
                         this.run();
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -65,25 +65,28 @@ public class UsersManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter Create profile or Back to return:");
+                System.out.println("Enter 'Create' or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if (input.equalsIgnoreCase("create profile")) {
+                else if (input.equalsIgnoreCase("create")) {
                     try {
                         ArrayList<String> managerInfo = new ArrayList<>();
                         getManagerInfo(managerInfo);
                         managerController.createManagerProfile(managerInfo);
-                        System.out.println("Manager account created successfully");
+                        System.out.println("Manager account created successfully.");
                         this.run();
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                         this.run();
                     }
+                } else {
+                    System.out.println("Invalid input!");
+                    this.run();
                 }
             }
         };
@@ -91,22 +94,22 @@ public class UsersManagerMenu extends Menu {
 
     public void getManagerInfo(ArrayList<String> managerInfo) {
         System.out.println("Password:");
-        String password = scanner.nextLine();
+        String password = scanner.nextLine().trim();
         managerInfo.add(password);
         System.out.println("Username:");
-        String username = scanner.nextLine();
+        String username = scanner.nextLine().trim();
         managerInfo.add(password);
         System.out.println("First name:");
-        String firstName = scanner.nextLine();
+        String firstName = scanner.nextLine().trim();
         managerInfo.add(firstName);
         System.out.println("Last name:");
-        String lastName = scanner.nextLine();
+        String lastName = scanner.nextLine().trim();
         managerInfo.add(lastName);
         System.out.println("Email:");
-        String email = scanner.nextLine();
+        String email = scanner.nextLine().trim();
         managerInfo.add(email);
         System.out.println("Phone number:");
-        String phoneNumber = scanner.nextLine();
+        String phoneNumber = scanner.nextLine().trim();
         managerInfo.add(phoneNumber);
     }
 
