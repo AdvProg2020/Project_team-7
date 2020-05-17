@@ -30,7 +30,7 @@ public class RegistrationMenu extends Menu {
             String username = scanner.nextLine().trim();
             String messageFromCreateAccountMethod = generalController.createAccount(input, username);
 
-            if (messageFromCreateAccountMethod.startsWith("this") || messageFromCreateAccountMethod.startsWith("you")) {
+            if (messageFromCreateAccountMethod.startsWith("this") || messageFromCreateAccountMethod.startsWith("you ")) {
                 System.out.println(messageFromCreateAccountMethod);
                 this.run();
             } else {
