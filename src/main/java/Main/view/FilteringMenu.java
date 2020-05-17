@@ -14,7 +14,7 @@ public class FilteringMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter Show available filters or Back to return");
+                System.out.println("Enter 'Show' or 'Back' to return:");
             }
 
             @Override
@@ -22,9 +22,12 @@ public class FilteringMenu extends Menu {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back")) {
                     this.parentMenu.run();
-                } else if (input.equalsIgnoreCase("show available filters")){
+                } else if (input.equalsIgnoreCase("show")){
                     System.out.println("Available filters are: ");
                     System.out.println(generalController.showAvailableFilters());
+                    this.run();
+                } else{
+                    System.out.println("Invalid input!");
                     this.run();
                 }
             }
@@ -36,7 +39,7 @@ public class FilteringMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter one of the available filters or Back to return:");
+                System.out.println("Enter one of the available filters or 'Back' to return:");
             }
 
             @Override
@@ -60,7 +63,7 @@ public class FilteringMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter show current filters or Back to return:");
+                System.out.println("Enter 'Show' or 'Back' to return:");
             }
 
             @Override
@@ -68,8 +71,11 @@ public class FilteringMenu extends Menu {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back")) {
                     this.parentMenu.run();
-                } else if (input.equalsIgnoreCase("show current filters")) {
+                } else if (input.equalsIgnoreCase("show")) {
                     System.out.println(generalController.showCurrentFilters());
+                    this.run();
+                }else{
+                    System.out.println("Invalid input!");
                     this.run();
                 }
             }
@@ -81,18 +87,21 @@ public class FilteringMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter disable filter or Back to return:");
+                System.out.println("Enter 'Disable' or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back")) {
                     this.parentMenu.run();
-                } else if (input.equalsIgnoreCase("disable filter")) {
+                } else if (input.equalsIgnoreCase("disable")) {
                     System.out.println("Enter the filter type you want to disable");
-                    String disablingFilter = scanner.nextLine();
+                    String disablingFilter = scanner.nextLine().trim();
                     System.out.println(generalController.disableFilter(disablingFilter));
+                    this.run();
+                }else{
+                    System.out.println("Invalid input!");
                     this.run();
                 }
             }
