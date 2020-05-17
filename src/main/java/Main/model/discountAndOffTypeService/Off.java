@@ -155,7 +155,8 @@ public class Off extends DiscountAndOffTypeService {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/offs.json")));
             Off[] allOff = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Off[].class);
             allOffs = (allOff == null) ? new ArrayList<>() : new ArrayList<>(asList(allOff));
-            lastUsedOffID = new StringBuilder(allOffs.get(allOffs.size()-1).getOffId());
+            if (allOffs.size() != 0)
+                lastUsedOffID = new StringBuilder(allOffs.get(allOffs.size() - 1).getOffId());
             return "Read Offs Data Successfully.";
         } catch (FileNotFoundException e) {
             return "Problem loading data from offs.json";

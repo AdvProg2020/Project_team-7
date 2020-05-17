@@ -380,7 +380,8 @@ public class Product {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/products.json")));
             Product[] allPro = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Product[].class);
             allProducts = (allPro == null) ? new ArrayList<>() : new ArrayList<>(asList(allPro));
-            lastUsedProductID = new StringBuilder(allProducts.get(allProducts.size() - 1).getProductId());
+            if (allProducts.size() != 0)
+                lastUsedProductID = new StringBuilder(allProducts.get(allProducts.size() - 1).getProductId());
             return "Read Products Data Successfully.";
         } catch (FileNotFoundException e) {
             return "Problem loading data from product.json";

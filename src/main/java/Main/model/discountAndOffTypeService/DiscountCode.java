@@ -160,7 +160,8 @@ public class DiscountCode extends DiscountAndOffTypeService {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/discounts.json")));
             DiscountCode[] allDis = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, DiscountCode[].class);
             allDiscountCodes = (allDis == null) ? new ArrayList<>() : new ArrayList<>(asList(allDis));
-            lastUsedCodeID = new StringBuilder(allDiscountCodes.get(allDiscountCodes.size()-1).getCode());
+            if (allDiscountCodes.size() != 0)
+                lastUsedCodeID = new StringBuilder(allDiscountCodes.get(allDiscountCodes.size() - 1).getCode());
             return "Read Discounts Data Successfully.";
         } catch (FileNotFoundException e) {
             return "Problem loading data from discounts.json";
