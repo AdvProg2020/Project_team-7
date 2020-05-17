@@ -40,7 +40,7 @@ public class ProductPageMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println(generalController.showAllProducts());
+                System.out.println(generalController.showSummaryOfProducts());
                 System.out.println("Enter another product Id or 'Back' to return:");
 
             }

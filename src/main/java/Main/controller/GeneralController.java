@@ -394,4 +394,13 @@ public class GeneralController {
         }
         return sellers;
     }
+
+    public String showSummaryOfProducts(){
+        StringBuilder list = new StringBuilder();
+        for (Product product : Product.allProducts) {
+            if(!product.equals(currentProduct))
+                list.append(product.showSummaryOfProductData() + "\n");
+        }
+        return list.toString();
+    }
 }
