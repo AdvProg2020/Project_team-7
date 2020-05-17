@@ -31,6 +31,7 @@ public class RegistrationMenu extends Menu {
             String messageFromCreateAccountMethod = generalController.createAccount(input, username);
 
             if (messageFromCreateAccountMethod.startsWith("this") || messageFromCreateAccountMethod.startsWith("you")) {
+                System.out.println(messageFromCreateAccountMethod);
                 this.run();
             } else {
                 GeneralController.selectedUsername = username;

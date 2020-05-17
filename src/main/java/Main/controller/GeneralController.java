@@ -54,16 +54,18 @@ public class GeneralController {
         ((BuyerAccount) currentUser).getCart().addCartProduct(currentCartProduct);
     }
 
-    public void selectSellerWithId(String id) throws Exception {
+    public void selectSellerWithUsername(String username) throws Exception {
         if (!currentProduct.getProductStatus().equals(ProductStatus.APPROVED_PRODUCT)) {
             throw new Exception("this product is not available now!\n");
         }
-        CartProduct cartProduct = new CartProduct(currentProduct, SellerAccount.getSellerWithUserName(id), ((BuyerAccount) currentUser).getCart());
+        CartProduct cartProduct = new CartProduct(currentProduct, SellerAccount.getSellerWithUserName(username),
+                ((BuyerAccount) currentUser).getCart());
         currentCartProduct = cartProduct;
     }
 
     public void addComment(String title, String content) {
-        Comment comment = new Comment(((BuyerAccount) currentUser), currentProduct, title, content, ((BuyerAccount) currentUser).hasBuyerBoughtProduct(currentProduct));
+        Comment comment = new Comment(((BuyerAccount) currentUser), currentProduct, title, content,
+                ((BuyerAccount) currentUser).hasBuyerBoughtProduct(currentProduct));
         Request commentRequest = new AddCommentRequest(comment, "Add comment request");
         Request.addRequest(commentRequest);
     }
@@ -188,6 +190,10 @@ public class GeneralController {
             return "you can not create more than one manager account directly.";
         if (Account.isThereUserWithUserName(userName))
             return "this userName is already taken.";
+        if (Account.isThereReservedUserName(userName))
+            return "this userName is already reserved.";
+        else if (type.equalsIgnoreCase("seller"))
+            return "your creating account request was sent to manager successfully.";
         else return "account Created.";
     }
 
@@ -216,6 +222,7 @@ public class GeneralController {
                 0);
         CreateSellerAccountRequest createSellerAccountRequest = new CreateSellerAccountRequest(sellerAccount, "create seller account");
         Request.addRequest(createSellerAccountRequest);
+        Account.getReservedUserNames().add(userName);
     }
 
     public void getManagerInformation(ArrayList<String> managerInfo, String userName) throws Exception {
@@ -312,6 +319,8 @@ public class GeneralController {
                 }
             }
         }
+        if (offProducts.equals(""))
+            return "No products with off to show";
         return offProducts;
     }
 

@@ -22,7 +22,7 @@ public class DeleteProductRequest extends Request {
     }
 
     public void acceptRequest() {
-
+        Product.allProducts.remove(product);
     }
 
     public void declineRequest() {

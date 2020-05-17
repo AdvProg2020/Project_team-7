@@ -24,11 +24,12 @@ public class DigestMenu extends Menu {
             public void execute() throws Exception {
                 if (GeneralController.currentUser == null || GeneralController.currentUser instanceof SellerAccount ||
                         GeneralController.currentUser instanceof ManagerAccount) {
-                    System.out.println("You have not logged in yet! ");
+                    System.out.println("You have not logged in yet!");
                     SignInMenu signInMenu = new SignInMenu(this);
                     signInMenu.run();
                 } else {
                     generalController.addProductToCart();
+                    System.out.println("Added to cart successfully.");
                 }
                 this.parentMenu.run();
             }
@@ -40,18 +41,24 @@ public class DigestMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter seller's username or Back to return");
+                System.out.println("Enter seller's username or 'Back' to return:");
                 //TODO list of sellers
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
-                    generalController.selectSellerWithId(input);
-                    this.run();
+                    try {
+                        generalController.selectSellerWithUsername(input);
+                        this.run();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        this.run();
+                    }
+
                 }
             }
         };

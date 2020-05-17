@@ -8,19 +8,20 @@ public class BuyerOrdersManagerMenu extends Menu {
 
     }
 
-    private Menu showOrder(){
-        return new Menu("Show order", this){
+    private Menu showOrder() {
+        return new Menu("Show order", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter order Id or 'Back' to return:");
             }
+
             @Override
-            public void execute() throws Exception{
-                String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+            public void execute() throws Exception {
+                String input = scanner.nextLine().trim();
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else{
+                else {
                     System.out.println(buyerController.showOrderWithId(input));
                     this.run();
                 }
@@ -28,26 +29,27 @@ public class BuyerOrdersManagerMenu extends Menu {
         };
     }
 
-    private Menu rate(){
-        return new Menu("Rate", this){
+    private Menu rate() {
+        return new Menu("Rate", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter product Id or 'Back' to return:");
             }
+
             @Override
-            public void execute() throws Exception{
-                String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+            public void execute() throws Exception {
+                String input = scanner.nextLine().trim();
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else{
+                else {
                     System.out.println("Enter your score from 1 to 5:");
-                    String score = scanner.nextLine();
-                    try{
+                    String score = scanner.nextLine().trim();
+                    try {
                         buyerController.rateProductWithId(input, score);
                         System.out.println("Rate registered successfully.");
                         this.run();
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                         this.run();
                     }

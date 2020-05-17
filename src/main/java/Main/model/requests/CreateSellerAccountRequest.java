@@ -1,5 +1,6 @@
 package Main.model.requests;
 
+import Main.model.accounts.Account;
 import Main.model.accounts.SellerAccount;
 
 public class CreateSellerAccountRequest extends Request {
@@ -13,7 +14,7 @@ public class CreateSellerAccountRequest extends Request {
     }
 
     public String showRequest() {
-        String show = "Add New Off Request:\n" +
+        String show = "Add New Seller Account Request:\n" +
                 "Request ID: " + this.requestId + "\n" +
                 sellerAccount.viewMe() + "\n";
         return show;
@@ -21,8 +22,10 @@ public class CreateSellerAccountRequest extends Request {
 
     public void acceptRequest() {
         SellerAccount.addSeller(sellerAccount);
+        Account.getReservedUserNames().remove(sellerAccount.getUserName());
     }
 
     public void declineRequest() {
+        Account.getReservedUserNames().remove(sellerAccount.getUserName());
     }
 }

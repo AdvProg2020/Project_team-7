@@ -12,21 +12,22 @@ public class BuyerPanelMenu extends Menu {
     }
 
     private Menu viewBalance() {
-        return new Menu("View balance", this){
+        return new Menu("View balance", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter 'View' or 'Back' to return:");
             }
+
             @Override
-            public void execute() throws Exception{
-                String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+            public void execute() throws Exception {
+                String input = scanner.nextLine().trim();
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if(input.equalsIgnoreCase("view")){
+                else if (input.equalsIgnoreCase("view")) {
                     System.out.println(buyerController.viewBuyerBalance());
                     this.run();
-                } else{
+                } else {
                     System.out.println("Invalid input!");
                     this.run();
                 }
@@ -35,19 +36,23 @@ public class BuyerPanelMenu extends Menu {
     }
 
     private Menu viewDiscountCode() {
-        return new Menu("View discount codes", this){
+        return new Menu("View discount codes", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter View or Back to return:");
+                System.out.println("Enter 'View' or 'Back' to return:");
             }
+
             @Override
-            public void execute() throws Exception{
-                String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+            public void execute() throws Exception {
+                String input = scanner.nextLine().trim();
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if(input.equalsIgnoreCase("view")){
+                else if (input.equalsIgnoreCase("view")) {
                     System.out.println(buyerController.viewBuyerDiscountCodes());
+                    this.run();
+                } else {
+                    System.out.println("Invalid input!");
                     this.run();
                 }
             }

@@ -18,12 +18,12 @@ public class CategoryManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a category name or Back to return:");
+                System.out.println("Enter a category name or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
@@ -49,7 +49,7 @@ public class CategoryManagerMenu extends Menu {
         String input;
         while (!(input = scanner.nextLine().trim()).equalsIgnoreCase("submit")) {
             System.out.println("Enter the content:");
-            String newContent = scanner.nextLine();
+            String newContent = scanner.nextLine().trim();
             if (input.equalsIgnoreCase("name"))
                 editCategory.setName(newContent);
             else if (input.equalsIgnoreCase("Product Id to be added"))
@@ -61,7 +61,7 @@ public class CategoryManagerMenu extends Menu {
             else if (input.equalsIgnoreCase("Special feature to be removed"))
                 editCategory.addSpecialFeatureToBeRemoved(newContent);
             else
-                System.out.println("there is no field with this name!");
+                System.out.println("There is no field with this name!");
         }
     }
 
@@ -70,12 +70,12 @@ public class CategoryManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter category name or Back to return:");
+                System.out.println("Enter category name or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
@@ -107,12 +107,12 @@ public class CategoryManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a category Id or Back to return:");
+                System.out.println("Enter category Id or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
