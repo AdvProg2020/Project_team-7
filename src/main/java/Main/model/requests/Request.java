@@ -43,6 +43,7 @@ public abstract class Request {
             return "There is no Requests to show.";
         for (Request request : allRequests) {
             requests = requests.concat(request.showRequest());
+            requests = requests.concat("\n\n");
         }
         return requests;
     }

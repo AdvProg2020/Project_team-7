@@ -300,7 +300,7 @@ public class GeneralController {
         String allProducts = "";
         for (Product allProduct : Product.allProducts) {
             allProducts = allProducts.concat(allProduct.showProductDigest());
-            allProducts = allProducts.concat("\n");
+            allProducts = allProducts.concat("\n\n");
         }
         if (allProducts.equals(""))
             return "No Product to show!";
@@ -315,7 +315,7 @@ public class GeneralController {
             } else {
                 for (Product product : allOff.getProducts()) {
                     offProducts = offProducts.concat(product.showProductDigest());
-                    offProducts = offProducts.concat("\n");
+                    offProducts = offProducts.concat("\n\n");
                 }
             }
         }
@@ -354,5 +354,16 @@ public class GeneralController {
                 "\n" + SellerAccount.writeData() +
                 "\n" + ManagerAccount.writeData() +
                 "\n";
+    }
+
+    public String showProductSellers() {
+        String sellers = "";
+        for (SellerAccount seller : currentProduct.getSellers()) {
+            sellers = sellers.concat("seller user name : " + seller.getUserName() +
+                    "\nseller full name: " + seller.getFirstName() +
+                    " " + seller.getLastName() +
+                    "\nseller company name: " + seller.getCompanyName() + "\n\n");
+        }
+        return sellers;
     }
 }

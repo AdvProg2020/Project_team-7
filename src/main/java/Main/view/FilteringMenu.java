@@ -5,7 +5,7 @@ public class FilteringMenu extends Menu {
         super("Filtering", parentMenu);
         this.subMenus.put(1, showAvailableFilters());
         this.subMenus.put(2, filter());
-        this.subMenus.put(3, filter());
+        this.subMenus.put(3, currentFilters());
         this.subMenus.put(4, disableFilter());
     }
 

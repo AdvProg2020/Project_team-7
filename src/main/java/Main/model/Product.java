@@ -45,6 +45,7 @@ public class Product {
         sellers.add(sellerAccount);
         this.productStatus = ProductStatus.PENDING_CREATION_PRODUCT;
         this.price = price;
+        this.averageScore = 0;
     }
 
     public void setSpecialFeatures(ArrayList<String> specialFeatures) {
@@ -117,7 +118,7 @@ public class Product {
         if (availability == 0)
             return "unavailable";
         else
-            return "available";
+            return availability + " of this product is available.";
     }
 
     public static Product getProductWithId(String productId) throws Exception {
@@ -259,6 +260,8 @@ public class Product {
         for (Rate rate : rates) {
             sum += rate.getScore();
         }
+        if (rates.isEmpty())
+            return 0;
         return sum / (double) rates.size();
     }
 
