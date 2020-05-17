@@ -336,7 +336,9 @@ public class ManagerController {
         StringBuilder editCategoryErrors = new StringBuilder();
 
         try {
-            validateInputCategoryInfo(editCategory.getName());
+            if(!editCategory.getCategory().getName().equals(editCategory.getName())) {
+                validateInputCategoryInfo(editCategory.getName());
+            }
         } catch (Exception e) {
             editCategoryErrors.append(e.getMessage());
         }
