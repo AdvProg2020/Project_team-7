@@ -25,9 +25,14 @@ public class CommentMenu extends Menu {
                     String title = scanner.nextLine().trim();
                     System.out.println("Enter the content:");
                     String content = scanner.nextLine().trim();
-                    generalController.addComment(title, content);
-                    System.out.println("Your comment sent successfully.");
-                    this.run();
+                    try {
+                        generalController.addComment(title, content);
+                        System.out.println("Your comment sent successfully.");
+                        this.run();
+                    } catch (Exception e){
+                        System.out.println(e.getMessage());
+                        this.run();
+                    }
                 } else {
                     System.out.println("Invalid input!");
                     this.run();

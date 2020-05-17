@@ -32,7 +32,7 @@ public class SortingMenu extends Menu {
                     else if (this.parentMenu.parentMenu instanceof UsersManagerMenu)
                         System.out.println(generalController.showAvailableSorts("user"));
                     this.run();
-                } else{
+                } else {
                     System.out.println("Invalid input!");
                     this.run();
                 }
@@ -57,15 +57,15 @@ public class SortingMenu extends Menu {
                     System.out.println("Enter sort type:");
                     String sortType = scanner.nextLine().trim();
                     if (this.parentMenu.parentMenu instanceof RequestManagerMenu)
-                        System.out.println(generalController.makeSort(sortType,"request"));
+                        System.out.println(generalController.makeSort(sortType, "request"));
                     else if (this.parentMenu.parentMenu instanceof ProductsMenu || this.parentMenu.parentMenu instanceof
                             InCartProductManagerMenu || this.parentMenu.parentMenu instanceof AllProductsManagerMenu
                             || this.parentMenu.parentMenu instanceof SellerProductsManagerMenu)
-                        System.out.println(generalController.makeSort(sortType,"product"));
+                        System.out.println(generalController.makeSort(sortType, "product"));
                     else if (this.parentMenu.parentMenu instanceof UsersManagerMenu)
-                        System.out.println(generalController.makeSort(sortType,"user"));
+                        System.out.println(generalController.makeSort(sortType, "user"));
                     this.run();
-                } else{
+                } else {
                     System.out.println("Invalid input!");
                     this.run();
                 }
@@ -89,7 +89,7 @@ public class SortingMenu extends Menu {
                 } else if (input.equalsIgnoreCase("show")) {
                     System.out.println(generalController.showCurrentSort());
                     this.run();
-                } else{
+                } else {
                     System.out.println("Invalid input!");
                     this.run();
                 }
@@ -113,7 +113,7 @@ public class SortingMenu extends Menu {
                 } else if (input.equalsIgnoreCase("disable")) {
                     System.out.println(generalController.disableSort());
                     this.run();
-                } else{
+                } else {
                     System.out.println("Invalid input!");
                     this.run();
                 }
