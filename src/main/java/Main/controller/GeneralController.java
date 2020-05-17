@@ -104,7 +104,7 @@ public class GeneralController {
         return availableFilters;
     }
 
-    public String createFilter(String filterType, String filterInput) {
+    public String createFilter(String filterType, String filterInput) throws Exception {
         Filter filter = null;
         if (filterType.equalsIgnoreCase("Brand")) {
             filter = new BrandFilter(filterInput, currentCategory == null ? Product.allProducts : currentCategory.getProducts());
@@ -119,6 +119,7 @@ public class GeneralController {
             filter = new StockFilter(currentCategory == null ? Product.allProducts : currentCategory.getProducts());
         } else if (currentCategory == null && filterType.equalsIgnoreCase("Category")) {
             filter = new CategoryFilter(filterInput, Product.allProducts);
+            currentCategory = Category.getCategoryWithName(filterInput);
         } else if (currentCategory != null) {
             for (String specialFeature : currentCategory.getSpecialFeatures()) {
                 if (filterType.equalsIgnoreCase(specialFeature))
@@ -137,6 +138,8 @@ public class GeneralController {
 
     public String disableFilter(String filterType) {
         boolean disabled = false;
+        if (filterType.equalsIgnoreCase("category"))
+            currentCategory = null;
         for (Filter currentFilter : currentFilters) {
             if (currentFilter.getName().equals(filterType)) {
                 currentFilters.remove(currentFilter);
