@@ -3,6 +3,7 @@ package Main.model.requests;
 import Main.model.Product;
 import Main.model.ProductStatus;
 import Main.model.discountAndOffTypeService.Off;
+
 import java.util.TreeSet;
 
 public class EditProductRequest extends Request {
@@ -23,7 +24,7 @@ public class EditProductRequest extends Request {
         this.availability = "" + product.getAvailability();
         this.description = product.getDescription();
         this.price = "" + product.getPrice();
-        this.offID = (product.getOff()!=null?product.getOff().getOffId():null);
+        this.offID = (product.getOff() != null ? product.getOff().getOffId() : null);
     }
 
     public String showRequest() {
@@ -50,7 +51,7 @@ public class EditProductRequest extends Request {
                 editedFields.append("\tavailability : " + availability + "\n");
             } else if (editedFieldTitle.equalsIgnoreCase("description")) {
                 editedFields.append("\tdescription : " + description + "\n");
-            }else if (editedFieldTitle.equalsIgnoreCase("off")) {
+            } else if (editedFieldTitle.equalsIgnoreCase("off")) {
                 editedFields.append("\toff : " + offID + "\n");
             }
         }
@@ -68,13 +69,12 @@ public class EditProductRequest extends Request {
     }
 
     private void acceptOff(String offID) throws Exception {
-        if(offID==null){
+        if (offID == null) {
             product.setOff(null);
         }
-        if(offID.equalsIgnoreCase("delete")){
+        if (offID.equalsIgnoreCase("delete")) {
             product.setOff(null);
-        }
-        else {
+        } else {
             product.setOff(Off.getOffWithId(offID));
         }
     }

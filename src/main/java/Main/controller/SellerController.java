@@ -73,7 +73,7 @@ public class SellerController {
             editProductErrors.append(e.getMessage());
         }
 
-        if (editProductErrors.length()!=0) {
+        if (editProductErrors.length() != 0) {
             throw new Exception("there were some errors in editing product :\n" + editProductErrors);
         }
     }
@@ -162,7 +162,7 @@ public class SellerController {
             addProductErrors.append("we couldn't recognize if you want to add category or not !\nplease either write 'yes' or 'no' !\n");
         }
 
-        if (addProductErrors.length()!=0) {
+        if (addProductErrors.length() != 0) {
             throw new CreateProductException.InvalidProductInputInfo("there were some errors in product creation : \n" + addProductErrors);
         }
     }
@@ -214,7 +214,7 @@ public class SellerController {
         } catch (Exception e) {
             esitOffErrors.append("end date is invalid :\n" + e.getMessage());
         }
-        if (esitOffErrors.length()==0) {
+        if (esitOffErrors.length() == 0) {
             try {
                 DiscountAndOffTypeServiceException.compareStartAndEndDate(editOffRequest.getStartDate(), editOffRequest.getEndDate());
             } catch (Exception e) {
@@ -237,7 +237,7 @@ public class SellerController {
             esitOffErrors.append(e.getMessage());
         }
 
-        if (esitOffErrors.length()!=0) {
+        if (esitOffErrors.length() != 0) {
             throw new Exception("there were some errors in editing off : \n" + esitOffErrors);
         }
 
@@ -259,7 +259,7 @@ public class SellerController {
                 invalidIDs.append("product with ID : " + productIDToBeAdded + " doesn't belong to you!\n");
             }
         }
-        if (invalidIDs.length()!=0) {
+        if (invalidIDs.length() != 0) {
             throw new Exception("there where some errors in adding products : \n" + invalidIDs);
         }
     }
@@ -276,7 +276,7 @@ public class SellerController {
                 invalidIDs.append(e.getMessage());
             }
         }
-        if (invalidIDs.length()!=0) {
+        if (invalidIDs.length() != 0) {
             throw new Exception("there where some errors in removing products : \n" + invalidIDs);
         }
     }
@@ -307,7 +307,7 @@ public class SellerController {
         } catch (Exception e) {
             addOffErrors.append("end date is invalid :\n" + e.getMessage());
         }
-        if (addOffErrors.length()==0) {
+        if (addOffErrors.length() == 0) {
             try {
                 DiscountAndOffTypeServiceException.compareStartAndEndDate(offInfo.get(0), offInfo.get(1));
             } catch (Exception e) {
@@ -325,7 +325,7 @@ public class SellerController {
             addOffErrors.append(e.getMessage());
         }
 
-        if (addOffErrors.length()!=0) {
+        if (addOffErrors.length() != 0) {
             throw new Exception("there were some errors in adding Off : \n" + addOffErrors);
         }
     }
@@ -349,7 +349,7 @@ public class SellerController {
             }
         }
 
-        if (invalidProductsOffErrors.length()!=0) {
+        if (invalidProductsOffErrors.length() != 0) {
             throw new Exception("there were some errors in setting off products : \n" + invalidProductsOffErrors);
         }
     }

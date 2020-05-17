@@ -95,7 +95,7 @@ public class ManagerController {
         } catch (Exception e) {
             discountCreationErrors.append("end date is invalid :\n" + e.getMessage());
         }
-        if (discountCreationErrors.length()==0) {
+        if (discountCreationErrors.length() == 0) {
             try {
                 DiscountAndOffTypeServiceException.compareStartAndEndDate(discountInfo.get(0), discountInfo.get(1));
             } catch (Exception e) {
@@ -123,7 +123,7 @@ public class ManagerController {
             discountCreationErrors.append(e.getMessage());
         }
 
-        if (discountCreationErrors.length()!=0) {
+        if (discountCreationErrors.length() != 0) {
             throw new Exception("there where some errors in discount creation : \n" + discountCreationErrors);
         }
     }
@@ -139,7 +139,7 @@ public class ManagerController {
             }
         }
 
-        if (discountBuyersToBeSetErrors.length()!=0) {
+        if (discountBuyersToBeSetErrors.length() != 0) {
             throw new Exception("there were some errors in setting buyers : \n" + discountBuyersToBeSetErrors);
         }
     }
@@ -219,7 +219,7 @@ public class ManagerController {
             inputCategoryInfoErrors.append(e.getErrorMessage());
         }
 
-        if (inputCategoryInfoErrors.length()!=0) {
+        if (inputCategoryInfoErrors.length() != 0) {
             throw new Exception("there were some errors in category name : \n" + inputCategoryInfoErrors);
         }
     }
@@ -252,7 +252,7 @@ public class ManagerController {
         } catch (Exception e) {
             editDiscountCodeErrors.append("end date is invalid :\n" + e.getMessage());
         }
-        if (editDiscountCodeErrors.length()==0) {
+        if (editDiscountCodeErrors.length() == 0) {
             try {
                 DiscountAndOffTypeServiceException.compareStartAndEndDate(editDiscountCode.getStartDate(), editDiscountCode.getEndDate());
             } catch (Exception e) {
@@ -287,7 +287,7 @@ public class ManagerController {
             validateEditDiscountUsersToBeRemoved(editDiscountCode);
         }
 
-        if (editDiscountCodeErrors.length()!=0) {
+        if (editDiscountCodeErrors.length() != 0) {
             throw new Exception("there where some errors in discount edit : \n" + editDiscountCodeErrors);
         }
     }
@@ -301,7 +301,7 @@ public class ManagerController {
                 invalidUserNames.append(e.getMessage());
             }
         }
-        if (invalidUserNames.length()!=0) {
+        if (invalidUserNames.length() != 0) {
             throw new Exception("there where some errors in adding users : \n" + invalidUserNames);
         }
     }
@@ -318,7 +318,7 @@ public class ManagerController {
                 invalidUserNames.append(e.getMessage());
             }
         }
-        if (invalidUserNames.length()!=0) {
+        if (invalidUserNames.length() != 0) {
             throw new Exception("there where some errors in removing users : \n" + invalidUserNames);
         }
     }
@@ -363,7 +363,7 @@ public class ManagerController {
             editCategoryErrors.append(e.getMessage());
         }
 
-        if (editCategoryErrors.length()!=0) {
+        if (editCategoryErrors.length() != 0) {
             throw new Exception("there where some errors in category edit : \n" + editCategoryErrors);
         }
     }
@@ -378,7 +378,7 @@ public class ManagerController {
                 invalidProductIDs.append(e.getMessage());
             }
         }
-        if (invalidProductIDs.length()!=0) {
+        if (invalidProductIDs.length() != 0) {
             throw new Exception("there where some errors in adding products : \n" + invalidProductIDs);
         }
     }
@@ -395,7 +395,7 @@ public class ManagerController {
                 invalidProductIDs.append(e.getMessage());
             }
         }
-        if (invalidProductIDs.length()!=0) {
+        if (invalidProductIDs.length() != 0) {
             throw new Exception("there where some errors in removing products : \n" + invalidProductIDs);
         }
     }
@@ -409,7 +409,7 @@ public class ManagerController {
                 specialFeaturesToBeAddedErrors.append("There is already a special feature with title \"" + specialFeaturesToBeAdded + "\" in this category !\n");
             }
         }
-        if (specialFeaturesToBeAddedErrors.length()!=0) {
+        if (specialFeaturesToBeAddedErrors.length() != 0) {
             throw new Exception("there were some errors in adding special features : \n" + specialFeaturesToBeAddedErrors);
         }
     }
@@ -423,7 +423,7 @@ public class ManagerController {
                 specialFeaturesToBeRemovedErrors.append("There is no special feature with title : " + specialFeatureToBeRemoved + "in this category!\n");
             }
         }
-        if (specialFeaturesToBeRemovedErrors.length()!=0) {
+        if (specialFeaturesToBeRemovedErrors.length() != 0) {
             throw new Exception("there were some errors in removing special features : \n" + specialFeaturesToBeRemovedErrors);
         }
     }

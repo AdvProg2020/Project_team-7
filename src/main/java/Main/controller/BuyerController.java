@@ -21,7 +21,7 @@ public class BuyerController {
 
     //TODO: null cart
 
-    public static void setBuyerController(){
+    public static void setBuyerController() {
         currentBuyer = (BuyerAccount) GeneralController.currentUser;
         currentBuyersCart = currentBuyer.getCart();
     }
@@ -83,7 +83,7 @@ public class BuyerController {
         } catch (Exception e) {
             rateCreationErrors.append("score must be of double type !\n");
         }
-        if (rateCreationErrors.length()!=0) {
+        if (rateCreationErrors.length() != 0) {
             throw new Exception("there where some errors in rating : \n" + rateCreationErrors);
         }
     }

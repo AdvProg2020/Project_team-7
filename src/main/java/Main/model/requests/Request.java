@@ -91,7 +91,7 @@ public abstract class Request {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/requests.json")));
             Request[] allReq = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Request[].class);
             allRequests = (allReq == null) ? new ArrayList<>() : new ArrayList<>(asList(allReq));
-            lastUsedRequestID = new StringBuilder(allRequests.get(allRequests.size()-1).getRequestId());
+            lastUsedRequestID = new StringBuilder(allRequests.get(allRequests.size() - 1).getRequestId());
             return "Read Requests Data Successfully.";
         } catch (FileNotFoundException e) {
             return "Problem loading data from requests.json";

@@ -146,24 +146,24 @@ public class GeneralController {
     }
 
     public String makeSort(String sortType, String listType) {
-        if ((listType.equalsIgnoreCase("product"))&&
-        (sortType.equalsIgnoreCase("name A-Z") ||
-        sortType.equalsIgnoreCase("name Z-A") ||
-        sortType.equalsIgnoreCase("view") ||
-        sortType.equalsIgnoreCase("average score") ||
-        sortType.equalsIgnoreCase("price ascending") ||
-        sortType.equalsIgnoreCase("price descending"))) {
-                currentSort = sortType;
-        } else if ((listType.equalsIgnoreCase("request"))&&
-          (sortType.equalsIgnoreCase("type") ||
-          sortType.equalsIgnoreCase("id"))) {
-                currentSort = sortType;
-        } else if ((listType.equalsIgnoreCase("user"))&&
-         (sortType.equalsIgnoreCase("first name A-Z")||
-          sortType.equalsIgnoreCase("first name Z-A")||
-          sortType.equalsIgnoreCase("last name A-Z")||
-          sortType.equalsIgnoreCase("last name Z-A"))) {
-                currentSort = sortType;
+        if ((listType.equalsIgnoreCase("product")) &&
+                (sortType.equalsIgnoreCase("name A-Z") ||
+                        sortType.equalsIgnoreCase("name Z-A") ||
+                        sortType.equalsIgnoreCase("view") ||
+                        sortType.equalsIgnoreCase("average score") ||
+                        sortType.equalsIgnoreCase("price ascending") ||
+                        sortType.equalsIgnoreCase("price descending"))) {
+            currentSort = sortType;
+        } else if ((listType.equalsIgnoreCase("request")) &&
+                (sortType.equalsIgnoreCase("type") ||
+                        sortType.equalsIgnoreCase("id"))) {
+            currentSort = sortType;
+        } else if ((listType.equalsIgnoreCase("user")) &&
+                (sortType.equalsIgnoreCase("first name A-Z") ||
+                        sortType.equalsIgnoreCase("first name Z-A") ||
+                        sortType.equalsIgnoreCase("last name A-Z") ||
+                        sortType.equalsIgnoreCase("last name Z-A"))) {
+            currentSort = sortType;
         } else return "wrong sort type!";
         return "sort applied successfully.";
     }

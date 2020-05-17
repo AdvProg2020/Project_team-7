@@ -78,7 +78,7 @@ public abstract class Account {
         return reservedUserNames;
     }
 
-    public static boolean isThereReservedUserName(String userName){
+    public static boolean isThereReservedUserName(String userName) {
         for (String reservedUserName : reservedUserNames) {
             if (reservedUserName.equals(userName))
                 return true;

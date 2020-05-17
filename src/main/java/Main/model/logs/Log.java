@@ -32,7 +32,7 @@ public abstract class Log {
         setDeliveryStatus(deliveryStatus);
     }
 
-    public static void addLog(Log log){
+    public static void addLog(Log log) {
         allLogs.add(log);
     }
 
@@ -55,7 +55,7 @@ public abstract class Log {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/logs.json")));
             Log[] allLog = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Log[].class);
             allLogs = (allLog == null) ? new ArrayList<>() : new ArrayList<>(asList(allLog));
-            lastUsedLogID = new StringBuilder(allLogs.get(allLogs.size()-1).getLogId());
+            lastUsedLogID = new StringBuilder(allLogs.get(allLogs.size() - 1).getLogId());
             return "Read Logs Data Successfully.";
         } catch (FileNotFoundException e) {
             return "Problem loading data from logs.json";

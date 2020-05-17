@@ -302,6 +302,10 @@ public class Product {
         } else return price;
     }
 
+    public String showSummaryOfProductData() {
+        return "Product name: " + name + "\tProduct id " + productId;
+    }
+
     public void setOff(Off off) {
         this.off = off;
     }
@@ -376,7 +380,7 @@ public class Product {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/products.json")));
             Product[] allPro = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Product[].class);
             allProducts = (allPro == null) ? new ArrayList<>() : new ArrayList<>(asList(allPro));
-            lastUsedProductID = new StringBuilder(allProducts.get(allProducts.size()-1).getProductId());
+            lastUsedProductID = new StringBuilder(allProducts.get(allProducts.size() - 1).getProductId());
             return "Read Products Data Successfully.";
         } catch (FileNotFoundException e) {
             return "Problem loading data from product.json";
