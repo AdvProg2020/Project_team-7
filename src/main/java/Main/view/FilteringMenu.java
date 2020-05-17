@@ -22,11 +22,11 @@ public class FilteringMenu extends Menu {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back")) {
                     this.parentMenu.run();
-                } else if (input.equalsIgnoreCase("show")){
+                } else if (input.equalsIgnoreCase("show")) {
                     System.out.println("Available filters are: ");
                     System.out.println(generalController.showAvailableFilters());
                     this.run();
-                } else{
+                } else {
                     System.out.println("Invalid input!");
                     this.run();
                 }
@@ -74,7 +74,7 @@ public class FilteringMenu extends Menu {
                 } else if (input.equalsIgnoreCase("show")) {
                     System.out.println(generalController.showCurrentFilters());
                     this.run();
-                }else{
+                } else {
                     System.out.println("Invalid input!");
                     this.run();
                 }
@@ -100,7 +100,7 @@ public class FilteringMenu extends Menu {
                     String disablingFilter = scanner.nextLine().trim();
                     System.out.println(generalController.disableFilter(disablingFilter));
                     this.run();
-                }else{
+                } else {
                     System.out.println("Invalid input!");
                     this.run();
                 }

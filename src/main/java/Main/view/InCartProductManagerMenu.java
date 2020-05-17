@@ -11,22 +11,23 @@ public class InCartProductManagerMenu extends Menu {
 
     }
 
-    private Menu showProducts(){
-        return new Menu("Show product", this){
+    private Menu showProducts() {
+        return new Menu("Show product", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter 'Show' or 'Back' to return:");
             }
+
             @Override
-            public void execute() throws Exception{
+            public void execute() throws Exception {
                 String input = scanner.nextLine().trim();
-                if(input.equalsIgnoreCase("back"))
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if(input.equalsIgnoreCase("show")){
+                else if (input.equalsIgnoreCase("show")) {
                     System.out.println(buyerController.showCartProducts());
                     this.run();
-                }else{
+                } else {
                     System.out.println("Invalid input!");
                     this.run();
                 }
@@ -62,12 +63,13 @@ public class InCartProductManagerMenu extends Menu {
     }
 
     private Menu increaseProductNumber() {
-        return new Menu("Increase product number",this){
+        return new Menu("Increase product number", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter product Id or 'Back' to return:");
             }
+
             @Override
             public void execute() throws Exception {
                 String input = scanner.nextLine().trim();
@@ -89,12 +91,13 @@ public class InCartProductManagerMenu extends Menu {
     }
 
     private Menu decreaseProductNumber() {
-        return new Menu("Decrease product number",this){
+        return new Menu("Decrease product number", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println("Enter product Id or 'Back' to return:");
             }
+
             @Override
             public void execute() throws Exception {
                 String input = scanner.nextLine().trim();

@@ -8,74 +8,78 @@ public class PurchaseMenu extends Menu {
 
     }
 
-    private Menu purchase(){
-        return new Menu("Purchase", this){
+    private Menu purchase() {
+        return new Menu("Purchase", this) {
             @Override
-            public void show(){
+            public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter Continue or Back to return:");
+                System.out.println("Enter 'Continue' or 'Back' to return:");
             }
+
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
-                if(input.equalsIgnoreCase("back"))
+                String input = scanner.nextLine().trim();
+                if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if(input.equalsIgnoreCase("continue")){
+                else if (input.equalsIgnoreCase("continue")) {
                     buyerController.setReceiverInformation(getReceiverInformation());
-                    System.out.println("If you have a discount code, insert code, otherwise insert continue");
-                    String input2 = scanner.nextLine();
-                    if(input2.equalsIgnoreCase("continue")){
+                    System.out.println("If you have a discount code, insert code, otherwise insert continue:");
+                    String input2 = scanner.nextLine().trim();
+                    if (input2.equalsIgnoreCase("continue")) {
                         System.out.println(buyerController.showPurchaseInfo());
-                        System.out.println("Do you want to pay? Please insert yes or no");
-                        String answer = scanner.nextLine();
-                        if(answer.equalsIgnoreCase("no"))
+                        System.out.println("Do you want to pay? Please insert yes or no:");
+                        String answer = scanner.nextLine().trim();
+                        if (answer.equalsIgnoreCase("no"))
                             this.run();
-                        else{
+                        else {
                             try {
                                 buyerController.finalizePurchaseAndPay();
                                 System.out.println("Purchase finished successfully.");
                                 this.run();
-                            } catch (Exception e){
+                            } catch (Exception e) {
                                 System.out.println(e.getMessage());
                                 this.run();
                             }
                         }
-                    } else{
+                    } else {
                         try {
                             buyerController.setPurchaseDiscountCode(input2);
                             System.out.println(buyerController.showPurchaseInfo());
-                            System.out.println("Do you want to pay? Please insert yes or no");
-                            String answer = scanner.nextLine();
-                            if(answer.equalsIgnoreCase("no"))
+                            System.out.println("Do you want to pay? Please insert yes or no:");
+                            String answer = scanner.nextLine().trim();
+                            if (answer.equalsIgnoreCase("no"))
                                 this.run();
-                            else{
+                            else {
                                 buyerController.finalizePurchaseAndPay();
                                 System.out.println("Purchase finished successfully.");
                                 this.run();
                             }
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             System.out.println(e.getMessage());
                             this.run();
                         }
                     }
+                } else {
+                    System.out.println("Invalid input!");
+                    this.run();
                 }
             }
         };
     }
 
-    public String getReceiverInformation(){
+    public String getReceiverInformation() {
         StringBuilder stringBuilder = new StringBuilder();
         System.out.println("Receive information:\nFirst name:");
-        String firstName = scanner.nextLine();
+        String firstName = scanner.nextLine().trim();
         stringBuilder.append(firstName + "\n");
         System.out.println("Last name:");
-        String lastName = scanner.nextLine();
+        String lastName = scanner.nextLine().trim();
         stringBuilder.append(lastName + "\n");
         System.out.println("Email:");
-        String email = scanner.nextLine();
+        String email = scanner.nextLine().trim();
         stringBuilder.append(email + "\n");
         System.out.println("Address:");
-        String address = scanner.nextLine();
+        String address = scanner.nextLine().trim();
         stringBuilder.append(address + "\n");
         return stringBuilder.toString();
     }

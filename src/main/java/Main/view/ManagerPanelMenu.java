@@ -40,7 +40,7 @@ public class ManagerPanelMenu extends Menu {
                         System.out.println(e.getMessage());
                         this.run();
                     }
-                }else{
+                } else {
                     System.out.println("Invalid input!");
                     this.run();
                 }

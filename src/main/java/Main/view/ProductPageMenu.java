@@ -24,10 +24,10 @@ public class ProductPageMenu extends Menu {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if(input.equalsIgnoreCase("show")){
+                else if (input.equalsIgnoreCase("show")) {
                     System.out.println(generalController.showProductAttributes());
                     this.run();
-                }else{
+                } else {
                     System.out.println("Invalid input!");
                     this.run();
                 }
