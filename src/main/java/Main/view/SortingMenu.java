@@ -14,7 +14,7 @@ public class SortingMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter show or Back to return:");
+                System.out.println("Enter 'Show' or 'Back' to return:");
             }
 
             @Override
@@ -32,6 +32,9 @@ public class SortingMenu extends Menu {
                     else if (this.parentMenu.parentMenu instanceof UsersManagerMenu)
                         System.out.println(generalController.showAvailableSorts("user"));
                     this.run();
+                } else{
+                    System.out.println("Invalid input!");
+                    this.run();
                 }
             }
         };
@@ -42,17 +45,17 @@ public class SortingMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter sort or Back to return:");
+                System.out.println("Enter 'Sort' or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back")) {
                     this.parentMenu.run();
                 } else if (input.equalsIgnoreCase("sort")) {
-                    System.out.println("Enter sort type: ");
-                    String sortType = scanner.nextLine();
+                    System.out.println("Enter sort type:");
+                    String sortType = scanner.nextLine().trim();
                     if (this.parentMenu.parentMenu instanceof RequestManagerMenu)
                         System.out.println(generalController.makeSort(sortType,"request"));
                     else if (this.parentMenu.parentMenu instanceof ProductsMenu || this.parentMenu.parentMenu instanceof
@@ -61,6 +64,9 @@ public class SortingMenu extends Menu {
                         System.out.println(generalController.makeSort(sortType,"product"));
                     else if (this.parentMenu.parentMenu instanceof UsersManagerMenu)
                         System.out.println(generalController.makeSort(sortType,"user"));
+                    this.run();
+                } else{
+                    System.out.println("Invalid input!");
                     this.run();
                 }
             }
@@ -72,16 +78,19 @@ public class SortingMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter show or Back to return");
+                System.out.println("Enter 'Show' or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back")) {
                     this.parentMenu.run();
                 } else if (input.equalsIgnoreCase("show")) {
                     System.out.println(generalController.showCurrentSort());
+                    this.run();
+                } else{
+                    System.out.println("Invalid input!");
                     this.run();
                 }
             }
@@ -93,16 +102,19 @@ public class SortingMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter disable sort or Back to return");
+                System.out.println("Enter 'Disable' or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back")) {
                     this.parentMenu.run();
-                } else if (input.equalsIgnoreCase("disable sort")) {
+                } else if (input.equalsIgnoreCase("disable")) {
                     System.out.println(generalController.disableSort());
+                    this.run();
+                } else{
+                    System.out.println("Invalid input!");
                     this.run();
                 }
             }
