@@ -14,12 +14,12 @@ public class OffMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product Id or Back to return:");
+                System.out.println("Enter product Id or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {

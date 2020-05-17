@@ -16,15 +16,21 @@ public class ProductPageMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter Back to return");
+                System.out.println("Enter 'Show' or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                System.out.println(generalController.showProductAttributes());
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
+                else if(input.equalsIgnoreCase("show")){
+                    System.out.println(generalController.showProductAttributes());
+                    this.run();
+                }else{
+                    System.out.println("Invalid input!");
+                    this.run();
+                }
             }
         };
     }
@@ -35,13 +41,13 @@ public class ProductPageMenu extends Menu {
             public void show() {
                 System.out.println(this.getName() + ":");
                 System.out.println(generalController.showAllProducts());
-                System.out.println("Enter another product's Id or Back to return");
+                System.out.println("Enter another product Id or 'Back' to return:");
 
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
@@ -49,7 +55,7 @@ public class ProductPageMenu extends Menu {
                         System.out.println(generalController.compareProductWithProductWithId(input));
                         this.run();
                     } catch (Exception e) {
-                        System.out.println("invalid Id!");
+                        System.out.println(e.getMessage());
                         this.run();
                     }
                 }
