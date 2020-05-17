@@ -7,38 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class SellerAccountTest {
-    @Test(expected = AccountsException.class)
-    public void invalidNameException() throws AccountsException {
-        SellerAccount sellerAccount = new SellerAccount("userName", "firs*tName", "las#t Name",
-                "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
-                ,"this company is great!", 100);
-    }
-
-    @Test(expected = AccountsException.class)
-    public void duplicateUserNameException() throws AccountsException {
-        SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
-                "sampleEmail@sample.sample", "09001112233", "password123", "companyName",
-                "this company is great!", 100);
-        SellerAccount.addSeller(sellerAccount);
-        SellerAccount managerAccount2 = new SellerAccount("userName", "firstName", "last Name",
-                "sampleEmail@sample.sample", "09001112233", "password123", "companyName",
-                "this company is great!",100);
-    }
-
-    @Test(expected = AccountsException.class)
-    public void invalidPhoneNumberException() throws AccountsException {
-        SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "las#t Name",
-                "sampleEmail@sample.sample", "090011112233", "password123", "companyName",
-                "this company is great!",100);
-    }
-
-    @Test(expected = AccountsException.class)
-    public void invalidPasswordException() throws AccountsException {
-        SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "las#t Name",
-                "sampleEmail@sample.sample", "09001112233", "pass", "companyName"
-                ,"this company is great!", 100);
-    }
-
     @Test
     public void addSellerAndIsThereSellerTest() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("username", "firstname", "lastname"
