@@ -10,6 +10,7 @@ public class ProductNameFilter extends Filter {
 
     public ProductNameFilter(String productName, ArrayList<Product> products) {
         this.name = "Product Name";
+        this.productName = productName;
     }
 
     public void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products) {

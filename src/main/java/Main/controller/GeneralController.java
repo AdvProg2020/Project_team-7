@@ -138,16 +138,35 @@ public class GeneralController {
 
     public String showAvailableSorts(String listType) {
         if (listType.equalsIgnoreCase("product"))
-            return "Sort by name A-Z\nSort by name Z-A\nSort by view\nSort by average score\nSort by price ascending\nSort by price descending\n";
+            return "Sort by: name A-Z\nSort by: name Z-A\nSort by: view\nSort by: average score\nSort by: price ascending\nSort by: price descending\n";
         else if (listType.equalsIgnoreCase("request"))
-            return "Sort by type\nSort by Id\n";
+            return "Sort by: type\nSort by: Id\n";
         else if (listType.equalsIgnoreCase("user"))
-            return "Sort by first name A-Z\nSort by last name A-Z\nSort by first name Z-A\nSort by last name Z-A\n";
+            return "Sort by: first name A-Z\nSort by: last name A-Z\nSort by: first name Z-A\nSort by: last name Z-A\n";
         return "";
     }
 
-    public void makeSort(String sortType) {
-        currentSort = sortType;
+    public String makeSort(String sortType, String listType) {
+        if ((listType.equalsIgnoreCase("product"))&&
+        (sortType.equalsIgnoreCase("name A-Z") ||
+        sortType.equalsIgnoreCase("name Z-A") ||
+        sortType.equalsIgnoreCase("view") ||
+        sortType.equalsIgnoreCase("average score") ||
+        sortType.equalsIgnoreCase("price ascending") ||
+        sortType.equalsIgnoreCase("price descending"))) {
+                currentSort = sortType;
+        } else if ((listType.equalsIgnoreCase("request"))&&
+          (sortType.equalsIgnoreCase("type") ||
+          sortType.equalsIgnoreCase("id"))) {
+                currentSort = sortType;
+        } else if ((listType.equalsIgnoreCase("user"))&&
+         (sortType.equalsIgnoreCase("first name A-Z")||
+          sortType.equalsIgnoreCase("first name Z-A")||
+          sortType.equalsIgnoreCase("last name A-Z")||
+          sortType.equalsIgnoreCase("last name Z-A"))) {
+                currentSort = sortType;
+        } else return "wrong sort type!";
+        return "sort applied successfully.";
     }
 
     public String showCurrentSort() {
@@ -162,23 +181,23 @@ public class GeneralController {
     public String showFilteredAndSortedProducts() throws Exception {
         String filtered = "";
         ArrayList<Product> sorted = Filter.applyFilter(Product.allProducts);
-        if (currentSort.contains("name A-Z"))
+        if (currentSort.equalsIgnoreCase("name A-Z"))
             sorted.sort(new ProductsSort.productSortByNameAscending());
-        else if (currentSort.contains("name Z-A"))
+        else if (currentSort.equalsIgnoreCase("name Z-A"))
             sorted.sort(new ProductsSort.productSortByNameDescending());
-        else if (currentSort.contains("view"))
+        else if (currentSort.equalsIgnoreCase("view"))
             sorted.sort(new ProductsSort.productSortByView());
-        else if (currentSort.contains("average Score"))
+        else if (currentSort.equalsIgnoreCase("average Score"))
             sorted.sort(new ProductsSort.productSortByRate());
-        else if (currentSort.contains("price ascending"))
+        else if (currentSort.equalsIgnoreCase("price ascending"))
             sorted.sort(new ProductsSort.productSortByPriceAscendingly());
-        else if (currentSort.contains("price descending"))
+        else if (currentSort.equalsIgnoreCase("price descending"))
             sorted.sort(new ProductsSort.productSortByPriceDescendingly());
         else if (!currentSort.equals(""))
             return "wrong sort input.";
         for (Product product : sorted) {
             filtered = filtered.concat(product.showProductDigest());
-            filtered = filtered.concat("\n");
+            filtered = filtered.concat("\n\n");
         }
         if (filtered.equals("") || filtered == null)
             return showAllProducts();

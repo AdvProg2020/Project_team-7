@@ -24,6 +24,8 @@ public abstract class Filter {
         for (Filter currentFilter : GeneralController.currentFilters) {
             currentFilter.removeDiffs(filteredProducts, products);
         }
+        if (filteredProducts.isEmpty())
+            return products;
         return filteredProducts;
     }
 

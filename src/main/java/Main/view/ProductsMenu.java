@@ -8,7 +8,7 @@ public class ProductsMenu extends Menu {
         this.subMenus.put(1, showCategories());
         this.subMenus.put(2, new FilteringMenu(this));
         this.subMenus.put(3, new SortingMenu(this));
-        this.subMenus.put(4, showProducts());
+        this.subMenus.put(4, showFilteredAndSortedProducts());
         this.subMenus.put(5, showProduct());
     }
 
@@ -36,8 +36,8 @@ public class ProductsMenu extends Menu {
         };
     }
 
-    private Menu showProducts() {
-        return new Menu("Show products", this) {
+    private Menu showFilteredAndSortedProducts() {
+        return new Menu("Show filtered and sorted products", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -87,9 +87,9 @@ public class ProductsMenu extends Menu {
         };
     }
 
-    public void run() throws Exception {
+    /*public void run() throws Exception {
         System.out.println(generalController.showAllProducts());
         this.show();
         this.execute();
-    }
+    }*/
 }
