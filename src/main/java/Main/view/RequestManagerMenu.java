@@ -15,12 +15,12 @@ public class RequestManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a request Id or Back to return:");
+                System.out.println("Enter request Id or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
@@ -36,12 +36,12 @@ public class RequestManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a request Id or Back to return:");
+                System.out.println("Enter request Id or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
@@ -63,7 +63,7 @@ public class RequestManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a request Id or Back to return:");
+                System.out.println("Enter request Id or 'Back' to return:");
             }
 
             @Override

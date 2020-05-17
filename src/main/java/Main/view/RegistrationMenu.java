@@ -17,7 +17,7 @@ public class RegistrationMenu extends Menu {
     @Override
     public void show() {
         System.out.println(this.getName() + ":");
-        System.out.println("Enter type of user [manager|buyer|seller] or Back to return");
+        System.out.println("Enter type of user [manager|buyer|seller] or 'Back' to return:");
     }
 
     @Override
@@ -25,9 +25,9 @@ public class RegistrationMenu extends Menu {
         String input = scanner.nextLine();
         if (input.equalsIgnoreCase("back"))
             this.parentMenu.run();
-        else {
+        else if (input.matches(("manager|buyer|seller"))) {
             System.out.println("Enter your username");
-            String username = scanner.nextLine();
+            String username = scanner.nextLine().trim();
             String messageFromCreateAccountMethod = generalController.createAccount(input, username);
 
             if (messageFromCreateAccountMethod.startsWith("this") || messageFromCreateAccountMethod.startsWith("you")) {
@@ -44,6 +44,9 @@ public class RegistrationMenu extends Menu {
                 System.out.println(messageFromCreateAccountMethod);
                 this.parentMenu.run();
             }
+        } else {
+            System.out.println("Invalid input!");
+            this.run();
         }
     }
 
