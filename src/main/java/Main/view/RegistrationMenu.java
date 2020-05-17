@@ -25,7 +25,7 @@ public class RegistrationMenu extends Menu {
         String input = scanner.nextLine();
         if (input.equalsIgnoreCase("back"))
             this.parentMenu.run();
-        else if (input.matches(("manager|buyer|seller"))) {
+        else if (input.matches(("(?i)(manager|buyer|seller)"))) {
             System.out.println("Enter your username");
             String username = scanner.nextLine().trim();
             String messageFromCreateAccountMethod = generalController.createAccount(input, username);
