@@ -34,14 +34,14 @@ public class ManagerPanelMenu extends Menu {
                         ArrayList<String> buyersList = new ArrayList<>();
                         getBuyerIdList(buyersList);
                         managerController.createDiscountCode(buyersList, discountInfo);
-                        System.out.println("Discount code created successfully.");
+                        System.out.println("Discount code created successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }

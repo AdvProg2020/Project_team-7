@@ -26,10 +26,10 @@ public class ProductsMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("show")) {
-                    System.out.println(generalController.showAllCategories());
+                    System.out.println(generalController.showAllCategories() + "\n");
                     this.run();
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }
@@ -50,10 +50,10 @@ public class ProductsMenu extends Menu {
                 if (input.equalsIgnoreCase("back")) {
                     this.parentMenu.run();
                 } else if (input.equalsIgnoreCase("show")) {
-                    System.out.println(generalController.showFilteredAndSortedProducts());
+                    System.out.println(generalController.showFilteredAndSortedProducts() + "\n");
                     this.run();
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }
@@ -79,7 +79,7 @@ public class ProductsMenu extends Menu {
                         ProductPageMenu productPageMenu = new ProductPageMenu(this);
                         productPageMenu.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }

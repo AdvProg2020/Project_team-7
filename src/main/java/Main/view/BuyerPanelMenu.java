@@ -25,10 +25,10 @@ public class BuyerPanelMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("view")) {
-                    System.out.println(buyerController.viewBuyerBalance());
+                    System.out.println(buyerController.viewBuyerBalance() + "\n");
                     this.run();
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }
@@ -49,10 +49,10 @@ public class BuyerPanelMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("view")) {
-                    System.out.println(buyerController.viewBuyerDiscountCodes());
+                    System.out.println(buyerController.viewBuyerDiscountCodes() + "\n");
                     this.run();
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }

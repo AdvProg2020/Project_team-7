@@ -27,14 +27,14 @@ public class CommentMenu extends Menu {
                     String content = scanner.nextLine().trim();
                     try {
                         generalController.addComment(title, content);
-                        System.out.println("Your comment sent successfully.");
+                        System.out.println("Your comment sent successfully.\n");
                         this.run();
                     } catch (Exception e){
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }
@@ -43,7 +43,7 @@ public class CommentMenu extends Menu {
 
     @Override
     public void run() throws Exception {
-        System.out.println(generalController.showCommentsOfProduct());
+        System.out.println(generalController.showCommentsOfProduct() + "\n");
         this.show();
         this.execute();
     }

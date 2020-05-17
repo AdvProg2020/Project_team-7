@@ -54,7 +54,7 @@ public class InCartProductManagerMenu extends Menu {
                         ProductPageMenu productPageMenu = new ProductPageMenu(this);
                         productPageMenu.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }
@@ -78,10 +78,10 @@ public class InCartProductManagerMenu extends Menu {
                 else {
                     try {
                         buyerController.increaseProductWithId(input);
-                        System.out.println("Product number increased successfully.");
+                        System.out.println("Product number increased successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }
@@ -106,10 +106,10 @@ public class InCartProductManagerMenu extends Menu {
                 else {
                     try {
                         buyerController.decreaseProductWithId(input);
-                        System.out.println("Product number decreased successfully.");
+                        System.out.println("Product number decreased successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }

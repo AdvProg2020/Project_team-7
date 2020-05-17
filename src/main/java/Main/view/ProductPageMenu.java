@@ -25,10 +25,10 @@ public class ProductPageMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("show")) {
-                    System.out.println(generalController.showProductAttributes());
+                    System.out.println(generalController.showProductAttributes() + "\n");
                     this.run();
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }
@@ -52,10 +52,10 @@ public class ProductPageMenu extends Menu {
                     this.parentMenu.run();
                 else {
                     try {
-                        System.out.println(generalController.compareProductWithProductWithId(input));
+                        System.out.println(generalController.compareProductWithProductWithId(input) + "\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }

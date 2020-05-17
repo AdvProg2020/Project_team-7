@@ -24,10 +24,10 @@ public class AllProductsManagerMenu extends Menu {
                 else {
                     try {
                         managerController.removeProductWithId(input);
-                        System.out.println("Product removed successfully.");
+                        System.out.println("Product removed successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }
@@ -37,7 +37,7 @@ public class AllProductsManagerMenu extends Menu {
 
     @Override
     public void run() throws Exception {
-        System.out.println(generalController.showAllProducts());
+        System.out.println(generalController.showAllProducts() + "\n");
         this.show();
         this.execute();
     }

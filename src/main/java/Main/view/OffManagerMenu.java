@@ -115,14 +115,14 @@ public class OffManagerMenu extends Menu {
                         ArrayList<String> productsList = new ArrayList<>();
                         getProductIdList(productsList);
                         sellerController.addOff(productsList, offInfo);
-                        System.out.println("Off created successfully.");
+                        System.out.println("Off created successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }

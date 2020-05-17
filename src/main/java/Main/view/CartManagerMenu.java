@@ -23,10 +23,10 @@ public class CartManagerMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("show")) {
-                    System.out.println(buyerController.showTotalCartPrice());
+                    System.out.println(buyerController.showTotalCartPrice() + "\n");
                     this.run();
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }
