@@ -62,11 +62,21 @@ public class GeneralController {
                 ((BuyerAccount) currentUser).getCart());
     }
 
-    public void addComment(String title, String content) {
+    public void addComment(String title, String content) throws Exception {
+        validateInputCommentInfo();
         Comment comment = new Comment(((BuyerAccount) currentUser), currentProduct, title, content,
                 ((BuyerAccount) currentUser).hasBuyerBoughtProduct(currentProduct));
         Request commentRequest = new AddCommentRequest(comment, "Add comment request");
         Request.addRequest(commentRequest);
+    }
+
+    private void validateInputCommentInfo() throws Exception {
+        if (currentUser == null) {
+            throw new Exception("you must sign in then comment on a product !\n");
+        }
+        if (!(currentUser instanceof BuyerAccount)) {
+            throw new Exception("only buyers can comment on products !\n");
+        }
     }
 
     public String showCommentsOfProduct() {
