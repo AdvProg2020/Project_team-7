@@ -1,6 +1,7 @@
 package Main.model.requests;
 
 import Main.controller.GeneralController;
+import Main.model.IDGenerator;
 import Main.model.Product;
 import Main.model.sorting.RequestsSort;
 import Main.model.sorting.UsersSort;
@@ -13,7 +14,12 @@ import static java.util.Arrays.asList;
 
 public abstract class Request {
     protected String requestId;
+    private static StringBuilder lastUsedRequestID = new StringBuilder("@");
     protected static ArrayList<Request> allRequests = new ArrayList<Request>();
+
+    public Request() {
+        this.requestId = IDGenerator.getNewID(lastUsedRequestID);
+    }
 
     public abstract String showRequest();
 

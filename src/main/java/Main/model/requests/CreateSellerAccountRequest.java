@@ -7,9 +7,9 @@ public class CreateSellerAccountRequest extends Request {
     private final String name;
 
     public CreateSellerAccountRequest(SellerAccount sellerAccount, String name) {
+        super();
         this.sellerAccount = sellerAccount;
         this.name = name;
-        this.requestId = Integer.toString(Request.allRequests.size()*100+1);
     }
 
     public String showRequest() {

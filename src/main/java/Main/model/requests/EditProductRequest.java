@@ -16,15 +16,14 @@ public class EditProductRequest extends Request {
     private String offID;
 
     public EditProductRequest(Product product) {
+        super();
         this.product = product;
-
         this.name = product.getName();
         this.brand = product.getBrand();
         this.availability = "" + product.getAvailability();
         this.description = product.getDescription();
         this.price = "" + product.getPrice();
         this.offID = (product.getOff()!=null?product.getOff().getOffId():null);
-        this.requestId = Integer.toString(Request.allRequests.size()*100+1);
     }
 
     public String showRequest() {

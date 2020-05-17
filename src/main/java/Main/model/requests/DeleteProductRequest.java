@@ -7,9 +7,9 @@ public class DeleteProductRequest extends Request {
     private final String name;
 
     public DeleteProductRequest(Product product, String name) {
+        super();
         this.product = product;
         this.name = name;
-        this.requestId = Integer.toString(Request.allRequests.size()*100+1);
     }
 
     public String showRequest() {

@@ -18,11 +18,11 @@ public class EditOffRequest extends Request {
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     public EditOffRequest(Off off) {
+        super();
         this.off = off;
         this.startDate = dateFormat.format(off.getStartDate());
         this.endDate = dateFormat.format(off.getEndDate());
         this.offAmount = "" + off.getOffAmount();
-        this.requestId = Integer.toString(Request.allRequests.size()*100+1);
     }
 
     public String showRequest() {

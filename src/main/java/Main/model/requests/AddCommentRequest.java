@@ -8,9 +8,9 @@ public class AddCommentRequest extends Request {
     private final String name;
 
     public AddCommentRequest(Comment comment, String name) {
+        super();
         this.comment = comment;
         this.name = name;
-        this.requestId = Integer.toString(Request.allRequests.size()*100+1);
     }
 
     public String showRequest() {
