@@ -39,7 +39,7 @@ public class GeneralController {
     }
 
     public void giveDiscountCodeToSpecialBuyers() throws Exception {
-        DiscountCode.giveDiscountCodeToSpecialBuyers();
+        DiscountCode.giveBonusDiscountCodeToSpecialBuyers();
     }
 
     public String showProductDigest() {

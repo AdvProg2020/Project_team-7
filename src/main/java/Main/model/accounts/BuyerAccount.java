@@ -24,6 +24,7 @@ public class BuyerAccount extends Account {
     private ArrayList<DiscountCode> discountCodes = new ArrayList<DiscountCode>();
     private ArrayList<Product> boughtProducts = new ArrayList<Product>();
     private double balance;
+    private int numberOfBoughtProductsForBonus;
     private static ArrayList<BuyerAccount> allBuyers = new ArrayList<BuyerAccount>();
 
     public BuyerAccount(String userName,
@@ -157,6 +158,7 @@ public class BuyerAccount extends Account {
         for (Product product : cartsProductList) {
             if (!boughtProducts.contains(product)) {
                 boughtProducts.add(product);
+                numberOfBoughtProductsForBonus++;
             }
         }
     }
@@ -199,8 +201,16 @@ public class BuyerAccount extends Account {
         return allBuyers;
     }
 
-    public int getNumberOfBoughtProducts() {
-        return boughtProducts.size();
+    public int getBuyerBonusLevel() {
+        if (numberOfBoughtProductsForBonus >= 50) {
+            numberOfBoughtProductsForBonus -= 50;
+            return 2;
+        }
+        if (numberOfBoughtProductsForBonus >= 10) {
+            numberOfBoughtProductsForBonus -= 10;
+            return 1;
+        }
+        return 0;
     }
 
     public static String readData() {

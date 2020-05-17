@@ -162,23 +162,28 @@ public class DiscountCode extends DiscountAndOffTypeService {
         return maxNumberOfUse;
     }
 
-    public static void giveDiscountCodeToSpecialBuyers() throws Exception {
+    public static void giveBonusDiscountCodeToSpecialBuyers() throws Exception {
         Date startDate = new Date();
-        DiscountCode discountCodeLevelOne = new DiscountCode(dateFormat.format(startDate),
-                dateFormat.format(getDateForAfterWeeks(startDate, 2)), "20",
-                "40", "1",getLevelOneSpecialBuyers());
-        discountCodeLevelOne.addDiscountCode();
-
-        DiscountCode discountCodeLevelTwo = new DiscountCode(dateFormat.format(startDate),
-                dateFormat.format(getDateForAfterWeeks(startDate, 4)), "40",
-                "60", "2",getLevelTwoSpecialBuyers());
-        discountCodeLevelTwo.addDiscountCode();
+        ArrayList<BuyerAccount> levelTwoBuyers = getLevelTwoSpecialBuyers();
+        ArrayList<BuyerAccount> levelOneBuyers = getLevelOneSpecialBuyers();
+        if (levelOneBuyers.size() != 0) {
+            DiscountCode discountCodeLevelOne = new DiscountCode(dateFormat.format(startDate),
+                    dateFormat.format(getDateForAfterWeeks(startDate, 2)), "20",
+                    "40", "1", levelOneBuyers);
+            discountCodeLevelOne.addDiscountCode();
+        }
+        if (levelTwoBuyers.size() != 0) {
+            DiscountCode discountCodeLevelTwo = new DiscountCode(dateFormat.format(startDate),
+                    dateFormat.format(getDateForAfterWeeks(startDate, 4)), "40",
+                    "60", "2", levelTwoBuyers);
+            discountCodeLevelTwo.addDiscountCode();
+        }
     }
 
     private static ArrayList<BuyerAccount> getLevelTwoSpecialBuyers() {
         ArrayList<BuyerAccount> levelTwoSpecialBuyers = new ArrayList<>();
         for (BuyerAccount buyer : BuyerAccount.getAllBuyers()) {
-            if (buyer.getNumberOfBoughtProducts() >= 50) {
+            if (buyer.getBuyerBonusLevel()==2) {
                 levelTwoSpecialBuyers.add(buyer);
             }
         }
@@ -188,7 +193,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
     private static ArrayList<BuyerAccount> getLevelOneSpecialBuyers() {
         ArrayList<BuyerAccount> levelOneSpecialBuyers = new ArrayList<>();
         for (BuyerAccount buyer : BuyerAccount.getAllBuyers()) {
-            if (buyer.getNumberOfBoughtProducts() >= 20) {
+            if (buyer.getBuyerBonusLevel()==1) {
                 levelOneSpecialBuyers.add(buyer);
             }
         }
