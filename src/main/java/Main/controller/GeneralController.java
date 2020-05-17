@@ -38,6 +38,10 @@ public class GeneralController {
         return "Product page opened successfully.";
     }
 
+    public void giveDiscountCodeToSpecialBuyers() throws Exception {
+        DiscountCode.giveDiscountCodeToSpecialBuyers();
+    }
+
     public String showProductDigest() {
         return currentProduct.showProductDigest();
     }

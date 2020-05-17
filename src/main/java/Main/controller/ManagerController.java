@@ -76,7 +76,7 @@ public class ManagerController {
         DiscountCode discountCode = new DiscountCode(discountInfo.get(0), discountInfo.get(1), discountInfo.get(2),
                 discountInfo.get(3), discountInfo.get(4), buyersList);
 
-        DiscountCode.addDiscountCode(discountCode);
+        discountCode.addDiscountCode();
         for (BuyerAccount buyerAccount : buyersList) {
             buyerAccount.addDiscountCode(discountCode);
         }

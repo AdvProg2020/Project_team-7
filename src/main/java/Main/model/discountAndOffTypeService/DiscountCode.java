@@ -162,7 +162,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
         return maxNumberOfUse;
     }
 
-    public void giveDiscountCodeToSpecialBuyers() throws Exception {
+    public static void giveDiscountCodeToSpecialBuyers() throws Exception {
         Date startDate = new Date();
         DiscountCode discountCodeLevelOne = new DiscountCode(dateFormat.format(startDate),
                 dateFormat.format(getDateForAfterWeeks(startDate, 2)), "20",
@@ -175,7 +175,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
         discountCodeLevelTwo.addDiscountCode();
     }
 
-    private ArrayList<BuyerAccount> getLevelTwoSpecialBuyers() {
+    private static ArrayList<BuyerAccount> getLevelTwoSpecialBuyers() {
         ArrayList<BuyerAccount> levelTwoSpecialBuyers = new ArrayList<>();
         for (BuyerAccount buyer : BuyerAccount.getAllBuyers()) {
             if (buyer.getNumberOfBoughtProducts() >= 50) {
@@ -185,7 +185,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
         return levelTwoSpecialBuyers;
     }
 
-    private ArrayList<BuyerAccount> getLevelOneSpecialBuyers() {
+    private static ArrayList<BuyerAccount> getLevelOneSpecialBuyers() {
         ArrayList<BuyerAccount> levelOneSpecialBuyers = new ArrayList<>();
         for (BuyerAccount buyer : BuyerAccount.getAllBuyers()) {
             if (buyer.getNumberOfBoughtProducts() >= 20) {
@@ -195,7 +195,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
         return levelOneSpecialBuyers;
     }
 
-    private Date getDateForAfterWeeks(Date startDate, int numberOfWeeksToBeAdded) {
+    private static Date getDateForAfterWeeks(Date startDate, int numberOfWeeksToBeAdded) {
         return DateUtils.addWeeks(startDate, numberOfWeeksToBeAdded);
     }
 
