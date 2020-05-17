@@ -12,17 +12,17 @@ public class LoginMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter your username or Back to return:");
+                System.out.println("Enter your username or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
                     System.out.println("Enter your password:");
-                    String password = scanner.nextLine();
+                    String password = scanner.nextLine().trim();
                     String messageFromLoginPage = generalController.login(input, password);
                     if (messageFromLoginPage.equals("Logged in successfully.")) {
                         System.out.println(messageFromLoginPage);

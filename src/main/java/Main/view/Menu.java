@@ -57,7 +57,7 @@ public class Menu {
 
     public void execute() throws Exception {
         Menu nextMenu = null;
-        String number = scanner.nextLine();
+        String number = scanner.nextLine().trim();
         if ((!number.matches("\\d+")) || Integer.parseInt(number) > subMenus.size() + 1) {
             System.out.println("Invalid input!");
             this.run();

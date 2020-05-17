@@ -17,12 +17,12 @@ public class OffManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter an Id or Back to return:");
+                System.out.println("Enter off Id or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
@@ -43,12 +43,12 @@ public class OffManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter an Id or Back to return:");
+                System.out.println("Enter off Id or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
@@ -74,7 +74,7 @@ public class OffManagerMenu extends Menu {
         String input;
         while (!(input = scanner.nextLine().trim()).equalsIgnoreCase("submit")) {
             System.out.println("Enter the content:");
-            String newContent = scanner.nextLine();
+            String newContent = scanner.nextLine().trim();
             if (input.equalsIgnoreCase("start date")) {
                 editOffRequest.addEditedFieldTitle("start date");
                 editOffRequest.setStartDate(newContent);
@@ -100,12 +100,12 @@ public class OffManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter Continue to create off or Back to return:");
+                System.out.println("Enter 'Continue' to create off or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("continue")) {
@@ -121,6 +121,9 @@ public class OffManagerMenu extends Menu {
                         System.out.println(e.getMessage());
                         this.run();
                     }
+                }else{
+                    System.out.println("Invalid input!");
+                    this.run();
                 }
             }
         };
@@ -129,13 +132,13 @@ public class OffManagerMenu extends Menu {
     public void getOffInfo(ArrayList<String> offInfo) {
         System.out.println("Enter off information:\nStart date: (The input date should be in " +
                 "<yyyy/MM/dd HH:mm:ss>format)");
-        String startDate = scanner.nextLine();
+        String startDate = scanner.nextLine().trim();
         offInfo.add(startDate);
         System.out.println("End date:");
-        String endDate = scanner.nextLine();
+        String endDate = scanner.nextLine().trim();
         offInfo.add(endDate);
         System.out.println("Off amount:");
-        String percent = scanner.nextLine();
+        String percent = scanner.nextLine().trim();
         offInfo.add(percent);
     }
 
@@ -144,7 +147,7 @@ public class OffManagerMenu extends Menu {
         int numberOfProducts = scanner.nextInt();
         System.out.println();
         for (int i = 0; i < numberOfProducts; i++) {
-            String productId = scanner.nextLine();
+            String productId = scanner.nextLine().trim();
             productsList.add(productId);
         }
     }

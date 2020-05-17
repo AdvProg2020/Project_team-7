@@ -19,12 +19,12 @@ public class ManagerPanelMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter Continue to create discount code or Back to return:");
+                System.out.println("Enter 'Continue' to create discount code or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("continue")) {
@@ -40,6 +40,9 @@ public class ManagerPanelMenu extends Menu {
                         System.out.println(e.getMessage());
                         this.run();
                     }
+                }else{
+                    System.out.println("Invalid input!");
+                    this.run();
                 }
             }
         };
@@ -48,19 +51,19 @@ public class ManagerPanelMenu extends Menu {
     public void getDiscountInfo(ArrayList<String> discountInfo) {
         System.out.println("Enter discount code information:\nStart date: (The input date should be in " +
                 "<yyyy/MM/dd HH:mm:ss>format)");
-        String startDate = scanner.nextLine();
+        String startDate = scanner.nextLine().trim();
         discountInfo.add(startDate);
         System.out.println("End date:");
-        String endDate = scanner.nextLine();
+        String endDate = scanner.nextLine().trim();
         discountInfo.add(endDate);
         System.out.println("Percent:");
-        String percent = scanner.nextLine();
+        String percent = scanner.nextLine().trim();
         discountInfo.add(percent);
         System.out.println("Maximum amount:");
-        String maxAmount = scanner.nextLine();
+        String maxAmount = scanner.nextLine().trim();
         discountInfo.add(maxAmount);
         System.out.println("Maximum number of use:");
-        String muxNumberOfUse = scanner.nextLine();
+        String muxNumberOfUse = scanner.nextLine().trim();
         discountInfo.add(muxNumberOfUse);
     }
 
@@ -69,7 +72,7 @@ public class ManagerPanelMenu extends Menu {
         int numberOfBuyers = scanner.nextInt();
         System.out.println();
         for (int i = 0; i < numberOfBuyers; i++) {
-            String buyerUsername = scanner.nextLine();
+            String buyerUsername = scanner.nextLine().trim();
             buyersList.add(buyerUsername);
         }
     }
