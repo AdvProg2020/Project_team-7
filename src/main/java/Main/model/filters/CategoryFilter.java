@@ -6,28 +6,29 @@ import java.util.ArrayList;
 
 public class CategoryFilter extends Filter {
     private final String name;
-    private String productName;
+    private String categoryName;
 
-    public CategoryFilter(String productName, ArrayList<Product> products) {
+    public CategoryFilter(String categoryName, ArrayList<Product> products) {
         this.name = "Product Name";
+        this.categoryName = categoryName;
     }
 
     public void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products) {
         for (Product product : products) {
-            if (product.getCategory().getName().equals(productName))
+            if (product.getCategory().getName().equals(categoryName))
                 filterdProducts.add(product);
         }
     }
 
     public void removeDiffs(ArrayList<Product> filterdProducts, ArrayList<Product> products) {
         for (Product product : products) {
-            if (!product.getCategory().getName().equals(productName))
+            if (!product.getCategory().getName().equals(categoryName))
                 filterdProducts.remove(product);
         }
     }
 
     protected String show() {
-        return name + " : " + productName;
+        return name + " : " + categoryName;
     }
 
     public String getName() {

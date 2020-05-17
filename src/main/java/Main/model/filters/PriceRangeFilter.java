@@ -11,6 +11,8 @@ public class PriceRangeFilter extends Filter {
 
     public PriceRangeFilter(double startRange, double endRange, ArrayList<Product> products) {
         this.name = "Price Range";
+        this.startRange = startRange;
+        this.endRange = endRange;
     }
 
     public void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products) {

@@ -11,6 +11,8 @@ public class SpecialFeaturesFilter extends Filter {
 
     public SpecialFeaturesFilter(String featureTitle, String desiredFilter, ArrayList<Product> products) {
         this.name = featureTitle;
+        this.featureTitle = featureTitle;
+        this.desiredFilter = desiredFilter;
     }
 
     public void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products) {

@@ -9,8 +9,9 @@ public class SellerFilter extends Filter {
     private final String name;
     private String sellerUserName;
 
-    public SellerFilter(String productName, ArrayList<Product> products) {
+    public SellerFilter(String sellerUserName, ArrayList<Product> products) {
         this.name = "Product Name";
+        this.sellerUserName = sellerUserName;
     }
 
     public void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products) throws Exception {

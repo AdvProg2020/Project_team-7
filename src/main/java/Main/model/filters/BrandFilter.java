@@ -6,10 +6,11 @@ import java.util.ArrayList;
 
 public class BrandFilter extends Filter {
     private final String name;
-    private String brandName = null;
+    private String brandName;
 
     public BrandFilter(String brandName, ArrayList<Product> products) {
         this.name = "Brand";
+        this.brandName = brandName;
     }
 
     public void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products) {
