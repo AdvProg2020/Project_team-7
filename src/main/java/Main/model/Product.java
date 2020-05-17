@@ -15,7 +15,7 @@ import java.util.HashMap;
 import static java.util.Arrays.asList;
 
 public class Product {
-    private static StringBuilder lastUsedProductID = new StringBuilder("@");
+    private static StringBuilder lastUsedProductID;
     private String productId;
     private String name;
     private String brand;
@@ -380,11 +380,18 @@ public class Product {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/products.json")));
             Product[] allPro = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Product[].class);
             allProducts = (allPro == null) ? new ArrayList<>() : new ArrayList<>(asList(allPro));
-            if (allProducts.size() != 0)
-                lastUsedProductID = new StringBuilder(allProducts.get(allProducts.size() - 1).getProductId());
+            setLastUsedProductID();
             return "Read Products Data Successfully.";
         } catch (FileNotFoundException e) {
             return "Problem loading data from product.json";
+        }
+    }
+
+    private static void setLastUsedProductID() {
+        if (allProducts.size() == 0) {
+            lastUsedProductID = new StringBuilder("@");
+        } else {
+            lastUsedProductID = new StringBuilder(allProducts.get(allProducts.size() - 1).getProductId());
         }
     }
 

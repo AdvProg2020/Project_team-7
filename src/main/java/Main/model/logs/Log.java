@@ -13,7 +13,7 @@ import java.util.Date;
 import static java.util.Arrays.asList;
 
 public abstract class Log {
-    private static StringBuilder lastUsedLogID = new StringBuilder("@");
+    private static StringBuilder lastUsedLogID;
     protected String logId;
     protected Date date;
     protected double totalCost;
@@ -55,11 +55,18 @@ public abstract class Log {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/logs.json")));
             Log[] allLog = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Log[].class);
             allLogs = (allLog == null) ? new ArrayList<>() : new ArrayList<>(asList(allLog));
-            if (allLogs.size() != 0)
-                lastUsedLogID = new StringBuilder(allLogs.get(allLogs.size() - 1).getLogId());
+            setLastUsedLogID();
             return "Read Logs Data Successfully.";
         } catch (FileNotFoundException e) {
             return "Problem loading data from logs.json";
+        }
+    }
+
+    private static void setLastUsedLogID() {
+        if (allLogs.size() == 0) {
+            lastUsedLogID = new StringBuilder("@");
+        } else {
+            lastUsedLogID = new StringBuilder(allLogs.get(allLogs.size() - 1).getLogId());
         }
     }
 

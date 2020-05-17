@@ -14,7 +14,7 @@ import java.util.HashMap;
 import static java.util.Arrays.asList;
 
 public class DiscountCode extends DiscountAndOffTypeService {
-    private static StringBuilder lastUsedCodeID = new StringBuilder("@");
+    private static StringBuilder lastUsedCodeID;
     private String code;
     private double percent;
     private double maxAmount;
@@ -160,11 +160,18 @@ public class DiscountCode extends DiscountAndOffTypeService {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/discounts.json")));
             DiscountCode[] allDis = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, DiscountCode[].class);
             allDiscountCodes = (allDis == null) ? new ArrayList<>() : new ArrayList<>(asList(allDis));
-            if (allDiscountCodes.size() != 0)
-                lastUsedCodeID = new StringBuilder(allDiscountCodes.get(allDiscountCodes.size() - 1).getCode());
+           setLastUsedCodeID();
             return "Read Discounts Data Successfully.";
         } catch (FileNotFoundException e) {
             return "Problem loading data from discounts.json";
+        }
+    }
+
+    private static void setLastUsedCodeID() {
+        if (allDiscountCodes.size() == 0) {
+            lastUsedCodeID = new StringBuilder("@");
+        } else {
+            lastUsedCodeID = new StringBuilder(allDiscountCodes.get(allDiscountCodes.size() - 1).getCode());
         }
     }
 

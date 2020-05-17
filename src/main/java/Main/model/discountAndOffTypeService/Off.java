@@ -1,11 +1,9 @@
 package Main.model.discountAndOffTypeService;
 
 import Main.controller.GeneralController;
-import Main.model.Category;
 import Main.model.IDGenerator;
 import Main.model.Product;
 import Main.model.accounts.SellerAccount;
-import Main.model.exceptions.DiscountAndOffTypeServiceException;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;
@@ -15,7 +13,7 @@ import java.util.Date;
 import static java.util.Arrays.asList;
 
 public class Off extends DiscountAndOffTypeService {
-    private static StringBuilder lastUsedOffID = new StringBuilder("@");
+    private static StringBuilder lastUsedOffID ;
     private SellerAccount seller;
     private String offId;
     private ArrayList<Product> products = new ArrayList<Product>();
@@ -155,11 +153,18 @@ public class Off extends DiscountAndOffTypeService {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/offs.json")));
             Off[] allOff = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Off[].class);
             allOffs = (allOff == null) ? new ArrayList<>() : new ArrayList<>(asList(allOff));
-            if (allOffs.size() != 0)
-                lastUsedOffID = new StringBuilder(allOffs.get(allOffs.size() - 1).getOffId());
+            setLastUsedOffID();
             return "Read Offs Data Successfully.";
         } catch (FileNotFoundException e) {
             return "Problem loading data from offs.json";
+        }
+    }
+
+    private static void setLastUsedOffID() {
+        if (allOffs.size() == 0) {
+            lastUsedOffID = new StringBuilder("@");
+        } else {
+            lastUsedOffID = new StringBuilder(allOffs.get(allOffs.size() - 1).getOffId());
         }
     }
 
