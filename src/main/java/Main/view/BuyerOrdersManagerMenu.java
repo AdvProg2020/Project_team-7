@@ -22,7 +22,7 @@ public class BuyerOrdersManagerMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
-                    System.out.println(buyerController.showOrderWithId(input));
+                    System.out.println(buyerController.showOrderWithId(input) + "\n");
                     this.run();
                 }
             }
@@ -47,10 +47,10 @@ public class BuyerOrdersManagerMenu extends Menu {
                     String score = scanner.nextLine().trim();
                     try {
                         buyerController.rateProductWithId(input, score);
-                        System.out.println("Rate registered successfully.");
+                        System.out.println("Rate registered successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }
@@ -60,7 +60,7 @@ public class BuyerOrdersManagerMenu extends Menu {
 
     @Override
     public void run() throws Exception {
-        System.out.println(buyerController.viewBuyerOrders());
+        System.out.println(buyerController.viewBuyerOrders() + "\n");
         this.show();
         this.execute();
     }

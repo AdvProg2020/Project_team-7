@@ -53,9 +53,10 @@ public class DigestMenu extends Menu {
                 else {
                     try {
                         generalController.selectSellerWithUsername(input);
+                        System.out.println("Seller selected successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
 
@@ -66,7 +67,7 @@ public class DigestMenu extends Menu {
 
     @Override
     public void run() throws Exception {
-        System.out.println(generalController.showProductDigest());
+        System.out.println(generalController.showProductDigest() + "\n");
         this.show();
         this.execute();
     }

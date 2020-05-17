@@ -118,10 +118,10 @@ public class CategoryManagerMenu extends Menu {
                 else {
                     try {
                         managerController.removeCategoryWithName(input);
-                        System.out.println("Category removed successfully.");
+                        System.out.println("Category removed successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }
@@ -131,7 +131,7 @@ public class CategoryManagerMenu extends Menu {
 
     @Override
     public void run() throws Exception {
-        System.out.println(generalController.showAllCategories());
+        System.out.println(generalController.showAllCategories() + "\n");
         this.show();
         this.execute();
     }

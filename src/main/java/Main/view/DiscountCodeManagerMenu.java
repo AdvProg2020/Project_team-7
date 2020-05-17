@@ -25,7 +25,7 @@ public class DiscountCodeManagerMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
-                    System.out.println(managerController.viewDiscountCodeWithCode(input));
+                    System.out.println(managerController.viewDiscountCodeWithCode(input) + "\n");
                     this.run();
                 }
             }
@@ -50,10 +50,10 @@ public class DiscountCodeManagerMenu extends Menu {
                         EditDiscountCode editDiscountCode = managerController.getDiscountCodeToEdit(input);
                         getFieldsToEdit(editDiscountCode);
                         managerController.submitDiscountCodeEdits(editDiscountCode);
-                        System.out.println("Discount code edited successfully.");
+                        System.out.println("Discount code edited successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
 
@@ -105,10 +105,10 @@ public class DiscountCodeManagerMenu extends Menu {
                 else {
                     try {
                         managerController.removeDiscountCodeWithCode(input);
-                        System.out.println("Discount code removed successfully.");
+                        System.out.println("Discount code removed successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }
@@ -118,7 +118,7 @@ public class DiscountCodeManagerMenu extends Menu {
 
     @Override
     public void run() throws Exception {
-        System.out.println(managerController.showAllDiscountCodes());
+        System.out.println(managerController.showAllDiscountCodes() + "\n");
         this.show();
         this.execute();
     }
