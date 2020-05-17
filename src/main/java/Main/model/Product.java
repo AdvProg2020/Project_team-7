@@ -139,7 +139,8 @@ public class Product {
 
     public String compareProductWithProductWithId(String id) throws Exception {
         Product productToBeCompared = getProductWithId(id);
-        if (productToBeCompared.getCategory().equals(category) && category != null) {
+        Category productToBeComparedCategory = productToBeCompared.getCategory();
+        if (category!=null&&productToBeComparedCategory!=null&&productToBeComparedCategory==category) {
             return compareProductsInSameCategory(productToBeCompared);
         } else
             return "Products are not in the Same Category. Comparison is invalid!";
