@@ -16,12 +16,12 @@ public class DiscountCodeManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a code or Back to return:");
+                System.out.println("Enter a code or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
@@ -37,12 +37,12 @@ public class DiscountCodeManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a code or Back to return:");
+                System.out.println("Enter a code or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
@@ -66,10 +66,10 @@ public class DiscountCodeManagerMenu extends Menu {
         System.out.println("Fields you are allowed to edit:(You can insert any field you want to edit unless you insert" +
                 " Submit.)\nStart date\nEnd date\nPercent\nMaximum amount\nMaximum number of use\nBuyer username to be added" +
                 "\nBuyer username to be removed");
-        String input = new String();
+        String input;
         while (!(input = scanner.nextLine().trim()).equalsIgnoreCase("submit")) {
             System.out.println("Enter new content:");
-            String newContent = scanner.nextLine();
+            String newContent = scanner.nextLine().trim();
             if (input.equalsIgnoreCase("start date"))
                 editDiscountCode.setStartDate(newContent);
             else if (input.equalsIgnoreCase("end date"))
@@ -94,12 +94,12 @@ public class DiscountCodeManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a code or Back to return:");
+                System.out.println("Enter a code or 'Back' to return:");
             }
 
             @Override
             public void execute() throws Exception {
-                String input = scanner.nextLine();
+                String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
