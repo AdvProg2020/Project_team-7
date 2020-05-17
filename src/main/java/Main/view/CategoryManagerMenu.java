@@ -107,7 +107,7 @@ public class CategoryManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter category Id or 'Back' to return:");
+                System.out.println("Enter category name or 'Back' to return:");
             }
 
             @Override

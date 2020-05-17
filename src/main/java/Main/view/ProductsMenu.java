@@ -26,7 +26,7 @@ public class ProductsMenu extends Menu {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if (input.equalsIgnoreCase("view")) {
+                else if (input.equalsIgnoreCase("show")) {
                     System.out.println(generalController.showAllCategories());
                     this.run();
                 } else {
