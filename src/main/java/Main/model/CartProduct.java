@@ -25,7 +25,7 @@ public class CartProduct {
     public void decreaseNumberByOne() throws Exception {
         if (numberOfProduct == 1) {
             cart.removeProductFromCart(this);
-            throw new Exception("prodduct removed from cart !");
+            throw new Exception("product removed from cart !");
         }
         this.numberOfProduct -= 1;
     }

@@ -28,9 +28,9 @@ public class EditOffRequest extends Request {
 
     public String showRequest() {
         return "Edit Off Request:\n" +
-                "Request ID: " + this.requestId + "\n" +
-                "Off ID: " + off.getOffId() + "\n" +
-                "Editing Following Fields:\n" + extractEditedFields();
+                "\tRequest ID: " + this.requestId + "\n" +
+                "\tOff ID: " + off.getOffId() + "\n" +
+                "\tEditing Following Fields:\n" + extractEditedFields();
     }
 
     private String extractEditedFields() {

@@ -15,7 +15,7 @@ public class AddProductRequest extends Request {
 
     public String showRequest() {
         return "Add New Product Request:\n" +
-                "Request ID: " + this.requestId + "\n" +
+                "\tRequest ID: " + this.requestId + "\n" +
                 product.showProductDigest() + "\n";
     }
 

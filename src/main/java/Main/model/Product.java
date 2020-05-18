@@ -64,13 +64,13 @@ public class Product {
         }
         return
                 "name: " + name +
-                        "\nid: " + productId +
-                        "\ndescription: " + description +
-                        "\nprice: " + price +
-                        "\noff amount: " + makeOffAmount() +
-                        "\ncategory: " + category.getName() +
-                        "\nseller(s): " + makeSellersList() +
-                        "\naverage score: " + calculateAverageScore();
+                        "\n\tid: " + productId +
+                        "\n\tdescription: " + description +
+                        "\n\tprice: " + price +
+                        "\n\toff amount: " + makeOffAmount() +
+                        "\n\tcategory: " + category.getName() +
+                        "\n\tseller(s): " + makeSellersList() +
+                        "\n\taverage score: " + calculateAverageScore();
     }
 
     public String makeOffAmount() {
@@ -91,25 +91,25 @@ public class Product {
     public String showProductAttributes() {
         return
                 "general attributes: \n" + showGeneralAttributes() +
-                        "category: " + category.getName() +
+                        "\tcategory: " + category.getName() +
                         showSpecialFeatures();
     }
 
     public String showGeneralAttributes() {
         return
                 "name: " + name +
-                        "\nbrand: " + brand +
-                        "\nprice: " + price +
-                        "\nseller(s): " + makeSellersList() +
-                        "\navailability: " + showAvailability() +
-                        "\naverage score: " + getAverageScore();
+                        "\n\tbrand: " + brand +
+                        "\n\tprice: " + price +
+                        "\n\tseller(s): " + makeSellersList() +
+                        "\n\tavailability: " + showAvailability() +
+                        "\n\taverage score: " + getAverageScore();
 
     }
 
     public String showSpecialFeatures() {
         StringBuilder features = new StringBuilder();
         for (String key : specialFeatures.keySet()) {
-            features.append("\n").append(key).append(": ").append(specialFeatures.get(key));
+            features.append("\n\t").append(key).append(": ").append(specialFeatures.get(key));
         }
         return features.toString();
     }

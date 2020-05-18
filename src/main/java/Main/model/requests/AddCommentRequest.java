@@ -15,11 +15,11 @@ public class AddCommentRequest extends Request {
 
     public String showRequest() {
         return "Add New Comment Request:\n" +
-                "Request ID: " + this.requestId + "\n" +
-                "Comment is related to product " + comment.getProduct().getName() + "\n" +
-                "is written by user " + comment.getUser().getFirstName() + " " + comment.getUser().getLastName() + "\n" +
-                "Comment Title: " + comment.getTitle() + "\n" +
-                "Comment Content: " + comment.getContent();
+                "\tRequest ID: " + this.requestId + "\n" +
+                "\tComment is related to product " + comment.getProduct().getName() + "\n" +
+                "\tis written by user " + comment.getUser().getFirstName() + " " + comment.getUser().getLastName() + "\n" +
+                "\tComment Title: " + comment.getTitle() + "\n" +
+                "\tComment Content: " + comment.getContent();
     }
 
     public void acceptRequest() {

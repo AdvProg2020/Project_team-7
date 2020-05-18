@@ -29,11 +29,11 @@ public class EditProductRequest extends Request {
 
     public String showRequest() {
         return "Edit Product Request:\n" +
-                "Request ID: " + this.requestId + "\n" +
-                "Product ID: " + product.getProductId() + "\n" +
-                "Product Name: " + product.getName() + "\n" +
-                "Product Brand: " + product.getBrand() + "\n" +
-                "Editing Following Fields:\n" + extractEditedFields();
+                "\tRequest ID: " + this.requestId + "\n" +
+                "\tProduct ID: " + product.getProductId() + "\n" +
+                "\tProduct Name: " + product.getName() + "\n" +
+                "\tProduct Brand: " + product.getBrand() + "\n" +
+                "\tEditing Following Fields:\n" + extractEditedFields();
     }
 
     private String extractEditedFields() {

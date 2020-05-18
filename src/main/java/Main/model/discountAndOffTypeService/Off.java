@@ -52,12 +52,12 @@ public class Off extends DiscountAndOffTypeService {
     public String viewMe() {
         return
                 "Id: " + offId +
-                        "\nseller: " + seller.getCompanyName() +
-                        "\nproducts: " + makeProductList() +
-                        "\noff amount: " + offAmount + "%" +
-                        "\nstart date:" + dateFormat.format(startDate) +
-                        "\nend date: " + dateFormat.format(endDate) +
-                        "\nstatus: " + offStatus;
+                        "\n\tseller: " + seller.getCompanyName() +
+                        "\n\tproducts: " + makeProductList() +
+                        "\n\toff amount: " + offAmount + "%" +
+                        "\n\tstart date:" + dateFormat.format(startDate) +
+                        "\n\tend date: " + dateFormat.format(endDate) +
+                        "\n\tstatus: " + offStatus;
     }
 
     public static String viewAllOffs() {

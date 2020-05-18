@@ -14,7 +14,7 @@ public class AddOffRequest extends Request {
 
     public String showRequest() {
         return "Add New Off Request:\n" +
-                "Request ID: " + this.requestId + "\n" +
+                "\tRequest ID: " + this.requestId + "\n" +
                 off.viewMe() + "\n";
     }
 

@@ -14,10 +14,10 @@ public class DeleteProductRequest extends Request {
 
     public String showRequest() {
         return "Delete Product Request:\n" +
-                "Request ID: " + this.requestId + "\n" +
-                "Product ID: " + product.getProductId() + "\n" +
-                "Product Name: " + product.getName() + "\n" +
-                "Product Brand: " + product.getBrand() + "\n";
+                "\tRequest ID: " + this.requestId + "\n" +
+                "\tProduct ID: " + product.getProductId() + "\n" +
+                "\tProduct Name: " + product.getName() + "\n" +
+                "\tProduct Brand: " + product.getBrand() + "\n";
     }
 
     public void acceptRequest() {
