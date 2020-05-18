@@ -1,9 +1,6 @@
 package Main.controller;
 
-import Main.model.Cart;
-import Main.model.IDGenerator;
-import Main.model.Product;
-import Main.model.Rate;
+import Main.model.*;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
@@ -127,13 +124,40 @@ public class BuyerController {
         return currentBuyersCart.getCartTotalPriceConsideringOffs() * percentOfCostToBePaid / 100;
     }
 
-    public String finalizePurchaseAndPay() throws Exception {
-        if (((BuyerAccount) GeneralController.currentUser).getCart().getCartsProductList().isEmpty())
+    public String finalizePurchaseAndPay() {
+        if (((BuyerAccount) GeneralController.currentUser).getCart().getCartsProductList().isEmpty()) {
             return "your cart is empty!";
-        pay();
+        }
+        try {
+            getProductsFromRepository();
+            pay();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
         createPurchaseHistoryElements();
         currentBuyersCart.emptyCart();
         return "Purchase finished successfully.\n";
+    }
+
+    private void getProductsFromRepository() throws Exception {
+        validateGettingProductsFromRepository();
+        for (CartProduct cartProduct : currentBuyersCart.getCartProducts()) {
+            cartProduct.getProduct().decreaseAvailabilityBy(cartProduct.getNumberOfProduct());
+        }
+    }
+
+    private void validateGettingProductsFromRepository() throws Exception {
+        StringBuilder gettingProductsFromRepositoryErrors = new StringBuilder();
+        for (CartProduct cartProduct : currentBuyersCart.getCartProducts()) {
+            if (!cartProduct.isProductAvailabilityEnough()) {
+                gettingProductsFromRepositoryErrors.append("sorry we are out of product with ID : "
+                                + cartProduct.getProduct().getProductId() + "\nthere is only " + cartProduct.getProduct().getAvailability() +
+                        " of this product left !\n" + "please increase number of this product !\n");
+            }
+        }
+        if (gettingProductsFromRepositoryErrors.length() != 0) {
+            throw new Exception("there were some errors in purchase process : \n");
+        }
     }
 
     private void pay() throws Exception {

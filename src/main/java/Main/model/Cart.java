@@ -95,6 +95,10 @@ public class Cart {
         return cartsProductList;
     }
 
+    public ArrayList<CartProduct> getCartProducts() {
+        return cartProducts;
+    }
+
     public boolean isThereProductWithID(String productID) {
         for (CartProduct cartProduct : cartProducts) {
             if (cartProduct.getProduct().getProductId().equals(productID)) {

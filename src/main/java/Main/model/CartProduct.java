@@ -18,7 +18,10 @@ public class CartProduct {
         this.cart = cart;
     }
 
-    public void increaseNumberByOne() {
+    public void increaseNumberByOne() throws Exception {
+        if(product.getAvailability()<this.numberOfProduct+1){
+           throw new Exception("sorry we are out of this product ! you can add no more of it!\n");
+        }
         this.numberOfProduct += 1;
     }
 
@@ -50,6 +53,13 @@ public class CartProduct {
         return "[Product ID : " + product.getProductId() + "\tProduct Name : " + product.getName() + "\tBrand : " +
                 product.getBrand() + "\n" + finalSeller.viewMe() + "  Price : " + product.getPrice() + "\tOff : "
                 + (product.getOff() != null ? "%" + product.getOff().getOffAmount() : "no off is set for this product") + "]\n";
+    }
+
+    public boolean isProductAvailabilityEnough(){
+        if(product.getAvailability()<this.numberOfProduct){
+            return false;
+        }
+        return true;
     }
 
     public Product getProduct() {
