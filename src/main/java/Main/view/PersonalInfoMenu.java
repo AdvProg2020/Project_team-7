@@ -48,7 +48,7 @@ public class PersonalInfoMenu extends Menu {
 
     @Override
     public void run() throws Exception {
-        System.out.println(generalController.viewPersonalInfo());
+        System.out.println(generalController.viewPersonalInfo() + "\n");
         this.show();
         this.execute();
     }

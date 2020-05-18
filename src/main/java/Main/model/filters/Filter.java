@@ -12,6 +12,8 @@ public abstract class Filter {
             current = current.concat(filter.show());
             current = current.concat("\n");
         }
+        if (current.equals(""))
+            return "No filters selected!";
         return current;
     }
 
@@ -23,7 +25,7 @@ public abstract class Filter {
         for (Filter currentFilter : GeneralController.currentFilters) {
             currentFilter.removeDiffs(filteredProducts, products);
         }
-        if (filteredProducts.isEmpty())
+        if (filteredProducts.isEmpty() && GeneralController.currentFilters.isEmpty())
             return products;
         return filteredProducts;
     }

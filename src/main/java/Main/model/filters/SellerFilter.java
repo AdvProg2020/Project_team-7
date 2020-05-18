@@ -10,7 +10,7 @@ public class SellerFilter extends Filter {
     private String sellerUserName;
 
     public SellerFilter(String sellerUserName, ArrayList<Product> products) {
-        this.name = "Product Name";
+        this.name = "Seller";
         this.sellerUserName = sellerUserName;
     }
 
