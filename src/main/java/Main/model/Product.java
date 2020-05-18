@@ -4,8 +4,11 @@ import Main.controller.GeneralController;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
+import Main.model.discountAndOffTypeService.DiscountCode;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.discountAndOffTypeService.OffStatus;
+import Main.model.logs.BuyLog;
+import Main.model.logs.Log;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;
@@ -33,6 +36,10 @@ public class Product {
     private Off off;
     private ArrayList<Rate> rates = new ArrayList<Rate>();
     private HashMap<String, String> specialFeatures = new HashMap<String, String>();
+
+    private ArrayList<String> sellersStringRecord = new ArrayList<>();
+    private String categoryStringRecord;
+    private ArrayList<String> buyersStringRecord = new ArrayList<>();
 
     public Product(String name, String brand, int availability, String description, double price, SellerAccount sellerAccount) {
         this.productId = IDGenerator.getNewID(lastUsedProductID);
@@ -412,6 +419,70 @@ public class Product {
             return "Saved Products Data Successfully.";
         } catch (IOException e) {
             return "Problem saving products data.";
+        }
+    }
+
+
+    public static void setStringRecordObjects(){
+        try {
+            setStringRecordBuyers();
+            setStringRecordCategory();
+            setStringRecordSellers();
+        }
+        catch (Exception e){}
+    }
+
+    private static void setStringRecordSellers() throws Exception {
+        for (Product product : allProducts) {
+            product.sellers.clear();
+            for (String sellerUserName : product.sellersStringRecord) {
+                product.sellers.add(SellerAccount.getSellerWithUserName(sellerUserName));
+            }
+        }
+    }
+
+    private static void setStringRecordBuyers() throws Exception {
+        for (Product product : allProducts) {
+            product.buyers.clear();
+            for (String buyerUserName : product.buyersStringRecord) {
+                product.buyers.add(BuyerAccount.getBuyerWithUserName(buyerUserName));
+            }
+        }
+    }
+
+    private static void setStringRecordCategory() throws Exception {
+        for (Product product : allProducts) {
+            product.category = Category.getCategoryWithName(product.categoryStringRecord);
+        }
+    }
+
+    public static void getObjectStringRecords(){
+        getBuyersStringRecord();
+        getSellersStringRecord();
+        getCategoriesStringRecord();
+    }
+
+    private static void getSellersStringRecord(){
+        for (Product product : allProducts) {
+            product.buyersStringRecord.clear();
+            for (BuyerAccount buyer : product.buyers) {
+                product.buyersStringRecord.add(buyer.getUserName());
+            }
+        }
+    }
+
+    private static void getBuyersStringRecord(){
+        for (Product product : allProducts) {
+            product.sellersStringRecord.clear();
+            for (SellerAccount seller : product.sellers) {
+                product.sellersStringRecord.add(seller.getUserName());
+            }
+        }
+    }
+
+    private static void getCategoriesStringRecord(){
+        for (Product product : allProducts) {
+            product.categoryStringRecord = product.category.getName();
         }
     }
 }

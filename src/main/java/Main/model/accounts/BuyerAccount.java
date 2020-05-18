@@ -29,6 +29,8 @@ public class BuyerAccount extends Account {
 
     private ArrayList<String> buyHistoryStringRecord = new ArrayList<>();
     private ArrayList<String> discountCodesStringRecord = new ArrayList<>();
+    //TODO: bought products
+    //TODO : null objects like nullCategory
 
     public BuyerAccount(String userName,
                         String firstName,

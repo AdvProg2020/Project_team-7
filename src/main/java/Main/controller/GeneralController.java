@@ -448,6 +448,7 @@ public class GeneralController {
         Off.setStringRecordObjects();
         Log.setStringRecordObjects();
         Category.setStringRecordObjects();
+        Product.setStringRecordObjects();
     }
 
     public static String writeDataAndGetObjectStringRecords() {
@@ -462,6 +463,7 @@ public class GeneralController {
         Off.getObjectStringRecords();
         Log.getObjectStringRecords();
         Category.getObjectStringRecords();
+        Product.getObjectStringRecords();
     }
 
     private static String writeData() {
