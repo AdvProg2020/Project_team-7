@@ -6,7 +6,9 @@ import java.util.Date;
 
 public class SellLog extends Log {
     private double offAmount;
-    private BuyerAccount buyer;
+    protected BuyerAccount buyer;
+
+    protected String buyerStringRecord;
 
     public SellLog(String logID, Date date, double receivedAmount, String soldProducts, BuyerAccount buyer, double offAmount
             , DeliveryStatus deliveryStatus, String receiverInfo) {

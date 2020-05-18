@@ -1,6 +1,10 @@
 package Main.model.logs;
 
 import Main.controller.GeneralController;
+import Main.model.Product;
+import Main.model.accounts.BuyerAccount;
+import Main.model.accounts.SellerAccount;
+import Main.model.discountAndOffTypeService.Off;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;
@@ -90,4 +94,35 @@ public abstract class Log {
             return "Problem saving logs data.";
         }
     }
+
+
+    public static void setStringRecordObjects(){
+        try {
+            setStringRecordBuyersForSellLog();
+        }
+        catch (Exception e){}
+    }
+
+    private static void setStringRecordBuyersForSellLog() throws Exception {
+        for (Log log : allLogs) {
+            if(log instanceof SellLog){
+                SellLog sellLog = (SellLog)log;
+                sellLog.buyer = BuyerAccount.getBuyerWithUserName(sellLog.buyerStringRecord);
+            }
+        }
+    }
+
+    public static void getObjectStringRecords(){
+        getBuyerForSellLogStringRecord();
+    }
+
+    private static void getBuyerForSellLogStringRecord(){
+        for (Log log : allLogs) {
+            if(log instanceof SellLog){
+                SellLog sellLog = (SellLog) log;
+                sellLog.buyerStringRecord = sellLog.buyer.getUserName();
+            }
+        }
+    }
+
 }
