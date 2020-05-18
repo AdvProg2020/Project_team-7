@@ -56,8 +56,14 @@ public class GeneralController {
         return currentProduct.compareProductWithProductWithId(id);
     }
 
-    public void addProductToCart() {
-        ((BuyerAccount) currentUser).getCart().addCartProduct(currentCartProduct);
+    public String addProductToCart() {
+        if (currentCartProduct == null)
+            return "sorry! you should sellect the seller first.";
+        else {
+            ((BuyerAccount) currentUser).getCart().addCartProduct(currentCartProduct);
+            currentCartProduct = null;
+            return "product added to cart successfully.";
+        }
     }
 
     public void selectSellerWithUsername(String username) throws Exception {

@@ -1,6 +1,9 @@
 package Main.controller;
 
-import Main.model.*;
+import Main.model.Cart;
+import Main.model.IDGenerator;
+import Main.model.Product;
+import Main.model.Rate;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;

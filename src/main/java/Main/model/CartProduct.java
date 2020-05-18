@@ -59,4 +59,8 @@ public class CartProduct {
     public SellerAccount getFinalSeller() {
         return finalSeller;
     }
+
+    public int getNumberOfProduct() {
+        return numberOfProduct;
+    }
 }

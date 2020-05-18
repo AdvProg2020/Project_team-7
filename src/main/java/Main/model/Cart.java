@@ -14,7 +14,7 @@ public class Cart {
     public double getCartTotalPriceConsideringOffs() {
         double cartTotalPriceConsideringOffs = 0;
         for (CartProduct cartProduct : cartProducts) {
-            cartTotalPriceConsideringOffs += cartProduct.getProduct().getProductFinalPriceConsideringOff();
+            cartTotalPriceConsideringOffs += (cartProduct.getProduct().getProductFinalPriceConsideringOff()) * cartProduct.getNumberOfProduct();
         }
         return cartTotalPriceConsideringOffs;
     }

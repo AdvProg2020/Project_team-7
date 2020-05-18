@@ -18,7 +18,7 @@ public class BuyerAccount extends Account {
 
     //TODO : not allowing more than one editRequest???
 
-    private Cart cart = null;
+    private Cart cart;
     private ArrayList<BuyLog> buyHistory = new ArrayList<>();
     private ArrayList<DiscountCode> discountCodes = new ArrayList<>();
     private ArrayList<Product> boughtProducts = new ArrayList<>();
@@ -35,6 +35,7 @@ public class BuyerAccount extends Account {
                         double balance) {
         super(userName, firstName, lastName, email, phoneNumber, passWord);
         this.balance = balance;
+        this.cart = new Cart();
     }
 
     public String editPersonalInfo(String field, String newContent) {

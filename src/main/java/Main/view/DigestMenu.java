@@ -1,7 +1,6 @@
 package Main.view;
 
 import Main.controller.GeneralController;
-import Main.controller.ManagerController;
 import Main.model.accounts.ManagerAccount;
 import Main.model.accounts.SellerAccount;
 
@@ -28,8 +27,7 @@ public class DigestMenu extends Menu {
                     SignInMenu signInMenu = new SignInMenu(this);
                     signInMenu.run();
                 } else {
-                    generalController.addProductToCart();
-                    System.out.println("Added to cart successfully.");
+                    System.out.println(generalController.addProductToCart());
                 }
                 this.parentMenu.run();
             }
