@@ -25,6 +25,7 @@ public class CreateSellerAccountRequest extends Request {
     }
 
     public void declineRequest() {
+        allRequests.remove(this);
         Account.getReservedUserNames().remove(sellerAccount.getUserName());
     }
 }

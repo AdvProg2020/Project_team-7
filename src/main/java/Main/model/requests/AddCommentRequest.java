@@ -28,6 +28,7 @@ public class AddCommentRequest extends Request {
     }
 
     public void declineRequest() {
+        allRequests.remove(this);
         comment.setCommentStatus(CommentStatus.DECLINED_COMMENT);
     }
 }

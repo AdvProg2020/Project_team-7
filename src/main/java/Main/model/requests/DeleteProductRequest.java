@@ -25,6 +25,6 @@ public class DeleteProductRequest extends Request {
     }
 
     public void declineRequest() {
-
+        allRequests.remove(this);
     }
 }

@@ -25,6 +25,6 @@ public class AddProductRequest extends Request {
     }
 
     public void declineRequest() {
-        //TODO: declines' implementation
+        allRequests.remove(this);
     }
 }
