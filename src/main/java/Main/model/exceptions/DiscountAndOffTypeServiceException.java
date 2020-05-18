@@ -47,7 +47,7 @@ public class DiscountAndOffTypeServiceException {
 
 
     public static void validateInputDate(String inputDate) throws Exception {
-        if (!inputDate.matches("[1-9]{1,4}/(0[1-9]|1[012]|[1-9])/(0[1-9]|[12][0-9]|3[01]|[1-9]) ([01][0-9]|2[0123]|[0-9]):([0-5][0-9]|[0-9]):([0-5][0-9]|[0-9])")) {
+        if (!inputDate.matches("[0-9]{1,4}/(0[1-9]|1[012]|[1-9])/(0[1-9]|[12][0-9]|3[01]|[1-9]) ([01][0-9]|2[0123]|[0-9]):([0-5][0-9]|[0-9]):([0-5][0-9]|[0-9])")) {
             throw new Exception("this date isn't acceptable! please enter date in format yyyy/MM/dd HH:mm:ss! \nalso make" +
                     " sure that month, day, hour, minute, second are respectively less than/equal to 12, 31, 23, 59, 59!\n");
         }

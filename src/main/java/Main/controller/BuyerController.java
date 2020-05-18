@@ -4,6 +4,7 @@ import Main.model.*;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
+import Main.model.discountAndOffTypeService.DiscountAndOffTypeService;
 import Main.model.discountAndOffTypeService.DiscountCode;
 import Main.model.logs.BuyLog;
 import Main.model.logs.DeliveryStatus;

@@ -6,6 +6,11 @@ import Main.model.exceptions.AccountsException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class SellerAccountTest {
     @Test
     public void addSellerAndIsThereSellerTest() throws AccountsException {
