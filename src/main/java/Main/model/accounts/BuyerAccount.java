@@ -29,7 +29,7 @@ public class BuyerAccount extends Account {
 
     private ArrayList<String> buyHistoryStringRecord = new ArrayList<>();
     private ArrayList<String> discountCodesStringRecord = new ArrayList<>();
-    //TODO: bought products
+    private ArrayList<String> boughtProductsStringRecord = new ArrayList();
     //TODO : null objects like nullCategory
 
     public BuyerAccount(String userName,
@@ -248,6 +248,7 @@ public class BuyerAccount extends Account {
         try {
             setStringRecordDiscounts();
             setStringRecordBuyHistory();
+            setStringRecordBoughtProducts();
         }
         catch (Exception e){}
     }
@@ -270,9 +271,19 @@ public class BuyerAccount extends Account {
         }
     }
 
+    private static void setStringRecordBoughtProducts() throws Exception {
+        for (BuyerAccount buyer : allBuyers) {
+            buyer.boughtProducts.clear();
+            for (String productID : buyer.boughtProductsStringRecord) {
+                buyer.boughtProducts.add(Product.getProductWithId(productID));
+            }
+        }
+    }
+
     public static void getObjectStringRecords(){
             getDiscountsStringRecord();
             getBuyHistoriesStringRecord();
+            getBoughtProductsStringRecord();
     }
 
     private static void getDiscountsStringRecord(){
@@ -291,6 +302,15 @@ public class BuyerAccount extends Account {
             buyer.discountCodesStringRecord.clear();
             for (DiscountCode discountCode : buyer.discountCodes) {
                 buyer.discountCodesStringRecord.add(discountCode.getCode());
+            }
+        }
+    }
+
+    private static void getBoughtProductsStringRecord(){
+        for (BuyerAccount buyer : allBuyers) {
+            buyer.boughtProductsStringRecord.clear();
+            for (Product boughtProduct : buyer.boughtProducts) {
+                buyer.boughtProductsStringRecord.add(boughtProduct.getProductId());
             }
         }
     }
