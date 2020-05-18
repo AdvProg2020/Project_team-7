@@ -4,11 +4,8 @@ import Main.controller.GeneralController;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
-import Main.model.discountAndOffTypeService.DiscountCode;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.discountAndOffTypeService.OffStatus;
-import Main.model.logs.BuyLog;
-import Main.model.logs.Log;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;
@@ -147,7 +144,7 @@ public class Product {
     public String compareProductWithProductWithId(String id) throws Exception {
         Product productToBeCompared = getProductWithId(id);
         Category productToBeComparedCategory = productToBeCompared.getCategory();
-        if (category!=null&&productToBeComparedCategory!=null&&productToBeComparedCategory==category) {
+        if (category != null && productToBeComparedCategory != null && productToBeComparedCategory == category) {
             return compareProductsInSameCategory(productToBeCompared);
         } else
             return "Products are not in the Same Category. Comparison is invalid!";
@@ -368,7 +365,7 @@ public class Product {
     }
 
     public void addSpecialFeature(String specialFeature, String specialFeatureValue) {
-        if(!specialFeatures.containsKey(specialFeature)) {
+        if (!specialFeatures.containsKey(specialFeature)) {
             specialFeatures.put(specialFeature, specialFeatureValue);
         }
     }
@@ -423,13 +420,13 @@ public class Product {
     }
 
 
-    public static void setStringRecordObjects(){
+    public static void setStringRecordObjects() {
         try {
             setStringRecordBuyers();
             setStringRecordCategory();
             setStringRecordSellers();
+        } catch (Exception e) {
         }
-        catch (Exception e){}
     }
 
     private static void setStringRecordSellers() throws Exception {
@@ -452,17 +449,17 @@ public class Product {
 
     private static void setStringRecordCategory() throws Exception {
         for (Product product : allProducts) {
-            product.category = (product.categoryStringRecord==null?null:Category.getCategoryWithName(product.categoryStringRecord));
+            product.category = (product.categoryStringRecord == null ? null : Category.getCategoryWithName(product.categoryStringRecord));
         }
     }
 
-    public static void getObjectStringRecords(){
+    public static void getObjectStringRecords() {
         getBuyersStringRecord();
         getSellersStringRecord();
         getCategoriesStringRecord();
     }
 
-    private static void getSellersStringRecord(){
+    private static void getSellersStringRecord() {
         for (Product product : allProducts) {
             product.buyersStringRecord.clear();
             for (BuyerAccount buyer : product.buyers) {
@@ -471,7 +468,7 @@ public class Product {
         }
     }
 
-    private static void getBuyersStringRecord(){
+    private static void getBuyersStringRecord() {
         for (Product product : allProducts) {
             product.sellersStringRecord.clear();
             for (SellerAccount seller : product.sellers) {
@@ -480,9 +477,9 @@ public class Product {
         }
     }
 
-    private static void getCategoriesStringRecord(){
+    private static void getCategoriesStringRecord() {
         for (Product product : allProducts) {
-            product.categoryStringRecord = (product.category==null?null:product.category.getName());
+            product.categoryStringRecord = (product.category == null ? null : product.category.getName());
         }
     }
 }

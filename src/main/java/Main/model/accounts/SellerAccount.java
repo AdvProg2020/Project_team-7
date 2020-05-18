@@ -3,9 +3,7 @@ package Main.model.accounts;
 import Main.controller.GeneralController;
 import Main.model.Product;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
-import Main.model.discountAndOffTypeService.DiscountCode;
 import Main.model.discountAndOffTypeService.Off;
-import Main.model.logs.BuyLog;
 import Main.model.logs.Log;
 import Main.model.logs.SellLog;
 import Main.model.sorting.UsersSort;
@@ -121,7 +119,7 @@ public class SellerAccount extends Account {
         return "company name : " + this.companyName + "\n\tcompany information : " + companyExtraInformation + "\n";
     }
 
-    public void addProduct(Product product){
+    public void addProduct(Product product) {
         products.add(product);
     }
 
@@ -245,13 +243,13 @@ public class SellerAccount extends Account {
         }
     }
 
-    public static void setStringRecordObjects(){
+    public static void setStringRecordObjects() {
         try {
             setStringRecordOffList();
             setStringRecordSellHistory();
             setStringRecordProducts();
+        } catch (Exception e) {
         }
-        catch (Exception e){}
     }
 
     private static void setStringRecordOffList() throws Exception {
@@ -267,7 +265,7 @@ public class SellerAccount extends Account {
         for (SellerAccount seller : allSellers) {
             seller.sellHistory.clear();
             for (String logID : seller.sellHistoryStringRecord) {
-                seller.sellHistory.add((SellLog)Log.getLogWithID(logID));
+                seller.sellHistory.add((SellLog) Log.getLogWithID(logID));
             }
         }
     }
@@ -281,13 +279,13 @@ public class SellerAccount extends Account {
         }
     }
 
-    public static void getObjectStringRecords(){
+    public static void getObjectStringRecords() {
         getOffListStringRecord();
         getProductsStringRecord();
         getSellHistoryStringRecord();
     }
 
-    private static void getOffListStringRecord(){
+    private static void getOffListStringRecord() {
         for (SellerAccount seller : allSellers) {
             seller.offListStringRecord.clear();
             for (Off off : seller.offList) {
@@ -296,7 +294,7 @@ public class SellerAccount extends Account {
         }
     }
 
-    private static void getProductsStringRecord(){
+    private static void getProductsStringRecord() {
         for (SellerAccount seller : allSellers) {
             seller.productsStringRecord.clear();
             for (Product product : seller.products) {
@@ -305,7 +303,7 @@ public class SellerAccount extends Account {
         }
     }
 
-    private static void getSellHistoryStringRecord(){
+    private static void getSellHistoryStringRecord() {
         for (SellerAccount seller : allSellers) {
             seller.sellHistoryStringRecord.clear();
             for (SellLog sellLog : seller.sellHistory) {

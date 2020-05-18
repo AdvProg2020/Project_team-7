@@ -22,7 +22,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
     private HashMap<BuyerAccount, Integer> users = new HashMap<>();
     private static ArrayList<DiscountCode> allDiscountCodes = new ArrayList<>();
 
-    private HashMap<String,Integer> usersStringRecord = new HashMap<>();
+    private HashMap<String, Integer> usersStringRecord = new HashMap<>();
 
     public DiscountCode(String startDate, String endDate, String percent, String maxAmount, String maxNumberOfUse, ArrayList<BuyerAccount> users) throws Exception {
         super(startDate, endDate);
@@ -35,7 +35,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
 
     public void setUsers(ArrayList<BuyerAccount> buyers) {
         for (BuyerAccount buyer : buyers) {
-            users.put(buyer,maxNumberOfUse);
+            users.put(buyer, maxNumberOfUse);
         }
     }
 
@@ -168,32 +168,32 @@ public class DiscountCode extends DiscountAndOffTypeService {
 
     public static void giveBonusDiscountCodeToSpecialBuyers() throws Exception {
         Date startDate = new Date();
-        if(!DateUtils.isSameDay(startDate,dateFormat.parse("2000/05/04 12:05:04"))) {
+        if (!DateUtils.isSameDay(startDate, dateFormat.parse("2000/05/04 12:05:04"))) {
             return;
         }
-            ArrayList<BuyerAccount> levelTwoBuyers = new ArrayList<>();
-            ArrayList<BuyerAccount> levelOneBuyers = new ArrayList<>();
-            setSpecialBuyers(levelOneBuyers,levelTwoBuyers);
-            if (levelOneBuyers.size() != 0) {
-                DiscountCode discountCodeLevelOne = new DiscountCode(dateFormat.format(startDate),
-                        dateFormat.format(getDateForAfterWeeks(startDate, 2)), "20",
-                        "40", "1", levelOneBuyers);
-                discountCodeLevelOne.addDiscountCode();
-            }
-            if (levelTwoBuyers.size() != 0) {
-                DiscountCode discountCodeLevelTwo = new DiscountCode(dateFormat.format(startDate),
-                        dateFormat.format(getDateForAfterWeeks(startDate, 4)), "40",
-                        "60", "2", levelTwoBuyers);
-                discountCodeLevelTwo.addDiscountCode();
-            }
+        ArrayList<BuyerAccount> levelTwoBuyers = new ArrayList<>();
+        ArrayList<BuyerAccount> levelOneBuyers = new ArrayList<>();
+        setSpecialBuyers(levelOneBuyers, levelTwoBuyers);
+        if (levelOneBuyers.size() != 0) {
+            DiscountCode discountCodeLevelOne = new DiscountCode(dateFormat.format(startDate),
+                    dateFormat.format(getDateForAfterWeeks(startDate, 2)), "20",
+                    "40", "1", levelOneBuyers);
+            discountCodeLevelOne.addDiscountCode();
+        }
+        if (levelTwoBuyers.size() != 0) {
+            DiscountCode discountCodeLevelTwo = new DiscountCode(dateFormat.format(startDate),
+                    dateFormat.format(getDateForAfterWeeks(startDate, 4)), "40",
+                    "60", "2", levelTwoBuyers);
+            discountCodeLevelTwo.addDiscountCode();
+        }
     }
 
-    private static void setSpecialBuyers(ArrayList<BuyerAccount> levelOneBuyers,ArrayList<BuyerAccount> levelTwoBuyers) {
+    private static void setSpecialBuyers(ArrayList<BuyerAccount> levelOneBuyers, ArrayList<BuyerAccount> levelTwoBuyers) {
         for (BuyerAccount buyer : BuyerAccount.getAllBuyers()) {
             int buyerBonusLevel = buyer.getBuyerBonusLevel();
-            if (buyerBonusLevel==2) {
+            if (buyerBonusLevel == 2) {
                 levelTwoBuyers.add(buyer);
-            }else if(buyerBonusLevel==1){
+            } else if (buyerBonusLevel == 1) {
                 levelOneBuyers.add(buyer);
             }
         }
@@ -236,31 +236,31 @@ public class DiscountCode extends DiscountAndOffTypeService {
         }
     }
 
-    public static void setStringRecordObjects(){
+    public static void setStringRecordObjects() {
         try {
             setStringRecordUsers();
+        } catch (Exception e) {
         }
-        catch (Exception e){}
     }
 
     private static void setStringRecordUsers() throws Exception {
         for (DiscountCode discountCode : allDiscountCodes) {
             discountCode.users.clear();
             for (String buyerUserName : discountCode.usersStringRecord.keySet()) {
-                discountCode.users.put(BuyerAccount.getBuyerWithUserName(buyerUserName),discountCode.usersStringRecord.get(buyerUserName));
+                discountCode.users.put(BuyerAccount.getBuyerWithUserName(buyerUserName), discountCode.usersStringRecord.get(buyerUserName));
             }
         }
     }
 
-    public static void getObjectStringRecords(){
+    public static void getObjectStringRecords() {
         getUsersStringRecord();
     }
 
-    private static void getUsersStringRecord(){
+    private static void getUsersStringRecord() {
         for (DiscountCode discountCode : allDiscountCodes) {
             discountCode.usersStringRecord.clear();
             for (BuyerAccount buyerAccount : discountCode.users.keySet()) {
-                discountCode.usersStringRecord.put(buyerAccount.getUserName(),discountCode.users.get(buyerAccount));
+                discountCode.usersStringRecord.put(buyerAccount.getUserName(), discountCode.users.get(buyerAccount));
             }
         }
     }

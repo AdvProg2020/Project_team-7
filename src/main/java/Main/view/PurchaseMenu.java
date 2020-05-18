@@ -33,8 +33,7 @@ public class PurchaseMenu extends Menu {
                             this.run();
                         else {
                             try {
-                                buyerController.finalizePurchaseAndPay();
-                                System.out.println("Purchase finished successfully.\n");
+                                System.out.println(buyerController.finalizePurchaseAndPay());
                                 this.run();
                             } catch (Exception e) {
                                 System.out.println(e.getMessage() + "\n");
@@ -69,18 +68,18 @@ public class PurchaseMenu extends Menu {
 
     public String getReceiverInformation() {
         StringBuilder stringBuilder = new StringBuilder();
-        System.out.println("Receive information:\nFirst name:");
+        System.out.println("Receive information:\n\tFirst name:");
         String firstName = scanner.nextLine().trim();
-        stringBuilder.append(firstName + "\n");
+        stringBuilder.append(firstName + "\n\t");
         System.out.println("Last name:");
         String lastName = scanner.nextLine().trim();
-        stringBuilder.append(lastName + "\n");
+        stringBuilder.append(lastName + "\n\t");
         System.out.println("Email:");
         String email = scanner.nextLine().trim();
-        stringBuilder.append(email + "\n");
+        stringBuilder.append(email + "\n\t");
         System.out.println("Address:");
         String address = scanner.nextLine().trim();
-        stringBuilder.append(address + "\n");
+        stringBuilder.append(address + "\n\t");
         return stringBuilder.toString();
     }
 }

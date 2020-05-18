@@ -1,10 +1,7 @@
 package Main.model.logs;
 
 import Main.controller.GeneralController;
-import Main.model.Product;
 import Main.model.accounts.BuyerAccount;
-import Main.model.accounts.SellerAccount;
-import Main.model.discountAndOffTypeService.Off;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;
@@ -55,11 +52,11 @@ public abstract class Log {
 
     public static Log getLogWithID(String logID) throws Exception {
         for (Log log : allLogs) {
-            if(log.logId.equals(logID)){
+            if (log.logId.equals(logID)) {
                 return log;
             }
         }
-        throw new Exception("there is no log with id : " +logID + "\n");
+        throw new Exception("there is no log with id : " + logID + "\n");
     }
 
     public static String readData() {
@@ -96,29 +93,29 @@ public abstract class Log {
     }
 
 
-    public static void setStringRecordObjects(){
+    public static void setStringRecordObjects() {
         try {
             setStringRecordBuyersForSellLog();
+        } catch (Exception e) {
         }
-        catch (Exception e){}
     }
 
     private static void setStringRecordBuyersForSellLog() throws Exception {
         for (Log log : allLogs) {
-            if(log instanceof SellLog){
-                SellLog sellLog = (SellLog)log;
+            if (log instanceof SellLog) {
+                SellLog sellLog = (SellLog) log;
                 sellLog.buyer = BuyerAccount.getBuyerWithUserName(sellLog.buyerStringRecord);
             }
         }
     }
 
-    public static void getObjectStringRecords(){
+    public static void getObjectStringRecords() {
         getBuyerForSellLogStringRecord();
     }
 
-    private static void getBuyerForSellLogStringRecord(){
+    private static void getBuyerForSellLogStringRecord() {
         for (Log log : allLogs) {
-            if(log instanceof SellLog){
+            if (log instanceof SellLog) {
                 SellLog sellLog = (SellLog) log;
                 sellLog.buyerStringRecord = sellLog.buyer.getUserName();
             }

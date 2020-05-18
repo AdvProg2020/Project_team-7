@@ -19,9 +19,23 @@ public class SellLog extends Log {
 
     @Override
     public String viewLog() {
-        return "Sell Log :" + "\n\tLog ID : " + logId + "\n\tTotal Received Amount : " + totalCost + "\n\tOff Amount : " +
-                offAmount + "\n\tDate : " + dateFormat.format(date) + "\n\tBuyer : " + buyer.viewMe() + "\n" + products +
-                "\n\tDelivery Status : " + deliveryStatus + "\n\tReceiver Information : " + receiverInfo + "\n";
+        return "Sell Log :" +
+                "\n\tLog ID : " +
+                logId +
+                "\n\tTotal Received Amount : " +
+                totalCost +
+                "\n\tOff Amount : " +
+                offAmount +
+                "\n\tDate : " +
+                dateFormat.format(date) +
+                "\n\tBuyer : " +
+                buyer.viewMe() +
+                "\n" +
+                products +
+                "\n\tDelivery Status : " +
+                deliveryStatus +
+                "\n\tReceiver Information : " +
+                receiverInfo + "\n";
     }
 
 }

@@ -127,10 +127,13 @@ public class BuyerController {
         return currentBuyersCart.getCartTotalPriceConsideringOffs() * percentOfCostToBePaid / 100;
     }
 
-    public void finalizePurchaseAndPay() throws Exception {
+    public String finalizePurchaseAndPay() throws Exception {
+        if (((BuyerAccount) GeneralController.currentUser).getCart().getCartsProductList().isEmpty())
+            return "your cart is empty!";
         pay();
         createPurchaseHistoryElements();
         currentBuyersCart.emptyCart();
+        return "Purchase finished successfully.\n";
     }
 
     private void pay() throws Exception {

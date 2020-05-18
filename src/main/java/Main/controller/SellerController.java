@@ -119,15 +119,13 @@ public class SellerController {
 
     private void doesNewProductsHaveInitialCategory(Product product, String doesUserWantToAddCategory, String categoryName)
             throws CreateProductException.GetCategoryFromUser {
-       // if (doesUserWantToAddCategory.trim().equalsIgnoreCase("yes")) {
-            Category category = null;
-            try {
-                category = Category.getCategoryWithName(categoryName);
-            } catch (Exception e) {
-            }
-            product.setCategory(category);
-            throw new CreateProductException.GetCategoryFromUser(category, product);
-        //}
+        Category category = null;
+        try {
+            category = Category.getCategoryWithName(categoryName);
+        } catch (Exception e) {
+        }
+        product.setCategory(category);
+        throw new CreateProductException.GetCategoryFromUser(category, product);
     }
 
     public void setSpecialFeatures(Product product, ArrayList<String> specialFeatures) {

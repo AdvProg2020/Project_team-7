@@ -183,12 +183,12 @@ public class Off extends DiscountAndOffTypeService {
         }
     }
 
-    public static void setStringRecordObjects(){
+    public static void setStringRecordObjects() {
         try {
             setStringRecordProducts();
             setStringRecordSellers();
+        } catch (Exception e) {
         }
-        catch (Exception e){}
     }
 
     private static void setStringRecordProducts() throws Exception {
@@ -206,12 +206,12 @@ public class Off extends DiscountAndOffTypeService {
         }
     }
 
-    public static void getObjectStringRecords(){
+    public static void getObjectStringRecords() {
         getProductsStringRecord();
         getSellersStringRecords();
     }
 
-    private static void getProductsStringRecord(){
+    private static void getProductsStringRecord() {
         for (Off off : allOffs) {
             off.productsStringRecord.clear();
             for (Product product : off.products) {
@@ -220,7 +220,7 @@ public class Off extends DiscountAndOffTypeService {
         }
     }
 
-    private static void getSellersStringRecords(){
+    private static void getSellersStringRecords() {
         for (Off off : allOffs) {
             off.sellerStringRecord = off.seller.getUserName();
         }

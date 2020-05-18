@@ -1,4 +1,5 @@
 package Main.model.accounts;
+
 import Main.controller.GeneralController;
 import Main.model.sorting.UsersSort;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
