@@ -9,8 +9,8 @@ public class EditCategory {
 
     private Category category;
     private String name;
-    private ArrayList<String> specialFeaturesToBeAdded = new ArrayList<String>();
-    private ArrayList<String> specialFeaturesToBeRemoved = new ArrayList<String>();
+    private ArrayList<String> specialFeaturesToBeAdded = new ArrayList<>();
+    private ArrayList<String> specialFeaturesToBeRemoved = new ArrayList<>();
     private ArrayList<String> productsToBeAdded = new ArrayList<>();
     private ArrayList<String> productsToBeRemoved = new ArrayList<>();
 

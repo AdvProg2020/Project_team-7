@@ -1,8 +1,5 @@
 package Main.model.accounts;
-
 import Main.controller.GeneralController;
-import Main.model.Category;
-import Main.model.exceptions.AccountsException;
 import Main.model.sorting.UsersSort;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
@@ -13,7 +10,7 @@ import static java.util.Arrays.asList;
 
 public class ManagerAccount extends Account {
 
-    private static ArrayList<ManagerAccount> allManagers = new ArrayList<ManagerAccount>();
+    private static ArrayList<ManagerAccount> allManagers = new ArrayList<>();
 
     public ManagerAccount(String userName,
                           String firstName,
@@ -62,13 +59,13 @@ public class ManagerAccount extends Account {
     }
 
     public static String showManagersList() {
-        if (GeneralController.currentSort.equalsIgnoreCase("first name A-Z"))
+        if (GeneralController.currentUserSort.equalsIgnoreCase("first name A-Z"))
             allManagers.sort(new UsersSort.usersSortByFirstNameAscending());
-        else if (GeneralController.currentSort.equalsIgnoreCase("first name Z-A"))
+        else if (GeneralController.currentUserSort.equalsIgnoreCase("first name Z-A"))
             allManagers.sort(new UsersSort.usersSortByFirstNameDescending());
-        else if (GeneralController.currentSort.equalsIgnoreCase("last name A-Z"))
+        else if (GeneralController.currentUserSort.equalsIgnoreCase("last name A-Z"))
             allManagers.sort(new UsersSort.usersSortByLastNameAscending());
-        else if (GeneralController.currentSort.equalsIgnoreCase("last name Z-A"))
+        else if (GeneralController.currentUserSort.equalsIgnoreCase("last name Z-A"))
             allManagers.sort(new UsersSort.usersSortByLastNameDescending());
         StringBuilder managersList = new StringBuilder();
         managersList.append("Mangers :\n");

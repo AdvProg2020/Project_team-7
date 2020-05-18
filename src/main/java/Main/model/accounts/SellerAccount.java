@@ -1,11 +1,9 @@
 package Main.model.accounts;
 
 import Main.controller.GeneralController;
-import Main.model.Category;
 import Main.model.Product;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
-import Main.model.exceptions.AccountsException;
 import Main.model.logs.SellLog;
 import Main.model.sorting.UsersSort;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
@@ -18,10 +16,10 @@ import static java.util.Arrays.asList;
 public class SellerAccount extends Account {
     private String companyName;
     private String companyExtraInformation;
-    private ArrayList<SellLog> sellHistory = new ArrayList<SellLog>();
-    private ArrayList<Product> products = new ArrayList<Product>();
-    private ArrayList<Off> offList = new ArrayList<Off>();
-    private static ArrayList<SellerAccount> allSellers = new ArrayList<SellerAccount>();
+    private ArrayList<SellLog> sellHistory = new ArrayList<>();
+    private ArrayList<Product> products = new ArrayList<>();
+    private ArrayList<Off> offList = new ArrayList<>();
+    private static ArrayList<SellerAccount> allSellers = new ArrayList<>();
     private double balance;
 
     public SellerAccount(String userName,
@@ -63,13 +61,13 @@ public class SellerAccount extends Account {
     }
 
     public static String showSellersList() {
-        if (GeneralController.currentSort.equalsIgnoreCase("first name A-Z"))
+        if (GeneralController.currentUserSort.equalsIgnoreCase("first name A-Z"))
             allSellers.sort(new UsersSort.usersSortByFirstNameAscending());
-        else if (GeneralController.currentSort.equalsIgnoreCase("first name Z-A"))
+        else if (GeneralController.currentUserSort.equalsIgnoreCase("first name Z-A"))
             allSellers.sort(new UsersSort.usersSortByFirstNameDescending());
-        else if (GeneralController.currentSort.equalsIgnoreCase("last name A-Z"))
+        else if (GeneralController.currentUserSort.equalsIgnoreCase("last name A-Z"))
             allSellers.sort(new UsersSort.usersSortByLastNameAscending());
-        else if (GeneralController.currentSort.equalsIgnoreCase("last name Z-A"))
+        else if (GeneralController.currentUserSort.equalsIgnoreCase("last name Z-A"))
             allSellers.sort(new UsersSort.usersSortByLastNameDescending());
         StringBuilder sellersList = new StringBuilder();
         sellersList.append("Sellers :\n");

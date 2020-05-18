@@ -1,7 +1,5 @@
 package Main.model.accounts;
 
-import Main.model.exceptions.AccountsException;
-
 import java.util.ArrayList;
 
 public abstract class Account {
@@ -11,7 +9,7 @@ public abstract class Account {
     protected String email;
     protected String phoneNumber;
     protected String passWord;
-    protected static ArrayList<Account> allAccounts = new ArrayList<Account>();
+    protected static ArrayList<Account> allAccounts = new ArrayList<>();
     private static ArrayList<String> reservedUserNames = new ArrayList<>();
 
     public Account(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord) {
@@ -64,10 +62,7 @@ public abstract class Account {
     }
 
     public boolean isPassWordCorrect(String passWord) {
-        if (passWord.equals(this.passWord))
-            return true;
-        else
-            return false;
+        return passWord.equals(this.passWord);
     }
 
     public abstract String editPersonalInfo(String field, String newContent);

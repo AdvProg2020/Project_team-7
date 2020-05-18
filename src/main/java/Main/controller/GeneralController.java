@@ -25,7 +25,9 @@ public class GeneralController {
     public static Product currentProduct = null;
     public static CartProduct currentCartProduct = null;
     public static Category currentCategory = null;
-    public static String currentSort = "";
+    public static String currentProductSort = "";
+    public static String currentUserSort = "";
+    public static String currentRequestSort = "";
     public static ArrayList<Filter> currentFilters = new ArrayList<>();
     public static String selectedUsername;
 
@@ -170,46 +172,62 @@ public class GeneralController {
                         sortType.equalsIgnoreCase("average score") ||
                         sortType.equalsIgnoreCase("price ascending") ||
                         sortType.equalsIgnoreCase("price descending"))) {
-            currentSort = sortType;
+            currentProductSort = sortType;
         } else if ((listType.equalsIgnoreCase("request")) &&
                 (sortType.equalsIgnoreCase("type") ||
                         sortType.equalsIgnoreCase("id"))) {
-            currentSort = sortType;
+            currentRequestSort = sortType;
         } else if ((listType.equalsIgnoreCase("user")) &&
                 (sortType.equalsIgnoreCase("first name A-Z") ||
                         sortType.equalsIgnoreCase("first name Z-A") ||
                         sortType.equalsIgnoreCase("last name A-Z") ||
                         sortType.equalsIgnoreCase("last name Z-A"))) {
-            currentSort = sortType;
+            currentUserSort = sortType;
         } else return "wrong sort type!";
         return "sort applied successfully.";
     }
 
-    public String showCurrentSort() {
-        return currentSort;
+    public String showCurrentProductSort() {
+        if (currentProductSort.equals(""))
+            return "No sorts selected";
+        return currentProductSort;
+    }
+
+    public String showCurrentUserSort() {
+        if (currentUserSort.equals(""))
+            return "No sorts selected";
+        return currentUserSort;
+    }
+
+    public String showCurrentRequestSort() {
+        if (currentRequestSort.equals(""))
+            return "No sorts selected";
+        return currentRequestSort;
     }
 
     public String disableSort() {
-        currentSort = "";
+        currentProductSort = "";
+        currentRequestSort = "";
+        currentUserSort = "";
         return "Sort disabled";
     }
 
     public String showFilteredAndSortedProducts() throws Exception {
         String filtered = "";
         ArrayList<Product> sorted = Filter.applyFilter(Product.allProducts);
-        if (currentSort.equalsIgnoreCase("name A-Z"))
+        if (currentProductSort.equalsIgnoreCase("name A-Z"))
             sorted.sort(new ProductsSort.productSortByNameAscending());
-        else if (currentSort.equalsIgnoreCase("name Z-A"))
+        else if (currentProductSort.equalsIgnoreCase("name Z-A"))
             sorted.sort(new ProductsSort.productSortByNameDescending());
-        else if (currentSort.equalsIgnoreCase("view"))
+        else if (currentProductSort.equalsIgnoreCase("view"))
             sorted.sort(new ProductsSort.productSortByView());
-        else if (currentSort.equalsIgnoreCase("average Score"))
+        else if (currentProductSort.equalsIgnoreCase("average Score"))
             sorted.sort(new ProductsSort.productSortByRate());
-        else if (currentSort.equalsIgnoreCase("price ascending"))
+        else if (currentProductSort.equalsIgnoreCase("price ascending"))
             sorted.sort(new ProductsSort.productSortByPriceAscendingly());
-        else if (currentSort.equalsIgnoreCase("price descending"))
+        else if (currentProductSort.equalsIgnoreCase("price descending"))
             sorted.sort(new ProductsSort.productSortByPriceDescendingly());
-        else if (!currentSort.equals(""))
+        else if (!currentProductSort.equals(""))
             return "wrong sort input.";
         for (Product product : sorted) {
             filtered = filtered.concat(product.showProductDigest());
@@ -406,7 +424,7 @@ public class GeneralController {
         StringBuilder list = new StringBuilder();
         for (Product product : Product.allProducts) {
             if(!product.equals(currentProduct))
-                list.append(product.showSummaryOfProductData() + "\n");
+                list.append(product.showSummaryOfProductData()).append("\n");
         }
         return list.toString();
     }

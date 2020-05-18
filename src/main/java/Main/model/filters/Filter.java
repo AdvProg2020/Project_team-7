@@ -1,6 +1,5 @@
 package Main.model.filters;
 
-import Main.Main;
 import Main.controller.GeneralController;
 import Main.model.Product;
 
@@ -17,7 +16,7 @@ public abstract class Filter {
     }
 
     public static ArrayList<Product> applyFilter(ArrayList<Product> products) throws Exception {
-        ArrayList<Product> filteredProducts = new ArrayList<Product>();
+        ArrayList<Product> filteredProducts = new ArrayList<>();
         for (Filter currentFilter : GeneralController.currentFilters) {
             currentFilter.apply(filteredProducts, products);
         }

@@ -16,7 +16,7 @@ public class Off extends DiscountAndOffTypeService {
     private static StringBuilder lastUsedOffID ;
     private SellerAccount seller;
     private String offId;
-    private ArrayList<Product> products = new ArrayList<Product>();
+    private ArrayList<Product> products = new ArrayList<>();
     private Date startDate;
     private Date endDate;
     private double offAmount;
@@ -52,12 +52,12 @@ public class Off extends DiscountAndOffTypeService {
     public String viewMe() {
         return
                 "Id: " + offId +
-                        "\nseller: " + seller.getCompanyName() +
-                        "\nproducts: " + makeProductList() +
-                        "\noff amount: " + offAmount + "%" +
-                        "\nstart date:" + dateFormat.format(startDate) +
-                        "\nend date: " + dateFormat.format(endDate) +
-                        "\nstatus: " + offStatus;
+                        "\n\tseller: " + seller.getCompanyName() +
+                        "\n\tproducts: " + makeProductList() +
+                        "\n\toff amount: " + offAmount + "%" +
+                        "\n\tstart date:" + dateFormat.format(startDate) +
+                        "\n\tend date: " + dateFormat.format(endDate) +
+                        "\n\tstatus: " + offStatus;
     }
 
     public static String viewAllOffs() {
@@ -75,7 +75,7 @@ public class Off extends DiscountAndOffTypeService {
     public String makeProductList() {
         StringBuilder list = new StringBuilder();
         for (Product product : products) {
-            list.append("\n" + product.getProductId());
+            list.append("\n").append(product.getProductId());
         }
         return list.toString();
     }

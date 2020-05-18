@@ -4,7 +4,6 @@ import Main.controller.GeneralController;
 import Main.model.IDGenerator;
 import Main.model.Product;
 import Main.model.sorting.RequestsSort;
-import Main.model.sorting.UsersSort;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;
@@ -15,7 +14,7 @@ import static java.util.Arrays.asList;
 public abstract class Request {
     protected String requestId;
     private static StringBuilder lastUsedRequestID;
-    protected static ArrayList<Request> allRequests = new ArrayList<Request>();
+    protected static ArrayList<Request> allRequests = new ArrayList<>();
 
     public Request() {
         this.requestId = IDGenerator.getNewID(lastUsedRequestID);
@@ -33,11 +32,11 @@ public abstract class Request {
 
     public static String showAllRequests() {
         String requests = "";
-        if (GeneralController.currentSort.equalsIgnoreCase("type"))
+        if (GeneralController.currentRequestSort.equalsIgnoreCase("type"))
             allRequests.sort(new RequestsSort.requestsSortByType());
-        else if (GeneralController.currentSort.equalsIgnoreCase("id"))
+        else if (GeneralController.currentRequestSort.equalsIgnoreCase("id"))
             allRequests.sort(new RequestsSort.requestsSortById());
-        else if (!GeneralController.currentSort.equals(""))
+        else if (!GeneralController.currentRequestSort.equals(""))
             return "wrong sort type.";
         if (allRequests.isEmpty())
             return "There is no Requests to show.";

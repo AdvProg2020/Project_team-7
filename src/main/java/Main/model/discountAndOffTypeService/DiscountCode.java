@@ -19,8 +19,8 @@ public class DiscountCode extends DiscountAndOffTypeService {
     private double percent;
     private double maxAmount;
     private int maxNumberOfUse;
-    private HashMap<BuyerAccount, Integer> users = new HashMap<BuyerAccount, Integer>();
-    private static ArrayList<DiscountCode> allDiscountCodes = new ArrayList<DiscountCode>();
+    private HashMap<BuyerAccount, Integer> users = new HashMap<>();
+    private static ArrayList<DiscountCode> allDiscountCodes = new ArrayList<>();
 
     public DiscountCode(String startDate, String endDate, String percent, String maxAmount, String maxNumberOfUse, ArrayList<BuyerAccount> users) throws Exception {
         super(startDate, endDate);
@@ -51,7 +51,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
             if (discountCode.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
                 discountCode.removeDiscountCode();
             } else {
-                list.append("\n" + discountCode.getCode());
+                list.append("\n").append(discountCode.getCode());
             }
         }
         return list.toString();
@@ -82,7 +82,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
     public String makeListOfBuyers() {
         StringBuilder list = new StringBuilder();
         for (BuyerAccount user : users.keySet()) {
-            list.append("\n" + user.getUserName());
+            list.append("\n").append(user.getUserName());
         }
         return list.toString();
     }

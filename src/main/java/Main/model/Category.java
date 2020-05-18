@@ -6,7 +6,6 @@ import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.PropertyPermission;
 
 import static java.util.Arrays.asList;
 
@@ -51,7 +50,7 @@ public class Category {
         StringBuilder features = new StringBuilder();
         features.append("specialFeatures:");
         for (String specialFeature : specialFeatures) {
-            features.append("\n" + specialFeature);
+            features.append("\n").append(specialFeature);
         }
         return features.toString();
     }
@@ -63,7 +62,7 @@ public class Category {
             StringBuilder listOfProducts = new StringBuilder();
             listOfProducts.append("Products in this category:");
             for (Product product : products) {
-                listOfProducts.append("\n" + product.getName() + "    Id: " + product.getProductId());
+                listOfProducts.append("\n").append(product.getName()).append("    Id: ").append(product.getProductId());
             }
             return listOfProducts.toString();
         }

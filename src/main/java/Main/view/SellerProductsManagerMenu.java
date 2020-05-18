@@ -25,7 +25,7 @@ public class SellerProductsManagerMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
-                    System.out.println(sellerController.viewSellerProductWithId(input));
+                    System.out.println(sellerController.viewSellerProductWithId(input) + "\n");
                     this.run();
                 }
             }
@@ -47,10 +47,10 @@ public class SellerProductsManagerMenu extends Menu {
                     this.parentMenu.run();
                 else {
                     try {
-                        System.out.println(sellerController.viewBuyersOfProductWithId(input));
+                        System.out.println(sellerController.viewBuyersOfProductWithId(input) + "\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }
@@ -76,10 +76,10 @@ public class SellerProductsManagerMenu extends Menu {
                         EditProductRequest editProductRequest = sellerController.getProductToEdit(input);
                         getFieldsToEdit(editProductRequest);
                         sellerController.submitProductEdits(editProductRequest);
-                        System.out.println("Product edited successfully.");
+                        System.out.println("Product edited successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }

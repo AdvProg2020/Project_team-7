@@ -31,7 +31,7 @@ public class RegistrationMenu extends Menu {
             String messageFromCreateAccountMethod = generalController.createAccount(input, username);
 
             if (messageFromCreateAccountMethod.startsWith("this") || messageFromCreateAccountMethod.startsWith("you ")) {
-                System.out.println(messageFromCreateAccountMethod);
+                System.out.println(messageFromCreateAccountMethod + "\n");
                 this.run();
             } else {
                 GeneralController.selectedUsername = username;
@@ -45,7 +45,7 @@ public class RegistrationMenu extends Menu {
                 this.parentMenu.run();
             }
         } else {
-            System.out.println("Invalid input!");
+            System.out.println("Invalid input!\n");
             this.run();
         }
     }
@@ -64,7 +64,7 @@ public class RegistrationMenu extends Menu {
                     getManagerInfo(managerInfo);
                     generalController.getManagerInformation(managerInfo, GeneralController.selectedUsername);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    System.out.println(e.getMessage() + "\n");
                     this.run();
                 }
 
@@ -104,7 +104,7 @@ public class RegistrationMenu extends Menu {
                     getBuyerInfo(buyerInfo);
                     generalController.getBuyerInformation(buyerInfo, GeneralController.selectedUsername);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    System.out.println(e.getMessage() + "\n");
                     this.run();
                 }
 
@@ -147,7 +147,7 @@ public class RegistrationMenu extends Menu {
                     getSellerInfo(sellerInfo);
                     generalController.getSellerInformation(sellerInfo, GeneralController.selectedUsername);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    System.out.println(e.getMessage() + "\n");
                     this.run();
                 }
 

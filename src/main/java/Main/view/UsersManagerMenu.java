@@ -26,7 +26,7 @@ public class UsersManagerMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
-                    System.out.println(managerController.viewUserWithUserName(input));
+                    System.out.println(managerController.viewUserWithUserName(input) + "\n");
                     this.run();
                 }
             }
@@ -49,10 +49,10 @@ public class UsersManagerMenu extends Menu {
                 else {
                     try {
                         managerController.deleteUserWithUserName(input);
-                        System.out.println("User deleted successfully.");
+                        System.out.println("User deleted successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 }
@@ -78,14 +78,14 @@ public class UsersManagerMenu extends Menu {
                         ArrayList<String> managerInfo = new ArrayList<>();
                         getManagerInfo(managerInfo);
                         managerController.createManagerProfile(managerInfo);
-                        System.out.println("Manager account created successfully.");
+                        System.out.println("Manager account created successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage() + "\n");
                         this.run();
                     }
                 } else {
-                    System.out.println("Invalid input!");
+                    System.out.println("Invalid input!\n");
                     this.run();
                 }
             }
@@ -98,7 +98,7 @@ public class UsersManagerMenu extends Menu {
         managerInfo.add(password);
         System.out.println("Username:");
         String username = scanner.nextLine().trim();
-        managerInfo.add(password);
+        managerInfo.add(username);
         System.out.println("First name:");
         String firstName = scanner.nextLine().trim();
         managerInfo.add(firstName);
@@ -115,7 +115,7 @@ public class UsersManagerMenu extends Menu {
 
     @Override
     public void run() throws Exception {
-        System.out.println(managerController.showUsersList());
+        System.out.println(managerController.showUsersList() + "\n");
         this.show();
         this.execute();
     }
