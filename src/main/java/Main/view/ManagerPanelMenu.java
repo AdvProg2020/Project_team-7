@@ -70,6 +70,7 @@ public class ManagerPanelMenu extends Menu {
     public void getBuyerIdList(ArrayList<String> buyersList) {
         System.out.println("Number of buyer accounts receiving this discount code:");
         int numberOfBuyers = scanner.nextInt();
+        scanner.nextLine();
         System.out.println();
         for (int i = 0; i < numberOfBuyers; i++) {
             String buyerUsername = scanner.nextLine().trim();
