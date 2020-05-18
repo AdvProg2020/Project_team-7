@@ -81,7 +81,7 @@ public class UsersManagerMenu extends Menu {
                         System.out.println("Manager account created successfully.\n");
                         this.run();
                     } catch (Exception e) {
-                        System.out.println(e.getMessage() + "\n");
+                        System.out.println("hi" + e.getMessage() + "\n");
                         this.run();
                     }
                 } else {

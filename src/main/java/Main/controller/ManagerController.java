@@ -58,8 +58,8 @@ public class ManagerController {
 
     public void createManagerProfile(ArrayList<String> managerInfo , String userName) throws Exception {
         GeneralController.validateInputAccountInfo(managerInfo, userName);
-        ManagerAccount managerAccount = new ManagerAccount(managerInfo.get(1), managerInfo.get(2), managerInfo.get(3),
-                managerInfo.get(4), managerInfo.get(5), managerInfo.get(0));
+        ManagerAccount managerAccount = new ManagerAccount(userName, managerInfo.get(1), managerInfo.get(2),
+                managerInfo.get(3), managerInfo.get(4), managerInfo.get(0));
         ManagerAccount.addManager(managerAccount);
     }
 
