@@ -3,7 +3,6 @@ package Main.model.discountAndOffTypeService;
 import Main.controller.GeneralController;
 import Main.model.IDGenerator;
 import Main.model.Product;
-import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 

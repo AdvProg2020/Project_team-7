@@ -452,7 +452,7 @@ public class Product {
 
     private static void setStringRecordCategory() throws Exception {
         for (Product product : allProducts) {
-            product.category = Category.getCategoryWithName(product.categoryStringRecord);
+            product.category = (product.categoryStringRecord==null?null:Category.getCategoryWithName(product.categoryStringRecord));
         }
     }
 
@@ -482,7 +482,7 @@ public class Product {
 
     private static void getCategoriesStringRecord(){
         for (Product product : allProducts) {
-            product.categoryStringRecord = product.category.getName();
+            product.categoryStringRecord = (product.category==null?null:product.category.getName());
         }
     }
 }

@@ -3,8 +3,6 @@ package Main.model.discountAndOffTypeService;
 import Main.controller.GeneralController;
 import Main.model.IDGenerator;
 import Main.model.accounts.BuyerAccount;
-import Main.model.logs.BuyLog;
-import Main.model.logs.Log;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 import org.apache.commons.lang3.time.DateUtils;
 
