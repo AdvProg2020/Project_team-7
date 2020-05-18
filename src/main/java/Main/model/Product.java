@@ -394,7 +394,7 @@ public class Product {
         }
     }
 
-    private static void setLastUsedProductID() {
+    public static void setLastUsedProductID() {
         if (allProducts.size() == 0) {
             lastUsedProductID = new StringBuilder("@");
         } else {

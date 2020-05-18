@@ -11,7 +11,6 @@ public class MainMenu extends Menu {
     @Override
     public void run() throws Exception {
         System.out.println("Welcome to MFM online shop :))");
-        generalController.giveDiscountCodeToSpecialBuyers();
         this.show();
         this.execute();
     }

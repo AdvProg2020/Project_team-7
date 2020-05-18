@@ -160,7 +160,7 @@ public class Off extends DiscountAndOffTypeService {
         }
     }
 
-    private static void setLastUsedOffID() {
+    public static void setLastUsedOffID() {
         if (allOffs.size() == 0) {
             lastUsedOffID = new StringBuilder("@");
         } else {

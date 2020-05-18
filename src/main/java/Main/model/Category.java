@@ -30,6 +30,8 @@ public class Category {
                 return true;
             }
         }
+        if (name.equals("-"))
+            return true;
         return false;
     }
 
@@ -77,6 +79,8 @@ public class Category {
             if (category.getName().equalsIgnoreCase(categoryName))
                 return category;
         }
+        if (categoryName.equals("-"))
+            return new Category("-", new ArrayList<>());
         throw new Exception("There is no category with name : " + categoryName + "\n");
     }
 

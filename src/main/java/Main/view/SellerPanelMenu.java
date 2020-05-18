@@ -128,6 +128,8 @@ public class SellerPanelMenu extends Menu {
         productInfo.add(beingInACategory);
         System.out.println("If yes, Insert category name, otherwise just ignore this part:");
         String categoryName = scanner.nextLine().trim();
+        if (beingInACategory.equalsIgnoreCase("no"))
+            categoryName = "-";
         productInfo.add(categoryName);
 
     }

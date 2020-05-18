@@ -97,7 +97,7 @@ public abstract class Request {
         }
     }
 
-    private static void setLastUsedRequestID() {
+    public static void setLastUsedRequestID() {
         if (allRequests.size() == 0) {
             lastUsedRequestID = new StringBuilder("@");
         } else {

@@ -54,6 +54,8 @@ public class DiscountCode extends DiscountAndOffTypeService {
                 list.append("\n").append(discountCode.getCode());
             }
         }
+        if (list.toString().equals("List of discount codes:"))
+            return "No discounts to show.";
         return list.toString();
     }
 
@@ -211,7 +213,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
         }
     }
 
-    private static void setLastUsedCodeID() {
+    public static void setLastUsedCodeID() {
         if (allDiscountCodes.size() == 0) {
             lastUsedCodeID = new StringBuilder("@");
         } else {

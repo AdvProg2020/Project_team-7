@@ -10,6 +10,7 @@ import Main.model.discountAndOffTypeService.DiscountCode;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.exceptions.AccountsException;
 import Main.model.filters.*;
+import Main.model.logs.Log;
 import Main.model.requests.AddCommentRequest;
 import Main.model.requests.CreateSellerAccountRequest;
 import Main.model.requests.Request;
@@ -445,5 +446,13 @@ public class GeneralController {
                 list.append(product.showSummaryOfProductData()).append("\n");
         }
         return list.toString();
+    }
+
+    public void initializeIDs(){
+        DiscountCode.setLastUsedCodeID();
+        Off.setLastUsedOffID();
+        Product.setLastUsedProductID();
+        Request.setLastUsedRequestID();
+        Log.setLastUsedLogID();
     }
 }

@@ -70,7 +70,7 @@ public abstract class Log {
         }
     }
 
-    private static void setLastUsedLogID() {
+    public static void setLastUsedLogID() {
         if (allLogs.size() == 0) {
             lastUsedLogID = new StringBuilder("@");
         } else {
