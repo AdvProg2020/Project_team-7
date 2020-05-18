@@ -164,40 +164,35 @@ public class DiscountCode extends DiscountAndOffTypeService {
 
     public static void giveBonusDiscountCodeToSpecialBuyers() throws Exception {
         Date startDate = new Date();
-        ArrayList<BuyerAccount> levelTwoBuyers = getLevelTwoSpecialBuyers();
-        ArrayList<BuyerAccount> levelOneBuyers = getLevelOneSpecialBuyers();
-        if (levelOneBuyers.size() != 0) {
-            DiscountCode discountCodeLevelOne = new DiscountCode(dateFormat.format(startDate),
-                    dateFormat.format(getDateForAfterWeeks(startDate, 2)), "20",
-                    "40", "1", levelOneBuyers);
-            discountCodeLevelOne.addDiscountCode();
+        if(!DateUtils.isSameDay(startDate,dateFormat.parse("2000/05/04"))) {
+            return;
         }
-        if (levelTwoBuyers.size() != 0) {
-            DiscountCode discountCodeLevelTwo = new DiscountCode(dateFormat.format(startDate),
-                    dateFormat.format(getDateForAfterWeeks(startDate, 4)), "40",
-                    "60", "2", levelTwoBuyers);
-            discountCodeLevelTwo.addDiscountCode();
-        }
+            ArrayList<BuyerAccount> levelTwoBuyers = new ArrayList<>();
+            ArrayList<BuyerAccount> levelOneBuyers = new ArrayList<>();
+            setSpecialBuyers(levelOneBuyers,levelTwoBuyers);
+            if (levelOneBuyers.size() != 0) {
+                DiscountCode discountCodeLevelOne = new DiscountCode(dateFormat.format(startDate),
+                        dateFormat.format(getDateForAfterWeeks(startDate, 2)), "20",
+                        "40", "1", levelOneBuyers);
+                discountCodeLevelOne.addDiscountCode();
+            }
+            if (levelTwoBuyers.size() != 0) {
+                DiscountCode discountCodeLevelTwo = new DiscountCode(dateFormat.format(startDate),
+                        dateFormat.format(getDateForAfterWeeks(startDate, 4)), "40",
+                        "60", "2", levelTwoBuyers);
+                discountCodeLevelTwo.addDiscountCode();
+            }
     }
 
-    private static ArrayList<BuyerAccount> getLevelTwoSpecialBuyers() {
-        ArrayList<BuyerAccount> levelTwoSpecialBuyers = new ArrayList<>();
+    private static void setSpecialBuyers(ArrayList<BuyerAccount> levelOneBuyers,ArrayList<BuyerAccount> levelTwoBuyers) {
         for (BuyerAccount buyer : BuyerAccount.getAllBuyers()) {
-            if (buyer.getBuyerBonusLevel()==2) {
-                levelTwoSpecialBuyers.add(buyer);
+            int buyerBonusLevel = buyer.getBuyerBonusLevel();
+            if (buyerBonusLevel==2) {
+                levelTwoBuyers.add(buyer);
+            }else if(buyerBonusLevel==1){
+                levelOneBuyers.add(buyer);
             }
         }
-        return levelTwoSpecialBuyers;
-    }
-
-    private static ArrayList<BuyerAccount> getLevelOneSpecialBuyers() {
-        ArrayList<BuyerAccount> levelOneSpecialBuyers = new ArrayList<>();
-        for (BuyerAccount buyer : BuyerAccount.getAllBuyers()) {
-            if (buyer.getBuyerBonusLevel()==1) {
-                levelOneSpecialBuyers.add(buyer);
-            }
-        }
-        return levelOneSpecialBuyers;
     }
 
     private static Date getDateForAfterWeeks(Date startDate, int numberOfWeeksToBeAdded) {
