@@ -4,7 +4,6 @@ import Main.controller.BuyerController;
 import Main.controller.GeneralController;
 import Main.controller.ManagerController;
 import Main.controller.SellerController;
-import Main.model.accounts.ManagerAccount;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -65,7 +64,7 @@ public class Menu {
             int chosenMenu = Integer.parseInt(number);
             if (chosenMenu == subMenus.size() + 1) {
                 if (this.parentMenu == null) {
-                    System.out.println(GeneralController.writeData());
+                    //System.out.println(GeneralController.writeData());
                     System.exit(1);
                 } else
                     nextMenu = this.parentMenu;

@@ -21,7 +21,9 @@ public class Main {
         Menu.setManagerController(managerController);
         Menu.setSellerController(sellerController);
         Menu currentMenu = new MainMenu();
-        System.out.println(GeneralController.readData());
+        //System.out.println(GeneralController.readData());
+        generalController.initializeIDs();
+        generalController.giveDiscountCodeToSpecialBuyers();
         currentMenu.run();
     }
 }
