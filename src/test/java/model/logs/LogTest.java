@@ -24,7 +24,8 @@ public class LogTest {
     public void viewBuyLog() throws AccountsException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-
+        Product.readData();
+        Log.readData();
         Product product = new Product("laptop", "ASUS", 2,
                 "nice thing it is:)", 100, null);
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
@@ -41,9 +42,9 @@ public class LogTest {
                 "\tLog ID : A\n" +
                 "\tTotal Paid Amount (considering discount codes): 50.0\n" +
                 "\tDiscount Amount : %50.0\n" +
-                "\tDate : "+ dateFormat.format(date) +"\n" +
+                "\tDate : " + dateFormat.format(date) + "\n" +
                 "Cart :\n" +
-                "[Product ID : A\tProduct Name : laptop\tBrand : ASUS\n" +
+                "[Product ID : " + product.getProductId() + "\tProduct Name : laptop\tBrand : ASUS\n" +
                 "Seller :\n" +
                 "\tfirst name : firstName\n" +
                 "\tlast name : last Name\n" +
@@ -58,13 +59,15 @@ public class LogTest {
                 "cart total cost (not considering discount codes): 100.0\n" +
                 "\n" +
                 "\tDelivery Status : PENDING_DELIVERY\n" +
-                "\tReceiver Information : folani in address folan :(\n",buyLog.viewLog());
+                "\tReceiver Information : folani in address folan :(\n", buyLog.viewLog());
     }
 
     @Test
     public void viewSellLog() throws AccountsException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
+        Product.readData();
+        Log.readData();
         Product product = new Product("laptop", "ASUS", 2,
                 "nice thing it is:)", 100, null);
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
@@ -87,7 +90,7 @@ public class LogTest {
                 "\tLog ID : A\n" +
                 "\tTotal Received Amount : 50.0\n" +
                 "\tOff Amount : 100.0\n" +
-                "\tDate : "+dateFormat.format(date) +"\n" +
+                "\tDate : " + dateFormat.format(date) + "\n" +
                 "\tBuyer : Buyer :\n" +
                 "\tfirst name : firstName\n" +
                 "\tlast name : last Name\n" +
@@ -96,12 +99,12 @@ public class LogTest {
                 "\tphone number : 09001112233\n" +
                 "\n" +
                 "Sold products :\n" +
-                "[Product ID : A\tProduct Name : laptop\tBrand : ASUS\n" +
+                "[Product ID : " + product.getProductId() + "\tProduct Name : laptop\tBrand : ASUS\n" +
                 "Price : 100.0\tOff : no off is set for this product]\n" +
                 "\n" +
                 "\n" +
                 "\tDelivery Status : PENDING_DELIVERY\n" +
-                "\tReceiver Information : folani in address folan :(\n",sellLog.viewLog());
+                "\tReceiver Information : folani in address folan :(\n", sellLog.viewLog());
     }
 
 }
