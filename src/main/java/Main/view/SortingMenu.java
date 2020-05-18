@@ -87,7 +87,14 @@ public class SortingMenu extends Menu {
                 if (input.equalsIgnoreCase("back")) {
                     this.parentMenu.run();
                 } else if (input.equalsIgnoreCase("show")) {
-                    System.out.println(generalController.showCurrentSort() + "\n");
+                    if (this.parentMenu.parentMenu instanceof RequestManagerMenu)
+                        System.out.println(generalController.showCurrentRequestSort());
+                    else if (this.parentMenu.parentMenu instanceof ProductsMenu || this.parentMenu.parentMenu instanceof
+                            InCartProductManagerMenu || this.parentMenu.parentMenu instanceof AllProductsManagerMenu
+                            || this.parentMenu.parentMenu instanceof SellerProductsManagerMenu)
+                        System.out.println(generalController.showCurrentProductSort());
+                    else if (this.parentMenu.parentMenu instanceof UsersManagerMenu)
+                        System.out.println(generalController.showCurrentUserSort());
                     this.run();
                 } else {
                     System.out.println("Invalid input!\n");

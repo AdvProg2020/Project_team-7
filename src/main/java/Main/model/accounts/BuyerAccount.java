@@ -73,13 +73,13 @@ public class BuyerAccount extends Account {
     }
 
     public static String showBuyersList() {
-        if (GeneralController.currentSort.equalsIgnoreCase("first name A-Z"))
+        if (GeneralController.currentUserSort.equalsIgnoreCase("first name A-Z"))
             allBuyers.sort(new UsersSort.usersSortByFirstNameAscending());
-        else if (GeneralController.currentSort.equalsIgnoreCase("first name Z-A"))
+        else if (GeneralController.currentUserSort.equalsIgnoreCase("first name Z-A"))
             allBuyers.sort(new UsersSort.usersSortByFirstNameDescending());
-        else if (GeneralController.currentSort.equalsIgnoreCase("last name A-Z"))
+        else if (GeneralController.currentUserSort.equalsIgnoreCase("last name A-Z"))
             allBuyers.sort(new UsersSort.usersSortByLastNameAscending());
-        else if (GeneralController.currentSort.equalsIgnoreCase("last name Z-A"))
+        else if (GeneralController.currentUserSort.equalsIgnoreCase("last name Z-A"))
             allBuyers.sort(new UsersSort.usersSortByLastNameDescending());
         StringBuilder buyersList = new StringBuilder();
         buyersList.append("Buyers :\n");

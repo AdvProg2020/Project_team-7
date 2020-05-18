@@ -33,11 +33,11 @@ public abstract class Request {
 
     public static String showAllRequests() {
         String requests = "";
-        if (GeneralController.currentSort.equalsIgnoreCase("type"))
+        if (GeneralController.currentRequestSort.equalsIgnoreCase("type"))
             allRequests.sort(new RequestsSort.requestsSortByType());
-        else if (GeneralController.currentSort.equalsIgnoreCase("id"))
+        else if (GeneralController.currentRequestSort.equalsIgnoreCase("id"))
             allRequests.sort(new RequestsSort.requestsSortById());
-        else if (!GeneralController.currentSort.equals(""))
+        else if (!GeneralController.currentRequestSort.equals(""))
             return "wrong sort type.";
         if (allRequests.isEmpty())
             return "There is no Requests to show.";
