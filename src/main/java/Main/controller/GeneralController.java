@@ -444,12 +444,18 @@ public class GeneralController {
     private static void setStringRecordObjects() {
         BuyerAccount.setStringRecordObjects();
         SellerAccount.setStringRecordObjects();
+        DiscountCode.setStringRecordObjects();
     }
 
     public static String writeDataAndGetObjectStringRecords() {
-        String functionSuccessFailMessage = writeData();
         getObjectStringRecords();
-        return functionSuccessFailMessage;
+        return writeData();
+    }
+
+    private static void getObjectStringRecords(){
+        BuyerAccount.getObjectStringRecords();
+        SellerAccount.getObjectStringRecords();
+        SellerAccount.getObjectStringRecords();
     }
 
     private static String writeData() {
@@ -463,10 +469,4 @@ public class GeneralController {
                 "\n" + ManagerAccount.writeData() +
                 "\n";
     }
-
-    private static void getObjectStringRecords(){
-        BuyerAccount.getObjectStringRecords();
-        SellerAccount.getObjectStringRecords();
-    }
-
 }

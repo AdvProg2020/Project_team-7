@@ -3,6 +3,8 @@ package Main.model.discountAndOffTypeService;
 import Main.controller.GeneralController;
 import Main.model.IDGenerator;
 import Main.model.accounts.BuyerAccount;
+import Main.model.logs.BuyLog;
+import Main.model.logs.Log;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -21,6 +23,8 @@ public class DiscountCode extends DiscountAndOffTypeService {
     private int maxNumberOfUse;
     private HashMap<BuyerAccount, Integer> users = new HashMap<>();
     private static ArrayList<DiscountCode> allDiscountCodes = new ArrayList<>();
+
+    private HashMap<String,Integer> usersStringRecord = new HashMap<>();
 
     public DiscountCode(String startDate, String endDate, String percent, String maxAmount, String maxNumberOfUse, ArrayList<BuyerAccount> users) throws Exception {
         super(startDate, endDate);
@@ -233,4 +237,34 @@ public class DiscountCode extends DiscountAndOffTypeService {
             return "Problem saving discounts data.";
         }
     }
+
+    public static void setStringRecordObjects(){
+        try {
+            setStringRecordUsers();
+        }
+        catch (Exception e){}
+    }
+
+    private static void setStringRecordUsers() throws Exception {
+        for (DiscountCode discountCode : allDiscountCodes) {
+            discountCode.users.clear();
+            for (String buyerUserName : discountCode.usersStringRecord.keySet()) {
+                discountCode.users.put(BuyerAccount.getBuyerWithUserName(buyerUserName),discountCode.usersStringRecord.get(buyerUserName));
+            }
+        }
+    }
+
+    public static void getObjectStringRecords(){
+        getUsersStringRecord();
+    }
+
+    private static void getUsersStringRecord(){
+        for (DiscountCode discountCode : allDiscountCodes) {
+            discountCode.usersStringRecord.clear();
+            for (BuyerAccount buyerAccount : discountCode.users.keySet()) {
+                discountCode.usersStringRecord.put(buyerAccount.getUserName(),discountCode.users.get(buyerAccount));
+            }
+        }
+    }
+
 }
