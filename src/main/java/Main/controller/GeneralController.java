@@ -394,50 +394,6 @@ public class GeneralController {
         currentUser = null;
     }
 
-    public static String readDataAndSetStringRecordObjects() {
-        String functionSuccessFailMessage = readData();
-        setStringRecordObjects();
-        return functionSuccessFailMessage;
-    }
-
-    private static String readData() {
-        return Product.readData() +
-                "\n" + Category.readData() +
-                "\n" + DiscountCode.readData() +
-                "\n" + Off.readData() +
-                "\n" + Request.readData() +
-                "\n" + BuyerAccount.readData() +
-                "\n" + SellerAccount.readData() +
-                "\n" + ManagerAccount.readData() +
-                "\n";
-    }
-
-    private static void setStringRecordObjects() {
-        BuyerAccount.setStringRecordObjects();
-    }
-
-    public static String writeDataAndGetObjectStringRecords() {
-        String functionSuccessFailMessage = writeData();
-        getObjectStringRecords();
-        return functionSuccessFailMessage;
-    }
-
-    private static String writeData() {
-        return Product.writeData() +
-                "\n" + Category.writeData() +
-                "\n" + DiscountCode.writeData() +
-                "\n" + Off.writeData() +
-                "\n" + Request.writeData() +
-                "\n" + BuyerAccount.writeData() +
-                "\n" + SellerAccount.writeData() +
-                "\n" + ManagerAccount.writeData() +
-                "\n";
-    }
-
-    private static void getObjectStringRecords(){
-        BuyerAccount.getObjectStringRecords();
-    }
-
     public String showProductSellers() {
         String sellers = "";
         for (SellerAccount seller : currentProduct.getSellers()) {
@@ -465,4 +421,52 @@ public class GeneralController {
         Request.setLastUsedRequestID();
         Log.setLastUsedLogID();
     }
+
+
+    public static String readDataAndSetStringRecordObjects() {
+        String functionSuccessFailMessage = readData();
+        setStringRecordObjects();
+        return functionSuccessFailMessage;
+    }
+
+    private static String readData() {
+        return Product.readData() +
+                "\n" + Category.readData() +
+                "\n" + DiscountCode.readData() +
+                "\n" + Off.readData() +
+                "\n" + Request.readData() +
+                "\n" + BuyerAccount.readData() +
+                "\n" + SellerAccount.readData() +
+                "\n" + ManagerAccount.readData() +
+                "\n";
+    }
+
+    private static void setStringRecordObjects() {
+        BuyerAccount.setStringRecordObjects();
+        SellerAccount.setStringRecordObjects();
+    }
+
+    public static String writeDataAndGetObjectStringRecords() {
+        String functionSuccessFailMessage = writeData();
+        getObjectStringRecords();
+        return functionSuccessFailMessage;
+    }
+
+    private static String writeData() {
+        return Product.writeData() +
+                "\n" + Category.writeData() +
+                "\n" + DiscountCode.writeData() +
+                "\n" + Off.writeData() +
+                "\n" + Request.writeData() +
+                "\n" + BuyerAccount.writeData() +
+                "\n" + SellerAccount.writeData() +
+                "\n" + ManagerAccount.writeData() +
+                "\n";
+    }
+
+    private static void getObjectStringRecords(){
+        BuyerAccount.getObjectStringRecords();
+        SellerAccount.getObjectStringRecords();
+    }
+
 }

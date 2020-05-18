@@ -252,7 +252,7 @@ public class BuyerAccount extends Account {
 
     private static void setStringRecordDiscounts() throws Exception {
         for (BuyerAccount buyer : allBuyers) {
-            buyer.discountCodes.removeAll(buyer.discountCodes);
+            buyer.discountCodes.clear();
             for (String discountID : buyer.discountCodesStringRecord) {
                 buyer.discountCodes.add(DiscountCode.getDiscountCodeWithCode(discountID));
             }
@@ -261,7 +261,7 @@ public class BuyerAccount extends Account {
 
     private static void setStringRecordBuyHistory() throws Exception {
         for (BuyerAccount buyer : allBuyers) {
-            buyer.buyHistory.removeAll(buyer.buyHistory);
+            buyer.buyHistory.clear();
             for (String logID : buyer.buyHistoryStringRecord) {
                 buyer.buyHistory.add((BuyLog) Log.getLogWithID(logID));
             }
@@ -275,7 +275,7 @@ public class BuyerAccount extends Account {
 
     private static void getDiscountsStringRecord(){
         for (BuyerAccount buyer : allBuyers) {
-            buyer.buyHistoryStringRecord.removeAll(buyer.buyHistoryStringRecord);
+            buyer.buyHistoryStringRecord.clear();
             for (BuyLog buyLog : buyer.buyHistory) {
                 for (BuyLog log : buyer.buyHistory) {
                     buyer.buyHistoryStringRecord.add(log.getLogId());
@@ -286,7 +286,7 @@ public class BuyerAccount extends Account {
 
     private static void getBuyHistoriesStringRecord(){
         for (BuyerAccount buyer : allBuyers) {
-            buyer.discountCodesStringRecord.removeAll(buyer.discountCodesStringRecord);
+            buyer.discountCodesStringRecord.clear();
             for (DiscountCode discountCode : buyer.discountCodes) {
                 buyer.discountCodesStringRecord.add(discountCode.getCode());
             }

@@ -3,7 +3,10 @@ package Main.model.accounts;
 import Main.controller.GeneralController;
 import Main.model.Product;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
+import Main.model.discountAndOffTypeService.DiscountCode;
 import Main.model.discountAndOffTypeService.Off;
+import Main.model.logs.BuyLog;
+import Main.model.logs.Log;
 import Main.model.logs.SellLog;
 import Main.model.sorting.UsersSort;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
@@ -21,6 +24,10 @@ public class SellerAccount extends Account {
     private ArrayList<Off> offList = new ArrayList<>();
     private static ArrayList<SellerAccount> allSellers = new ArrayList<>();
     private double balance;
+
+    private ArrayList<String> sellHistoryStringRecord = new ArrayList<>();
+    private ArrayList<String> productsStringRecord = new ArrayList<>();
+    private ArrayList<String> offListStringRecord = new ArrayList<>();
 
     public SellerAccount(String userName,
                          String firstName,
@@ -235,6 +242,75 @@ public class SellerAccount extends Account {
             return "Saved Sellers Data Successfully.";
         } catch (IOException e) {
             return "Problem saving sellers data.";
+        }
+    }
+
+    public static void setStringRecordObjects(){
+        try {
+            setStringRecordOffList();
+            setStringRecordSellHistory();
+            setStringRecordProducts();
+        }
+        catch (Exception e){}
+    }
+
+    private static void setStringRecordOffList() throws Exception {
+        for (SellerAccount seller : allSellers) {
+            seller.offList.clear();
+            for (String offID : seller.offListStringRecord) {
+                seller.offList.add(Off.getOffWithId(offID));
+            }
+        }
+    }
+
+    private static void setStringRecordSellHistory() throws Exception {
+        for (SellerAccount seller : allSellers) {
+            seller.sellHistory.clear();
+            for (String logID : seller.sellHistoryStringRecord) {
+                seller.sellHistory.add((SellLog)Log.getLogWithID(logID));
+            }
+        }
+    }
+
+    private static void setStringRecordProducts() throws Exception {
+        for (SellerAccount seller : allSellers) {
+            seller.products.clear();
+            for (String productID : seller.productsStringRecord) {
+                seller.products.add(Product.getProductWithId(productID));
+            }
+        }
+    }
+
+    public static void getObjectStringRecords(){
+        getOffListStringRecord();
+        getProductsStringRecord();
+        getSellHistoryStringRecord();
+    }
+
+    private static void getOffListStringRecord(){
+        for (SellerAccount seller : allSellers) {
+            seller.offListStringRecord.clear();
+            for (Off off : seller.offList) {
+                seller.offListStringRecord.add(off.getOffId());
+            }
+        }
+    }
+
+    private static void getProductsStringRecord(){
+        for (SellerAccount seller : allSellers) {
+            seller.productsStringRecord.clear();
+            for (Product product : seller.products) {
+                seller.productsStringRecord.add(product.getProductId());
+            }
+        }
+    }
+
+    private static void getSellHistoryStringRecord(){
+        for (SellerAccount seller : allSellers) {
+            seller.sellHistoryStringRecord.clear();
+            for (SellLog sellLog : seller.sellHistory) {
+                seller.sellHistoryStringRecord.add(sellLog.getLogId());
+            }
         }
     }
 }
