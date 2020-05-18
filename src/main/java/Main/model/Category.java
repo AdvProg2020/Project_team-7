@@ -1,6 +1,10 @@
 package Main.model;
 
 import Main.controller.GeneralController;
+import Main.model.accounts.BuyerAccount;
+import Main.model.discountAndOffTypeService.DiscountCode;
+import Main.model.logs.BuyLog;
+import Main.model.logs.Log;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;
@@ -14,6 +18,8 @@ public class Category {
     private ArrayList<String> specialFeatures = new ArrayList<String>();
     private ArrayList<Product> products = new ArrayList<Product>();
     private static ArrayList<Category> allCategories = new ArrayList<Category>();
+
+    private ArrayList<String> productsStringRecord = new ArrayList<>();
 
     public Category(String name, ArrayList<String> specialFeatures) {
         this.name = name;
@@ -181,4 +187,34 @@ public class Category {
             return "Problem saving categories data.";
         }
     }
+
+    public static void setStringRecordObjects() {
+        try {
+            setStringRecordProducts();
+        } catch (Exception e) {
+        }
+    }
+
+    private static void setStringRecordProducts() throws Exception {
+        for (Category category : allCategories) {
+            category.products.clear();
+            for (String productID : category.productsStringRecord) {
+                category.products.add(Product.getProductWithId(productID));
+            }
+        }
+    }
+
+    public static void getObjectStringRecords() {
+        getProductsStringRecord();
+    }
+
+    private static void getProductsStringRecord() {
+        for (Category category : allCategories) {
+            category.productsStringRecord.clear();
+            for (Product product : category.products) {
+                category.productsStringRecord.add(product.getProductId());
+            }
+        }
+    }
+
 }
