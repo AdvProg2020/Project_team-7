@@ -268,4 +268,29 @@ public class BuyerAccount extends Account {
         }
     }
 
+    public static void getObjectStringRecords(){
+            getDiscountsStringRecord();
+            getBuyHistoriesStringRecord();
+    }
+
+    private static void getDiscountsStringRecord(){
+        for (BuyerAccount buyer : allBuyers) {
+            buyer.buyHistoryStringRecord.removeAll(buyer.buyHistoryStringRecord);
+            for (BuyLog buyLog : buyer.buyHistory) {
+                for (BuyLog log : buyer.buyHistory) {
+                    buyer.buyHistoryStringRecord.add(log.getLogId());
+                }
+            }
+        }
+    }
+
+    private static void getBuyHistoriesStringRecord(){
+        for (BuyerAccount buyer : allBuyers) {
+            buyer.discountCodesStringRecord.removeAll(buyer.discountCodesStringRecord);
+            for (DiscountCode discountCode : buyer.discountCodes) {
+                buyer.discountCodesStringRecord.add(discountCode.getCode());
+            }
+        }
+    }
+
 }

@@ -400,10 +400,6 @@ public class GeneralController {
         return functionSuccessFailMessage;
     }
 
-    private static void setStringRecordObjects() {
-        BuyerAccount.setStringRecordObjects();
-    }
-
     private static String readData() {
         return Product.readData() +
                 "\n" + Category.readData() +
@@ -416,7 +412,17 @@ public class GeneralController {
                 "\n";
     }
 
-    public static String writeData() {
+    private static void setStringRecordObjects() {
+        BuyerAccount.setStringRecordObjects();
+    }
+
+    public static String writeDataAndGetObjectStringRecords() {
+        String functionSuccessFailMessage = writeData();
+        getObjectStringRecords();
+        return functionSuccessFailMessage;
+    }
+
+    private static String writeData() {
         return Product.writeData() +
                 "\n" + Category.writeData() +
                 "\n" + DiscountCode.writeData() +
@@ -426,6 +432,10 @@ public class GeneralController {
                 "\n" + SellerAccount.writeData() +
                 "\n" + ManagerAccount.writeData() +
                 "\n";
+    }
+
+    private static void getObjectStringRecords(){
+        BuyerAccount.getObjectStringRecords();
     }
 
     public String showProductSellers() {
@@ -448,7 +458,7 @@ public class GeneralController {
         return list.toString();
     }
 
-    public void initializeIDs(){
+    public void initializeIDs() {
         DiscountCode.setLastUsedCodeID();
         Off.setLastUsedOffID();
         Product.setLastUsedProductID();

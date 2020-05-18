@@ -64,7 +64,7 @@ public class Menu {
             int chosenMenu = Integer.parseInt(number);
             if (chosenMenu == subMenus.size() + 1) {
                 if (this.parentMenu == null) {
-                    //System.out.println(GeneralController.writeData());
+                    System.out.println(GeneralController.writeDataAndGetObjectStringRecords());
                     System.exit(1);
                 } else
                     nextMenu = this.parentMenu;
