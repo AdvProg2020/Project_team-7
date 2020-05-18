@@ -445,6 +445,7 @@ public class GeneralController {
         BuyerAccount.setStringRecordObjects();
         SellerAccount.setStringRecordObjects();
         DiscountCode.setStringRecordObjects();
+        Off.setStringRecordObjects();
     }
 
     public static String writeDataAndGetObjectStringRecords() {
@@ -452,10 +453,11 @@ public class GeneralController {
         return writeData();
     }
 
-    private static void getObjectStringRecords(){
+    private static void getObjectStringRecords() {
         BuyerAccount.getObjectStringRecords();
         SellerAccount.getObjectStringRecords();
-        SellerAccount.getObjectStringRecords();
+        DiscountCode.getObjectStringRecords();
+        Off.getObjectStringRecords();
     }
 
     private static String writeData() {

@@ -3,6 +3,7 @@ package Main.model.discountAndOffTypeService;
 import Main.controller.GeneralController;
 import Main.model.IDGenerator;
 import Main.model.Product;
+import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
@@ -13,7 +14,7 @@ import java.util.Date;
 import static java.util.Arrays.asList;
 
 public class Off extends DiscountAndOffTypeService {
-    private static StringBuilder lastUsedOffID ;
+    private static StringBuilder lastUsedOffID;
     private SellerAccount seller;
     private String offId;
     private ArrayList<Product> products = new ArrayList<>();
@@ -23,6 +24,8 @@ public class Off extends DiscountAndOffTypeService {
     private OffStatus offStatus;
     public static ArrayList<Off> allOffs = new ArrayList<Off>();
 
+    private String sellerStringRecord;
+    private ArrayList<String> productsStringRecord = new ArrayList<>();
 
     //TODO : trim :\\\\\\ therefore not allowed spaces some where :((((
     //TODO : Change Dates type from String to date if u can:)
@@ -178,6 +181,49 @@ public class Off extends DiscountAndOffTypeService {
             return "Saved Offs Data Successfully.";
         } catch (IOException e) {
             return "Problem saving offs data.";
+        }
+    }
+
+    public static void setStringRecordObjects(){
+        try {
+            setStringRecordProducts();
+            setStringRecordSellers();
+        }
+        catch (Exception e){}
+    }
+
+    private static void setStringRecordProducts() throws Exception {
+        for (Off off : allOffs) {
+            off.products.clear();
+            for (String productID : off.productsStringRecord) {
+                off.products.add(Product.getProductWithId(productID));
+            }
+        }
+    }
+
+    private static void setStringRecordSellers() throws Exception {
+        for (Off off : allOffs) {
+            off.seller = SellerAccount.getSellerWithUserName(off.sellerStringRecord);
+        }
+    }
+
+    public static void getObjectStringRecords(){
+        getProductsStringRecord();
+        getSellersStringRecords();
+    }
+
+    private static void getProductsStringRecord(){
+        for (Off off : allOffs) {
+            off.productsStringRecord.clear();
+            for (Product product : off.products) {
+                off.productsStringRecord.add(product.getProductId());
+            }
+        }
+    }
+
+    private static void getSellersStringRecords(){
+        for (Off off : allOffs) {
+            off.sellerStringRecord = off.seller.getUserName();
         }
     }
 }
