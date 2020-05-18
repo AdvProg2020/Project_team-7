@@ -56,7 +56,6 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
-        category.addProduct(this);
     }
 
     public String showProductDigest() {
@@ -227,8 +226,12 @@ public class Product {
         rates.add(rate);
     }
 
-    public static void addProduct(Product product) {
+    public void addProduct(Product product) {
         allProducts.add(product);
+        category.addProduct(this);
+        for (SellerAccount seller : sellers) {
+            seller.addProduct(this);
+        }
     }
 
     public String viewBuyers() {

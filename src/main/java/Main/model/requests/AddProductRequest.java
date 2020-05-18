@@ -21,7 +21,7 @@ public class AddProductRequest extends Request {
 
     public void acceptRequest() {
         product.setProductStatus(ProductStatus.APPROVED_PRODUCT);
-        Product.addProduct(product);
+        product.addProduct(product);
     }
 
     public void declineRequest() {

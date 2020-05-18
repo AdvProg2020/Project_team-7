@@ -114,6 +114,10 @@ public class SellerAccount extends Account {
         return "company name : " + this.companyName + "\n\tcompany information : " + companyExtraInformation + "\n";
     }
 
+    public void addProduct(Product product){
+        products.add(product);
+    }
+
     public void addLog(SellLog sellLog) {
         sellHistory.add(sellLog);
     }
