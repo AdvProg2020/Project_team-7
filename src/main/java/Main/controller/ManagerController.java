@@ -421,7 +421,7 @@ public class ManagerController {
         Category category = editCategory.getCategory();
         for (String specialFeatureToBeRemoved : editCategory.getSpecialFeaturesToBeRemoved()) {
             if (!category.isThereSpecialFeature(specialFeatureToBeRemoved)) {
-                specialFeaturesToBeRemovedErrors.append("There is no special feature with title : ").append(specialFeatureToBeRemoved).append("in this category!\n");
+                specialFeaturesToBeRemovedErrors.append("There is no special feature with title : ").append(specialFeatureToBeRemoved).append(" in this category!\n");
             }
         }
         if (specialFeaturesToBeRemovedErrors.length() != 0) {

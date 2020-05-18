@@ -56,6 +56,7 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+        category.addProduct(this);
     }
 
     public String showProductDigest() {
@@ -357,7 +358,9 @@ public class Product {
     }
 
     public void addSpecialFeature(String specialFeature, String specialFeatureValue) {
-        specialFeatures.put(specialFeature, specialFeatureValue);
+        if(!specialFeatures.containsKey(specialFeature)) {
+            specialFeatures.put(specialFeature, specialFeatureValue);
+        }
     }
 
     public void removeSpecialFeature(String specialFeature) {

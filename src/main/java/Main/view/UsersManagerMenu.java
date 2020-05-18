@@ -77,7 +77,7 @@ public class UsersManagerMenu extends Menu {
                     try {
                         ArrayList<String> managerInfo = new ArrayList<>();
                         getManagerInfo(managerInfo);
-                        managerController.createManagerProfile(managerInfo);
+                        managerController.createManagerProfile(managerInfo,null);
                         System.out.println("Manager account created successfully.\n");
                         this.run();
                     } catch (Exception e) {
