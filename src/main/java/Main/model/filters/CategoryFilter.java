@@ -9,7 +9,7 @@ public class CategoryFilter extends Filter {
     private String categoryName;
 
     public CategoryFilter(String categoryName, ArrayList<Product> products) {
-        this.name = "Product Name";
+        this.name = "Category";
         this.categoryName = categoryName;
     }
 

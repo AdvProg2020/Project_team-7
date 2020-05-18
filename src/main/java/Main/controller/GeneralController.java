@@ -143,7 +143,7 @@ public class GeneralController {
         if (filterType.equalsIgnoreCase("category"))
             currentCategory = null;
         for (Filter currentFilter : currentFilters) {
-            if (currentFilter.getName().equals(filterType)) {
+            if (currentFilter.getName().equalsIgnoreCase(filterType)) {
                 currentFilters.remove(currentFilter);
                 disabled = true;
             }
@@ -233,8 +233,10 @@ public class GeneralController {
             filtered = filtered.concat(product.showProductDigest());
             filtered = filtered.concat("\n\n");
         }
-        if (filtered.equals(""))
+        if (filtered.equals("") && currentFilters.isEmpty())
             return showAllProducts();
+        if (filtered.equals("") && !currentFilters.isEmpty())
+            return "No products to show!";
         return filtered;
     }
 
@@ -420,10 +422,10 @@ public class GeneralController {
         return sellers;
     }
 
-    public String showSummaryOfProducts(){
+    public String showSummaryOfProducts() {
         StringBuilder list = new StringBuilder();
         for (Product product : Product.allProducts) {
-            if(!product.equals(currentProduct))
+            if (!product.equals(currentProduct))
                 list.append(product.showSummaryOfProductData()).append("\n");
         }
         return list.toString();

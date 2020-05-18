@@ -124,6 +124,8 @@ public class SellerAccount extends Account {
         for (SellLog sellLog : sellHistory) {
             salesHistory.append(sellLog.viewLog());
         }
+        if (salesHistory.toString().equals(""))
+            return "No sales yet!";
         return salesHistory.toString();
     }
 
@@ -133,6 +135,8 @@ public class SellerAccount extends Account {
         for (Product product : products) {
             productsList.append(product.showProductDigest());
         }
+        if (productsList.toString().equals(""))
+            return "No products yet!";
         return productsList.toString();
     }
 

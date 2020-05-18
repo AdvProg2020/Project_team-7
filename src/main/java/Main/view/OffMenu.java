@@ -38,7 +38,7 @@ public class OffMenu extends Menu {
 
     @Override
     public void run() throws Exception {
-        System.out.println(generalController.showAllOffProducts());
+        System.out.println(generalController.showAllOffProducts() + "\n");
         this.show();
         this.execute();
     }
