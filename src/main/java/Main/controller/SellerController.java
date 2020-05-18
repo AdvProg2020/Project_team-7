@@ -171,10 +171,6 @@ public class SellerController {
         return ((SellerAccount) GeneralController.currentUser).viewSellerOffs();
     }
 
-    public String viewAllOffs() {
-        return Off.viewAllOffs();
-    }
-
     public String viewOffWithId(String offId) throws Exception {
         return Off.getOffWithId(offId).viewMe();
     }
@@ -207,12 +203,12 @@ public class SellerController {
         try {
             DiscountAndOffTypeServiceException.validateInputDate(editOffRequest.getStartDate());
         } catch (Exception e) {
-            esitOffErrors.append("start date is invalid :\n" + e.getMessage());
+            esitOffErrors.append("start date is invalid :\n").append(e.getMessage());
         }
         try {
             DiscountAndOffTypeServiceException.validateInputDate(editOffRequest.getEndDate());
         } catch (Exception e) {
-            esitOffErrors.append("end date is invalid :\n" + e.getMessage());
+            esitOffErrors.append("end date is invalid :\n").append(e.getMessage());
         }
         if (esitOffErrors.length() == 0) {
             try {

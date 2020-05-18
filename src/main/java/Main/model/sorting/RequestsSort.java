@@ -1,6 +1,5 @@
 package Main.model.sorting;
 
-import Main.model.Product;
 import Main.model.requests.Request;
 
 import java.util.Comparator;

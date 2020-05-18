@@ -28,13 +28,12 @@ public class EditProductRequest extends Request {
     }
 
     public String showRequest() {
-        String show = "Edit Product Request:\n" +
+        return "Edit Product Request:\n" +
                 "Request ID: " + this.requestId + "\n" +
                 "Product ID: " + product.getProductId() + "\n" +
                 "Product Name: " + product.getName() + "\n" +
                 "Product Brand: " + product.getBrand() + "\n" +
                 "Editing Following Fields:\n" + extractEditedFields();
-        return show;
     }
 
     private String extractEditedFields() {
@@ -42,17 +41,17 @@ public class EditProductRequest extends Request {
 
         for (String editedFieldTitle : editedFieldTitles) {
             if (editedFieldTitle.equalsIgnoreCase("name")) {
-                editedFields.append("\tname : " + name + "\n");
+                editedFields.append("\tname : ").append(name).append("\n");
             } else if (editedFieldTitle.equalsIgnoreCase("price")) {
-                editedFields.append("\tprice : " + price + "\n");
+                editedFields.append("\tprice : ").append(price).append("\n");
             } else if (editedFieldTitle.equalsIgnoreCase("brand")) {
-                editedFields.append("\tbrand : " + brand + "\n");
+                editedFields.append("\tbrand : ").append(brand).append("\n");
             } else if (editedFieldTitle.equalsIgnoreCase("availability")) {
-                editedFields.append("\tavailability : " + availability + "\n");
+                editedFields.append("\tavailability : ").append(availability).append("\n");
             } else if (editedFieldTitle.equalsIgnoreCase("description")) {
-                editedFields.append("\tdescription : " + description + "\n");
+                editedFields.append("\tdescription : ").append(description).append("\n");
             } else if (editedFieldTitle.equalsIgnoreCase("off")) {
-                editedFields.append("\toff : " + offID + "\n");
+                editedFields.append("\toff : ").append(offID).append("\n");
             }
         }
         return editedFields.toString();

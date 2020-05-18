@@ -14,10 +14,9 @@ public class AddProductRequest extends Request {
     }
 
     public String showRequest() {
-        String show = "Add New Product Request:\n" +
+        return "Add New Product Request:\n" +
                 "Request ID: " + this.requestId + "\n" +
                 product.showProductDigest() + "\n";
-        return show;
     }
 
     public void acceptRequest() {

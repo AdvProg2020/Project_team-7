@@ -22,7 +22,7 @@ public class ManagerController {
     }
 
     public String viewUserWithUserName(String userName) {
-        Account account = null;
+        Account account;
         try {
             account = Account.getUserWithUserName(userName);
         } catch (Exception e) {
@@ -88,12 +88,12 @@ public class ManagerController {
         try {
             DiscountAndOffTypeServiceException.validateInputDate(discountInfo.get(0));
         } catch (Exception e) {
-            discountCreationErrors.append("start date is invalid :\n" + e.getMessage());
+            discountCreationErrors.append("start date is invalid :\n").append(e.getMessage());
         }
         try {
             DiscountAndOffTypeServiceException.validateInputDate(discountInfo.get(1));
         } catch (Exception e) {
-            discountCreationErrors.append("end date is invalid :\n" + e.getMessage());
+            discountCreationErrors.append("end date is invalid :\n").append(e.getMessage());
         }
         if (discountCreationErrors.length() == 0) {
             try {
@@ -145,7 +145,7 @@ public class ManagerController {
     }
 
     private ArrayList<BuyerAccount> extractDiscountBuyersList(ArrayList<String> buyerUserNamesList) throws Exception {
-        ArrayList<BuyerAccount> buyersList = new ArrayList<BuyerAccount>();
+        ArrayList<BuyerAccount> buyersList = new ArrayList<>();
         for (String username : buyerUserNamesList) {
             buyersList.add(BuyerAccount.getBuyerWithUserName(username));
         }
@@ -157,7 +157,7 @@ public class ManagerController {
     }
 
     public String viewDiscountCodeWithCode(String code) {
-        DiscountCode discountCode = null;
+        DiscountCode discountCode;
         try {
             discountCode = DiscountCode.getDiscountCodeWithCode(code);
         } catch (Exception e) {
@@ -178,7 +178,7 @@ public class ManagerController {
     }
 
     public String showRequestDetailsWithId(String requestId) {
-        Request request = null;
+        Request request;
         try {
             request = Request.getRequestWithId(requestId);
         } catch (Exception e) {
@@ -210,8 +210,7 @@ public class ManagerController {
         StringBuilder inputCategoryInfoErrors = new StringBuilder();
 
         if (Category.isThereCategoryWithName(name)) {
-            inputCategoryInfoErrors.append("there is already a category with name :" +
-                    " \'" + name + "\' !\n");
+            inputCategoryInfoErrors.append("there is already a category with name :" + " '").append(name).append("' !\n");
         }
         try {
             AccountsException.validateNameTypeInfo("category name", name);
@@ -245,12 +244,12 @@ public class ManagerController {
         try {
             DiscountAndOffTypeServiceException.validateInputDate(editDiscountCode.getStartDate());
         } catch (Exception e) {
-            editDiscountCodeErrors.append("start date is invalid :\n" + e.getMessage());
+            editDiscountCodeErrors.append("start date is invalid :\n").append(e.getMessage());
         }
         try {
             DiscountAndOffTypeServiceException.validateInputDate(editDiscountCode.getEndDate());
         } catch (Exception e) {
-            editDiscountCodeErrors.append("end date is invalid :\n" + e.getMessage());
+            editDiscountCodeErrors.append("end date is invalid :\n").append(e.getMessage());
         }
         if (editDiscountCodeErrors.length() == 0) {
             try {
@@ -408,7 +407,7 @@ public class ManagerController {
         Category category = editCategory.getCategory();
         for (String specialFeaturesToBeAdded : editCategory.getSpecialFeaturesToBeAdded()) {
             if (category.isThereSpecialFeature(specialFeaturesToBeAdded)) {
-                specialFeaturesToBeAddedErrors.append("There is already a special feature with title \"" + specialFeaturesToBeAdded + "\" in this category !\n");
+                specialFeaturesToBeAddedErrors.append("There is already a special feature with title \"").append(specialFeaturesToBeAdded).append("\" in this category !\n");
             }
         }
         if (specialFeaturesToBeAddedErrors.length() != 0) {
@@ -422,7 +421,7 @@ public class ManagerController {
         Category category = editCategory.getCategory();
         for (String specialFeatureToBeRemoved : editCategory.getSpecialFeaturesToBeRemoved()) {
             if (!category.isThereSpecialFeature(specialFeatureToBeRemoved)) {
-                specialFeaturesToBeRemovedErrors.append("There is no special feature with title : " + specialFeatureToBeRemoved + "in this category!\n");
+                specialFeaturesToBeRemovedErrors.append("There is no special feature with title : ").append(specialFeatureToBeRemoved).append("in this category!\n");
             }
         }
         if (specialFeaturesToBeRemovedErrors.length() != 0) {

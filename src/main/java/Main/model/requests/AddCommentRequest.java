@@ -14,13 +14,12 @@ public class AddCommentRequest extends Request {
     }
 
     public String showRequest() {
-        String show = "Add New Comment Request:\n" +
+        return "Add New Comment Request:\n" +
                 "Request ID: " + this.requestId + "\n" +
                 "Comment is related to product " + comment.getProduct().getName() + "\n" +
                 "is written by user " + comment.getUser().getFirstName() + " " + comment.getUser().getLastName() + "\n" +
                 "Comment Title: " + comment.getTitle() + "\n" +
                 "Comment Content: " + comment.getContent();
-        return show;
     }
 
     public void acceptRequest() {

@@ -16,7 +16,7 @@ public class Off extends DiscountAndOffTypeService {
     private static StringBuilder lastUsedOffID ;
     private SellerAccount seller;
     private String offId;
-    private ArrayList<Product> products = new ArrayList<Product>();
+    private ArrayList<Product> products = new ArrayList<>();
     private Date startDate;
     private Date endDate;
     private double offAmount;
@@ -75,7 +75,7 @@ public class Off extends DiscountAndOffTypeService {
     public String makeProductList() {
         StringBuilder list = new StringBuilder();
         for (Product product : products) {
-            list.append("\n" + product.getProductId());
+            list.append("\n").append(product.getProductId());
         }
         return list.toString();
     }

@@ -2,7 +2,6 @@ package Main.model.accounts;
 
 import Main.controller.GeneralController;
 import Main.model.Cart;
-import Main.model.Category;
 import Main.model.Product;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.DiscountCode;
@@ -20,12 +19,12 @@ public class BuyerAccount extends Account {
     //TODO : not allowing more than one editRequest???
 
     private Cart cart = null;
-    private ArrayList<BuyLog> buyHistory = new ArrayList<BuyLog>();
-    private ArrayList<DiscountCode> discountCodes = new ArrayList<DiscountCode>();
-    private ArrayList<Product> boughtProducts = new ArrayList<Product>();
+    private ArrayList<BuyLog> buyHistory = new ArrayList<>();
+    private ArrayList<DiscountCode> discountCodes = new ArrayList<>();
+    private ArrayList<Product> boughtProducts = new ArrayList<>();
     private double balance;
     private int numberOfBoughtProductsForBonus;
-    private static ArrayList<BuyerAccount> allBuyers = new ArrayList<BuyerAccount>();
+    private static ArrayList<BuyerAccount> allBuyers = new ArrayList<>();
 
     public BuyerAccount(String userName,
                         String firstName,
@@ -104,7 +103,7 @@ public class BuyerAccount extends Account {
         throw new Exception("There is no buyer with user name : " + userName + "\n");
     }
 
-    public void deleteBuyer() throws Exception {
+    public void deleteBuyer() {
         allBuyers.remove(this);
         allAccounts.remove(this);
         for (DiscountCode discountCode : discountCodes) {

@@ -424,7 +424,7 @@ public class GeneralController {
         StringBuilder list = new StringBuilder();
         for (Product product : Product.allProducts) {
             if(!product.equals(currentProduct))
-                list.append(product.showSummaryOfProductData() + "\n");
+                list.append(product.showSummaryOfProductData()).append("\n");
         }
         return list.toString();
     }

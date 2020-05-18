@@ -4,7 +4,6 @@ import Main.controller.GeneralController;
 import Main.model.IDGenerator;
 import Main.model.Product;
 import Main.model.sorting.RequestsSort;
-import Main.model.sorting.UsersSort;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;
@@ -15,7 +14,7 @@ import static java.util.Arrays.asList;
 public abstract class Request {
     protected String requestId;
     private static StringBuilder lastUsedRequestID;
-    protected static ArrayList<Request> allRequests = new ArrayList<Request>();
+    protected static ArrayList<Request> allRequests = new ArrayList<>();
 
     public Request() {
         this.requestId = IDGenerator.getNewID(lastUsedRequestID);

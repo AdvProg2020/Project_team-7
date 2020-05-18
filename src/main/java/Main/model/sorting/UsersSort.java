@@ -1,8 +1,6 @@
 package Main.model.sorting;
 
-import Main.model.Product;
 import Main.model.accounts.Account;
-
 import java.util.Comparator;
 
 public abstract class UsersSort implements Comparator {

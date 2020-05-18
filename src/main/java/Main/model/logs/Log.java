@@ -1,7 +1,6 @@
 package Main.model.logs;
 
 import Main.controller.GeneralController;
-import Main.model.IDGenerator;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;

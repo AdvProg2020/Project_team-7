@@ -1,7 +1,6 @@
 package Main.model.sorting;
 
 import Main.model.Product;
-
 import java.util.Comparator;
 
 public abstract class ProductsSort implements Comparator {

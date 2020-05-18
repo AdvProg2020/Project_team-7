@@ -19,7 +19,7 @@ public class Product {
     private String productId;
     private String name;
     private String brand;
-    private ArrayList<SellerAccount> sellers = new ArrayList<SellerAccount>();
+    private ArrayList<SellerAccount> sellers = new ArrayList<>();
     private int availability;
     private Category category;
     private String description;
@@ -83,7 +83,7 @@ public class Product {
     public String makeSellersList() {
         StringBuilder list = new StringBuilder();
         for (int i = 0; i < sellers.size() - 1; i++)
-            list.append(sellers.get(i).getCompanyName() + ", ");
+            list.append(sellers.get(i).getCompanyName()).append(", ");
         list.append(sellers.get(sellers.size() - 1).getCompanyName());
         return list.toString();
     }
@@ -109,7 +109,7 @@ public class Product {
     public String showSpecialFeatures() {
         StringBuilder features = new StringBuilder();
         for (String key : specialFeatures.keySet()) {
-            features.append("\n" + key + ": " + specialFeatures.get(key));
+            features.append("\n").append(key).append(": ").append(specialFeatures.get(key));
         }
         return features.toString();
     }
@@ -150,7 +150,7 @@ public class Product {
         StringBuilder string = new StringBuilder();
         string.append(compareProductsWithGeneralFeatures(product));
         for (String key : specialFeatures.keySet()) {
-            string.append("\n" + key + ": \n1." + specialFeatures.get(key) + "\n2." + product.specialFeatures.get(key));
+            string.append("\n").append(key).append(": \n1.").append(specialFeatures.get(key)).append("\n2.").append(product.specialFeatures.get(key));
         }
         return string.toString();
     }
@@ -190,7 +190,7 @@ public class Product {
         else {
             allComments.append("comments:");
             for (Comment comment : comments) {
-                allComments.append("\nTitle: " + comment.getTitle() + "\nContent: " + comment.getContent());
+                allComments.append("\nTitle: ").append(comment.getTitle()).append("\nContent: ").append(comment.getContent());
             }
             return allComments.toString();
         }
@@ -216,7 +216,7 @@ public class Product {
             StringBuilder string = new StringBuilder();
             string.append("All products:");
             for (Product product : allProducts) {
-                string.append("\n" + product.getName() + "    Id: " + product.getProductId());
+                string.append("\n").append(product.getName()).append("    Id: ").append(product.getProductId());
             }
             return string.toString();
         }

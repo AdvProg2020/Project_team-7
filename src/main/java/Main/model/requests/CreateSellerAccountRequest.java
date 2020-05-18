@@ -14,10 +14,9 @@ public class CreateSellerAccountRequest extends Request {
     }
 
     public String showRequest() {
-        String show = "Add New Seller Account Request:\n" +
+        return "Add New Seller Account Request:\n" +
                 "Request ID: " + this.requestId + "\n" +
                 sellerAccount.viewMe() + "\n";
-        return show;
     }
 
     public void acceptRequest() {

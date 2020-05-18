@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Cart {
-    private ArrayList<CartProduct> cartProducts = new ArrayList<CartProduct>();
+    private ArrayList<CartProduct> cartProducts = new ArrayList<>();
 
     public double getCartTotalPriceConsideringOffs() {
         double cartTotalPriceConsideringOffs = 0;
@@ -63,7 +63,7 @@ public class Cart {
     }
 
     public HashMap<SellerAccount, Cart> getAllSellersCarts() {
-        HashMap<SellerAccount, Cart> allSellersCart = new HashMap<SellerAccount, Cart>();
+        HashMap<SellerAccount, Cart> allSellersCart = new HashMap<>();
         for (CartProduct cartProduct : cartProducts) {
             addProductToRelevantSellersCart(allSellersCart, cartProduct);
         }
@@ -88,7 +88,7 @@ public class Cart {
     }
 
     public ArrayList<Product> getCartsProductList() {
-        ArrayList<Product> cartsProductList = new ArrayList<Product>();
+        ArrayList<Product> cartsProductList = new ArrayList<>();
         for (CartProduct cartProduct : cartProducts) {
             cartsProductList.add(cartProduct.getProduct());
         }

@@ -1,8 +1,5 @@
 package Main.model.accounts;
-
 import Main.controller.GeneralController;
-import Main.model.Category;
-import Main.model.exceptions.AccountsException;
 import Main.model.sorting.UsersSort;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
@@ -13,7 +10,7 @@ import static java.util.Arrays.asList;
 
 public class ManagerAccount extends Account {
 
-    private static ArrayList<ManagerAccount> allManagers = new ArrayList<ManagerAccount>();
+    private static ArrayList<ManagerAccount> allManagers = new ArrayList<>();
 
     public ManagerAccount(String userName,
                           String firstName,

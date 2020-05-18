@@ -1,7 +1,5 @@
 package Main.model.discountAndOffTypeService;
 
-import Main.model.exceptions.DiscountAndOffTypeServiceException;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
