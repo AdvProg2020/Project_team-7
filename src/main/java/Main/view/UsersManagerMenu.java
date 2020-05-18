@@ -76,8 +76,10 @@ public class UsersManagerMenu extends Menu {
                 else if (input.equalsIgnoreCase("create")) {
                     try {
                         ArrayList<String> managerInfo = new ArrayList<>();
+                        System.out.println("Username:");
+                        String username = scanner.nextLine().trim();
                         getManagerInfo(managerInfo);
-                        managerController.createManagerProfile(managerInfo,null);
+                        managerController.createManagerProfile(managerInfo,username);
                         System.out.println("Manager account created successfully.\n");
                         this.run();
                     } catch (Exception e) {
@@ -96,9 +98,6 @@ public class UsersManagerMenu extends Menu {
         System.out.println("Password:");
         String password = scanner.nextLine().trim();
         managerInfo.add(password);
-        System.out.println("Username:");
-        String username = scanner.nextLine().trim();
-        managerInfo.add(username);
         System.out.println("First name:");
         String firstName = scanner.nextLine().trim();
         managerInfo.add(firstName);
