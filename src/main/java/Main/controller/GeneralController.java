@@ -393,7 +393,17 @@ public class GeneralController {
         currentUser = null;
     }
 
-    public static String readData() {
+    public static String readDataAndSetStringRecordObjects() {
+        String functionSuccessFailMessage = readData();
+        setStringRecordObjects();
+        return functionSuccessFailMessage;
+    }
+
+    private static void setStringRecordObjects() {
+        BuyerAccount.setStringRecordObjects();
+    }
+
+    private static String readData() {
         return Product.readData() +
                 "\n" + Category.readData() +
                 "\n" + DiscountCode.readData() +

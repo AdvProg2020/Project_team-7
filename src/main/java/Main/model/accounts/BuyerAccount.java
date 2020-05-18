@@ -6,6 +6,7 @@ import Main.model.Product;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.DiscountCode;
 import Main.model.logs.BuyLog;
+import Main.model.logs.Log;
 import Main.model.sorting.UsersSort;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
@@ -25,6 +26,9 @@ public class BuyerAccount extends Account {
     private double balance;
     private int numberOfBoughtProductsForBonus;
     private static ArrayList<BuyerAccount> allBuyers = new ArrayList<>();
+
+    private ArrayList<String> buyHistoryStringRecord = new ArrayList<>();
+    private ArrayList<String> discountCodesStringRecord = new ArrayList<>();
 
     public BuyerAccount(String userName,
                         String firstName,
@@ -237,4 +241,31 @@ public class BuyerAccount extends Account {
             return "Problem saving buyers data.";
         }
     }
+
+    public static void setStringRecordObjects(){
+        try {
+            setStringRecordDiscounts();
+            setStringRecordBuyHistory();
+        }
+        catch (Exception e){}
+    }
+
+    private static void setStringRecordDiscounts() throws Exception {
+        for (BuyerAccount buyer : allBuyers) {
+            buyer.discountCodes.removeAll(buyer.discountCodes);
+            for (String discountID : buyer.discountCodesStringRecord) {
+                buyer.discountCodes.add(DiscountCode.getDiscountCodeWithCode(discountID));
+            }
+        }
+    }
+
+    private static void setStringRecordBuyHistory() throws Exception {
+        for (BuyerAccount buyer : allBuyers) {
+            buyer.buyHistory.removeAll(buyer.buyHistory);
+            for (String logID : buyer.buyHistoryStringRecord) {
+                buyer.buyHistory.add((BuyLog) Log.getLogWithID(logID));
+            }
+        }
+    }
+
 }

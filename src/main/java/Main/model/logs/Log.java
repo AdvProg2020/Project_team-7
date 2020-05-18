@@ -49,6 +49,15 @@ public abstract class Log {
         return lastUsedLogID;
     }
 
+    public static Log getLogWithID(String logID) throws Exception {
+        for (Log log : allLogs) {
+            if(log.logId.equals(logID)){
+                return log;
+            }
+        }
+        throw new Exception("there is no log with id : " +logID + "\n");
+    }
+
     public static String readData() {
         try {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/logs.json")));
