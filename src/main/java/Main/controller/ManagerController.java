@@ -70,7 +70,7 @@ public class ManagerController {
     }
 
     public void createDiscountCode(ArrayList<String> buyersUserNamesList, ArrayList<String> discountInfo) throws Exception {
-        validateInputDiscountInfo(discountInfo);
+        validateInputDiscountInfo(buyersUserNamesList, discountInfo);
 
         ArrayList<BuyerAccount> buyersList = extractDiscountBuyersList(buyersUserNamesList);
         DiscountCode discountCode = new DiscountCode(discountInfo.get(0), discountInfo.get(1), discountInfo.get(2),
@@ -82,7 +82,7 @@ public class ManagerController {
         }
     }
 
-    private void validateInputDiscountInfo(ArrayList<String> discountInfo) throws Exception {
+    private void validateInputDiscountInfo(ArrayList<String> buyersUserNamesList, ArrayList<String> discountInfo) throws Exception {
         StringBuilder discountCreationErrors = new StringBuilder();
 
         try {
@@ -118,7 +118,7 @@ public class ManagerController {
             discountCreationErrors.append(e.getMessage());
         }
         try {
-            validateDiscountBuyersToBeSet(discountInfo);
+            validateDiscountBuyersToBeSet(buyersUserNamesList);
         } catch (Exception e) {
             discountCreationErrors.append(e.getMessage());
         }
