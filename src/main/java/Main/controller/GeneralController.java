@@ -16,6 +16,7 @@ import Main.model.requests.CreateSellerAccountRequest;
 import Main.model.requests.Request;
 import Main.model.sorting.ProductsSort;
 import com.gilecode.yagson.YaGson;
+import com.gilecode.yagson.YaGsonBuilder;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.FileWriter;
@@ -31,8 +32,7 @@ public class GeneralController {
     public static String currentRequestSort = "";
     public static ArrayList<Filter> currentFilters = new ArrayList<>();
     public static String selectedUsername;
-
-    public static YaGson yagsonMapper = new YaGson();
+    public static YaGson yagsonMapper = new YaGsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     public static JsonReader jsonReader;
     public static FileWriter fileWriter;
 
@@ -222,6 +222,21 @@ public class GeneralController {
     public String showFilteredAndSortedProducts() throws Exception {
         String filtered = "";
         ArrayList<Product> sorted = Filter.applyFilter(Product.allProducts);
+        sortProducts(sorted);
+        if (!currentProductSort.equals("") && !sortProducts(sorted))
+            return "wrong sort input.";
+        for (Product product : sorted) {
+            filtered = filtered.concat(product.showProductDigest());
+            filtered = filtered.concat("\n\n");
+        }
+        if (filtered.equals("") && currentFilters.isEmpty())
+            return showAllProducts();
+        if (filtered.equals("") && !currentFilters.isEmpty())
+            return "No products to show!";
+        return filtered;
+    }
+
+    public boolean sortProducts(ArrayList<Product> sorted) {
         if (currentProductSort.equalsIgnoreCase("name A-Z"))
             sorted.sort(new ProductsSort.productSortByNameAscending());
         else if (currentProductSort.equalsIgnoreCase("name Z-A"))
@@ -234,17 +249,8 @@ public class GeneralController {
             sorted.sort(new ProductsSort.productSortByPriceAscendingly());
         else if (currentProductSort.equalsIgnoreCase("price descending"))
             sorted.sort(new ProductsSort.productSortByPriceDescendingly());
-        else if (!currentProductSort.equals(""))
-            return "wrong sort input.";
-        for (Product product : sorted) {
-            filtered = filtered.concat(product.showProductDigest());
-            filtered = filtered.concat("\n\n");
-        }
-        if (filtered.equals("") && currentFilters.isEmpty())
-            return showAllProducts();
-        if (filtered.equals("") && !currentFilters.isEmpty())
-            return "No products to show!";
-        return filtered;
+        else return false;
+        return true;
     }
 
     public String createAccount(String type, String userName) {
@@ -360,6 +366,9 @@ public class GeneralController {
 
     public String showAllProducts() {
         String allProducts = "";
+        sortProducts(Product.allProducts);
+        if (!currentProductSort.equals("") && !sortProducts(Product.allProducts))
+            return "wrong sort input.";
         for (Product allProduct : Product.allProducts) {
             allProducts = allProducts.concat(allProduct.showProductDigest());
             allProducts = allProducts.concat("\n\n");
@@ -371,14 +380,23 @@ public class GeneralController {
 
     public String showAllOffProducts() {
         String offProducts = "";
+        ArrayList<Product> sorted = new ArrayList<>();
         for (Off allOff : Off.allOffs) {
             if (allOff.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
                 allOff.removeOff();
             } else {
                 for (Product product : allOff.getProducts()) {
-                    offProducts = offProducts.concat(product.showProductDigest());
-                    offProducts = offProducts.concat("\n\n");
+                    sorted.add(product);
                 }
+            }
+        }
+        sortProducts(sorted);
+        if (!currentProductSort.equals("") && !sortProducts(sorted))
+            return "wrong sort input.";
+        for (Off allOff : Off.allOffs) {
+            for (Product product : allOff.getProducts()) {
+                offProducts = offProducts.concat(product.showProductDigest());
+                offProducts = offProducts.concat("\n\n");
             }
         }
         if (offProducts.equals(""))
