@@ -13,7 +13,7 @@ public class PurchaseMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter 'Continue' or 'Back' to return:");
+                System.out.println("Press enter to continue or insert 'Back' to return:");
             }
 
             @Override
@@ -21,7 +21,7 @@ public class PurchaseMenu extends Menu {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if (input.equalsIgnoreCase("continue")) {
+                else if (input.equalsIgnoreCase("")) {
                     buyerController.setReceiverInformation(getReceiverInformation());
                     System.out.println("If you have a discount code, insert code, otherwise insert continue:");
                     String input2 = scanner.nextLine().trim();

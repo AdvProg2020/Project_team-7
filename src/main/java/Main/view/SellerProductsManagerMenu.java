@@ -16,7 +16,7 @@ public class SellerProductsManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product Id or 'Back' to return:");
+                System.out.println("Insert product Id or 'Back' to return:");
             }
 
             @Override
@@ -37,7 +37,7 @@ public class SellerProductsManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product Id or 'Back' to return:");
+                System.out.println("Insert product Id or 'Back' to return:");
             }
 
             @Override
@@ -63,7 +63,7 @@ public class SellerProductsManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter an Id or 'Back' to return:");
+                System.out.println("Insert an Id or 'Back' to return:");
             }
 
             @Override
@@ -93,7 +93,7 @@ public class SellerProductsManagerMenu extends Menu {
                 " remove off for product)");
         String input;
         while (!(input = scanner.nextLine().trim()).equalsIgnoreCase("submit")) {
-            System.out.println("Enter the content:");
+            System.out.println("Insert the content:");
             String newContent = scanner.nextLine().trim();
             if (input.equalsIgnoreCase("name")) {
                 editProductRequest.addEditedFieldTitle("name");

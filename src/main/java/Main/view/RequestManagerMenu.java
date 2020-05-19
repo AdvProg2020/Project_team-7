@@ -15,7 +15,7 @@ public class RequestManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter request Id or 'Back' to return:");
+                System.out.println("Insert request Id or 'Back' to return:");
             }
 
             @Override
@@ -36,7 +36,7 @@ public class RequestManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter request Id or 'Back' to return:");
+                System.out.println("Insert request Id or 'Back' to return:");
             }
 
             @Override
@@ -63,7 +63,7 @@ public class RequestManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter request Id or 'Back' to return:");
+                System.out.println("Insert request Id or 'Back' to return:");
             }
 
             @Override

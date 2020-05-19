@@ -18,7 +18,7 @@ public class PersonalInfoMenu extends Menu {
                 System.out.println(this.getName() + ":");
                 System.out.println("Fields you are allowed to edit:");
                 System.out.println(getAllowedFieldsToEdit());
-                System.out.println("Enter a field or 'Back' to return:");
+                System.out.println("Insert a field or 'Back' to return:");
             }
 
             @Override
@@ -27,7 +27,7 @@ public class PersonalInfoMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
-                    System.out.println("Enter the new content:");
+                    System.out.println("Insert the new content:");
                     String newContent = scanner.nextLine().trim();
                     System.out.println(generalController.editPersonalInfo(input, newContent));
                     this.run();

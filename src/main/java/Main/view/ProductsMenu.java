@@ -1,6 +1,5 @@
 package Main.view;
 
-import Main.controller.GeneralController;
 
 public class ProductsMenu extends Menu {
     public ProductsMenu(Menu parentMenu) {
@@ -41,7 +40,7 @@ public class ProductsMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter 'Show' or 'Back' to return:");
+                System.out.println("Press enter to continue or insert 'Back' to return:");
             }
 
             @Override
@@ -49,7 +48,7 @@ public class ProductsMenu extends Menu {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back")) {
                     this.parentMenu.run();
-                } else if (input.equalsIgnoreCase("show")) {
+                } else if (input.equalsIgnoreCase("")) {
                     System.out.println(generalController.showFilteredAndSortedProducts() + "\n");
                     this.run();
                 } else {
@@ -65,7 +64,7 @@ public class ProductsMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product Id or 'Back' to return:");
+                System.out.println("Insert product Id or 'Back' to return:");
             }
 
             @Override
@@ -86,10 +85,4 @@ public class ProductsMenu extends Menu {
             }
         };
     }
-
-    /*public void run() throws Exception {
-        System.out.println(generalController.showAllProducts());
-        this.show();
-        this.execute();
-    }*/
 }

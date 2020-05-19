@@ -17,7 +17,7 @@ public class RegistrationMenu extends Menu {
     @Override
     public void show() {
         System.out.println(this.getName() + ":");
-        System.out.println("Enter type of user [manager|buyer|seller] or 'Back' to return:");
+        System.out.println("Insert type of user [manager|buyer|seller] or 'Back' to return:");
     }
 
     @Override
@@ -73,7 +73,7 @@ public class RegistrationMenu extends Menu {
     }
 
     public void getManagerInfo(ArrayList<String> managerInfo) {
-        System.out.println("Enter your personal information:\nPassword:");
+        System.out.println("Insert your personal information:\nPassword:");
         String password = scanner.nextLine();
         managerInfo.add(password);
         System.out.println("First name:");
@@ -156,7 +156,7 @@ public class RegistrationMenu extends Menu {
     }
 
     public void getSellerInfo(ArrayList<String> sellerInfo) {
-        System.out.println("Enter your personal information:\nPassword:");
+        System.out.println("Insert your personal information:\nPassword:");
         String password = scanner.nextLine();
         sellerInfo.add(password);
         System.out.println("First name:");

@@ -17,7 +17,7 @@ public class UsersManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a username or 'Back' to return");
+                System.out.println("Insert a username or 'Back' to return");
             }
 
             @Override
@@ -38,7 +38,7 @@ public class UsersManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a username or 'Back' to return");
+                System.out.println("Insert a username or 'Back' to return");
             }
 
             @Override
@@ -65,7 +65,7 @@ public class UsersManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter 'Create' or 'Back' to return:");
+                System.out.println("Press enter to continue or insert 'Back' to return:");
             }
 
             @Override
@@ -73,7 +73,7 @@ public class UsersManagerMenu extends Menu {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if (input.equalsIgnoreCase("create")) {
+                else if (input.equalsIgnoreCase("")) {
                     try {
                         ArrayList<String> managerInfo = new ArrayList<>();
                         System.out.println("Username:");
