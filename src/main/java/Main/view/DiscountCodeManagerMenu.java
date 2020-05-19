@@ -16,7 +16,7 @@ public class DiscountCodeManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a code or 'Back' to return:");
+                System.out.println("Insert a code or 'Back' to return:");
             }
 
             @Override
@@ -37,7 +37,7 @@ public class DiscountCodeManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a code or 'Back' to return:");
+                System.out.println("Insert a code or 'Back' to return:");
             }
 
             @Override
@@ -85,7 +85,7 @@ public class DiscountCodeManagerMenu extends Menu {
             else if (input.equalsIgnoreCase("buyer username to be removed"))
                 editDiscountCode.addUserToBeRemoved(newContent);
             else
-                System.out.println("there is no field with this name!");
+                System.out.println("There is no field with this name!");
         }
     }
 
@@ -94,7 +94,7 @@ public class DiscountCodeManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a code or 'Back' to return:");
+                System.out.println("Insert a code or 'Back' to return:");
             }
 
             @Override

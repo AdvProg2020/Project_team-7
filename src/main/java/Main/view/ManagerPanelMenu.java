@@ -19,7 +19,7 @@ public class ManagerPanelMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter 'Continue' to create discount code or 'Back' to return:");
+                System.out.println("Press enter to continue or insert 'Back' to return:");
             }
 
             @Override
@@ -27,7 +27,7 @@ public class ManagerPanelMenu extends Menu {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if (input.equalsIgnoreCase("continue")) {
+                else if (input.equalsIgnoreCase("")) {
                     try {
                         ArrayList<String> discountInfo = new ArrayList<>();
                         getDiscountInfo(discountInfo);
@@ -49,7 +49,7 @@ public class ManagerPanelMenu extends Menu {
     }
 
     public void getDiscountInfo(ArrayList<String> discountInfo) {
-        System.out.println("Enter discount code information:\nStart date: (The input date should be in " +
+        System.out.println("Insert discount code information:\nStart date: (The input date should be in " +
                 "<yyyy/MM/dd HH:mm:ss>format)");
         String startDate = scanner.nextLine().trim();
         discountInfo.add(startDate);

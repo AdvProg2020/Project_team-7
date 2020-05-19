@@ -39,7 +39,7 @@ public class DigestMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter seller's username or 'Back' to return:");
+                System.out.println("Insert seller's username or 'Back' to return:");
                 System.out.println(generalController.showProductSellers());
             }
 

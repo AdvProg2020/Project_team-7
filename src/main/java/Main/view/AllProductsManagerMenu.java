@@ -13,7 +13,7 @@ public class AllProductsManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product Id or 'Back' to return:");
+                System.out.println("Insert product Id or 'Back' to return:");
             }
 
             @Override

@@ -13,7 +13,7 @@ public class BuyerOrdersManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter order Id or 'Back' to return:");
+                System.out.println("Insert order Id or 'Back' to return:");
             }
 
             @Override
@@ -34,7 +34,7 @@ public class BuyerOrdersManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product Id or 'Back' to return:");
+                System.out.println("Insert product Id or 'Back' to return:");
             }
 
             @Override
@@ -43,7 +43,7 @@ public class BuyerOrdersManagerMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else {
-                    System.out.println("Enter your score from 1 to 5:");
+                    System.out.println("Insert your score from 1 to 5:");
                     String score = scanner.nextLine().trim();
                     try {
                         buyerController.rateProductWithId(input, score);

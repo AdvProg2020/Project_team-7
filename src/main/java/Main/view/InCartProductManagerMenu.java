@@ -16,7 +16,7 @@ public class InCartProductManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter 'Show' or 'Back' to return:");
+                System.out.println("Press enter to continue or insert 'Back' to return:");
             }
 
             @Override
@@ -24,7 +24,7 @@ public class InCartProductManagerMenu extends Menu {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if (input.equalsIgnoreCase("show")) {
+                else if (input.equalsIgnoreCase("")) {
                     System.out.println(buyerController.showCartProducts());
                     this.run();
                 } else {
@@ -40,7 +40,7 @@ public class InCartProductManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product Id or 'Back' to return:");
+                System.out.println("Insert product Id or 'Back' to return:");
             }
 
             @Override
@@ -67,7 +67,7 @@ public class InCartProductManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product Id or 'Back' to return:");
+                System.out.println("Insert product Id or 'Back' to return:");
             }
 
             @Override
@@ -95,7 +95,7 @@ public class InCartProductManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter product Id or 'Back' to return:");
+                System.out.println("Insert product Id or 'Back' to return:");
             }
 
             @Override

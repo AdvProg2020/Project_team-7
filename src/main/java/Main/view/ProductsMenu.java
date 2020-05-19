@@ -17,7 +17,7 @@ public class ProductsMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter 'Show' or 'Back' to return:");
+                System.out.println("Press enter to continue or insert 'Back' to return:");
             }
 
             @Override
@@ -25,7 +25,7 @@ public class ProductsMenu extends Menu {
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
-                else if (input.equalsIgnoreCase("show")) {
+                else if (input.equalsIgnoreCase("")) {
                     System.out.println(generalController.showAllCategories() + "\n");
                     this.run();
                 } else {

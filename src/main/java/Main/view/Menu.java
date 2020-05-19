@@ -5,6 +5,7 @@ import Main.controller.GeneralController;
 import Main.controller.ManagerController;
 import Main.controller.SellerController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -44,6 +45,7 @@ public class Menu {
     }
 
     public void show() {
+        System.out.println(new Date());
         System.out.println(this.name + ":");
         for (Integer menuNum : subMenus.keySet()) {
             System.out.println(menuNum + ". " + subMenus.get(menuNum).getName());

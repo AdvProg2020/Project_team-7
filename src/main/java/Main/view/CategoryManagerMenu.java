@@ -18,7 +18,7 @@ public class CategoryManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter a category name or 'Back' to return:");
+                System.out.println("Insert a category name or 'Back' to return:");
             }
 
             @Override
@@ -70,7 +70,7 @@ public class CategoryManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter category name or 'Back' to return:");
+                System.out.println("Insert category name or 'Back' to return:");
             }
 
             @Override
@@ -107,7 +107,7 @@ public class CategoryManagerMenu extends Menu {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
-                System.out.println("Enter category name or 'Back' to return:");
+                System.out.println("Insert category name or 'Back' to return:");
             }
 
             @Override
