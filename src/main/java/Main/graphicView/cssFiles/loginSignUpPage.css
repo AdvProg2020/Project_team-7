@@ -46,4 +46,13 @@
 .text-field {
 -fx-background-color : #98929c;
 -fx-prompt-text-fill : #4d4254;
+@font-face {
+    font-family: 'a letter to you','A letter to You',Arial;
+    src: url('letter.ttf');
+}
+
+.label{
+    -fx-font-family: 'a letter to you';
+    -fx-text-fill:#000aaa;
+    -fx-font-size:60px;
 }
