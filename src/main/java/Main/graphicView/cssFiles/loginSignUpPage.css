@@ -1,0 +1,49 @@
+.pane{
+-fx-background-image : url(../resources/loginBG.gif);
+-fx-background-repeat : no-repeat;
+-fx-background-size : cover;
+}
+
+.tabPane {
+-fx-background-color : #361e3d;
+-fx-border-color : BLACK;
+-fx-border-width : 1px;
+}
+
+.tab-header-area{
+}
+
+.tab-header-background {
+-fx-background-color : #241429;
+}
+
+.tab {
+-fx-background-color:#241429;
+-fx-focus-color : transparent;
+-fx-faint-focus-color : transparent;
+}
+
+.tab .tab-label  {
+-fx-text-fill : #98929c;
+}
+
+.tab:selected {
+-fx-background-color :#361e3d;
+-fx-border-color : RED;
+    -fx-border-width: 0 0 3 0;
+    -fx-border-color: #c2c2c2 #361e3d #ff9500 #c2c2c2
+}
+
+.tab:selected .tab-label{
+-fx-text-fill : WHITE;
+}
+
+.button{
+-fx-background-color:#ff9500 ;
+-fx-background-radius : 0px;
+}
+
+.text-field {
+-fx-background-color : #98929c;
+-fx-prompt-text-fill : #4d4254;
+}
