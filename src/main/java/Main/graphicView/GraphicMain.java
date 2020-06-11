@@ -1,5 +1,6 @@
 package Main.graphicView;
 
+import Main.graphicView.scenes.LoginSignUpPage;
 import Main.graphicView.scenes.MainMenu;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -25,10 +26,10 @@ public class GraphicMain extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        Parent root = FXMLLoader.load(new File(MainMenu.FXML_PATH).toURI().toURL());
+        Parent root = FXMLLoader.load(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
         Scene scene = new Scene(root);
         sceneTrace.add(scene);
-        stage.setTitle(MainMenu.TITLE);
+        stage.setTitle(LoginSignUpPage.TITLE);
         stage.setScene(scene);
         primaryStage.show();
     }
