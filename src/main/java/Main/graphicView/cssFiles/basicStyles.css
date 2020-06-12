@@ -4,7 +4,7 @@
 }
 
 .button {
-    -fx-background-color:linear-gradient(#bddbfa 5%, #80b5ea 100%);
+    -fx-background-color:linear-gradient(#ff9500 5%, #ffd9b3 100%);
     -fx-background-radius:52% 48% 60% 40% / 59% 88% 12% 41%;
     -fx-background-border: 1px;
     -fx-background-border-color:#84bbf3;
@@ -13,10 +13,8 @@
     -fx-font-size:60px;
 }
 .button:hover {
-	-fx-background-color:linear-gradient(#80b5ea 5%, #bddbfa 100%);
+	-fx-background-color:linear-gradient(#ffd9b3 5%, #ff9500 100%);
 }
 .label, .button{
     -fx-font-family: 'a letter to you';
-    -fx-text-fill:#000aaa;
-    -fx-font-size:60px;
 }
