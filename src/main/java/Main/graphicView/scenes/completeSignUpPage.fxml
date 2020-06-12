@@ -105,12 +105,12 @@
                         </HBox>
                         <HBox layoutX="10.0" layoutY="220.0" prefHeight="50.0" prefWidth="1086.0" spacing="10.0">
                            <children>
-                              <Label disable="true" minWidth="150.0" prefWidth="400.0" text="Company Name :" textFill="#ff9500">
+                              <Label fx:id="companyNameLabel" disable="true" minWidth="150.0" prefWidth="400.0" text="Company Name :" textFill="#ff9500">
                                  <HBox.margin>
                                     <Insets left="70.0" top="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="691.0">
+                              <TextField fx:id="companyNameField" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="691.0">
                                  <HBox.margin>
                                     <Insets right="165.0" />
                                  </HBox.margin>
@@ -119,12 +119,12 @@
                         </HBox>
                         <HBox layoutX="10.0" layoutY="280.0" prefHeight="50.0" prefWidth="1086.0" spacing="10.0">
                            <children>
-                              <Label disable="true" minWidth="150.0" text="Company Info :" textFill="#ff9500">
+                              <Label fx:id="companyInfoLabel" disable="true" minWidth="150.0" text="Company Info :" textFill="#ff9500">
                                  <HBox.margin>
                                     <Insets left="70.0" top="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextArea disable="true" prefHeight="200.0" prefWidth="691.0" promptText="Nice Company I Have :)">
+                              <TextArea fx:id="companyInfoField" disable="true" prefHeight="200.0" prefWidth="691.0" promptText="Nice Company I Have :)">
                                  <HBox.margin>
                                     <Insets right="165.0" />
                                  </HBox.margin>
@@ -143,7 +143,7 @@
                                     <Insets left="50.0" top="25.0" />
                                  </HBox.margin>
                               </Button>
-                              <CheckBox mnemonicParsing="false" prefHeight="21.0" prefWidth="149.0" text="Sign Up as Seller" textFill="#ff9500">
+                              <CheckBox fx:id="isSeller" mnemonicParsing="false" prefHeight="21.0" prefWidth="149.0" text="Sign Up as Seller" textFill="#ff9500">
                                  <HBox.margin>
                                     <Insets left="50.0" right="165.0" top="45.0" />
                                  </HBox.margin>
