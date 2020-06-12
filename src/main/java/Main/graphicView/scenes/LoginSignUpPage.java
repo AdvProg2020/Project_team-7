@@ -1,15 +1,17 @@
 package Main.graphicView.scenes;
 
+import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import Main.model.accounts.Account;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
@@ -24,6 +26,8 @@ public class LoginSignUpPage implements Initializable {
     public PasswordField signUpPassword;
     public PasswordField loginPassword;
     public TextField loginUsername;
+    public Label loginErrorMessage;
+    public Label signUpErrorMessage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -33,47 +37,84 @@ public class LoginSignUpPage implements Initializable {
         mediaPlayer.setVolume(0.2);
     }
 
-    private boolean areLoginTextFieldsFilled(TextField userName, PasswordField passWord) {
-      /*  boolean isInfoCorrect = true;
+    private boolean areTextFieldsFilled(TextField userName, PasswordField passWord) {
+        boolean isInfoCorrect = true;
         if (userName.getText().equals("")) {
-            userName.setText(NO_USERNAME_GIVEN);
-            userName.setStyle("-fx-text-fill : RED;-fx-border-color : RED;");
+            userName.setStyle("-fx-border-color : RED;");
             isInfoCorrect = false;
         }
         if (passWord.getText().equals("")) {
-            passWord.setText(NO_PASSWORD_GIVEN);
-            passWord.setStyle("-fx-text-fill : RED;-fx-border-color : RED;");
+            passWord.setStyle("-fx-border-color :RED;");
             isInfoCorrect = false;
         }
-        return isInfoCorrect;*/
-      return true;
+        return isInfoCorrect;
     }
 
 
-    public void login(MouseEvent mouseEvent) {
+    private boolean areLoginTextFieldsValid() throws Exception {
+        if (!Account.isThereUserWithUserName(loginUsername.getText())) {
+            loginErrorMessage.setText("there is no account with this username !");
+            loginUsername.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
+            return false;
+        }
+        if (!Account.getUserWithUserName(loginUsername.getText()).isPassWordCorrect(loginPassword.getText())) {
+            loginPassword.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
+            loginErrorMessage.setText("password is incorrect !");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean areSignUpTextFieldsValid() throws Exception {
+        if (Account.isThereUserWithUserName(signUpUsername.getText())) {
+            signUpErrorMessage.setText("this username is already token !");
+            signUpUsername.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
+            return false;
+        }
+        /*
+        if (!Account.getUserWithUserName(loginUsername.getText()).isPassWordCorrect(loginPassword.getText())) {
+            loginErrorMessage.setText("password is incorrect !");
+            return false;
+        }
+        password
+         */
+        return true;
+    }
+
+    public void back(MouseEvent mouseEvent) {
+        GraphicMain.graphicMain.back();
+    }
+
+    public void login(MouseEvent mouseEvent) throws Exception {
         GraphicMain.buttonSound.play();
-        areLoginTextFieldsFilled(loginUsername, loginPassword);
+        if (areTextFieldsFilled(loginUsername, loginPassword) && areLoginTextFieldsValid()) {
+            GeneralController.currentUser = Account.getUserWithUserName(loginUsername.getText());
+            GraphicMain.graphicMain.goToPage(MainMenu.FXML_PATH, MainMenu.TITLE);
+        }
     }
 
     public void switchTab(Event event) {
-
+        //TODO sound effect :)
     }
 
-    public void completeSignUp(MouseEvent mouseEvent) throws IOException {
+    public void completeSignUp(MouseEvent mouseEvent) throws Exception {
         GraphicMain.buttonSound.play();
-        GraphicMain.graphicMain.goToPage(CompleteSignUpPage.FXML_PATH, CompleteSignUpPage.TITLE);
+        if (areTextFieldsFilled(signUpUsername, signUpPassword) && areSignUpTextFieldsValid()) {
+            GraphicMain.graphicMain.goToPage(CompleteSignUpPage.FXML_PATH, CompleteSignUpPage.TITLE);
+        }
     }
 
     public void resetTextFields(MouseEvent mouseEvent) {
-        Object eventResource = mouseEvent.getSource();
-        if (eventResource instanceof PasswordField) {
-            PasswordField passwordField = (PasswordField) eventResource;
-            passwordField.setText("");
-            passwordField.setStyle("-fx-text-fill : #4d4254; -fx-border-color : #ff9500;");
-        } else {
-            TextField textField = (TextField) eventResource;
-            textField.setText("");
-            textField.setStyle("-fx-text-fill : #4d4254; -fx-border-color : #ff9500;");
-        }
+        TextField textField = (TextField) mouseEvent.getSource();
+        textField.setStyle("-fx-border-color: #230038;-fx-prompt-text-fill : #4d4254;");
+        textField.setText("");
+    }
+
+    public TextField getSignUpUsername() {
+        return signUpUsername;
+    }
+
+    public PasswordField getSignUpPassword() {
+        return signUpPassword;
     }
 }

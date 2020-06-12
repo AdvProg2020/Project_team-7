@@ -1,6 +1,8 @@
 package Main.graphicView.scenes;
 
+import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import Main.model.accounts.Account;
 import Main.model.accounts.ManagerAccount;
 import Main.model.exceptions.AccountsException;
 import javafx.fxml.Initializable;
@@ -9,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
@@ -120,12 +124,14 @@ public class RegisterFirstManager implements Initializable {
         GraphicMain.graphicMain.back();
     }
 
-    public void signUp(MouseEvent mouseEvent) {
+    public void signUp(MouseEvent mouseEvent) throws Exception {
         if(areLoginTextFieldsFilled()&&areTextFieldsValid()){
             ManagerAccount managerAccount = new ManagerAccount(username.getText(),firstName.getText(),lastName.getText(),
                     email.getText(),phoneNumber.getText(),password.getText());
             ManagerAccount.addManager(managerAccount);
         }
+        GeneralController.currentUser = Account.getUserWithUserName(username.getText());
+        GraphicMain.graphicMain.goToPage(MainMenu.FXML_PATH,MainMenu.TITLE);
     }
 
     public void resetTextField(MouseEvent mouseEvent) {

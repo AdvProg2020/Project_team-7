@@ -34,10 +34,10 @@ public class GraphicMain extends Application {
         stage = primaryStage;
         FXMLLoader fxmlLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
         Parent root = fxmlLoader.load();
-        if (!ManagerAccount.isThereAChiefManager()) {
+        /*if (!ManagerAccount.isThereAChiefManager()) {
             root = FXMLLoader.load(new File((RegisterFirstManager.FXML_PATH)).toURI().toURL());
             stage.setTitle(RegisterFirstManager.TITLE);
-        }
+        }*/
         stage.setTitle(LoginSignUpPage.TITLE);
         Scene scene = new Scene(root);
         sceneTrace.put(scene,LoginSignUpPage.TITLE);

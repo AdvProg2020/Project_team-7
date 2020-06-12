@@ -17,7 +17,7 @@ public class CompleteSignUpPage implements Initializable {
     private static final String NO_COMPANY_NAME_GIVEN = "enter your company name !";
     private static final String NO_COMPANY_INFO_GIVEN = "enter a few words about your company !";
 
-    public static final String FXML_PATH = "src/main/sceneResources/loginSignUop/completeSignUpPage.fxml";
+    public static final String FXML_PATH = "src/main/sceneResources/loginSignUp/completeSignUpPage.fxml";
     public static final String TITLE = "Complete Sign Up";
     public CheckBox isSeller;
     public Label companyInfoLabel;
