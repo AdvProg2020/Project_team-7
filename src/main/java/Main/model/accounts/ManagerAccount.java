@@ -96,6 +96,10 @@ public class ManagerAccount extends Account {
         allAccounts.remove(managerAccount);
     }
 
+    public static boolean isThereAChiefManager(){
+        return !allManagers.isEmpty();
+    }
+
     public static String readData() {
         try {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/managers.json")));
