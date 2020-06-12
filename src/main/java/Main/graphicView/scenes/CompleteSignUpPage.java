@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -76,7 +77,7 @@ public class CompleteSignUpPage implements Initializable {
         return isInfoCorrect;
     }
 
-    public void signUp(MouseEvent mouseEvent) throws MalformedURLException {
+    public void signUp(MouseEvent mouseEvent) throws IOException {
         GraphicMain.buttonSound.play();
         if (areTextFieldsFilled() && areTextFieldsValid()) {
             LoginSignUpPage loginSignUpPage = (LoginSignUpPage) GraphicMain.graphicMain.getController(LoginSignUpPage.FXML_PATH);
@@ -90,6 +91,8 @@ public class CompleteSignUpPage implements Initializable {
                 BuyerAccount.addBuyer(buyerAccount);
                 GeneralController.currentUser = buyerAccount;
             }
+            GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+            LoginSignUpPage.mediaPlayer.stop();
         }
     }
 

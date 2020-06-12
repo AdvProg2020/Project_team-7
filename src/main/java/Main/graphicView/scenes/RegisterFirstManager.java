@@ -131,6 +131,8 @@ public class RegisterFirstManager implements Initializable {
         }
         GeneralController.currentUser = Account.getUserWithUserName(username.getText());
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        LoginSignUpPage.mediaPlayer.stop();
+        //TODO when back music doest start
     }
 
     public void resetTextField(MouseEvent mouseEvent) {

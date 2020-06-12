@@ -104,7 +104,8 @@ public class LoginSignUpPage implements Initializable {
         GraphicMain.buttonSound.play();
         if (areTextFieldsFilled(loginUsername, loginPassword) && areLoginTextFieldsValid()) {
             GeneralController.currentUser = Account.getUserWithUserName(loginUsername.getText());
-            GraphicMain.graphicMain.goToPage(MainMenu.FXML_PATH, MainMenu.TITLE);
+            mediaPlayer.stop();
+            GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
         }
     }
 
@@ -116,6 +117,7 @@ public class LoginSignUpPage implements Initializable {
         GraphicMain.buttonSound.play();
         if (areTextFieldsFilled(signUpUsername, signUpPassword) && areSignUpTextFieldsValid()) {
             GraphicMain.graphicMain.goToPage(CompleteSignUpPage.FXML_PATH, CompleteSignUpPage.TITLE);
+            mediaPlayer.stop();
         }
     }
 
