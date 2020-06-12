@@ -1,5 +1,5 @@
 .pane{
--fx-background-image : url(../resources/loginBG.gif);
+-fx-background-image : url(../resources/images/loginBG.gif);
 -fx-background-repeat : no-repeat;
 -fx-background-size : cover;
 }
@@ -29,7 +29,6 @@
 
 .tab:selected {
 -fx-background-color :#361e3d;
--fx-border-color : RED;
     -fx-border-width: 0 0 3 0;
     -fx-border-color: #c2c2c2 #361e3d #ff9500 #c2c2c2
 }
@@ -43,16 +42,23 @@
 -fx-background-radius : 0px;
 }
 
-.text-field {
--fx-background-color : #98929c;
--fx-prompt-text-fill : #4d4254;
-@font-face {
-    font-family: 'a letter to you','A letter to You',Arial;
-    src: url('letter.ttf');
+.button:hover {
+-fx-background-color:#cc7700 ;
 }
 
-.label{
-    -fx-font-family: 'a letter to you';
-    -fx-text-fill:#000aaa;
-    -fx-font-size:60px;
+.button:focused{
+-fx-text-fill : BLACK;
+    -fx-background-insets: 1 1 1 1;
+}
+
+.text-field {
+-fx-background-color : #7f7a82 ;
+-fx-border-color: #230038;
+-fx-prompt-text-fill : #4d4254;
+-fx-background-radius : 1px;
+}
+.text-field:focused  {
+-fx-border-color : #ff9500;
+-fx-border-width : 0,0,20,0;
+-fx-background-color :#98929c;
 }

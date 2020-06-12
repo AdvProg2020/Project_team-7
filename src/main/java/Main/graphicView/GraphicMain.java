@@ -6,15 +6,19 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class GraphicMain extends Application {
 
+    public static MediaPlayer buttonSound = new MediaPlayer(new Media(Paths.get("src/main/java/Main/graphicView/resources/soundEffects/buttonSound.wav").toUri().toString()));
     private static ArrayList<Scene> sceneTrace = new ArrayList<>();
     private static Stage stage;
     public static GraphicMain graphicMain = new GraphicMain();
@@ -31,6 +35,7 @@ public class GraphicMain extends Application {
         sceneTrace.add(scene);
         stage.setTitle(LoginSignUpPage.TITLE);
         stage.setScene(scene);
+        LoginSignUpPage.mediaPlayer.play();
         primaryStage.show();
     }
 
