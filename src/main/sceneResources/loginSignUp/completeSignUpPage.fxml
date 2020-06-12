@@ -54,7 +54,7 @@
                                     <Insets left="70.0" top="45.0" />
                                  </HBox.margin>
                               </Label>
-                                      <TextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="691.0">
+                                      <TextField fx:id="firstName" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#resetTextFields" prefHeight="50.0" prefWidth="691.0">
                                  <HBox.margin>
                                     <Insets right="165.0" top="30.0" />
                                  </HBox.margin>
@@ -68,7 +68,7 @@
                                     <Insets left="70.0" top="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="691.0">
+                              <TextField fx:id="lastName" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#resetTextFields" prefHeight="50.0" prefWidth="691.0">
                                  <HBox.margin>
                                     <Insets right="165.0" />
                                  </HBox.margin>
@@ -82,7 +82,7 @@
                                     <Insets left="70.0" top="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="691.0" promptText="username@EmailMessenger.domain">
+                              <TextField fx:id="email" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#resetTextFields" prefHeight="50.0" prefWidth="691.0" promptText="username@EmailMessenger.domain">
                                  <HBox.margin>
                                     <Insets right="165.0" />
                                  </HBox.margin>
@@ -96,7 +96,7 @@
                                     <Insets left="70.0" top="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="691.0" promptText="09XXXXXXXXX">
+                              <TextField fx:id="phoneNumber" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#resetTextFields" prefHeight="50.0" prefWidth="691.0" promptText="09XXXXXXXXX">
                                  <HBox.margin>
                                     <Insets right="165.0" />
                                  </HBox.margin>
@@ -110,7 +110,7 @@
                                     <Insets left="70.0" top="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="companyNameField" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="691.0">
+                              <TextField fx:id="companyNameField" disable="true" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#resetTextFields" prefHeight="50.0" prefWidth="691.0">
                                  <HBox.margin>
                                     <Insets right="165.0" />
                                  </HBox.margin>
@@ -124,7 +124,7 @@
                                     <Insets left="70.0" top="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextArea fx:id="companyInfoField" disable="true" prefHeight="200.0" prefWidth="691.0" promptText="Nice Company I Have :)">
+                              <TextArea fx:id="companyInfoField" disable="true" onMouseClicked="#resetTextFields" prefHeight="200.0" prefWidth="691.0" promptText="Nice Company I Have :)">
                                  <HBox.margin>
                                     <Insets right="165.0" />
                                  </HBox.margin>

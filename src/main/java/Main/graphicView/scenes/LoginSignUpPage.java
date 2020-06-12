@@ -3,6 +3,7 @@ package Main.graphicView.scenes;
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import Main.model.accounts.Account;
+import Main.model.exceptions.AccountsException;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -69,6 +70,20 @@ public class LoginSignUpPage implements Initializable {
         if (Account.isThereUserWithUserName(signUpUsername.getText())) {
             signUpErrorMessage.setText("this username is already token !");
             signUpUsername.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
+            return false;
+        }
+        try {
+            AccountsException.validateUserName(signUpUsername.getText());
+            try {
+                AccountsException.validateUsernameUniqueness(signUpUsername.getText());
+            } catch (AccountsException e) {
+                signUpUsername.setText(e.getErrorMessage());
+                signUpUsername.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
+                return false;
+            }
+        } catch (AccountsException.invalidUserNameException e) {
+            signUpUsername.setText(e.getErrorMessage());
+            signUpUsername.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
             return false;
         }
         /*

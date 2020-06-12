@@ -12,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
@@ -36,7 +35,7 @@ public class RegisterFirstManager implements Initializable {
         mediaPlayer.setVolume(0.2);
     }
 
-    private boolean areLoginTextFieldsFilled() {
+    private boolean areTextFieldsFilled() {
         boolean isInfoCorrect = true;
         if (username.getText().equals("")) {
             username.setStyle("-fx-border-color : RED;");
@@ -125,7 +124,7 @@ public class RegisterFirstManager implements Initializable {
     }
 
     public void signUp(MouseEvent mouseEvent) throws Exception {
-        if(areLoginTextFieldsFilled()&&areTextFieldsValid()){
+        if(areTextFieldsFilled()&&areTextFieldsValid()){
             ManagerAccount managerAccount = new ManagerAccount(username.getText(),firstName.getText(),lastName.getText(),
                     email.getText(),phoneNumber.getText(),password.getText());
             ManagerAccount.addManager(managerAccount);
