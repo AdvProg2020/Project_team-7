@@ -39,13 +39,16 @@ public class GraphicMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        System.out.println(GeneralController.readDataAndSetStringRecordObjects());
+        generalController.initializeIDs();
+        generalController.giveDiscountCodeToSpecialBuyers();
         stage = primaryStage;
         FXMLLoader fxmlLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
         Parent root = fxmlLoader.load();
-        /*if (!ManagerAccount.isThereAChiefManager()) {
+        if (!ManagerAccount.isThereAChiefManager()) {
             root = FXMLLoader.load(new File((RegisterFirstManager.FXML_PATH)).toURI().toURL());
             stage.setTitle(RegisterFirstManager.TITLE);
-        }*/
+        }
         stage.setTitle(LoginSignUpPage.TITLE);
         Scene scene = new Scene(root);
         sceneTrace.put(scene,LoginSignUpPage.TITLE);
@@ -55,6 +58,11 @@ public class GraphicMain extends Application {
         primaryStage.show();
     }
 
+    public void exitProgram(){
+        System.out.println(GeneralController.writeDataAndGetObjectStringRecords());
+        System.exit(123);
+    }
+
     public void back() {
         if (sceneTrace.size() != 1) {
             sceneTrace.remove(sceneTrace.keySet().toArray()[sceneTrace.size() - 1]);
@@ -62,7 +70,7 @@ public class GraphicMain extends Application {
             /*System.out.println(sceneTrace.get(sceneTrace.keySet().toArray()[sceneTrace.size() - 1]));*/
             stage.setScene(((Scene) sceneTrace.keySet().toArray()[sceneTrace.size() - 1]));
         } else {
-            System.exit(123);
+            exitProgram();
         }
     }
 

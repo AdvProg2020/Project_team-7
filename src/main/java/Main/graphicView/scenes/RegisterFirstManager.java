@@ -130,7 +130,7 @@ public class RegisterFirstManager implements Initializable {
             ManagerAccount.addManager(managerAccount);
         }
         GeneralController.currentUser = Account.getUserWithUserName(username.getText());
-        GraphicMain.graphicMain.goToPage(MainMenu.FXML_PATH,MainMenu.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
     public void resetTextField(MouseEvent mouseEvent) {
