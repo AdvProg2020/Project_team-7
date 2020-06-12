@@ -21,8 +21,8 @@ import java.util.ArrayList;
 public class GraphicMain extends Application {
 
     public static MediaPlayer buttonSound = new MediaPlayer(new Media(Paths.get("src/main/java/Main/graphicView/resources/soundEffects/buttonSound.wav").toUri().toString()));
-    private static ArrayList<Scene> sceneTrace = new ArrayList<>();
-    private static Stage stage;
+    public static ArrayList<Scene> sceneTrace = new ArrayList<>();
+    public static Stage stage;
     public static GraphicMain graphicMain = new GraphicMain();
 
     public static void main(String[] args) {
@@ -44,7 +44,10 @@ public class GraphicMain extends Application {
     public void back() {
         if (sceneTrace.size() != 1) {
             sceneTrace.remove(sceneTrace.size() - 1);
+            //TODO set back title
             stage.setScene(sceneTrace.get(sceneTrace.size() - 1));
+        } else {
+            System.exit(12345);
         }
     }
 
@@ -53,8 +56,8 @@ public class GraphicMain extends Application {
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         sceneTrace.add(scene);
-        stage.setTitle(title);
-        stage.setScene(scene);
+        GraphicMain.stage.setTitle(title);
+        GraphicMain.stage.setScene(scene);
     }
 
     public Object getController(String fxmlName) throws MalformedURLException {

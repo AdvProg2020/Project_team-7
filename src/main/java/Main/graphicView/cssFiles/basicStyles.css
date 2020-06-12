@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'a letter to you',Arial;
+    src: url('letter.ttf');
+}
+
 .button {
     -fx-background-color:linear-gradient(#bddbfa 5%, #80b5ea 100%);
     -fx-background-radius:52% 48% 60% 40% / 59% 88% 12% 41%;
@@ -5,8 +10,13 @@
     -fx-background-border-color:#84bbf3;
     -fx-cursor:pointer;
     -fx-text-fill:#ffffff;
-    -fx-font-size:15px;
+    -fx-font-size:60px;
 }
 .button:hover {
 	-fx-background-color:linear-gradient(#80b5ea 5%, #bddbfa 100%);
+}
+.label, .button{
+    -fx-font-family: 'a letter to you';
+    -fx-text-fill:#000aaa;
+    -fx-font-size:60px;
 }

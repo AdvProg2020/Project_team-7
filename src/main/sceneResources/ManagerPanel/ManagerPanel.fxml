@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.ManagerPanelController">
+    <stylesheets>
+        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
+    </stylesheets>
+   <children>
+      <Button layoutX="128.0" layoutY="188.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Personal Information" />
+      <Button layoutX="128.0" layoutY="331.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Users" />
+      <Button layoutX="128.0" layoutY="473.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Requests" />
+      <Button layoutX="612.0" layoutY="188.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Categories" />
+      <Button layoutX="612.0" layoutY="331.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Discounts" />
+      <Button layoutX="612.0" layoutY="473.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Products" />
+   </children>
+</AnchorPane>
