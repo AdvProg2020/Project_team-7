@@ -13,6 +13,8 @@ public class SellerPanelPage implements Initializable{
 
     @FXML
     private Label personalInfoLabel;
+    @FXML
+    private Label titleLabel;
 
     public static final String FXML_PATH = "src/main/sceneResources/SellerPanel/sellerPanelPage.fxml";
     public static final String TITLE = "Seller Panel";
@@ -20,7 +22,7 @@ public class SellerPanelPage implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        personalInfoLabel.setText(GraphicMain.generalController.viewPersonalInfo());
+        personalInfoLabel.setText(GraphicMain.generalController.viewPersonalInfo());
     }
 
     public void goToEditInfoPage() throws IOException {
@@ -30,5 +32,10 @@ public class SellerPanelPage implements Initializable{
 
     public void goBack(){
         GraphicMain.graphicMain.back();
+    }
+
+    public void viewCompanyInformation(){
+        titleLabel.setText("company information");
+        personalInfoLabel.setText(GraphicMain.sellerController.viewCompanyInformation());
     }
 }
