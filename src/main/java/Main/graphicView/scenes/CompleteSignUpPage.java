@@ -155,8 +155,13 @@ public class CompleteSignUpPage implements Initializable {
     }
 
     public void resetTextFields(MouseEvent mouseEvent) {
-        TextField textField = (TextField) mouseEvent.getSource();
+        Object eventSource = mouseEvent.getSource();
+        if(eventSource instanceof TextField){
+        TextField textField = (TextField) eventSource;
         textField.setStyle("-fx-border-color: #230038;-fx-prompt-text-fill : #4d4254;");
-        textField.setText("");
+        textField.setText("");}else{
+            TextArea textArea = (TextArea) eventSource;
+            textArea.setStyle("-fx-border-color: #230038;-fx-prompt-text-fill : #4d4254;");
+        }
     }
 }

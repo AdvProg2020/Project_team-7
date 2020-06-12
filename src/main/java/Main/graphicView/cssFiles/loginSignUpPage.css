@@ -61,3 +61,15 @@
 -fx-border-width : 0 0 2 0;
 -fx-background-color :#98929c;
 }
+
+.text-area{
+-fx-background-color : #7f7a82 ;
+-fx-border-color: #230038;
+-fx-prompt-text-fill : #4d4254;
+-fx-background-radius : 2px;
+}
+
+.text-area:focused  {
+-fx-border-width : 1 1 1 1;
+-fx-background-color :#98929c;
+}
