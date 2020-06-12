@@ -9,11 +9,12 @@
         <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
     </stylesheets>
    <children>
-      <Button layoutX="128.0" layoutY="188.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Personal Information" />
-      <Button layoutX="128.0" layoutY="331.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Users" />
-      <Button layoutX="128.0" layoutY="473.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Requests" />
-      <Button layoutX="612.0" layoutY="188.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Categories" />
-      <Button layoutX="612.0" layoutY="331.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Discounts" />
-      <Button layoutX="612.0" layoutY="473.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Products" />
+      <Button layoutX="128.0" layoutY="188.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Personal Information" onAction="#goToPersonalInformation"/>
+      <Button layoutX="128.0" layoutY="331.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Users" onAction="#goToManageUsers"/>
+      <Button layoutX="128.0" layoutY="473.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Requests" onAction="#goToManageRequests"/>
+      <Button layoutX="612.0" layoutY="188.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Categories" onAction="#goToManageCategories"/>
+      <Button layoutX="612.0" layoutY="331.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Discounts" onAction="#goToManageDiscounts"/>
+      <Button layoutX="612.0" layoutY="473.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Products" onAction="#goToManageProducts"/>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Back" onAction="#goBack"/>
    </children>
 </AnchorPane>
