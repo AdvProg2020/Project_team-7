@@ -6,12 +6,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
 
-import javax.xml.soap.Text;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -36,8 +33,8 @@ public class LoginSignUpPage implements Initializable {
         mediaPlayer.setVolume(0.2);
     }
 
-    private boolean areLoginTextFieldsFilled(TextField userName, TextField passWord) {
-        boolean isInfoCorrect = true;
+    private boolean areLoginTextFieldsFilled(TextField userName, PasswordField passWord) {
+      /*  boolean isInfoCorrect = true;
         if (userName.getText().equals("")) {
             userName.setText(NO_USERNAME_GIVEN);
             userName.setStyle("-fx-text-fill : RED;-fx-border-color : RED;");
@@ -48,7 +45,8 @@ public class LoginSignUpPage implements Initializable {
             passWord.setStyle("-fx-text-fill : RED;-fx-border-color : RED;");
             isInfoCorrect = false;
         }
-        return isInfoCorrect;
+        return isInfoCorrect;*/
+      return true;
     }
 
 

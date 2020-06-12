@@ -1,7 +1,6 @@
 package Main.graphicView;
 
 import Main.graphicView.scenes.LoginSignUpPage;
-import Main.graphicView.scenes.MainMenu;
 import Main.graphicView.scenes.RegisterFirstManager;
 import Main.model.accounts.ManagerAccount;
 import javafx.application.Application;
@@ -52,7 +51,7 @@ public class GraphicMain extends Application {
         if (sceneTrace.size() != 1) {
             sceneTrace.remove(sceneTrace.keySet().toArray()[sceneTrace.size() - 1]);
             stage.setTitle(sceneTrace.get(sceneTrace.keySet().toArray()[sceneTrace.size() - 1]));
-            System.out.println(sceneTrace.get(sceneTrace.keySet().toArray()[sceneTrace.size() - 1]));
+            /*System.out.println(sceneTrace.get(sceneTrace.keySet().toArray()[sceneTrace.size() - 1]));*/
             stage.setScene(((Scene) sceneTrace.keySet().toArray()[sceneTrace.size() - 1]));
         } else {
             System.exit(123);
