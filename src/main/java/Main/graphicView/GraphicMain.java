@@ -1,5 +1,9 @@
 package Main.graphicView;
 
+import Main.controller.BuyerController;
+import Main.controller.GeneralController;
+import Main.controller.ManagerController;
+import Main.controller.SellerController;
 import Main.graphicView.scenes.LoginSignUpPage;
 import Main.graphicView.scenes.MainMenu;
 import Main.graphicView.scenes.RegisterFirstManager;
@@ -24,6 +28,10 @@ public class GraphicMain extends Application {
     public static ArrayList<Scene> sceneTrace = new ArrayList<>();
     public static Stage stage;
     public static GraphicMain graphicMain = new GraphicMain();
+    public static BuyerController buyerController = new BuyerController();
+    public static ManagerController managerController = new ManagerController();
+    public static GeneralController generalController = new GeneralController();
+    public static SellerController sellerController = new SellerController();
 
     public static void main(String[] args) {
         launch(args);
