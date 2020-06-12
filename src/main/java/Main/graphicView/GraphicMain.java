@@ -32,10 +32,15 @@ public class GraphicMain extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        Parent root = FXMLLoader.load(new File((ManagerAccount.isThereAChiefManager() ? LoginSignUpPage.FXML_PATH : RegisterFirstManager.FXML_PATH)).toURI().toURL());
+        FXMLLoader fxmlLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
+        Parent root = fxmlLoader.load();
+        if (!ManagerAccount.isThereAChiefManager()) {
+            root = FXMLLoader.load(new File((RegisterFirstManager.FXML_PATH)).toURI().toURL());
+            stage.setTitle(RegisterFirstManager.TITLE);
+        }
+        stage.setTitle(LoginSignUpPage.TITLE);
         Scene scene = new Scene(root);
         sceneTrace.add(scene);
-        stage.setTitle((ManagerAccount.isThereAChiefManager() ? LoginSignUpPage.TITLE : RegisterFirstManager.TITLE));
         stage.setScene(scene);
         LoginSignUpPage.mediaPlayer.play();
         primaryStage.show();

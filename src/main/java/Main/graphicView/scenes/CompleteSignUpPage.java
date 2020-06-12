@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CompleteSignUpPage implements Initializable {
-    public static final String FXML_PATH = "src/main/java/Main/graphicView/scenes/completeSignUpPage.fxml";
+    public static final String FXML_PATH = "src/main/sceneResources/loginSignUop/completeSignUpPage.fxml";
     public static final String TITLE = "Complete Sign Up";
     public CheckBox isSeller;
     public Label companyInfoLabel;

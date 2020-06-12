@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 public class LoginSignUpPage implements Initializable {
     private static final String NO_USERNAME_GIVEN = "enter a username!";
     private static final String NO_PASSWORD_GIVEN = "enter a password!";
-    public static final String FXML_PATH = "src/main/resources/loginSignUpPage.fxml";
+    public static final String FXML_PATH = "src/main/sceneResources/loginSignUp/loginSignUpPage.fxml";
     public static final String TITLE = "Login/Sign Up";
     public static MediaPlayer mediaPlayer;
     public TextField signUpUsername;
