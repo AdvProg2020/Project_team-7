@@ -14,7 +14,7 @@
 .button:hover {
 	-fx-background-color:linear-gradient(#ffd9b3 5%, #ff9500 100%);
 }
-.label, .button, .text{
+.label, .button, .text, .text-field{
     -fx-font-family: 'a letter to you';
 }
 .label{

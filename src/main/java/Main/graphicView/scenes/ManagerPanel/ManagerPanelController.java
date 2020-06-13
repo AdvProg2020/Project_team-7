@@ -14,29 +14,29 @@ public class ManagerPanelController {
     public static final String TITLE = "Manager user panel";
 
     public void goToPersonalInformation() throws IOException {
-        Parent parent = GraphicMain.graphicMain.goToPage("src/main/sceneResources/ManagerPanel/ViewPersonalInformation.fxml","My Personal Information");
-        Label label = ((Label) parent.getChildrenUnmodifiable().get(2));
-        Platform.runLater(() -> label.setText(GraphicMain.generalController.viewPersonalInfo()));
+        GraphicMain.graphicMain.goToPage(ManagerPersonalInfoController.FXML_PATH,ManagerPersonalInfoController.TITLE);
+        ManagerPersonalInfoController managerPersonalInfoController = new ManagerPersonalInfoController();
+        managerPersonalInfoController.initialize();
     }
 
     public void goToManageUsers() throws IOException {
-        GraphicMain.graphicMain.goToPage("src/main/sceneResources/ManagerPanel/ManageUsers.fxml","Manage Users");
+        GraphicMain.graphicMain.goToPage(ManageUsersController.FXML_PATH,ManageUsersController.TITLE);
     }
 
     public void goToManageRequests() throws IOException {
-        GraphicMain.graphicMain.goToPage("src/main/sceneResources/ManagerPanel/ManageRequests.fxml","Manage Requests");
+        GraphicMain.graphicMain.goToPage(ManageRequestsController.FXML_PATH,ManageRequestsController.TITLE);
     }
 
     public void goToManageDiscounts() throws IOException {
-        GraphicMain.graphicMain.goToPage("src/main/sceneResources/ManagerPanel/ManageDiscountCodes.fxml","Manage Discounts");
+        GraphicMain.graphicMain.goToPage(ManageDiscountsController.FXML_PATH,ManageDiscountsController.TITLE);
     }
 
     public void goToManageProducts() throws IOException {
-        GraphicMain.graphicMain.goToPage("src/main/sceneResources/ManagerPanel/ManageAllProducts.fxml","Manage Products");
+        GraphicMain.graphicMain.goToPage(ManageProductsController.FXML_PATH,ManageProductsController.TITLE);
     }
 
     public void goToManageCategories() throws IOException {
-        GraphicMain.graphicMain.goToPage("src/main/sceneResources/ManagerPanel/ManageCategories.fxml","Manage Categories");
+        GraphicMain.graphicMain.goToPage(ManageCategoriesController.FXML_PATH,ManageCategoriesController.TITLE);
     }
 
     public void goBack() throws IOException {
