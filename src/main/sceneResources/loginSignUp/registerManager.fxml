@@ -12,14 +12,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.RegisterFirstManager">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.RegisterManager">
     <stylesheets>
         <URL value="@../../java/Main/graphicView/cssFiles/loginSignUpPage.css" />
     </stylesheets>
     <children>
         <TabPane layoutX="91.0" layoutY="90.0" prefHeight="604.0" prefWidth="1036.0" styleClass="tabPane" tabClosingPolicy="UNAVAILABLE" tabMinHeight="70.0" tabMinWidth="190.0">
             <tabs>
-                <Tab closable="false" styleClass="tab" text="SIGN UP AS CHIEF MANAGER">
+                <Tab closable="false" styleClass="tab" text="SIGN UP AS MANAGER">
                     <content>
                         <VBox prefHeight="524.0" prefWidth="1086.0" spacing="18.0">
                             <children>

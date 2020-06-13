@@ -2,6 +2,7 @@ package Main.graphicView.scenes;
 
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.ManagerPanel.ManageUsersController;
 import Main.model.accounts.Account;
 import Main.model.accounts.ManagerAccount;
 import Main.model.exceptions.AccountsException;
@@ -16,8 +17,8 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
-public class RegisterFirstManager implements Initializable {
-    public static final String FXML_PATH = "src/main/sceneResources/loginSignUp/registerFirstManager.fxml";
+public class RegisterManager implements Initializable {
+    public static final String FXML_PATH = "src/main/sceneResources/loginSignUp/registerManager.fxml";
     public static final String TITLE = "Register Chief Manager";
     public static MediaPlayer mediaPlayer;
     public TextField phoneNumber;
@@ -65,8 +66,8 @@ public class RegisterFirstManager implements Initializable {
         return isInfoCorrect;
     }
 
-    private boolean areTextFieldsValid(){
-        boolean isInfoValid=true;
+    private boolean areTextFieldsValid() {
+        boolean isInfoValid = true;
         try {
             AccountsException.validateUserName(username.getText());
             try {
@@ -79,35 +80,35 @@ public class RegisterFirstManager implements Initializable {
         } catch (AccountsException.invalidUserNameException e) {
             username.setText(e.getErrorMessage());
             username.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
-            isInfoValid=false;
+            isInfoValid = false;
         }
         try {
             AccountsException.validateNameTypeInfo("first name", firstName.getText());
         } catch (AccountsException e) {
             firstName.setText(e.getErrorMessage());
             firstName.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
-            isInfoValid=false;
+            isInfoValid = false;
         }
         try {
             AccountsException.validateNameTypeInfo("last name", lastName.getText());
         } catch (AccountsException e) {
             lastName.setText(e.getErrorMessage());
             lastName.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
-            isInfoValid=false;
+            isInfoValid = false;
         }
         try {
             AccountsException.validateEmail(email.getText());
         } catch (AccountsException e) {
             email.setText(e.getErrorMessage());
             email.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
-            isInfoValid=false;
+            isInfoValid = false;
         }
         try {
             AccountsException.validatePhoneNumber(phoneNumber.getText());
         } catch (AccountsException e) {
             phoneNumber.setText(e.getErrorMessage());
             phoneNumber.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
-            isInfoValid=false;
+            isInfoValid = false;
         }
         /*
         try {
@@ -124,15 +125,20 @@ public class RegisterFirstManager implements Initializable {
     }
 
     public void signUp(MouseEvent mouseEvent) throws Exception {
-        if(areTextFieldsFilled()&&areTextFieldsValid()){
-            ManagerAccount managerAccount = new ManagerAccount(username.getText(),firstName.getText(),lastName.getText(),
-                    email.getText(),phoneNumber.getText(),password.getText());
-            ManagerAccount.addManager(managerAccount);
+        if (areTextFieldsFilled() && areTextFieldsValid()) {
+            ManagerAccount managerAccount = new ManagerAccount(username.getText(), firstName.getText(), lastName.getText(),
+                    email.getText(), phoneNumber.getText(), password.getText());
+            if (ManagerAccount.isThereAChiefManager()) {
+                ManagerAccount.addManager(managerAccount);
+                GraphicMain.graphicMain.goToPage(ManageUsersController.FXML_PATH,ManageUsersController.TITLE);
+            } else {
+                ManagerAccount.addManager(managerAccount);
+                GeneralController.currentUser = Account.getUserWithUserName(username.getText());
+                GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
+            }
+            LoginSignUpPage.mediaPlayer.stop();
+            //TODO when back music doesn't start
         }
-        GeneralController.currentUser = Account.getUserWithUserName(username.getText());
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
-        LoginSignUpPage.mediaPlayer.stop();
-        //TODO when back music doest start
     }
 
     public void resetTextField(MouseEvent mouseEvent) {

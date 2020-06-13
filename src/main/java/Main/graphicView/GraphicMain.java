@@ -5,7 +5,7 @@ import Main.controller.GeneralController;
 import Main.controller.ManagerController;
 import Main.controller.SellerController;
 import Main.graphicView.scenes.LoginSignUpPage;
-import Main.graphicView.scenes.RegisterFirstManager;
+import Main.graphicView.scenes.RegisterManager;
 import Main.model.accounts.ManagerAccount;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -46,8 +46,8 @@ public class GraphicMain extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
         Parent root = fxmlLoader.load();
         if (!ManagerAccount.isThereAChiefManager()) {
-            root = FXMLLoader.load(new File((RegisterFirstManager.FXML_PATH)).toURI().toURL());
-            stage.setTitle(RegisterFirstManager.TITLE);
+            root = FXMLLoader.load(new File((RegisterManager.FXML_PATH)).toURI().toURL());
+            stage.setTitle(RegisterManager.TITLE);
         }
         stage.setTitle(LoginSignUpPage.TITLE);
         Scene scene = new Scene(root);
