@@ -1,6 +1,11 @@
-package Main.graphicView.scenes;
+package Main.graphicView.scenes.ManagerPanel;
 
+import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import javafx.application.Platform;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 
@@ -9,7 +14,9 @@ public class ManagerPanelController {
     public static final String TITLE = "Manager user panel";
 
     public void goToPersonalInformation() throws IOException {
-        GraphicMain.graphicMain.goToPage("src/main/sceneResources/ManagerPanel/ViewPersonalInformation.fxml","My Personal Information");
+        Parent parent = GraphicMain.graphicMain.goToPage("src/main/sceneResources/ManagerPanel/ViewPersonalInformation.fxml","My Personal Information");
+        Label label = ((Label) parent.getChildrenUnmodifiable().get(2));
+        Platform.runLater(() -> label.setText(GraphicMain.generalController.viewPersonalInfo()));
     }
 
     public void goToManageUsers() throws IOException {

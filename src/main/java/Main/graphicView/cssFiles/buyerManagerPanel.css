@@ -1,0 +1,13 @@
+#parentAnchor{
+    -fx-background-image: url(../resources/images/mainUserPanelsBG.jpg);
+}
+#subAnchor{
+    -fx-background-image: url(../resources/images/subUserPanelsBG.jpg);
+}
+#parentAnchor, #subAnchor{
+   -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
+.button, .label{
+    -fx-font-size: 60px;
+}

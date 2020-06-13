@@ -4,9 +4,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.ManagerPanelController">
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane fx:id="parentAnchor" id="parentAnchor" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.ManagerPanel.ManagerPanelController">
     <stylesheets>
         <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
+        <URL value="@../../java/Main/graphicView/cssFiles/buyerManagerPanel.css" />
     </stylesheets>
    <children>
       <Button layoutX="128.0" layoutY="188.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Personal Information" onAction="#goToPersonalInformation"/>
@@ -15,6 +18,10 @@
       <Button layoutX="612.0" layoutY="188.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Categories" onAction="#goToManageCategories"/>
       <Button layoutX="612.0" layoutY="331.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Discounts" onAction="#goToManageDiscounts"/>
       <Button layoutX="612.0" layoutY="473.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="420.0" text="Manage Products" onAction="#goToManageProducts"/>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Back" onAction="#goBack"/>
+       <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+           <image>
+               <Image url="@../../java/Main/graphicView/resources/images/back.png" />
+           </image>
+       </ImageView>
    </children>
 </AnchorPane>

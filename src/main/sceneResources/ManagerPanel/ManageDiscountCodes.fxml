@@ -3,14 +3,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<AnchorPane xmlns="http://javafx.com/javafx"
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane fx:id="subAnchor" id="subAnchor" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Main.graphicView.scenes.ManagerPanelController"
+            fx:controller="Main.graphicView.scenes.ManagerPanel.ManagerPanelController"
             prefHeight="750.0" prefWidth="1200.0">
     <stylesheets>
         <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
+        <URL value="@../../java/Main/graphicView/cssFiles/buyerManagerPanel.css" />
     </stylesheets>
     <children>
-        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Back" onAction="#goBack"/>
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../java/Main/graphicView/resources/images/back.png" />
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>

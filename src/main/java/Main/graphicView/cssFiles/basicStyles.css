@@ -17,3 +17,6 @@
 .label, .button, .text{
     -fx-font-family: 'a letter to you';
 }
+.label{
+-fx-font-size:45px;
+}

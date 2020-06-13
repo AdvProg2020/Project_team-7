@@ -1,4 +1,4 @@
-package Main.graphicView.scenes;
+package Main.graphicView.scenes.BuyerPanel;
 
 import Main.graphicView.GraphicMain;
 
