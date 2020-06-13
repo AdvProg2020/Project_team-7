@@ -5,6 +5,7 @@ import Main.graphicView.GraphicMain;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -18,6 +19,8 @@ public class SalesHistoryPage implements Initializable {
 
     @FXML
     private VBox logIdBox;
+    @FXML
+    private Label logDetails;
 
     public ArrayList<Label> getLabels(){
         ArrayList<Label> idList = new ArrayList<>();
@@ -48,7 +51,9 @@ public class SalesHistoryPage implements Initializable {
         }
     }
 
-    public void showLogDetails(){
-        //TODO complete process
+    public void showLogDetails(MouseEvent mouseEvent){
+        Label logLabel = (Label) mouseEvent.getSource();
+        String id = logLabel.getText();
+        logDetails.setText(GraphicMain.sellerController.viewLogDetails(id));
     }
 }

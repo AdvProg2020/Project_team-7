@@ -315,4 +315,8 @@ public class SellerAccount extends Account {
     public ArrayList<SellLog> getSellHistory() {
         return sellHistory;
     }
+
+    public String getLogDetails(String id) throws Exception {
+        return getLogWithId(id).viewLog();
+    }
 }

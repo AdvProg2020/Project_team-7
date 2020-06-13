@@ -36,6 +36,14 @@ public class SellerController {
         }
     }
 
+    public String viewLogDetails(String logId){
+        try {
+            return ((SellerAccount) GeneralController.currentUser).getLogDetails(logId);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
     public String showSellerProducts() {
         return ((SellerAccount) GeneralController.currentUser).showSellerProducts();
     }
