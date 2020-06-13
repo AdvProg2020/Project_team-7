@@ -18,7 +18,7 @@
                         <Font size="36.0" />
                     </font></Label>
             </children></VBox>
-        <ImageView fitHeight="71.0" fitWidth="82.0" layoutX="46.0" layoutY="23.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../java/Main/graphicView/resources/images/back.png" />
             </image>

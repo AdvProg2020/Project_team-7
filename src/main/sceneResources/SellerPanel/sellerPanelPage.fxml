@@ -18,7 +18,7 @@
                         <Font name="System Bold" size="30.0" />
                     </font>
                 </Label>
-                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="80.0" prefWidth="200.0" text="sales history" textFill="WHITE">
+                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#goToSalesHistoryPage" prefHeight="80.0" prefWidth="200.0" text="sales history" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="30.0" />
                     </font>
@@ -74,7 +74,7 @@
                 <Font size="36.0" />
             </font>
         </Button>
-        <ImageView fitHeight="71.0" fitWidth="82.0" layoutX="215.0" layoutY="14.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../java/Main/graphicView/resources/images/back.png" />
             </image>

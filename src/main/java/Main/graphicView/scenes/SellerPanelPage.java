@@ -22,7 +22,7 @@ public class SellerPanelPage implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        personalInfoLabel.setText(GraphicMain.generalController.viewPersonalInfo());
+        //personalInfoLabel.setText("role: seller\n" + GraphicMain.generalController.viewPersonalInfo());
     }
 
     public void goToEditInfoPage() throws IOException {
@@ -37,5 +37,9 @@ public class SellerPanelPage implements Initializable{
     public void viewCompanyInformation(){
         titleLabel.setText("company information");
         personalInfoLabel.setText(GraphicMain.sellerController.viewCompanyInformation());
+    }
+
+    public void goToSalesHistoryPage() throws IOException {
+        GraphicMain.graphicMain.goToPage(SalesHistoryPage.FXML_PATH,SalesHistoryPage.TITLE);
     }
 }

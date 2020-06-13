@@ -9,6 +9,7 @@ import Main.model.discountAndOffTypeService.OffStatus;
 import Main.model.exceptions.AccountsException;
 import Main.model.exceptions.CreateProductException;
 import Main.model.exceptions.DiscountAndOffTypeServiceException;
+import Main.model.logs.SellLog;
 import Main.model.requests.*;
 
 import java.util.ArrayList;
@@ -20,6 +21,19 @@ public class SellerController {
 
     public String viewSalesHistory() {
         return ((SellerAccount) GeneralController.currentUser).viewSalesHistory();
+    }
+
+    public ArrayList<String> getSellLogIds(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        ArrayList<SellLog> sellHistory = ((SellerAccount) GeneralController.currentUser).getSellHistory();
+        if(sellHistory.equals(null))
+            return null;
+        else {
+            for (SellLog sellLog : sellHistory) {
+                arrayList.add(sellLog.getLogId());
+            }
+            return arrayList;
+        }
     }
 
     public String showSellerProducts() {
