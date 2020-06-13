@@ -21,6 +21,14 @@ public class ManagerController {
         return ManagerAccount.showManagersList() + SellerAccount.showSellersList() + BuyerAccount.showBuyersList();
     }
 
+    public ArrayList<String> usersListForGraphic(){
+        ArrayList<String> users = new ArrayList<>();
+        users.addAll(ManagerAccount.allManagersForGraphic());
+        users.addAll(SellerAccount.allSellersForGraphic());
+        users.addAll(BuyerAccount.allBuyersForGraphic());
+        return users;
+    }
+
     public String viewUserWithUserName(String userName) {
         Account account;
         try {

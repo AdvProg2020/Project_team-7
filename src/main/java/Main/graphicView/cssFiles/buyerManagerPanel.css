@@ -1,16 +1,20 @@
 #parentAnchor{
     -fx-background-image: url(../resources/images/mainUserPanelsBG.jpg);
 }
+
 #subAnchor{
     -fx-background-image: url(../resources/images/subUserPanelsBG.jpg);
 }
+
 #parentAnchor, #subAnchor{
    -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
 }
+
 .button, .label{
     -fx-font-size: 60px;
 }
+
 .text-field{
     -fx-font-size : 35px;
     -fx-background-color: #f5d8c1;
@@ -20,14 +24,35 @@
     -fx-opacity:0.7;
     -fx-box-shadow:10,10,10,10;
 }
+
 .text-field:hover{
 -fx-background-color: #ffcea6;
 -fx-opacity:0.95;
 }
+
 #youCanEdit{
     -fx-background-color:#fcf6e6;
     -fx-opacity:0.8;
     -fx-border-radius:10% 19% 7% 4% / 36% 15% 43% 54%  ;
     -fx-background-radius:10% 19% 7% 4% / 36% 15% 43% 54%  ;
     -fx-alignment:center;
+}
+
+.list-cell{
+    -fx-cell-size:140;
+    -fx-font-size:45px;
+    -fx-background-color:#ffd0c2;
+    -fx-border-color:#ff7f0f;
+    -fx-border-radius:7,7,7,7;
+    -fx-background-radius:7,7,7,7;
+}
+
+.list-cell:selected{
+    -fx-background-color:#ffb675;
+}
+
+.list-cell:empty{
+    -fx-border-color:#ffd0c2;
+    -fx-border-radius:0,0,0,0;
+    -fx-background-radius:0,0,0,0;
 }

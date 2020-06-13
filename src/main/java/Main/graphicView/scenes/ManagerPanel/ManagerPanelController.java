@@ -15,8 +15,6 @@ public class ManagerPanelController {
 
     public void goToPersonalInformation() throws IOException {
         GraphicMain.graphicMain.goToPage(ManagerPersonalInfoController.FXML_PATH,ManagerPersonalInfoController.TITLE);
-        ManagerPersonalInfoController managerPersonalInfoController = new ManagerPersonalInfoController();
-        managerPersonalInfoController.initialize();
     }
 
     public void goToManageUsers() throws IOException {

@@ -26,6 +26,16 @@ public class ManagerAccount extends Account {
         return allManagers;
     }
 
+    public static ArrayList<String> allManagersForGraphic(){
+        ArrayList<String> allManagersInfo = new ArrayList<>();
+        for (ManagerAccount manager : allManagers) {
+            String managerInfo = "";
+            managerInfo = managerInfo.concat("MANAGER: @" + manager.userName + "\n" + manager.firstName + " " + manager.lastName);
+            allManagersInfo.add(managerInfo);
+        }
+        return allManagersInfo;
+    }
+
     public String editPersonalInfo(String field, String newContent) {
         if (field.equalsIgnoreCase("username"))
             return "you are not allowed to edit this";
