@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
@@ -15,5 +16,7 @@
                 <Image url="@../../java/Main/graphicView/resources/images/back.png" />
             </image>
         </ImageView>
+      <ListView layoutX="196.0" layoutY="116.0" prefHeight="552.0" prefWidth="830.0" fx:id="productList"/>
+      <Label layoutX="196.0" layoutY="28.0" text="All Products:" />
     </children>
 </AnchorPane>

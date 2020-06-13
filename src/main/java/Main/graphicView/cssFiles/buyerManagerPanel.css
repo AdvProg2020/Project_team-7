@@ -51,7 +51,12 @@
     -fx-background-color:#ffb675;
 }
 
+.list-cell:hover{
+    -fx-background-color:#ffb850;
+}
+
 .list-cell:empty{
+    -fx-background-color:#ffd0c2;
     -fx-border-color:#ffd0c2;
     -fx-border-radius:0,0,0,0;
     -fx-background-radius:0,0,0,0;

@@ -52,6 +52,16 @@ public class Product {
         this.productStatus = ProductStatus.PENDING_CREATION_PRODUCT;
         this.price = price;
         this.averageScore = 0;
+        this.off = null;
+    }
+
+    public static ArrayList<String> summaryProductInfo() {
+        ArrayList<String> summaryInfos = new ArrayList<>();
+        for (Product product : allProducts) {
+            String summary = "@" + product.productId + " " + product.name + "\nbrand:" + product.brand + "\t\t\t\t" + product.price + "Dollars";
+            summaryInfos.add(summary);
+        }
+        return summaryInfos;
     }
 
     public void setSpecialFeatures(ArrayList<String> specialFeatures) {
@@ -211,8 +221,10 @@ public class Product {
         for (SellerAccount seller : this.sellers) {
             seller.removeProduct(this);
         }
-        this.category.removeProduct(this);
-        this.off.removeProduct(this);
+        if (this.category != null)
+            this.category.removeProduct(this);
+        if (this.off != null)
+            this.off.removeProduct(this);
     }
 
     public static String showAllProducts() {
