@@ -43,6 +43,16 @@ public class BuyerAccount extends Account {
         this.cart = new Cart();
     }
 
+    public static ArrayList<String> allBuyersForGraphic() {
+        ArrayList<String> allBuyersInfo = new ArrayList<>();
+        for (BuyerAccount buyer : allBuyers) {
+            String buyerInfo = "";
+            buyerInfo = buyerInfo.concat("BUYER: @" + buyer.userName + "\n" + buyer.firstName + " " + buyer.lastName);
+            allBuyersInfo.add(buyerInfo);
+        }
+        return allBuyersInfo;
+    }
+
     public String editPersonalInfo(String field, String newContent) {
         if (field.equalsIgnoreCase("username"))
             return "you are not allowed to edit this";

@@ -36,6 +36,14 @@ public class SellerController {
         }
     }
 
+    public String viewLogDetails(String logId){
+        try {
+            return ((SellerAccount) GeneralController.currentUser).getLogDetails(logId);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
     public String showSellerProducts() {
         return ((SellerAccount) GeneralController.currentUser).showSellerProducts();
     }
@@ -364,5 +372,16 @@ public class SellerController {
 
     public String viewSellerBalance() {
         return ((SellerAccount) GeneralController.currentUser).viewBalance();
+    }
+
+    public ArrayList<String> getSellerProductNames(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
+        if(sellerAccount.getProducts().isEmpty())
+            return null;
+        for (Product product : sellerAccount.getProducts()) {
+            arrayList.add(product.getName() + "(" + product.getProductId() + ")");
+        }
+        return arrayList;
     }
 }

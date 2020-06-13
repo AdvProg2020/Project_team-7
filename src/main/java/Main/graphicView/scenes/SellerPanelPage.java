@@ -3,6 +3,7 @@ package Main.graphicView.scenes;
 import Main.graphicView.GraphicMain;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class SellerPanelPage implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //personalInfoLabel.setText("role: seller\n" + GraphicMain.generalController.viewPersonalInfo());
+        personalInfoLabel.setText("role: seller\n" + GraphicMain.generalController.viewPersonalInfo());
     }
 
     public void goToEditInfoPage() throws IOException {
@@ -41,5 +42,21 @@ public class SellerPanelPage implements Initializable{
 
     public void goToSalesHistoryPage() throws IOException {
         GraphicMain.graphicMain.goToPage(SalesHistoryPage.FXML_PATH,SalesHistoryPage.TITLE);
+    }
+
+    public void viewBalance(){
+        showInformationAlert(GraphicMain.sellerController.viewSellerBalance());
+    }
+
+    public void showInformationAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(null);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
+    public void goToSellerProductsPage() throws IOException {
+        GraphicMain.graphicMain.goToPage(SellerProductsPage.FXML_PATH,SellerProductsPage.TITLE);
     }
 }

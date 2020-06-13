@@ -20,8 +20,10 @@
             <Image url="@../../java/Main/graphicView/resources/images/back.png" />
          </image>
       </ImageView>
-      <Pane id="youCanEdit" layoutX="320.0" layoutY="48.0" prefHeight="104.0" prefWidth="456.0" />
-      <Label layoutX="378.0" layoutY="68.0" text="Your Balance:" />
-      <Label fx:id="balance" layoutX="650.0" layoutY="68.0" prefHeight="64.0" prefWidth="208.0" text="Label" />
+      <Pane id="youCanEdit" layoutX="371.0" layoutY="45.0" prefHeight="96.0" prefWidth="420.0">
+         <children>
+            <Label fx:id="balance" layoutX="290.0" layoutY="20.0" prefHeight="64.0" prefWidth="208.0" text="0" />
+            <Label layoutX="38.0" layoutY="14.0" text="Your Balance:" />
+         </children></Pane>
    </children>
 </AnchorPane>

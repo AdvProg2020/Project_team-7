@@ -42,6 +42,16 @@ public class SellerAccount extends Account {
         this.balance = balance;
     }
 
+    public static ArrayList<String> allSellersForGraphic(){
+        ArrayList<String> allSellersInfo = new ArrayList<>();
+        for (SellerAccount seller : allSellers) {
+            String sellerInfo = "";
+            sellerInfo = sellerInfo.concat("SELLER: @" + seller.userName + "\n" + seller.firstName + " " + seller.lastName);
+            allSellersInfo.add(sellerInfo);
+        }
+        return allSellersInfo;
+    }
+
     public String editPersonalInfo(String field, String newContent) {
         if (field.equals("userName"))
             return "you are not allowed to edit this";
@@ -314,5 +324,13 @@ public class SellerAccount extends Account {
 
     public ArrayList<SellLog> getSellHistory() {
         return sellHistory;
+    }
+
+    public String getLogDetails(String id) throws Exception {
+        return getLogWithId(id).viewLog();
+    }
+
+    public ArrayList<Product> getProducts() {
+        return products;
     }
 }
