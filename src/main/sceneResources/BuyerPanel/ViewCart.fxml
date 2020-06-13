@@ -6,7 +6,7 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<AnchorPane fx:id="subAnchor" id="subAnchor" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.BuyerPanel.BuyerPanelController">
+<AnchorPane fx:id="subAnchor" id="subAnchor" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.BuyerPanel.MyCartController">
     <stylesheets>
         <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
         <URL value="@../../java/Main/graphicView/cssFiles/buyerManagerPanel.css" />

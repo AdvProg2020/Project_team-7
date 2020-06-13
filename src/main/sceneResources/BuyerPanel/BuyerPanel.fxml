@@ -11,14 +11,17 @@
       <URL value="@../../java/Main/graphicView/cssFiles/buyerManagerPanel.css" />
    </stylesheets>
    <children>
-      <Button layoutX="407.0" layoutY="119.0" mnemonicParsing="false" onAction="#goToPersonalInformation" prefHeight="104.0" prefWidth="387.0" text="Personal Information" />
-      <Button layoutX="407.0" layoutY="261.0" mnemonicParsing="false" onAction="#goToMyOrders" prefHeight="104.0" prefWidth="387.0" text="My Orders" />
-      <Button layoutX="407.0" layoutY="393.0" mnemonicParsing="false" onAction="#goToMyDiscounts" prefHeight="104.0" prefWidth="387.0" text="My Discounts" />
-      <Button layoutX="407.0" layoutY="527.0" mnemonicParsing="false" onAction="#goToMyCart" prefHeight="104.0" prefWidth="387.0" text="My Cart" />
+      <Button layoutX="141.0" layoutY="209.0" mnemonicParsing="false" onAction="#goToPersonalInformation" prefHeight="104.0" prefWidth="387.0" text="Personal Information" />
+      <Button layoutX="656.0" layoutY="209.0" mnemonicParsing="false" onAction="#goToMyOrders" prefHeight="104.0" prefWidth="387.0" text="My Orders" />
+      <Button layoutX="141.0" layoutY="362.0" mnemonicParsing="false" onAction="#goToMyDiscounts" prefHeight="104.0" prefWidth="387.0" text="My Discounts" />
+      <Button layoutX="656.0" layoutY="362.0" mnemonicParsing="false" onAction="#goToMyCart" prefHeight="104.0" prefWidth="387.0" text="My Cart" />
       <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../java/Main/graphicView/resources/images/back.png" />
          </image>
       </ImageView>
+      <Pane id="youCanEdit" layoutX="320.0" layoutY="48.0" prefHeight="104.0" prefWidth="456.0" />
+      <Label layoutX="378.0" layoutY="68.0" text="Your Balance:" />
+      <Label fx:id="balance" layoutX="650.0" layoutY="68.0" prefHeight="64.0" prefWidth="208.0" text="Label" />
    </children>
 </AnchorPane>
