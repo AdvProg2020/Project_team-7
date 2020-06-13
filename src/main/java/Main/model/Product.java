@@ -7,6 +7,7 @@ import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.discountAndOffTypeService.OffStatus;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
+import javafx.scene.image.Image;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class Product {
     private Off off;
     private ArrayList<Rate> rates = new ArrayList<Rate>();
     private HashMap<String, String> specialFeatures = new HashMap<String, String>();
+    private Image image = new Image("src/main/java/Main/graphicView/resources/images/product.png");
 
     private ArrayList<String> sellersStringRecord = new ArrayList<>();
     private String categoryStringRecord;
@@ -481,5 +483,13 @@ public class Product {
         for (Product product : allProducts) {
             product.categoryStringRecord = (product.category == null ? null : product.category.getName());
         }
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

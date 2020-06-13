@@ -373,4 +373,15 @@ public class SellerController {
     public String viewSellerBalance() {
         return ((SellerAccount) GeneralController.currentUser).viewBalance();
     }
+
+    public ArrayList<String> getSellerProductNames(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
+        if(sellerAccount.getProducts().isEmpty())
+            return null;
+        for (Product product : sellerAccount.getProducts()) {
+            arrayList.add(product.getName() + "(" + product.getProductId() + ")");
+        }
+        return arrayList;
+    }
 }

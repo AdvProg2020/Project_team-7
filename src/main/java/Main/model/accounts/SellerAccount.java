@@ -329,4 +329,8 @@ public class SellerAccount extends Account {
     public String getLogDetails(String id) throws Exception {
         return getLogWithId(id).viewLog();
     }
+
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
 }

@@ -23,7 +23,7 @@ public class SellerPanelPage implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //personalInfoLabel.setText("role: seller\n" + GraphicMain.generalController.viewPersonalInfo());
+        personalInfoLabel.setText("role: seller\n" + GraphicMain.generalController.viewPersonalInfo());
     }
 
     public void goToEditInfoPage() throws IOException {
@@ -54,5 +54,9 @@ public class SellerPanelPage implements Initializable{
         alert.setContentText(message);
         alert.setHeaderText(null);
         alert.showAndWait();
+    }
+
+    public void goToSellerProductsPage() throws IOException {
+        GraphicMain.graphicMain.goToPage(SellerProductsPage.FXML_PATH,SellerProductsPage.TITLE);
     }
 }

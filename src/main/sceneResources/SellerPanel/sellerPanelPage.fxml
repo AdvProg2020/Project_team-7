@@ -23,7 +23,7 @@
                         <Font name="System Bold" size="30.0" />
                     </font>
                 </Label>
-                <Label alignment="CENTER" layoutX="10.0" layoutY="90.0" prefHeight="80.0" prefWidth="200.0" text="products" textFill="WHITE">
+                <Label alignment="CENTER" layoutX="10.0" layoutY="90.0" onMouseClicked="#goToSellerProductsPage" prefHeight="80.0" prefWidth="200.0" text="products" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="30.0" />
                     </font>
