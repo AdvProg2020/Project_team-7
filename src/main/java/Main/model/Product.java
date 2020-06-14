@@ -34,7 +34,7 @@ public class Product {
     private Off off;
     private ArrayList<Rate> rates = new ArrayList<Rate>();
     private HashMap<String, String> specialFeatures = new HashMap<String, String>();
-    private Image image = new Image("src/main/java/Main/graphicView/resources/images/product.png");
+    private String imagePath = "src/main/java/Main/graphicView/resources/images/product.png";
 
     private ArrayList<String> sellersStringRecord = new ArrayList<>();
     private String categoryStringRecord;
@@ -497,11 +497,11 @@ public class Product {
         }
     }
 
-    public Image getImage() {
-        return image;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }
