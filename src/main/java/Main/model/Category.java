@@ -30,6 +30,14 @@ public class Category {
         this.name = name;
     }
 
+    public static ArrayList<String> categoriesList(){
+        ArrayList<String> list = new ArrayList<>();
+        for (Category category : allCategories) {
+            list.add(category.name);
+        }
+        return list;
+    }
+
     public static boolean isThereCategoryWithName(String name) {
         for (Category category : allCategories) {
             if (category.name.equals(name)) {

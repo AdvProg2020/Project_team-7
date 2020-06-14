@@ -29,6 +29,7 @@ public class ManageRequestsController {
                 if (requestsList.getSelectionModel().getSelectedItem() != null) {
                     String id = requestsList.getSelectionModel().getSelectedItem().toString();
                     id = id.substring(1, id.indexOf(' '));
+                    requestsList.getSelectionModel().clearSelection();
                     Request request = null;
                     try {
                         request = Request.getRequestWithId(id);

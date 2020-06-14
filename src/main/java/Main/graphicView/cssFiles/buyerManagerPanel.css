@@ -15,7 +15,7 @@
     -fx-font-size: 60px;
 }
 
-.text-field{
+.text-field, .text-area{
     -fx-font-size : 35px;
     -fx-background-color: #f5d8c1;
     -fx-background-radius: 50,40,30,20;
@@ -25,7 +25,7 @@
     -fx-box-shadow:10,10,10,10;
 }
 
-.text-field:hover{
+.text-field:hover , .text-area:hover{
 -fx-background-color: #ffcea6;
 -fx-opacity:0.95;
 }
@@ -47,6 +47,10 @@
     -fx-background-radius:7,7,7,7;
 }
 
+#smallerListView{
+    -fx-cell-size:70;
+}
+
 .list-cell:selected{
     -fx-background-color:#ffb675;
 }
@@ -60,4 +64,8 @@
     -fx-border-color:#ffd0c2;
     -fx-border-radius:0,0,0,0;
     -fx-background-radius:0,0,0,0;
+}
+
+#smallerLabel{
+    -fx-font-size:30px;
 }
