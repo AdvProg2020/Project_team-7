@@ -1,12 +1,76 @@
 package Main.graphicView.scenes.ManagerPanel;
 
 import Main.graphicView.GraphicMain;
+import Main.model.Product;
+import Main.model.requests.Request;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class ManageRequestsController {
     public static final String FXML_PATH = "src/main/sceneResources/ManagerPanel/ManageRequests.fxml";
     public static final String TITLE = "Manage Requests";
+
+    @FXML
+    private ListView requestsList;
+
+    public void initialize() {
+        requestsList.getItems().clear();
+        requestsList.getItems().addAll(Request.summaryInfoOfRequests());
+        requestsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (requestsList.getSelectionModel().getSelectedItem() != null) {
+                    String id = requestsList.getSelectionModel().getSelectedItem().toString();
+                    id = id.substring(1, id.indexOf(' '));
+                    Request request = null;
+                    try {
+                        request = Request.getRequestWithId(id);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        showRequestMenu(request);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    private void showRequestMenu(Request request) throws Exception {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.getButtonTypes().clear();
+        alert.setTitle("Request Menu");
+        alert.setHeaderText(request.showRequest());
+        alert.setContentText("What do you want to do with this request?");
+        ButtonType accept = new ButtonType("Accept");
+        ButtonType decline = new ButtonType("Decline");
+        alert.getButtonTypes().addAll(accept, decline);
+        Optional<ButtonType> option = alert.showAndWait();
+        if (option.equals(accept)) {
+            request.accept();
+            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+            alert1.setTitle("Request Accepted");
+            alert1.setHeaderText(null);
+            alert1.setContentText(request.getType() + " with id " + request.getRequestId() + " accepted successfully.");
+            alert1.showAndWait();
+        } else if (option.equals(decline)) {
+            request.decline();
+            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+            alert1.setTitle("Request Declined");
+            alert1.setHeaderText(null);
+            alert1.setContentText(request.getType() + " request with id " + request.getRequestId() + " declined successfully.");
+            alert1.showAndWait();
+        }
+    }
 
     public void goBack() throws IOException {
         GraphicMain.graphicMain.back();

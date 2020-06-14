@@ -30,6 +30,15 @@ public abstract class Request {
         throw new Exception("There is no request with given ID !\n");
     }
 
+    public static ArrayList<String> summaryInfoOfRequests(){
+        ArrayList<String> summaryInfos = new ArrayList<>();
+        for (Request request : allRequests) {
+            String summaryInfo = "@"+request.requestId+" "+request.getType();
+            summaryInfos.add(summaryInfo);
+        }
+        return summaryInfos;
+    }
+
     public static String showAllRequests() {
         String requests = "";
         if (GeneralController.currentRequestSort.equalsIgnoreCase("type"))
