@@ -54,7 +54,7 @@
                     </font>
                 </Label>
             </children></VBox>
-        <Label fx:id="titleLabel" alignment="CENTER" layoutX="600.0" layoutY="14.0" prefHeight="80.0" prefWidth="200.0" text="Personal information" textFill="#e86e0b">
+        <Label fx:id="titleLabel" alignment="CENTER" layoutX="579.0" layoutY="14.0" prefHeight="80.0" prefWidth="252.0" text="Personal information" textFill="#e86e0b">
             <font>
                 <Font name="System Bold" size="38.0" />
             </font>
