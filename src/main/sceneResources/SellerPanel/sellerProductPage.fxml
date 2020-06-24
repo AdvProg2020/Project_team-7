@@ -27,7 +27,7 @@
             <Font size="40.0" />
          </font>
       </Button>
-      <Button layoutX="204.0" layoutY="530.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="123.0" text="remove">
+      <Button layoutX="204.0" layoutY="530.0" mnemonicParsing="false" onAction="#removeProduct" prefHeight="74.0" prefWidth="123.0" text="remove">
          <font>
             <Font size="40.0" />
          </font>

@@ -55,27 +55,27 @@ public class EditProductPage implements Initializable {
     public void submitEdits(){
         try {
             EditProductRequest editProductRequest = GraphicMain.sellerController.getProductToEdit(product.getProductId());
-            if(!name.getText().equals("")){
+            if(!name.getText().isEmpty()){
                 editProductRequest.addEditedFieldTitle("name");
                 editProductRequest.setName(name.getText());
             }
-            if(!brand.getText().equals("")){
+            if(!brand.getText().isEmpty()){
                 editProductRequest.addEditedFieldTitle("brand");
                 editProductRequest.setName(brand.getText());
             }
-            if(!availability.getText().equals("")){
+            if(!availability.getText().isEmpty()){
                 editProductRequest.addEditedFieldTitle("availability");
                 editProductRequest.setName(availability.getText());
             }
-            if(!name.getText().equals("")){
+            if(!name.getText().isEmpty()){
                 editProductRequest.addEditedFieldTitle("description");
                 editProductRequest.setName(description.getText());
             }
-            if(!name.getText().equals("")){
+            if(!name.getText().isEmpty()){
                 editProductRequest.addEditedFieldTitle("price");
                 editProductRequest.setName(price.getText());
             }
-            if(!name.getText().equals("")){
+            if(!name.getText().isEmpty()){
                 editProductRequest.addEditedFieldTitle("off");
                 editProductRequest.setName(offId.getText());
             }

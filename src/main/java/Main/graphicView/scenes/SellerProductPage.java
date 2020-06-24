@@ -4,12 +4,15 @@ import Main.graphicView.GraphicMain;
 import Main.model.Product;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SellerProductPage implements Initializable {
@@ -79,5 +82,29 @@ public class SellerProductPage implements Initializable {
 
     public void goToEditProductPage() throws IOException {
         GraphicMain.graphicMain.goToPage(EditProductPage.FXML_PATH,EditProductPage.TITLE);
+    }
+
+    public void removeProduct(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(null);
+        alert.setTitle(null);
+        alert.setContentText("Are you sure you want to remove this product?");
+        Optional<ButtonType> selectedButton = alert.showAndWait();
+        if(ButtonType.OK.equals(selectedButton.get())){
+            try {
+                GraphicMain.sellerController.removeProductWithID(productId);
+                goBack();
+            } catch (Exception e) {
+                showErrorAlert(e.getMessage());
+            }
+        }
+    }
+
+    public void showErrorAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(null);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.show();
     }
 }
