@@ -18,12 +18,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.ProductsPage">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.ProductsPage">
    <stylesheets>
        <URL value="@../java/Main/graphicView/cssFiles/productsPage.css" />
    </stylesheets>
     <right>
-        <SplitPane dividerPositions="0.12566844919786097" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.12566844919786097, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
             <items>
                 <HBox maxHeight="50.0" minHeight="50.0" prefHeight="100.0" prefWidth="200.0" styleClass="searchPane">
                     <children>
@@ -106,6 +106,23 @@
                   </TitledPane>
               </panes>
             </Accordion>
+            <HBox alignment="TOP_RIGHT" maxHeight="60.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#goToUserPanel" onMouseEntered="#grow" onMouseExited="#shrink" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../java/Main/graphicView/resources/images/avatar.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#back" onMouseEntered="#grow" onMouseExited="#shrink" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../java/Main/graphicView/resources/images/back.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </HBox>
             </items>
         </SplitPane>
     </right>

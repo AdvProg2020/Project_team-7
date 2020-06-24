@@ -225,4 +225,8 @@ public class Off extends DiscountAndOffTypeService {
             off.sellerStringRecord = off.seller.getUserName();
         }
     }
+
+    public static ArrayList<Off> getAllOffs() {
+        return allOffs;
+    }
 }

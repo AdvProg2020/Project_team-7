@@ -33,7 +33,7 @@ public class MainMenuController {
     }
 
     public void goToOffs(MouseEvent mouseEvent) throws IOException {
-        GraphicMain.graphicMain.goToPage(OffsPage.FXML_PATH, OffsPage.TITLE);
+        GraphicMain.graphicMain.goToPage(OffPage.FXML_PATH, OffPage.TITLE);
     }
 
     public void goToProducts(MouseEvent mouseEvent) throws IOException {

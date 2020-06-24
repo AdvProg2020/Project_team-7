@@ -10,12 +10,14 @@ import Main.model.accounts.Account;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
 import Main.model.accounts.SellerAccount;
+import Main.model.discountAndOffTypeService.Off;
 import Main.model.filters.*;
 import Main.model.sorting.ProductsSort;
 import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
@@ -23,23 +25,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-import javafx.scene.Node;
-import javafx.scene.layout.FlowPane;
-import javafx.stage.Stage;
-
-import java.util.ArrayList;
-
-
-public class ProductsPage implements Initializable {
-    public static final String FXML_PATH = "src/main/sceneResources/productsPage.fxml";
-    public static final String TITLE = "All Products";
+public class OffPage implements Initializable {
+    public static final String FXML_PATH = "src/main/sceneResources/offPage.fxml";
+    public static final String TITLE = "All Offs";
     public FlowPane productsPane;
     public VBox categoryPane;
     public HBox pageNumberPane;
@@ -55,6 +52,7 @@ public class ProductsPage implements Initializable {
     public HBox sortPane;
     private AnimationTimer animationTimer;
     private ArrayList<Product> currentFilterResult = new ArrayList<>();
+    private ArrayList<Product> allOffs = new ArrayList<>();
     private ToggleGroup categoryToggleGroup = new ToggleGroup();
     private ToggleGroup brandToggleGroup = new ToggleGroup();
     private ToggleGroup sellerToggleGroup = new ToggleGroup();
@@ -62,7 +60,10 @@ public class ProductsPage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        currentFilterResult.addAll(Product.allProducts);
+        for (Off off : Off.getAllOffs()) {
+            allOffs.addAll(off.getProducts());
+        }
+        currentFilterResult.addAll(allOffs);
         setPageElementsDueToCurrentFilters();
         setCategoriesFilter();
         setBrandsFilter();
@@ -273,10 +274,10 @@ public class ProductsPage implements Initializable {
         ArrayList<Product> tempCategoryFilterResult = new ArrayList<>();
         RadioButton selectedCategory = (RadioButton) categoryToggleGroup.getSelectedToggle();
         if (selectedCategory == null || selectedCategory.getText().equals("none")) {
-            tempCategoryFilterResult.addAll(Product.allProducts);
+            tempCategoryFilterResult.addAll(allOffs);
         } else {
             CategoryFilter categoryFilter = new CategoryFilter(selectedCategory.getText(), tempCategoryFilterResult);
-            categoryFilter.apply(tempCategoryFilterResult, Product.allProducts);
+            categoryFilter.apply(tempCategoryFilterResult, allOffs);
         }
 
         ArrayList<Product> tempBrandFilterResult = new ArrayList<>();
@@ -362,13 +363,14 @@ public class ProductsPage implements Initializable {
     }
 
     public void showSearchResult(MouseEvent mouseEvent) {
+        GraphicMain.buttonSound.play();
         Stage searchResult = new Stage();
         searchResult.setTitle("Search Result");
 
         //TODO : search process could be better not exactly the same name
         ArrayList<Product> searchResultProducts = new ArrayList<>();
-        ProductNameFilter productNameFilter = new ProductNameFilter(searchText.getText(), Product.allProducts);
-        productNameFilter.apply(searchResultProducts, Product.allProducts);
+        ProductNameFilter productNameFilter = new ProductNameFilter(searchText.getText(), allOffs);
+        productNameFilter.apply(searchResultProducts, allOffs);
 
         VBox vBox = new VBox();
         ScrollPane scrollPane = new ScrollPane(vBox);
@@ -399,32 +401,47 @@ public class ProductsPage implements Initializable {
             }
         }
         Random random = new Random();
-        int allProductsSize = Product.allProducts.size();
-        int productIndex = random.nextInt(allProductsSize);
-        Product product = Product.allProducts.get(productIndex);
+        int allOffProductsSize = allOffs.size();
+        if(allOffProductsSize!=0) {
+            int productIndex = random.nextInt(allOffProductsSize);
+            Product product = allOffs.get(productIndex);
 
-        //TODO : using image path doesn't work :(
-        Image image = new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString());
-        BackgroundImage backgroundImage = new BackgroundImage(image,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(1.0,1.0,true,true,false,false));
-        Background background = new Background(backgroundImage);
-        adPaneBG.setBackground(background);
+            //TODO : using image path doesn't work :(
+            Image image = new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString());
+            BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(1.0, 1.0, true, true, false, false));
+            Background background = new Background(backgroundImage);
+            adPaneBG.setBackground(background);
 
-        GaussianBlur gaussianBlur = new GaussianBlur();
-        adPaneBG.setEffect(gaussianBlur);
+            GaussianBlur gaussianBlur = new GaussianBlur();
+            adPaneBG.setEffect(gaussianBlur);
 
-        HBox adProductBox = product.createProductBoxForAdPane();
-        adProductBox.setLayoutX(200);
-        adPane.getChildren().add(adProductBox);
+            HBox adProductBox = product.createProductBoxForAdPane();
+            adProductBox.setLayoutX(200);
+            adPane.getChildren().add(adProductBox);
 
-
-
-
-        nextAdIcon.toFront();
+            nextAdIcon.toFront();
+        }else {
+            Label label = new Label("No offs yet !");
+            label.setStyle("-fx-text-fill : RED; -fx-font-size : 50;");
+            productsPane.getChildren().add(label);
+        }
     }
 
     public void giveButtonStyle(MouseEvent mouseEvent) {
         ImageView imageView = (ImageView)mouseEvent.getSource();
         imageView.setCursor(Cursor.HAND);
+    }
+
+    public void shrink(MouseEvent mouseEvent) {
+        ImageView imageView = (ImageView) mouseEvent.getSource();
+        imageView.setFitWidth(imageView.getFitWidth() * 40 / 41);
+        imageView.setFitHeight(imageView.getFitHeight() * 40 / 41);
+    }
+
+    public void grow(MouseEvent mouseEvent) {
+        ImageView imageView = (ImageView) mouseEvent.getSource();
+        imageView.setFitWidth(imageView.getFitWidth() + imageView.getFitWidth() / 40);
+        imageView.setFitHeight(imageView.getFitHeight() + imageView.getFitHeight() / 40);
     }
 
     public void goToUserPanel(MouseEvent mouseEvent) throws IOException {
@@ -439,20 +456,8 @@ public class ProductsPage implements Initializable {
         GraphicMain.buttonSound.play();
     }
 
-    public void grow(MouseEvent mouseEvent) {
-        ImageView imageView = (ImageView) mouseEvent.getSource();
-        imageView.setFitWidth(imageView.getFitWidth() + imageView.getFitWidth() / 40);
-        imageView.setFitHeight(imageView.getFitHeight() + imageView.getFitHeight() / 40);
-    }
-
-    public void shrink(MouseEvent mouseEvent) {
-        ImageView imageView = (ImageView) mouseEvent.getSource();
-        imageView.setFitWidth(imageView.getFitWidth() * 40 / 41);
-        imageView.setFitHeight(imageView.getFitHeight() * 40 / 41);
-    }
-
     public void back(MouseEvent mouseEvent) {
-        GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
+        GraphicMain.buttonSound.play();
     }
 }

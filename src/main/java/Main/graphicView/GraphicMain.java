@@ -5,6 +5,7 @@ import Main.controller.GeneralController;
 import Main.controller.ManagerController;
 import Main.controller.SellerController;
 import Main.graphicView.scenes.LoginSignUpPage;
+import Main.graphicView.scenes.MainMenuController;
 import Main.graphicView.scenes.ProductsPage;
 import Main.graphicView.scenes.RegisterManager;
 import Main.model.accounts.ManagerAccount;
@@ -44,20 +45,19 @@ public class GraphicMain extends Application {
         generalController.initializeIDs();
         generalController.giveDiscountCodeToSpecialBuyers();
         stage = primaryStage;
-        //FXMLLoader fxmlLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
-        FXMLLoader fxmlLoader = new FXMLLoader(new File(ProductsPage.FXML_PATH).toURI().toURL());
+        FXMLLoader fxmlLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
+        //FXMLLoader fxmlLoader = new FXMLLoader(new File(MainMenuController.FXML_PATH).toURI().toURL());
         Parent root = fxmlLoader.load();
-        /*if (!ManagerAccount.isThereAChiefManager()) {
+        stage.setTitle(LoginSignUpPage.TITLE);
+        if (!ManagerAccount.isThereAChiefManager()) {
             root = FXMLLoader.load(new File((RegisterManager.FXML_PATH)).toURI().toURL());
             stage.setTitle(RegisterManager.TITLE);
         }
-        stage.setTitle(LoginSignUpPage.TITLE);*/
         Scene scene = new Scene(root);
         sceneTrace.add(scene);
-        stage.setTitle(LoginSignUpPage.TITLE);
         titleTrace.add(stage.getTitle());
         stage.setScene(scene);
-//        LoginSignUpPage.mediaPlayer.play();
+        LoginSignUpPage.mediaPlayer.play();
         primaryStage.show();
     }
 
