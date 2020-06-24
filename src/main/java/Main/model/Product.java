@@ -1,13 +1,20 @@
 package Main.model;
 
+import Main.consoleViewOld.ProductPageMenu;
 import Main.controller.GeneralController;
+import Main.graphicView.GraphicMain;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.discountAndOffTypeService.OffStatus;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -35,7 +42,7 @@ public class Product {
     private ArrayList<Rate> rates = new ArrayList<Rate>();
     private HashMap<String, String> specialFeatures = new HashMap<String, String>();
     private String imagePath = "src/main/java/Main/graphicView/resources/images/product.png";
-
+    private static ArrayList<String> allBrands = new ArrayList<>();
     private ArrayList<String> sellersStringRecord = new ArrayList<>();
     private String categoryStringRecord;
     private ArrayList<String> buyersStringRecord = new ArrayList<>();
@@ -246,6 +253,9 @@ public class Product {
 
     public void addProduct(Product product) {
         allProducts.add(product);
+        if(!allBrands.contains(product.getBrand())){
+            allBrands.add(product.getBrand());
+        }
         category.addProduct(this);
         for (SellerAccount seller : sellers) {
             seller.addProduct(this);
@@ -503,5 +513,95 @@ public class Product {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public VBox createProductBoxForUI() {
+        VBox productBox = new VBox();
+        productBox.setMinHeight(160);
+        productBox.setMinWidth(170);
+        productBox.setAlignment(Pos.TOP_CENTER);
+        productBox.setId(productId);
+        productBox.getStyleClass().add("productBox");
+        productBox.setOnMouseClicked(event -> {
+            //TODO : link to product page and set current product
+            //GraphicMain.graphicMain.goToPage()
+        });
+
+        setProductImage(productBox);
+        setProductInfoLabels(productBox);
+        setProductRateStars(productBox);
+
+        return productBox;
+    }
+
+    private void setProductInfoLabels(VBox productBox) {
+        productBox.getChildren().add(new Label(name));
+        productBox.getChildren().add(new Label(brand));
+        Label productPrice = new Label(price + "");
+        productBox.getChildren().add(productPrice);
+        if (getProductFinalPriceConsideringOff() != price) {
+            productPrice.setStyle("-fx-strikethrough : true;");
+            productBox.getChildren().add(new Label("price considering off : " + getProductFinalPriceConsideringOff()));
+        }
+        productBox.getChildren().add(new Label(availability + " available !"));
+    }
+
+    private void setProductRateStars(VBox productBox){
+        int rate = getAverageScore().intValue();
+        ImageView rateStars = new ImageView(new Image(new File("src/main/java/Main/graphicView/resources/images/score" + rate + ".png").toURI().toString()));
+        rateStars.setFitHeight(30);
+        rateStars.setFitWidth(150);
+        productBox.getChildren().add(rateStars);
+    }
+
+    private void setProductImage(VBox productBox){
+        //TODO : changing image default path to imagePath doesnt work :(
+        ImageView productImage = new ImageView(new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString()));
+        productImage.setFitWidth(80);
+        productImage.setFitHeight(80);
+        productBox.getChildren().add(productImage);
+    }
+
+    public static ArrayList<String> getAllBrands(){
+        return allBrands;
+    }
+
+    public HBox createProductBoxForAdPane() {
+        HBox productBox = new HBox();
+        productBox.setMinHeight(160);
+        productBox.setMinWidth(300);
+        productBox.setAlignment(Pos.TOP_CENTER);
+        productBox.setId(productId);
+        productBox.setOnMouseClicked(event -> {
+            //TODO : link to product page and set current product
+            //GraphicMain.graphicMain.goToPage()
+        });
+
+        setProductAdImage(productBox);
+        setProductAdLabels(productBox);
+
+        return productBox;
+    }
+
+    private void setProductAdLabels(HBox productBox) {
+        VBox labelPane = new VBox();
+        labelPane.getChildren().add(new Label(name));
+        labelPane.getChildren().add(new Label(brand));
+        Label productPrice = new Label(price + "");
+        labelPane.getChildren().add(productPrice);
+        if (getProductFinalPriceConsideringOff() != price) {
+            productPrice.setStyle("-fx-strikethrough : true;");
+            labelPane.getChildren().add(new Label("price considering off : " + getProductFinalPriceConsideringOff()));
+        }
+        productBox.getChildren().add(labelPane);
+    }
+
+
+    private void setProductAdImage(HBox productBox){
+        //TODO : changing image default path to imagePath doesnt work :(
+        ImageView productImage = new ImageView(new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString()));
+        productImage.setFitWidth(150);
+        productImage.setFitHeight(150);
+        productBox.getChildren().add(productImage);
     }
 }

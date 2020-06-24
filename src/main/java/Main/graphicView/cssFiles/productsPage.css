@@ -1,0 +1,41 @@
+.productBox {
+-fx-background-color : linear-gradient(#f7f7f7 1% ,WHITE ,#f7f7f7 1%); ;
+}
+
+.productsPane {
+-fx-background-color : WHITE;
+}
+
+.accordion {
+/*-fx-background-color : RED;*/
+}
+
+.titled-pane {
+/*-fx-border-color : YELLOW;
+-fx-text-fill : #98929c;*/
+}
+
+.titled-pane : expanded {
+/*-fx-background-color : PINK;*/
+}
+
+.titled-pane .title {
+/*-fx-background-color : #241429;*/
+}
+
+.title .text {
+/*-fx-text-fill : WHITE;*/
+}
+
+.titled-pane .content {
+/*-fx-background-color: PINk;*/
+}
+
+
+.split-pane:horizontal  .split-pane-divider {
+   -fx-background-color: transparent;
+}
+
+.split-pane:vertical  .split-pane-divider {
+   -fx-background-color: transparent;
+}

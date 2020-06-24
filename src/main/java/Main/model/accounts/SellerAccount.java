@@ -333,4 +333,14 @@ public class SellerAccount extends Account {
     public ArrayList<Product> getProducts() {
         return products;
     }
+
+    public static ArrayList<String> getAllSellers() {
+        ArrayList<String> allUniqueSellers = new ArrayList<>();
+        for (SellerAccount seller : allSellers) {
+            if(!allUniqueSellers.contains(seller.getUserName())){
+                allUniqueSellers.add(seller.getUserName());
+            }
+        }
+        return allUniqueSellers;
+    }
 }
