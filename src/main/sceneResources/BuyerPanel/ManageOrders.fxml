@@ -16,7 +16,7 @@
                <Image url="@../../java/Main/graphicView/resources/images/back.png" />
            </image>
        </ImageView>
-      <Button layoutX="881.0" layoutY="20.0" mnemonicParsing="false" text="Rate a Product" />
-      <ListView layoutX="171.0" layoutY="124.0" prefHeight="200.0" prefWidth="200.0" />
+      <Button layoutX="881.0" layoutY="20.0" mnemonicParsing="false" onAction="#goToRateProduct" text="Rate a Product" />
+      <ListView layoutX="157.0" layoutY="60.0" prefHeight="614.0" prefWidth="679.0" fx:id="ordersList"/>
    </children>
 </AnchorPane>

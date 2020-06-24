@@ -54,22 +54,25 @@ public class ManageRequestsController {
         alert.setContentText("What do you want to do with this request?");
         ButtonType accept = new ButtonType("Accept");
         ButtonType decline = new ButtonType("Decline");
-        alert.getButtonTypes().addAll(accept, decline);
+        ButtonType cancel = new ButtonType("Cancel");
+        alert.getButtonTypes().addAll(cancel,accept,decline);
         Optional<ButtonType> option = alert.showAndWait();
-        if (option.equals(accept)) {
+        if (option.get().equals(accept)) {
             request.accept();
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
             alert1.setTitle("Request Accepted");
             alert1.setHeaderText(null);
             alert1.setContentText(request.getType() + " with id " + request.getRequestId() + " accepted successfully.");
             alert1.showAndWait();
-        } else if (option.equals(decline)) {
+            initialize();
+        } else if (option.get().equals(decline)) {
             request.decline();
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
             alert1.setTitle("Request Declined");
             alert1.setHeaderText(null);
             alert1.setContentText(request.getType() + " request with id " + request.getRequestId() + " declined successfully.");
             alert1.showAndWait();
+            initialize();
         }
     }
 

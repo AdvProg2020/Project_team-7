@@ -15,17 +15,17 @@ public class BuyerPersonalInfoController {
     public static final String TITLE = "Buyer Personal Information";
 
     @FXML
-    private static Label username;
+    private Label username;
     @FXML
-    private static TextField password;
+    private TextField password;
     @FXML
-    private static TextField email;
+    private TextField email;
     @FXML
-    private static TextField phoneNumber;
+    private TextField phoneNumber;
     @FXML
-    private static TextField firstName;
+    private TextField firstName;
     @FXML
-    private static TextField lastName;
+    private TextField lastName;
 
     public void initialize() {
         try {
@@ -54,7 +54,7 @@ public class BuyerPersonalInfoController {
                 GeneralController.currentUser.setLastName(lastName.getText());
                 GeneralController.currentUser.setPhoneNumber(phoneNumber.getText());
                 GeneralController.currentUser.setPassWord(password.getText());
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.err.println("error");
             }
             goBack();

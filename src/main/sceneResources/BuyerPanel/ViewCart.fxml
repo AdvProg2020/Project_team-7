@@ -21,6 +21,6 @@
             <Label layoutX="30.0" layoutY="8.0" text="Total Price:" />
             <Label fx:id="totalPrice" layoutX="248.0" layoutY="8.0" text="0" />
          </children></Pane>
-      <Button layoutX="714.0" layoutY="622.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="280.0" text="Purchase" onAction="#purchase"/>
+      <Button layoutX="714.0" layoutY="622.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="280.0" text="Purchase" onAction="#goToPurchase"/>
    </children>
 </AnchorPane>

@@ -5,6 +5,7 @@ import Main.graphicView.GraphicMain;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
@@ -39,5 +40,12 @@ public class ManagerPanelController {
 
     public void goBack() throws IOException {
         GraphicMain.graphicMain.back();
+    }
+
+    public static void alertError(String text){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("ERROR!");
+        alert.setContentText(text);
+        alert.showAndWait();
     }
 }

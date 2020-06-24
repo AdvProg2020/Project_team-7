@@ -11,4 +11,8 @@ public class MyOrdersController {
     public void goBack() throws IOException {
         GraphicMain.graphicMain.back();
     }
+
+    public void goToRateProduct() throws IOException {
+        GraphicMain.graphicMain.goToPage(RateController.FXML_PATH, RateController.TITLE);
+    }
 }

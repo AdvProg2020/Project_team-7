@@ -34,6 +34,7 @@ public class ManageCategoriesController {
             public void handle(MouseEvent mouseEvent) {
                 if (categoriesList.getSelectionModel().getSelectedItem() != null){
                     String name = categoriesList.getSelectionModel().getSelectedItem().toString();
+                    categoriesList.getSelectionModel().clearSelection();
                     Category category = null;
                     try {
                         category = Category.getCategoryWithName(name);
@@ -57,26 +58,27 @@ public class ManageCategoriesController {
         ButtonType done = new ButtonType("Done!");
         alert.getButtonTypes().addAll(remove,edit,done);
         Optional<ButtonType> option = alert.showAndWait();
-        if (option.equals(remove)){
-            removeCategory(category);
-        } else if (option.equals(edit)){
+        if (option.get().equals(remove)){
+            removeTheCategory(category);
+        } else if (option.get().equals(edit)){
             editCategory(category);
         }
     }
 
-    private void removeCategory(Category category){
+    private void removeTheCategory(Category category){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Category");
         alert.setHeaderText("All of products of this category will be deleted.");
         alert.setContentText("Are you sure?");
         Optional<ButtonType> option = alert.showAndWait();
-        if (option.equals(ButtonType.OK)){
+        if (option.get().equals(ButtonType.OK)){
             category.removeCategory();
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
             alert1.setContentText("Category "+category.getName()+" deleted successfully.");
             alert1.setHeaderText(null);
             alert1.setTitle("Category Deleted");
             alert1.showAndWait();
+            initialize();
         }
     }
 

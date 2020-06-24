@@ -20,8 +20,8 @@ public class MyCartController {
         totalPrice.setText(Double.toString(((BuyerAccount) GeneralController.currentUser).getCart().getCartTotalPriceConsideringOffs()));
     }
 
-    public void purchase(){
-
+    public void goToPurchase() throws IOException {
+        GraphicMain.graphicMain.goToPage(PurchaseController.FXML_PATH, PurchaseController.TITLE);
     }
 
     public void goBack() throws IOException {

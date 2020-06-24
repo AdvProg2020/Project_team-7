@@ -49,8 +49,7 @@ public class PurchaseMenu extends Menu {
                             if (answer.equalsIgnoreCase("no"))
                                 this.run();
                             else {
-                                buyerController.finalizePurchaseAndPay();
-                                System.out.println("Purchase finished successfully.\n");
+                                System.out.println(buyerController.finalizePurchaseAndPay());
                                 this.run();
                             }
                         } catch (Exception e) {

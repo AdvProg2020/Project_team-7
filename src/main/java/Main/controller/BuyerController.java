@@ -100,7 +100,7 @@ public class BuyerController {
             throw new Exception("This discount code hasn't started yet !\n");
         }
         if (getToTalPaymentConsideringDiscount() > discountCode.getMaxAmount()) {
-            throw new Exception("This discount code cant be applied on your cart because it's total cost exceeds discount max amount !\n");
+            throw new Exception("This discount code can not be applied on your cart because it's total cost exceeds discount max amount !\n");
         }
         this.discountCode = discountCode;
     }
@@ -137,7 +137,7 @@ public class BuyerController {
         }
         createPurchaseHistoryElements();
         currentBuyersCart.emptyCart();
-        return "Purchase finished successfully.\n";
+        return "Purchase finished successfully.";
     }
 
     private void getProductsFromRepository() throws Exception {
