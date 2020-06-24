@@ -416,9 +416,18 @@ public class Product {
             Product[] allPro = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Product[].class);
             allProducts = (allPro == null) ? new ArrayList<>() : new ArrayList<>(asList(allPro));
             setLastUsedProductID();
+            setAllBrands();
             return "Read Products Data Successfully.";
         } catch (FileNotFoundException e) {
             return "Problem loading data from product.json";
+        }
+    }
+
+    private static void setAllBrands(){
+        for (Product product : allProducts) {
+            if(!allBrands.contains(product.getBrand())){
+                allBrands.add(product.getBrand());
+            }
         }
     }
 

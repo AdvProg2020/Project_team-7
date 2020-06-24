@@ -44,7 +44,8 @@ public class GraphicMain extends Application {
         generalController.initializeIDs();
         generalController.giveDiscountCodeToSpecialBuyers();
         stage = primaryStage;
-        FXMLLoader fxmlLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
+        //FXMLLoader fxmlLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
+        FXMLLoader fxmlLoader = new FXMLLoader(new File(ProductsPage.FXML_PATH).toURI().toURL());
         Parent root = fxmlLoader.load();
         /*if (!ManagerAccount.isThereAChiefManager()) {
             root = FXMLLoader.load(new File((RegisterManager.FXML_PATH)).toURI().toURL());

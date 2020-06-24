@@ -164,8 +164,31 @@ public class ProductsPage implements Initializable {
         noCategory.setToggleGroup(categoryToggleGroup);
         categoryPane.getChildren().add(noCategory);
 
-        for (Category category : Category.getAllCategories()) {
+        ArrayList<Category> allCategories = Category.getAllCategories();
+        int categoryNo = allCategories.size();
+        for (int i = 0; i < 15 && i < categoryNo; i++) {
+            Category category = allCategories.get(i);
             RadioButton categoryName = new RadioButton(category.getName());
+            categoryName.setToggleGroup(categoryToggleGroup);
+            categoryPane.getChildren().add(categoryName);
+        }
+        Button showMore = new Button("show more");
+        categoryPane.getChildren().add(showMore);
+        showMore.setOnMouseClicked(event -> showMoreCategories());
+    }
+
+    private void showMoreCategories() {
+        ArrayList<Category> allCategories = Category.getAllCategories();
+        ObservableList<Node> illustratedCategories = categoryPane.getChildren();
+        RadioButton lastIllustratedCategory = (RadioButton) illustratedCategories.get(illustratedCategories.size() - 2);
+        int indexOfLastCategory = 0;
+        try {
+            indexOfLastCategory = allCategories.indexOf(Category.getCategoryWithName(lastIllustratedCategory.getText()));
+        } catch (Exception e) {
+        }
+        int CategoryNo = allCategories.size();
+        for (int i = indexOfLastCategory + 1; i < indexOfLastCategory + 15 && i < CategoryNo; i++) {
+            RadioButton categoryName = new RadioButton(allCategories.get(i).getName());
             categoryName.setToggleGroup(categoryToggleGroup);
             categoryPane.getChildren().add(categoryName);
         }
@@ -182,7 +205,6 @@ public class ProductsPage implements Initializable {
         brandsPane.getChildren().add(noBrand);
         ArrayList<String> allBrands = Product.getAllBrands();
         int brandNo = allBrands.size();
-        //TODO : create products again due to brand feature added
         for (int i = 0; i < 15 && i < brandNo; i++) {
             RadioButton brandName = new RadioButton(allBrands.get(i));
             brandName.setToggleGroup(brandToggleGroup);
@@ -196,7 +218,7 @@ public class ProductsPage implements Initializable {
     private void showMoreBrands() {
         ArrayList<String> allBrands = Product.getAllBrands();
         ObservableList<Node> illustratedBrands = brandsPane.getChildren();
-        RadioButton lastIllustratedBrand = (RadioButton) illustratedBrands.get(illustratedBrands.size() - 1);
+        RadioButton lastIllustratedBrand = (RadioButton) illustratedBrands.get(illustratedBrands.size() - 2);
         int indexOfLastBrand = allBrands.indexOf(lastIllustratedBrand.getText());
         int brandNo = allBrands.size();
         for (int i = indexOfLastBrand + 1; i < indexOfLastBrand + 15 && i < brandNo; i++) {
@@ -226,7 +248,7 @@ public class ProductsPage implements Initializable {
     private void showMoreSellers() {
         ArrayList<String> allUniqueSellers = SellerAccount.getAllSellers();
         ObservableList<Node> illustratedSellers = sellersPane.getChildren();
-        RadioButton lastIllustratedSeller = (RadioButton) illustratedSellers.get(illustratedSellers.size() - 1);
+        RadioButton lastIllustratedSeller = (RadioButton) illustratedSellers.get(illustratedSellers.size() - 2);
         int indexOfLastSellers = allUniqueSellers.indexOf(lastIllustratedSeller.getText());
         int uniqueSellersNo = allUniqueSellers.size();
         for (int i = indexOfLastSellers + 1; i < indexOfLastSellers + 15 && i < uniqueSellersNo; i++) {
