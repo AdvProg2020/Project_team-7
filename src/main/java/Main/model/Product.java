@@ -562,10 +562,16 @@ public class Product {
         Label productPrice = new Label("price : " + price);
         productBox.getChildren().add(productPrice);
         if (getProductFinalPriceConsideringOff() != price) {
-            productPrice.setStyle("-fx-strikethrough : true;");
+            productPrice.getStyleClass().add("strikethrough");
             productBox.getChildren().add(new Label("price considering off : " + getProductFinalPriceConsideringOff()));
         }
-        productBox.getChildren().add(new Label(availability + " available !"));
+        if(availability==0){
+            Label availability = new Label("unavailable !");
+            availability.getStyleClass().add("strikethrough");
+            productBox.getChildren().add(availability);
+        }else {
+            productBox.getChildren().add(new Label(availability + " available !"));
+        }
     }
 
     private void setProductRateStars(VBox productBox){

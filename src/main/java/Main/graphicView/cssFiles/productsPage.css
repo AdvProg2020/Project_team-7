@@ -67,3 +67,7 @@
 .button:hover {
 	-fx-background-color:linear-gradient(#ffd9b3 5%, #ff9500 100%);
 }
+
+.strikethrough .text{
+-fx-strikethrough: true;
+}

@@ -15,6 +15,8 @@ import Main.model.sorting.ProductsSort;
 import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -27,6 +29,7 @@ import javafx.scene.layout.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -324,12 +327,12 @@ public class ProductsPage implements Initializable {
         ArrayList<Product> tempSortResult = new ArrayList<>();
         RadioButton selectedSort = (RadioButton) sortToggleGroup.getSelectedToggle();
         if (!(selectedSort == null || selectedSort.getText().equals("none"))) {
-            applySelectedSort(selectedSort.getText(),tempSellerFilterResult,currentFilterResult);
+            applySelectedSort(selectedSort.getText(), tempSellerFilterResult, currentFilterResult);
         } else {
             tempSortResult = tempSellerFilterResult;
         }
 
-        if(!currentFilterResult.equals(tempSortResult)){
+        if (!currentFilterResult.equals(tempSortResult)) {
             currentFilterResult = tempSortResult;
             setPageElementsDueToCurrentFilters();
         }
@@ -337,16 +340,22 @@ public class ProductsPage implements Initializable {
     }
 
     private void applySelectedSort(String selectedSort, ArrayList<Product> tempSellerFilterResult, ArrayList<Product> currentFilterResult) {
-        switch (selectedSort){
+        switch (selectedSort) {
             case "name(ascending)":
                 tempSellerFilterResult.sort(new ProductsSort.productSortByNameAscending());
                 System.out.println(currentFilterResult.size());
-                currentFilterResult.sort(new ProductsSort.productSortByNameAscending());
+               // currentFilterResult.sort(new ProductsSort.productSortByNameAscending());
+                currentFilterResult.sort(new Comparator<Product>() {
+                    @Override
+                    public int compare(Product o1, Product o2) {
+                        return o1.getName().compareToIgnoreCase(o2.getName());
+                    }
+                });
                 System.out.println(currentFilterResult.size());
             case "name(descending)":
                 tempSellerFilterResult.sort(new ProductsSort.productSortByNameDescending());
                 currentFilterResult.sort(new ProductsSort.productSortByNameDescending());
-            case "visit" :
+            case "visit":
                 tempSellerFilterResult.sort(new ProductsSort.productSortByView());
                 currentFilterResult.sort(new ProductsSort.productSortByView());
             case "rate":
@@ -362,22 +371,27 @@ public class ProductsPage implements Initializable {
     }
 
     public void showSearchResult(MouseEvent mouseEvent) {
+        GraphicMain.buttonSound.play();
         Stage searchResult = new Stage();
         searchResult.setTitle("Search Result");
 
-        //TODO : search process could be better not exactly the same name
         ArrayList<Product> searchResultProducts = new ArrayList<>();
         ProductNameFilter productNameFilter = new ProductNameFilter(searchText.getText(), Product.allProducts);
         productNameFilter.apply(searchResultProducts, Product.allProducts);
 
         VBox vBox = new VBox();
+        vBox.setPadding(new Insets(30, 0, 30, 30));
+        vBox.setSpacing(50);
+        vBox.setAlignment(Pos.CENTER);
         ScrollPane scrollPane = new ScrollPane(vBox);
 
         if (searchResultProducts.isEmpty()) {
             Label notFoundLabel = new Label("no related products found !");
+            notFoundLabel.setStyle("-fx-font-size : 20;");
             vBox.getChildren().add(notFoundLabel);
         } else {
             Label foundResults = new Label("related results : ");
+            foundResults.setStyle("-fx-font-size : 20;");
             vBox.getChildren().add(foundResults);
             for (Product product : searchResultProducts) {
                 VBox productBox = product.createProductBoxForUI();
@@ -385,15 +399,15 @@ public class ProductsPage implements Initializable {
             }
         }
 
-        Scene scene = new Scene(scrollPane);
+        Scene scene = new Scene(scrollPane, 750, 400);
         searchResult.setScene(scene);
         searchResult.show();
     }
 
     public void nextAd(MouseEvent mouseEvent) {
         ObservableList<Node> adPaneChildren = adPane.getChildren();
-        for (int i = 0; i<adPaneChildren.size();i++) {
-            if(adPaneChildren.get(i) instanceof HBox){
+        for (int i = 0; i < adPaneChildren.size(); i++) {
+            if (adPaneChildren.get(i) instanceof HBox) {
                 adPane.getChildren().remove(adPaneChildren.get(i));
                 i--;
             }
@@ -405,7 +419,7 @@ public class ProductsPage implements Initializable {
 
         //TODO : using image path doesn't work :(
         Image image = new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString());
-        BackgroundImage backgroundImage = new BackgroundImage(image,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(1.0,1.0,true,true,false,false));
+        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(1.0, 1.0, true, true, false, false));
         Background background = new Background(backgroundImage);
         adPaneBG.setBackground(background);
 
@@ -417,24 +431,22 @@ public class ProductsPage implements Initializable {
         adPane.getChildren().add(adProductBox);
 
 
-
-
         nextAdIcon.toFront();
     }
 
     public void giveButtonStyle(MouseEvent mouseEvent) {
-        ImageView imageView = (ImageView)mouseEvent.getSource();
+        ImageView imageView = (ImageView) mouseEvent.getSource();
         imageView.setCursor(Cursor.HAND);
     }
 
     public void goToUserPanel(MouseEvent mouseEvent) throws IOException {
         Account account = GeneralController.currentUser;
         if (account instanceof ManagerAccount) {
-            GraphicMain.graphicMain.goToPage(ManagerPanelController.FXML_PATH,ManagerPanelController.TITLE);
+            GraphicMain.graphicMain.goToPage(ManagerPanelController.FXML_PATH, ManagerPanelController.TITLE);
         } else if (account instanceof SellerAccount) {
             GraphicMain.graphicMain.goToPage(SellerPanelPage.FXML_PATH, SellerPanelPage.TITLE);
         } else if (account instanceof BuyerAccount) {
-            GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH,BuyerPanelController.TITLE);
+            GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH, BuyerPanelController.TITLE);
         }
         GraphicMain.buttonSound.play();
     }
