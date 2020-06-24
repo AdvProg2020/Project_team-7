@@ -98,6 +98,8 @@ public class LoginSignUpPage implements Initializable {
 
     public void back(MouseEvent mouseEvent) {
         GraphicMain.graphicMain.back();
+        mediaPlayer.stop();
+        GraphicMain.audioClip.play();
     }
 
     public void login(MouseEvent mouseEvent) throws Exception {
@@ -106,6 +108,7 @@ public class LoginSignUpPage implements Initializable {
             GeneralController.currentUser = Account.getUserWithUserName(loginUsername.getText());
             mediaPlayer.stop();
             GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
+            GraphicMain.audioClip.play();
         }
     }
 

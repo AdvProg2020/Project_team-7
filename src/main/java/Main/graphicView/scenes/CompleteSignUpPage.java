@@ -20,14 +20,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CompleteSignUpPage implements Initializable {
-    /*
-    private static final String NO_EMAIL_GIVEN = "enter an email !";
-    private static final String NO_PHONE_NUMBER_GIVEN = "enter a phone number !";
-    private static final String NO_FIRST_NAME_GIVEN = "enter your first name !";
-    private static final String NO_LAST_NAME_GIVEN = "enter your last name !";
-    private static final String NO_COMPANY_NAME_GIVEN = "enter your company name !";
-    private static final String NO_COMPANY_INFO_GIVEN = "enter a few words about your company !";
-     */
 
     public static final String FXML_PATH = "src/main/sceneResources/loginSignUp/completeSignUpPage.fxml";
     public static final String TITLE = "Complete Sign Up";
@@ -93,6 +85,7 @@ public class CompleteSignUpPage implements Initializable {
             }
             GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
             LoginSignUpPage.mediaPlayer.stop();
+            GraphicMain.audioClip.play();
         }
     }
 

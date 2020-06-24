@@ -35,6 +35,7 @@ public class GraphicMain extends Application {
     public static ManagerController managerController = new ManagerController();
     public static GeneralController generalController = new GeneralController();
     public static SellerController sellerController = new SellerController();
+    public static AudioClip audioClip;
 
     public static void main(String[] args) {
         launch(args);
@@ -42,26 +43,30 @@ public class GraphicMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        AudioClip audioClip = new AudioClip(new File("src/main/java/Main/graphicView/resources/soundEffects/backgroundMusic.mp3").toURI().toString());
+        audioClip = new AudioClip(new File("src/main/java/Main/graphicView/resources/soundEffects/backgroundMusic.mp3").toURI().toString());
         audioClip.setCycleCount(AudioClip.INDEFINITE);
         audioClip.play();
         System.out.println(GeneralController.readDataAndSetStringRecordObjects());
         generalController.initializeIDs();
         generalController.giveDiscountCodeToSpecialBuyers();
         stage = primaryStage;
-        FXMLLoader fxmlLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
-        //FXMLLoader fxmlLoader = new FXMLLoader(new File(MainMenuController.FXML_PATH).toURI().toURL());
+        FXMLLoader fxmlLoader = new FXMLLoader(new File(MainMenuController.FXML_PATH).toURI().toURL());
         Parent root = fxmlLoader.load();
-        stage.setTitle(LoginSignUpPage.TITLE);
+        stage.setTitle(MainMenuController.TITLE);
+        /**
+         * must be used in userPanel loading login page
         if (!ManagerAccount.isThereAChiefManager()) {
             root = FXMLLoader.load(new File((RegisterManager.FXML_PATH)).toURI().toURL());
             stage.setTitle(RegisterManager.TITLE);
         }
+
+        /*
+        also login signUp music must be played when called
+         */
         Scene scene = new Scene(root);
         sceneTrace.add(scene);
         titleTrace.add(stage.getTitle());
         stage.setScene(scene);
-        LoginSignUpPage.mediaPlayer.play();
         primaryStage.show();
     }
 
