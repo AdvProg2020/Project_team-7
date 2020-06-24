@@ -8,6 +8,7 @@ import Main.model.sorting.ProductsSort;
 import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
@@ -409,5 +410,10 @@ public class ProductsPage implements Initializable {
 
 
         nextAdIcon.toFront();
+    }
+
+    public void giveButtonStyle(MouseEvent mouseEvent) {
+        ImageView imageView = (ImageView)mouseEvent.getSource();
+        imageView.setCursor(Cursor.HAND);
     }
 }

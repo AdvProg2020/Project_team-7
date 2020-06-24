@@ -9,12 +9,16 @@ import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.discountAndOffTypeService.OffStatus;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -527,13 +531,22 @@ public class Product {
     public VBox createProductBoxForUI() {
         VBox productBox = new VBox();
         productBox.setMinHeight(160);
-        productBox.setMinWidth(170);
+        productBox.setMinWidth(200);
         productBox.setAlignment(Pos.TOP_CENTER);
         productBox.setId(productId);
         productBox.getStyleClass().add("productBox");
         productBox.setOnMouseClicked(event -> {
             //TODO : link to product page and set current product
             //GraphicMain.graphicMain.goToPage()
+        });
+        productBox.setOnMouseEntered(event -> {
+            productBox.setCursor(Cursor.HAND);
+            productBox.getStyleClass().remove("productBox");
+            productBox.getStyleClass().add("productBoxHover");
+        });
+        productBox.setOnMouseExited(event -> {
+            productBox.getStyleClass().remove("productBoxHover");
+            productBox.getStyleClass().add("productBox");
         });
 
         setProductImage(productBox);
@@ -546,7 +559,7 @@ public class Product {
     private void setProductInfoLabels(VBox productBox) {
         productBox.getChildren().add(new Label(name));
         productBox.getChildren().add(new Label(brand));
-        Label productPrice = new Label(price + "");
+        Label productPrice = new Label("price : " + price);
         productBox.getChildren().add(productPrice);
         if (getProductFinalPriceConsideringOff() != price) {
             productPrice.setStyle("-fx-strikethrough : true;");
@@ -594,9 +607,11 @@ public class Product {
 
     private void setProductAdLabels(HBox productBox) {
         VBox labelPane = new VBox();
+        labelPane.setPadding( new Insets(15,0,0,15));
         labelPane.getChildren().add(new Label(name));
         labelPane.getChildren().add(new Label(brand));
-        Label productPrice = new Label(price + "");
+        Label productPrice = new Label("price : " + price);
+        labelPane.getStyleClass().add("adLabel");
         labelPane.getChildren().add(productPrice);
         if (getProductFinalPriceConsideringOff() != price) {
             productPrice.setStyle("-fx-strikethrough : true;");

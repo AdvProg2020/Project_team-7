@@ -44,9 +44,12 @@
                      <content>
                         <ScrollPane prefHeight="200.0" prefWidth="200.0">
                            <content>
-                              <VBox fx:id="categoryPane" minHeight="500.0" minWidth="280.0" prefHeight="200.0" prefWidth="100.0">
+                              <VBox fx:id="categoryPane" minHeight="500.0" minWidth="280.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                                  <children>
-                                 </children></VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="15.0" top="15.0" />
+                                 </padding></VBox>
                            </content>
                         </ScrollPane>
                      </content>
@@ -55,7 +58,10 @@
                      <content>
                         <ScrollPane prefHeight="200.0" prefWidth="200.0">
                            <content>
-                              <VBox fx:id="brandsPane" minHeight="500.0" minWidth="280.0" />
+                              <VBox fx:id="brandsPane" minHeight="500.0" minWidth="280.0" spacing="10.0">
+                                 <padding>
+                                    <Insets left="15.0" top="15.0" />
+                                 </padding></VBox>
                            </content>
                         </ScrollPane>
                      </content>
@@ -66,6 +72,9 @@
                            <children>
                               <CheckBox fx:id="availablesOnly" mnemonicParsing="false" text="Availables Only" />
                            </children>
+                           <padding>
+                              <Insets left="15.0" top="15.0" />
+                           </padding>
                         </VBox>
                      </content>
                   </TitledPane>
@@ -87,7 +96,10 @@
                      <content>
                         <ScrollPane prefHeight="200.0" prefWidth="200.0">
                            <content>
-                              <VBox fx:id="sellersPane" minHeight="500.0" minWidth="280.0" />
+                              <VBox fx:id="sellersPane" minHeight="500.0" minWidth="280.0" spacing="10.0">
+                                 <padding>
+                                    <Insets left="15.0" top="15.0" />
+                                 </padding></VBox>
                            </content>
                         </ScrollPane>
                      </content>
@@ -103,7 +115,7 @@
             <Pane fx:id="adPane" maxHeight="175.0" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Pane fx:id="adPaneBG" layoutX="-2.0" layoutY="1.0" maxHeight="175.0" minHeight="175.0" minWidth="900.0" prefHeight="200.0" prefWidth="200.0" />
-                  <ImageView fx:id="nextAdIcon" fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="63.0" onMouseClicked="#nextAd" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="nextAdIcon" fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="63.0" onMouseClicked="#nextAd" onMouseEntered="#giveButtonStyle" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../java/Main/graphicView/resources/images/next.png" />
                      </image>
