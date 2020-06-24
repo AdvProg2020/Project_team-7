@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -15,7 +16,7 @@ public class SellerProductPage implements Initializable {
 
     public static final String FXML_PATH = "src/main/sceneResources/SellerPanel/sellerProductPage.fxml";
     public static final String TITLE = "Seller Product page";
-    public String productId;
+    public static String productId;
 
     @FXML
     private ImageView productImage;
@@ -74,5 +75,9 @@ public class SellerProductPage implements Initializable {
         else if(score>4 && score<=5)
             averageScoreImage.setImage(new Image("src/main/java/Main/graphicView/resources/images/score5.png"));
 
+    }
+
+    public void goToEditProductPage() throws IOException {
+        GraphicMain.graphicMain.goToPage(EditProductPage.FXML_PATH,EditProductPage.TITLE);
     }
 }

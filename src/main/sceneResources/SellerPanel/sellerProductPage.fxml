@@ -22,7 +22,7 @@
       <Label fx:id="averageScore" alignment="CENTER" contentDisplay="CENTER" layoutX="296.0" layoutY="307.0" prefHeight="51.0" prefWidth="98.0" text="  " />
       <Label fx:id="digestLabel" alignment="TOP_LEFT" layoutX="470.0" layoutY="77.0" prefHeight="281.0" prefWidth="568.0" text="  " />
       <Label fx:id="buyersList" alignment="TOP_LEFT" layoutX="470.0" layoutY="375.0" prefHeight="281.0" prefWidth="568.0" text="  " />
-      <Button layoutX="204.0" layoutY="423.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="123.0" text="edit">
+      <Button layoutX="204.0" layoutY="423.0" mnemonicParsing="false" onAction="#goToEditProductPage" prefHeight="74.0" prefWidth="123.0" text="edit">
          <font>
             <Font size="40.0" />
          </font>
