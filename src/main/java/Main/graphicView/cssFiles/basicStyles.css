@@ -17,6 +17,3 @@
 .label, .button, .text, .text-field, .list-cell{
     -fx-font-family: 'a letter to you';
 }
-.label{
--fx-font-size:45px;
-}
