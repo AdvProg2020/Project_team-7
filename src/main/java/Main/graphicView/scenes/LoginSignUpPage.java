@@ -103,6 +103,7 @@ public class LoginSignUpPage implements Initializable {
     }
 
     public void login(MouseEvent mouseEvent) throws Exception {
+        GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         if (areTextFieldsFilled(loginUsername, loginPassword) && areLoginTextFieldsValid()) {
             GeneralController.currentUser = Account.getUserWithUserName(loginUsername.getText());
@@ -117,6 +118,7 @@ public class LoginSignUpPage implements Initializable {
     }
 
     public void completeSignUp(MouseEvent mouseEvent) throws Exception {
+        GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         if (areTextFieldsFilled(signUpUsername, signUpPassword) && areSignUpTextFieldsValid()) {
             GraphicMain.graphicMain.goToPage(CompleteSignUpPage.FXML_PATH, CompleteSignUpPage.TITLE);

@@ -28,7 +28,7 @@ public class GraphicMain extends Application {
 
     public static MediaPlayer buttonSound = new MediaPlayer(new Media(Paths.get("src/main/java/Main/graphicView/resources/soundEffects/buttonSound.wav").toUri().toString()));
     public static ArrayList<String> titleTrace = new ArrayList<>();
-    public static ArrayList<Scene> sceneTrace = new ArrayList<>();
+    public static ArrayList<String> sceneTrace = new ArrayList<>();
     public static Stage stage;
     public static GraphicMain graphicMain = new GraphicMain();
     public static BuyerController buyerController = new BuyerController();
@@ -64,7 +64,7 @@ public class GraphicMain extends Application {
         also login signUp music must be played when called
          */
         Scene scene = new Scene(root);
-        sceneTrace.add(scene);
+        sceneTrace.add(MainMenuController.FXML_PATH);
         titleTrace.add(stage.getTitle());
         stage.setScene(scene);
         primaryStage.show();
@@ -79,8 +79,10 @@ public class GraphicMain extends Application {
         if (sceneTrace.size() != 1) {
             sceneTrace.remove(sceneTrace.size() - 1);
             titleTrace.remove(titleTrace.size() - 1);
-            stage.setScene(sceneTrace.get(sceneTrace.size() - 1));
-            stage.setTitle(titleTrace.get(titleTrace.size() - 1));
+            try {
+                goToPage(sceneTrace.get(sceneTrace.size()-1),titleTrace.get(titleTrace.size()-1));
+            } catch (IOException e) {
+            }
         } else {
             exitProgram();
         }
@@ -90,8 +92,8 @@ public class GraphicMain extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(new File(fxmlPath).toURI().toURL());
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
-        sceneTrace.add(scene);
-        titleTrace.add(stage.getTitle());
+        sceneTrace.add(fxmlPath);
+        titleTrace.add(title);
         GraphicMain.stage.setTitle(title);
         GraphicMain.stage.setScene(scene);
         return root;

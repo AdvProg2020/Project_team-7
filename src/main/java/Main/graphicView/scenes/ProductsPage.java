@@ -372,7 +372,6 @@ public class ProductsPage implements Initializable {
         }
 
         if (!currentFilterResult.equals(tempSellerFilterResult)) {
-            currentFilterResult = tempSellerFilterResult;
             setPageElementsDueToCurrentFilters();
         }
     }
@@ -392,9 +391,11 @@ public class ProductsPage implements Initializable {
             case "most expensive":
                 tempSellerFilterResult.sort(new ProductsSort.productSortByPriceDescendingly());
         }
+        currentFilterResult = tempSellerFilterResult;
     }
 
     public void showSearchResult(MouseEvent mouseEvent) {
+        GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         Stage searchResult = new Stage();
         searchResult.setTitle("Search Result");
@@ -441,8 +442,7 @@ public class ProductsPage implements Initializable {
         int productIndex = random.nextInt(allProductsSize);
         Product product = Product.allProducts.get(productIndex);
 
-        //TODO : using image path doesn't work :(
-        Image image = new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString());
+        Image image = new Image(new File(product.getImagePath()).toURI().toString());
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(1.0, 1.0, true, true, false, false));
         Background background = new Background(backgroundImage);
         adPaneBG.setBackground(background);
@@ -472,6 +472,7 @@ public class ProductsPage implements Initializable {
         } else if (account instanceof BuyerAccount) {
             GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH, BuyerPanelController.TITLE);
         }
+        GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
     }
 
@@ -488,6 +489,7 @@ public class ProductsPage implements Initializable {
     }
 
     public void back(MouseEvent mouseEvent) {
+        GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }

@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 import static java.util.Arrays.asList;
 
-public class Product{
+public class Product {
     private static StringBuilder lastUsedProductID;
     private String productId;
     private String name;
@@ -284,7 +284,7 @@ public class Product{
 
     public void addProduct(Product product) {
         allProducts.add(product);
-        if(!allBrands.contains(product.getBrand())){
+        if (!allBrands.contains(product.getBrand())) {
             allBrands.add(product.getBrand());
         }
         category.addProduct(this);
@@ -454,9 +454,9 @@ public class Product{
         }
     }
 
-    private static void setAllBrands(){
+    private static void setAllBrands() {
         for (Product product : allProducts) {
-            if(!allBrands.contains(product.getBrand())){
+            if (!allBrands.contains(product.getBrand())) {
                 allBrands.add(product.getBrand());
             }
         }
@@ -563,8 +563,8 @@ public class Product{
         productBox.setId(productId);
         productBox.getStyleClass().add("productBox");
         productBox.setOnMouseClicked(event -> {
-            //TODO : link to product page and set current product
-            //GraphicMain.graphicMain.goToPage()
+            GeneralController.currentProduct = this;
+            //TODO : link to product page
         });
         productBox.setOnMouseEntered(event -> {
             productBox.setCursor(Cursor.HAND);
@@ -592,16 +592,16 @@ public class Product{
             productPrice.getStyleClass().add("strikethrough");
             productBox.getChildren().add(new Label("price considering off : " + getProductFinalPriceConsideringOff()));
         }
-        if(availability==0){
+        if (availability == 0) {
             Label availability = new Label("unavailable !");
             availability.getStyleClass().add("strikethrough");
             productBox.getChildren().add(availability);
-        }else {
+        } else {
             productBox.getChildren().add(new Label(availability + " available !"));
         }
     }
 
-    private void setProductRateStars(VBox productBox){
+    private void setProductRateStars(VBox productBox) {
         int rate = getAverageScore().intValue();
         ImageView rateStars = new ImageView(new Image(new File("src/main/java/Main/graphicView/resources/images/score" + rate + ".png").toURI().toString()));
         rateStars.setFitHeight(30);
@@ -609,15 +609,14 @@ public class Product{
         productBox.getChildren().add(rateStars);
     }
 
-    private void setProductImage(VBox productBox){
-        //TODO : changing image default path to imagePath doesnt work :(
-        ImageView productImage = new ImageView(new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString()));
+    private void setProductImage(VBox productBox) {
+        ImageView productImage = new ImageView(new Image(new File(imagePath).toURI().toString()));
         productImage.setFitWidth(80);
         productImage.setFitHeight(80);
         productBox.getChildren().add(productImage);
     }
 
-    public static ArrayList<String> getAllBrands(){
+    public static ArrayList<String> getAllBrands() {
         return allBrands;
     }
 
@@ -628,8 +627,8 @@ public class Product{
         productBox.setAlignment(Pos.TOP_CENTER);
         productBox.setId(productId);
         productBox.setOnMouseClicked(event -> {
-            //TODO : link to product page and set current product
-            //GraphicMain.graphicMain.goToPage()
+            GeneralController.currentProduct = this;
+            //TODO : link to product page
         });
 
         setProductAdImage(productBox);
@@ -640,7 +639,7 @@ public class Product{
 
     private void setProductAdLabels(HBox productBox) {
         VBox labelPane = new VBox();
-        labelPane.setPadding( new Insets(15,0,0,15));
+        labelPane.setPadding(new Insets(15, 0, 0, 15));
         labelPane.getChildren().add(new Label(name));
         labelPane.getChildren().add(new Label(brand));
         Label productPrice = new Label("price : " + price);
@@ -654,11 +653,14 @@ public class Product{
     }
 
 
-    private void setProductAdImage(HBox productBox){
-        //TODO : changing image default path to imagePath doesnt work :(
-        ImageView productImage = new ImageView(new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString()));
+    private void setProductAdImage(HBox productBox) {
+        ImageView productImage = new ImageView(new Image(new File(imagePath).toURI().toString()));
         productImage.setFitWidth(150);
         productImage.setFitHeight(150);
         productBox.getChildren().add(productImage);
+    }
+
+    public void setImage(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

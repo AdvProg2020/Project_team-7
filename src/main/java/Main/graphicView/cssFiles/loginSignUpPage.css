@@ -57,19 +57,42 @@
 -fx-prompt-text-fill : #4d4254;
 -fx-background-radius : 2px;
 }
+
 .text-field:focused  {
 -fx-border-width : 0 0 2 0;
 -fx-background-color :#98929c;
 }
 
 .text-area{
--fx-background-color : #7f7a82 ;
--fx-border-color: #230038;
 -fx-prompt-text-fill : #4d4254;
--fx-background-radius : 2px;
 }
 
-.text-area:focused  {
--fx-border-width : 1 1 1 1;
+.text-area .scroll-pane .content{
+
+-fx-background-insets : 0;
+-fx-border-radius : 2px;
+-fx-background-radius : 2px;
+-fx-background-color : #7f7a82 ;
+-fx-border-color: #230038;
+}
+
+.text-area:focused  .scroll-pane .content{
+-fx-border-width : 0 0 2 0;
 -fx-background-color :#98929c;
+-fx-background-insets : 0;
+-fx-effect : null;
+}
+
+.text-area{
+-fx-background-color :transparent ;
+-fx-border-color: transparent;
+-fx-background-radius : 2px;
+-fx-border-radius:2px;
+}
+
+.text-area .scroll-pane {
+-fx-background-color :transparent;
+-fx-border-color : transparent;
+-fx-background-radius : 2px;
+-fx-border-radius:2px;
 }
