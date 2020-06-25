@@ -2,3 +2,7 @@
     -fx-background-image : url(../resources/images/mainMenuBG.jpg);
     -fx-background-repeat : no-repeat;
 }
+
+.check-box{
+    -fx-font-size : 25;
+}
