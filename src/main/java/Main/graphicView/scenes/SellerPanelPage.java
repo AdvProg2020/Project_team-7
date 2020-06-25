@@ -63,4 +63,13 @@ public class SellerPanelPage implements Initializable{
     public void goToAddProductPage() throws IOException {
         GraphicMain.graphicMain.goToPage(AddProductPage.FXML_PATH,AddProductPage.TITLE);
     }
+
+    public void showCategories(){
+        String categories = GraphicMain.generalController.showAllCategories();
+        showInformationAlert(categories);
+    }
+
+    public void goToSellerOffsPage() throws IOException {
+        GraphicMain.graphicMain.goToPage(SellerOffsPage.FXML_PATH, SellerOffsPage.TITLE);
+    }
 }

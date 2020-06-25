@@ -33,12 +33,12 @@
                         <Font name="System Bold" size="30.0" />
                     </font>
                 </Label>
-                <Label alignment="CENTER" layoutX="10.0" layoutY="250.0" prefHeight="80.0" prefWidth="200.0" text="categories" textFill="WHITE">
+                <Label alignment="CENTER" layoutX="10.0" layoutY="250.0" onMouseClicked="#showCategories" prefHeight="80.0" prefWidth="200.0" text="categories" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="30.0" />
                     </font>
                 </Label>
-                <Label alignment="CENTER" layoutX="10.0" layoutY="330.0" prefHeight="80.0" prefWidth="200.0" text="offs" textFill="WHITE">
+                <Label alignment="CENTER" layoutX="10.0" layoutY="330.0" onMouseClicked="#goToSellerOffsPage" prefHeight="80.0" prefWidth="200.0" text="offs" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="30.0" />
                     </font>

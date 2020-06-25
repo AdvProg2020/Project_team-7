@@ -186,6 +186,18 @@ public class SellerAccount extends Account {
         return offListStr.toString();
     }
 
+    public ArrayList<String> getOffIds(){
+        ArrayList<String> list = new ArrayList<>();
+        for (Off off : offList) {
+            if (off.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
+                off.removeOff();
+            } else {
+                list.add(off.getOffId());
+            }
+        }
+        return list;
+    }
+
     public static void addSeller(SellerAccount seller) {
         allSellers.add(seller);
         allAccounts.add(seller);
@@ -342,5 +354,12 @@ public class SellerAccount extends Account {
             }
         }
         return allUniqueSellers;
+    }
+    public Off getOffWithId(String id){
+        for (Off off : offList) {
+            if(off.getOffId().equals(id))
+                return off;
+        }
+        return null;
     }
 }
