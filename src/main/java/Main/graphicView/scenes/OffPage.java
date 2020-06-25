@@ -91,24 +91,38 @@ public class OffPage implements Initializable {
 
     private void setSortPane() {
         RadioButton noSort = new RadioButton("none");
+        noSort.getStyleClass().remove("radio-button");
+        noSort.getStyleClass().add("toggle-button");
         noSort.setToggleGroup(sortToggleGroup);
         sortPane.getChildren().add(noSort);
         RadioButton nameAscending = new RadioButton("name(ascending)");
+        nameAscending.getStyleClass().remove("radio-button");
+        nameAscending.getStyleClass().add("toggle-button");
         nameAscending.setToggleGroup(sortToggleGroup);
         sortPane.getChildren().add(nameAscending);
         RadioButton nameDescending = new RadioButton("name(descending)");
+        nameDescending.getStyleClass().remove("radio-button");
+        nameDescending.getStyleClass().add("toggle-button");
         nameDescending.setToggleGroup(sortToggleGroup);
         sortPane.getChildren().add(nameDescending);
         RadioButton mostVisited = new RadioButton("visit");
+        mostVisited.getStyleClass().remove("radio-button");
+        mostVisited.getStyleClass().add("toggle-button");
         mostVisited.setToggleGroup(sortToggleGroup);
         sortPane.getChildren().add(mostVisited);
         RadioButton mostRated = new RadioButton("rate");
+        mostRated.getStyleClass().remove("radio-button");
+        mostRated.getStyleClass().add("toggle-button");
         mostRated.setToggleGroup(sortToggleGroup);
         sortPane.getChildren().add(mostRated);
         RadioButton priceAscending = new RadioButton("cheapest");
+        priceAscending.getStyleClass().remove("radio-button");
+        priceAscending.getStyleClass().add("toggle-button");
         priceAscending.setToggleGroup(sortToggleGroup);
         sortPane.getChildren().add(priceAscending);
         RadioButton priceDescending = new RadioButton("most expensive");
+        priceDescending.getStyleClass().remove("radio-button");
+        priceDescending.getStyleClass().add("toggle-button");
         priceDescending.setToggleGroup(sortToggleGroup);
         sortPane.getChildren().add(priceDescending);
     }
@@ -136,6 +150,7 @@ public class OffPage implements Initializable {
         pageNumberButtonsNo = (pageNumberButtonsNo == 0 ? 1 : pageNumberButtonsNo);
         for (int i = startPageNumber; i <= startPageNumber + 12 && i <= pageNumberButtonsNo; i++) {
             Button number = new Button(i + "");
+            number.setStyle("-fx-background-radius : 30;");
             int finalI = i;
             number.setOnMouseClicked(event -> setProductsPane(finalI));
             number.setMinWidth(BUTTON_MIN_HEIGHT);
@@ -173,6 +188,9 @@ public class OffPage implements Initializable {
 
     private void setCategoriesFilter() {
         RadioButton noCategory = new RadioButton("none");
+        noCategory.getStyleClass().remove("radio-button");
+        noCategory.getStyleClass().add("toggle-button");
+        noCategory.setMinWidth(250);
         noCategory.setToggleGroup(categoryToggleGroup);
         categoryPane.getChildren().add(noCategory);
 
@@ -181,6 +199,9 @@ public class OffPage implements Initializable {
         for (int i = 0; i < 15 && i < categoryNo; i++) {
             Category category = allCategories.get(i);
             RadioButton categoryName = new RadioButton(category.getName());
+            categoryName.getStyleClass().remove("radio-button");
+            categoryName.getStyleClass().add("toggle-button");
+            categoryName.setMinWidth(250);
             categoryName.setToggleGroup(categoryToggleGroup);
             categoryPane.getChildren().add(categoryName);
         }
@@ -201,6 +222,9 @@ public class OffPage implements Initializable {
         int CategoryNo = allCategories.size();
         for (int i = indexOfLastCategory + 1; i < indexOfLastCategory + 15 && i < CategoryNo; i++) {
             RadioButton categoryName = new RadioButton(allCategories.get(i).getName());
+            categoryName.getStyleClass().remove("radio-button");
+            categoryName.getStyleClass().add("toggle-button");
+            categoryName.setMinWidth(250);
             categoryName.setToggleGroup(categoryToggleGroup);
             categoryPane.getChildren().add(categoryName);
         }
@@ -213,12 +237,18 @@ public class OffPage implements Initializable {
 
     private void setBrandsFilter() {
         RadioButton noBrand = new RadioButton("none");
+        noBrand.getStyleClass().remove("radio-button");
+        noBrand.getStyleClass().add("toggle-button");
+        noBrand.setMinWidth(250);
         noBrand.setToggleGroup(brandToggleGroup);
         brandsPane.getChildren().add(noBrand);
         ArrayList<String> allBrands = Product.getAllBrands();
         int brandNo = allBrands.size();
         for (int i = 0; i < 15 && i < brandNo; i++) {
             RadioButton brandName = new RadioButton(allBrands.get(i));
+            brandName.getStyleClass().remove("radio-button");
+            brandName.getStyleClass().add("toggle-button");
+            brandName.setMinWidth(250);
             brandName.setToggleGroup(brandToggleGroup);
             brandsPane.getChildren().add(brandName);
         }
@@ -235,6 +265,9 @@ public class OffPage implements Initializable {
         int brandNo = allBrands.size();
         for (int i = indexOfLastBrand + 1; i < indexOfLastBrand + 15 && i < brandNo; i++) {
             RadioButton brandName = new RadioButton(allBrands.get(i));
+            brandName.getStyleClass().remove("radio-button");
+            brandName.getStyleClass().add("toggle-button");
+            brandName.setMinWidth(250);
             brandName.setToggleGroup(brandToggleGroup);
             brandsPane.getChildren().add(brandName);
         }
@@ -242,6 +275,9 @@ public class OffPage implements Initializable {
 
     private void setSellersFilter() {
         RadioButton noSeller = new RadioButton("none");
+        noSeller.getStyleClass().remove("radio-button");
+        noSeller.getStyleClass().add("toggle-button");
+        noSeller.setMinWidth(250);
         noSeller.setToggleGroup(sellerToggleGroup);
         sellersPane.getChildren().add(noSeller);
 
@@ -249,6 +285,9 @@ public class OffPage implements Initializable {
         int uniqueSellersNo = allUniqueSellers.size();
         for (int i = 0; i < 15 && i < uniqueSellersNo; i++) {
             RadioButton sellerUserName = new RadioButton(allUniqueSellers.get(i));
+            sellerUserName.getStyleClass().remove("radio-button");
+            sellerUserName.getStyleClass().add("toggle-button");
+            sellerUserName.setMinWidth(250);
             sellerUserName.setToggleGroup(sellerToggleGroup);
             sellersPane.getChildren().add(sellerUserName);
         }
@@ -265,6 +304,9 @@ public class OffPage implements Initializable {
         int uniqueSellersNo = allUniqueSellers.size();
         for (int i = indexOfLastSellers + 1; i < indexOfLastSellers + 15 && i < uniqueSellersNo; i++) {
             RadioButton sellerUserName = new RadioButton(allUniqueSellers.get(i));
+            sellerUserName.getStyleClass().remove("radio-button");
+            sellerUserName.getStyleClass().add("toggle-button");
+            sellerUserName.setMinWidth(250);
             sellerUserName.setToggleGroup(sellerToggleGroup);
             sellersPane.getChildren().add(sellerUserName);
         }
@@ -323,47 +365,33 @@ public class OffPage implements Initializable {
         } else {
             tempSellerFilterResult = tempPriceRangeFilterResult;
         }
-
-        ArrayList<Product> tempSortResult = new ArrayList<>();
         RadioButton selectedSort = (RadioButton) sortToggleGroup.getSelectedToggle();
         if (!(selectedSort == null || selectedSort.getText().equals("none"))) {
-            applySelectedSort(selectedSort.getText(), tempSellerFilterResult, currentFilterResult);
-        } else {
-            tempSortResult = tempSellerFilterResult;
+            applySelectedSort(selectedSort.getText(), tempSellerFilterResult);
         }
 
-        if (!currentFilterResult.equals(tempSortResult)) {
-            currentFilterResult = tempSortResult;
+        if (!currentFilterResult.equals(tempSellerFilterResult)) {
+            currentFilterResult = tempSellerFilterResult;
             setPageElementsDueToCurrentFilters();
         }
-
     }
 
-    private void applySelectedSort(String selectedSort, ArrayList<Product> tempSellerFilterResult, ArrayList<Product> currentFilterResult) {
+    private void applySelectedSort(String selectedSort, ArrayList<Product> tempSellerFilterResult) {
         switch (selectedSort) {
             case "name(ascending)":
                 tempSellerFilterResult.sort(new ProductsSort.productSortByNameAscending());
-                System.out.println(currentFilterResult.size());
-                currentFilterResult.sort(new ProductsSort.productSortByNameAscending());
-                System.out.println(currentFilterResult.size());
             case "name(descending)":
                 tempSellerFilterResult.sort(new ProductsSort.productSortByNameDescending());
-                currentFilterResult.sort(new ProductsSort.productSortByNameDescending());
             case "visit":
                 tempSellerFilterResult.sort(new ProductsSort.productSortByView());
-                currentFilterResult.sort(new ProductsSort.productSortByView());
             case "rate":
                 tempSellerFilterResult.sort(new ProductsSort.productSortByRate());
-                currentFilterResult.sort(new ProductsSort.productSortByRate());
             case "cheapest":
                 tempSellerFilterResult.sort(new ProductsSort.productSortByPriceAscendingly());
-                currentFilterResult.sort(new ProductsSort.productSortByPriceAscendingly());
             case "most expensive":
                 tempSellerFilterResult.sort(new ProductsSort.productSortByPriceDescendingly());
-                currentFilterResult.sort(new ProductsSort.productSortByPriceDescendingly());
         }
     }
-
 
     public void showSearchResult(MouseEvent mouseEvent) {
         GraphicMain.buttonSound.play();
