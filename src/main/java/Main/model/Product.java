@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 import static java.util.Arrays.asList;
 
-public class Product {
+public class Product{
     private static StringBuilder lastUsedProductID;
     private String productId;
     private String name;
@@ -50,6 +50,9 @@ public class Product {
     private ArrayList<String> sellersStringRecord = new ArrayList<>();
     private String categoryStringRecord;
     private ArrayList<String> buyersStringRecord = new ArrayList<>();
+    private int tempNumberOfProduct;
+    private double tempTotalPrice;
+    private CartProduct tempCartProduct;
 
     public Product(String name, String brand, int availability, String description, double price, SellerAccount sellerAccount) {
         this.productId = IDGenerator.getNewID(lastUsedProductID);
@@ -64,6 +67,30 @@ public class Product {
         this.price = price;
         this.averageScore = 0;
         this.off = null;
+    }
+
+    public CartProduct getTempCartProduct() {
+        return tempCartProduct;
+    }
+
+    public void setTempCartProduct(CartProduct tempCartProduct) {
+        this.tempCartProduct = tempCartProduct;
+    }
+
+    public void setTempNumberOfProduct(int tempNumberOfProduct) {
+        this.tempNumberOfProduct = tempNumberOfProduct;
+    }
+
+    public int getTempNumberOfProduct() { //it is not unused :)
+        return tempNumberOfProduct;
+    }
+
+    public double getTempTotalPrice() { //it is not unused :)
+        return tempTotalPrice;
+    }
+
+    public void setTempTotalPrice(double tempTotalPrice) {
+        this.tempTotalPrice = tempTotalPrice;
     }
 
     public static ArrayList<String> summaryProductInfo() {

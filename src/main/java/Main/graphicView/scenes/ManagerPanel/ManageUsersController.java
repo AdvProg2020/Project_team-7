@@ -27,7 +27,7 @@ public class ManageUsersController {
         usersList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (usersList.getSelectionModel().getSelectedItem() !=null) {
+                if (usersList.getSelectionModel().getSelectedItem() != null) {
                     String userInfo = usersList.getSelectionModel().getSelectedItem().toString();
                     String userName = userInfo.substring(userInfo.indexOf("@") + 1);
                     usersList.getSelectionModel().clearSelection();
@@ -44,7 +44,7 @@ public class ManageUsersController {
         });
     }
 
-    private void showUserInfoOrDelete(Account account, String userName){
+    private void showUserInfoOrDelete(Account account, String userName) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("USER INFO");
         alert.setHeaderText(account.viewMe());
@@ -55,7 +55,7 @@ public class ManageUsersController {
         }
     }
 
-    private void cannotDelete(){
+    private void cannotDelete() {
         Alert alert1 = new Alert(Alert.AlertType.ERROR);
         alert1.setTitle("cannot delete user");
         alert1.setHeaderText(null);
@@ -63,17 +63,18 @@ public class ManageUsersController {
         alert1.showAndWait();
     }
 
-    private void deleteUser(String userName){
+    private void deleteUser(String userName) {
         try {
             if (Account.getUserWithUserName(userName).equals(GeneralController.currentUser)) {
                 cannotDelete();
+            } else {
+                GraphicMain.managerController.deleteUserWithUserName(userName);
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("USER DELETED");
+                alert1.setHeaderText(null);
+                alert1.setContentText("User " + userName + " was deleted successfully.");
+                alert1.showAndWait();
             }
-            GraphicMain.managerController.deleteUserWithUserName(userName);
-            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-            alert1.setTitle("USER DELETED");
-            alert1.setHeaderText(null);
-            alert1.setContentText("User " + userName + " was deleted successfully.");
-            alert1.showAndWait();
             initialize();
         } catch (Exception e) {
             e.printStackTrace();

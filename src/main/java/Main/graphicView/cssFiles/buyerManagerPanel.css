@@ -12,7 +12,7 @@
 }
 
 .button, .label{
-    -fx-font-size: 60px;
+    -fx-font-size: 53px;
 }
 
 .text-field, .text-area{
@@ -68,4 +68,59 @@
 
 #smallerLabel{
     -fx-font-size:30px;
+}
+.table-column{
+    -fx-background-radius:10px,10px,10px,10px;
+    -fx-alignment: CENTER;
+    -fx-font-size:40px;
+}
+.table-view .column-header-background .label{
+    -fx-font-size:40px;
+    -fx-size:20px;
+}
+/*
+.label, .button, .text, .text-field, .list-cell{
+    -fx-font-family: 'Arial';
+}*/
+#increaseButton{
+    	-fx-background:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+    	-fx-background-color:#44c767;
+    	-fx-border-radius:16px;
+    	-fx-background-radius:16px;
+    	-fx-display:inline-block;
+    	-fx-cursor:pointer;
+    	-fx-color:#ffffff;
+    	-fx-font-family:Times New Roman;
+    	-fx-font-size:45px;
+    	-fx-font-weight:bold;
+    	-fx-text-decoration:none;
+}
+#decreaseButton:hover{
+    -fx-background:linear-gradient(to bottom, #ff4287 5%, #db002c 100%);
+	-fx-background-color:#ff4287;
+}
+#increaseButton:hover{
+    -fx-background:linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+	-fx-background-color:#52f78c;
+}
+#decreaseButton:pressed{
+    -fx-position:relative;
+	-fx-top:10px;
+}
+#increaseButton:pressed{
+    -fx-position:relative;
+	-fx-top:10px;
+}
+#decreaseButton{
+    	-fx-background:linear-gradient(to bottom, #db002c 5%, #ff4287 100%);
+    	-fx-background-color:#db002c;
+    	-fx-border-radius:16px;
+    	-fx-background-radius:16px;
+    	-fx-display:inline-block;
+    	-fx-cursor:pointer;
+    	-fx-color:#ffffff;
+    	-fx-font-family:Times New Roman;
+    	-fx-font-size:45px;
+    	-fx-font-weight:bold;
+    	-fx-text-decoration:none;
 }

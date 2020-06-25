@@ -4,6 +4,8 @@ import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.discountAndOffTypeService.OffStatus;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,6 +92,9 @@ public class Cart {
     public ArrayList<Product> getCartsProductList() {
         ArrayList<Product> cartsProductList = new ArrayList<>();
         for (CartProduct cartProduct : cartProducts) {
+            cartProduct.getProduct().setTempNumberOfProduct(cartProduct.getNumberOfProduct());
+            cartProduct.getProduct().setTempTotalPrice(cartProduct.getProduct().getPrice() * cartProduct.getNumberOfProduct());
+            cartProduct.getProduct().setTempCartProduct(cartProduct);
             cartsProductList.add(cartProduct.getProduct());
         }
         return cartsProductList;

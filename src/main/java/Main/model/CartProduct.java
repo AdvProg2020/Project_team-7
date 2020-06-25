@@ -5,7 +5,7 @@ import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.model.discountAndOffTypeService.Off;
 import Main.model.discountAndOffTypeService.OffStatus;
 
-public class CartProduct {
+public class CartProduct{
     private SellerAccount finalSeller;
     private Product product;
     private int numberOfProduct;
