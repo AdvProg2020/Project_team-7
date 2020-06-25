@@ -59,4 +59,8 @@ public class SellerPanelPage implements Initializable{
     public void goToSellerProductsPage() throws IOException {
         GraphicMain.graphicMain.goToPage(SellerProductsPage.FXML_PATH,SellerProductsPage.TITLE);
     }
+
+    public void goToAddProductPage() throws IOException {
+        GraphicMain.graphicMain.goToPage(AddProductPage.FXML_PATH,AddProductPage.TITLE);
+    }
 }
