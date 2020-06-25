@@ -72,4 +72,8 @@ public class SellerPanelPage implements Initializable{
     public void goToSellerOffsPage() throws IOException {
         GraphicMain.graphicMain.goToPage(SellerOffsPage.FXML_PATH, SellerOffsPage.TITLE);
     }
+
+    public void goToAddOffPage() throws IOException {
+        GraphicMain.graphicMain.goToPage(AddOffPage.FXML_PATH, AddOffPage.TITLE);
+    }
 }

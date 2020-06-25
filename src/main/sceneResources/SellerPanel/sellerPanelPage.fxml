@@ -43,7 +43,7 @@
                         <Font name="System Bold" size="30.0" />
                     </font>
                 </Label>
-                <Label alignment="CENTER" layoutX="10.0" layoutY="410.0" prefHeight="80.0" prefWidth="200.0" text="add off" textFill="WHITE">
+                <Label alignment="CENTER" layoutX="10.0" layoutY="410.0" onMouseClicked="#goToAddOffPage" prefHeight="80.0" prefWidth="200.0" text="add off" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="30.0" />
                     </font>

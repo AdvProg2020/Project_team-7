@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.AddOffPage">
+    <stylesheets>
+        <URL value="@../../java/Main/graphicView/cssFiles/salesHistory.css" />
+        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
+        <URL value="@../../java/Main/graphicView/cssFiles/listView.css" />
+
+    </stylesheets>
+    <TextField fx:id="startDate" layoutX="218.0" layoutY="125.0" prefHeight="51.0" prefWidth="301.0" promptText="yyyy/MM/dd HH:mm:ss">
+        <font>
+            <Font size="30.0" />
+        </font></TextField>
+    <TextField fx:id="endDate" layoutX="218.0" layoutY="214.0" prefHeight="51.0" prefWidth="301.0" promptText="yyyy/MM/dd HH:mm:ss">
+        <font>
+            <Font size="30.0" />
+        </font></TextField>
+    <TextField fx:id="offAmount" layoutX="218.0" layoutY="302.0" prefHeight="51.0" prefWidth="301.0">
+        <font>
+            <Font size="30.0" />
+        </font></TextField>
+   <Label alignment="CENTER" layoutX="66.0" layoutY="125.0" prefHeight="52.0" prefWidth="152.0" text="start date">
+      <font>
+         <Font size="30.0" />
+      </font>
+   </Label>
+   <Label alignment="CENTER" layoutX="66.0" layoutY="302.0" prefHeight="52.0" prefWidth="152.0" text="off amount">
+      <font>
+         <Font size="30.0" />
+      </font>
+   </Label>
+   <Label alignment="CENTER" layoutX="66.0" layoutY="214.0" prefHeight="52.0" prefWidth="152.0" text="end date">
+      <font>
+         <Font size="30.0" />
+      </font>
+   </Label>
+    <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../../java/Main/graphicView/resources/images/back.png" />
+        </image>
+    </ImageView>
+   <Button layoutX="355.0" layoutY="448.0" mnemonicParsing="false" onAction="#submit" prefHeight="63.0" prefWidth="121.0" text="submit">
+      <font>
+         <Font size="30.0" />
+      </font>
+   </Button>
+   <ListView fx:id="list" layoutX="698.0" layoutY="93.0" prefHeight="418.0" prefWidth="256.0" />
+   <Label alignment="CENTER" layoutX="704.0" layoutY="41.0" prefHeight="52.0" prefWidth="245.0" text="products you can choose:">
+      <font>
+         <Font size="30.0" />
+      </font>
+   </Label>
+
+</AnchorPane>
