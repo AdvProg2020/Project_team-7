@@ -67,15 +67,15 @@ public class EditProductPage implements Initializable {
                 editProductRequest.addEditedFieldTitle("availability");
                 editProductRequest.setName(availability.getText());
             }
-            if(!name.getText().isEmpty()){
+            if(!description.getText().isEmpty()){
                 editProductRequest.addEditedFieldTitle("description");
                 editProductRequest.setName(description.getText());
             }
-            if(!name.getText().isEmpty()){
+            if(!price.getText().isEmpty()){
                 editProductRequest.addEditedFieldTitle("price");
                 editProductRequest.setName(price.getText());
             }
-            if(!name.getText().isEmpty()){
+            if(!offId.getText().isEmpty()){
                 editProductRequest.addEditedFieldTitle("off");
                 editProductRequest.setName(offId.getText());
             }
