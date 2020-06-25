@@ -16,7 +16,7 @@
                 <Image url="@../../java/Main/graphicView/resources/images/back.png" />
             </image>
         </ImageView>
-      <Button layoutX="32.0" layoutY="618.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="512.0" text="Create a Manager Account" />
+      <Button layoutX="32.0" layoutY="618.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="512.0" text="Create a Manager Account" onAction="#goToRegisterManager"/>
       <ListView fx:id="usersList" layoutX="227.0" layoutY="60.0" prefHeight="530.0" prefWidth="746.0" />
     </children>
 </AnchorPane>

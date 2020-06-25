@@ -1,22 +1,62 @@
 package Main.graphicView.scenes.BuyerPanel;
 
+import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import Main.model.accounts.Account;
+import Main.model.accounts.BuyerAccount;
+import Main.model.accounts.ManagerAccount;
+import Main.model.logs.BuyLog;
+import Main.model.logs.Log;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class MyOrdersController {
     public static final String FXML_PATH = "src/main/sceneResources/BuyerPanel/ManageOrders.fxml";
     public static final String TITLE = "My Orders";
 
+    @FXML
+    private ListView ordersList;
+
+    public void initialize(){
+        ordersList.getItems().clear();
+        ordersList.getItems().addAll(((BuyerAccount) GeneralController.currentUser).buyLogsList());
+        ordersList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (ordersList.getSelectionModel().getSelectedItem() != null) {
+                    String logInfo = ordersList.getSelectionModel().getSelectedItem().toString();
+                    String logId = logInfo.substring(1, logInfo.indexOf(" "));
+                    ordersList.getSelectionModel().clearSelection();
+                    BuyLog buyLog = null;
+                    try {
+                        buyLog = (BuyLog) Log.getLogWithID(logId);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    showLogInfo(buyLog);
+                }
+            }
+        });
+    }
+
+    private void showLogInfo(BuyLog buyLog) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("ORDER INFO");
+        alert.setHeaderText(buyLog.viewLog());
+        alert.setContentText(null);
+        alert.showAndWait();
+    }
+
     public void goBack() throws IOException {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
-    }
-
-    public void goToRateProduct() throws IOException {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
-        GraphicMain.graphicMain.goToPage(RateController.FXML_PATH, RateController.TITLE);
     }
 }

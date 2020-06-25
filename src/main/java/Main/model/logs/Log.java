@@ -38,6 +38,14 @@ public abstract class Log {
 
     public abstract String viewLog();
 
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
     public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
     }

@@ -43,13 +43,22 @@ public class BuyerAccount extends Account {
         this.cart = new Cart();
     }
 
-    public ArrayList<String> getDiscountsList(){
+    public ArrayList<String> getDiscountsList() {
         ArrayList<String> list = new ArrayList<>();
         for (DiscountCode discountCode : discountCodes) {
-            String info = "@"+discountCode.getCode()+"\t\t\t\t"+discountCode.getPercent();
+            String info = "@" + discountCode.getCode() + "\t\t\t\t" + discountCode.getPercent();
             list.add(info);
         }
         return list;
+    }
+
+    public ArrayList<String> buyLogsList() {
+        ArrayList<String> buyLogs = new ArrayList<>();
+        for (BuyLog buyLog : buyHistory) {
+            String log = "@" + buyLog.getLogId() + " \tprice: " + buyLog.getTotalCost() + "\tdate: " + buyLog.getDate();
+            buyLogs.add(log);
+        }
+        return buyLogs;
     }
 
     public static ArrayList<String> allBuyersForGraphic() {

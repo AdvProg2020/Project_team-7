@@ -1,8 +1,8 @@
 package Main.graphicView.scenes.ManagerPanel;
 
 import Main.controller.GeneralController;
-import Main.controller.ManagerController;
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.RegisterManager;
 import Main.model.accounts.Account;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -85,5 +85,9 @@ public class ManageUsersController {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
+    }
+
+    public void goToRegisterManager() throws IOException {
+        GraphicMain.graphicMain.goToPage(RegisterManager.FXML_PATH, RegisterManager.TITLE);
     }
 }
