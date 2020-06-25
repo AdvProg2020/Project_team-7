@@ -79,10 +79,14 @@ public class PurchaseController {
     }
 
     public void goBack() {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 
     public void showDiscountGetter() {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         if (receiverFirstName.getText().isEmpty())
             receiverFirstName.setStyle("-fx-border-color:red; -fx-border-width: 3;");
         else
@@ -114,6 +118,8 @@ public class PurchaseController {
     }
 
     public void acceptCode() {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         if (!discountCode.getText().isEmpty()) {
             try {
                 GraphicMain.buyerController.setPurchaseDiscountCode(discountCode.getText());
@@ -128,6 +134,8 @@ public class PurchaseController {
     }
 
     public void payment() {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         pleaseLabel.setVisible(false);
         firstnameLabel.setVisible(false);
         lastnameLabel.setVisible(false);
@@ -160,6 +168,8 @@ public class PurchaseController {
     }
 
     public void finalizePayment() {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         String result = GraphicMain.buyerController.finalizePurchaseAndPay();
         if (result.equals("Purchase finished successfully.")){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

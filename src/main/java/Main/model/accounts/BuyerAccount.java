@@ -43,6 +43,15 @@ public class BuyerAccount extends Account {
         this.cart = new Cart();
     }
 
+    public ArrayList<String> getDiscountsList(){
+        ArrayList<String> list = new ArrayList<>();
+        for (DiscountCode discountCode : discountCodes) {
+            String info = "@"+discountCode.getCode()+"\t\t\t\t"+discountCode.getPercent();
+            list.add(info);
+        }
+        return list;
+    }
+
     public static ArrayList<String> allBuyersForGraphic() {
         ArrayList<String> allBuyersInfo = new ArrayList<>();
         for (BuyerAccount buyer : allBuyers) {

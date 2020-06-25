@@ -9,6 +9,8 @@ public class RateController {
     public static final String TITLE = "Rate a product";
 
     public void goBack() throws IOException {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 }

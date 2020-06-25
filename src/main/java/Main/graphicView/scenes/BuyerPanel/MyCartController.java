@@ -61,6 +61,8 @@ public class MyCartController {
         decreaseCol.setCellFactory(ActionButtonTableCell.<Product>forTableColumn("-", (Product p) -> {
             try {
                 p.getTempCartProduct().decreaseNumberByOne();
+                GraphicMain.buttonSound.stop();
+                GraphicMain.buttonSound.play();
             } catch (Exception e) {
                 ManagerPanelController.alertError(e.getMessage());
             }finally {
@@ -77,6 +79,8 @@ public class MyCartController {
         increaseNumberCol.setCellFactory(ActionButtonTableCell.<Product>forTableColumn("+", (Product p) -> {
             try {
                 p.getTempCartProduct().increaseNumberByOne();
+                GraphicMain.buttonSound.stop();
+                GraphicMain.buttonSound.play();
             } catch (Exception e) {
                 ManagerPanelController.alertError(e.getMessage());
             }finally {
@@ -110,10 +114,14 @@ public class MyCartController {
     }
 
     public void goToPurchase() throws IOException {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.goToPage(PurchaseController.FXML_PATH, PurchaseController.TITLE);
     }
 
     public void goBack() throws IOException {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 }

@@ -21,22 +21,32 @@ public class BuyerPanelController {
     }
 
     public void goToPersonalInformation() throws IOException {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.goToPage(BuyerPersonalInfoController.FXML_PATH, BuyerPersonalInfoController.TITLE);
     }
 
     public void goToMyOrders() throws IOException {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.goToPage(MyOrdersController.FXML_PATH, MyOrdersController.TITLE);
     }
 
     public void goToMyDiscounts() throws IOException {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.goToPage(MyDiscountsController.FXML_PATH,MyDiscountsController.TITLE);
     }
 
     public void goToMyCart() throws IOException {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.goToPage(MyCartController.FXML_PATH,MyCartController.TITLE);
     }
 
     public void goBack() throws IOException {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 

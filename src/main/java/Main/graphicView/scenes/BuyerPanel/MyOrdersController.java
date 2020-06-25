@@ -9,10 +9,14 @@ public class MyOrdersController {
     public static final String TITLE = "My Orders";
 
     public void goBack() throws IOException {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 
     public void goToRateProduct() throws IOException {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.goToPage(RateController.FXML_PATH, RateController.TITLE);
     }
 }

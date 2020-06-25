@@ -82,6 +82,8 @@ public class ManageUsersController {
     }
 
     public void goBack() throws IOException {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 }

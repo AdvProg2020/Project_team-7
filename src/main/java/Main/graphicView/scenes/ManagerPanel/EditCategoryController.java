@@ -76,10 +76,14 @@ public class EditCategoryController {
     }
 
     public void goBack() throws IOException {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 
     public void saveChanges() {
+        GraphicMain.buttonSound.stop();
+        GraphicMain.buttonSound.play();
         EditCategory editCategory = null;
         try {
             editCategory = GraphicMain.managerController.getCategoryToEdit(category.getName());

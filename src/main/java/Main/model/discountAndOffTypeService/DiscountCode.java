@@ -42,6 +42,10 @@ public class DiscountCode extends DiscountAndOffTypeService {
         return list;
     }
 
+    public double getPercent() {
+        return percent;
+    }
+
     public void setUsers(ArrayList<BuyerAccount> buyers) {
         for (BuyerAccount buyer : buyers) {
             users.put(buyer, maxNumberOfUse);
