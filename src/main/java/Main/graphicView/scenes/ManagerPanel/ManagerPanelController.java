@@ -69,4 +69,9 @@ public class ManagerPanelController {
         alert.setHeaderText(text);
         alert.showAndWait();
     }
+
+    public void logout() throws IOException {
+        GraphicMain.generalController.logout();
+        goBack();
+    }
 }

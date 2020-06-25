@@ -48,16 +48,38 @@ public class BuyerPersonalInfoController {
         Optional<ButtonType> option = alert.showAndWait();
         if (ButtonType.OK.equals(option.get())) {
             //TODO if there was time, connect this to old edit methods
-            try {
-                GeneralController.currentUser.setEmail(email.getText());
-                GeneralController.currentUser.setFirstName(firstName.getText());
-                GeneralController.currentUser.setLastName(lastName.getText());
-                GeneralController.currentUser.setPhoneNumber(phoneNumber.getText());
-                GeneralController.currentUser.setPassWord(password.getText());
-            } catch (Exception e) {
-                System.err.println("error");
+            if (email.getText().isEmpty())
+                email.setStyle("-fx-border-color:red; -fx-border-width: 3;");
+            else
+                email.setStyle("-fx-border-width: 0;");
+            if (firstName.getText().isEmpty())
+                firstName.setStyle("-fx-border-color:red; -fx-border-width: 3;");
+            else
+                firstName.setStyle("-fx-border-width: 0;");
+            if (lastName.getText().isEmpty())
+                lastName.setStyle("-fx-border-color:red; -fx-border-width: 3;");
+            else
+                lastName.setStyle("-fx-border-width: 0;");
+            if (phoneNumber.getText().isEmpty())
+                phoneNumber.setStyle("-fx-border-color:red; -fx-border-width: 3;");
+            else
+                phoneNumber.setStyle("-fx-border-width: 0;");
+            if (password.getText().isEmpty())
+                password.setStyle("-fx-border-color:red; -fx-border-width: 3;");
+            else
+                password.setStyle("-fx-border-width: 0;");
+            if (!email.getText().isEmpty() && !firstName.getText().isEmpty() && !lastName.getText().isEmpty() && !phoneNumber.getText().isEmpty() && !password.getText().isEmpty()) {
+                try {
+                    GeneralController.currentUser.setEmail(email.getText());
+                    GeneralController.currentUser.setFirstName(firstName.getText());
+                    GeneralController.currentUser.setLastName(lastName.getText());
+                    GeneralController.currentUser.setPhoneNumber(phoneNumber.getText());
+                    GeneralController.currentUser.setPassWord(password.getText());
+                } catch (Exception e) {
+                    System.err.println("error");
+                }
+                goBack();
             }
-            goBack();
         }
     }
 

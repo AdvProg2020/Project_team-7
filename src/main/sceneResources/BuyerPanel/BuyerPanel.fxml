@@ -25,5 +25,6 @@
             <Label fx:id="balance" layoutX="290.0" layoutY="20.0" prefHeight="64.0" prefWidth="208.0" text="0" />
             <Label layoutX="38.0" layoutY="14.0" text="Your Balance:" />
          </children></Pane>
+      <Button layoutX="1027.0" layoutY="634.0" mnemonicParsing="false" text="Logout" onAction="#logout"/>
    </children>
 </AnchorPane>

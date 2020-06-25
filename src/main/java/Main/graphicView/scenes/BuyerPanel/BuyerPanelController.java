@@ -50,5 +50,10 @@ public class BuyerPanelController {
         GraphicMain.graphicMain.back();
     }
 
+    public void logout() throws IOException {
+        GraphicMain.generalController.logout();
+        goBack();
+    }
+
 
 }
