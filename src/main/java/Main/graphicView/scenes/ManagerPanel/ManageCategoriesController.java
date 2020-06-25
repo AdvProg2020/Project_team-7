@@ -2,12 +2,15 @@ package Main.graphicView.scenes.ManagerPanel;
 
 import Main.graphicView.GraphicMain;
 import Main.model.Category;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class ManageCategoriesController {
@@ -41,13 +44,19 @@ public class ManageCategoriesController {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    showCategoryOptions(category);
+                    try {
+                        showCategoryOptions(category);
+                    } catch (IOException e) {
+                        ManagerPanelController.alertError(e.getMessage());
+                    }
                 }
             }
         });
+        categoryName.clear();
+        specialFeatures.clear();
     }
 
-    private void showCategoryOptions(Category category){
+    private void showCategoryOptions(Category category) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(category.getName()+"\n"+category.showSpecialFeatures());
         alert.setTitle("Category Menu");
@@ -56,7 +65,7 @@ public class ManageCategoriesController {
         ButtonType remove = new ButtonType("Remove it");
         ButtonType edit = new ButtonType("Edit");
         ButtonType done = new ButtonType("Done!");
-        alert.getButtonTypes().addAll(remove,edit,done);
+        alert.getButtonTypes().addAll(done,edit,remove);
         Optional<ButtonType> option = alert.showAndWait();
         if (option.get().equals(remove)){
             removeTheCategory(category);
@@ -72,7 +81,11 @@ public class ManageCategoriesController {
         alert.setContentText("Are you sure?");
         Optional<ButtonType> option = alert.showAndWait();
         if (option.get().equals(ButtonType.OK)){
-            category.removeCategory();
+            try {
+                GraphicMain.managerController.removeCategoryWithName(category.getName());
+            } catch (Exception e) {
+                ManagerPanelController.alertError(e.getMessage());
+            }
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
             alert1.setContentText("Category "+category.getName()+" deleted successfully.");
             alert1.setHeaderText(null);
@@ -82,11 +95,24 @@ public class ManageCategoriesController {
         }
     }
 
-    private void editCategory(Category category){
-        System.out.println("CATEGORY EDIT PAGE");
+    private void editCategory(Category category) throws IOException {
+        GraphicMain.graphicMain.goToPage(EditCategoryController.FXML_PATH,EditCategoryController.TITLE);
+        EditCategoryController.setCategory(category);
     }
 
     public void goBack() throws IOException {
         GraphicMain.graphicMain.back();
+    }
+
+    public void createCategory() {
+        String[] special = specialFeatures.getText().split("\n");
+        ArrayList<String> specials = new ArrayList<>(Arrays.asList(special));
+        String name = categoryName.getText();
+        try {
+            ManagerPanelController.alertInfo(GraphicMain.managerController.createCategory(name,specials));
+            initialize();
+        } catch (Exception e) {
+            ManagerPanelController.alertError(e.getMessage());
+        }
     }
 }

@@ -16,14 +16,14 @@
                 <Image url="@../../java/Main/graphicView/resources/images/back.png" />
             </image>
         </ImageView>
-      <Button layoutX="682.0" layoutY="565.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="395.0" text="Add new category" fx:id="createCategory"/>
+      <Button layoutX="682.0" layoutY="565.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="395.0" text="Add new category" fx:id="createCategory" onAction="#createCategory"/>
       <ListView layoutX="148.0" layoutY="118.0" prefHeight="551.0" prefWidth="395.0" fx:id="categoriesList" id="smallerListView"/>
       <Label layoutX="148.0" layoutY="28.0" text="Existing Categories:" />
       <Label layoutX="606.0" layoutY="28.0" text="Or You Can Create A New One:" />
       <Label layoutX="600.0" layoutY="118.0" text="Category Name:" />
       <TextField layoutX="880.0" layoutY="119.0" fx:id="categoryName"/>
       <Label layoutX="593.0" layoutY="206.0" text="Special Features:" />
-      <TextArea layoutX="880.0" layoutY="220.0" prefHeight="329.0" prefWidth="269.0" fx:id="specialFeatures"/>
+      <TextArea layoutX="880.0" layoutY="220.0" prefHeight="329.0" prefWidth="269.0" fx:id="specialFeatures" id="area"/>
       <Label layoutX="593.0" layoutY="280.0" prefHeight="64.0" prefWidth="263.0" text="(Enter Each Feature in a line)" id="smallerLabel"/>
     </children>
 </AnchorPane>

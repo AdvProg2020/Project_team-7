@@ -52,7 +52,7 @@ public class Cart {
         for (CartProduct cartProduct : cartProducts) {
             cartsProductsview.append(cartProduct.toStringForBuyLog());
         }
-        return "Cart :\n" + cartsProductsview + "\n\ncart total cost (not considering discount codes): " +
+        return "Cart :\n" + cartsProductsview + "\ncart total cost (not considering discount codes): " +
                 getCartTotalPriceConsideringOffs() + "\n";
     }
 

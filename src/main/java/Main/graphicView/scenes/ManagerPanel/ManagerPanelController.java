@@ -45,7 +45,14 @@ public class ManagerPanelController {
     public static void alertError(String text){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("ERROR!");
-        alert.setContentText(text);
+        alert.setHeaderText(text);
+        alert.showAndWait();
+    }
+
+    public static void alertInfo(String text){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(text);
         alert.showAndWait();
     }
 }

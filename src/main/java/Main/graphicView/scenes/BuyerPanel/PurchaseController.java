@@ -3,10 +3,7 @@ package Main.graphicView.scenes.BuyerPanel;
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class PurchaseController {
     public static final String FXML_PATH = "src/main/sceneResources/BuyerPanel/PurchasePanel.fxml";
@@ -33,7 +30,7 @@ public class PurchaseController {
     @FXML
     private Button continueButton;
     @FXML
-    private Label purchaseInfo;
+    private TextArea purchaseInfo;
     @FXML
     private Button yes;
     @FXML
@@ -149,7 +146,10 @@ public class PurchaseController {
         yes.setVisible(true);
         no.setVisible(true);
         purchaseInfo.setVisible(true);
-        purchaseInfo.setText(GraphicMain.buyerController.showPurchaseInfo()+"\n\nDo you want to finalize your purchase?");
+        purchaseInfo.setId("purchaseInfo");
+        purchaseInfo.setEditable(false);
+        purchaseInfo.setWrapText(true);
+        purchaseInfo.setText(GraphicMain.buyerController.showPurchaseInfo()+"\nDo you want to finalize your purchase?");
     }
 
     public String getReceiverInformation() {
@@ -167,6 +167,7 @@ public class PurchaseController {
             alert.setHeaderText("Your purchase completed successfully.");
             alert.setContentText("Thank you!");
             alert.showAndWait();
+            goBack();
             goBack();
         } else {
             ManagerPanelController.alertError(result);

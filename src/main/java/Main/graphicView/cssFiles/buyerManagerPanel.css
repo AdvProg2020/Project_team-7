@@ -124,3 +124,18 @@
     	-fx-font-weight:bold;
     	-fx-text-decoration:none;
 }
+#purchaseInfo{
+        -fx-font-family: 'a letter to you';
+    	-fx-font-size:50px;
+    	-fx-background-color:#ffdebf;
+}
+
+.text-area .scroll-pane {
+
+}
+.text-area .scroll-pane .viewport{
+
+}
+.text-area .scroll-pane .content{
+
+}

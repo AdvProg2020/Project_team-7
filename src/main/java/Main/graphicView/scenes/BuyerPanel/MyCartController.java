@@ -118,23 +118,6 @@ public class MyCartController {
     }
 }
 
-class ProductImage {
-
-    private ImageView image;
-
-    ProductImage(ImageView img) {
-        this.image = img;
-    }
-
-    public void setImage(ImageView value) {
-        image = value;
-    }
-
-    public ImageView getImage() {
-        return image;
-    }
-}
-
 class ActionButtonTableCell<S> extends TableCell<S, Button> {
 
     private final Button actionButton;

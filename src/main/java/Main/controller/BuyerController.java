@@ -110,10 +110,10 @@ public class BuyerController {
             discountCode.removeDiscountCode();
             discountCode = null;
         }
-        return "Purchase Information :" + "\n\nReceiver Information : \n\t" + receiverInformation + "\n\n" +
-                currentBuyersCart.toStringForBuyer() + "\n\ntotal amount you got to pay : " + getToTalPaymentConsideringDiscount() +
+        return "Purchase Information :" + "\nReceiver Information : \n\t" + receiverInformation + "\n" +
+                currentBuyersCart.toStringForBuyer() + "Total amount you got to pay : " + getToTalPaymentConsideringDiscount() +
                 "\nDiscount Code : " + (discountCode == null ? "no active discount code applied yet !\n" : "" +
-                discountCode.getDiscountCodeAmount()) + "\n";
+                discountCode.getDiscountCodeAmount());
     }
 
     private double getToTalPaymentConsideringDiscount() {
@@ -152,7 +152,7 @@ public class BuyerController {
         for (CartProduct cartProduct : currentBuyersCart.getCartProducts()) {
             if (!cartProduct.isProductAvailabilityEnough()) {
                 gettingProductsFromRepositoryErrors.append("sorry we are out of product with ID : "
-                                + cartProduct.getProduct().getProductId() + "\nthere is only " + cartProduct.getProduct().getAvailability() +
+                        + cartProduct.getProduct().getProductId() + "\nthere is only " + cartProduct.getProduct().getAvailability() +
                         " of this product left !\n" + "please increase number of this product !\n");
             }
         }

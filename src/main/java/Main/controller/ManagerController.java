@@ -208,10 +208,11 @@ public class ManagerController {
         request.decline();
     }
 
-    public void createCategory(String name, ArrayList<String> specialFeatures) throws Exception {
+    public String createCategory(String name, ArrayList<String> specialFeatures) throws Exception {
         validateInputCategoryInfo(name);
         Category category = new Category(name, specialFeatures);
         Category.addCategory(category);
+        return "Created category successfully!";
     }
 
     private void validateInputCategoryInfo(String name) throws Exception {
