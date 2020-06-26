@@ -50,13 +50,17 @@ public class ManageDiscountsController {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    showDiscountOptions(discountCode);
+                    try {
+                        showDiscountOptions(discountCode);
+                    } catch (IOException e) {
+                        ManagerPanelController.alertError(e.getMessage());
+                    }
                 }
             }
         });
     }
 
-    private void showDiscountOptions(DiscountCode discountCode) {
+    private void showDiscountOptions(DiscountCode discountCode) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(discountCode.viewMeAsManager());
         alert.setTitle("Discount Menu");
@@ -90,8 +94,9 @@ public class ManageDiscountsController {
         }
     }
 
-    private void editDiscount(DiscountCode discountCode) {
-        System.out.println("DISCOUNT EDIT PAGE");
+    private void editDiscount(DiscountCode discountCode) throws IOException {
+        GraphicMain.graphicMain.goToPage(EditCategoryController.FXML_PATH, EditCategoryController.TITLE);
+        EditDiscountController.setDiscount(discountCode);
     }
 
     public void goBack() throws IOException {
