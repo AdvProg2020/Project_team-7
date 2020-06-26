@@ -478,6 +478,11 @@ public class GeneralController {
                 product.setImagePath(product.getCategory().getImagePath());
             }
         }
+        for (Account account : Account.getAllAccounts()) {
+            if(account.getProfileImagePath().equals("")){
+                account.setProfileImagePath("src/main/java/Main/graphicView/resources/images/avatars/1.png");
+            }
+        }
     }
 
     public static String writeDataAndGetObjectStringRecords() {

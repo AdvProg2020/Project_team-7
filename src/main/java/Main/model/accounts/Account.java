@@ -120,4 +120,16 @@ public abstract class Account {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public void setProfileImagePath(String profileImagePath) {
+        this.profileImagePath = profileImagePath;
+    }
+
+    public static ArrayList<Account> getAllAccounts() {
+        return allAccounts;
+    }
+
+    public String getProfileImagePath() {
+        return profileImagePath;
+    }
 }

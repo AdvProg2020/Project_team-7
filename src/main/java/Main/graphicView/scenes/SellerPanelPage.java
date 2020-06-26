@@ -1,5 +1,6 @@
 package Main.graphicView.scenes;
 
+import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SellerPanelPage implements Initializable{
+public class SellerPanelPage implements Initializable {
 
     @FXML
     private Label personalInfoLabel;
@@ -30,12 +31,7 @@ public class SellerPanelPage implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         personalInfoLabel.setText("role: seller\n" + GraphicMain.generalController.viewPersonalInfo());
-        ImageView imageView = new ImageView(new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString()));
-        try{
-            imageView.setImage(new Image(new File(CompleteSignUpPage.getProfileImagePath()).toURI().toString()));
-        }catch (Exception e){
-
-        }
+        ImageView imageView = new ImageView(new Image(new File(GeneralController.currentUser.getProfileImagePath()).toURI().toString()));
         imageView.setFitHeight(120);
         imageView.setFitWidth(120);
         pane.getChildren().add(imageView);
@@ -46,24 +42,24 @@ public class SellerPanelPage implements Initializable{
                 EditSellerPersonalInformationPage.TITLE);
     }
 
-    public void goBack(){
+    public void goBack() {
         GraphicMain.graphicMain.back();
     }
 
-    public void viewCompanyInformation(){
+    public void viewCompanyInformation() {
         titleLabel.setText("company information");
         personalInfoLabel.setText(GraphicMain.sellerController.viewCompanyInformation());
     }
 
     public void goToSalesHistoryPage() throws IOException {
-        GraphicMain.graphicMain.goToPage(SalesHistoryPage.FXML_PATH,SalesHistoryPage.TITLE);
+        GraphicMain.graphicMain.goToPage(SalesHistoryPage.FXML_PATH, SalesHistoryPage.TITLE);
     }
 
-    public void viewBalance(){
+    public void viewBalance() {
         showInformationAlert(GraphicMain.sellerController.viewSellerBalance());
     }
 
-    public void showInformationAlert(String message){
+    public void showInformationAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setContentText(message);
@@ -72,14 +68,14 @@ public class SellerPanelPage implements Initializable{
     }
 
     public void goToSellerProductsPage() throws IOException {
-        GraphicMain.graphicMain.goToPage(SellerProductsPage.FXML_PATH,SellerProductsPage.TITLE);
+        GraphicMain.graphicMain.goToPage(SellerProductsPage.FXML_PATH, SellerProductsPage.TITLE);
     }
 
     public void goToAddProductPage() throws IOException {
-        GraphicMain.graphicMain.goToPage(AddProductPage.FXML_PATH,AddProductPage.TITLE);
+        GraphicMain.graphicMain.goToPage(AddProductPage.FXML_PATH, AddProductPage.TITLE);
     }
 
-    public void showCategories(){
+    public void showCategories() {
         String categories = GraphicMain.generalController.showAllCategories();
         showInformationAlert(categories);
     }
