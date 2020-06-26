@@ -3,6 +3,7 @@ package Main.model;
 import Main.consoleViewOld.ProductPageMenu;
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.ProductPage;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
@@ -67,6 +68,7 @@ public class Product {
         this.price = price;
         this.averageScore = 0;
         this.off = null;
+        this.imagePath = "src/main/java/Main/graphicView/resources/images/product.png";
     }
 
     public CartProduct getTempCartProduct() {
@@ -565,7 +567,10 @@ public class Product {
         productBox.getStyleClass().add("productBox");
         productBox.setOnMouseClicked(event -> {
             GeneralController.currentProduct = this;
-            //TODO : link to product page
+            try {
+                GraphicMain.graphicMain.goToPage(ProductPage.FXML_PATH,ProductPage.TITLE);
+            } catch (IOException e) {
+            }
         });
         productBox.setOnMouseEntered(event -> {
             productBox.setCursor(Cursor.HAND);
@@ -629,7 +634,10 @@ public class Product {
         productBox.setId(productId);
         productBox.setOnMouseClicked(event -> {
             GeneralController.currentProduct = this;
-            //TODO : link to product page
+            try {
+                GraphicMain.graphicMain.goToPage(ProductPage.FXML_PATH,ProductPage.TITLE);
+            } catch (IOException e) {
+            }
         });
 
         setProductAdImage(productBox);
