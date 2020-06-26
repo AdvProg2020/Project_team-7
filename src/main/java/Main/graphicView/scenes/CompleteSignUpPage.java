@@ -34,6 +34,7 @@ public class CompleteSignUpPage implements Initializable {
     public TextField firstName;
 
     public void back(MouseEvent mouseEvent) {
+        GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
@@ -70,6 +71,7 @@ public class CompleteSignUpPage implements Initializable {
     }
 
     public void signUp(MouseEvent mouseEvent) throws IOException {
+        GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         if (areTextFieldsFilled() && areTextFieldsValid()) {
             LoginSignUpPage loginSignUpPage = (LoginSignUpPage) GraphicMain.graphicMain.getController(LoginSignUpPage.FXML_PATH);

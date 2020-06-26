@@ -29,6 +29,10 @@ public class MainMenuController {
             GraphicMain.graphicMain.goToPage(SellerPanelPage.FXML_PATH, SellerPanelPage.TITLE);
         } else if (account instanceof BuyerAccount) {
             GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH,BuyerPanelController.TITLE);
+        }else{
+            GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH,LoginSignUpPage.TITLE);
+            GraphicMain.audioClip.stop();
+            LoginSignUpPage.mediaPlayer.play();
         }
     }
 
