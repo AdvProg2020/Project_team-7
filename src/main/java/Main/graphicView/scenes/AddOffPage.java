@@ -17,7 +17,7 @@ public class AddOffPage implements Initializable {
 
     public static final String FXML_PATH = "src/main/sceneResources/SellerPanel/addOffPage.fxml";
     public static final String TITLE = "Add Off";
-    private ArrayList<String> productIdList;
+    private ArrayList<String> productIdList = new ArrayList<>();
     @FXML
     private TextField startDate;
     @FXML

@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class ManageDiscountsController {
@@ -19,45 +20,20 @@ public class ManageDiscountsController {
     @FXML
     private ListView discountsList;
     @FXML
-    private DatePicker startDate;
+    private TextField startDate;
     @FXML
-    private DatePicker endDate;
+    private TextField endDate;
     @FXML
-    private Slider percent;
+    private TextField percent;
     @FXML
     private TextField maxAmount;
     @FXML
-    private Spinner maxNumberOfUse;
+    private TextField maxNumberOfUse;
     @FXML
-    private Spinner startHour;
-    @FXML
-    private Spinner startMinute;
-    @FXML
-    private Spinner startSecond;
-    @FXML
-    private Spinner endHour;
-    @FXML
-    private Spinner endMinute;
-    @FXML
-    private Spinner endSecond;
+    private TextArea buyers;
 
 
     public void initialize() {
-        percent.adjustValue(50);
-        percent.setBlockIncrement(1);
-        percent.setMin(1);
-        percent.setMax(99);
-        percent.setMajorTickUnit(10);
-        percent.setMinorTickCount(5);
-        percent.setShowTickLabels(true);
-        /*startHour.setPromptText("HH");
-        startMinute.setPromptText("MM");
-        startSecond.setPromptText("SS");
-        endHour.setPromptText("HH");
-        endMinute.setPromptText("MM");
-        endSecond.setPromptText("SS");*/
-        maxNumberOfUse = new Spinner<Integer>(1, 10, 1);
-
 
         discountsList.getItems().clear();
         discountsList.getItems().addAll();
@@ -74,13 +50,17 @@ public class ManageDiscountsController {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    showDiscountOptions(discountCode);
+                    try {
+                        showDiscountOptions(discountCode);
+                    } catch (IOException e) {
+                        ManagerPanelController.alertError(e.getMessage());
+                    }
                 }
             }
         });
     }
 
-    private void showDiscountOptions(DiscountCode discountCode) {
+    private void showDiscountOptions(DiscountCode discountCode) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(discountCode.viewMeAsManager());
         alert.setTitle("Discount Menu");
@@ -114,8 +94,9 @@ public class ManageDiscountsController {
         }
     }
 
-    private void editDiscount(DiscountCode discountCode) {
-        System.out.println("DISCOUNT EDIT PAGE");
+    private void editDiscount(DiscountCode discountCode) throws IOException {
+        GraphicMain.graphicMain.goToPage(EditCategoryController.FXML_PATH, EditCategoryController.TITLE);
+        EditDiscountController.setDiscount(discountCode);
     }
 
     public void goBack() throws IOException {
@@ -125,5 +106,35 @@ public class ManageDiscountsController {
     }
 
     public void createDiscount() {
+        ArrayList<String> discountInfo = new ArrayList<>();
+        getDiscountInfo(discountInfo);
+        ArrayList<String> buyersList = new ArrayList<>();
+        getBuyerIdList(buyersList);
+        try {
+            ManagerPanelController.alertInfo(GraphicMain.managerController.createDiscountCode(buyersList, discountInfo));
+            initialize();
+        } catch (Exception e) {
+            ManagerPanelController.alertError(e.getMessage());
+        }
+    }
+
+    private void getBuyerIdList(ArrayList<String> buyersList) {
+        String[] users = buyers.getText().split("\n");
+        for (String user : users) {
+            buyersList.add(user.trim());
+        }
+    }
+
+    private void getDiscountInfo(ArrayList<String> discountInfo) {
+        String startDate = this.startDate.getText().trim();
+        discountInfo.add(startDate);
+        String endDate = this.endDate.getText().trim();
+        discountInfo.add(endDate);
+        String percent = this.percent.getText().trim();
+        discountInfo.add(percent);
+        String maxAmount = this.maxAmount.getText().trim();
+        discountInfo.add(maxAmount);
+        String muxNumberOfUse = this.maxNumberOfUse.getText().trim();
+        discountInfo.add(muxNumberOfUse);
     }
 }

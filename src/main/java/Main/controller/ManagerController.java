@@ -77,7 +77,7 @@ public class ManagerController {
         product.removeProduct();
     }
 
-    public void createDiscountCode(ArrayList<String> buyersUserNamesList, ArrayList<String> discountInfo) throws Exception {
+    public String createDiscountCode(ArrayList<String> buyersUserNamesList, ArrayList<String> discountInfo) throws Exception {
         validateInputDiscountInfo(buyersUserNamesList, discountInfo);
 
         ArrayList<BuyerAccount> buyersList = extractDiscountBuyersList(buyersUserNamesList);
@@ -88,6 +88,7 @@ public class ManagerController {
         for (BuyerAccount buyerAccount : buyersList) {
             buyerAccount.addDiscountCode(discountCode);
         }
+        return "Created Discount Successfully!";
     }
 
     private void validateInputDiscountInfo(ArrayList<String> buyersUserNamesList, ArrayList<String> discountInfo) throws Exception {

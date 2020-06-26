@@ -61,25 +61,26 @@ public class EditProductPage implements Initializable {
             }
             if(!brand.getText().isEmpty()){
                 editProductRequest.addEditedFieldTitle("brand");
-                editProductRequest.setName(brand.getText());
+                editProductRequest.setBrand(brand.getText());
             }
             if(!availability.getText().isEmpty()){
                 editProductRequest.addEditedFieldTitle("availability");
-                editProductRequest.setName(availability.getText());
+                editProductRequest.setAvailability(availability.getText());
             }
             if(!description.getText().isEmpty()){
                 editProductRequest.addEditedFieldTitle("description");
-                editProductRequest.setName(description.getText());
+                editProductRequest.setDescription(description.getText());
             }
             if(!price.getText().isEmpty()){
                 editProductRequest.addEditedFieldTitle("price");
-                editProductRequest.setName(price.getText());
+                editProductRequest.setPrice(price.getText());
             }
             if(!offId.getText().isEmpty()){
                 editProductRequest.addEditedFieldTitle("off");
-                editProductRequest.setName(offId.getText());
+                editProductRequest.setOffID(offId.getText());
             }
             GraphicMain.sellerController.submitProductEdits(editProductRequest);
+            showInformationAlert("product edited successfully");
         } catch (Exception e) {
             showErrorAlert(e.getMessage());
         }
@@ -96,5 +97,12 @@ public class EditProductPage implements Initializable {
         alert.setContentText(message);
         alert.setHeaderText(null);
         alert.show();
+    }
+    public void showInformationAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(null);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
 }

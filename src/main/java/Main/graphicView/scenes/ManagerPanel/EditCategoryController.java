@@ -22,7 +22,6 @@ public class EditCategoryController {
 
 
     private static Category category;
-    private boolean flag = false;
     @FXML
     private ComboBox editOption;
     @FXML
@@ -111,7 +110,6 @@ public class EditCategoryController {
         } catch (Exception e) {
             ManagerPanelController.alertError(e.getMessage());
             initialize();
-            flag = true;
         }
     }
 }
