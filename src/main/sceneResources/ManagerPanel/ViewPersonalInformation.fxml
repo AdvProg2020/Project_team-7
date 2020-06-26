@@ -31,6 +31,6 @@
       <TextField fx:id="email" layoutX="808.0" layoutY="406.0" prefHeight="41.0" prefWidth="224.0" />
       <TextField fx:id="lastName" layoutX="808.0" layoutY="507.0" prefHeight="41.0" prefWidth="224.0" />
       <Label id="youCanEdit" layoutX="555.0" layoutY="28.0" prefHeight="104.0" prefWidth="573.0" text="Your Account Type: MANAGER" />
-      <ImageView fitHeight="142.0" fitWidth="192.0" layoutX="158.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" fx:id="profileImage"/>
+      <Pane layoutX="188.0" layoutY="5.0" prefHeight="150.0" prefWidth="150.0" fx:id="pane"/>
     </children>
 </AnchorPane>
