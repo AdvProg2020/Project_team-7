@@ -76,7 +76,7 @@ public class ProductPage implements Initializable {
         productImage.preserveRatioProperty().set(true);
         scrollImage.setContent(productImage);
         generalFeatures.setText(makeGeneralFeatures());
-        if(currentProduct.getCategory() !=null){
+        if (currentProduct.getCategory() != null) {
             specialFeaturesPane.setVisible(true);
             specialFeatures.setText(currentProduct.showSpecialFeatures());
         }
@@ -85,23 +85,23 @@ public class ProductPage implements Initializable {
 
     }
 
-    public void setScoreImage(){
+    public void setScoreImage() {
         double score = currentProduct.getAverageScore();
-        if(score==0)
+        if (score == 0)
             scoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score0.png").toURI().toString()));
-        else if(score>0 && score<=1)
+        else if (score > 0 && score <= 1)
             scoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score1.png").toURI().toString()));
-        else if(score>1 && score<=2)
+        else if (score > 1 && score <= 2)
             scoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score2.png").toURI().toString()));
-        else if(score>2 && score<=3)
+        else if (score > 2 && score <= 3)
             scoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score3.png").toURI().toString()));
-        else if(score>3 && score<=4)
+        else if (score > 3 && score <= 4)
             scoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score4.png").toURI().toString()));
-        else if(score>4 && score<=5)
+        else if (score > 4 && score <= 5)
             scoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score5.png").toURI().toString()));
     }
 
-    public void goBack(){
+    public void goBack() {
         GraphicMain.graphicMain.back();
     }
 
@@ -113,12 +113,14 @@ public class ProductPage implements Initializable {
             GraphicMain.graphicMain.goToPage(SellerPanelPage.FXML_PATH, SellerPanelPage.TITLE);
         } else if (account instanceof BuyerAccount) {
             GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH, BuyerPanelController.TITLE);
+        } else {
+            GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
         }
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
     }
 
-    public String makeGeneralFeatures(){
+    public String makeGeneralFeatures() {
         if (currentProduct.getOff() != null && currentProduct.getOff().getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
             currentProduct.getOff().removeOff();
         }
@@ -128,7 +130,7 @@ public class ProductPage implements Initializable {
         stringBuilder.append("description: " + currentProduct.getDescription() + "\n");
         stringBuilder.append("price: " + currentProduct.getProductFinalPriceConsideringOff() + "\n");
         stringBuilder.append("off amount: " + currentProduct.makeOffAmount() + "\n");
-        if(currentProduct.getCategory() != null)
+        if (currentProduct.getCategory() != null)
             stringBuilder.append("category: " + currentProduct.getCategory().getName() + "\n");
         stringBuilder.append("seller(s): " + currentProduct.makeSellersList());
         return stringBuilder.toString();
@@ -139,7 +141,7 @@ public class ProductPage implements Initializable {
                 GeneralController.currentUser instanceof ManagerAccount) {
             showErrorAlert("You have not logged in yet!");
             GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
-        } else{
+        } else {
             Stage selectSellerBox = new Stage();
             selectSellerBox.setTitle("Select seller");
             TextField textField = new TextField();
@@ -165,7 +167,7 @@ public class ProductPage implements Initializable {
         }
     }
 
-    public void showErrorAlert(String message){
+    public void showErrorAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(null);
         alert.setContentText(message);
@@ -173,7 +175,7 @@ public class ProductPage implements Initializable {
         alert.show();
     }
 
-    public void showInformationAlert(String message){
+    public void showInformationAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setContentText(message);
@@ -181,14 +183,14 @@ public class ProductPage implements Initializable {
         alert.showAndWait();
     }
 
-    public void rateProduct(){
-        if((!(GeneralController.currentUser instanceof BuyerAccount)) || GeneralController.currentUser==null){
+    public void rateProduct() {
+        if ((!(GeneralController.currentUser instanceof BuyerAccount)) || GeneralController.currentUser == null) {
             showErrorAlert("you must login first");
-        } else{
+        } else {
             BuyerAccount buyer = (BuyerAccount) GeneralController.currentUser;
-            if(!(buyer.hasBuyerBoughtProduct(currentProduct))){
+            if (!(buyer.hasBuyerBoughtProduct(currentProduct))) {
                 showErrorAlert("you should have bought this product");
-            }else{
+            } else {
                 Stage stage = new Stage();
                 stage.setTitle("Rate product");
                 TextField textField = new TextField();
@@ -203,7 +205,7 @@ public class ProductPage implements Initializable {
                     @Override
                     public void handle(ActionEvent event) {
                         try {
-                            GraphicMain.buyerController.rateProductWithId(currentProduct.getProductId(),textField.getText());
+                            GraphicMain.buyerController.rateProductWithId(currentProduct.getProductId(), textField.getText());
                             stage.close();
                         } catch (Exception e) {
                             showErrorAlert(e.getMessage());
@@ -215,7 +217,7 @@ public class ProductPage implements Initializable {
 
     }
 
-    public void showComments(){
+    public void showComments() {
         TextArea textArea = new TextArea();
         textArea.setText(currentProduct.showComments());
         textArea.setFont(Font.font(30));
@@ -226,7 +228,7 @@ public class ProductPage implements Initializable {
         GraphicMain.graphicMain.goToPage(AddCommentPage.FXML_PATH, AddCommentPage.TITLE);
     }
 
-    public void compareProduct(){
+    public void compareProduct() {
         String id = productIdToBeCompared.getText();
         try {
             String compare = GraphicMain.generalController.compareProductWithProductWithId(id);
