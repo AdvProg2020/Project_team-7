@@ -81,8 +81,8 @@ public class DiscountCode extends DiscountAndOffTypeService {
                         "\n\tmaximum amount to be decreased: " + maxAmount +
                         "\n\tmaximum number of use for each user: " + maxNumberOfUse +
                         "\n\tlist of users who have this discount code: " + makeListOfBuyers() +
-                        "\n\tstart date:" + dateFormat.format(startDate) +
-                        "\n\tend date: " + dateFormat.format(endDate) + "\n";
+                        "\n\tstart date:" + dateFormat.format(getStartDate()) +
+                        "\n\tend date: " + dateFormat.format(getEndDate()) + "\n";
     }
 
     public String viewMeAsBuyer(BuyerAccount buyerAccount) {
@@ -92,8 +92,8 @@ public class DiscountCode extends DiscountAndOffTypeService {
                         "\n\tmaximum amount to be decreased: " + maxAmount +
                         "\n\tmaximum number of use for each user: " + maxNumberOfUse +
                         "\n\ttimes you have used this code so far : " + users.get(buyerAccount) +
-                        "\n\tstart date:" + dateFormat.format(startDate) +
-                        "\n\tend date: " + dateFormat.format(endDate) + "\n";
+                        "\n\tstart date:" + dateFormat.format(getStartDate()) +
+                        "\n\tend date: " + dateFormat.format(getEndDate()) + "\n";
     }
 
     public String makeListOfBuyers() {

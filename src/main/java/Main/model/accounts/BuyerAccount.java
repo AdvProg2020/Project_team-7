@@ -56,7 +56,7 @@ public class BuyerAccount extends Account {
     public ArrayList<String> buyLogsList() {
         ArrayList<String> buyLogs = new ArrayList<>();
         for (BuyLog buyLog : buyHistory) {
-            String log = "@" + buyLog.getLogId() + " \tprice: " + buyLog.getTotalCost() + "\tdate: " + buyLog.getDate();
+            String log = "@" + buyLog.getLogId() + " \tprice: " + buyLog.getTotalCost() + "\tdate: " + dateFormat.format(buyLog.getDate());
             buyLogs.add(log);
         }
         return buyLogs;

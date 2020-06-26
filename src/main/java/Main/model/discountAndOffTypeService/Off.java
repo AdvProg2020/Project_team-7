@@ -17,8 +17,6 @@ public class Off extends DiscountAndOffTypeService {
     private SellerAccount seller;
     private String offId;
     private ArrayList<Product> products = new ArrayList<>();
-    private Date startDate;
-    private Date endDate;
     private double offAmount;
     private OffStatus offStatus;
     public static ArrayList<Off> allOffs = new ArrayList<Off>();

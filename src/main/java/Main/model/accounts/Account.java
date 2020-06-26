@@ -1,5 +1,7 @@
 package Main.model.accounts;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public abstract class Account {
@@ -10,6 +12,7 @@ public abstract class Account {
     protected String phoneNumber;
     protected String passWord;
     protected String profileImagePath;
+    protected static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     protected static ArrayList<Account> allAccounts = new ArrayList<>();
     private static ArrayList<String> reservedUserNames = new ArrayList<>();
 
