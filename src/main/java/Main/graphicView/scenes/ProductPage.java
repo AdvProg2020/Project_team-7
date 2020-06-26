@@ -1,5 +1,6 @@
 package Main.graphicView.scenes;
 
+import Main.consoleViewOld.SignInMenu;
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.BuyerPanel.BuyerPanelController;
@@ -12,14 +13,17 @@ import Main.model.accounts.SellerAccount;
 import Main.model.discountAndOffTypeService.DiscountAndOffStat;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -119,7 +123,56 @@ public class ProductPage implements Initializable {
         stringBuilder.append("price: " + currentProduct.getProductFinalPriceConsideringOff() + "\n");
         stringBuilder.append("off amount: " + currentProduct.makeOffAmount() + "\n");
         if(currentProduct.getCategory() != null)
-            stringBuilder.append("category: " + currentProduct.getCategory().getName());
+            stringBuilder.append("category: " + currentProduct.getCategory().getName() + "\n");
+        stringBuilder.append("seller(s): " + currentProduct.makeSellersList());
         return stringBuilder.toString();
     }
+
+    public void goToSelectSellerPage() throws IOException {
+        if (GeneralController.currentUser == null || GeneralController.currentUser instanceof SellerAccount ||
+                GeneralController.currentUser instanceof ManagerAccount) {
+            showErrorAlert("You have not logged in yet!");
+            GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
+        } else{
+            Stage selectSellerBox = new Stage();
+            selectSellerBox.setTitle("Select seller");
+            TextField textField = new TextField();
+            textField.setPromptText("seller username");
+            Button submit = new Button("submit");
+            VBox vBox = new VBox();
+            vBox.getChildren().addAll(textField, submit);
+            Scene scene = new Scene(vBox, 750, 400);
+            selectSellerBox.setScene(scene);
+            selectSellerBox.show();
+            submit.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    try {
+                        GraphicMain.generalController.selectSellerWithUsername(textField.getText());
+                        showInformationAlert(GraphicMain.generalController.addProductToCart());
+                        selectSellerBox.close();
+                    } catch (Exception e) {
+                        showErrorAlert(e.getMessage());
+                    }
+                }
+            });
+        }
+    }
+
+    public void showErrorAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(null);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.show();
+    }
+
+    public void showInformationAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(null);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
 }
