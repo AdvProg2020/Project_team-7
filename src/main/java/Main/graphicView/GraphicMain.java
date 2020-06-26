@@ -51,7 +51,7 @@ public class GraphicMain extends Application {
         stage = primaryStage;
         Parent root;
 
-        if (!ManagerAccount.isThereAChiefManager()) {
+        /*if (!ManagerAccount.isThereAChiefManager()) {
             root = FXMLLoader.load(new File((RegisterManager.FXML_PATH)).toURI().toURL());
 
             FXMLLoader loginPageLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
@@ -60,14 +60,14 @@ public class GraphicMain extends Application {
 
             stage.setTitle(RegisterManager.TITLE);
             sceneTrace.add(RegisterManager.FXML_PATH);
-        } else {
+        } else {*/
             root = FXMLLoader.load(new File(MainMenuController.FXML_PATH).toURI().toURL());
 
             audioClip.play();
 
             stage.setTitle(MainMenuController.TITLE);
             sceneTrace.add(MainMenuController.FXML_PATH);
-        }
+        //}
 
         titleTrace.add(stage.getTitle());
 
