@@ -2,6 +2,7 @@ package Main.graphicView.scenes.BuyerPanel;
 
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.CompleteSignUpPage;
 import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.graphicView.scenes.RegisterManager;
 import javafx.fxml.FXML;
@@ -44,7 +45,7 @@ public class BuyerPersonalInfoController {
             firstName.setText(GeneralController.currentUser.getFirstName());
             lastName.setText(GeneralController.currentUser.getLastName());
             ImageView profileImage = new ImageView(new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString()));
-            profileImage.setImage(new Image(new File(RegisterManager.getProfileImagePath()).toURI().toString()));
+            profileImage.setImage(new Image(new File(CompleteSignUpPage.getProfileImagePath()).toURI().toString()));
             profileImage.setFitWidth(120);
             profileImage.setFitHeight(120);
             pane.getChildren().add(profileImage);

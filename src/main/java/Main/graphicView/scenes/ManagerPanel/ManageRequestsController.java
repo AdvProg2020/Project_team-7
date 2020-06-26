@@ -34,12 +34,12 @@ public class ManageRequestsController {
                     try {
                         request = Request.getRequestWithId(id);
                     } catch (Exception e) {
-                        ManagerPanelController.alertError(e.getMessage());
+                        //ManagerPanelController.alertError(e.getMessage());
                     }
                     try {
                         showRequestMenu(request);
                     } catch (Exception e) {
-                        ManagerPanelController.alertError(e.getMessage());
+                        //ManagerPanelController.alertError(e.getMessage());
                     }
                 }
             }

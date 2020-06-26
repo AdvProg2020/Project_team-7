@@ -4,6 +4,7 @@ import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.model.accounts.BuyerAccount;
+import Main.model.accounts.ManagerAccount;
 import Main.model.discountAndOffTypeService.DiscountCode;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,7 +23,7 @@ public class MyDiscountsController {
 
     public void initialize() {
         discountsList.getItems().clear();
-        discountsList.getItems().addAll(DiscountCode.getDiscountsList());
+        discountsList.getItems().addAll(((BuyerAccount) GeneralController.currentUser).getDiscountsList());
         discountsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
