@@ -37,7 +37,7 @@ public class ManagerPersonalInfoController {
             firstName.setText(GeneralController.currentUser.getFirstName());
             lastName.setText(GeneralController.currentUser.getLastName());
         } catch (NullPointerException n) {
-            System.err.println("null");
+            ManagerPanelController.alertError(n.getMessage());
         }
     }
 
@@ -79,7 +79,7 @@ public class ManagerPersonalInfoController {
                     GeneralController.currentUser.setPhoneNumber(phoneNumber.getText());
                     GeneralController.currentUser.setPassWord(password.getText());
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    ManagerPanelController.alertError(e.getMessage());
                 }
                 goBack();
             }

@@ -2,7 +2,6 @@ package Main.graphicView.scenes.ManagerPanel;
 
 import Main.graphicView.GraphicMain;
 import Main.model.Category;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -27,8 +26,6 @@ public class ManageCategoriesController {
     @FXML
     private ListView categoriesList;
     @FXML
-    private Button createCategory;
-    @FXML
     private Label imageName;
     private String path;
 
@@ -46,7 +43,7 @@ public class ManageCategoriesController {
                     try {
                         category = Category.getCategoryWithName(name);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        ManagerPanelController.alertError(e.getMessage());
                     }
                     try {
                         showCategoryOptions(category);
@@ -104,7 +101,7 @@ public class ManageCategoriesController {
         EditCategoryController.setCategory(category);
     }
 
-    public void goBack() throws IOException {
+    public void goBack() {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
@@ -121,7 +118,7 @@ public class ManageCategoriesController {
             imageName.setStyle("-fx-text-fill:red;");
         } else {
             try {
-                ManagerPanelController.alertInfo(GraphicMain.managerController.createCategory(name, specials,path));
+                ManagerPanelController.alertInfo(GraphicMain.managerController.createCategory(name, specials, path));
                 initialize();
             } catch (Exception e) {
                 ManagerPanelController.alertError(e.getMessage());

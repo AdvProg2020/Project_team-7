@@ -42,7 +42,7 @@ public class ManageDiscountsController {
     private Spinner endSecond;
 
 
-    public void initialize(){
+    public void initialize() {
         percent.adjustValue(50);
         percent.setBlockIncrement(1);
         percent.setMin(1);
@@ -59,16 +59,14 @@ public class ManageDiscountsController {
         maxNumberOfUse = new Spinner<Integer>(1, 10, 1);
 
 
-
-
         discountsList.getItems().clear();
         discountsList.getItems().addAll();
         discountsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (discountsList.getSelectionModel().getSelectedItem() != null){
+                if (discountsList.getSelectionModel().getSelectedItem() != null) {
                     String code = discountsList.getSelectionModel().getSelectedItem().toString();
-                    code = code.substring(1,code.indexOf(' '));
+                    code = code.substring(1, code.indexOf(' '));
                     discountsList.getSelectionModel().clearSelection();
                     DiscountCode discountCode = null;
                     try {
@@ -82,7 +80,7 @@ public class ManageDiscountsController {
         });
     }
 
-    private void showDiscountOptions(DiscountCode discountCode){
+    private void showDiscountOptions(DiscountCode discountCode) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(discountCode.viewMeAsManager());
         alert.setTitle("Discount Menu");
@@ -91,32 +89,32 @@ public class ManageDiscountsController {
         ButtonType remove = new ButtonType("Remove it");
         ButtonType edit = new ButtonType("Edit");
         ButtonType done = new ButtonType("Done!");
-        alert.getButtonTypes().addAll(remove,edit,done);
+        alert.getButtonTypes().addAll(remove, edit, done);
         Optional<ButtonType> option = alert.showAndWait();
-        if (option.equals(remove)){
+        if (option.equals(remove)) {
             removeDiscount(discountCode);
-        } else if (option.equals(edit)){
+        } else if (option.equals(edit)) {
             editDiscount(discountCode);
         }
     }
 
-    private void removeDiscount(DiscountCode discountCode){
+    private void removeDiscount(DiscountCode discountCode) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Discount");
         alert.setHeaderText("Discount will be deleted completely.");
         alert.setContentText("Are you sure?");
         Optional<ButtonType> option = alert.showAndWait();
-        if (option.equals(ButtonType.OK)){
+        if (option.equals(ButtonType.OK)) {
             discountCode.removeDiscountCode();
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-            alert1.setContentText("Category "+discountCode.getCode()+" deleted successfully.");
+            alert1.setContentText("Category " + discountCode.getCode() + " deleted successfully.");
             alert1.setHeaderText(null);
             alert1.setTitle("Category Deleted");
             alert1.showAndWait();
         }
     }
 
-    private void editDiscount(DiscountCode discountCode){
+    private void editDiscount(DiscountCode discountCode) {
         System.out.println("DISCOUNT EDIT PAGE");
     }
 

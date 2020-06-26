@@ -16,7 +16,7 @@ public class BuyerPanelController {
     @FXML
     private Label balance;
 
-    public void initialize(){
+    public void initialize() {
         balance.setText(Double.toString(((BuyerAccount) GeneralController.currentUser).getBalance()));
     }
 
@@ -35,25 +35,23 @@ public class BuyerPanelController {
     public void goToMyDiscounts() throws IOException {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
-        GraphicMain.graphicMain.goToPage(MyDiscountsController.FXML_PATH,MyDiscountsController.TITLE);
+        GraphicMain.graphicMain.goToPage(MyDiscountsController.FXML_PATH, MyDiscountsController.TITLE);
     }
 
     public void goToMyCart() throws IOException {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
-        GraphicMain.graphicMain.goToPage(MyCartController.FXML_PATH,MyCartController.TITLE);
+        GraphicMain.graphicMain.goToPage(MyCartController.FXML_PATH, MyCartController.TITLE);
     }
 
-    public void goBack() throws IOException {
+    public void goBack() {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 
-    public void logout() throws IOException {
+    public void logout() {
         GraphicMain.generalController.logout();
         goBack();
     }
-
-
 }

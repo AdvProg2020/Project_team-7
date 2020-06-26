@@ -127,8 +127,7 @@ public class PurchaseController {
             } catch (Exception e) {
                 ManagerPanelController.alertError(e.getMessage());
             }
-        }
-        else{
+        } else {
             payment.setVisible(true);
         }
     }
@@ -157,7 +156,7 @@ public class PurchaseController {
         purchaseInfo.setId("purchaseInfo");
         purchaseInfo.setEditable(false);
         purchaseInfo.setWrapText(true);
-        purchaseInfo.setText(GraphicMain.buyerController.showPurchaseInfo()+"\nDo you want to finalize your purchase?");
+        purchaseInfo.setText(GraphicMain.buyerController.showPurchaseInfo() + "\nDo you want to finalize your purchase?");
     }
 
     public String getReceiverInformation() {
@@ -171,7 +170,7 @@ public class PurchaseController {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         String result = GraphicMain.buyerController.finalizePurchaseAndPay();
-        if (result.equals("Purchase finished successfully.")){
+        if (result.equals("Purchase finished successfully.")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Successful");
             alert.setHeaderText("Your purchase completed successfully.");

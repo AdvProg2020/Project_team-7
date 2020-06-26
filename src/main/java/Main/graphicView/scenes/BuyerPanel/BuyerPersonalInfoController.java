@@ -2,6 +2,7 @@ package Main.graphicView.scenes.BuyerPanel;
 
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -36,7 +37,7 @@ public class BuyerPersonalInfoController {
             firstName.setText(GeneralController.currentUser.getFirstName());
             lastName.setText(GeneralController.currentUser.getLastName());
         } catch (NullPointerException n) {
-            System.out.println("unknown null pointer -_-");
+            ManagerPanelController.alertError("Sorry! an error occurred.");
         }
     }
 
@@ -47,7 +48,6 @@ public class BuyerPersonalInfoController {
         alert.setContentText("are you sure to save the changes?");
         Optional<ButtonType> option = alert.showAndWait();
         if (ButtonType.OK.equals(option.get())) {
-            //TODO if there was time, connect this to old edit methods
             if (email.getText().isEmpty())
                 email.setStyle("-fx-border-color:red; -fx-border-width: 3;");
             else
@@ -76,7 +76,7 @@ public class BuyerPersonalInfoController {
                     GeneralController.currentUser.setPhoneNumber(phoneNumber.getText());
                     GeneralController.currentUser.setPassWord(password.getText());
                 } catch (Exception e) {
-                    System.err.println("error");
+                    ManagerPanelController.alertError("Sorry! An error occurred.");
                 }
                 goBack();
             }
