@@ -6,81 +6,94 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.EditProductPage">
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.EditProductPage">
     <stylesheets>
-        <URL value="@../../java/Main/graphicView/cssFiles/salesHistory.css" />
-        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
-        <URL value="@../../java/Main/graphicView/cssFiles/listView.css" />
+        <URL value="@../../java/Main/graphicView/cssFiles/salesHistory.css"/>
+        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css"/>
+        <URL value="@../../java/Main/graphicView/cssFiles/listView.css"/>
     </stylesheets>
-   <children>
-      <Label alignment="CENTER" layoutX="251.0" layoutY="28.0" prefHeight="69.0" prefWidth="698.0" text="Insert the new contents in text fields:" textFill="#c95812">
-         <font>
-            <Font size="32.0" />
-         </font></Label>
-      <TextField fx:id="name" layoutX="498.0" layoutY="124.0" prefHeight="51.0" prefWidth="301.0">
-         <font>
-            <Font size="30.0" />
-         </font></TextField>
-      <TextField fx:id="brand" layoutX="498.0" layoutY="214.0" prefHeight="51.0" prefWidth="301.0">
-         <font>
-            <Font size="30.0" />
-         </font></TextField>
-      <TextField fx:id="availability" layoutX="498.0" layoutY="304.0" prefHeight="51.0" prefWidth="301.0">
-         <font>
-            <Font size="30.0" />
-         </font></TextField>
-      <TextField fx:id="description" layoutX="498.0" layoutY="394.0" prefHeight="51.0" prefWidth="301.0">
-         <font>
-            <Font size="30.0" />
-         </font></TextField>
-      <TextField fx:id="price" layoutX="498.0" layoutY="484.0" prefHeight="51.0" prefWidth="301.0">
-         <font>
-            <Font size="30.0" />
-         </font></TextField>
-      <TextField fx:id="offId" layoutX="498.0" layoutY="574.0" prefHeight="51.0" prefWidth="301.0">
-         <font>
-            <Font size="30.0" />
-         </font></TextField>
-      <Label alignment="CENTER" layoutX="366.0" layoutY="124.0" prefHeight="51.0" prefWidth="112.0" text="name">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="366.0" layoutY="214.0" prefHeight="51.0" prefWidth="112.0" text="brand">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="366.0" layoutY="304.0" prefHeight="51.0" prefWidth="112.0" text="availability">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="366.0" layoutY="394.0" prefHeight="51.0" prefWidth="112.0" text="description">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="366.0" layoutY="484.0" prefHeight="51.0" prefWidth="112.0" text="price">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="366.0" layoutY="574.0" prefHeight="51.0" prefWidth="112.0" text="off Id">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Button layoutX="544.0" layoutY="653.0" mnemonicParsing="false" onAction="#submitEdits" prefHeight="51.0" prefWidth="112.0" text="submit">
-         <font>
-            <Font size="40.0" />
-         </font>
-      </Button>
-      <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../java/Main/graphicView/resources/images/back.png" />
-         </image>
-      </ImageView>
-   </children>
+    <children>
+        <Label alignment="CENTER" layoutX="251.0" layoutY="28.0" prefHeight="69.0" prefWidth="698.0"
+               text="Insert the new contents in text fields:" textFill="#c95812">
+            <font>
+                <Font size="32.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="name" layoutX="498.0" layoutY="124.0" prefHeight="51.0" prefWidth="301.0">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </TextField>
+        <TextField fx:id="brand" layoutX="498.0" layoutY="214.0" prefHeight="51.0" prefWidth="301.0">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </TextField>
+        <TextField fx:id="availability" layoutX="498.0" layoutY="304.0" prefHeight="51.0" prefWidth="301.0">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </TextField>
+        <TextField fx:id="description" layoutX="498.0" layoutY="394.0" prefHeight="51.0" prefWidth="301.0">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </TextField>
+        <TextField fx:id="price" layoutX="498.0" layoutY="484.0" prefHeight="51.0" prefWidth="301.0">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </TextField>
+        <TextField fx:id="offId" layoutX="498.0" layoutY="574.0" prefHeight="51.0" prefWidth="301.0">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </TextField>
+        <Label alignment="CENTER" layoutX="366.0" layoutY="124.0" prefHeight="51.0" prefWidth="112.0" text="name">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="366.0" layoutY="214.0" prefHeight="51.0" prefWidth="112.0" text="brand">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="366.0" layoutY="304.0" prefHeight="51.0" prefWidth="112.0"
+               text="availability">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="366.0" layoutY="394.0" prefHeight="51.0" prefWidth="112.0"
+               text="description">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="366.0" layoutY="484.0" prefHeight="51.0" prefWidth="112.0" text="price">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="366.0" layoutY="574.0" prefHeight="51.0" prefWidth="112.0" text="off Id">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </Label>
+        <Button layoutX="544.0" layoutY="653.0" mnemonicParsing="false" onAction="#submitEdits" prefHeight="51.0"
+                prefWidth="112.0" text="submit">
+            <font>
+                <Font size="40.0"/>
+            </font>
+        </Button>
+        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack"
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../java/Main/graphicView/resources/images/back.png"/>
+            </image>
+        </ImageView>
+    </children>
 
 </AnchorPane>

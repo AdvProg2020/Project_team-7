@@ -5,32 +5,37 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="subAnchor" fx:id="subAnchor" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.ManagerPanel.ManagerPersonalInfoController">
+<AnchorPane id="subAnchor" fx:id="subAnchor" prefHeight="750.0" prefWidth="1200.0"
+            xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Main.graphicView.scenes.ManagerPanel.ManagerPersonalInfoController">
     <stylesheets>
-        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
-        <URL value="@../../java/Main/graphicView/cssFiles/buyerManagerPanel.css" />
+        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css"/>
+        <URL value="@../../java/Main/graphicView/cssFiles/buyerManagerPanel.css"/>
     </stylesheets>
     <children>
-        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goBack"
+                   pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/graphicView/resources/images/back.png" />
+                <Image url="@../../java/Main/graphicView/resources/images/back.png"/>
             </image>
         </ImageView>
-      <Button layoutX="459.0" layoutY="609.0" mnemonicParsing="false" onAction="#saveChanges" text="Save Changes" />
-      <Label id="youCanEdit" layoutX="38.0" layoutY="154.0" prefHeight="94.0" prefWidth="1133.0" text="You can change any of your personal Info except your username:" />
-      <Label layoutX="76.0" layoutY="302.0" text="Username:" />
-      <Label layoutX="79.0" layoutY="394.0" text="Password:" />
-      <Label layoutX="79.0" layoutY="495.0" text="First Name:" />
-      <Label layoutX="555.0" layoutY="495.0" text="Last Name:" />
-      <Label layoutX="543.0" layoutY="302.0" text="Phone Number:" />
-      <Label layoutX="543.0" layoutY="394.0" text="E-Mail Address:" />
-      <Label fx:id="username" layoutX="279.0" layoutY="302.0" text="Your Username" />
-      <TextField fx:id="password" layoutX="279.0" layoutY="406.0" prefHeight="41.0" prefWidth="224.0" />
-      <TextField fx:id="firstName" layoutX="279.0" layoutY="507.0" prefHeight="41.0" prefWidth="224.0" />
-      <TextField fx:id="phoneNumber" layoutX="808.0" layoutY="314.0" prefHeight="41.0" prefWidth="224.0" />
-      <TextField fx:id="email" layoutX="808.0" layoutY="406.0" prefHeight="41.0" prefWidth="224.0" />
-      <TextField fx:id="lastName" layoutX="808.0" layoutY="507.0" prefHeight="41.0" prefWidth="224.0" />
-      <Label id="youCanEdit" layoutX="555.0" layoutY="28.0" prefHeight="104.0" prefWidth="573.0" text="Your Account Type: MANAGER" />
-      <Pane layoutX="188.0" layoutY="5.0" prefHeight="150.0" prefWidth="150.0" fx:id="pane"/>
+        <Button layoutX="459.0" layoutY="609.0" mnemonicParsing="false" onAction="#saveChanges" text="Save Changes"/>
+        <Label id="youCanEdit" layoutX="38.0" layoutY="154.0" prefHeight="94.0" prefWidth="1133.0"
+               text="You can change any of your personal Info except your username:"/>
+        <Label layoutX="76.0" layoutY="302.0" text="Username:"/>
+        <Label layoutX="79.0" layoutY="394.0" text="Password:"/>
+        <Label layoutX="79.0" layoutY="495.0" text="First Name:"/>
+        <Label layoutX="555.0" layoutY="495.0" text="Last Name:"/>
+        <Label layoutX="543.0" layoutY="302.0" text="Phone Number:"/>
+        <Label layoutX="543.0" layoutY="394.0" text="E-Mail Address:"/>
+        <Label fx:id="username" layoutX="279.0" layoutY="302.0" text="Your Username"/>
+        <TextField fx:id="password" layoutX="279.0" layoutY="406.0" prefHeight="41.0" prefWidth="224.0"/>
+        <TextField fx:id="firstName" layoutX="279.0" layoutY="507.0" prefHeight="41.0" prefWidth="224.0"/>
+        <TextField fx:id="phoneNumber" layoutX="808.0" layoutY="314.0" prefHeight="41.0" prefWidth="224.0"/>
+        <TextField fx:id="email" layoutX="808.0" layoutY="406.0" prefHeight="41.0" prefWidth="224.0"/>
+        <TextField fx:id="lastName" layoutX="808.0" layoutY="507.0" prefHeight="41.0" prefWidth="224.0"/>
+        <Label id="youCanEdit" layoutX="555.0" layoutY="28.0" prefHeight="104.0" prefWidth="573.0"
+               text="Your Account Type: MANAGER"/>
+        <Pane layoutX="188.0" layoutY="5.0" prefHeight="150.0" prefWidth="150.0" fx:id="pane"/>
     </children>
 </AnchorPane>

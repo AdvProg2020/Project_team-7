@@ -14,12 +14,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.RegisterManager">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0"
+            prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.RegisterManager">
     <stylesheets>
-        <URL value="@../../java/Main/graphicView/cssFiles/loginSignUpPage.css" />
+        <URL value="@../../java/Main/graphicView/cssFiles/loginSignUpPage.css"/>
     </stylesheets>
     <children>
-        <TabPane layoutX="91.0" layoutY="90.0" prefHeight="604.0" prefWidth="1036.0" styleClass="tabPane" tabClosingPolicy="UNAVAILABLE" tabMinHeight="70.0" tabMinWidth="190.0">
+        <TabPane layoutX="91.0" layoutY="90.0" prefHeight="604.0" prefWidth="1036.0" styleClass="tabPane"
+                 tabClosingPolicy="UNAVAILABLE" tabMinHeight="70.0" tabMinWidth="190.0">
             <tabs>
                 <Tab closable="false" styleClass="tab" text="SIGN UP AS MANAGER">
                     <content>
@@ -29,116 +32,137 @@
                                     <children>
                                         <Label minWidth="150.0" prefWidth="400.0" text="Username :" textFill="#ff9500">
                                             <HBox.margin>
-                                                <Insets left="70.0" top="35.0" />
+                                                <Insets left="70.0" top="35.0"/>
                                             </HBox.margin>
                                         </Label>
-                                        <TextField fx:id="username" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="691.0">
+                                        <TextField fx:id="username" minHeight="-Infinity" minWidth="-Infinity"
+                                                   onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="691.0">
                                             <HBox.margin>
-                                                <Insets right="165.0" top="20.0" />
+                                                <Insets right="165.0" top="20.0"/>
                                             </HBox.margin>
                                         </TextField>
                                     </children>
                                 </HBox>
-                                <HBox layoutX="10.0" layoutY="110.0" prefHeight="50.0" prefWidth="1086.0" spacing="10.0">
+                                <HBox layoutX="10.0" layoutY="110.0" prefHeight="50.0" prefWidth="1086.0"
+                                      spacing="10.0">
                                     <children>
-                                        <Label minWidth="150.0" prefHeight="21.0" prefWidth="0.0" text="Password :" textFill="#ff9500">
+                                        <Label minWidth="150.0" prefHeight="21.0" prefWidth="0.0" text="Password :"
+                                               textFill="#ff9500">
                                             <HBox.margin>
-                                                <Insets left="70.0" top="15.0" />
+                                                <Insets left="70.0" top="15.0"/>
                                             </HBox.margin>
                                         </Label>
-                                        <PasswordField fx:id="password" minHeight="50.0" onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="691.0">
+                                        <PasswordField fx:id="password" minHeight="50.0"
+                                                       onMouseClicked="#resetTextField" prefHeight="50.0"
+                                                       prefWidth="691.0">
                                             <HBox.margin>
-                                                <Insets right="165.0" />
+                                                <Insets right="165.0"/>
                                             </HBox.margin>
                                         </PasswordField>
                                     </children>
                                 </HBox>
                                 <HBox prefHeight="50.0" prefWidth="1086.0" spacing="10.0">
                                     <children>
-                                        <Label minWidth="150.0" prefWidth="400.0" text="First Name :" textFill="#ff9500">
+                                        <Label minWidth="150.0" prefWidth="400.0" text="First Name :"
+                                               textFill="#ff9500">
                                             <HBox.margin>
-                                                <Insets left="70.0" top="15.0" />
+                                                <Insets left="70.0" top="15.0"/>
                                             </HBox.margin>
                                         </Label>
-                                        <TextField fx:id="firstName" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="691.0">
+                                        <TextField fx:id="firstName" minHeight="-Infinity" minWidth="-Infinity"
+                                                   onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="691.0">
                                             <HBox.margin>
-                                                <Insets right="165.0" />
+                                                <Insets right="165.0"/>
                                             </HBox.margin>
                                         </TextField>
                                     </children>
                                     <VBox.margin>
-                                        <Insets />
+                                        <Insets/>
                                     </VBox.margin>
                                 </HBox>
                                 <HBox layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="1086.0" spacing="10.0">
                                     <children>
-                                        <Label minWidth="150.0" prefWidth="400.0" text="Last Name : " textFill="#ff9500">
+                                        <Label minWidth="150.0" prefWidth="400.0" text="Last Name : "
+                                               textFill="#ff9500">
                                             <HBox.margin>
-                                                <Insets left="70.0" top="15.0" />
+                                                <Insets left="70.0" top="15.0"/>
                                             </HBox.margin>
                                         </Label>
-                                        <TextField fx:id="lastName" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="691.0">
+                                        <TextField fx:id="lastName" minHeight="-Infinity" minWidth="-Infinity"
+                                                   onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="691.0">
                                             <HBox.margin>
-                                                <Insets right="165.0" />
+                                                <Insets right="165.0"/>
                                             </HBox.margin>
                                         </TextField>
                                     </children>
                                 </HBox>
-                                <HBox layoutX="10.0" layoutY="100.0" prefHeight="50.0" prefWidth="1086.0" spacing="10.0">
+                                <HBox layoutX="10.0" layoutY="100.0" prefHeight="50.0" prefWidth="1086.0"
+                                      spacing="10.0">
                                     <children>
                                         <Label minWidth="150.0" prefWidth="400.0" text="Email : " textFill="#ff9500">
                                             <HBox.margin>
-                                                <Insets left="70.0" top="15.0" />
+                                                <Insets left="70.0" top="15.0"/>
                                             </HBox.margin>
                                         </Label>
-                                        <TextField fx:id="email" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="691.0" promptText="username@EmailMessenger.domain">
+                                        <TextField fx:id="email" minHeight="-Infinity" minWidth="-Infinity"
+                                                   onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="691.0"
+                                                   promptText="username@EmailMessenger.domain">
                                             <HBox.margin>
-                                                <Insets right="165.0" />
+                                                <Insets right="165.0"/>
                                             </HBox.margin>
                                         </TextField>
                                     </children>
                                 </HBox>
-                                <HBox layoutX="10.0" layoutY="160.0" prefHeight="50.0" prefWidth="1086.0" spacing="10.0">
+                                <HBox layoutX="10.0" layoutY="160.0" prefHeight="50.0" prefWidth="1086.0"
+                                      spacing="10.0">
                                     <children>
-                                        <Label minWidth="150.0" prefWidth="400.0" text="Phone Number : " textFill="#ff9500">
+                                        <Label minWidth="150.0" prefWidth="400.0" text="Phone Number : "
+                                               textFill="#ff9500">
                                             <HBox.margin>
-                                                <Insets left="70.0" top="15.0" />
+                                                <Insets left="70.0" top="15.0"/>
                                             </HBox.margin>
                                         </Label>
-                                        <TextField fx:id="phoneNumber" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="691.0" promptText="09XXXXXXXXX">
+                                        <TextField fx:id="phoneNumber" minHeight="-Infinity" minWidth="-Infinity"
+                                                   onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="691.0"
+                                                   promptText="09XXXXXXXXX">
                                             <HBox.margin>
-                                                <Insets right="165.0" />
+                                                <Insets right="165.0"/>
                                             </HBox.margin>
                                         </TextField>
                                     </children>
                                 </HBox>
                                 <HBox prefHeight="100.0" prefWidth="1086.0">
                                     <children>
-                                        <Button layoutX="410.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#signUp" prefHeight="67.0" prefWidth="118.0" text="SIGN UP">
+                                        <Button layoutX="410.0" layoutY="35.0" mnemonicParsing="false"
+                                                onMouseClicked="#signUp" prefHeight="67.0" prefWidth="118.0"
+                                                text="SIGN UP">
                                             <HBox.margin>
-                                                <Insets left="230.0" />
+                                                <Insets left="230.0"/>
                                             </HBox.margin>
                                         </Button>
-                                        <Button mnemonicParsing="false" onMouseClicked="#back" prefHeight="67.0" prefWidth="118.0" text="DISCARD">
+                                        <Button mnemonicParsing="false" onMouseClicked="#back" prefHeight="67.0"
+                                                prefWidth="118.0" text="DISCARD">
                                             <HBox.margin>
-                                                <Insets left="50.0" />
+                                                <Insets left="50.0"/>
                                             </HBox.margin>
                                         </Button>
-                                        <Label onMouseClicked="#chooseImage" styleClass="choose-image" text="Choose Image" textFill="#ff9500">
+                                        <Label onMouseClicked="#chooseImage" styleClass="choose-image"
+                                               text="Choose Image" textFill="#ff9500">
                                             <HBox.margin>
-                                                <Insets left="70.0" top="30.0" />
+                                                <Insets left="70.0" top="30.0"/>
                                             </HBox.margin>
                                             <graphic>
-                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                           preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../../java/Main/graphicView/resources/images/chooseImage.png" />
+                                                        <Image url="@../../java/Main/graphicView/resources/images/chooseImage.png"/>
                                                     </image>
                                                 </ImageView>
                                             </graphic>
                                         </Label>
                                         <Label fx:id="imageName" alignment="TOP_LEFT" maxWidth="500.0">
                                             <HBox.margin>
-                                                <Insets left="10.0" top="30.0" />
+                                                <Insets left="10.0" top="30.0"/>
                                             </HBox.margin>
                                         </Label>
                                     </children>

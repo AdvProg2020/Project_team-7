@@ -5,23 +5,29 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="subAnchor" fx:id="subAnchor" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.BuyerPanel.MyCartController">
+<AnchorPane id="subAnchor" fx:id="subAnchor" prefHeight="750.0" prefWidth="1200.0"
+            xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Main.graphicView.scenes.BuyerPanel.MyCartController">
     <stylesheets>
-        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
-        <URL value="@../../java/Main/graphicView/cssFiles/buyerManagerPanel.css" />
+        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css"/>
+        <URL value="@../../java/Main/graphicView/cssFiles/buyerManagerPanel.css"/>
     </stylesheets>
-   <children>
-       <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
-           <image>
-               <Image url="@../../java/Main/graphicView/resources/images/back.png" />
-           </image>
-       </ImageView>
-      <Pane id="youCanEdit" layoutX="133.0" layoutY="634.0" prefHeight="80.0" prefWidth="609.0">
-         <children>
-            <Label layoutX="22.0" layoutY="8.0" text="Total Price:" />
-            <Label fx:id="totalPrice" layoutX="224.0" layoutY="14.0" prefHeight="64.0" prefWidth="255.0" text="0" />
-         </children></Pane>
-      <Button layoutX="804.0" layoutY="622.0" mnemonicParsing="false" onAction="#goToPurchase" prefHeight="104.0" prefWidth="280.0" text="Purchase" />
-      <TableView fx:id="cartTable" layoutX="131.0" layoutY="26.0" prefHeight="574.0" prefWidth="959.0" id="cartTable"/>
-   </children>
+    <children>
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goBack"
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../java/Main/graphicView/resources/images/back.png"/>
+            </image>
+        </ImageView>
+        <Pane id="youCanEdit" layoutX="133.0" layoutY="634.0" prefHeight="80.0" prefWidth="609.0">
+            <children>
+                <Label layoutX="22.0" layoutY="8.0" text="Total Price:"/>
+                <Label fx:id="totalPrice" layoutX="224.0" layoutY="14.0" prefHeight="64.0" prefWidth="255.0" text="0"/>
+            </children>
+        </Pane>
+        <Button layoutX="804.0" layoutY="622.0" mnemonicParsing="false" onAction="#goToPurchase" prefHeight="104.0"
+                prefWidth="280.0" text="Purchase"/>
+        <TableView fx:id="cartTable" layoutX="131.0" layoutY="26.0" prefHeight="574.0" prefWidth="959.0"
+                   id="cartTable"/>
+    </children>
 </AnchorPane>
