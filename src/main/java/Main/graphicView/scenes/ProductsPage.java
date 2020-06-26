@@ -438,23 +438,26 @@ public class ProductsPage implements Initializable {
         }
         Random random = new Random();
         int allProductsSize = Product.allProducts.size();
-        int productIndex = random.nextInt(allProductsSize);
-        Product product = Product.allProducts.get(productIndex);
+        if(allProductsSize!=0){
+            int productIndex = random.nextInt(allProductsSize);
+            Product product = Product.allProducts.get(productIndex);
 
-        Image image = new Image(new File(product.getImagePath()).toURI().toString());
-        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(1.0, 1.0, true, true, false, false));
-        Background background = new Background(backgroundImage);
-        adPaneBG.setBackground(background);
+            Image image = new Image(new File(product.getImagePath()).toURI().toString());
+            BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(1.0, 1.0, true, true, false, false));
+            Background background = new Background(backgroundImage);
+            adPaneBG.setBackground(background);
 
-        GaussianBlur gaussianBlur = new GaussianBlur();
-        adPaneBG.setEffect(gaussianBlur);
+            GaussianBlur gaussianBlur = new GaussianBlur();
+            adPaneBG.setEffect(gaussianBlur);
 
-        HBox adProductBox = product.createProductBoxForAdPane();
-        adProductBox.setLayoutX(200);
-        adPane.getChildren().add(adProductBox);
+            HBox adProductBox = product.createProductBoxForAdPane();
+            adProductBox.setLayoutX(200);
+            adPane.getChildren().add(adProductBox);
 
 
-        nextAdIcon.toFront();
+            nextAdIcon.toFront();
+        }
+
     }
 
     public void giveButtonStyle(MouseEvent mouseEvent) {

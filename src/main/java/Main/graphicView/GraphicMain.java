@@ -43,27 +43,35 @@ public class GraphicMain extends Application {
     public void start(Stage primaryStage) throws Exception {
         audioClip = new AudioClip(new File("src/main/java/Main/graphicView/resources/soundEffects/backgroundMusic.wav").toURI().toString());
         audioClip.setCycleCount(AudioClip.INDEFINITE);
-        audioClip.play();
+
         System.out.println(GeneralController.readDataAndSetStringRecordObjects());
         generalController.initializeIDs();
         generalController.giveDiscountCodeToSpecialBuyers();
+
         stage = primaryStage;
-        FXMLLoader fxmlLoader = new FXMLLoader(new File(ProductsPage.FXML_PATH).toURI().toURL());
-        Parent root = fxmlLoader.load();
-        stage.setTitle(MainMenuController.TITLE);
-        /**
-         * must be used in userPanel loading login page
+        Parent root;
+
         if (!ManagerAccount.isThereAChiefManager()) {
             root = FXMLLoader.load(new File((RegisterManager.FXML_PATH)).toURI().toURL());
+
+            FXMLLoader loginPageLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
+            loginPageLoader.load();
+            LoginSignUpPage.mediaPlayer.play();
+
             stage.setTitle(RegisterManager.TITLE);
+            sceneTrace.add(RegisterManager.FXML_PATH);
+        } else {
+            root = FXMLLoader.load(new File(MainMenuController.FXML_PATH).toURI().toURL());
+
+            audioClip.play();
+
+            stage.setTitle(MainMenuController.TITLE);
+            sceneTrace.add(MainMenuController.FXML_PATH);
         }
 
-        /*
-        also login signUp music must be played when called
-         */
-        Scene scene = new Scene(root);
-        sceneTrace.add(MainMenuController.FXML_PATH);
         titleTrace.add(stage.getTitle());
+
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         primaryStage.show();
     }
@@ -78,7 +86,7 @@ public class GraphicMain extends Application {
             sceneTrace.remove(sceneTrace.size() - 1);
             titleTrace.remove(titleTrace.size() - 1);
             try {
-                goToPage(sceneTrace.get(sceneTrace.size()-1),titleTrace.get(titleTrace.size()-1));
+                goToPage(sceneTrace.get(sceneTrace.size() - 1), titleTrace.get(titleTrace.size() - 1));
             } catch (IOException e) {
             }
         } else {
@@ -90,7 +98,7 @@ public class GraphicMain extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(new File(fxmlPath).toURI().toURL());
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
-        if (!fxmlPath.equals(sceneTrace.get(sceneTrace.size()-1))) {
+        if (!fxmlPath.equals(sceneTrace.get(sceneTrace.size() - 1))) {
             sceneTrace.add(fxmlPath);
             titleTrace.add(title);
         }
