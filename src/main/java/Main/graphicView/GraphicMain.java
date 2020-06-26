@@ -43,7 +43,7 @@ public class GraphicMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        audioClip = new AudioClip(new File("src/main/java/Main/graphicView/resources/soundEffects/backgroundMusic.mp3").toURI().toString());
+        audioClip = new AudioClip(new File("src/main/java/Main/graphicView/resources/soundEffects/backgroundMusic.wav").toURI().toString());
         audioClip.setCycleCount(AudioClip.INDEFINITE);
         audioClip.play();
         System.out.println(GeneralController.readDataAndSetStringRecordObjects());
