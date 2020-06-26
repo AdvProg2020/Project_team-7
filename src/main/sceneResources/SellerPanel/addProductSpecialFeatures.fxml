@@ -10,6 +10,7 @@
     <stylesheets>
         <URL value="@../../java/Main/graphicView/cssFiles/salesHistory.css" />
         <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
+        <URL value="@../../java/Main/graphicView/cssFiles/listView.css" />
     </stylesheets>
 
    <children>

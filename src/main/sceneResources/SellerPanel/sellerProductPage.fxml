@@ -10,6 +10,7 @@
     <stylesheets>
         <URL value="@../../java/Main/graphicView/cssFiles/salesHistory.css" />
         <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
+        <URL value="@../../java/Main/graphicView/cssFiles/listView.css" />
     </stylesheets>
     <children>
         <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">

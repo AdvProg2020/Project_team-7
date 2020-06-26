@@ -10,6 +10,7 @@
     <stylesheets>
         <URL value="@../java/Main/graphicView/cssFiles/salesHistory.css" />
         <URL value="@../java/Main/graphicView/cssFiles/basicStyles.css" />
+        <URL value="@../java/Main/graphicView/cssFiles/listView.css" />
     </stylesheets>
    <children>
       <Label alignment="CENTER" layoutX="333.0" layoutY="121.0" prefHeight="62.0" prefWidth="117.0" text="title">

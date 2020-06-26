@@ -10,6 +10,7 @@
     <stylesheets>
         <URL value="@../../java/Main/graphicView/cssFiles/salesHistory.css" />
         <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
+        <URL value="@../../java/Main/graphicView/cssFiles/listView.css" />
     </stylesheets>
    <children>
       <TextField fx:id="name" layoutX="551.0" layoutY="50.0" prefHeight="49.0" prefWidth="327.0">

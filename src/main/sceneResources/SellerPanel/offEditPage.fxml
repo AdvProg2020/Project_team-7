@@ -10,6 +10,7 @@
     <stylesheets>
         <URL value="@../../java/Main/graphicView/cssFiles/salesHistory.css" />
         <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
+        <URL value="@../../java/Main/graphicView/cssFiles/listView.css" />
     </stylesheets>
     <Label alignment="CENTER" layoutX="251.0" layoutY="28.0" prefHeight="69.0" prefWidth="698.0" text="Insert the new contents in text fields:" textFill="#c95812">
         <font>
