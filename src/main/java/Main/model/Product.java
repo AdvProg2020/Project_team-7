@@ -46,7 +46,7 @@ public class Product {
     private Off off;
     private ArrayList<Rate> rates = new ArrayList<Rate>();
     private HashMap<String, String> specialFeatures = new HashMap<String, String>();
-    private String imagePath = "src/main/java/Main/graphicView/resources/images/product.png";
+    private String imagePath ;
     private static ArrayList<String> allBrands = new ArrayList<>();
     private ArrayList<String> sellersStringRecord = new ArrayList<>();
     private String categoryStringRecord;

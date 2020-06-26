@@ -49,6 +49,7 @@ public class GraphicMain extends Application {
         generalController.giveDiscountCodeToSpecialBuyers();
 
         stage = primaryStage;
+        stage.setOnCloseRequest(e -> exitProgram());
         Parent root;
 
         /*if (!ManagerAccount.isThereAChiefManager()) {

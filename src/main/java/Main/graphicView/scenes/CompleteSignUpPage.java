@@ -187,7 +187,7 @@ public class CompleteSignUpPage implements Initializable {
             if (file != null) {
                 imageName.setStyle("-fx-text-fill:green;");
                 imageName.setText(file.getName());
-                profileImagePath = "src/main/java/Main/graphicView/resources/images/avatars" + file.getName();
+                profileImagePath = "src/main/java/Main/graphicView/resources/images/avatars" + "/" + file.getName();
             }
         } else {
             imageName.setStyle("-fx-text-fill:red;");

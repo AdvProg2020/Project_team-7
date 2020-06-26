@@ -187,10 +187,15 @@ public class Category {
             GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/categories.json")));
             Category[] allcat = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Category[].class);
             allCategories = (allcat == null) ? new ArrayList<>() : new ArrayList<>(asList(allcat));
+            setImagePaths();
             return "Read Categories Data Successfully.";
         } catch (FileNotFoundException e) {
             return "Problem loading data from categories.json";
         }
+    }
+
+    private static void setImagePaths(){
+
     }
 
     public static String writeData() {

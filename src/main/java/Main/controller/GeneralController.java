@@ -444,6 +444,7 @@ public class GeneralController {
     public static String readDataAndSetStringRecordObjects() {
         String functionSuccessFailMessage = readData();
         setStringRecordObjects();
+        setImagePaths();
         return functionSuccessFailMessage;
     }
 
@@ -467,6 +468,16 @@ public class GeneralController {
         Log.setStringRecordObjects();
         Category.setStringRecordObjects();
         Product.setStringRecordObjects();
+    }
+
+    private static void setImagePaths(){
+        for (Product product : Product.allProducts) {
+            if(product.getCategory()==null||product.getCategory().getImagePath().equals("")) {
+                product.setImagePath("src/main/java/Main/graphicView/resources/images/product.png");
+            }else{
+                product.setImagePath(product.getCategory().getImagePath());
+            }
+        }
     }
 
     public static String writeDataAndGetObjectStringRecords() {
