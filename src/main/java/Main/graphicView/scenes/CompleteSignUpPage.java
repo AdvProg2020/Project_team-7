@@ -43,6 +43,10 @@ public class CompleteSignUpPage implements Initializable {
         return profileImagePath;
     }
 
+    public static void setProfileImagePath(String profileImagePath) {
+        CompleteSignUpPage.profileImagePath = profileImagePath;
+    }
+
     public void back(MouseEvent mouseEvent) {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();

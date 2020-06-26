@@ -36,7 +36,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
     public static ArrayList<String> getDiscountsList(){
         ArrayList<String> list = new ArrayList<>();
         for (DiscountCode discountCode : allDiscountCodes) {
-            String info = "@"+discountCode.code+" \t\t\t\t"+discountCode.percent;
+            String info = "@"+discountCode.code+" \t   "+discountCode.percent;
             list.add(info);
         }
         return list;

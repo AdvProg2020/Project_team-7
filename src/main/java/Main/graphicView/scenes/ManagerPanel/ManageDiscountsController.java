@@ -68,11 +68,11 @@ public class ManageDiscountsController {
         ButtonType remove = new ButtonType("Remove it");
         ButtonType edit = new ButtonType("Edit");
         ButtonType done = new ButtonType("Done!");
-        alert.getButtonTypes().addAll(remove, edit, done);
+        alert.getButtonTypes().addAll(done, edit, remove);
         Optional<ButtonType> option = alert.showAndWait();
-        if (option.equals(remove)) {
+        if (option.get().equals(remove)) {
             removeDiscount(discountCode);
-        } else if (option.equals(edit)) {
+        } else if (option.get().equals(edit)) {
             editDiscount(discountCode);
         }
     }
