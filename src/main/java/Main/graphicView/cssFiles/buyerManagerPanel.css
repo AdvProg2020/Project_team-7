@@ -137,7 +137,7 @@
     -fx-background-radius: 50,40,30,20;
     -fx-border-radius: 50,40,30,20;
     -fx-border-color: #f5d8c1;
-    -fx-opacity:0.;85
+    -fx-opacity:0.85;
     -fx-box-shadow:10,10,10,10;
 }
 .text-area .scroll-pane .viewport{

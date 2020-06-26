@@ -40,7 +40,7 @@
             </VBox>
          </content>
       </ScrollPane>
-      <ScrollPane fx:id="specialFeaturesPane" layoutX="460.0" layoutY="205.0" prefHeight="140.0" prefWidth="704.0" visible="false">
+      <ScrollPane fx:id="specialFeaturesPane" layoutX="460.0" layoutY="205.0" prefHeight="140.0" prefWidth="704.0">
          <content>
             <VBox prefHeight="132.0" prefWidth="703.0">
                <children>
@@ -58,6 +58,34 @@
          </image>
       </ImageView>
       <Button layoutX="115.0" layoutY="394.0" mnemonicParsing="false" onAction="#rateProduct" prefHeight="81.0" prefWidth="172.0" text="rate this product">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+      <ScrollPane layoutX="460.0" layoutY="375.0" prefHeight="230.0" prefWidth="704.0">
+         <content>
+            <VBox fx:id="commentsVBox" prefHeight="232.0" prefWidth="703.0">
+               <children>
+                  <Label prefHeight="46.0" prefWidth="703.0" text="comments:" textFill="#ee4d0d">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="470.0" layoutY="610.0" onMouseClicked="#addComment" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../java/Main/graphicView/resources/images/addComment.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="productIdToBeCompared" layoutX="55.0" layoutY="505.0" prefHeight="63.0" prefWidth="292.0" promptText="enter a product Id to compare">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </TextField>
+      <Button layoutX="142.0" layoutY="599.0" mnemonicParsing="false" onAction="#compareProduct" prefHeight="63.0" prefWidth="118.0" text="compare">
          <font>
             <Font size="30.0" />
          </font>

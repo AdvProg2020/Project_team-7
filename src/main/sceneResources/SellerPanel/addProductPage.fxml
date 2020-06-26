@@ -66,12 +66,12 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#goBack">
          <image>
             <Image url="@../../java/Main/graphicView/resources/images/back.png" />
          </image>
       </ImageView>
-      <Button fx:id="submit" layoutX="552.0" layoutY="665.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="96.0" text="submit">
+      <Button fx:id="submit" layoutX="552.0" layoutY="665.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="96.0" text="submit" onAction="#submit">
          <font>
             <Font size="30.0" />
          </font>
