@@ -372,32 +372,24 @@ public class ProductsPage implements Initializable {
         }
 
         if (!currentFilterResult.equals(tempSellerFilterResult)) {
+            currentFilterResult = tempSellerFilterResult;
             setPageElementsDueToCurrentFilters();
         }
     }
 
     private void applySelectedSort(String selectedSort, ArrayList<Product> tempSellerFilterResult) {
-        switch (selectedSort) {
-            case "name(ascending)":
-                tempSellerFilterResult.sort(new ProductsSort.productSortByNameAscending());
-                System.out.println("***********************");
-                for (Product product : tempSellerFilterResult) {
-                    System.out.println(product.getName());
-                }
-                System.out.println("++++++++++++++++++++++++");
-            case "name(descending)":
-                tempSellerFilterResult.sort(new ProductsSort.productSortByNameDescending());
-            case "visit":
-                tempSellerFilterResult.sort(new ProductsSort.productSortByView());
-            case "rate":
-                tempSellerFilterResult.sort(new ProductsSort.productSortByRate());
-            case "cheapest":
-                tempSellerFilterResult.sort(new ProductsSort.productSortByPriceAscendingly());
-            case "most expensive":
-                tempSellerFilterResult.sort(new ProductsSort.productSortByPriceDescendingly());
-        }
-        for (Product product : tempSellerFilterResult) {
-            System.out.println(product.getName());
+        if(selectedSort.equals("name(ascending)")){
+            tempSellerFilterResult.sort(new ProductsSort.productSortByNameAscending());
+        }else if(selectedSort.equals("name(descending)")){
+            tempSellerFilterResult.sort(new ProductsSort.productSortByNameDescending());
+        }else if(selectedSort.equals("visit")){
+            tempSellerFilterResult.sort(new ProductsSort.productSortByView());
+        }else if(selectedSort.equals("rate")){
+            tempSellerFilterResult.sort(new ProductsSort.productSortByRate());
+        }else if(selectedSort.equals("cheapest")){
+            tempSellerFilterResult.sort(new ProductsSort.productSortByPriceAscendingly());
+        }else if(selectedSort.equals("most expensive")){
+            tempSellerFilterResult.sort(new ProductsSort.productSortByPriceDescendingly());
         }
     }
 
