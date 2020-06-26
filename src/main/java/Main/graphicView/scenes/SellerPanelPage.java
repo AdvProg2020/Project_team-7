@@ -76,4 +76,9 @@ public class SellerPanelPage implements Initializable{
     public void goToAddOffPage() throws IOException {
         GraphicMain.graphicMain.goToPage(AddOffPage.FXML_PATH, AddOffPage.TITLE);
     }
+
+    public void logout() throws IOException {
+        GraphicMain.generalController.logout();
+        goBack();
+    }
 }
