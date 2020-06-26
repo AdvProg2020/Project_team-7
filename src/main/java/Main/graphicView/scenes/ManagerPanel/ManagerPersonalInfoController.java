@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class ManagerPersonalInfoController {
     @FXML
     private TextField lastName;
     @FXML
-    private ImageView profileImage;
+    private Pane pane;
 
     public void initialize() {
         try {
@@ -43,7 +44,11 @@ public class ManagerPersonalInfoController {
             phoneNumber.setText(GeneralController.currentUser.getPhoneNumber());
             firstName.setText(GeneralController.currentUser.getFirstName());
             lastName.setText(GeneralController.currentUser.getLastName());
+            ImageView profileImage = new ImageView(new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString()));
             profileImage.setImage(new Image(new File(RegisterManager.getProfileImagePath()).toURI().toString()));
+            profileImage.setFitWidth(120);
+            profileImage.setFitHeight(120);
+            pane.getChildren().add(profileImage);
         } catch (NullPointerException n) {
             ManagerPanelController.alertError(n.getMessage());
         }

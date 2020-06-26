@@ -377,10 +377,12 @@ public class SellerController {
     public ArrayList<String> getSellerProductNames(){
         ArrayList<String> arrayList = new ArrayList<>();
         SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
-        if(sellerAccount.getProducts().isEmpty())
-            return null;
-        for (Product product : sellerAccount.getProducts()) {
-            arrayList.add(product.getName() + "(" + product.getProductId() + ")");
+        if(sellerAccount.getProducts().isEmpty()){
+            arrayList.add("no product to show");
+        }else{
+            for (Product product : sellerAccount.getProducts()) {
+                arrayList.add(product.getName() + "(" + product.getProductId() + ")");
+            }
         }
         return arrayList;
     }

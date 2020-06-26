@@ -9,6 +9,8 @@
     <stylesheets>
         <URL value="@../../java/Main/graphicView/cssFiles/salesHistory.css" />
         <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
+        <URL value="@../../java/Main/graphicView/cssFiles/listView.css" />
+
     </stylesheets>
    <children>
       <ListView fx:id="list" layoutX="395.0" layoutY="100.0" prefHeight="550.0" prefWidth="410.0" />

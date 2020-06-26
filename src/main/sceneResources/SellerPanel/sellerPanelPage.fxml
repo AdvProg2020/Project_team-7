@@ -66,12 +66,12 @@
         </ImageView>
         <Label fx:id="personalInfoLabel" alignment="CENTER" layoutX="509.0" layoutY="201.0" prefHeight="378.0" prefWidth="449.0" text="  " textFill="WHITE">
             <font>
-                <Font size="20.0" />
+                <Font size="30.0" />
             </font>
         </Label>
         <Button layoutX="238.0" layoutY="615.0" mnemonicParsing="false" onAction="#goToEditInfoPage" prefHeight="70.0" prefWidth="153.0" text="edit">
             <font>
-                <Font size="36.0" />
+                <Font size="40.0" />
             </font>
         </Button>
         <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">

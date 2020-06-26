@@ -31,11 +31,8 @@ public class AddProductPage{
     private TextField price;
     @FXML
     private TextField categoryName;
-    @FXML
-    private VBox vBox;
 
-    private ArrayList<TextField> specialFeaturesTextFields = new ArrayList<>();
-    private CreateProductException.GetCategoryFromUser exception;
+    public static CreateProductException.GetCategoryFromUser exception;
 
 
     public void goBack(){
@@ -63,9 +60,7 @@ public class AddProductPage{
             showErrorAlert(e.getMessage());
         } catch (CreateProductException.GetCategoryFromUser e) {
             exception = e;
-            GraphicMain.graphicMain.goToPage("src/main/sceneResources/SellerPanel/addProductSpecialFeatures.fxml",
-                    "Special Features");
-            addSpecialFeatures(e.getCategory());
+            GraphicMain.graphicMain.goToPage(AddProductSpecialFeatures.FXML_PATH,AddProductSpecialFeatures.TITLE);
         }
     }
 
@@ -75,24 +70,6 @@ public class AddProductPage{
         alert.setContentText(message);
         alert.setHeaderText(null);
         alert.show();
-    }
-
-    public void addSpecialFeatures(Category category){
-        for (String feature : category.getSpecialFeatures()) {
-            TextField textField = new TextField();
-            textField.setPromptText(feature);
-            vBox.getChildren().add(textField);
-            specialFeaturesTextFields.add(textField);
-        }
-    }
-
-    public void submitFeatures(){
-        ArrayList<String> specialFeatures = new ArrayList<>();
-        for (TextField textField : specialFeaturesTextFields) {
-            specialFeatures.add(textField.getText());
-        }
-        GraphicMain.sellerController.setSpecialFeatures(exception.getProduct(),specialFeatures);
-        showInformationAlert("product created successfully");
     }
 
     public void showInformationAlert(String message){
