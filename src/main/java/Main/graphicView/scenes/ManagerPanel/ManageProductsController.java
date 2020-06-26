@@ -1,7 +1,9 @@
 package Main.graphicView.scenes.ManagerPanel;
 
+import Main.controller.GeneralController;
 import Main.controller.ManagerController;
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.ProductPage;
 import Main.model.Product;
 import Main.model.accounts.Account;
 import javafx.event.EventHandler;
@@ -69,7 +71,8 @@ public class ManageProductsController {
             initialize();
         } else if (option.get().equals(goToPage)){
             //TODO really go to product page
-            System.out.println("safhe mahsoul :)");
+            GeneralController.currentProduct = product;
+            GraphicMain.graphicMain.goToPage(ProductPage.FXML_PATH,ProductPage.TITLE );
         }
     }
 
