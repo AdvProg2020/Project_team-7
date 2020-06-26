@@ -50,6 +50,8 @@ public class ProductPage implements Initializable {
     private ScrollPane specialFeaturesPane;
     @FXML
     private VBox commentsVBox;
+    @FXML
+    private TextField productIdToBeCompared;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -221,6 +223,16 @@ public class ProductPage implements Initializable {
 
     public void addComment() throws IOException {
         GraphicMain.graphicMain.goToPage(AddCommentPage.FXML_PATH, AddCommentPage.TITLE);
+    }
+
+    public void compareProduct(){
+        String id = productIdToBeCompared.getText();
+        try {
+            String compare = GraphicMain.generalController.compareProductWithProductWithId(id);
+            showInformationAlert(compare);
+        } catch (Exception e) {
+            showErrorAlert(e.getMessage());
+        }
     }
 
 }
