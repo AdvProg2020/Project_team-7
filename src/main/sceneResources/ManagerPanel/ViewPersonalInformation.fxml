@@ -16,7 +16,7 @@
                 <Image url="@../../java/Main/graphicView/resources/images/back.png" />
             </image>
         </ImageView>
-      <Button layoutX="459.0" layoutY="609.0" mnemonicParsing="false" text="Save Changes" onAction="#saveChanges"/>
+      <Button layoutX="459.0" layoutY="609.0" mnemonicParsing="false" onAction="#saveChanges" text="Save Changes" />
       <Label id="youCanEdit" layoutX="38.0" layoutY="154.0" prefHeight="94.0" prefWidth="1133.0" text="You can change any of your personal Info except your username:" />
       <Label layoutX="76.0" layoutY="302.0" text="Username:" />
       <Label layoutX="79.0" layoutY="394.0" text="Password:" />
@@ -30,6 +30,7 @@
       <TextField fx:id="phoneNumber" layoutX="808.0" layoutY="314.0" prefHeight="41.0" prefWidth="224.0" />
       <TextField fx:id="email" layoutX="808.0" layoutY="406.0" prefHeight="41.0" prefWidth="224.0" />
       <TextField fx:id="lastName" layoutX="808.0" layoutY="507.0" prefHeight="41.0" prefWidth="224.0" />
-      <Label id="youCanEdit" layoutX="333.0" layoutY="36.0" prefHeight="104.0" prefWidth="573.0" text="Your Account Type: MANAGER" />
+      <Label id="youCanEdit" layoutX="555.0" layoutY="28.0" prefHeight="104.0" prefWidth="573.0" text="Your Account Type: MANAGER" />
+      <ImageView fitHeight="142.0" fitWidth="192.0" layoutX="158.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" fx:id="profileImage"/>
     </children>
 </AnchorPane>

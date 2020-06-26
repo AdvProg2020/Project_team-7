@@ -137,7 +137,7 @@ public class ManageCategoriesController {
         fileChooser.setTitle("Open Resource File");
         fileChooser.setInitialDirectory(new File("src/main/java/Main/graphicView/resources/images/categoryImages"));
         File file = fileChooser.showOpenDialog(GraphicMain.stage);
-        if (file.getParent().endsWith("src/main/java/Main/graphicView/resources/images/categoryImages")) {
+        if (file.getParent().endsWith("categoryImages")) {
             if (file != null) {
                 imageName.setStyle("-fx-text-fill:green;");
                 imageName.setText(file.getName());
