@@ -18,12 +18,22 @@ public class Category {
     private ArrayList<String> specialFeatures = new ArrayList<String>();
     private ArrayList<Product> products = new ArrayList<Product>();
     private static ArrayList<Category> allCategories = new ArrayList<Category>();
+    private String imagePath;
 
     private ArrayList<String> productsStringRecord = new ArrayList<>();
 
-    public Category(String name, ArrayList<String> specialFeatures) {
+    public Category(String name, ArrayList<String> specialFeatures,String imagePath) {
         this.name = name;
         this.specialFeatures = specialFeatures;
+        this.imagePath = imagePath;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public void setName(String name) {
@@ -94,7 +104,7 @@ public class Category {
                 return category;
         }
         if (categoryName.equals("-"))
-            return new Category("-", new ArrayList<>());
+            return new Category("-", new ArrayList<>(),"");
         throw new Exception("There is no category with name : " + categoryName + "\n");
     }
 

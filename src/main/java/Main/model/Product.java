@@ -110,6 +110,7 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+        this.imagePath = category.getImagePath();
     }
 
     public String showProductDigest() {

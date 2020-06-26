@@ -31,7 +31,7 @@ public class MyDiscountsController {
             public void handle(MouseEvent mouseEvent) {
                 if (discountsList.getSelectionModel().getSelectedItem() !=null) {
                     String discountInfo = discountsList.getSelectionModel().getSelectedItem().toString();
-                    String code = discountInfo.substring(1,discountInfo.indexOf("\\s"));
+                    String code = discountInfo.substring(1,discountInfo.indexOf(" "));
                     discountsList.getSelectionModel().clearSelection();
                     DiscountCode discountCode = null;
                     try {

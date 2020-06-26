@@ -208,9 +208,9 @@ public class ManagerController {
         request.decline();
     }
 
-    public String createCategory(String name, ArrayList<String> specialFeatures) throws Exception {
+    public String createCategory(String name, ArrayList<String> specialFeatures,String imagePath) throws Exception {
         validateInputCategoryInfo(name);
-        Category category = new Category(name, specialFeatures);
+        Category category = new Category(name, specialFeatures,imagePath);
         Category.addCategory(category);
         return "Created category successfully!";
     }

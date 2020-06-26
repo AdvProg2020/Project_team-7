@@ -16,14 +16,16 @@
                 <Image url="@../../java/Main/graphicView/resources/images/back.png" />
             </image>
         </ImageView>
-      <Button layoutX="682.0" layoutY="565.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="395.0" text="Add new category" fx:id="createCategory" onAction="#createCategory"/>
-      <ListView layoutX="148.0" layoutY="118.0" prefHeight="551.0" prefWidth="395.0" fx:id="categoriesList" id="smallerListView"/>
+      <Button fx:id="createCategory" layoutX="682.0" layoutY="565.0" mnemonicParsing="false" onAction="#createCategory" prefHeight="104.0" prefWidth="395.0" text="Add new category" />
+      <ListView id="smallerListView" fx:id="categoriesList" layoutX="148.0" layoutY="118.0" prefHeight="551.0" prefWidth="395.0" />
       <Label layoutX="148.0" layoutY="28.0" text="Existing Categories:" />
       <Label layoutX="606.0" layoutY="28.0" text="Or You Can Create A New One:" />
       <Label layoutX="600.0" layoutY="118.0" text="Category Name:" />
-      <TextField layoutX="880.0" layoutY="119.0" fx:id="categoryName"/>
+      <TextField fx:id="categoryName" layoutX="880.0" layoutY="119.0" />
       <Label layoutX="593.0" layoutY="206.0" text="Special Features:" />
-      <TextArea layoutX="880.0" layoutY="220.0" prefHeight="329.0" prefWidth="269.0" fx:id="specialFeatures" id="area"/>
-      <Label layoutX="593.0" layoutY="280.0" prefHeight="64.0" prefWidth="263.0" text="(Enter Each Feature in a line)" id="smallerLabel"/>
+      <TextArea id="area" fx:id="specialFeatures" layoutX="880.0" layoutY="220.0" prefHeight="329.0" prefWidth="269.0" />
+      <Label id="smallerLabel" layoutX="593.0" layoutY="280.0" prefHeight="64.0" prefWidth="263.0" text="(Enter Each Feature in a line)" />
+      <Button layoutX="578.0" layoutY="363.0" mnemonicParsing="false" onAction="#chooseImage" prefHeight="91.0" prefWidth="263.0" text="Choose Image" />
+      <Label fx:id="imageName" layoutX="591.0" layoutY="474.0" text="No image selected" />
     </children>
 </AnchorPane>

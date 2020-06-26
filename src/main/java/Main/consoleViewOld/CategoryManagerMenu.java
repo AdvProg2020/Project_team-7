@@ -82,7 +82,7 @@ public class CategoryManagerMenu extends Menu {
                     try {
                         ArrayList<String> specialFeatures = new ArrayList<>();
                         getSpecialFeatures(specialFeatures);
-                        managerController.createCategory(input, specialFeatures);
+                        managerController.createCategory(input, specialFeatures,"");
                         System.out.println("Category created successfully.");
                         this.run();
                     } catch (Exception e) {

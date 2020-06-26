@@ -3,11 +3,10 @@ package Main.graphicView.scenes.ManagerPanel;
 import Main.graphicView.GraphicMain;
 import Main.model.Category;
 import Main.model.discountAndOffTypeService.DiscountCode;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -19,9 +18,46 @@ public class ManageDiscountsController {
 
     @FXML
     private ListView discountsList;
+    @FXML
+    private DatePicker startDate;
+    @FXML
+    private DatePicker endDate;
+    @FXML
+    private Slider percent;
+    @FXML
+    private TextField maxAmount;
+    @FXML
+    private Spinner maxNumberOfUse;
+    @FXML
+    private Spinner startHour;
+    @FXML
+    private Spinner startMinute;
+    @FXML
+    private Spinner startSecond;
+    @FXML
+    private Spinner endHour;
+    @FXML
+    private Spinner endMinute;
+    @FXML
+    private Spinner endSecond;
 
 
     public void initialize(){
+        percent.adjustValue(50);
+        percent.setBlockIncrement(1);
+        percent.setMin(1);
+        percent.setMax(99);
+        startHour.setPromptText("HH");
+        startMinute.setPromptText("MM");
+        startSecond.setPromptText("SS");
+        endHour.setPromptText("HH");
+        endMinute.setPromptText("MM");
+        endSecond.setPromptText("SS");
+
+
+
+
+
         discountsList.getItems().clear();
         discountsList.getItems().addAll();
         discountsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -85,5 +121,8 @@ public class ManageDiscountsController {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
+    }
+
+    public void createDiscount() {
     }
 }
