@@ -22,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -47,6 +48,8 @@ public class ProductPage implements Initializable {
     private TextArea specialFeatures;
     @FXML
     private ScrollPane specialFeaturesPane;
+    @FXML
+    private VBox commentsVBox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -74,6 +77,7 @@ public class ProductPage implements Initializable {
             specialFeaturesPane.setVisible(true);
             specialFeatures.setText(currentProduct.showSpecialFeatures());
         }
+        showComments();
 
 
     }
@@ -206,6 +210,17 @@ public class ProductPage implements Initializable {
             }
         }
 
+    }
+
+    public void showComments(){
+        TextArea textArea = new TextArea();
+        textArea.setText(currentProduct.showComments());
+        textArea.setFont(Font.font(30));
+        commentsVBox.getChildren().add(textArea);
+    }
+
+    public void addComment() throws IOException {
+        GraphicMain.graphicMain.goToPage(AddCommentPage.FXML_PATH, AddCommentPage.TITLE);
     }
 
 }

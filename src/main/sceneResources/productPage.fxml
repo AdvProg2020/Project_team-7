@@ -40,7 +40,7 @@
             </VBox>
          </content>
       </ScrollPane>
-      <ScrollPane fx:id="specialFeaturesPane" layoutX="460.0" layoutY="205.0" prefHeight="140.0" prefWidth="704.0" visible="false">
+      <ScrollPane fx:id="specialFeaturesPane" layoutX="460.0" layoutY="205.0" prefHeight="140.0" prefWidth="704.0">
          <content>
             <VBox prefHeight="132.0" prefWidth="703.0">
                <children>
@@ -62,5 +62,23 @@
             <Font size="30.0" />
          </font>
       </Button>
+      <ScrollPane layoutX="460.0" layoutY="375.0" prefHeight="230.0" prefWidth="704.0">
+         <content>
+            <VBox fx:id="commentsVBox" prefHeight="232.0" prefWidth="703.0">
+               <children>
+                  <Label prefHeight="46.0" prefWidth="703.0" text="comments:" textFill="#ee4d0d">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="470.0" layoutY="610.0" onMouseClicked="#addComment" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../java/Main/graphicView/resources/images/addComment.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
