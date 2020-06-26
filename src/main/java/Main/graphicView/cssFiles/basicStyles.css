@@ -17,6 +17,6 @@
 .button:pressed {
     -fx-text-fill:#444444;
 }
-.label, .button, .text, .text-field, .list-cell{
+.label, .button, .text, .text-field, .list-cell, .text-area{
     -fx-font-family: 'a letter to you';
 }
