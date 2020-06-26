@@ -43,7 +43,7 @@ public class SellerProductPage implements Initializable {
         productId = SellerProductsPage.selectedProduct;
         try {
             Product product = Product.getProductWithId(productId);
-            productImage.setImage(new Image(product.getImagePath()));
+            productImage.setImage(new Image(new File(product.getImagePath()).toURI().toString()));
             digestLabel.setText(makeDigestLabel(product));
             setScoreImage(product);
             averageScore.setText((product.getAverageScore()).toString());
