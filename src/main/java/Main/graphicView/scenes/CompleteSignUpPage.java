@@ -37,7 +37,11 @@ public class CompleteSignUpPage implements Initializable {
     public TextField lastName;
     public TextField firstName;
     public Label imageName;
-    private String profileImagePath;
+    private static String profileImagePath;
+
+    public static String getProfileImagePath() {
+        return profileImagePath;
+    }
 
     public void back(MouseEvent mouseEvent) {
         GraphicMain.buttonSound.stop();
@@ -83,17 +87,17 @@ public class CompleteSignUpPage implements Initializable {
             System.out.println(LoginSignUpPage.getSignUpInputUsername);
             if (isSeller.isSelected()) {
                 SellerAccount sellerAccount = new SellerAccount(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
-                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, companyNameField.getText(), companyInfoField.getText(), 1000000,profileImagePath);
+                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, companyNameField.getText(), companyInfoField.getText(), 1000000, profileImagePath);
                 CreateSellerAccountRequest createSellerAccountRequest = new CreateSellerAccountRequest(sellerAccount, "create seller account");
                 Request.addRequest(createSellerAccountRequest);
                 Account.getReservedUserNames().add(LoginSignUpPage.getSignUpInputUsername);
             } else {
                 BuyerAccount buyerAccount = new BuyerAccount(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
-                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, 1000000,profileImagePath);
+                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, 1000000, profileImagePath);
                 BuyerAccount.addBuyer(buyerAccount);
                 GeneralController.currentUser = buyerAccount;
             }
-            GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+            GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
             LoginSignUpPage.mediaPlayer.stop();
             GraphicMain.audioClip.play();
         }
@@ -162,10 +166,11 @@ public class CompleteSignUpPage implements Initializable {
 
     public void resetTextFields(MouseEvent mouseEvent) {
         Object eventSource = mouseEvent.getSource();
-        if(eventSource instanceof TextField){
-        TextField textField = (TextField) eventSource;
-        textField.setStyle("-fx-border-color: #230038;-fx-prompt-text-fill : #4d4254;");
-        textField.setText("");}else{
+        if (eventSource instanceof TextField) {
+            TextField textField = (TextField) eventSource;
+            textField.setStyle("-fx-border-color: #230038;-fx-prompt-text-fill : #4d4254;");
+            textField.setText("");
+        } else {
             TextArea textArea = (TextArea) eventSource;
             textArea.setStyle("-fx-border-color: #230038;-fx-prompt-text-fill : #4d4254;");
         }

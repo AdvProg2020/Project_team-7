@@ -34,9 +34,8 @@ public class ManageDiscountsController {
 
 
     public void initialize() {
-
         discountsList.getItems().clear();
-        discountsList.getItems().addAll();
+        discountsList.getItems().addAll(DiscountCode.getDiscountsList());
         discountsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
