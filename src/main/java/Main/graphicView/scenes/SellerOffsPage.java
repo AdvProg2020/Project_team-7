@@ -31,12 +31,14 @@ public class SellerOffsPage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        list.getItems().clear();
         SellerAccount sellerAccount = (SellerAccount)GeneralController.currentUser;
         list.getItems().addAll(sellerAccount.getOffIds());
         list.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 selectedOff = (String) list.getSelectionModel().getSelectedItem();
+                list.getSelectionModel().clearSelection();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.getButtonTypes().clear();
                 alert.setTitle("off information");
