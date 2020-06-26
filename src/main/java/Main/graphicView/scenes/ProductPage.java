@@ -1,6 +1,5 @@
 package Main.graphicView.scenes;
 
-import Main.consoleViewOld.SignInMenu;
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.BuyerPanel.BuyerPanelController;
@@ -173,6 +172,40 @@ public class ProductPage implements Initializable {
         alert.setContentText(message);
         alert.setHeaderText(null);
         alert.showAndWait();
+    }
+
+    public void rateProduct(){
+        if((!(GeneralController.currentUser instanceof BuyerAccount)) || GeneralController.currentUser==null){
+            showErrorAlert("you must login first");
+        } else{
+            BuyerAccount buyer = (BuyerAccount) GeneralController.currentUser;
+            if(!(buyer.hasBuyerBoughtProduct(currentProduct))){
+                showErrorAlert("you should have bought this product");
+            }else{
+                Stage stage = new Stage();
+                stage.setTitle("Rate product");
+                TextField textField = new TextField();
+                textField.setPromptText("insert your score from 1 to 5");
+                Button submit = new Button("submit");
+                VBox vBox = new VBox();
+                vBox.getChildren().addAll(textField, submit);
+                Scene scene = new Scene(vBox, 750, 400);
+                stage.setScene(scene);
+                stage.show();
+                submit.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        try {
+                            GraphicMain.buyerController.rateProductWithId(currentProduct.getProductId(),textField.getText());
+                            stage.close();
+                        } catch (Exception e) {
+                            showErrorAlert(e.getMessage());
+                        }
+                    }
+                });
+            }
+        }
+
     }
 
 }
