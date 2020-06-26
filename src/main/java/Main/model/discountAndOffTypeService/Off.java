@@ -57,8 +57,8 @@ public class Off extends DiscountAndOffTypeService {
                         "\n\tseller: " + seller.getCompanyName() +
                         "\n\tproducts: " + makeProductList() +
                         "\n\toff amount: " + offAmount + "%" +
-                        "\n\tstart date:" + dateFormat.format(startDate) +
-                        "\n\tend date: " + dateFormat.format(endDate) +
+                        "\n\tstart date:" + dateFormat.format(getStartDate()) +
+                        "\n\tend date: " + dateFormat.format(getEndDate()) +
                         "\n\tstatus: " + offStatus;
     }
 

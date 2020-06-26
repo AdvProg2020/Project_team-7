@@ -21,7 +21,7 @@ public class BuyLog extends Log {
                 totalCost +
                 "\n\tDiscount Amount : %" +
                 discountAmount + "\n\tDate : " +
-                dateFormat.format(date) + "\n" +
+                dateFormat.format(getDate()) + "\n" +
                 products +
                 "\n\tDelivery Status : " +
                 deliveryStatus +

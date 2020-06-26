@@ -27,7 +27,7 @@ public class SellLog extends Log {
                 "\n\tOff Amount : " +
                 offAmount +
                 "\n\tDate : " +
-                dateFormat.format(date) +
+                dateFormat.format(getDate()) +
                 "\n\tBuyer : " +
                 buyer.viewMe() +
                 "\n" +

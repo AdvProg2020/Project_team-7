@@ -6,6 +6,7 @@ import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,17 +16,19 @@ import static java.util.Arrays.asList;
 public abstract class Log {
     private static StringBuilder lastUsedLogID;
     protected String logId;
-    protected Date date;
+    protected String date;
     protected double totalCost;
     protected String products;
     protected DeliveryStatus deliveryStatus;
     protected String receiverInfo;
     protected static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private static String inputDateFormat = "yyyy/MM/dd HH:mm:ss";
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(inputDateFormat);
     private static ArrayList<Log> allLogs = new ArrayList<>();
 
     public Log(String logID, Date date, String products, DeliveryStatus deliveryStatus, String receiverInfo, double totalCost) {
         this.logId = logID;
-        this.date = date;
+        this.date = dateFormat.format(date);
         this.products = products;
         this.receiverInfo = receiverInfo;
         this.totalCost = totalCost;
@@ -43,7 +46,13 @@ public abstract class Log {
     }
 
     public Date getDate() {
-        return date;
+        Date logDate = new Date();
+        try {
+            logDate= simpleDateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return logDate;
     }
 
     public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
