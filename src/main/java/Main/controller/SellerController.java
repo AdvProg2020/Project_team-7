@@ -89,14 +89,15 @@ public class SellerController {
         } catch (Exception e) {
             editProductErrors.append(e.getMessage());
         }
-        try {
-            validateEditProductEditedOff(editProductRequest.getOffID());
-        } catch (Exception e) {
-            editProductErrors.append(e.getMessage());
+        if(editProductRequest.getOffID()!=null){
+            try {
+                validateEditProductEditedOff(editProductRequest.getOffID());
+            } catch (Exception e) {
+                editProductErrors.append(e.getMessage());
+            }
         }
-
-        if (editProductErrors.length() != 0) {
-            throw new Exception("there were some errors in editing product :\n" + editProductErrors);
+        if (editProductErrors.length()!=0 )  {
+            throw new Exception("there were some errors in editing product :\n" + editProductErrors.toString());
         }
     }
 
@@ -336,7 +337,7 @@ public class SellerController {
             addOffErrors.append(e.getMessage());
         }
         try {
-            SellerAccount.getSellerWithUserName(offInfo.get(3));
+            SellerAccount.getSellerWithUserName(GeneralController.currentUser.getUserName());
         } catch (Exception e) {
             addOffErrors.append(e.getMessage());
         }

@@ -8,7 +8,7 @@ import java.util.TreeSet;
 
 public class EditProductRequest extends Request {
     private Product product;
-    private TreeSet<String> editedFieldTitles;
+    private TreeSet<String> editedFieldTitles = new TreeSet<>();
     private String name;
     private String brand;
     private String availability;
