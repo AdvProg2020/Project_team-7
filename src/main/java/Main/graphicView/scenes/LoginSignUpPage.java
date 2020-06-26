@@ -29,9 +29,12 @@ public class LoginSignUpPage implements Initializable {
     public TextField loginUsername;
     public Label loginErrorMessage;
     public Label signUpErrorMessage;
+    public static String signUpInputPassword;
+    public static String getSignUpInputUsername;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         Media bgMusic = new Media(Paths.get("src/main/java/Main/graphicView/resources/soundEffects/login-crowd.wav").toUri().toString());
         mediaPlayer = new MediaPlayer(bgMusic);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
@@ -120,9 +123,10 @@ public class LoginSignUpPage implements Initializable {
     public void completeSignUp(MouseEvent mouseEvent) throws Exception {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
+        signUpInputPassword = signUpPassword.getText();
+        getSignUpInputUsername = signUpUsername.getText();
         if (areTextFieldsFilled(signUpUsername, signUpPassword) && areSignUpTextFieldsValid()) {
             GraphicMain.graphicMain.goToPage(CompleteSignUpPage.FXML_PATH, CompleteSignUpPage.TITLE);
-            mediaPlayer.stop();
         }
     }
 

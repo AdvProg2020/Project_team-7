@@ -80,14 +80,16 @@ public class CompleteSignUpPage implements Initializable {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         if (areTextFieldsFilled() && areTextFieldsValid()) {
-            LoginSignUpPage loginSignUpPage = (LoginSignUpPage) GraphicMain.graphicMain.getController(LoginSignUpPage.FXML_PATH);
+            System.out.println(LoginSignUpPage.getSignUpInputUsername);
             if (isSeller.isSelected()) {
-                SellerAccount sellerAccount = new SellerAccount(loginSignUpPage.getSignUpUsername().getText(), firstName.getText(), lastName.getText(), email.getText(), phoneNumber.getText(), loginSignUpPage.getSignUpPassword().getText(), companyNameField.getText(), companyInfoField.getText(), 1000000,profileImagePath);
+                SellerAccount sellerAccount = new SellerAccount(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
+                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, companyNameField.getText(), companyInfoField.getText(), 1000000,profileImagePath);
                 CreateSellerAccountRequest createSellerAccountRequest = new CreateSellerAccountRequest(sellerAccount, "create seller account");
                 Request.addRequest(createSellerAccountRequest);
-                Account.getReservedUserNames().add(loginSignUpPage.getSignUpUsername().getText());
+                Account.getReservedUserNames().add(LoginSignUpPage.getSignUpInputUsername);
             } else {
-                BuyerAccount buyerAccount = new BuyerAccount(loginSignUpPage.getSignUpUsername().getText(), firstName.getText(), lastName.getText(), email.getText(), phoneNumber.getText(), loginSignUpPage.getSignUpPassword().getText(), 1000000,profileImagePath);
+                BuyerAccount buyerAccount = new BuyerAccount(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
+                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, 1000000,profileImagePath);
                 BuyerAccount.addBuyer(buyerAccount);
                 GeneralController.currentUser = buyerAccount;
             }
