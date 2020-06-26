@@ -141,7 +141,7 @@ public class ManageCategoriesController {
             if (file != null) {
                 imageName.setStyle("-fx-text-fill:green;");
                 imageName.setText(file.getName());
-                path = "src/main/java/Main/graphicView/resources/images/categoryImages" + file.getName();
+                path = "src/main/java/Main/graphicView/resources/images/categoryImages" + "/" + file.getName();
             }
         } else {
             imageName.setStyle("-fx-text-fill:red;");
