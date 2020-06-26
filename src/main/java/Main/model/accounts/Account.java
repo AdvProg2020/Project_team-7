@@ -9,16 +9,21 @@ public abstract class Account {
     protected String email;
     protected String phoneNumber;
     protected String passWord;
+    protected String profileImagePath;
     protected static ArrayList<Account> allAccounts = new ArrayList<>();
     private static ArrayList<String> reservedUserNames = new ArrayList<>();
 
-    public Account(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord) {
+    public Account(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord, String profileImagePath) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.passWord = passWord;
+        this.profileImagePath = profileImagePath;
+        if(profileImagePath==null){
+            this.profileImagePath = "src/main/java/Main/graphicView/resources/images/avatars/1.png";
+        }
     }
 
     public static boolean isThereUserWithUserName(String userName) {

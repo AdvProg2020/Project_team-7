@@ -11,7 +11,7 @@ public class ManagerAccountTest {
     @Test
     public void addManagerAndIsThereManagerTest () throws AccountsException {
         ManagerAccount managerAccount = new ManagerAccount("username","firstname","lastname"
-                ,"example@exp.exp","09000000000","00000000");
+                ,"example@exp.exp","09000000000","00000000",null);
 
         ManagerAccount.addManager(managerAccount);
 
@@ -21,7 +21,7 @@ public class ManagerAccountTest {
     @Test
     public void viewMeTest () throws AccountsException {
         ManagerAccount managerAccount = new ManagerAccount("userName","firstName","last Name",
-                "sampleEmail@sample.sample","09001112233","password123");
+                "sampleEmail@sample.sample","09001112233","password123",null);
         ManagerAccount.addManager(managerAccount);
 
         Assert.assertEquals("Manager :\n\tfirst name : firstName\n\tlast name : last Name\n\tuser name : userName" +
@@ -31,10 +31,10 @@ public class ManagerAccountTest {
     @Test
     public void showManagerList() throws AccountsException {
         ManagerAccount managerAccount = new ManagerAccount("userName","firstName","last Name",
-                "sampleEmail@sample.sample","09001112233","password123");
+                "sampleEmail@sample.sample","09001112233","password123",null);
         ManagerAccount.addManager(managerAccount);
         ManagerAccount managerAccount2 = new ManagerAccount("userName2","firstName2","last Name2",
-                "sampleEmail@sample.sample2","09001112234","password124");
+                "sampleEmail@sample.sample2","09001112234","password124",null);
         ManagerAccount.addManager(managerAccount2);
 
         Assert.assertEquals("Mangers :\n\tuser name : userName\tfull name : firstName last Name\n\tuser name : userName2\tfull name : firstName2 last Name2\n",ManagerAccount.showManagersList());
@@ -43,7 +43,7 @@ public class ManagerAccountTest {
     @Test
     public void getManagerWithNameTest() throws Exception {
         ManagerAccount managerAccount = new ManagerAccount("userName","firstName","last Name",
-                "sampleEmail@sample.sample","09001112233","password123");
+                "sampleEmail@sample.sample","09001112233","password123",null);
         ManagerAccount.addManager(managerAccount);
 
         Assert.assertEquals(managerAccount,ManagerAccount.getManagerWithUserName("userName"));
@@ -52,7 +52,7 @@ public class ManagerAccountTest {
     @Test
     public void deleteManagerTest() throws AccountsException {
         ManagerAccount managerAccount = new ManagerAccount("userName","firstName","last Name",
-                "sampleEmail@sample.sample","09001112233","password123");
+                "sampleEmail@sample.sample","09001112233","password123",null);
         ManagerAccount.addManager(managerAccount);
         ManagerAccount.deleteManager(managerAccount);
 

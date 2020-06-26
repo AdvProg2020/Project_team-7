@@ -13,10 +13,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CompleteSignUpPage implements Initializable {
@@ -32,6 +36,8 @@ public class CompleteSignUpPage implements Initializable {
     public TextField email;
     public TextField lastName;
     public TextField firstName;
+    public Label imageName;
+    private String profileImagePath;
 
     public void back(MouseEvent mouseEvent) {
         GraphicMain.buttonSound.stop();
@@ -76,12 +82,12 @@ public class CompleteSignUpPage implements Initializable {
         if (areTextFieldsFilled() && areTextFieldsValid()) {
             LoginSignUpPage loginSignUpPage = (LoginSignUpPage) GraphicMain.graphicMain.getController(LoginSignUpPage.FXML_PATH);
             if (isSeller.isSelected()) {
-                SellerAccount sellerAccount = new SellerAccount(loginSignUpPage.getSignUpUsername().getText(), firstName.getText(), lastName.getText(), email.getText(), phoneNumber.getText(), loginSignUpPage.getSignUpPassword().getText(), companyNameField.getText(), companyInfoField.getText(), 1000000);
+                SellerAccount sellerAccount = new SellerAccount(loginSignUpPage.getSignUpUsername().getText(), firstName.getText(), lastName.getText(), email.getText(), phoneNumber.getText(), loginSignUpPage.getSignUpPassword().getText(), companyNameField.getText(), companyInfoField.getText(), 1000000,profileImagePath);
                 CreateSellerAccountRequest createSellerAccountRequest = new CreateSellerAccountRequest(sellerAccount, "create seller account");
                 Request.addRequest(createSellerAccountRequest);
                 Account.getReservedUserNames().add(loginSignUpPage.getSignUpUsername().getText());
             } else {
-                BuyerAccount buyerAccount = new BuyerAccount(loginSignUpPage.getSignUpUsername().getText(), firstName.getText(), lastName.getText(), email.getText(), phoneNumber.getText(), loginSignUpPage.getSignUpPassword().getText(), 1000000);
+                BuyerAccount buyerAccount = new BuyerAccount(loginSignUpPage.getSignUpUsername().getText(), firstName.getText(), lastName.getText(), email.getText(), phoneNumber.getText(), loginSignUpPage.getSignUpPassword().getText(), 1000000,profileImagePath);
                 BuyerAccount.addBuyer(buyerAccount);
                 GeneralController.currentUser = buyerAccount;
             }
@@ -160,6 +166,30 @@ public class CompleteSignUpPage implements Initializable {
         textField.setText("");}else{
             TextArea textArea = (TextArea) eventSource;
             textArea.setStyle("-fx-border-color: #230038;-fx-prompt-text-fill : #4d4254;");
+        }
+    }
+
+
+    public void chooseImage() {
+        List<String> extensions = new ArrayList<>();
+        extensions.add("*.png");
+        extensions.add("*.jpg");
+        extensions.add("*.jpeg");
+        FileChooser.ExtensionFilter extChooser = new FileChooser.ExtensionFilter("only images", extensions);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(extChooser);
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.setInitialDirectory(new File("src/main/java/Main/graphicView/resources/images/avatars"));
+        File file = fileChooser.showOpenDialog(GraphicMain.stage);
+        if (file.getParent().endsWith("avatars")) {
+            if (file != null) {
+                imageName.setStyle("-fx-text-fill:green;");
+                imageName.setText(file.getName());
+                profileImagePath = "src/main/java/Main/graphicView/resources/images/avatars" + file.getName();
+            }
+        } else {
+            imageName.setStyle("-fx-text-fill:red;");
+            imageName.setText("choose from\nopened folder");
         }
     }
 }

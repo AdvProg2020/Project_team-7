@@ -4,10 +4,8 @@ import Main.controller.BuyerController;
 import Main.controller.GeneralController;
 import Main.controller.ManagerController;
 import Main.controller.SellerController;
-import Main.graphicView.scenes.LoginSignUpPage;
-import Main.graphicView.scenes.MainMenuController;
-import Main.graphicView.scenes.ProductsPage;
-import Main.graphicView.scenes.RegisterManager;
+import Main.graphicView.scenes.*;
+import Main.graphicView.scenes.ManagerPanel.ManageCategoriesController;
 import Main.model.accounts.ManagerAccount;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -50,7 +48,7 @@ public class GraphicMain extends Application {
         generalController.initializeIDs();
         generalController.giveDiscountCodeToSpecialBuyers();
         stage = primaryStage;
-        FXMLLoader fxmlLoader = new FXMLLoader(new File(MainMenuController.FXML_PATH).toURI().toURL());
+        FXMLLoader fxmlLoader = new FXMLLoader(new File(RegisterManager.FXML_PATH).toURI().toURL());
         Parent root = fxmlLoader.load();
         stage.setTitle(MainMenuController.TITLE);
         /**

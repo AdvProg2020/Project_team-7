@@ -10,6 +10,8 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -145,9 +147,26 @@
                               </Button>
                               <CheckBox fx:id="isSeller" mnemonicParsing="false" prefHeight="21.0" prefWidth="149.0" text="Sign Up as Seller" textFill="#ff9500">
                                  <HBox.margin>
-                                    <Insets left="50.0" right="165.0" top="45.0" />
+                                    <Insets left="50.0" right="50.0" top="45.0" />
                                  </HBox.margin>
                               </CheckBox>
+                              <Label onMouseClicked="#chooseImage" styleClass="choose-image" text="Choose Image" textFill="#ff9500">
+                                 <HBox.margin>
+                                    <Insets top="45.0" />
+                                 </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../java/Main/graphicView/resources/images/chooseImage.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Label>
+                              <Label fx:id="imageName" maxWidth="100.0" minHeight="100.0" alignment="TOP_LEFT">
+                                 <HBox.margin>
+                                    <Insets left="5.0" top="45.0" />
+                                 </HBox.margin>
+                              </Label>
                            </children>
                         </HBox>
                             </children>

@@ -380,6 +380,11 @@ public class ProductsPage implements Initializable {
         switch (selectedSort) {
             case "name(ascending)":
                 tempSellerFilterResult.sort(new ProductsSort.productSortByNameAscending());
+                System.out.println("***********************");
+                for (Product product : tempSellerFilterResult) {
+                    System.out.println(product.getName());
+                }
+                System.out.println("++++++++++++++++++++++++");
             case "name(descending)":
                 tempSellerFilterResult.sort(new ProductsSort.productSortByNameDescending());
             case "visit":
@@ -391,7 +396,9 @@ public class ProductsPage implements Initializable {
             case "most expensive":
                 tempSellerFilterResult.sort(new ProductsSort.productSortByPriceDescendingly());
         }
-        currentFilterResult = tempSellerFilterResult;
+        for (Product product : tempSellerFilterResult) {
+            System.out.println(product.getName());
+        }
     }
 
     public void showSearchResult(MouseEvent mouseEvent) {

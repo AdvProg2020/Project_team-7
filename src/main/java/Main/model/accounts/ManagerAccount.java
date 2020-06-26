@@ -18,8 +18,9 @@ public class ManagerAccount extends Account {
                           String lastName,
                           String email,
                           String phoneNumber,
-                          String passWord) {
-        super(userName, firstName, lastName, email, phoneNumber, passWord);
+                          String passWord,
+                          String profileImagePath) {
+        super(userName, firstName, lastName, email, phoneNumber, passWord, profileImagePath);
     }
 
     public static ArrayList<ManagerAccount> getAllManagers() {

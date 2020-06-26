@@ -273,7 +273,7 @@ public class GeneralController {
                 buyerInfo.get(3),
                 buyerInfo.get(4),
                 buyerInfo.get(0),
-                Double.parseDouble(buyerInfo.get(5)));
+                Double.parseDouble(buyerInfo.get(5)),null);
         BuyerAccount.addBuyer(buyerAccount);
     }
 
@@ -287,7 +287,7 @@ public class GeneralController {
                 sellerInfo.get(0),
                 sellerInfo.get(5),
                 sellerInfo.get(6),
-                0);
+                0,null);
         CreateSellerAccountRequest createSellerAccountRequest = new CreateSellerAccountRequest(sellerAccount, "create seller account");
         Request.addRequest(createSellerAccountRequest);
         Account.getReservedUserNames().add(userName);
@@ -300,7 +300,7 @@ public class GeneralController {
                 managerInfo.get(2),
                 managerInfo.get(3),
                 managerInfo.get(4),
-                managerInfo.get(0));
+                managerInfo.get(0),null);
         ManagerAccount.addManager(managerAccount);
     }
 

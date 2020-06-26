@@ -96,3 +96,8 @@
 -fx-background-radius : 2px;
 -fx-border-radius:2px;
 }
+
+
+.choose-image: hover {
+-fx-border-color : #ff9500;
+}

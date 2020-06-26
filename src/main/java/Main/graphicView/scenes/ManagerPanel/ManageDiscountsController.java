@@ -47,12 +47,12 @@ public class ManageDiscountsController {
         percent.setBlockIncrement(1);
         percent.setMin(1);
         percent.setMax(99);
-        startHour.setPromptText("HH");
+        /*startHour.setPromptText("HH");
         startMinute.setPromptText("MM");
         startSecond.setPromptText("SS");
         endHour.setPromptText("HH");
         endMinute.setPromptText("MM");
-        endSecond.setPromptText("SS");
+        endSecond.setPromptText("SS");*/
 
 
 

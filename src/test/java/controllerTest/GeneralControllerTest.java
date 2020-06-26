@@ -17,7 +17,7 @@ public class GeneralControllerTest {
         String type = "buyer";
         String username = "username";
         BuyerAccount buyerAccount = new BuyerAccount("username", "firstName",
-                "lastName", "email@email.email", "09101111111", "password", 5000.5);
+                "lastName", "email@email.email", "09101111111", "password", 5000.5,null);
         BuyerAccount.addBuyer(buyerAccount);
         Assert.assertEquals("this userName is already taken.", generalController.createAccount(type, username));
     }
@@ -26,7 +26,7 @@ public class GeneralControllerTest {
     public void createAccountTest2() {
         String type = "manager";
         ManagerAccount managerAccount = new ManagerAccount("username", "firstName",
-                "lastName", "email@email.email", "09101111111", "password");
+                "lastName", "email@email.email", "09101111111", "password",null);
         ManagerAccount.addManager(managerAccount);
         Assert.assertEquals("you can not create more than one manager account directly.",
                 generalController.createAccount(type,"user"));

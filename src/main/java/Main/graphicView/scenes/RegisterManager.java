@@ -7,14 +7,19 @@ import Main.model.accounts.Account;
 import Main.model.accounts.ManagerAccount;
 import Main.model.exceptions.AccountsException;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class RegisterManager implements Initializable {
@@ -27,6 +32,8 @@ public class RegisterManager implements Initializable {
     public TextField firstName;
     public PasswordField password;
     public TextField username;
+    public Label imageName;
+    private String profileImagePath;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -127,7 +134,7 @@ public class RegisterManager implements Initializable {
     public void signUp(MouseEvent mouseEvent) throws Exception {
         if (areTextFieldsFilled() && areTextFieldsValid()) {
             ManagerAccount managerAccount = new ManagerAccount(username.getText(), firstName.getText(), lastName.getText(),
-                    email.getText(), phoneNumber.getText(), password.getText());
+                    email.getText(), phoneNumber.getText(), password.getText(),profileImagePath);
             if (ManagerAccount.isThereAChiefManager()) {
                 ManagerAccount.addManager(managerAccount);
                 GraphicMain.graphicMain.goToPage(ManageUsersController.FXML_PATH,ManageUsersController.TITLE);
@@ -145,5 +152,29 @@ public class RegisterManager implements Initializable {
         TextField textField = (TextField) mouseEvent.getSource();
         textField.setStyle("-fx-border-color: #230038;-fx-prompt-text-fill : #4d4254;");
         textField.setText("");
+    }
+
+
+    public void chooseImage() {
+        List<String> extensions = new ArrayList<>();
+        extensions.add("*.png");
+        extensions.add("*.jpg");
+        extensions.add("*.jpeg");
+        FileChooser.ExtensionFilter extChooser = new FileChooser.ExtensionFilter("only images", extensions);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(extChooser);
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.setInitialDirectory(new File("src/main/java/Main/graphicView/resources/images/avatars"));
+        File file = fileChooser.showOpenDialog(GraphicMain.stage);
+        if (file.getParent().endsWith("avatars")) {
+            if (file != null) {
+                imageName.setStyle("-fx-text-fill:green;");
+                imageName.setText(file.getName());
+                profileImagePath = "src/main/java/Main/graphicView/resources/images/avatars" + file.getName();
+            }
+        } else {
+            imageName.setStyle("-fx-text-fill:red;");
+            imageName.setText("choose from opened folder");
+        }
     }
 }
