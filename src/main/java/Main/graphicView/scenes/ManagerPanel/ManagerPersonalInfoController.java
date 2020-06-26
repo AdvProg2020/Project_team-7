@@ -44,11 +44,7 @@ public class ManagerPersonalInfoController {
             phoneNumber.setText(GeneralController.currentUser.getPhoneNumber());
             firstName.setText(GeneralController.currentUser.getFirstName());
             lastName.setText(GeneralController.currentUser.getLastName());
-            ImageView profileImage = new ImageView(new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString()));
-            try {
-                profileImage.setImage(new Image(new File(RegisterManager.getProfileImagePath()).toURI().toString()));
-            } catch (Exception e){
-            }
+            ImageView profileImage = new ImageView(new Image(new File(GeneralController.currentUser.getProfileImagePath()).toURI().toString()));
             profileImage.setFitWidth(120);
             profileImage.setFitHeight(120);
             pane.getChildren().add(profileImage);
