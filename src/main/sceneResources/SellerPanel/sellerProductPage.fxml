@@ -6,42 +6,54 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.SellerProductPage">
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.SellerProductPage">
     <stylesheets>
-        <URL value="@../../java/Main/graphicView/cssFiles/salesHistory.css" />
-        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css" />
-        <URL value="@../../java/Main/graphicView/cssFiles/listView.css" />
+        <URL value="@../../java/Main/graphicView/cssFiles/salesHistory.css"/>
+        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css"/>
+        <URL value="@../../java/Main/graphicView/cssFiles/listView.css"/>
     </stylesheets>
     <children>
-        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack"
+                   pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/graphicView/resources/images/back.png" />
+                <Image url="@../../java/Main/graphicView/resources/images/back.png"/>
             </image>
         </ImageView>
-      <ImageView fx:id="productImage" fitHeight="224.0" fitWidth="258.0" layoutX="136.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="averageScoreImage" fitHeight="43.0" fitWidth="149.0" layoutX="136.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="averageScore" alignment="CENTER" contentDisplay="CENTER" layoutX="296.0" layoutY="307.0" prefHeight="51.0" prefWidth="98.0" text="  ">
-         <font>
-            <Font size="30.0" />
-         </font></Label>
-      <Label fx:id="digestLabel" alignment="TOP_LEFT" layoutX="470.0" layoutY="77.0" prefHeight="281.0" prefWidth="568.0" text="  ">
-         <font>
-            <Font size="30.0" />
-         </font></Label>
-      <Label fx:id="buyersList" alignment="TOP_LEFT" layoutX="470.0" layoutY="375.0" prefHeight="281.0" prefWidth="568.0" text="  ">
-         <font>
-            <Font size="30.0" />
-         </font></Label>
-      <Button layoutX="204.0" layoutY="423.0" mnemonicParsing="false" onAction="#goToEditProductPage" prefHeight="74.0" prefWidth="123.0" text="edit">
-         <font>
-            <Font size="40.0" />
-         </font>
-      </Button>
-      <Button layoutX="204.0" layoutY="530.0" mnemonicParsing="false" onAction="#removeProduct" prefHeight="74.0" prefWidth="123.0" text="remove">
-         <font>
-            <Font size="40.0" />
-         </font>
-      </Button>
+        <ImageView fx:id="productImage" fitHeight="224.0" fitWidth="258.0" layoutX="136.0" layoutY="77.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fx:id="averageScoreImage" fitHeight="43.0" fitWidth="149.0" layoutX="136.0" layoutY="311.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+        <Label fx:id="averageScore" alignment="CENTER" contentDisplay="CENTER" layoutX="296.0" layoutY="307.0"
+               prefHeight="51.0" prefWidth="98.0" text="  ">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </Label>
+        <Label fx:id="digestLabel" alignment="TOP_LEFT" layoutX="470.0" layoutY="77.0" prefHeight="281.0"
+               prefWidth="568.0" text="  ">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </Label>
+        <Label fx:id="buyersList" alignment="TOP_LEFT" layoutX="470.0" layoutY="375.0" prefHeight="281.0"
+               prefWidth="568.0" text="  ">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </Label>
+        <Button layoutX="204.0" layoutY="423.0" mnemonicParsing="false" onAction="#goToEditProductPage"
+                prefHeight="74.0" prefWidth="123.0" text="edit">
+            <font>
+                <Font size="40.0"/>
+            </font>
+        </Button>
+        <Button layoutX="204.0" layoutY="530.0" mnemonicParsing="false" onAction="#removeProduct" prefHeight="74.0"
+                prefWidth="123.0" text="remove">
+            <font>
+                <Font size="40.0"/>
+            </font>
+        </Button>
     </children>
 
 </AnchorPane>

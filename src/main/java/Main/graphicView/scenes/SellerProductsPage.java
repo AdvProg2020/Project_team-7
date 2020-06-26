@@ -27,12 +27,14 @@ public class SellerProductsPage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        list.getItems().clear();
         list.getItems().addAll(GraphicMain.sellerController.getSellerProductNames());
         list.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 String string = (String) list.getSelectionModel().getSelectedItem();
                 selectedProduct = string.substring(string.indexOf("(")+1 , string.indexOf(")"));
+                list.getSelectionModel().clearSelection();
                 try {
                     GraphicMain.graphicMain.goToPage(SellerProductPage.FXML_PATH,SellerProductPage.TITLE);
                 } catch (IOException e) {
