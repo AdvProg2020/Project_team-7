@@ -84,6 +84,7 @@
             <Image url="@../../java/Main/graphicView/resources/images/logout.png" />
          </image>
       </ImageView>
+      <Pane fx:id="pane" layoutX="215.0" layoutY="20.0" prefHeight="200.0" prefWidth="200.0" />
     </children>
 
 </AnchorPane>
