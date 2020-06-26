@@ -2,6 +2,7 @@ package Main.graphicView.scenes.BuyerPanel;
 
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.model.accounts.Account;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
@@ -24,7 +25,7 @@ public class MyOrdersController {
     @FXML
     private ListView ordersList;
 
-    public void initialize(){
+    public void initialize() {
         ordersList.getItems().clear();
         ordersList.getItems().addAll(((BuyerAccount) GeneralController.currentUser).buyLogsList());
         ordersList.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -38,7 +39,7 @@ public class MyOrdersController {
                     try {
                         buyLog = (BuyLog) Log.getLogWithID(logId);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        ManagerPanelController.alertError(e.getMessage());
                     }
                     showLogInfo(buyLog);
                 }
@@ -54,7 +55,7 @@ public class MyOrdersController {
         alert.showAndWait();
     }
 
-    public void goBack() throws IOException {
+    public void goBack() {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();

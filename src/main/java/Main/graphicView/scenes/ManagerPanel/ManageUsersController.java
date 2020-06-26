@@ -77,11 +77,11 @@ public class ManageUsersController {
             }
             initialize();
         } catch (Exception e) {
-            e.printStackTrace();
+            ManagerPanelController.alertError(e.getMessage());
         }
     }
 
-    public void goBack() throws IOException {
+    public void goBack() {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();

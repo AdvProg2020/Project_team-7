@@ -65,7 +65,7 @@ public class MyCartController {
                 GraphicMain.buttonSound.play();
             } catch (Exception e) {
                 ManagerPanelController.alertError(e.getMessage());
-            }finally {
+            } finally {
                 initialize();
             }
             return p;
@@ -83,7 +83,7 @@ public class MyCartController {
                 GraphicMain.buttonSound.play();
             } catch (Exception e) {
                 ManagerPanelController.alertError(e.getMessage());
-            }finally {
+            } finally {
                 initialize();
             }
             return p;
@@ -119,7 +119,7 @@ public class MyCartController {
         GraphicMain.graphicMain.goToPage(PurchaseController.FXML_PATH, PurchaseController.TITLE);
     }
 
-    public void goBack() throws IOException {
+    public void goBack() {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
@@ -127,17 +127,12 @@ public class MyCartController {
 }
 
 class ActionButtonTableCell<S> extends TableCell<S, Button> {
-
     private final Button actionButton;
-
 
     public ActionButtonTableCell(String label, Function<S, S> function) {
         this.getStyleClass().add("action-button-table-cell");
-
         this.actionButton = new Button(label);
-        this.actionButton.setOnAction((ActionEvent e) -> {
-            function.apply(getCurrentItem());
-        });
+        this.actionButton.setOnAction((ActionEvent e) -> function.apply(getCurrentItem()));
         this.actionButton.setMaxWidth(Double.MAX_VALUE);
         if (label.equals("-"))
             actionButton.setId("decreaseButton");
@@ -156,7 +151,6 @@ class ActionButtonTableCell<S> extends TableCell<S, Button> {
     @Override
     public void updateItem(Button item, boolean empty) {
         super.updateItem(item, empty);
-
         if (empty) {
             setGraphic(null);
         } else {

@@ -34,7 +34,7 @@ public class ProductPage implements Initializable {
     public static final String FXML_PATH = "src/main/sceneResources/productPage.fxml";
     public static final String TITLE = "Seller Panel";
     private Product currentProduct;
-    private ImageView productImage;
+    private ImageView productImage = new ImageView(new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString()));
 
     @FXML
     private ImageView scoreImage;
@@ -70,6 +70,7 @@ public class ProductPage implements Initializable {
         });
         currentProduct = GeneralController.currentProduct;
         productImage.setImage(new Image(new File(currentProduct.getImagePath()).toURI().toString()));
+
         setScoreImage();
         scoreLabel.setText(currentProduct.getAverageScore().toString());
         productImage.preserveRatioProperty().set(true);

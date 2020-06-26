@@ -33,7 +33,11 @@ public class RegisterManager implements Initializable {
     public PasswordField password;
     public TextField username;
     public Label imageName;
-    private String profileImagePath;
+    private static String profileImagePath;
+
+    public static String getProfileImagePath() {
+        return profileImagePath;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -134,10 +138,10 @@ public class RegisterManager implements Initializable {
     public void signUp(MouseEvent mouseEvent) throws Exception {
         if (areTextFieldsFilled() && areTextFieldsValid()) {
             ManagerAccount managerAccount = new ManagerAccount(username.getText(), firstName.getText(), lastName.getText(),
-                    email.getText(), phoneNumber.getText(), password.getText(),profileImagePath);
+                    email.getText(), phoneNumber.getText(), password.getText(), profileImagePath);
             if (ManagerAccount.isThereAChiefManager()) {
                 ManagerAccount.addManager(managerAccount);
-                GraphicMain.graphicMain.goToPage(ManageUsersController.FXML_PATH,ManageUsersController.TITLE);
+                GraphicMain.graphicMain.goToPage(ManageUsersController.FXML_PATH, ManageUsersController.TITLE);
             } else {
                 ManagerAccount.addManager(managerAccount);
                 GeneralController.currentUser = Account.getUserWithUserName(username.getText());

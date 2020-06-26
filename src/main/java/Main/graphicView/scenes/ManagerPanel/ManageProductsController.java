@@ -24,13 +24,13 @@ public class ManageProductsController {
     @FXML
     private ListView productList;
 
-    public void initialize(){
+    public void initialize() {
         productList.getItems().clear();
         productList.getItems().addAll(Product.summaryProductInfo());
         productList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (productList.getSelectionModel().getSelectedItem()!=null) {
+                if (productList.getSelectionModel().getSelectedItem() != null) {
                     String id = productList.getSelectionModel().getSelectedItem().toString();
                     id = id.substring(1, id.indexOf(' '));
                     productList.getSelectionModel().clearSelection();
@@ -38,12 +38,12 @@ public class ManageProductsController {
                     try {
                         product = Product.getProductWithId(id);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        ManagerPanelController.alertError(e.getMessage());
                     }
                     try {
                         goToProductOrDelete(product);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        ManagerPanelController.alertError(e.getMessage());
                     }
                 }
             }
@@ -59,9 +59,9 @@ public class ManageProductsController {
         ButtonType delete = new ButtonType("Delete");
         ButtonType goToPage = new ButtonType("Go To Product Page");
         alert.getButtonTypes().clear();
-        alert.getButtonTypes().addAll(done,delete,goToPage);
+        alert.getButtonTypes().addAll(done, delete, goToPage);
         Optional<ButtonType> option = alert.showAndWait();
-        if (option.get().equals(delete)){
+        if (option.get().equals(delete)) {
             GraphicMain.managerController.removeProductWithId(product.getProductId());
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
             alert1.setTitle("Product Deleted");
@@ -69,14 +69,14 @@ public class ManageProductsController {
             alert1.setContentText("Product deleted successfully.");
             alert1.showAndWait();
             initialize();
-        } else if (option.get().equals(goToPage)){
+        } else if (option.get().equals(goToPage)) {
             //TODO really go to product page
             GeneralController.currentProduct = product;
-            GraphicMain.graphicMain.goToPage(ProductPage.FXML_PATH,ProductPage.TITLE );
+            GraphicMain.graphicMain.goToPage(ProductPage.FXML_PATH, ProductPage.TITLE);
         }
     }
 
-    public void goBack() throws IOException {
+    public void goBack() {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();

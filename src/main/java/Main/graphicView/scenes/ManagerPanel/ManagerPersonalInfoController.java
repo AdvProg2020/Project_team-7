@@ -2,12 +2,17 @@ package Main.graphicView.scenes.ManagerPanel;
 
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.LoginSignUpPage;
+import Main.graphicView.scenes.RegisterManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -27,6 +32,8 @@ public class ManagerPersonalInfoController {
     private TextField firstName;
     @FXML
     private TextField lastName;
+    @FXML
+    private ImageView profileImage;
 
     public void initialize() {
         try {
@@ -36,8 +43,9 @@ public class ManagerPersonalInfoController {
             phoneNumber.setText(GeneralController.currentUser.getPhoneNumber());
             firstName.setText(GeneralController.currentUser.getFirstName());
             lastName.setText(GeneralController.currentUser.getLastName());
+            profileImage.setImage(new Image(new File(RegisterManager.getProfileImagePath()).toURI().toString()));
         } catch (NullPointerException n) {
-            System.err.println("null");
+            ManagerPanelController.alertError(n.getMessage());
         }
     }
 
@@ -79,7 +87,7 @@ public class ManagerPersonalInfoController {
                     GeneralController.currentUser.setPhoneNumber(phoneNumber.getText());
                     GeneralController.currentUser.setPassWord(password.getText());
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    ManagerPanelController.alertError(e.getMessage());
                 }
                 goBack();
             }

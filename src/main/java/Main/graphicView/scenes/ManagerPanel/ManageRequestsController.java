@@ -34,12 +34,12 @@ public class ManageRequestsController {
                     try {
                         request = Request.getRequestWithId(id);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        ManagerPanelController.alertError(e.getMessage());
                     }
                     try {
                         showRequestMenu(request);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        ManagerPanelController.alertError(e.getMessage());
                     }
                 }
             }
@@ -55,7 +55,7 @@ public class ManageRequestsController {
         ButtonType accept = new ButtonType("Accept");
         ButtonType decline = new ButtonType("Decline");
         ButtonType cancel = new ButtonType("Cancel");
-        alert.getButtonTypes().addAll(cancel,accept,decline);
+        alert.getButtonTypes().addAll(cancel, accept, decline);
         Optional<ButtonType> option = alert.showAndWait();
         if (option.get().equals(accept)) {
             request.accept();
@@ -76,7 +76,7 @@ public class ManageRequestsController {
         }
     }
 
-    public void goBack() throws IOException {
+    public void goBack() {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
