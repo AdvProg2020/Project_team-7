@@ -47,13 +47,16 @@ public class ManageDiscountsController {
         percent.setBlockIncrement(1);
         percent.setMin(1);
         percent.setMax(99);
+        percent.setMajorTickUnit(10);
+        percent.setMinorTickCount(5);
+        percent.setShowTickLabels(true);
         startHour.setPromptText("HH");
         startMinute.setPromptText("MM");
         startSecond.setPromptText("SS");
         endHour.setPromptText("HH");
         endMinute.setPromptText("MM");
         endSecond.setPromptText("SS");
-
+        maxNumberOfUse = new Spinner<Integer>(1, 10, 1);
 
 
 

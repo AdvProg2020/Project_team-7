@@ -92,8 +92,10 @@ public class GraphicMain extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(new File(fxmlPath).toURI().toURL());
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
-        sceneTrace.add(fxmlPath);
-        titleTrace.add(title);
+        if (!fxmlPath.equals(sceneTrace.get(sceneTrace.size()-1))) {
+            sceneTrace.add(fxmlPath);
+            titleTrace.add(title);
+        }
         GraphicMain.stage.setTitle(title);
         GraphicMain.stage.setScene(scene);
         return root;
