@@ -31,7 +31,11 @@ public class SellerPanelPage implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         personalInfoLabel.setText("role: seller\n" + GraphicMain.generalController.viewPersonalInfo());
         ImageView imageView = new ImageView(new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString()));
-        imageView.setImage(new Image(new File(CompleteSignUpPage.getProfileImagePath()).toURI().toString()));
+        try{
+            imageView.setImage(new Image(new File(CompleteSignUpPage.getProfileImagePath()).toURI().toString()));
+        }catch (Exception e){
+
+        }
         imageView.setFitHeight(120);
         imageView.setFitWidth(120);
         pane.getChildren().add(imageView);
