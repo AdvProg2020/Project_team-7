@@ -133,6 +133,7 @@ public class PurchaseController {
             try {
                 GraphicMain.buyerController.setPurchaseDiscountCode(discountCode.getText());
                 discountCode.setStyle("-fx-border-color:green; -fx-border-width: 5;");
+                payment.setVisible(true);
             } catch (Exception e) {
                 ManagerPanelController.alertError(e.getMessage());
             }
