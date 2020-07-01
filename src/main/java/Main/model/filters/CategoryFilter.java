@@ -15,8 +15,10 @@ public class CategoryFilter extends Filter {
 
     public void apply(ArrayList<Product> filterdProducts, ArrayList<Product> products) {
         for (Product product : products) {
-            if (product.getCategory().getName().equals(categoryName))
-                filterdProducts.add(product);
+            if(product.getCategory()!=null) {
+                if (product.getCategory().getName().equals(categoryName))
+                    filterdProducts.add(product);
+            }
         }
     }
 
