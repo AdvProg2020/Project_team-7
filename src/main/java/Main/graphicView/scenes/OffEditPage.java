@@ -34,19 +34,19 @@ public class OffEditPage {
             }
             if(!endDate.getText().isEmpty()){
                 editOffRequest.addEditedFieldTitle("end date");
-                editOffRequest.setStartDate(endDate.getText());
+                editOffRequest.setEndDate(endDate.getText());
             }
             if(!offAmount.getText().isEmpty()){
                 editOffRequest.addEditedFieldTitle("off amount");
-                editOffRequest.setStartDate(offAmount.getText());
+                editOffRequest.setOffAmount(offAmount.getText());
             }
             if(!productIdToBeAdded.getText().isEmpty()){
                 editOffRequest.addEditedFieldTitle("add product");
-                editOffRequest.setStartDate(productIdToBeAdded.getText());
+                editOffRequest.addProductIDToBeAdded(productIdToBeAdded.getText());
             }
             if(!productIdToBeRemoved.getText().isEmpty()){
                 editOffRequest.addEditedFieldTitle("remove product");
-                editOffRequest.setStartDate(productIdToBeRemoved.getText());
+                editOffRequest.addProductIDToBeRemoved(productIdToBeRemoved.getText());
             }
             GraphicMain.sellerController.submitOffEdits(editOffRequest);
         } catch (Exception e) {

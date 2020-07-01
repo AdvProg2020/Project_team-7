@@ -13,9 +13,9 @@ public class EditOffRequest extends Request {
     private String startDate;
     private String endDate;
     private String offAmount;
-    private ArrayList<String> productIDsToBeAdded;
-    private ArrayList<String> productIDsToBeRemoved;
-    private TreeSet<String> editedFieldTitles;
+    private ArrayList<String> productIDsToBeAdded = new ArrayList<>();
+    private ArrayList<String> productIDsToBeRemoved = new ArrayList<>();
+    private TreeSet<String> editedFieldTitles = new TreeSet<>();
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     public EditOffRequest(Off off) {
