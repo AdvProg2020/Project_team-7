@@ -35,10 +35,10 @@ public class MyDiscountsController {
                     DiscountCode discountCode = null;
                     try {
                         discountCode = DiscountCode.getDiscountCodeWithCode(code);
+                        showCodeInfo(discountCode);
                     } catch (Exception e) {
                         ManagerPanelController.alertError(e.getMessage());
                     }
-                    showCodeInfo(discountCode);
                 }
             }
         });

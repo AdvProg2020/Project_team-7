@@ -47,7 +47,7 @@ public class BuyerAccount extends Account {
     public ArrayList<String> getDiscountsList() {
         ArrayList<String> list = new ArrayList<>();
         for (DiscountCode discountCode : discountCodes) {
-            String info = "@" + discountCode.getCode() + "\t\t\t\t" + discountCode.getPercent();
+            String info = "@" + discountCode.getCode() + " \t\t\t\t" + discountCode.getPercent();
             list.add(info);
         }
         return list;

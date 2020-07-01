@@ -23,20 +23,16 @@ public class SellerController {
         return ((SellerAccount) GeneralController.currentUser).viewSalesHistory();
     }
 
-    public ArrayList<String> getSellLogIds(){
+    public ArrayList<String> getSellLogIds() {
         ArrayList<String> arrayList = new ArrayList<>();
         ArrayList<SellLog> sellHistory = ((SellerAccount) GeneralController.currentUser).getSellHistory();
-        if(sellHistory.equals(null))
-            return null;
-        else {
-            for (SellLog sellLog : sellHistory) {
-                arrayList.add(sellLog.getLogId());
-            }
-            return arrayList;
+        for (SellLog sellLog : sellHistory) {
+            arrayList.add(sellLog.getLogId());
         }
+        return arrayList;
     }
 
-    public String viewLogDetails(String logId){
+    public String viewLogDetails(String logId) {
         try {
             return ((SellerAccount) GeneralController.currentUser).getLogDetails(logId);
         } catch (Exception e) {
@@ -89,14 +85,14 @@ public class SellerController {
         } catch (Exception e) {
             editProductErrors.append(e.getMessage());
         }
-        if(editProductRequest.getOffID()!=null){
+        if (editProductRequest.getOffID() != null) {
             try {
                 validateEditProductEditedOff(editProductRequest.getOffID());
             } catch (Exception e) {
                 editProductErrors.append(e.getMessage());
             }
         }
-        if (editProductErrors.length()!=0 )  {
+        if (editProductErrors.length() != 0) {
             throw new Exception("there were some errors in editing product :\n" + editProductErrors.toString());
         }
     }
@@ -375,12 +371,12 @@ public class SellerController {
         return ((SellerAccount) GeneralController.currentUser).viewBalance();
     }
 
-    public ArrayList<String> getSellerProductNames(){
+    public ArrayList<String> getSellerProductNames() {
         ArrayList<String> arrayList = new ArrayList<>();
         SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
-        if(sellerAccount.getProducts().isEmpty()){
+        if (sellerAccount.getProducts().isEmpty()) {
             arrayList.add("no product to show");
-        }else{
+        } else {
             for (Product product : sellerAccount.getProducts()) {
                 arrayList.add(product.getName() + "(" + product.getProductId() + ")");
             }
