@@ -470,7 +470,7 @@ public class GeneralController {
         Product.setStringRecordObjects();
     }
 
-    private static void setImagePaths(){
+    public static void setImagePaths(){
         for (Product product : Product.allProducts) {
             if(product.getCategory()==null||product.getCategory().getImagePath().equals("")) {
                 product.setImagePath("src/main/java/Main/graphicView/resources/images/product.png");

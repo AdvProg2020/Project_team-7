@@ -62,6 +62,7 @@ public class OffPage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GeneralController.setImagePaths();
         for (Off off : Off.getAllOffs()) {
             allOffs.addAll(off.getProducts());
         }
@@ -377,19 +378,18 @@ public class OffPage implements Initializable {
     }
 
     private void applySelectedSort(String selectedSort, ArrayList<Product> tempSellerFilterResult) {
-        switch (selectedSort) {
-            case "name(ascending)":
-                tempSellerFilterResult.sort(new ProductsSort.productSortByNameAscending());
-            case "name(descending)":
-                tempSellerFilterResult.sort(new ProductsSort.productSortByNameDescending());
-            case "visit":
-                tempSellerFilterResult.sort(new ProductsSort.productSortByView());
-            case "rate":
-                tempSellerFilterResult.sort(new ProductsSort.productSortByRate());
-            case "cheapest":
-                tempSellerFilterResult.sort(new ProductsSort.productSortByPriceAscendingly());
-            case "most expensive":
-                tempSellerFilterResult.sort(new ProductsSort.productSortByPriceDescendingly());
+        if(selectedSort.equals("name(ascending)")){
+            tempSellerFilterResult.sort(new ProductsSort.productSortByNameAscending());
+        }else if(selectedSort.equals("name(descending)")){
+            tempSellerFilterResult.sort(new ProductsSort.productSortByNameDescending());
+        }else if(selectedSort.equals("visit")){
+            tempSellerFilterResult.sort(new ProductsSort.productSortByView());
+        }else if(selectedSort.equals("rate")){
+            tempSellerFilterResult.sort(new ProductsSort.productSortByRate());
+        }else if(selectedSort.equals("cheapest")){
+            tempSellerFilterResult.sort(new ProductsSort.productSortByPriceAscendingly());
+        }else if(selectedSort.equals("most expensive")){
+            tempSellerFilterResult.sort(new ProductsSort.productSortByPriceDescendingly());
         }
     }
 

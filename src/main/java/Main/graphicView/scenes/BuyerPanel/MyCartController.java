@@ -1,5 +1,6 @@
 package Main.graphicView.scenes.BuyerPanel;
 
+import Main.controller.BuyerController;
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
@@ -32,6 +33,7 @@ public class MyCartController {
     private TableView cartTable;
 
     public void initialize() {
+        BuyerController.setBuyerController();
         totalPrice.setText(Double.toString(((BuyerAccount) GeneralController.currentUser).getCart().getCartTotalPriceConsideringOffs()));
         cartTable.sortPolicyProperty();
         TableColumn<Product, String> imageCol = new TableColumn("Image");

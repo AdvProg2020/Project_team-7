@@ -65,6 +65,7 @@ public class ProductsPage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GeneralController.setImagePaths();
         currentFilterResult.addAll(Product.allProducts);
         setPageElementsDueToCurrentFilters();
         setCategoriesFilter();

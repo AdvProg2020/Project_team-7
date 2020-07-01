@@ -32,7 +32,7 @@ public abstract class DiscountAndOffTypeService {
         if (getStartDate().compareTo(dateNow) > 0) {
             return DiscountAndOffStat.NOT_STARTED;
         }
-        if (getEndDate().compareTo(dateNow) >= 0) {
+        if (getEndDate().compareTo(dateNow) < 0) {
             return DiscountAndOffStat.EXPIRED;
         }
         return DiscountAndOffStat.ACTIVE;
