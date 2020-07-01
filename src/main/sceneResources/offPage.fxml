@@ -28,6 +28,11 @@
         <SplitPane dividerPositions="0.12566844919786097, 0.5" orientation="VERTICAL" prefHeight="200.0"
                    prefWidth="160.0" BorderPane.alignment="CENTER">
             <items>
+                <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="26.0" layoutY="651.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../java/Main/graphicView/resources/images/logout.png" />
+                    </image>
+                </ImageView>
                 <HBox maxHeight="50.0" minHeight="50.0" prefHeight="100.0" prefWidth="200.0" styleClass="searchPane">
                     <children>
                         <TextField fx:id="searchText" prefHeight="31.0" prefWidth="197.0"
@@ -191,10 +196,6 @@
                 </HBox>
             </items>
         </SplitPane>
-<!--        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="26.0" layoutY="651.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">-->
-<!--            <image>-->
-<!--                <Image url="@../java/Main/graphicView/resources/images/logout.png" />-->
-<!--            </image>-->
-<!--        </ImageView>-->
+
     </center>
 </BorderPane>
