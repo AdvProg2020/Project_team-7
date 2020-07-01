@@ -3,6 +3,7 @@ package Main.graphicView.scenes.ManagerPanel;
 import Main.controller.GeneralController;
 import Main.controller.ManagerController;
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.MainMenuController;
 import Main.graphicView.scenes.ProductPage;
 import Main.model.Product;
 import Main.model.accounts.Account;
@@ -74,6 +75,12 @@ public class ManageProductsController {
             GeneralController.currentProduct = product;
             GraphicMain.graphicMain.goToPage(ProductPage.FXML_PATH, ProductPage.TITLE);
         }
+    }
+
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
     public void goBack() {

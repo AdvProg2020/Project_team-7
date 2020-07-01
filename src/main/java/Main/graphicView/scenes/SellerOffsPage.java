@@ -29,6 +29,12 @@ public class SellerOffsPage implements Initializable {
         GraphicMain.graphicMain.back();
     }
 
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         list.getItems().clear();

@@ -1,6 +1,7 @@
 package Main.graphicView.scenes.ManagerPanel;
 
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.MainMenuController;
 import Main.model.Category;
 import Main.model.discountAndOffTypeService.DiscountCode;
 import javafx.event.ActionEvent;
@@ -75,6 +76,12 @@ public class ManageDiscountsController {
         } else if (option.get().equals(edit)) {
             editDiscount(discountCode);
         }
+    }
+
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
     private void removeDiscount(DiscountCode discountCode) {

@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -33,6 +34,12 @@ public class SalesHistoryPage implements Initializable {
 
     public void goBack(){
         GraphicMain.graphicMain.back();
+    }
+
+    public void logout() throws IOException {
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
 

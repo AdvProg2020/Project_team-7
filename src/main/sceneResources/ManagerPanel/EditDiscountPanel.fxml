@@ -25,6 +25,11 @@
                 fx:id="save"/>
         <TextField fx:id="editContent" layoutX="364.0" layoutY="479.0" prefHeight="63.0" prefWidth="472.0"/>
         <Label layoutX="363.0" layoutY="122.0" text="What field do you want to edit?"/>
-
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1081.0" layoutY="650.0" onMouseClicked="#logout"
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../java/Main/graphicView/resources/images/logout.png"/>
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>

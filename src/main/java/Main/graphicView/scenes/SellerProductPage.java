@@ -55,6 +55,12 @@ public class SellerProductPage implements Initializable {
 
     }
 
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+    }
+
     public String makeDigestLabel(Product product){
         return "name: " + product.getName() +
                 "\n\tid: " + product.getProductId() +

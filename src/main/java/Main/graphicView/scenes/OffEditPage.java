@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
+
 public class OffEditPage {
 
 
@@ -54,6 +56,12 @@ public class OffEditPage {
 
     public void goBack(){
         GraphicMain.graphicMain.back();
+    }
+
+    public void logout() throws IOException {
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
     public void showErrorAlert(String message){

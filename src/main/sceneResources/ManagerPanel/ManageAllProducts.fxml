@@ -21,5 +21,11 @@
         </ImageView>
         <ListView layoutX="196.0" layoutY="116.0" prefHeight="552.0" prefWidth="830.0" fx:id="productList"/>
         <Label layoutX="196.0" layoutY="28.0" text="All Products:"/>
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1081.0" layoutY="650.0" onMouseClicked="#logout"
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../java/Main/graphicView/resources/images/logout.png"/>
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>

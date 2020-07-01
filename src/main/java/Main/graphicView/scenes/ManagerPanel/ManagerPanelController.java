@@ -1,6 +1,7 @@
 package Main.graphicView.scenes.ManagerPanel;
 
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.MainMenuController;
 import javafx.scene.control.Alert;
 
 import java.io.IOException;
@@ -68,5 +69,6 @@ public class ManagerPanelController {
     public void logout() {
         GraphicMain.generalController.logout();
         goBack();
+        //GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 }

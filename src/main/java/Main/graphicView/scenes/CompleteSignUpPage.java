@@ -203,4 +203,10 @@ public class CompleteSignUpPage implements Initializable {
             imageName.setText("choose from\nopened folder");
         }
     }
+
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+    }
 }

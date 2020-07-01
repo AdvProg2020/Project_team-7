@@ -1,9 +1,12 @@
 package Main.graphicView.scenes.BuyerPanel;
 
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.MainMenuController;
 import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import java.io.IOException;
 
 public class PurchaseController {
     public static final String FXML_PATH = "src/main/sceneResources/BuyerPanel/PurchasePanel.fxml";
@@ -82,6 +85,12 @@ public class PurchaseController {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
+    }
+
+    public void logout() throws IOException {
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
     public void showDiscountGetter() {

@@ -1,6 +1,7 @@
 package Main.graphicView.scenes.ManagerPanel;
 
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.MainMenuController;
 import Main.model.Product;
 import Main.model.requests.Request;
 import javafx.event.EventHandler;
@@ -80,5 +81,11 @@ public class ManageRequestsController {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
+    }
+
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 }

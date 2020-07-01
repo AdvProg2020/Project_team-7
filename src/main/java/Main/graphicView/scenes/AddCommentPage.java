@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
+
 public class AddCommentPage {
     public static final String FXML_PATH = "src/main/sceneResources/addCommentPage.fxml";
     public static final String TITLE = "Seller Panel";
@@ -42,5 +44,11 @@ public class AddCommentPage {
         alert.setContentText(message);
         alert.setHeaderText(null);
         alert.showAndWait();
+    }
+
+    public void logout() throws IOException {
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 }

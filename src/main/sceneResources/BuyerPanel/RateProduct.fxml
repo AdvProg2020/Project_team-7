@@ -19,6 +19,11 @@
                 <Image url="@../../java/Main/graphicView/resources/images/back.png"/>
             </image>
         </ImageView>
-
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1081.0" layoutY="650.0" onMouseClicked="#logout"
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../java/Main/graphicView/resources/images/logout.png"/>
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>

@@ -1,6 +1,7 @@
 package Main.graphicView.scenes.ManagerPanel;
 
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.MainMenuController;
 import Main.model.Category;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -73,6 +74,12 @@ public class ManageCategoriesController {
         } else if (option.get().equals(edit)) {
             editCategory(category);
         }
+    }
+
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
     private void removeTheCategory(Category category) {

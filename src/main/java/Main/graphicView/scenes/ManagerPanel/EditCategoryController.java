@@ -1,6 +1,7 @@
 package Main.graphicView.scenes.ManagerPanel;
 
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.MainMenuController;
 import Main.model.Category;
 import Main.model.requests.EditCategory;
 import javafx.collections.FXCollections;
@@ -72,6 +73,12 @@ public class EditCategoryController {
                 save.setVisible(true);
             }
         });
+    }
+
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
     public void goBack() {

@@ -2,6 +2,7 @@ package Main.graphicView.scenes.BuyerPanel;
 
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.MainMenuController;
 import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
@@ -41,6 +42,11 @@ public class MyDiscountsController {
                 }
             }
         });
+    }
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
     private void showCodeInfo(DiscountCode discountCode) {

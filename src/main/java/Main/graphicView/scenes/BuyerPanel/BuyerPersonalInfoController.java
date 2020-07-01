@@ -3,6 +3,7 @@ package Main.graphicView.scenes.BuyerPanel;
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.CompleteSignUpPage;
+import Main.graphicView.scenes.MainMenuController;
 import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.graphicView.scenes.RegisterManager;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 public class BuyerPersonalInfoController {
@@ -99,5 +101,10 @@ public class BuyerPersonalInfoController {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
+    }
+    public void logout() throws IOException {
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 }

@@ -3,6 +3,7 @@ package Main.graphicView.scenes.BuyerPanel;
 import Main.controller.BuyerController;
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.MainMenuController;
 import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.model.CartProduct;
 import Main.model.Product;
@@ -97,6 +98,11 @@ public class MyCartController {
 
         //System.out.println(imageCol.getCellData(0));
         //TODO show image
+    }
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
     private ObservableList<CartProduct> getCartProducts() {

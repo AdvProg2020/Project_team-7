@@ -2,6 +2,7 @@ package Main.graphicView.scenes.BuyerPanel;
 
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.MainMenuController;
 import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.model.accounts.Account;
 import Main.model.accounts.BuyerAccount;
@@ -53,6 +54,12 @@ public class MyOrdersController {
         alert.setHeaderText(buyLog.viewLog());
         alert.setContentText(null);
         alert.showAndWait();
+    }
+
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
     public void goBack() {

@@ -2,6 +2,7 @@ package Main.graphicView.scenes.BuyerPanel;
 
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.MainMenuController;
 import Main.model.accounts.BuyerAccount;
 import Main.model.accounts.ManagerAccount;
 import javafx.fxml.FXML;
@@ -50,8 +51,9 @@ public class BuyerPanelController {
         GraphicMain.graphicMain.back();
     }
 
-    public void logout() {
+    public void logout() throws IOException{
         GraphicMain.generalController.logout();
-        goBack();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 }

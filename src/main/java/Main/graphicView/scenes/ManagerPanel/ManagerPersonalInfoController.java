@@ -3,6 +3,7 @@ package Main.graphicView.scenes.ManagerPanel;
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.LoginSignUpPage;
+import Main.graphicView.scenes.MainMenuController;
 import Main.graphicView.scenes.RegisterManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -51,6 +52,12 @@ public class ManagerPersonalInfoController {
         } catch (NullPointerException n) {
             ManagerPanelController.alertError(n.getMessage());
         }
+    }
+
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
     public void saveChanges() {

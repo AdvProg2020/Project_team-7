@@ -44,6 +44,11 @@
                 text="YES"/>
         <Button fx:id="no" layoutX="610.0" layoutY="614.0" mnemonicParsing="false" onAction="#initialize" text="NO"/>
         <TextArea fx:id="purchaseInfo" layoutX="134.0" layoutY="60.0" prefHeight="526.0" prefWidth="892.0"/>
-
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1081.0" layoutY="650.0" onMouseClicked="#logout"
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../java/Main/graphicView/resources/images/logout.png"/>
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>

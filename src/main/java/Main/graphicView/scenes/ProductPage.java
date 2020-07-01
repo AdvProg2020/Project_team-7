@@ -136,6 +136,12 @@ public class ProductPage implements Initializable {
         return stringBuilder.toString();
     }
 
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+    }
+
     public void goToSelectSellerPage() throws IOException {
         if (GeneralController.currentUser == null || GeneralController.currentUser instanceof SellerAccount ||
                 GeneralController.currentUser instanceof ManagerAccount) {

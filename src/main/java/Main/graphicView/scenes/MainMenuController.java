@@ -21,6 +21,12 @@ public class MainMenuController {
         GraphicMain.graphicMain.exitProgram();
     }
 
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.exitProgram();
+    }
+
     public void goToUserPanel(MouseEvent mouseEvent) throws IOException {
         Account account = GeneralController.currentUser;
         if (account instanceof ManagerAccount) {

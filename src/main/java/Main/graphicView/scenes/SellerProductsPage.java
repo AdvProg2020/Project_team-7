@@ -43,4 +43,10 @@ public class SellerProductsPage implements Initializable {
             }
         });
     }
+
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+    }
 }

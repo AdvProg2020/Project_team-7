@@ -2,6 +2,7 @@ package Main.graphicView.scenes.ManagerPanel;
 
 import Main.controller.GeneralController;
 import Main.graphicView.GraphicMain;
+import Main.graphicView.scenes.MainMenuController;
 import Main.graphicView.scenes.RegisterManager;
 import Main.model.accounts.Account;
 import javafx.event.EventHandler;
@@ -53,6 +54,12 @@ public class ManageUsersController {
         if (ButtonType.OK.equals(option.get())) {
             deleteUser(userName);
         }
+    }
+
+    public void logout() throws IOException{
+        GraphicMain.generalController.logout();
+        //goBack();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
     private void cannotDelete() {
