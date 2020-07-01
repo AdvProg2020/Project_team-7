@@ -18,6 +18,8 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 
 public class EditDiscountController {
+    public static final String FXML_PATH = "src/main/sceneResources/ManagerPanel/EditDiscountPanel.fxml";
+    public static final String TITLE = "Edit Discount";
     private static DiscountCode discountCode;
     @FXML
     private ComboBox editOption;

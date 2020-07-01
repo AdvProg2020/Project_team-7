@@ -101,7 +101,7 @@ public class ManageDiscountsController {
     }
 
     private void editDiscount(DiscountCode discountCode) throws IOException {
-        GraphicMain.graphicMain.goToPage(EditCategoryController.FXML_PATH, EditCategoryController.TITLE);
+        GraphicMain.graphicMain.goToPage(EditDiscountController.FXML_PATH, EditDiscountController.TITLE);
         EditDiscountController.setDiscount(discountCode);
     }
 
