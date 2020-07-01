@@ -181,8 +181,12 @@ public class DiscountCode extends DiscountAndOffTypeService {
 
     public static void giveBonusDiscountCodeToSpecialBuyers() throws Exception {
         Date startDate = new Date();
-        if (!DateUtils.isSameDay(startDate, dateFormat.parse("2000/05/04 12:05:04"))) {
-            return;
+        if (DateUtils.isSameDay(startDate, dateFormat.parse("2000/05/01 12:05:04"))) {
+            for (BuyerAccount allBuyer : BuyerAccount.getAllBuyers()) {
+                ArrayList<BuyerAccount> a = new ArrayList<>();
+                a.add(allBuyer);
+                allBuyer.addDiscountCode(new DiscountCode("2022/02/02 12:12:12","2023/02/02 12:12:12","40","100","2",a));
+            }
         }
         ArrayList<BuyerAccount> levelTwoBuyers = new ArrayList<>();
         ArrayList<BuyerAccount> levelOneBuyers = new ArrayList<>();

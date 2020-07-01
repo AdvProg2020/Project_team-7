@@ -236,12 +236,12 @@ public class BuyerAccount extends Account {
     }
 
     public int getBuyerBonusLevel() {
-        if (numberOfBoughtProductsForBonus >= 50) {
-            numberOfBoughtProductsForBonus -= 50;
+        if (numberOfBoughtProductsForBonus >= 1) {
+            numberOfBoughtProductsForBonus -= 1;
             return 2;
         }
-        if (numberOfBoughtProductsForBonus >= 10) {
-            numberOfBoughtProductsForBonus -= 10;
+        if (numberOfBoughtProductsForBonus >= 2) {
+            numberOfBoughtProductsForBonus -= 2;
             return 1;
         }
         return 0;
