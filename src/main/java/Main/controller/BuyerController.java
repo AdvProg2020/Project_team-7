@@ -194,6 +194,9 @@ public class BuyerController {
         Log.addLog(buyLog);
         currentBuyer.addLog(buyLog);
         currentBuyer.addCartsProductsToBoughtProducts();
+        for (Product product : currentBuyer.getCart().getCartsProductList()) {
+            product.buyers.add(currentBuyer);
+        }
     }
 
     private void createPurchaseHistoryElementsForSellers(Date date, String logID) {

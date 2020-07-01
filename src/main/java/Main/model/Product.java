@@ -42,7 +42,7 @@ public class Product {
     private int openFrequency;
     private ProductStatus productStatus;
     private double price;
-    private ArrayList<BuyerAccount> buyers = new ArrayList<BuyerAccount>();
+    public ArrayList<BuyerAccount> buyers = new ArrayList<BuyerAccount>();
     private Off off;
     private ArrayList<Rate> rates = new ArrayList<Rate>();
     private HashMap<String, String> specialFeatures = new HashMap<String, String>();
