@@ -90,13 +90,14 @@ public class ManageDiscountsController {
         alert.setHeaderText("Discount will be deleted completely.");
         alert.setContentText("Are you sure?");
         Optional<ButtonType> option = alert.showAndWait();
-        if (option.equals(ButtonType.OK)) {
+        if (option.get().equals(ButtonType.OK)) {
             discountCode.removeDiscountCode();
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-            alert1.setContentText("Category " + discountCode.getCode() + " deleted successfully.");
+            alert1.setContentText("Discount " + discountCode.getCode() + " deleted successfully.");
             alert1.setHeaderText(null);
-            alert1.setTitle("Category Deleted");
+            alert1.setTitle("Discount Deleted");
             alert1.showAndWait();
+            initialize();
         }
     }
 
