@@ -1,9 +1,8 @@
 package Main.graphicView.scenes;
 
-import Main.controller.SellerController;
 import Main.graphicView.GraphicMain;
-import Main.model.Product;
-import Main.model.requests.EditProductRequest;
+import Main.server.model.Product;
+import Main.server.model.requests.EditProductRequest;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;

@@ -1,13 +1,11 @@
 package controllerTest;
 
-import Main.controller.GeneralController;
-import Main.model.accounts.Account;
-import Main.model.accounts.BuyerAccount;
-import Main.model.accounts.ManagerAccount;
+import Main.server.controller.GeneralController;
+import Main.server.model.accounts.Account;
+import Main.server.model.accounts.BuyerAccount;
+import Main.server.model.accounts.ManagerAccount;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 public class GeneralControllerTest {
     GeneralController generalController = new GeneralController();

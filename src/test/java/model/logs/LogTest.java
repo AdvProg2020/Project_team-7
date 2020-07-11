@@ -1,16 +1,16 @@
 package model.logs;
 
-import Main.model.Cart;
-import Main.model.CartProduct;
-import Main.model.IDGenerator;
-import Main.model.Product;
-import Main.model.accounts.BuyerAccount;
-import Main.model.accounts.SellerAccount;
-import Main.model.exceptions.AccountsException;
-import Main.model.logs.BuyLog;
-import Main.model.logs.DeliveryStatus;
-import Main.model.logs.Log;
-import Main.model.logs.SellLog;
+import Main.server.model.Cart;
+import Main.server.model.CartProduct;
+import Main.server.model.IDGenerator;
+import Main.server.model.Product;
+import Main.server.model.accounts.BuyerAccount;
+import Main.server.model.accounts.SellerAccount;
+import Main.server.model.exceptions.AccountsException;
+import Main.server.model.logs.BuyLog;
+import Main.server.model.logs.DeliveryStatus;
+import Main.server.model.logs.Log;
+import Main.server.model.logs.SellLog;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,7 +1,6 @@
 package Main.graphicView.scenes.ManagerPanel;
 
 import Main.graphicView.GraphicMain;
-import Main.graphicView.scenes.MainMenuController;
 import javafx.scene.control.Alert;
 
 import java.io.IOException;

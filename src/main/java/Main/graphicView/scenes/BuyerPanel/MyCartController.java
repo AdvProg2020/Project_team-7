@@ -1,28 +1,23 @@
 package Main.graphicView.scenes.BuyerPanel;
 
-import Main.controller.BuyerController;
-import Main.controller.GeneralController;
+import Main.server.controller.BuyerController;
+import Main.server.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.MainMenuController;
 import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
-import Main.model.CartProduct;
-import Main.model.Product;
-import Main.model.accounts.BuyerAccount;
-import Main.model.accounts.ManagerAccount;
-import javafx.beans.property.ReadOnlyStringWrapper;
+import Main.server.model.CartProduct;
+import Main.server.model.Product;
+import Main.server.model.accounts.BuyerAccount;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.function.Function;
-
-import static javafx.scene.control.TableView.*;
 
 public class MyCartController {
     public static final String FXML_PATH = "src/main/sceneResources/BuyerPanel/ViewCart.fxml";

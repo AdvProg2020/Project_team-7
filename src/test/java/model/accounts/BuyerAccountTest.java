@@ -1,12 +1,10 @@
 package model.accounts;
 
-import Main.model.accounts.Account;
-import Main.model.accounts.BuyerAccount;
-import Main.model.exceptions.AccountsException;
+import Main.server.model.accounts.Account;
+import Main.server.model.accounts.BuyerAccount;
+import Main.server.model.exceptions.AccountsException;
 import org.junit.Assert;
 import org.junit.Test;
-
-import javax.security.auth.login.AccountException;
 
 public class BuyerAccountTest {
 

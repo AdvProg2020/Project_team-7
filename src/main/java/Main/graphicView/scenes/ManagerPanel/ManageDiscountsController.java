@@ -2,9 +2,7 @@ package Main.graphicView.scenes.ManagerPanel;
 
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.MainMenuController;
-import Main.model.Category;
-import Main.model.discountAndOffTypeService.DiscountCode;
-import javafx.event.ActionEvent;
+import Main.server.model.discountAndOffTypeService.DiscountCode;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

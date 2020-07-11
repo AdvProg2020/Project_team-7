@@ -1,6 +1,6 @@
 package Main.graphicView.scenes;
 
-import Main.controller.GeneralController;
+import Main.server.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

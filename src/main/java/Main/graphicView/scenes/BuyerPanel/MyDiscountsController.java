@@ -1,12 +1,11 @@
 package Main.graphicView.scenes.BuyerPanel;
 
-import Main.controller.GeneralController;
+import Main.server.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.MainMenuController;
 import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
-import Main.model.accounts.BuyerAccount;
-import Main.model.accounts.ManagerAccount;
-import Main.model.discountAndOffTypeService.DiscountCode;
+import Main.server.model.accounts.BuyerAccount;
+import Main.server.model.discountAndOffTypeService.DiscountCode;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

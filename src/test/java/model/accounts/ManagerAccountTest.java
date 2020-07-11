@@ -1,8 +1,8 @@
 package model.accounts;
 
-import Main.model.accounts.Account;
-import Main.model.exceptions.AccountsException;
-import Main.model.accounts.ManagerAccount;
+import Main.server.model.accounts.Account;
+import Main.server.model.exceptions.AccountsException;
+import Main.server.model.accounts.ManagerAccount;
 import org.junit.Assert;
 import org.junit.Test;
 

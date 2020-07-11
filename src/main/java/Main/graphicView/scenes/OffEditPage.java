@@ -1,7 +1,7 @@
 package Main.graphicView.scenes;
 
 import Main.graphicView.GraphicMain;
-import Main.model.requests.EditOffRequest;
+import Main.server.model.requests.EditOffRequest;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;

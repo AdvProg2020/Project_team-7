@@ -1,13 +1,13 @@
 package Main.graphicView.scenes;
 
-import Main.controller.GeneralController;
+import Main.server.controller.GeneralController;
 import Main.graphicView.GraphicMain;
-import Main.model.accounts.Account;
-import Main.model.accounts.BuyerAccount;
-import Main.model.accounts.SellerAccount;
-import Main.model.exceptions.AccountsException;
-import Main.model.requests.CreateSellerAccountRequest;
-import Main.model.requests.Request;
+import Main.server.model.accounts.Account;
+import Main.server.model.accounts.BuyerAccount;
+import Main.server.model.accounts.SellerAccount;
+import Main.server.model.exceptions.AccountsException;
+import Main.server.model.requests.CreateSellerAccountRequest;
+import Main.server.model.requests.Request;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;

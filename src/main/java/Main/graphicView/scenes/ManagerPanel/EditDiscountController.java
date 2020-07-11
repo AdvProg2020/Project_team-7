@@ -2,10 +2,8 @@ package Main.graphicView.scenes.ManagerPanel;
 
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.MainMenuController;
-import Main.model.Category;
-import Main.model.discountAndOffTypeService.DiscountCode;
-import Main.model.requests.EditCategory;
-import Main.model.requests.EditDiscountCode;
+import Main.server.model.discountAndOffTypeService.DiscountCode;
+import Main.server.model.requests.EditDiscountCode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 

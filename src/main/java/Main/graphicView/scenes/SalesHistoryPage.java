@@ -1,6 +1,5 @@
 package Main.graphicView.scenes;
 
-import Main.controller.SellerController;
 import Main.graphicView.GraphicMain;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

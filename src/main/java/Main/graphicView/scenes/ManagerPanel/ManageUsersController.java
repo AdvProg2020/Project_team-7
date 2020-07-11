@@ -1,10 +1,10 @@
 package Main.graphicView.scenes.ManagerPanel;
 
-import Main.controller.GeneralController;
+import Main.server.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.MainMenuController;
 import Main.graphicView.scenes.RegisterManager;
-import Main.model.accounts.Account;
+import Main.server.model.accounts.Account;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

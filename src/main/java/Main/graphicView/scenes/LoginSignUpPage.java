@@ -1,9 +1,9 @@
 package Main.graphicView.scenes;
 
-import Main.controller.GeneralController;
+import Main.server.controller.GeneralController;
 import Main.graphicView.GraphicMain;
-import Main.model.accounts.Account;
-import Main.model.exceptions.AccountsException;
+import Main.server.model.accounts.Account;
+import Main.server.model.exceptions.AccountsException;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

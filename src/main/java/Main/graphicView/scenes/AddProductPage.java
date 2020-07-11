@@ -1,13 +1,11 @@
 package Main.graphicView.scenes;
 
 import Main.graphicView.GraphicMain;
-import Main.model.Category;
-import Main.model.exceptions.CreateProductException;
+import Main.server.model.exceptions.CreateProductException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.ArrayList;

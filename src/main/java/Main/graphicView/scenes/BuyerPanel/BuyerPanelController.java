@@ -1,10 +1,9 @@
 package Main.graphicView.scenes.BuyerPanel;
 
-import Main.controller.GeneralController;
+import Main.server.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.MainMenuController;
-import Main.model.accounts.BuyerAccount;
-import Main.model.accounts.ManagerAccount;
+import Main.server.model.accounts.BuyerAccount;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 

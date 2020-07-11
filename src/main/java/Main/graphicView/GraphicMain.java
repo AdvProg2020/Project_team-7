@@ -1,12 +1,11 @@
 package Main.graphicView;
 
-import Main.controller.BuyerController;
-import Main.controller.GeneralController;
-import Main.controller.ManagerController;
-import Main.controller.SellerController;
+import Main.server.controller.BuyerController;
+import Main.server.controller.GeneralController;
+import Main.server.controller.ManagerController;
+import Main.server.controller.SellerController;
 import Main.graphicView.scenes.*;
-import Main.graphicView.scenes.ManagerPanel.ManageCategoriesController;
-import Main.model.accounts.ManagerAccount;
+import Main.server.model.accounts.ManagerAccount;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

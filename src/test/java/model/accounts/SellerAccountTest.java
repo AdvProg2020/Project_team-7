@@ -1,15 +1,10 @@
 package model.accounts;
 
-import Main.model.accounts.Account;
-import Main.model.accounts.SellerAccount;
-import Main.model.exceptions.AccountsException;
+import Main.server.model.accounts.Account;
+import Main.server.model.accounts.SellerAccount;
+import Main.server.model.exceptions.AccountsException;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class SellerAccountTest {
     @Test

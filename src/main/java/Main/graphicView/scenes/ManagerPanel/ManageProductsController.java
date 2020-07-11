@@ -1,18 +1,15 @@
 package Main.graphicView.scenes.ManagerPanel;
 
-import Main.controller.GeneralController;
-import Main.controller.ManagerController;
+import Main.server.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.MainMenuController;
 import Main.graphicView.scenes.ProductPage;
-import Main.model.Product;
-import Main.model.accounts.Account;
+import Main.server.model.Product;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;

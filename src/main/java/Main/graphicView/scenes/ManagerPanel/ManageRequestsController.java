@@ -2,8 +2,7 @@ package Main.graphicView.scenes.ManagerPanel;
 
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.MainMenuController;
-import Main.model.Product;
-import Main.model.requests.Request;
+import Main.server.model.requests.Request;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

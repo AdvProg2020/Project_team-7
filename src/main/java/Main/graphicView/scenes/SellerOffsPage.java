@@ -1,8 +1,8 @@
 package Main.graphicView.scenes;
 
-import Main.controller.GeneralController;
+import Main.server.controller.GeneralController;
 import Main.graphicView.GraphicMain;
-import Main.model.accounts.SellerAccount;
+import Main.server.model.accounts.SellerAccount;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

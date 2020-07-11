@@ -1,11 +1,11 @@
 package Main.graphicView.scenes;
 
-import Main.controller.GeneralController;
+import Main.server.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.ManagerPanel.ManageUsersController;
-import Main.model.accounts.Account;
-import Main.model.accounts.ManagerAccount;
-import Main.model.exceptions.AccountsException;
+import Main.server.model.accounts.Account;
+import Main.server.model.accounts.ManagerAccount;
+import Main.server.model.exceptions.AccountsException;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;

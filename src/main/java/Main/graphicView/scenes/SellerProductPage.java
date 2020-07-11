@@ -1,7 +1,7 @@
 package Main.graphicView.scenes;
 
 import Main.graphicView.GraphicMain;
-import Main.model.Product;
+import Main.server.model.Product;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;

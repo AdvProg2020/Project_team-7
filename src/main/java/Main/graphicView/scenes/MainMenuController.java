@@ -1,13 +1,13 @@
 package Main.graphicView.scenes;
 
-import Main.controller.GeneralController;
+import Main.server.controller.GeneralController;
 import Main.graphicView.GraphicMain;
 import Main.graphicView.scenes.BuyerPanel.BuyerPanelController;
 import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
-import Main.model.accounts.Account;
-import Main.model.accounts.BuyerAccount;
-import Main.model.accounts.ManagerAccount;
-import Main.model.accounts.SellerAccount;
+import Main.server.model.accounts.Account;
+import Main.server.model.accounts.BuyerAccount;
+import Main.server.model.accounts.ManagerAccount;
+import Main.server.model.accounts.SellerAccount;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 

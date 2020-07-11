@@ -1,11 +1,9 @@
 package Main.graphicView.scenes.BuyerPanel;
 
-import Main.controller.GeneralController;
+import Main.server.controller.GeneralController;
 import Main.graphicView.GraphicMain;
-import Main.graphicView.scenes.CompleteSignUpPage;
 import Main.graphicView.scenes.MainMenuController;
 import Main.graphicView.scenes.ManagerPanel.ManagerPanelController;
-import Main.graphicView.scenes.RegisterManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
