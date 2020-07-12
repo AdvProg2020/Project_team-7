@@ -1,8 +1,8 @@
 package Main.server.model;
 
 import Main.server.controller.GeneralController;
-import Main.graphicView.GraphicMain;
-import Main.graphicView.scenes.ProductPage;
+import Main.client.graphicView.GraphicMain;
+import Main.client.graphicView.scenes.ProductPage;
 import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.accounts.SellerAccount;
 import Main.server.model.discountAndOffTypeService.DiscountAndOffStat;

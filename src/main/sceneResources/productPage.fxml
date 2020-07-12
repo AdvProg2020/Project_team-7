@@ -7,22 +7,22 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.ProductPage">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.ProductPage">
     <stylesheets>
-        <URL value="@../java/Main/graphicView/cssFiles/basicStyles.css"/>
-        <URL value="@../java/Main/graphicView/cssFiles/listView.css"/>
+        <URL value="@Main/client/graphicView/cssFiles/basicStyles.css"/>
+        <URL value="@Main/client/graphicView/cssFiles/listView.css"/>
     </stylesheets>
     <children>
         <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack"
                    pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../java/Main/graphicView/resources/images/back.png"/>
+                <Image url="@Main/client/graphicView/resources/images/back.png"/>
             </image>
         </ImageView>
         <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1021.0" layoutY="651.0" onMouseClicked="#goToUserPanelPage"
                    pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../java/Main/graphicView/resources/images/avatar.png"/>
+                <Image url="@Main/client/graphicView/resources/images/avatar.png"/>
             </image>
         </ImageView>
         <ImageView fx:id="scoreImage" fitHeight="50.0" fitWidth="200.0" layoutX="151.0" layoutY="311.0"
@@ -63,7 +63,7 @@
         <ImageView fitHeight="73.0" fitWidth="73.0" layoutX="934.0" layoutY="646.0"
                    onMouseClicked="#goToSelectSellerPage" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../java/Main/graphicView/resources/images/addToCart.png"/>
+                <Image url="@Main/client/graphicView/resources/images/addToCart.png"/>
             </image>
         </ImageView>
         <Button layoutX="115.0" layoutY="394.0" mnemonicParsing="false" onAction="#rateProduct" prefHeight="81.0"
@@ -88,7 +88,7 @@
         <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="470.0" layoutY="610.0" onMouseClicked="#addComment"
                    pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../java/Main/graphicView/resources/images/addComment.png"/>
+                <Image url="@Main/client/graphicView/resources/images/addComment.png"/>
             </image>
         </ImageView>
         <TextField fx:id="productIdToBeCompared" layoutX="55.0" layoutY="505.0" prefHeight="63.0" prefWidth="292.0"
@@ -105,7 +105,7 @@
         </Button>
         <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="26.0" layoutY="651.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../java/Main/graphicView/resources/images/logout.png" />
+                <Image url="@Main/client/graphicView/resources/images/logout.png" />
             </image>
         </ImageView>
     </children>

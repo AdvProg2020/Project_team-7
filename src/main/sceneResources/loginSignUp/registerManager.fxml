@@ -16,9 +16,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0"
             prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.RegisterManager">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.RegisterManager">
     <stylesheets>
-        <URL value="@../../java/Main/graphicView/cssFiles/loginSignUpPage.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/loginSignUpPage.css"/>
     </stylesheets>
     <children>
         <TabPane layoutX="91.0" layoutY="90.0" prefHeight="604.0" prefWidth="1036.0" styleClass="tabPane"
@@ -155,7 +155,7 @@
                                                 <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
                                                            preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../../java/Main/graphicView/resources/images/chooseImage.png"/>
+                                                        <Image url="@../../java/Main/client/graphicView/resources/images/chooseImage.png"/>
                                                     </image>
                                                 </ImageView>
                                             </graphic>

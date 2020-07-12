@@ -7,11 +7,11 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.OffEditPage">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.OffEditPage">
     <stylesheets>
-        <URL value="@../../java/Main/graphicView/cssFiles/salesHistory.css"/>
-        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css"/>
-        <URL value="@../../java/Main/graphicView/cssFiles/listView.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/salesHistory.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/basicStyles.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/listView.css"/>
     </stylesheets>
     <Label alignment="CENTER" layoutX="251.0" layoutY="28.0" prefHeight="69.0" prefWidth="698.0"
            text="Insert the new contents in text fields:" textFill="#c95812">
@@ -82,12 +82,12 @@
     <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack"
                pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@../../java/Main/graphicView/resources/images/back.png"/>
+            <Image url="@../../java/Main/client/graphicView/resources/images/back.png"/>
         </image>
     </ImageView>
     <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="26.0" layoutY="651.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@../../java/Main/graphicView/resources/images/logout.png" />
+            <Image url="@../../java/Main/client/graphicView/resources/images/logout.png" />
         </image>
     </ImageView>
 

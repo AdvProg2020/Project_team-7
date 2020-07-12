@@ -20,9 +20,9 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0"
             prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Main.graphicView.scenes.OffPage">
+            fx:controller="Main.client.graphicView.scenes.OffPage">
     <stylesheets>
-        <URL value="@../java/Main/graphicView/cssFiles/productsPage.css"/>
+        <URL value="@Main/client/graphicView/cssFiles/productsPage.css"/>
     </stylesheets>
     <right>
         <SplitPane dividerPositions="0.12566844919786097, 0.5" orientation="VERTICAL" prefHeight="200.0"
@@ -30,7 +30,7 @@
             <items>
                 <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="26.0" layoutY="651.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../java/Main/graphicView/resources/images/logout.png" />
+                        <Image url="@Main/client/graphicView/resources/images/logout.png" />
                     </image>
                 </ImageView>
                 <HBox maxHeight="50.0" minHeight="50.0" prefHeight="100.0" prefWidth="200.0" styleClass="searchPane">
@@ -134,14 +134,14 @@
                                    onMouseEntered="#grow" onMouseExited="#shrink" pickOnBounds="true"
                                    preserveRatio="true">
                             <image>
-                                <Image url="@../java/Main/graphicView/resources/images/avatar.png"/>
+                                <Image url="@Main/client/graphicView/resources/images/avatar.png"/>
                             </image>
                         </ImageView>
                         <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#back"
                                    onMouseEntered="#grow" onMouseExited="#shrink" pickOnBounds="true"
                                    preserveRatio="true">
                             <image>
-                                <Image url="@../java/Main/graphicView/resources/images/back.png"/>
+                                <Image url="@Main/client/graphicView/resources/images/back.png"/>
                             </image>
                         </ImageView>
                     </children>
@@ -164,7 +164,7 @@
                                    onMouseClicked="#nextAd" onMouseEntered="#giveButtonStyle" pickOnBounds="true"
                                    preserveRatio="true">
                             <image>
-                                <Image url="@../java/Main/graphicView/resources/images/next.png"/>
+                                <Image url="@Main/client/graphicView/resources/images/next.png"/>
                             </image>
                         </ImageView>
                     </children>

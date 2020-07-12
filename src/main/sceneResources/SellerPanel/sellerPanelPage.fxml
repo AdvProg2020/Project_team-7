@@ -7,9 +7,9 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.SellerPanelPage">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.SellerPanelPage">
     <stylesheets>
-        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/basicStyles.css"/>
     </stylesheets>
     <children>
         <VBox prefHeight="750.0" prefWidth="200.0" style="-fx-background-color: #ff9500;">
@@ -73,7 +73,7 @@
         <ImageView fitHeight="586.0" fitWidth="663.0" layoutX="420.0" layoutY="82.0" pickOnBounds="true"
                    preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/graphicView/resources/images/photo1.jpg"/>
+                <Image url="@../../java/Main/client/graphicView/resources/images/photo1.jpg"/>
             </image>
         </ImageView>
         <Label fx:id="personalInfoLabel" alignment="CENTER" layoutX="509.0" layoutY="201.0" prefHeight="378.0"
@@ -91,13 +91,13 @@
         <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack"
                    pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/graphicView/resources/images/back.png"/>
+                <Image url="@../../java/Main/client/graphicView/resources/images/back.png"/>
             </image>
         </ImageView>
         <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="20.0" onMouseClicked="#logout"
                    pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/graphicView/resources/images/logout.png"/>
+                <Image url="@../../java/Main/client/graphicView/resources/images/logout.png"/>
             </image>
         </ImageView>
         <Pane fx:id="pane" layoutX="215.0" layoutY="20.0" prefHeight="200.0" prefWidth="200.0"/>

@@ -7,11 +7,11 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.AddProductPage">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.AddProductPage">
     <stylesheets>
-        <URL value="@../../java/Main/graphicView/cssFiles/salesHistory.css"/>
-        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css"/>
-        <URL value="@../../java/Main/graphicView/cssFiles/listView.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/salesHistory.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/basicStyles.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/listView.css"/>
     </stylesheets>
     <children>
         <TextField fx:id="name" layoutX="551.0" layoutY="50.0" prefHeight="49.0" prefWidth="327.0">
@@ -81,7 +81,7 @@
         <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" pickOnBounds="true"
                    preserveRatio="true" onMouseClicked="#goBack">
             <image>
-                <Image url="@../../java/Main/graphicView/resources/images/back.png"/>
+                <Image url="@../../java/Main/client/graphicView/resources/images/back.png"/>
             </image>
         </ImageView>
         <Button fx:id="submit" layoutX="552.0" layoutY="665.0" mnemonicParsing="false" prefHeight="63.0"
@@ -98,7 +98,7 @@
         </CheckBox>
         <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="26.0" layoutY="651.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/graphicView/resources/images/logout.png" />
+                <Image url="@../../java/Main/client/graphicView/resources/images/logout.png" />
             </image>
         </ImageView>
     </children>

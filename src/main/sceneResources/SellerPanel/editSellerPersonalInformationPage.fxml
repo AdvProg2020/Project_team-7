@@ -8,10 +8,10 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #ffe6cc;"
             xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Main.graphicView.scenes.EditSellerPersonalInformationPage">
+            fx:controller="Main.client.graphicView.scenes.EditSellerPersonalInformationPage">
     <stylesheets>
-        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css"/>
-        <URL value="@../../java/Main/graphicView/cssFiles/listView.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/basicStyles.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/listView.css"/>
     </stylesheets>
     <children>
         <VBox layoutX="114.0" layoutY="100.0" prefHeight="551.0" prefWidth="486.0"
@@ -28,7 +28,7 @@
         <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack"
                    pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/graphicView/resources/images/back.png"/>
+                <Image url="@../../java/Main/client/graphicView/resources/images/back.png"/>
             </image>
         </ImageView>
         <AnchorPane layoutX="721.0" layoutY="103.0" prefHeight="544.0" prefWidth="363.0"
@@ -56,7 +56,7 @@
         </AnchorPane>
         <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="26.0" layoutY="651.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/graphicView/resources/images/logout.png" />
+                <Image url="@../../java/Main/client/graphicView/resources/images/logout.png" />
             </image>
         </ImageView>
     </children>

@@ -7,11 +7,11 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.graphicView.scenes.AddCommentPage">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.AddCommentPage">
     <stylesheets>
-        <URL value="@../java/Main/graphicView/cssFiles/salesHistory.css"/>
-        <URL value="@../java/Main/graphicView/cssFiles/basicStyles.css"/>
-        <URL value="@../java/Main/graphicView/cssFiles/listView.css"/>
+        <URL value="@Main/client/graphicView/cssFiles/salesHistory.css"/>
+        <URL value="@Main/client/graphicView/cssFiles/basicStyles.css"/>
+        <URL value="@Main/client/graphicView/cssFiles/listView.css"/>
     </stylesheets>
     <children>
         <Label alignment="CENTER" layoutX="333.0" layoutY="121.0" prefHeight="62.0" prefWidth="117.0" text="title">
@@ -44,12 +44,12 @@
         <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack"
                    pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../java/Main/graphicView/resources/images/back.png"/>
+                <Image url="@Main/client/graphicView/resources/images/back.png"/>
             </image>
         </ImageView>
         <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="26.0" layoutY="651.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../java/Main/graphicView/resources/images/logout.png" />
+                <Image url="@Main/client/graphicView/resources/images/logout.png" />
             </image>
         </ImageView>
     </children>

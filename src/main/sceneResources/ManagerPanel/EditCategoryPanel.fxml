@@ -7,16 +7,16 @@
 
 <AnchorPane id="subAnchor" fx:id="subAnchor" prefHeight="750.0" prefWidth="1200.0"
             xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Main.graphicView.scenes.ManagerPanel.EditCategoryController">
+            fx:controller="Main.client.graphicView.scenes.ManagerPanel.EditCategoryController">
     <stylesheets>
-        <URL value="@../../java/Main/graphicView/cssFiles/basicStyles.css"/>
-        <URL value="@../../java/Main/graphicView/cssFiles/buyerManagerPanel.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/basicStyles.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/buyerManagerPanel.css"/>
     </stylesheets>
     <children>
         <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goBack"
                    pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/graphicView/resources/images/back.png"/>
+                <Image url="@../../java/Main/client/graphicView/resources/images/back.png"/>
             </image>
         </ImageView>
         <ComboBox fx:id="editOption" layoutX="364.0" layoutY="198.0" prefHeight="96.0" prefWidth="472.0"/>
@@ -28,7 +28,7 @@
         <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1081.0" layoutY="650.0" onMouseClicked="#logout"
                    pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/graphicView/resources/images/logout.png"/>
+                <Image url="@../../java/Main/client/graphicView/resources/images/logout.png"/>
             </image>
         </ImageView>
     </children>
