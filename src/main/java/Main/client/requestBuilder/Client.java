@@ -1,9 +1,41 @@
 package Main.client.requestBuilder;
 
+import java.io.*;
+import java.net.Socket;
+
 public class Client {
     /**
      * when taking action in graphic controllers, relevant requestBuilder is called, (request is sent to client class
      * to build connection and returns the response), return value is gotten from the request builder and there in the
      * controller things get done
      */
+    private Socket socket;
+    private DataOutputStream dataOutputStream;
+    private DataInputStream dataInputStream;
+    private static Client clientInstance;
+
+    private Client(String IP, String port) throws Exception {
+        socket = new Socket(IP, Integer.parseInt(port));
+        dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+        clientInstance = this;
+    }
+
+    public static Client getClient(String IP, String port) throws Exception {
+        if (clientInstance == null) {
+            new Client(IP, port);
+        }
+        return clientInstance;
+    }
+
+    public String sendRequest(String request) {
+        try {
+            dataOutputStream.writeUTF(request);
+            dataOutputStream.flush();
+            return dataInputStream.readUTF();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "failure";
+    }
 }

@@ -15,6 +15,7 @@ public abstract class Account {
     protected static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     protected static ArrayList<Account> allAccounts = new ArrayList<>();
     private static ArrayList<String> reservedUserNames = new ArrayList<>();
+    protected String token;
 
     public Account(String userName, String firstName, String lastName, String email, String phoneNumber, String passWord, String profileImagePath) {
         this.userName = userName;
@@ -27,6 +28,7 @@ public abstract class Account {
         if(profileImagePath==null){
             this.profileImagePath = "src/main/java/Main/client/graphicView/resources/images/avatars/1.png";
         }
+        this.token = "0000";
     }
 
     public static boolean isThereUserWithUserName(String userName) {

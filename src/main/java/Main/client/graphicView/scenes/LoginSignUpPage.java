@@ -1,5 +1,6 @@
 package Main.client.graphicView.scenes;
 
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.server.model.accounts.Account;
@@ -109,6 +110,7 @@ public class LoginSignUpPage implements Initializable {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
         if (areTextFieldsFilled(loginUsername, loginPassword) && areLoginTextFieldsValid()) {
+            GeneralRequestBuilder.buildLoginRequest(loginUsername.getText(),loginPassword.getText());
             GeneralController.currentUser = Account.getUserWithUserName(loginUsername.getText());
             mediaPlayer.stop();
             GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
