@@ -142,14 +142,14 @@ public class ManageCategoriesController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(extChooser);
         fileChooser.setTitle("Open Resource File");
-        fileChooser.setInitialDirectory(new File("src/main/java/Main/graphicView/resources/images/categoryImages"));
+        fileChooser.setInitialDirectory(new File("src/main/java/Main/client/graphicView/resources/images/categoryImages"));
         File file = fileChooser.showOpenDialog(GraphicMain.stage);
         if (file != null) {
             if (file.getParent().endsWith("categoryImages")) {
                 if (file != null) {
                     imageName.setStyle("-fx-text-fill:green;");
                     imageName.setText(file.getName());
-                    path = "src/main/java/Main/graphicView/resources/images/categoryImages" + "/" + file.getName();
+                    path = "src/main/java/Main/client/graphicView/resources/images/categoryImages" + "/" + file.getName();
                 }
             }
         } else {

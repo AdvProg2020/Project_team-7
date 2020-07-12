@@ -473,14 +473,14 @@ public class GeneralController {
     public static void setImagePaths(){
         for (Product product : Product.allProducts) {
             if(product.getCategory()==null||product.getCategory().getImagePath().equals("")) {
-                product.setImagePath("src/main/java/Main/graphicView/resources/images/product.png");
+                product.setImagePath("src/main/java/Main/client/graphicView/resources/images/product.png");
             }else{
                 product.setImagePath(product.getCategory().getImagePath());
             }
         }
         for (Account account : Account.getAllAccounts()) {
             if(account.getProfileImagePath().equals("")){
-                account.setProfileImagePath("src/main/java/Main/graphicView/resources/images/avatars/1.png");
+                account.setProfileImagePath("src/main/java/Main/client/graphicView/resources/images/avatars/1.png");
             }
         }
     }

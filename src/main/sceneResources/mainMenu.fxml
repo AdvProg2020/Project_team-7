@@ -11,21 +11,21 @@
             prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.MainMenuController">
     <stylesheets>
-        <URL value="@Main/client/graphicView/cssFiles/mainMenu.css"/>
-        <URL value="@Main/client/graphicView/cssFiles/basicStyles.css"/>
+        <URL value="@../java/Main/client/graphicView/cssFiles/mainMenu.css"/>
+        <URL value="@../java/Main/client/graphicView/cssFiles/basicStyles.css"/>
     </stylesheets>
     <children>
         <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="23.0" onMouseClicked="#goToUserPanel"
                    onMouseEntered="#grow" onMouseExited="#shrink" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@Main/client/graphicView/resources/images/avatar.png"/>
+                <Image url="@../java/Main/client/graphicView/resources/images/avatar.png"/>
             </image>
         </ImageView>
         <ImageView fitHeight="380.0" fitWidth="437.0" layoutX="155.0" layoutY="135.0" onMouseClicked="#goToOffs"
                    onMouseEntered="#grow" onMouseExited="#shrink" pickOnBounds="true" preserveRatio="true"
                    rotate="350.0">
             <image>
-                <Image url="@Main/client/graphicView/resources/images/off.jpg"/>
+                <Image url="@../java/Main/client/graphicView/resources/images/off.jpg"/>
             </image>
             <effect>
                 <Reflection fraction="0.33" topOpacity="0.83"/>
@@ -35,7 +35,7 @@
                    onMouseEntered="#grow" onMouseExited="#shrink" pickOnBounds="true" preserveRatio="true"
                    rotate="10.0">
             <image>
-                <Image url="@Main/client/graphicView/resources/images/products.jpg"/>
+                <Image url="@../java/Main/client/graphicView/resources/images/products.jpg"/>
             </image>
             <effect>
                 <Reflection fraction="0.39" topOpacity="0.64"/>
@@ -46,12 +46,12 @@
         <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#exit"
                    onMouseEntered="#grow" onMouseExited="#shrink" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@Main/client/graphicView/resources/images/back.png"/>
+                <Image url="@../java/Main/client/graphicView/resources/images/back.png"/>
             </image>
         </ImageView>
         <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="26.0" layoutY="651.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@Main/client/graphicView/resources/images/logout.png" />
+                <Image url="@../java/Main/client/graphicView/resources/images/logout.png" />
             </image>
         </ImageView>
     </children>

@@ -25,7 +25,7 @@ public abstract class Account {
         this.passWord = passWord;
         this.profileImagePath = profileImagePath;
         if(profileImagePath==null){
-            this.profileImagePath = "src/main/java/Main/graphicView/resources/images/avatars/1.png";
+            this.profileImagePath = "src/main/java/Main/client/graphicView/resources/images/avatars/1.png";
         }
     }
 

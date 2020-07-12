@@ -448,7 +448,7 @@ public class OffPage implements Initializable {
             Product product = allOffs.get(productIndex);
 
             //TODO : using image path doesn't work :(
-            Image image = new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString());
+            Image image = new Image(new File("src/main/java/Main/client/graphicView/resources/images/product.png").toURI().toString());
             BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(1.0, 1.0, true, true, false, false));
             Background background = new Background(backgroundImage);
             adPaneBG.setBackground(background);

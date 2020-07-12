@@ -41,7 +41,7 @@ public class RegisterManager implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Media bgMusic = new Media(Paths.get("src/main/java/Main/graphicView/resources/soundEffects/login-crowd.wav").toUri().toString());
+        Media bgMusic = new Media(Paths.get("src/main/java/Main/client/graphicView/resources/soundEffects/login-crowd.wav").toUri().toString());
         mediaPlayer = new MediaPlayer(bgMusic);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(0.2);
@@ -168,13 +168,13 @@ public class RegisterManager implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(extChooser);
         fileChooser.setTitle("Open Resource File");
-        fileChooser.setInitialDirectory(new File("src/main/java/Main/graphicView/resources/images/avatars"));
+        fileChooser.setInitialDirectory(new File("src/main/java/Main/client/graphicView/resources/images/avatars"));
         File file = fileChooser.showOpenDialog(GraphicMain.stage);
         if (file.getParent().endsWith("avatars")) {
             if (file != null) {
                 imageName.setStyle("-fx-text-fill:green;");
                 imageName.setText(file.getName());
-                profileImagePath = "src/main/java/Main/graphicView/resources/images/avatars" + "/" + file.getName();
+                profileImagePath = "src/main/java/Main/client/graphicView/resources/images/avatars" + "/" + file.getName();
             }
         } else {
             imageName.setStyle("-fx-text-fill:red;");

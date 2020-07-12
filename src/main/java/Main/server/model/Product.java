@@ -65,7 +65,7 @@ public class Product {
         this.price = price;
         this.averageScore = 0;
         this.off = null;
-        this.imagePath = "src/main/java/Main/graphicView/resources/images/product.png";
+        this.imagePath = "src/main/java/Main/client/graphicView/resources/images/product.png";
     }
 
     public CartProduct getTempCartProduct() {
@@ -606,7 +606,7 @@ public class Product {
 
     private void setProductRateStars(VBox productBox) {
         int rate = getAverageScore().intValue();
-        ImageView rateStars = new ImageView(new Image(new File("src/main/java/Main/graphicView/resources/images/score" + rate + ".png").toURI().toString()));
+        ImageView rateStars = new ImageView(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score" + rate + ".png").toURI().toString()));
         rateStars.setFitHeight(30);
         rateStars.setFitWidth(150);
         productBox.getChildren().add(rateStars);

@@ -73,17 +73,17 @@ public class SellerProductPage implements Initializable {
     public void setScoreImage(Product product){
         double score = product.getAverageScore();
         if(score==0)
-            averageScoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score0.png").toURI().toString()));
+            averageScoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score0.png").toURI().toString()));
         else if(score>0 && score<=1)
-            averageScoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score1.png").toURI().toString()));
+            averageScoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score1.png").toURI().toString()));
         else if(score>1 && score<=2)
-            averageScoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score2.png").toURI().toString()));
+            averageScoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score2.png").toURI().toString()));
         else if(score>2 && score<=3)
-            averageScoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score3.png").toURI().toString()));
+            averageScoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score3.png").toURI().toString()));
         else if(score>3 && score<=4)
-            averageScoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score4.png").toURI().toString()));
+            averageScoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score4.png").toURI().toString()));
         else if(score>4 && score<=5)
-            averageScoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score5.png").toURI().toString()));
+            averageScoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score5.png").toURI().toString()));
 
     }
 

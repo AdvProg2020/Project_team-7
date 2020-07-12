@@ -34,7 +34,7 @@ public class ProductPage implements Initializable {
     public static final String FXML_PATH = "src/main/sceneResources/productPage.fxml";
     public static final String TITLE = "Seller Panel";
     private Product currentProduct;
-    private ImageView productImage = new ImageView(new Image(new File("src/main/java/Main/graphicView/resources/images/product.png").toURI().toString()));
+    private ImageView productImage = new ImageView(new Image(new File("src/main/java/Main/client/graphicView/resources/images/product.png").toURI().toString()));
 
     @FXML
     private ImageView scoreImage;
@@ -88,17 +88,17 @@ public class ProductPage implements Initializable {
     public void setScoreImage() {
         double score = currentProduct.getAverageScore();
         if (score == 0)
-            scoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score0.png").toURI().toString()));
+            scoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score0.png").toURI().toString()));
         else if (score > 0 && score <= 1)
-            scoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score1.png").toURI().toString()));
+            scoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score1.png").toURI().toString()));
         else if (score > 1 && score <= 2)
-            scoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score2.png").toURI().toString()));
+            scoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score2.png").toURI().toString()));
         else if (score > 2 && score <= 3)
-            scoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score3.png").toURI().toString()));
+            scoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score3.png").toURI().toString()));
         else if (score > 3 && score <= 4)
-            scoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score4.png").toURI().toString()));
+            scoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score4.png").toURI().toString()));
         else if (score > 4 && score <= 5)
-            scoreImage.setImage(new Image(new File("src/main/java/Main/graphicView/resources/images/score5.png").toURI().toString()));
+            scoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score5.png").toURI().toString()));
     }
 
     public void goBack() {

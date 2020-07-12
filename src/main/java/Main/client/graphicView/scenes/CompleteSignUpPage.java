@@ -190,13 +190,13 @@ public class CompleteSignUpPage implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(extChooser);
         fileChooser.setTitle("Open Resource File");
-        fileChooser.setInitialDirectory(new File("src/main/java/Main/graphicView/resources/images/avatars"));
+        fileChooser.setInitialDirectory(new File("src/main/java/Main/client/graphicView/resources/images/avatars"));
         File file = fileChooser.showOpenDialog(GraphicMain.stage);
         if (file.getParent().endsWith("avatars")) {
             if (file != null) {
                 imageName.setStyle("-fx-text-fill:green;");
                 imageName.setText(file.getName());
-                profileImagePath = "src/main/java/Main/graphicView/resources/images/avatars" + "/" + file.getName();
+                profileImagePath = "src/main/java/Main/client/graphicView/resources/images/avatars" + "/" + file.getName();
             }
         } else {
             imageName.setStyle("-fx-text-fill:red;");
