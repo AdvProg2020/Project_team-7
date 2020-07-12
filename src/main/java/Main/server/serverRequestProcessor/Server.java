@@ -39,8 +39,8 @@ public class Server {
                 while (true) {
                     try {
                         Socket clientSocket = serverSocket.accept();
-                        new requestHandler(clientSocket).start();
-                    } catch (IOException e) {
+                        new requestHandler(clientSocket).handle();
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -63,26 +63,35 @@ public class Server {
             }
         }
 
-        public void start() {
+        public void handle() throws Exception {
             String request = null;
-            try {
-                request = dataInputStream.readUTF();
-            } catch (IOException e) {
-                e.printStackTrace();
+            String response = null;
+            String[] splitRequest = new String[0];
+
+            request = dataInputStream.readUTF();
+
+            splitRequest = request.split("/");
+            if (splitRequest.length < 2) {
+                response = "invalidRequest";
+            } else {
+                if (splitRequest[1].equals("login")) {
+                    response = GeneralRequestProcessor.loginRequestProcessor(splitRequest);
+                } else if (splitRequest[1].equals("signUp")) {
+                    response = GeneralRequestProcessor.signUpRequestProcessor(splitRequest);
+                } else if (splitRequest[1].equalsIgnoreCase("data")) {
+
+                }
+                /**
+                 * some if-else statements
+                 */
             }
 
-            String[] splitRequest = request.split("/");
+            dataOutputStream.writeUTF(response);
+            dataOutputStream.flush();
 
-            if (splitRequest[1].equals("login")) {
-
-            } else if (splitRequest[1].equals("signUp")) {
-
-            } else if (splitRequest[1].equalsIgnoreCase("data")) {
-
+            if (response != "disconnected") {
+                handle();
             }
-            /**
-             * some if-else statements
-             */
         }
     }
 
