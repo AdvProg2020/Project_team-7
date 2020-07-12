@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class GraphicMain extends Application {
 
-    public static MediaPlayer buttonSound = new MediaPlayer(new Media(Paths.get("src/main/java/Main/client/graphicView/resources/soundEffects/buttonSound.wav").toUri().toString()));
+    public static MediaPlayer buttonSound ;
     public static ArrayList<String> titleTrace = new ArrayList<>();
     public static ArrayList<String> sceneTrace = new ArrayList<>();
     public static Stage stage;
@@ -40,12 +40,13 @@ public class GraphicMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        buttonSound = new MediaPlayer(new Media(Paths.get("src/main/java/Main/client/graphicView/resources/soundEffects/buttonSound.wav").toUri().toString()));
         audioClip = new AudioClip(new File("src/main/java/Main/client/graphicView/resources/soundEffects/backgroundMusic.wav").toURI().toString());
         audioClip.setCycleCount(AudioClip.INDEFINITE);
 
-        System.out.println(GeneralController.readDataAndSetStringRecordObjects());
-        generalController.initializeIDs();
-        generalController.giveDiscountCodeToSpecialBuyers();
+//        System.out.println(GeneralController.readDataAndSetStringRecordObjects());
+//        generalController.initializeIDs();
+//        generalController.giveDiscountCodeToSpecialBuyers();
 
         stage = primaryStage;
         stage.setOnCloseRequest(e -> exitProgram());

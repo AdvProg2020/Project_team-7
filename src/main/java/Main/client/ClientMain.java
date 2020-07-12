@@ -1,8 +1,8 @@
 package Main.client;
 
+import Main.client.graphicView.GraphicMain;
 import Main.client.requestBuilder.Client;
 
-import java.net.Socket;
 import java.util.Scanner;
 
 public class ClientMain {
@@ -25,5 +25,6 @@ public class ClientMain {
                 main(null);
             }
         }
+        GraphicMain.main(null);
     }
 }

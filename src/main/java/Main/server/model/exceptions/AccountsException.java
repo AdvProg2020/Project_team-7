@@ -42,7 +42,7 @@ public abstract class AccountsException extends Exception {
     }
 
     public static void validatePassWord(String passWord) throws AccountsException {
-        if (!passWord.matches(".{8,}")) {
+        if (!passWord.matches(".{8,}")||!passWord.matches("[A-Za-z_0-9.\\-][A-Za-z_0-9. \\-]*[A-Za-z_0-9.\\-]")) {
             throw new AccountsException.invalidPassWordException();
         }
     }
@@ -73,7 +73,8 @@ public abstract class AccountsException extends Exception {
 
     public static class invalidPassWordException extends AccountsException {
         public invalidPassWordException() {
-            this.errorMessage = "PassWord must be at least 8 valid characters\n";
+            this.errorMessage = "PassWord must be at least 8 valid characters\nalso, it can only contain English letters, numbers" +
+                    ", '_','.' and '-' . make sure that it doesn't contain spaces !\n";
         }
     }
 
