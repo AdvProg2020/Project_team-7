@@ -47,12 +47,8 @@ public class GeneralRequestBuilder {
             return "invalidPhoneNumber#" + e.getErrorMessage();
         }
 
-        String signUpRequest = "0000#signUpBuyer#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + removeImagePathInvalidChar(imagePath);
+        String signUpRequest = "0000#signUpBuyer#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + imagePath;
         return ClientMain.client.sendRequest(signUpRequest);
-    }
-
-    private static String removeImagePathInvalidChar(String imagePath) {
-        return imagePath.replaceAll("/", "@");
     }
 
     public static String buildSellerCompleteSignUpRequest(String userName, String firstName, String lastName, String email, String phoneNumber, String password, String companyName, String companyInfo, String imagePath) {
@@ -76,7 +72,7 @@ public class GeneralRequestBuilder {
             return "invalidPhoneNumber#" + e.getErrorMessage();
         }
 
-        String signUpRequest = "0000#signUpSeller#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + removeImagePathInvalidChar(imagePath);
+        String signUpRequest = "0000#signUpSeller#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + imagePath;
         return ClientMain.client.sendRequest(signUpRequest);
     }
 
@@ -102,7 +98,7 @@ public class GeneralRequestBuilder {
         }
 
         String token = (GeneralController.currentUser == null ? "0000" : GeneralController.currentUser.getToken());
-        String signUpRequest = token + "#signUpManager#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + removeImagePathInvalidChar(imagePath);
+        String signUpRequest = token + "#signUpManager#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + imagePath;
         return ClientMain.client.sendRequest(signUpRequest);
     }
 }

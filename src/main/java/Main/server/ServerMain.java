@@ -7,8 +7,6 @@ import Main.server.serverRequestProcessor.Server;
 import Main.server.controller.ManagerController;
 import Main.server.controller.SellerController;
 
-import static Main.client.graphicView.GraphicMain.generalController;
-
 public class ServerMain {
     public static Server server;
     public static GeneralController generalController = new GeneralController();

@@ -66,17 +66,13 @@ public class GeneralRequestProcessor {
         String email = splitRequest[5].split(":")[1];
         String phoneNumber = splitRequest[6].split(":")[1];
         String password = splitRequest[7].split(":")[1];
-        String imagePath = formatImagePath(splitRequest[8].split(":")[1]);
+        String imagePath = splitRequest[8].split(":")[1];
 
         BuyerAccount buyerAccount = new BuyerAccount(username, firstName,
                 lastName, email, phoneNumber, password, 1000000, imagePath);
         BuyerAccount.addBuyer(buyerAccount);
 
         return "success";
-    }
-
-    private static String formatImagePath(String imagePath) {
-        return imagePath.replaceAll("@", "/");
     }
 
     public static String signUpSellerRequestProcessor(String[] splitRequest) {
@@ -88,7 +84,7 @@ public class GeneralRequestProcessor {
         String password = splitRequest[7].split(":")[1];
         String companyName = splitRequest[8].split(":")[1];
         String companyInfo = splitRequest[9].split(":")[1];
-        String imagePath = formatImagePath(splitRequest[10].split(":")[1]);
+        String imagePath = splitRequest[10].split(":")[1];
 
         SellerAccount sellerAccount = new SellerAccount(username, firstName,
                 lastName, email, phoneNumber, password, companyName, companyInfo, 1000000, imagePath);
@@ -116,7 +112,7 @@ public class GeneralRequestProcessor {
         String email = splitRequest[5].split(":")[1];
         String phoneNumber = splitRequest[6].split(":")[1];
         String password = splitRequest[7].split(":")[1];
-        String imagePath = formatImagePath(splitRequest[8].split(":")[1]);
+        String imagePath = splitRequest[8].split(":")[1];
 
         try {
             AccountsException.validateUsernameUniqueness(username);
@@ -132,11 +128,11 @@ public class GeneralRequestProcessor {
                 return "loginNeeded";
             }
             ManagerAccount.addManager(managerAccount);
-            return "success/ordinary";
+            return "success#ordinary";
         } else {
             ManagerAccount.addManager(managerAccount);
             GeneralController.currentUser = managerAccount;
-            return "success/chief";
+            return "success#chief";
         }
     }
 }

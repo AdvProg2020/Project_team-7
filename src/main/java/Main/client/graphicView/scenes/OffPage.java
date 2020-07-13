@@ -1,5 +1,6 @@
 package Main.client.graphicView.scenes;
 
+import Main.client.requestBuilder.DataRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.BuyerPanel.BuyerPanelController;
@@ -13,6 +14,7 @@ import Main.server.model.accounts.SellerAccount;
 import Main.server.model.discountAndOffTypeService.Off;
 import Main.server.model.filters.*;
 import Main.server.model.sorting.ProductsSort;
+import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -29,12 +31,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
+
+import static java.util.Arrays.asList;
 
 public class OffPage implements Initializable {
     public static final String FXML_PATH = "src/main/sceneResources/offPage.fxml";
@@ -54,7 +57,12 @@ public class OffPage implements Initializable {
     public HBox sortPane;
     private AnimationTimer animationTimer;
     private ArrayList<Product> currentFilterResult = new ArrayList<>();
-    private ArrayList<Product> allOffs = new ArrayList<>();
+    private ArrayList<Product> allOffProducts = new ArrayList<>();
+    private ArrayList<Off> allOffs = new ArrayList<>();
+    private ArrayList<Category> allCategories = new ArrayList<>();
+    private ArrayList<String> allBrands = new ArrayList<>();
+    private ArrayList<Product> allProducts = new ArrayList<>();
+    private ArrayList<SellerAccount> allSellers = new ArrayList<>();
     private ToggleGroup categoryToggleGroup = new ToggleGroup();
     private ToggleGroup brandToggleGroup = new ToggleGroup();
     private ToggleGroup sellerToggleGroup = new ToggleGroup();
@@ -62,11 +70,21 @@ public class OffPage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        String allProductsResponse = DataRequestBuilder.buildAllProductsRequest();
+        readAllProductsData(allProductsResponse);
+        String allOffsResponse = DataRequestBuilder.buildAllOffsRequest();
+        readAllOffsData(allOffsResponse);
+        String allCategoriesResponse = DataRequestBuilder.buildAllCategoriesRequest();
+        readAllCategoriesData(allCategoriesResponse);
+        setAllBrands();
+        String allSellersResponse = DataRequestBuilder.buildAllSellersRequest();
+        readAllSellersData(allSellersResponse);
+
         GeneralController.setImagePaths();
-        for (Off off : Off.getAllOffs()) {
-            allOffs.addAll(off.getProducts());
+        for (Off off : allOffs) {
+            allOffProducts.addAll(off.getProducts());
         }
-        currentFilterResult.addAll(allOffs);
+        currentFilterResult.addAll(allOffProducts);
         setPageElementsDueToCurrentFilters();
         setCategoriesFilter();
         setBrandsFilter();
@@ -88,6 +106,48 @@ public class OffPage implements Initializable {
 
         nextAd(null);
 
+    }
+
+    private void readAllSellersData(String allSellersResponse) {
+        GeneralController.jsonReader = new JsonReader(new StringReader(allSellersResponse));
+        SellerAccount[] allSel = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, SellerAccount[].class);
+        allSellers = (allSel == null) ? new ArrayList<>() : new ArrayList<>(asList(allSel));
+    }
+
+    public ArrayList<String> getAllSellers() {
+        ArrayList<String> allUniqueSellers = new ArrayList<>();
+        for (SellerAccount seller : allSellers) {
+            if(!allUniqueSellers.contains(seller.getUserName())){
+                allUniqueSellers.add(seller.getUserName());
+            }
+        }
+        return allUniqueSellers;
+    }
+
+    public void readAllProductsData(String allProductsString) {
+        GeneralController.jsonReader = new JsonReader(new StringReader(allProductsString));
+        Product[] allPro = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Product[].class);
+        allProducts = (allPro == null) ? new ArrayList<>() : new ArrayList<>(asList(allPro));
+    }
+
+    private void setAllBrands() {
+        for (Product product : allProducts) {
+            if (!allBrands.contains(product.getBrand())) {
+                allBrands.add(product.getBrand());
+            }
+        }
+    }
+
+    private void readAllCategoriesData(String allCategoriesResponse) {
+        GeneralController.jsonReader = new JsonReader(new StringReader(allCategoriesResponse));
+        Category[] allcat = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Category[].class);
+        allCategories = (allcat == null) ? new ArrayList<>() : new ArrayList<>(asList(allcat));
+    }
+
+    private void readAllOffsData(String allOffsResponse) {
+        GeneralController.jsonReader = new JsonReader(new StringReader(allOffsResponse));
+        Off[] allOff = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Off[].class);
+        allOffs = (allOff == null) ? new ArrayList<>() : new ArrayList<>(asList(allOff));
     }
 
     private void setSortPane() {
@@ -138,10 +198,10 @@ public class OffPage implements Initializable {
         }
     }
 
-    public void logout() throws IOException{
+    public void logout() throws IOException {
         GraphicMain.generalController.logout();
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
     private void setPageNumberPane(int startPageNumber) {
@@ -201,7 +261,6 @@ public class OffPage implements Initializable {
         noCategory.setToggleGroup(categoryToggleGroup);
         categoryPane.getChildren().add(noCategory);
 
-        ArrayList<Category> allCategories = Category.getAllCategories();
         int categoryNo = allCategories.size();
         for (int i = 0; i < 15 && i < categoryNo; i++) {
             Category category = allCategories.get(i);
@@ -218,7 +277,6 @@ public class OffPage implements Initializable {
     }
 
     private void showMoreCategories() {
-        ArrayList<Category> allCategories = Category.getAllCategories();
         ObservableList<Node> illustratedCategories = categoryPane.getChildren();
         RadioButton lastIllustratedCategory = (RadioButton) illustratedCategories.get(illustratedCategories.size() - 2);
         int indexOfLastCategory = 0;
@@ -249,7 +307,6 @@ public class OffPage implements Initializable {
         noBrand.setMinWidth(250);
         noBrand.setToggleGroup(brandToggleGroup);
         brandsPane.getChildren().add(noBrand);
-        ArrayList<String> allBrands = Product.getAllBrands();
         int brandNo = allBrands.size();
         for (int i = 0; i < 15 && i < brandNo; i++) {
             RadioButton brandName = new RadioButton(allBrands.get(i));
@@ -265,7 +322,6 @@ public class OffPage implements Initializable {
     }
 
     private void showMoreBrands() {
-        ArrayList<String> allBrands = Product.getAllBrands();
         ObservableList<Node> illustratedBrands = brandsPane.getChildren();
         RadioButton lastIllustratedBrand = (RadioButton) illustratedBrands.get(illustratedBrands.size() - 2);
         int indexOfLastBrand = allBrands.indexOf(lastIllustratedBrand.getText());
@@ -288,7 +344,7 @@ public class OffPage implements Initializable {
         noSeller.setToggleGroup(sellerToggleGroup);
         sellersPane.getChildren().add(noSeller);
 
-        ArrayList<String> allUniqueSellers = SellerAccount.getAllSellers();
+        ArrayList<String> allUniqueSellers = getAllSellers();
         int uniqueSellersNo = allUniqueSellers.size();
         for (int i = 0; i < 15 && i < uniqueSellersNo; i++) {
             RadioButton sellerUserName = new RadioButton(allUniqueSellers.get(i));
@@ -304,7 +360,7 @@ public class OffPage implements Initializable {
     }
 
     private void showMoreSellers() {
-        ArrayList<String> allUniqueSellers = SellerAccount.getAllSellers();
+        ArrayList<String> allUniqueSellers = getAllSellers();
         ObservableList<Node> illustratedSellers = sellersPane.getChildren();
         RadioButton lastIllustratedSeller = (RadioButton) illustratedSellers.get(illustratedSellers.size() - 2);
         int indexOfLastSellers = allUniqueSellers.indexOf(lastIllustratedSeller.getText());
@@ -325,10 +381,10 @@ public class OffPage implements Initializable {
         ArrayList<Product> tempCategoryFilterResult = new ArrayList<>();
         RadioButton selectedCategory = (RadioButton) categoryToggleGroup.getSelectedToggle();
         if (selectedCategory == null || selectedCategory.getText().equals("none")) {
-            tempCategoryFilterResult.addAll(allOffs);
+            tempCategoryFilterResult.addAll(allOffProducts);
         } else {
             CategoryFilter categoryFilter = new CategoryFilter(selectedCategory.getText(), tempCategoryFilterResult);
-            categoryFilter.apply(tempCategoryFilterResult, allOffs);
+            categoryFilter.apply(tempCategoryFilterResult, allOffProducts);
         }
 
         ArrayList<Product> tempBrandFilterResult = new ArrayList<>();
@@ -384,17 +440,17 @@ public class OffPage implements Initializable {
     }
 
     private void applySelectedSort(String selectedSort, ArrayList<Product> tempSellerFilterResult) {
-        if(selectedSort.equals("name(ascending)")){
+        if (selectedSort.equals("name(ascending)")) {
             tempSellerFilterResult.sort(new ProductsSort.productSortByNameAscending());
-        }else if(selectedSort.equals("name(descending)")){
+        } else if (selectedSort.equals("name(descending)")) {
             tempSellerFilterResult.sort(new ProductsSort.productSortByNameDescending());
-        }else if(selectedSort.equals("visit")){
+        } else if (selectedSort.equals("visit")) {
             tempSellerFilterResult.sort(new ProductsSort.productSortByView());
-        }else if(selectedSort.equals("rate")){
+        } else if (selectedSort.equals("rate")) {
             tempSellerFilterResult.sort(new ProductsSort.productSortByRate());
-        }else if(selectedSort.equals("cheapest")){
+        } else if (selectedSort.equals("cheapest")) {
             tempSellerFilterResult.sort(new ProductsSort.productSortByPriceAscendingly());
-        }else if(selectedSort.equals("most expensive")){
+        } else if (selectedSort.equals("most expensive")) {
             tempSellerFilterResult.sort(new ProductsSort.productSortByPriceDescendingly());
         }
     }
@@ -405,8 +461,8 @@ public class OffPage implements Initializable {
         searchResult.setTitle("Search Result");
 
         ArrayList<Product> searchResultProducts = new ArrayList<>();
-        ProductNameFilter productNameFilter = new ProductNameFilter(searchText.getText(), Product.allProducts);
-        productNameFilter.apply(searchResultProducts, Product.allProducts);
+        ProductNameFilter productNameFilter = new ProductNameFilter(searchText.getText(), allProducts);
+        productNameFilter.apply(searchResultProducts, allProducts);
 
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(30, 0, 30, 30));
@@ -442,10 +498,10 @@ public class OffPage implements Initializable {
             }
         }
         Random random = new Random();
-        int allOffProductsSize = allOffs.size();
+        int allOffProductsSize = allOffProducts.size();
         if (allOffProductsSize != 0) {
             int productIndex = random.nextInt(allOffProductsSize);
-            Product product = allOffs.get(productIndex);
+            Product product = allOffProducts.get(productIndex);
 
             //TODO : using image path doesn't work :(
             Image image = new Image(new File("src/main/java/Main/client/graphicView/resources/images/product.png").toURI().toString());
@@ -489,13 +545,13 @@ public class OffPage implements Initializable {
     public void goToUserPanel(MouseEvent mouseEvent) throws IOException {
         Account account = GeneralController.currentUser;
         if (account instanceof ManagerAccount) {
-            GraphicMain.graphicMain.goToPage(ManagerPanelController.FXML_PATH,ManagerPanelController.TITLE);
+            GraphicMain.graphicMain.goToPage(ManagerPanelController.FXML_PATH, ManagerPanelController.TITLE);
         } else if (account instanceof SellerAccount) {
             GraphicMain.graphicMain.goToPage(SellerPanelPage.FXML_PATH, SellerPanelPage.TITLE);
         } else if (account instanceof BuyerAccount) {
-            GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH,BuyerPanelController.TITLE);
-        }else{
-            GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH,LoginSignUpPage.TITLE);
+            GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH, BuyerPanelController.TITLE);
+        } else {
+            GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
             //GraphicMain.audioClip.stop();
             //LoginSignUpPage.mediaPlayer.play();
         }

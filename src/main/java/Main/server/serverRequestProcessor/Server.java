@@ -81,22 +81,21 @@ public class Server {
                 response = GeneralRequestProcessor.signUpRequestProcessor(splitRequest);
             } else if (splitRequest[1].equalsIgnoreCase("signUpSeller")) {
                 response = GeneralRequestProcessor.signUpSellerRequestProcessor(splitRequest);
-            } else if (splitRequest[1].equalsIgnoreCase("signUPBuyer")) {
+            } else if (splitRequest[1].equalsIgnoreCase("signUpBuyer")) {
                 response = GeneralRequestProcessor.signUpBuyerRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equalsIgnoreCase("signUpManager")) {
+                response = GeneralRequestProcessor.signUpManagerRequestProcessor(splitRequest);
             } else if (splitRequest[1].equalsIgnoreCase("data")) {
-
+                response = DataRequestProcessor.process(splitRequest);
             } else if (splitRequest[1].equals("disconnect")) {
                 response = "disconnected";
             } else if (splitRequest[1].equals("buyerBalance")) {
                 response = BuyerRequestProcessor.initializeBuyerPanelRequestProcessor();
             } else if (splitRequest[1].equals("buyerPersonalInfo")) {
                 response = BuyerRequestProcessor.buyerPersonalInfoRequestProcessor();
-            } else if (splitRequest[1].equalsIgnoreCase("data")) {
-
-            } else if (splitRequest[1].equals("managerPersonalInfo")) {
+            }  else if (splitRequest[1].equals("managerPersonalInfo")) {
                 response = ManagerRequestProcessor.managerPersonalInfoRequestProcessor();
             }
-
 
             dataOutputStream.writeUTF(response);
             dataOutputStream.flush();

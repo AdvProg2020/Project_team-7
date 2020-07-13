@@ -205,6 +205,7 @@ public class RegisterManager implements Initializable {
                 profileImagePath = "src/main/java/Main/client/graphicView/resources/images/avatars" + "/" + file.getName();
             }
         } else {
+            profileImagePath = "src/main/java/Main/client/graphicView/resources/images/avatars/1.png";
             imageName.setStyle("-fx-text-fill:red;");
             imageName.setText("choose from opened folder");
         }

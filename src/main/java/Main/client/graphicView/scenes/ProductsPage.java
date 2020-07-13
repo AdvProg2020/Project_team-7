@@ -1,5 +1,6 @@
 package Main.client.graphicView.scenes;
 
+import Main.client.requestBuilder.DataRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.BuyerPanel.BuyerPanelController;
@@ -12,6 +13,9 @@ import Main.server.model.accounts.ManagerAccount;
 import Main.server.model.accounts.SellerAccount;
 import Main.server.model.filters.*;
 import Main.server.model.sorting.ProductsSort;
+import com.gilecode.yagson.com.google.gson.JsonIOException;
+import com.gilecode.yagson.com.google.gson.JsonSyntaxException;
+import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -26,8 +30,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -37,6 +40,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+
+import static java.util.Arrays.asList;
 
 
 public class ProductsPage implements Initializable {
@@ -61,11 +66,24 @@ public class ProductsPage implements Initializable {
     private ToggleGroup brandToggleGroup = new ToggleGroup();
     private ToggleGroup sellerToggleGroup = new ToggleGroup();
     private ToggleGroup sortToggleGroup = new ToggleGroup();
+    private ArrayList<Product> allProducts = new ArrayList<>();
+    private ArrayList<Category> allCategories = new ArrayList<>();
+    private ArrayList<String> allBrands = new ArrayList<>();
+    private ArrayList<SellerAccount> allSellers = new ArrayList<>();
+    //TODO filter ba id kar mikne ya reference categ?
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        String allProductsResponse = DataRequestBuilder.buildAllProductsRequest();
+        readAllProductsData(allProductsResponse);
+        String allCategoriesResponse = DataRequestBuilder.buildAllCategoriesRequest();
+        readAllCategoriesData(allCategoriesResponse);
+        setAllBrands();
+        String allSellersResponse = DataRequestBuilder.buildAllSellersRequest();
+        readAllSellersData(allSellersResponse);
+
         GeneralController.setImagePaths();
-        currentFilterResult.addAll(Product.allProducts);
+        currentFilterResult.addAll(allProducts);
         setPageElementsDueToCurrentFilters();
         setCategoriesFilter();
         setBrandsFilter();
@@ -87,6 +105,42 @@ public class ProductsPage implements Initializable {
 
         nextAd(null);
 
+    }
+
+    public ArrayList<String> getAllSellers() {
+        ArrayList<String> allUniqueSellers = new ArrayList<>();
+        for (SellerAccount seller : allSellers) {
+            if(!allUniqueSellers.contains(seller.getUserName())){
+                allUniqueSellers.add(seller.getUserName());
+            }
+        }
+        return allUniqueSellers;
+    }
+
+    private void readAllSellersData(String allSellersResponse) {
+        GeneralController.jsonReader = new JsonReader(new StringReader(allSellersResponse));
+        SellerAccount[] allSel = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, SellerAccount[].class);
+        allSellers = (allSel == null) ? new ArrayList<>() : new ArrayList<>(asList(allSel));
+    }
+
+    private void setAllBrands() {
+        for (Product product : allProducts) {
+            if (!allBrands.contains(product.getBrand())) {
+                allBrands.add(product.getBrand());
+            }
+        }
+    }
+
+    private void readAllCategoriesData(String allCategoriesResponse) {
+        GeneralController.jsonReader = new JsonReader(new StringReader(allCategoriesResponse));
+        Category[] allcat = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Category[].class);
+        allCategories = (allcat == null) ? new ArrayList<>() : new ArrayList<>(asList(allcat));
+    }
+
+    public void readAllProductsData(String allProductsString) {
+        GeneralController.jsonReader = new JsonReader(new StringReader(allProductsString));
+        Product[] allPro = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Product[].class);
+        allProducts = (allPro == null) ? new ArrayList<>() : new ArrayList<>(asList(allPro));
     }
 
     private void setSortPane() {
@@ -137,10 +191,10 @@ public class ProductsPage implements Initializable {
         }
     }
 
-    public void logout() throws IOException{
+    public void logout() throws IOException {
         GraphicMain.generalController.logout();
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
     private void setPageNumberPane(int startPageNumber) {
@@ -200,7 +254,7 @@ public class ProductsPage implements Initializable {
         noCategory.setToggleGroup(categoryToggleGroup);
         categoryPane.getChildren().add(noCategory);
 
-        ArrayList<Category> allCategories = Category.getAllCategories();
+        /***/
         int categoryNo = allCategories.size();
         for (int i = 0; i < 15 && i < categoryNo; i++) {
             Category category = allCategories.get(i);
@@ -217,7 +271,6 @@ public class ProductsPage implements Initializable {
     }
 
     private void showMoreCategories() {
-        ArrayList<Category> allCategories = Category.getAllCategories();
         ObservableList<Node> illustratedCategories = categoryPane.getChildren();
         RadioButton lastIllustratedCategory = (RadioButton) illustratedCategories.get(illustratedCategories.size() - 2);
         int indexOfLastCategory = 0;
@@ -248,7 +301,6 @@ public class ProductsPage implements Initializable {
         noBrand.setMinWidth(250);
         noBrand.setToggleGroup(brandToggleGroup);
         brandsPane.getChildren().add(noBrand);
-        ArrayList<String> allBrands = Product.getAllBrands();
         int brandNo = allBrands.size();
         for (int i = 0; i < 15 && i < brandNo; i++) {
             RadioButton brandName = new RadioButton(allBrands.get(i));
@@ -264,7 +316,6 @@ public class ProductsPage implements Initializable {
     }
 
     private void showMoreBrands() {
-        ArrayList<String> allBrands = Product.getAllBrands();
         ObservableList<Node> illustratedBrands = brandsPane.getChildren();
         RadioButton lastIllustratedBrand = (RadioButton) illustratedBrands.get(illustratedBrands.size() - 2);
         int indexOfLastBrand = allBrands.indexOf(lastIllustratedBrand.getText());
@@ -287,7 +338,7 @@ public class ProductsPage implements Initializable {
         noSeller.setToggleGroup(sellerToggleGroup);
         sellersPane.getChildren().add(noSeller);
 
-        ArrayList<String> allUniqueSellers = SellerAccount.getAllSellers();
+        ArrayList<String> allUniqueSellers = getAllSellers();
         int uniqueSellersNo = allUniqueSellers.size();
         for (int i = 0; i < 15 && i < uniqueSellersNo; i++) {
             RadioButton sellerUserName = new RadioButton(allUniqueSellers.get(i));
@@ -303,7 +354,7 @@ public class ProductsPage implements Initializable {
     }
 
     private void showMoreSellers() {
-        ArrayList<String> allUniqueSellers = SellerAccount.getAllSellers();
+        ArrayList<String> allUniqueSellers = getAllSellers();
         ObservableList<Node> illustratedSellers = sellersPane.getChildren();
         RadioButton lastIllustratedSeller = (RadioButton) illustratedSellers.get(illustratedSellers.size() - 2);
         int indexOfLastSellers = allUniqueSellers.indexOf(lastIllustratedSeller.getText());
@@ -324,10 +375,10 @@ public class ProductsPage implements Initializable {
         ArrayList<Product> tempCategoryFilterResult = new ArrayList<>();
         RadioButton selectedCategory = (RadioButton) categoryToggleGroup.getSelectedToggle();
         if (selectedCategory == null || selectedCategory.getText().equals("none")) {
-            tempCategoryFilterResult.addAll(Product.allProducts);
+            tempCategoryFilterResult.addAll(allProducts);
         } else {
             CategoryFilter categoryFilter = new CategoryFilter(selectedCategory.getText(), tempCategoryFilterResult);
-            categoryFilter.apply(tempCategoryFilterResult, Product.allProducts);
+            categoryFilter.apply(tempCategoryFilterResult, allProducts);
         }
 
         ArrayList<Product> tempBrandFilterResult = new ArrayList<>();
@@ -384,17 +435,17 @@ public class ProductsPage implements Initializable {
     }
 
     private void applySelectedSort(String selectedSort, ArrayList<Product> tempSellerFilterResult) {
-        if(selectedSort.equals("name(ascending)")){
+        if (selectedSort.equals("name(ascending)")) {
             tempSellerFilterResult.sort(new ProductsSort.productSortByNameAscending());
-        }else if(selectedSort.equals("name(descending)")){
+        } else if (selectedSort.equals("name(descending)")) {
             tempSellerFilterResult.sort(new ProductsSort.productSortByNameDescending());
-        }else if(selectedSort.equals("visit")){
+        } else if (selectedSort.equals("visit")) {
             tempSellerFilterResult.sort(new ProductsSort.productSortByView());
-        }else if(selectedSort.equals("rate")){
+        } else if (selectedSort.equals("rate")) {
             tempSellerFilterResult.sort(new ProductsSort.productSortByRate());
-        }else if(selectedSort.equals("cheapest")){
+        } else if (selectedSort.equals("cheapest")) {
             tempSellerFilterResult.sort(new ProductsSort.productSortByPriceAscendingly());
-        }else if(selectedSort.equals("most expensive")){
+        } else if (selectedSort.equals("most expensive")) {
             tempSellerFilterResult.sort(new ProductsSort.productSortByPriceDescendingly());
         }
     }
@@ -406,8 +457,8 @@ public class ProductsPage implements Initializable {
         searchResult.setTitle("Search Result");
 
         ArrayList<Product> searchResultProducts = new ArrayList<>();
-        ProductNameFilter productNameFilter = new ProductNameFilter(searchText.getText(), Product.allProducts);
-        productNameFilter.apply(searchResultProducts, Product.allProducts);
+        ProductNameFilter productNameFilter = new ProductNameFilter(searchText.getText(), allProducts);
+        productNameFilter.apply(searchResultProducts, allProducts);
 
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(30, 0, 30, 30));
@@ -443,10 +494,10 @@ public class ProductsPage implements Initializable {
             }
         }
         Random random = new Random();
-        int allProductsSize = Product.allProducts.size();
-        if(allProductsSize!=0){
+        int allProductsSize = allProducts.size();
+        if (allProductsSize != 0) {
             int productIndex = random.nextInt(allProductsSize);
-            Product product = Product.allProducts.get(productIndex);
+            Product product = allProducts.get(productIndex);
 
             Image image = new Image(new File(product.getImagePath()).toURI().toString());
             BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(1.0, 1.0, true, true, false, false));
@@ -474,13 +525,13 @@ public class ProductsPage implements Initializable {
     public void goToUserPanel(MouseEvent mouseEvent) throws IOException {
         Account account = GeneralController.currentUser;
         if (account instanceof ManagerAccount) {
-            GraphicMain.graphicMain.goToPage(ManagerPanelController.FXML_PATH,ManagerPanelController.TITLE);
+            GraphicMain.graphicMain.goToPage(ManagerPanelController.FXML_PATH, ManagerPanelController.TITLE);
         } else if (account instanceof SellerAccount) {
             GraphicMain.graphicMain.goToPage(SellerPanelPage.FXML_PATH, SellerPanelPage.TITLE);
         } else if (account instanceof BuyerAccount) {
-            GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH,BuyerPanelController.TITLE);
-        }else{
-            GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH,LoginSignUpPage.TITLE);
+            GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH, BuyerPanelController.TITLE);
+        } else {
+            GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
             //GraphicMain.audioClip.stop();
             //LoginSignUpPage.mediaPlayer.play();
         }

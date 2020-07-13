@@ -81,6 +81,7 @@ public class GraphicMain extends Application {
 
     public void exitProgram() {
         System.out.println(GeneralController.writeDataAndGetObjectStringRecords());
+        System.out.println(GeneralController.readDataAndSetStringRecordObjects());
         ClientMain.client.closeConnection();
         System.exit(123);
     }
