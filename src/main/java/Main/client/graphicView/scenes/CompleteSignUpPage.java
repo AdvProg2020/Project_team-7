@@ -50,8 +50,8 @@ public class CompleteSignUpPage implements Initializable {
     }
 
     public void back(MouseEvent mouseEvent) {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 
@@ -110,10 +110,10 @@ public class CompleteSignUpPage implements Initializable {
 //    }
 
     public void signUp(MouseEvent mouseEvent) throws IOException {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
-        if (areTextFieldsFilled()) {
-            String response = null;
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
+        if (areTextFieldsFilled() && areTextFieldsValid()) {
+            System.out.println(LoginSignUpPage.getSignUpInputUsername);
             if (isSeller.isSelected()) {
                 response = GeneralRequestBuilder.buildSellerCompleteSignUpRequest(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
                         lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword,
@@ -127,8 +127,8 @@ public class CompleteSignUpPage implements Initializable {
                 return;
             }
             GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
-            LoginSignUpPage.mediaPlayer.stop();
-            GraphicMain.audioClip.play();
+            //LoginSignUpPage.mediaPlayer.stop();
+            //GraphicMain.audioClip.play();
         }
     }
 

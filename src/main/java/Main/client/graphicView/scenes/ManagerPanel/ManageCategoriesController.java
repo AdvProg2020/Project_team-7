@@ -109,14 +109,14 @@ public class ManageCategoriesController {
     }
 
     public void goBack() {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 
     public void createCategory() {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         String[] special = specialFeatures.getText().split("\n");
         ArrayList<String> specials = new ArrayList<>(Arrays.asList(special));
         String name = categoryName.getText();

@@ -77,8 +77,8 @@ public class EditDiscountController {
     }
 
     public void goBack() {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 
@@ -89,8 +89,8 @@ public class EditDiscountController {
     }
 
     public void saveChanges() {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         EditDiscountCode editDiscountCode = null;
         try {
             editDiscountCode = GraphicMain.managerController.getDiscountCodeToEdit(discountCode.getCode());

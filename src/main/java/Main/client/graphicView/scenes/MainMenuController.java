@@ -38,8 +38,8 @@ public class MainMenuController {
         } else {
             GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
         }
-        GraphicMain.audioClip.stop();
-        LoginSignUpPage.mediaPlayer.play();
+        //GraphicMain.audioClip.stop();
+        //LoginSignUpPage.mediaPlayer.play();
     }
 
     public void goToOffs(MouseEvent mouseEvent) throws IOException {

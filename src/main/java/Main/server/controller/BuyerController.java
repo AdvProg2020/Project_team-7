@@ -19,11 +19,13 @@ public class BuyerController {
     private String receiverInformation = null;
     private DiscountCode discountCode = null;
 
-    //TODO: null cart
-
     public static void setBuyerController() {
         currentBuyer = (BuyerAccount) GeneralController.currentUser;
         currentBuyersCart = currentBuyer.getCart();
+    }
+
+    public static BuyerAccount getCurrentBuyer() {
+        return currentBuyer;
     }
 
     public String showCartProducts() {

@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 public class RegisterManager implements Initializable {
     public static final String FXML_PATH = "src/main/sceneResources/loginSignUp/registerManager.fxml";
     public static final String TITLE = "Register Chief Manager";
-    public static MediaPlayer mediaPlayer;
+    //public static MediaPlayer mediaPlayer;
     public TextField phoneNumber;
     public TextField email;
     public TextField lastName;
@@ -43,10 +43,10 @@ public class RegisterManager implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Media bgMusic = new Media(Paths.get("src/main/java/Main/client/graphicView/resources/soundEffects/login-crowd.wav").toUri().toString());
-        mediaPlayer = new MediaPlayer(bgMusic);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.setVolume(0.2);
+        //Media bgMusic = new Media(Paths.get("src/main/java/Main/client/graphicView/resources/soundEffects/login-crowd.wav").toUri().toString());
+        //mediaPlayer = new MediaPlayer(bgMusic);
+        //mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        //mediaPlayer.setVolume(0.2);
     }
 
     private boolean areTextFieldsFilled() {
@@ -141,6 +141,16 @@ public class RegisterManager implements Initializable {
         if (areTextFieldsFilled()) {
             String response = GeneralRequestBuilder.buildManagerCompleteSignUpRequest(username.getText(), firstName.getText(), lastName.getText(),
                     email.getText(), phoneNumber.getText(), password.getText(), profileImagePath);
+            if (ManagerAccount.isThereAChiefManager()) {
+                ManagerAccount.addManager(managerAccount);
+                GraphicMain.graphicMain.goToPage(ManageUsersController.FXML_PATH, ManageUsersController.TITLE);
+            } else {
+                ManagerAccount.addManager(managerAccount);
+                GeneralController.currentUser = Account.getUserWithUserName(username.getText());
+                GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
+            }
+            //LoginSignUpPage.mediaPlayer.stop();
+            //TODO when back music doesn't start
 
             if (response.startsWith("success")) {
                 if (response.split("/")[1].equals("chief")) {

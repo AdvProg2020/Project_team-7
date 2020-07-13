@@ -77,8 +77,8 @@ public class ManageRequestsController {
     }
 
     public void goBack() {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 

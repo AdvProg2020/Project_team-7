@@ -116,8 +116,8 @@ public class ProductPage implements Initializable {
         } else {
             GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
         }
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
     }
 
     public String makeGeneralFeatures() {

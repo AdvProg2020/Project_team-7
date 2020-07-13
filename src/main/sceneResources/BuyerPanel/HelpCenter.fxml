@@ -7,7 +7,7 @@
 
 <AnchorPane id="subAnchor" fx:id="subAnchor" prefHeight="750.0" prefWidth="1200.0"
             xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Main.client.graphicView.scenes.BuyerPanel.RateController">
+            fx:controller="Main.client.graphicView.scenes.BuyerPanel.HelpCenterController">
     <stylesheets>
         <URL value="@../../java/Main/client/graphicView/cssFiles/basicStyles.css"/>
         <URL value="@../../java/Main/client/graphicView/cssFiles/buyerManagerPanel.css"/>

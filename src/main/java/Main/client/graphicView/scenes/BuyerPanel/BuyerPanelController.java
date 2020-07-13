@@ -1,9 +1,13 @@
 package Main.client.graphicView.scenes.BuyerPanel;
 
+import Main.client.ClientMain;
+import Main.client.requestBuilder.BuyerRequestBuilder;
+import Main.client.requestBuilder.Client;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.server.model.accounts.BuyerAccount;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -17,36 +21,39 @@ public class BuyerPanelController {
     private Label balance;
 
     public void initialize() {
-        balance.setText(Double.toString(((BuyerAccount) GeneralController.currentUser).getBalance()));
+
+        balance.setText(BuyerRequestBuilder.buildInitializeBuyerPanelRequest());
+        //balance.setText(Double.toString(((BuyerAccount) GeneralController.currentUser).getBalance()));
+        //TODO here is accessing server directly!
     }
 
     public void goToPersonalInformation() throws IOException {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.goToPage(BuyerPersonalInfoController.FXML_PATH, BuyerPersonalInfoController.TITLE);
     }
 
     public void goToMyOrders() throws IOException {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.goToPage(MyOrdersController.FXML_PATH, MyOrdersController.TITLE);
     }
 
     public void goToMyDiscounts() throws IOException {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.goToPage(MyDiscountsController.FXML_PATH, MyDiscountsController.TITLE);
     }
 
     public void goToMyCart() throws IOException {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.goToPage(MyCartController.FXML_PATH, MyCartController.TITLE);
     }
 
     public void goBack() {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 
@@ -54,5 +61,11 @@ public class BuyerPanelController {
         GraphicMain.generalController.logout();
         //goBack();
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+    }
+
+    public void goToHelpCenter(ActionEvent actionEvent) throws IOException {
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
+        GraphicMain.graphicMain.goToPage(HelpCenterController.FXML_PATH, HelpCenterController.TITLE);
     }
 }

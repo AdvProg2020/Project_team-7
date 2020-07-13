@@ -59,8 +59,8 @@ public class ManagerPersonalInfoController {
     }
 
     public void saveChanges() {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Save Edit");
         alert.setHeaderText(null);
@@ -104,8 +104,8 @@ public class ManagerPersonalInfoController {
     }
 
     public void goBack() {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 }

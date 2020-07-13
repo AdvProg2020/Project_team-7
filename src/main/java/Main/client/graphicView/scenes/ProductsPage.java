@@ -400,8 +400,8 @@ public class ProductsPage implements Initializable {
     }
 
     public void showSearchResult(MouseEvent mouseEvent) {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         Stage searchResult = new Stage();
         searchResult.setTitle("Search Result");
 
@@ -481,8 +481,8 @@ public class ProductsPage implements Initializable {
             GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH,BuyerPanelController.TITLE);
         }else{
             GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH,LoginSignUpPage.TITLE);
-            GraphicMain.audioClip.stop();
-            LoginSignUpPage.mediaPlayer.play();
+            //GraphicMain.audioClip.stop();
+            //LoginSignUpPage.mediaPlayer.play();
         }
     }
 
@@ -499,8 +499,8 @@ public class ProductsPage implements Initializable {
     }
 
     public void back(MouseEvent mouseEvent) {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 }

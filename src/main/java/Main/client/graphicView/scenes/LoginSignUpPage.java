@@ -23,7 +23,7 @@ public class LoginSignUpPage implements Initializable {
     private static final String NO_PASSWORD_GIVEN = "enter a password!";
     public static final String FXML_PATH = "src/main/sceneResources/loginSignUp/loginSignUpPage.fxml";
     public static final String TITLE = "Login/Sign Up";
-    public static MediaPlayer mediaPlayer;
+    //public static MediaPlayer mediaPlayer;
     public TextField signUpUsername;
     public PasswordField signUpPassword;
     public PasswordField loginPassword;
@@ -35,10 +35,10 @@ public class LoginSignUpPage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Media bgMusic = new Media(Paths.get("src/main/java/Main/client/graphicView/resources/soundEffects/login-crowd.wav").toUri().toString());
-        mediaPlayer = new MediaPlayer(bgMusic);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.setVolume(0.2);
+        //Media bgMusic = new Media(Paths.get("src/main/java/Main/client/graphicView/resources/soundEffects/login-crowd.wav").toUri().toString());
+        //mediaPlayer = new MediaPlayer(bgMusic);
+        //mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        //mediaPlayer.setVolume(0.2);
     }
 
     private boolean areTextFieldsFilled(TextField userName, PasswordField passWord) {
@@ -101,19 +101,32 @@ public class LoginSignUpPage implements Initializable {
 
     public void back(MouseEvent mouseEvent) {
         GraphicMain.graphicMain.back();
-        mediaPlayer.stop();
-        GraphicMain.audioClip.play();
+        //mediaPlayer.stop();
+        //GraphicMain.audioClip.play();
     }
 
     public void login(MouseEvent mouseEvent) throws Exception {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         if (areTextFieldsFilled(loginUsername, loginPassword)) {
             String response = GeneralRequestBuilder.buildLoginRequest(loginUsername.getText(), loginPassword.getText());
             if (response.equals("success")) {
                 GeneralController.currentUser = Account.getUserWithUserName(loginUsername.getText());
-                mediaPlayer.stop();
+                //mediaPlayer.stop();
                 GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
+                //GraphicMain.audioClip.play();
+            } else if (response.startsWith("invalidCharacter")) {
+                loginErrorMessage.setText(response.split("/")[1]);
+                loginUsername.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
+            } else if (response.equals("userNameNotFound")) {
+                loginErrorMessage.setText("there is no account with this username !");
+                loginUsername.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
+            } else if (response.equals("passwordWrong")) {
+                loginPassword.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
+                loginErrorMessage.setText("password is incorrect !");
+            } else {
+                loginErrorMessage.setText("unknown problem connecting the server ! please try again a few moments later !");
+            }
                 GraphicMain.audioClip.play();
             }else{
                 showLoginResponseMessage(response);
@@ -149,8 +162,8 @@ public class LoginSignUpPage implements Initializable {
 //    }
 
     public void completeSignUp(MouseEvent mouseEvent) throws Exception {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         signUpInputPassword = signUpPassword.getText();
         getSignUpInputUsername = signUpUsername.getText();
         if (areTextFieldsFilled(signUpUsername, signUpPassword)) {
@@ -186,5 +199,9 @@ public class LoginSignUpPage implements Initializable {
         TextField textField = (TextField) mouseEvent.getSource();
         textField.setStyle("-fx-border-color: #230038;-fx-prompt-text-fill : #4d4254;");
         textField.setText("");
+    }
+
+    public void switchTab(Event event) {
+
     }
 }

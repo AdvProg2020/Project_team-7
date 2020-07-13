@@ -68,7 +68,6 @@ public class ManageProductsController {
             alert1.showAndWait();
             initialize();
         } else if (option.get().equals(goToPage)) {
-            //TODO really go to product page
             GeneralController.currentProduct = product;
             GraphicMain.graphicMain.goToPage(ProductPage.FXML_PATH, ProductPage.TITLE);
         }
@@ -81,8 +80,8 @@ public class ManageProductsController {
     }
 
     public void goBack() {
-        GraphicMain.buttonSound.stop();
-        GraphicMain.buttonSound.play();
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
 }

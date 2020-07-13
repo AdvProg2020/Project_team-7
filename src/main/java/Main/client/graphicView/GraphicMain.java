@@ -25,7 +25,8 @@ import java.util.ArrayList;
 
 public class GraphicMain extends Application {
 
-    public static MediaPlayer buttonSound ;
+    //public static MediaPlayer buttonSound ;
+    //public static AudioClip audioClip;
     public static ArrayList<String> titleTrace = new ArrayList<>();
     public static ArrayList<String> sceneTrace = new ArrayList<>();
     public static Stage stage;
@@ -34,7 +35,6 @@ public class GraphicMain extends Application {
     public static ManagerController managerController = new ManagerController();
     public static GeneralController generalController = new GeneralController();
     public static SellerController sellerController = new SellerController();
-    public static AudioClip audioClip;
 
     public static void main(String[] args) {
         launch(args);
@@ -42,9 +42,9 @@ public class GraphicMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        buttonSound = new MediaPlayer(new Media(Paths.get("src/main/java/Main/client/graphicView/resources/soundEffects/buttonSound.wav").toUri().toString()));
-        audioClip = new AudioClip(new File("src/main/java/Main/client/graphicView/resources/soundEffects/backgroundMusic.wav").toURI().toString());
-        audioClip.setCycleCount(AudioClip.INDEFINITE);
+        //buttonSound = new MediaPlayer(new Media(Paths.get("src/main/java/Main/client/graphicView/resources/soundEffects/buttonSound.wav").toUri().toString()));
+        //audioClip = new AudioClip(new File("src/main/java/Main/client/graphicView/resources/soundEffects/backgroundMusic.wav").toURI().toString());
+        //audioClip.setCycleCount(AudioClip.INDEFINITE);
 
 //        System.out.println(GeneralController.readDataAndSetStringRecordObjects());
 //        generalController.initializeIDs();
@@ -66,7 +66,7 @@ public class GraphicMain extends Application {
 //        } else {
             root = FXMLLoader.load(new File(MainMenuController.FXML_PATH).toURI().toURL());
 
-            audioClip.play();
+            //audioClip.play();
 
             stage.setTitle(MainMenuController.TITLE);
             sceneTrace.add(MainMenuController.FXML_PATH);

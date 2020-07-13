@@ -86,7 +86,14 @@ public class Server {
 
             } else if (splitRequest[1].equals("disconnect")) {
                 response = "disconnected";
+            } else if (splitRequest[1].equals("buyerBalance")) {
+                response = BuyerRequestProcessor.initializeBuyerPanelRequestProcessor();
+            } else if (splitRequest[1].equals("buyerPersonalInfo")) {
+                response = BuyerRequestProcessor.buyerPersonalInfoRequestProcessor();
+            } else if (splitRequest[1].equalsIgnoreCase("data")) {
+
             }
+
 
             dataOutputStream.writeUTF(response);
             dataOutputStream.flush();

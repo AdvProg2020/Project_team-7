@@ -23,7 +23,8 @@ public class Client {
 
     public static Client getClient(String IP, String port) throws Exception {
         if (clientInstance == null) {
-            new Client(IP, port);
+            Client client = new Client(IP, port);
+            //System.out.println(client.sendRequest("me/signUp/you"));
         }
         return clientInstance;
     }
@@ -32,6 +33,7 @@ public class Client {
         try {
             dataOutputStream.writeUTF(request);
             dataOutputStream.flush();
+            System.out.println("i wrote it.");
             return dataInputStream.readUTF();
         } catch (IOException e) {
             e.printStackTrace();
