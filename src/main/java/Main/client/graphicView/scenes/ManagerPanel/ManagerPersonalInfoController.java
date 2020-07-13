@@ -1,5 +1,7 @@
 package Main.client.graphicView.scenes.ManagerPanel;
 
+import Main.client.requestBuilder.BuyerRequestBuilder;
+import Main.client.requestBuilder.ManagerRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
@@ -37,13 +39,28 @@ public class ManagerPersonalInfoController {
 
     public void initialize() {
         try {
-            username.setText(GeneralController.currentUser.getUserName());
-            password.setText(GeneralController.currentUser.getPassWord());
-            email.setText(GeneralController.currentUser.getEmail());
-            phoneNumber.setText(GeneralController.currentUser.getPhoneNumber());
-            firstName.setText(GeneralController.currentUser.getFirstName());
-            lastName.setText(GeneralController.currentUser.getLastName());
-            ImageView profileImage = new ImageView(new Image(new File(GeneralController.currentUser.getProfileImagePath()).toURI().toString()));
+//            username.setText(GeneralController.currentUser.getUserName());
+//            password.setText(GeneralController.currentUser.getPassWord());
+//            email.setText(GeneralController.currentUser.getEmail());
+//            phoneNumber.setText(GeneralController.currentUser.getPhoneNumber());
+//            firstName.setText(GeneralController.currentUser.getFirstName());
+//            lastName.setText(GeneralController.currentUser.getLastName());
+//            ImageView profileImage = new ImageView(new Image(new File(GeneralController.currentUser.getProfileImagePath()).toURI().toString()));
+            String[] userInfo = ManagerRequestBuilder.buildManagerPersonalInformationRequest().split("#");
+            String firstNameData = userInfo[0];
+            String lastNameData = userInfo[1];
+            String userNameData = userInfo[2];
+            String emailData = userInfo[3];
+            String phoneNumberData = userInfo[4];
+            String passWordData = userInfo[5];
+            String imagePathData = userInfo[6];
+            username.setText(userNameData);
+            password.setText(passWordData);
+            email.setText(emailData);
+            phoneNumber.setText(phoneNumberData);
+            firstName.setText(firstNameData);
+            lastName.setText(lastNameData);
+            ImageView profileImage = new ImageView(new Image(new File(imagePathData).toURI().toString()));
             profileImage.setFitWidth(120);
             profileImage.setFitHeight(120);
             pane.getChildren().add(profileImage);

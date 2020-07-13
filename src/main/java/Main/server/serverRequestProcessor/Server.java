@@ -70,8 +70,9 @@ public class Server {
             String[] splitRequest = new String[0];
 
             request = dataInputStream.readUTF();
+            System.out.println("server read " + request);
 
-            splitRequest = request.split("/");
+            splitRequest = request.split("#");
             if (splitRequest.length < 2) {
                 response = "invalidRequest";
             } else if (splitRequest[1].equals("login")) {
@@ -92,11 +93,14 @@ public class Server {
                 response = BuyerRequestProcessor.buyerPersonalInfoRequestProcessor();
             } else if (splitRequest[1].equalsIgnoreCase("data")) {
 
+            } else if (splitRequest[1].equals("managerPersonalInfo")) {
+                response = ManagerRequestProcessor.managerPersonalInfoRequestProcessor();
             }
 
 
             dataOutputStream.writeUTF(response);
             dataOutputStream.flush();
+            System.out.println("server wrote " + response);
 
             if (response != "disconnected") {
                 handle();

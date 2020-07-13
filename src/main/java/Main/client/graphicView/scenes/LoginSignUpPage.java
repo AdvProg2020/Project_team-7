@@ -123,7 +123,7 @@ public class LoginSignUpPage implements Initializable {
 
     private void showLoginResponseMessage(String response){
         if (response.startsWith("invalidCharacter")) {
-            loginErrorMessage.setText(response.split("/")[1]);
+            loginErrorMessage.setText(response.split("#")[1]);
             loginUsername.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
         } else if (response.equals("userNameNotFound")) {
             loginErrorMessage.setText("there is no account with this username !");

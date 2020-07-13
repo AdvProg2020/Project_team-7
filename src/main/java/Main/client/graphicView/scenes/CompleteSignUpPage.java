@@ -134,13 +134,13 @@ public class CompleteSignUpPage implements Initializable {
 
     private void showResponseMessage(String response) {
         if (response.startsWith("invalidCharacter")) {
-            firstName.setText(response.split("/")[1]);
+            firstName.setText(response.split("#")[1]);
             firstName.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
         } else if (response.startsWith("invalidEmail")) {
-            email.setText(response.split("/")[1]);
+            email.setText(response.split("#")[1]);
             email.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
         } else if (response.startsWith("invalidPhoneNumber")) {
-            phoneNumber.setText(response.split("/")[1]);
+            phoneNumber.setText(response.split("#")[1]);
             phoneNumber.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
         } else {
             firstName.setText("unknown problem connecting the server ! please try again a few moments later !");

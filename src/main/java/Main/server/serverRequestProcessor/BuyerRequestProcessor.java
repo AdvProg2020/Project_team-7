@@ -12,12 +12,12 @@ public class BuyerRequestProcessor {
     }
 
     public static String buyerPersonalInfoRequestProcessor() {
-        String string = GeneralController.currentUser.getFirstName() + "/"
-                + GeneralController.currentUser.getLastName() + "/"
-                + GeneralController.currentUser.getUserName() + "/"
-                + GeneralController.currentUser.getEmail() + "/"
-                + GeneralController.currentUser.getPhoneNumber() + "/"
-                + GeneralController.currentUser.getPassWord() + "/"
+        String string = GeneralController.currentUser.getFirstName() + "#"
+                + GeneralController.currentUser.getLastName() + "#"
+                + GeneralController.currentUser.getUserName() + "#"
+                + GeneralController.currentUser.getEmail() + "#"
+                + GeneralController.currentUser.getPhoneNumber() + "#"
+                + GeneralController.currentUser.getPassWord() + "#"
                 + GeneralController.currentUser.getProfileImagePath();
         return string;
     }

@@ -32,19 +32,23 @@ public class Client {
         try {
             dataOutputStream.writeUTF(request);
             dataOutputStream.flush();
-            System.out.println("i wrote it.");
-            return dataInputStream.readUTF();
+            System.out.println("client wrote " + request);
+            String s = dataInputStream.readUTF();
+            System.out.println("client read " + s);
+            return s;
         } catch (IOException e) {
             e.printStackTrace();
         }
         return "failure";
     }
 
-    public void closeConnection(){
+    public void closeConnection() {
         try {
-            dataOutputStream.writeUTF("0000/disconnect");
+            dataOutputStream.writeUTF("0000#disconnect");
             dataOutputStream.flush();
-            dataInputStream.readUTF();
+            System.out.println("client wrote 0000#disconnect");
+            String s = dataInputStream.readUTF();
+            System.out.println("client read " + s);
             socket.close();
             dataInputStream.close();
             dataOutputStream.close();

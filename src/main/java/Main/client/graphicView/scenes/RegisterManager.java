@@ -143,7 +143,7 @@ public class RegisterManager implements Initializable {
                     email.getText(), phoneNumber.getText(), password.getText(), profileImagePath);
 
             if (response.startsWith("success")) {
-                if (response.split("/")[1].equals("chief")) {
+                if (response.split("#")[1].equals("chief")) {
                     GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
                 } else {
                     GraphicMain.graphicMain.goToPage(ManageUsersController.FXML_PATH, ManageUsersController.TITLE);
@@ -157,16 +157,16 @@ public class RegisterManager implements Initializable {
 
     private void showRegisterResponseMessage(String response) {
         if (response.startsWith("invalidCharacter")) {
-            username.setText(response.split("/")[1]);
+            username.setText(response.split("#")[1]);
             username.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
         } else if (response.startsWith("invalidEmail")) {
-            email.setText(response.split("/")[1]);
+            email.setText(response.split("#")[1]);
             email.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
         } else if (response.startsWith("invalidPhoneNumber")) {
-            phoneNumber.setText(response.split("/")[1]);
+            phoneNumber.setText(response.split("#")[1]);
             phoneNumber.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
         } else if (response.equals("duplicateUserName")) {
-            username.setText(response.split("/")[1]);
+            username.setText(response.split("#")[1]);
             username.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
         } else if (response.equals("loginNeeded")) {
             try {

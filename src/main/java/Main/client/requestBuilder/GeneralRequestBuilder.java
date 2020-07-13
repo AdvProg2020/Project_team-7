@@ -11,9 +11,9 @@ public class GeneralRequestBuilder {
             AccountsException.validateUserName(userName);
             AccountsException.validatePassWord(password);
         } catch (AccountsException e) {
-            return "invalidCharacter/" + e.getErrorMessage();
+            return "invalidCharacter#" + e.getErrorMessage();
         }
-        String loginRequest = "0000/login/username:" + userName + "/password:" + password;
+        String loginRequest = "0000#login#username:" + userName + "#password:" + password;
         return ClientMain.client.sendRequest(loginRequest);
     }
 
@@ -22,9 +22,9 @@ public class GeneralRequestBuilder {
             AccountsException.validateUserName(username);
             AccountsException.validatePassWord(password);
         } catch (AccountsException e) {
-            return "invalidCharacter/" + e.getErrorMessage();
+            return "invalidCharacter#" + e.getErrorMessage();
         }
-        String signUpRequest = "0000/signUp/userName:" + username + "/password:" + password;
+        String signUpRequest = "0000#signUp#userName:" + username + "#password:" + password;
         return ClientMain.client.sendRequest(signUpRequest);
     }
 
@@ -34,20 +34,20 @@ public class GeneralRequestBuilder {
             AccountsException.validateNameTypeInfo("lastName", lastName);
             AccountsException.validateNameTypeInfo("firstName", firstName);
         } catch (AccountsException e) {
-            return "invalidCharacter/" + e.getErrorMessage();
+            return "invalidCharacter#" + e.getErrorMessage();
         }
         try {
             AccountsException.validateEmail(email);
         } catch (AccountsException e) {
-            return "invalidEmail/" + e.getErrorMessage();
+            return "invalidEmail#" + e.getErrorMessage();
         }
         try {
             AccountsException.validatePhoneNumber(phoneNumber);
         } catch (AccountsException e) {
-            return "invalidPhoneNumber/" + e.getErrorMessage();
+            return "invalidPhoneNumber#" + e.getErrorMessage();
         }
 
-        String signUpRequest = "0000/signUpBuyer/userName:" + userName + "/firstName:" + firstName + "/lastName:" + lastName + "/email:" + email + "/phoneNumber:" + phoneNumber + "/password:" + password + "/imagePath:" + removeImagePathInvalidChar(imagePath);
+        String signUpRequest = "0000#signUpBuyer#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + removeImagePathInvalidChar(imagePath);
         return ClientMain.client.sendRequest(signUpRequest);
     }
 
@@ -63,20 +63,20 @@ public class GeneralRequestBuilder {
             AccountsException.validateNameTypeInfo("companyName", companyName);
             AccountsException.validateNameTypeInfo("companyInformation", companyInfo);
         } catch (AccountsException e) {
-            return "invalidCharacter/" + e.getErrorMessage();
+            return "invalidCharacter#" + e.getErrorMessage();
         }
         try {
             AccountsException.validateEmail(email);
         } catch (AccountsException e) {
-            return "invalidEmail/" + e.getErrorMessage();
+            return "invalidEmail#" + e.getErrorMessage();
         }
         try {
             AccountsException.validatePhoneNumber(phoneNumber);
         } catch (AccountsException e) {
-            return "invalidPhoneNumber/" + e.getErrorMessage();
+            return "invalidPhoneNumber#" + e.getErrorMessage();
         }
 
-        String signUpRequest = "0000/signUpSeller/userName:" + userName + "/firstName:" + firstName + "/lastName:" + lastName + "/email:" + email + "/phoneNumber:" + phoneNumber + "/password:" + password + "/imagePath:" + removeImagePathInvalidChar(imagePath);
+        String signUpRequest = "0000#signUpSeller#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + removeImagePathInvalidChar(imagePath);
         return ClientMain.client.sendRequest(signUpRequest);
     }
 
@@ -88,21 +88,21 @@ public class GeneralRequestBuilder {
             AccountsException.validateNameTypeInfo("lastName", lastName);
             AccountsException.validateNameTypeInfo("firstName", firstName);
         } catch (AccountsException e) {
-            return "invalidCharacter/" + e.getErrorMessage();
+            return "invalidCharacter#" + e.getErrorMessage();
         }
         try {
             AccountsException.validateEmail(email);
         } catch (AccountsException e) {
-            return "invalidEmail/" + e.getErrorMessage();
+            return "invalidEmail#" + e.getErrorMessage();
         }
         try {
             AccountsException.validatePhoneNumber(phoneNumber);
         } catch (AccountsException e) {
-            return "invalidPhoneNumber/" + e.getErrorMessage();
+            return "invalidPhoneNumber#" + e.getErrorMessage();
         }
 
         String token = (GeneralController.currentUser == null ? "0000" : GeneralController.currentUser.getToken());
-        String signUpRequest = token + "/signUpManager/userName:" + userName + "/firstName:" + firstName + "/lastName:" + lastName + "/email:" + email + "/phoneNumber:" + phoneNumber + "/password:" + password + "/imagePath:" + removeImagePathInvalidChar(imagePath);
+        String signUpRequest = token + "#signUpManager#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + removeImagePathInvalidChar(imagePath);
         return ClientMain.client.sendRequest(signUpRequest);
     }
 }
