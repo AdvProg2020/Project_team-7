@@ -18,12 +18,11 @@ public class Client {
         socket = new Socket(IP, Integer.parseInt(port));
         dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-        clientInstance = this;
     }
 
     public static Client getClient(String IP, String port) throws Exception {
         if (clientInstance == null) {
-            Client client = new Client(IP, port);
+            clientInstance = new Client(IP, port);
             //System.out.println(client.sendRequest("me/signUp/you"));
         }
         return clientInstance;

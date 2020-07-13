@@ -141,16 +141,6 @@ public class RegisterManager implements Initializable {
         if (areTextFieldsFilled()) {
             String response = GeneralRequestBuilder.buildManagerCompleteSignUpRequest(username.getText(), firstName.getText(), lastName.getText(),
                     email.getText(), phoneNumber.getText(), password.getText(), profileImagePath);
-            if (ManagerAccount.isThereAChiefManager()) {
-                ManagerAccount.addManager(managerAccount);
-                GraphicMain.graphicMain.goToPage(ManageUsersController.FXML_PATH, ManageUsersController.TITLE);
-            } else {
-                ManagerAccount.addManager(managerAccount);
-                GeneralController.currentUser = Account.getUserWithUserName(username.getText());
-                GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
-            }
-            //LoginSignUpPage.mediaPlayer.stop();
-            //TODO when back music doesn't start
 
             if (response.startsWith("success")) {
                 if (response.split("/")[1].equals("chief")) {
@@ -158,7 +148,7 @@ public class RegisterManager implements Initializable {
                 } else {
                     GraphicMain.graphicMain.goToPage(ManageUsersController.FXML_PATH, ManageUsersController.TITLE);
                 }
-                LoginSignUpPage.mediaPlayer.stop();
+                //LoginSignUpPage.mediaPlayer.stop();
             } else {
                 showRegisterResponseMessage(response);
             }

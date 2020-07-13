@@ -1,8 +1,6 @@
 package Main.server.serverRequestProcessor;
 
-import Main.client.graphicView.GraphicMain;
-import Main.client.graphicView.scenes.MainMenuController;
-import Main.client.graphicView.scenes.ManagerPanel.ManageUsersController;
+import Main.server.ServerMain;
 import Main.server.controller.GeneralController;
 import Main.server.model.accounts.Account;
 import Main.server.model.accounts.BuyerAccount;

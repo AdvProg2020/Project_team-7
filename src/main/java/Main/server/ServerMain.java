@@ -1,15 +1,16 @@
-package Main.server.serverRequestProcessor;
+package Main.server;
 
 import Main.client.graphicView.GraphicMain;
 import Main.server.controller.BuyerController;
 import Main.server.controller.GeneralController;
+import Main.server.serverRequestProcessor.Server;
 import Main.server.controller.ManagerController;
 import Main.server.controller.SellerController;
 
 import static Main.client.graphicView.GraphicMain.generalController;
 
 public class ServerMain {
-    private static Server server;
+    public static Server server;
     public static GeneralController generalController = new GeneralController();
     public static BuyerController buyerController = new BuyerController();
     public static SellerController sellerController = new SellerController();

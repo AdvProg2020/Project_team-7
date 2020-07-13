@@ -115,19 +115,6 @@ public class LoginSignUpPage implements Initializable {
                 //mediaPlayer.stop();
                 GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
                 //GraphicMain.audioClip.play();
-            } else if (response.startsWith("invalidCharacter")) {
-                loginErrorMessage.setText(response.split("/")[1]);
-                loginUsername.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
-            } else if (response.equals("userNameNotFound")) {
-                loginErrorMessage.setText("there is no account with this username !");
-                loginUsername.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
-            } else if (response.equals("passwordWrong")) {
-                loginPassword.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
-                loginErrorMessage.setText("password is incorrect !");
-            } else {
-                loginErrorMessage.setText("unknown problem connecting the server ! please try again a few moments later !");
-            }
-                GraphicMain.audioClip.play();
             }else{
                 showLoginResponseMessage(response);
             }
@@ -199,9 +186,5 @@ public class LoginSignUpPage implements Initializable {
         TextField textField = (TextField) mouseEvent.getSource();
         textField.setStyle("-fx-border-color: #230038;-fx-prompt-text-fill : #4d4254;");
         textField.setText("");
-    }
-
-    public void switchTab(Event event) {
-
     }
 }

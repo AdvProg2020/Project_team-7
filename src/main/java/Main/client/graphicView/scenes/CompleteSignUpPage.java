@@ -112,8 +112,8 @@ public class CompleteSignUpPage implements Initializable {
     public void signUp(MouseEvent mouseEvent) throws IOException {
         //GraphicMain.buttonSound.stop();
         //GraphicMain.buttonSound.play();
-        if (areTextFieldsFilled() && areTextFieldsValid()) {
-            System.out.println(LoginSignUpPage.getSignUpInputUsername);
+        if (areTextFieldsFilled()) {
+            String response = null;
             if (isSeller.isSelected()) {
                 response = GeneralRequestBuilder.buildSellerCompleteSignUpRequest(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
                         lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword,
@@ -122,7 +122,7 @@ public class CompleteSignUpPage implements Initializable {
                 response = GeneralRequestBuilder.buildBuyerCompleteSignUpRequest(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
                         lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, profileImagePath);
             }
-            if(!response.equals("success")){
+            if (!response.equals("success")) {
                 showResponseMessage(response);
                 return;
             }
@@ -133,16 +133,16 @@ public class CompleteSignUpPage implements Initializable {
     }
 
     private void showResponseMessage(String response) {
-        if(response.startsWith("invalidCharacter")){
+        if (response.startsWith("invalidCharacter")) {
             firstName.setText(response.split("/")[1]);
             firstName.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
-        }else if(response.startsWith("invalidEmail")){
+        } else if (response.startsWith("invalidEmail")) {
             email.setText(response.split("/")[1]);
             email.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
-        }else if(response.startsWith("invalidPhoneNumber")){
+        } else if (response.startsWith("invalidPhoneNumber")) {
             phoneNumber.setText(response.split("/")[1]);
             phoneNumber.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
-        }else {
+        } else {
             firstName.setText("unknown problem connecting the server ! please try again a few moments later !");
             firstName.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
         }
@@ -244,9 +244,9 @@ public class CompleteSignUpPage implements Initializable {
         }
     }
 
-    public void logout() throws IOException{
+    public void logout() throws IOException {
         GraphicMain.generalController.logout();
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 }

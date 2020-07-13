@@ -3,8 +3,6 @@ package Main.client.requestBuilder;
 import Main.client.ClientMain;
 import Main.server.controller.GeneralController;
 import Main.server.model.exceptions.AccountsException;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 
 public class GeneralRequestBuilder {
 

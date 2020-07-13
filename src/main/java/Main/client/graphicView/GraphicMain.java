@@ -54,23 +54,23 @@ public class GraphicMain extends Application {
         stage.setOnCloseRequest(e -> exitProgram());
         Parent root;
 
-//        if (!ManagerAccount.isThereAChiefManager()) {
-//            root = FXMLLoader.load(new File((RegisterManager.FXML_PATH)).toURI().toURL());
-//
-//            FXMLLoader loginPageLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
-//            loginPageLoader.load();
-//            LoginSignUpPage.mediaPlayer.play();
-//
-//            stage.setTitle(RegisterManager.TITLE);
-//            sceneTrace.add(RegisterManager.FXML_PATH);
-//        } else {
+        if (!ManagerAccount.isThereAChiefManager()) {
+            root = FXMLLoader.load(new File((RegisterManager.FXML_PATH)).toURI().toURL());
+
+            FXMLLoader loginPageLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
+            loginPageLoader.load();
+            //LoginSignUpPage.mediaPlayer.play();
+
+            stage.setTitle(RegisterManager.TITLE);
+            sceneTrace.add(RegisterManager.FXML_PATH);
+        } else {
             root = FXMLLoader.load(new File(MainMenuController.FXML_PATH).toURI().toURL());
 
             //audioClip.play();
 
             stage.setTitle(MainMenuController.TITLE);
             sceneTrace.add(MainMenuController.FXML_PATH);
-  //      }
+        }
 
         titleTrace.add(stage.getTitle());
 
