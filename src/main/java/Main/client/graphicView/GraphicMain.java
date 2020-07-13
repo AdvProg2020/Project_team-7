@@ -1,5 +1,7 @@
 package Main.client.graphicView;
 
+import Main.client.ClientMain;
+import Main.client.requestBuilder.Client;
 import Main.server.controller.BuyerController;
 import Main.server.controller.GeneralController;
 import Main.server.controller.ManagerController;
@@ -52,23 +54,23 @@ public class GraphicMain extends Application {
         stage.setOnCloseRequest(e -> exitProgram());
         Parent root;
 
-        if (!ManagerAccount.isThereAChiefManager()) {
-            root = FXMLLoader.load(new File((RegisterManager.FXML_PATH)).toURI().toURL());
-
-            FXMLLoader loginPageLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
-            loginPageLoader.load();
-            LoginSignUpPage.mediaPlayer.play();
-
-            stage.setTitle(RegisterManager.TITLE);
-            sceneTrace.add(RegisterManager.FXML_PATH);
-        } else {
+//        if (!ManagerAccount.isThereAChiefManager()) {
+//            root = FXMLLoader.load(new File((RegisterManager.FXML_PATH)).toURI().toURL());
+//
+//            FXMLLoader loginPageLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
+//            loginPageLoader.load();
+//            LoginSignUpPage.mediaPlayer.play();
+//
+//            stage.setTitle(RegisterManager.TITLE);
+//            sceneTrace.add(RegisterManager.FXML_PATH);
+//        } else {
             root = FXMLLoader.load(new File(MainMenuController.FXML_PATH).toURI().toURL());
 
             audioClip.play();
 
             stage.setTitle(MainMenuController.TITLE);
             sceneTrace.add(MainMenuController.FXML_PATH);
-        }
+  //      }
 
         titleTrace.add(stage.getTitle());
 
@@ -79,6 +81,7 @@ public class GraphicMain extends Application {
 
     public void exitProgram() {
         System.out.println(GeneralController.writeDataAndGetObjectStringRecords());
+        ClientMain.client.closeConnection();
         System.exit(123);
     }
 

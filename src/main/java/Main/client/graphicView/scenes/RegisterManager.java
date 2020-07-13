@@ -1,5 +1,6 @@
 package Main.client.graphicView.scenes;
 
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.ManagerPanel.ManageUsersController;
@@ -16,6 +17,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -136,19 +138,45 @@ public class RegisterManager implements Initializable {
     }
 
     public void signUp(MouseEvent mouseEvent) throws Exception {
-        if (areTextFieldsFilled() && areTextFieldsValid()) {
-            ManagerAccount managerAccount = new ManagerAccount(username.getText(), firstName.getText(), lastName.getText(),
+        if (areTextFieldsFilled()) {
+            String response = GeneralRequestBuilder.buildManagerCompleteSignUpRequest(username.getText(), firstName.getText(), lastName.getText(),
                     email.getText(), phoneNumber.getText(), password.getText(), profileImagePath);
-            if (ManagerAccount.isThereAChiefManager()) {
-                ManagerAccount.addManager(managerAccount);
-                GraphicMain.graphicMain.goToPage(ManageUsersController.FXML_PATH, ManageUsersController.TITLE);
+
+            if (response.startsWith("success")) {
+                if (response.split("/")[1].equals("chief")) {
+                    GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
+                } else {
+                    GraphicMain.graphicMain.goToPage(ManageUsersController.FXML_PATH, ManageUsersController.TITLE);
+                }
+                LoginSignUpPage.mediaPlayer.stop();
             } else {
-                ManagerAccount.addManager(managerAccount);
-                GeneralController.currentUser = Account.getUserWithUserName(username.getText());
-                GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
+                showRegisterResponseMessage(response);
             }
-            LoginSignUpPage.mediaPlayer.stop();
-            //TODO when back music doesn't start
+        }
+    }
+
+    private void showRegisterResponseMessage(String response) {
+        if (response.startsWith("invalidCharacter")) {
+            username.setText(response.split("/")[1]);
+            username.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
+        } else if (response.startsWith("invalidEmail")) {
+            email.setText(response.split("/")[1]);
+            email.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
+        } else if (response.startsWith("invalidPhoneNumber")) {
+            phoneNumber.setText(response.split("/")[1]);
+            phoneNumber.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
+        } else if (response.equals("duplicateUserName")) {
+            username.setText(response.split("/")[1]);
+            username.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
+        } else if (response.equals("loginNeeded")) {
+            try {
+                GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            username.setText("unknown problem connecting the server ! please try again a few moments later !");
+            username.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
         }
     }
 

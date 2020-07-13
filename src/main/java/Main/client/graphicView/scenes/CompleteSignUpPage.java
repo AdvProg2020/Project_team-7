@@ -1,5 +1,6 @@
 package Main.client.graphicView.scenes;
 
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.server.model.accounts.Account;
@@ -8,6 +9,7 @@ import Main.server.model.accounts.SellerAccount;
 import Main.server.model.exceptions.AccountsException;
 import Main.server.model.requests.CreateSellerAccountRequest;
 import Main.server.model.requests.Request;
+import Main.server.serverRequestProcessor.GeneralRequestProcessor;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
@@ -84,22 +86,45 @@ public class CompleteSignUpPage implements Initializable {
         return isInfoCorrect;
     }
 
+//    public void signUp(MouseEvent mouseEvent) throws IOException {
+//        GraphicMain.buttonSound.stop();
+//        GraphicMain.buttonSound.play();
+//        if (areTextFieldsFilled() && areTextFieldsValid()) {
+//            System.out.println(LoginSignUpPage.getSignUpInputUsername);
+//            if (isSeller.isSelected()) {
+//                SellerAccount sellerAccount = new SellerAccount(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
+//                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, companyNameField.getText(), companyInfoField.getText(), 1000000, profileImagePath);
+//                CreateSellerAccountRequest createSellerAccountRequest = new CreateSellerAccountRequest(sellerAccount, "create seller account");
+//                Request.addRequest(createSellerAccountRequest);
+//                Account.getReservedUserNames().add(LoginSignUpPage.getSignUpInputUsername);
+//            } else {
+//                BuyerAccount buyerAccount = new BuyerAccount(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
+//                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, 1000000, profileImagePath);
+//                BuyerAccount.addBuyer(buyerAccount);
+//                GeneralController.currentUser = buyerAccount;
+//            }
+//            GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
+//            LoginSignUpPage.mediaPlayer.stop();
+//            GraphicMain.audioClip.play();
+//        }
+//    }
+
     public void signUp(MouseEvent mouseEvent) throws IOException {
         GraphicMain.buttonSound.stop();
         GraphicMain.buttonSound.play();
-        if (areTextFieldsFilled() && areTextFieldsValid()) {
-            System.out.println(LoginSignUpPage.getSignUpInputUsername);
+        if (areTextFieldsFilled()) {
+            String response = null;
             if (isSeller.isSelected()) {
-                SellerAccount sellerAccount = new SellerAccount(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
-                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, companyNameField.getText(), companyInfoField.getText(), 1000000, profileImagePath);
-                CreateSellerAccountRequest createSellerAccountRequest = new CreateSellerAccountRequest(sellerAccount, "create seller account");
-                Request.addRequest(createSellerAccountRequest);
-                Account.getReservedUserNames().add(LoginSignUpPage.getSignUpInputUsername);
+                response = GeneralRequestBuilder.buildSellerCompleteSignUpRequest(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
+                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword,
+                        companyNameField.getText(), companyInfoField.getText(), profileImagePath);
             } else {
-                BuyerAccount buyerAccount = new BuyerAccount(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
-                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, 1000000, profileImagePath);
-                BuyerAccount.addBuyer(buyerAccount);
-                GeneralController.currentUser = buyerAccount;
+                response = GeneralRequestBuilder.buildBuyerCompleteSignUpRequest(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
+                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, profileImagePath);
+            }
+            if(!response.equals("success")){
+                showResponseMessage(response);
+                return;
             }
             GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
             LoginSignUpPage.mediaPlayer.stop();
@@ -107,46 +132,61 @@ public class CompleteSignUpPage implements Initializable {
         }
     }
 
-
-    private boolean areTextFieldsValid() throws MalformedURLException {
-        boolean isInfoValid = true;
-        try {
-            AccountsException.validateNameTypeInfo("first name", firstName.getText());
-        } catch (AccountsException e) {
-            firstName.setText(e.getErrorMessage());
+    private void showResponseMessage(String response) {
+        if(response.startsWith("invalidCharacter")){
+            firstName.setText(response.split("/")[1]);
             firstName.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
-            isInfoValid = false;
-        }
-        try {
-            AccountsException.validateNameTypeInfo("last name", lastName.getText());
-        } catch (AccountsException e) {
-            lastName.setText(e.getErrorMessage());
-            lastName.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
-            isInfoValid = false;
-        }
-        try {
-            AccountsException.validateEmail(email.getText());
-        } catch (AccountsException e) {
-            email.setText(e.getErrorMessage());
+        }else if(response.startsWith("invalidEmail")){
+            email.setText(response.split("/")[1]);
             email.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
-            isInfoValid = false;
-        }
-        try {
-            AccountsException.validatePhoneNumber(phoneNumber.getText());
-        } catch (AccountsException e) {
-            phoneNumber.setText(e.getErrorMessage());
+        }else if(response.startsWith("invalidPhoneNumber")){
+            phoneNumber.setText(response.split("/")[1]);
             phoneNumber.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
-            isInfoValid = false;
+        }else {
+            firstName.setText("unknown problem connecting the server ! please try again a few moments later !");
+            firstName.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
         }
-        /*
-        try {
-            AccountsException.validatePassWord(accountInfo.get(0));
-        } catch (AccountsException e) {
-            accountCreationErrors.append(e.getErrorMessage());
-        }
-        */
-        return isInfoValid;
     }
+
+//    private boolean areTextFieldsValid() throws MalformedURLException {
+//        boolean isInfoValid = true;
+//        try {
+//            AccountsException.validateNameTypeInfo("first name", firstName.getText());
+//        } catch (AccountsException e) {
+//            firstName.setText(e.getErrorMessage());
+//            firstName.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
+//            isInfoValid = false;
+//        }
+//        try {
+//            AccountsException.validateNameTypeInfo("last name", lastName.getText());
+//        } catch (AccountsException e) {
+//            lastName.setText(e.getErrorMessage());
+//            lastName.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
+//            isInfoValid = false;
+//        }
+//        try {
+//            AccountsException.validateEmail(email.getText());
+//        } catch (AccountsException e) {
+//            email.setText(e.getErrorMessage());
+//            email.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
+//            isInfoValid = false;
+//        }
+//        try {
+//            AccountsException.validatePhoneNumber(phoneNumber.getText());
+//        } catch (AccountsException e) {
+//            phoneNumber.setText(e.getErrorMessage());
+//            phoneNumber.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
+//            isInfoValid = false;
+//        }
+//        /*
+//        try {
+//            AccountsException.validatePassWord(accountInfo.get(0));
+//        } catch (AccountsException e) {
+//            accountCreationErrors.append(e.getErrorMessage());
+//        }
+//        */
+//        return isInfoValid;
+//    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

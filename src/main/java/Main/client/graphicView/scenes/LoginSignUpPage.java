@@ -115,18 +115,24 @@ public class LoginSignUpPage implements Initializable {
                 mediaPlayer.stop();
                 GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
                 GraphicMain.audioClip.play();
-            } else if (response.startsWith("invalidCharacter")) {
-                loginErrorMessage.setText(response.split("/")[1]);
-                loginUsername.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
-            } else if (response.equals("userNameNotFound")) {
-                loginErrorMessage.setText("there is no account with this username !");
-                loginUsername.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
-            } else if (response.equals("passwordWrong")) {
-                loginPassword.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
-                loginErrorMessage.setText("password is incorrect !");
-            } else {
-                loginErrorMessage.setText("unknown problem connecting the server ! please try again a few moments later !");
+            }else{
+                showLoginResponseMessage(response);
             }
+        }
+    }
+
+    private void showLoginResponseMessage(String response){
+        if (response.startsWith("invalidCharacter")) {
+            loginErrorMessage.setText(response.split("/")[1]);
+            loginUsername.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
+        } else if (response.equals("userNameNotFound")) {
+            loginErrorMessage.setText("there is no account with this username !");
+            loginUsername.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
+        } else if (response.equals("passwordWrong")) {
+            loginPassword.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
+            loginErrorMessage.setText("password is incorrect !");
+        } else {
+            loginErrorMessage.setText("unknown problem connecting the server ! please try again a few moments later !");
         }
     }
 
@@ -151,15 +157,18 @@ public class LoginSignUpPage implements Initializable {
             String response = GeneralRequestBuilder.buildSignUpRequest(signUpUsername.getText(), signUpPassword.getText());
             if (response.equals("success")) {
                 GraphicMain.graphicMain.goToPage(CompleteSignUpPage.FXML_PATH, CompleteSignUpPage.TITLE);
-            } else if (response.startsWith("invalidCharacter")) {
-                signUpUsername.setText(response.split("/")[1]);
-                signUpUsername.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
-            } else if (response.equals("duplicateUserName")) {
-                signUpUsername.setText("this username is already token");
-                signUpUsername.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
             } else {
-                loginErrorMessage.setText("unknown problem connecting the server ! please try again a few moments later !");
+                showSignUpResponseMessage(response);
             }
+        }
+    }
+
+    private void showSignUpResponseMessage(String response){
+        if (response.equals("duplicateUserName")) {
+            signUpUsername.setText("this username is already token");
+            signUpUsername.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
+        } else {
+            loginErrorMessage.setText("unknown problem connecting the server ! please try again a few moments later !");
         }
     }
 

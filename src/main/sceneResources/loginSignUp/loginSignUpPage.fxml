@@ -23,7 +23,7 @@
         <TabPane layoutX="91.0" layoutY="90.0" prefHeight="531.0" prefWidth="449.0" styleClass="tabPane"
                  tabClosingPolicy="UNAVAILABLE" tabMinHeight="70.0" tabMinWidth="190.0">
             <tabs>
-                <Tab closable="false" onSelectionChanged="#switchTab" styleClass="tab" text="LOGIN">
+                <Tab closable="false" styleClass="tab" text="LOGIN">
                     <content>
                         <VBox prefHeight="31.0" prefWidth="100.0" spacing="20.0">
                             <children>
@@ -55,7 +55,7 @@
                         </VBox>
                     </content>
                 </Tab>
-                <Tab closable="false" onSelectionChanged="#switchTab" styleClass="tab" text="SIGN UP">
+                <Tab closable="false" styleClass="tab" text="SIGN UP">
                     <content>
                         <VBox prefHeight="31.0" prefWidth="100.0" spacing="20.0">
                             <children>

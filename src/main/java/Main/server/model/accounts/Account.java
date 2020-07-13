@@ -25,7 +25,7 @@ public abstract class Account {
         this.phoneNumber = phoneNumber;
         this.passWord = passWord;
         this.profileImagePath = profileImagePath;
-        if(profileImagePath==null){
+        if (profileImagePath == null) {
             this.profileImagePath = "src/main/java/Main/client/graphicView/resources/images/avatars/1.png";
         }
         this.token = "0000";
@@ -133,5 +133,17 @@ public abstract class Account {
 
     public String getProfileImagePath() {
         return profileImagePath;
+    }
+
+    public void removeToken() {
+        this.token = "0000";
+    }
+
+    public void setToken(String token){
+        this.token = token;
+    }
+
+    public String getToken(){
+        return token;
     }
 }

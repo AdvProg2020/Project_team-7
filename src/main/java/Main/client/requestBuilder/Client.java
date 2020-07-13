@@ -38,4 +38,18 @@ public class Client {
         }
         return "failure";
     }
+
+    public void closeConnection(){
+        try {
+            dataOutputStream.writeUTF("0000/disconnect");
+            dataOutputStream.flush();
+            dataInputStream.readUTF();
+            socket.close();
+            dataInputStream.close();
+            dataOutputStream.close();
+            //TODO take action for token
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
