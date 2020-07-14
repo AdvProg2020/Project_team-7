@@ -12,6 +12,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -35,6 +36,7 @@ public class GraphicMain extends Application {
     public static ManagerController managerController = new ManagerController();
     public static GeneralController generalController = new GeneralController();
     public static SellerController sellerController = new SellerController();
+    public static String token = "0000";
 
     public static void main(String[] args) {
         launch(args);
@@ -115,5 +117,13 @@ public class GraphicMain extends Application {
     public Object getController(String fxmlName) throws MalformedURLException {
         FXMLLoader fxmlLoader = new FXMLLoader(new File(fxmlName).toURI().toURL());
         return fxmlLoader.getController();
+    }
+
+    public static void showInformationAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(null);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
 }

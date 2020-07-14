@@ -30,9 +30,8 @@ public class GeneralRequestProcessor {
         } catch (Exception e) {
         }
 
-        ServerMain.server.addToken(account);
-        GeneralController.currentUser = account;
-        return "success";
+        String token = ServerMain.server.addToken(account);
+        return "success#" + token;
     }
 
     public static String signUpRequestProcessor(String[] splitRequest) {
@@ -124,14 +123,13 @@ public class GeneralRequestProcessor {
                 email, phoneNumber, password, imagePath);
 
         if (ManagerAccount.isThereAChiefManager()) {
-            if(ServerMain.server.getTokenInfo(splitRequest[0])==null){
+            if(!ServerMain.server.validateToken(splitRequest[0])){
                 return "loginNeeded";
             }
             ManagerAccount.addManager(managerAccount);
             return "success#ordinary";
         } else {
             ManagerAccount.addManager(managerAccount);
-            GeneralController.currentUser = managerAccount;
             return "success#chief";
         }
     }

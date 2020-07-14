@@ -1,25 +1,18 @@
 package Main.client.graphicView.scenes;
 
 import Main.client.requestBuilder.GeneralRequestBuilder;
-import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.ManagerPanel.ManageUsersController;
-import Main.server.model.accounts.Account;
-import Main.server.model.accounts.ManagerAccount;
 import Main.server.model.exceptions.AccountsException;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -139,7 +132,7 @@ public class RegisterManager implements Initializable {
 
     public void signUp(MouseEvent mouseEvent) throws Exception {
         if (areTextFieldsFilled()) {
-            String response = GeneralRequestBuilder.buildManagerCompleteSignUpRequest(username.getText(), firstName.getText(), lastName.getText(),
+            String response = GeneralRequestBuilder.buildManagerSignUpRequest(username.getText(), firstName.getText(), lastName.getText(),
                     email.getText(), phoneNumber.getText(), password.getText(), profileImagePath);
 
             if (response.startsWith("success")) {
@@ -169,11 +162,7 @@ public class RegisterManager implements Initializable {
             username.setText(response.split("#")[1]);
             username.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
         } else if (response.equals("loginNeeded")) {
-            try {
-                GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            GraphicMain.showInformationAlert("you must login first !\nyou'r authentication might be expired !");
         } else {
             username.setText("unknown problem connecting the server ! please try again a few moments later !");
             username.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");

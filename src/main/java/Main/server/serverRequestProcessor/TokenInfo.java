@@ -11,6 +11,7 @@ public class TokenInfo {
 
     public TokenInfo(Account user) {
         this.user = user;
+        expirationDate = new Date();
         this.expirationDate = DateUtils.addMinutes(expirationDate,Server.TOKEN_EXPIRATION_MINUTES);
     }
 

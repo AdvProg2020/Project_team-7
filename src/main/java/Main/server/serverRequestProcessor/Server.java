@@ -93,7 +93,7 @@ public class Server {
                 response = BuyerRequestProcessor.initializeBuyerPanelRequestProcessor();
             } else if (splitRequest[1].equals("buyerPersonalInfo")) {
                 response = BuyerRequestProcessor.buyerPersonalInfoRequestProcessor();
-            }  else if (splitRequest[1].equals("managerPersonalInfo")) {
+            } else if (splitRequest[1].equals("managerPersonalInfo")) {
                 response = ManagerRequestProcessor.managerPersonalInfoRequestProcessor();
             }
 
@@ -113,37 +113,25 @@ public class Server {
     }
 
     public TokenInfo getTokenInfo(String token) {
-        TokenInfo tokenInfo = null;
         for (String tokenString : tokens.keySet()) {
             if (tokenString.equals(token)) {
-                tokenInfo = tokens.get(tokenString);
-                break;
+                return tokens.get(tokenString);
             }
         }
-        if (tokenInfo == null) {
-            return null;
-        }
-        if (tokenInfo.hasTokenExpired()) {
-            removeToken(token);
-            return null;
-        } else {
-            return tokenInfo;
-        }
+        return null;
     }
 
     public void removeToken(String token) {
         if (tokens.containsKey(token)) {
-            Account account = tokens.get(token).getUser();
-            account.removeToken();
             tokens.remove(token);
         }
     }
 
-    public void addToken(Account account) {
+    public String addToken(Account account) {
         String token = getRandomString(5);
-        account.setToken(token);
         TokenInfo tokenInfo = new TokenInfo(account);
         tokens.put(token, tokenInfo);
+        return token;
     }
 
     private String getRandomString(int stringLength) {
@@ -160,5 +148,24 @@ public class Server {
         }
 
         return stringBuilder.toString();
+    }
+
+    public boolean validateToken(String token) {
+        TokenInfo tokenInfo = null;
+        for (String tokenString : tokens.keySet()) {
+            if (tokenString.equals(token)) {
+                tokenInfo = tokens.get(tokenString);
+                break;
+            }
+        }
+        if (tokenInfo == null) {
+            return false;
+        }
+        if (tokenInfo.hasTokenExpired()) {
+            removeToken(token);
+            return false;
+        } else {
+            return true;
+        }
     }
 }

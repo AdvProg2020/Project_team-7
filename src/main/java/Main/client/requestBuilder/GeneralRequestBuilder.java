@@ -1,6 +1,7 @@
 package Main.client.requestBuilder;
 
 import Main.client.ClientMain;
+import Main.client.graphicView.GraphicMain;
 import Main.server.controller.GeneralController;
 import Main.server.model.exceptions.AccountsException;
 
@@ -76,7 +77,7 @@ public class GeneralRequestBuilder {
         return ClientMain.client.sendRequest(signUpRequest);
     }
 
-    public static String buildManagerCompleteSignUpRequest(String userName, String firstName, String lastName, String email, String phoneNumber, String password, String imagePath) {
+    public static String buildManagerSignUpRequest(String userName, String firstName, String lastName, String email, String phoneNumber, String password, String imagePath) {
         try {
             AccountsException.validateUserName(userName);
             AccountsException.validatePassWord(password);
@@ -97,8 +98,7 @@ public class GeneralRequestBuilder {
             return "invalidPhoneNumber#" + e.getErrorMessage();
         }
 
-        String token = (GeneralController.currentUser == null ? "0000" : GeneralController.currentUser.getToken());
-        String signUpRequest = token + "#signUpManager#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + imagePath;
+        String signUpRequest = GraphicMain.token + "#signUpManager#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + imagePath;
         return ClientMain.client.sendRequest(signUpRequest);
     }
 }

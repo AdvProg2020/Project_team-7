@@ -110,8 +110,8 @@ public class LoginSignUpPage implements Initializable {
         //GraphicMain.buttonSound.play();
         if (areTextFieldsFilled(loginUsername, loginPassword)) {
             String response = GeneralRequestBuilder.buildLoginRequest(loginUsername.getText(), loginPassword.getText());
-            if (response.equals("success")) {
-                GeneralController.currentUser = Account.getUserWithUserName(loginUsername.getText());
+            if (response.startsWith("success")) {
+                GraphicMain.token = response.split("#")[1];
                 //mediaPlayer.stop();
                 GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
                 //GraphicMain.audioClip.play();
