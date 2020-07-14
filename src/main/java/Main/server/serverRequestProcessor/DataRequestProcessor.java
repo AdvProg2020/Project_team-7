@@ -1,5 +1,9 @@
 package Main.server.serverRequestProcessor;
 
+import Main.server.controller.GeneralController;
+import Main.server.model.logs.BuyLog;
+import Main.server.model.logs.Log;
+
 import java.io.*;
 
 public class DataRequestProcessor {
@@ -10,10 +14,40 @@ public class DataRequestProcessor {
             return allCategoriesResponse();
         } else if (splitRequest[2].equals("allSellers")) {
             return allSellersResponse();
-        }else if (splitRequest[2].equals("allOffs")) {
+        } else if (splitRequest[2].equals("allBuyers")) {
+            return allBuyersResponse();
+        } else if (splitRequest[2].equals("log")) {
+            return logResponseWithID(splitRequest[3]);
+        } else if (splitRequest[2].equals("allOffs")) {
             return allOffsResponse();
         }
         return null;
+    }
+
+    private static String logResponseWithID(String logID) {
+        try {
+            BuyLog buyLog = (BuyLog) Log.getLogWithID(logID);
+            return GeneralController.yagsonMapper.toJson(buyLog, BuyLog.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "failure";
+        }
+    }
+
+    private static String allBuyersResponse() {
+        try {
+            InputStream inputStream = new FileInputStream(new File("src/main/JSON/buyers.json"));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            String line = bufferedReader.readLine();
+            StringBuilder stringBuilder = new StringBuilder();
+            while (line != null) {
+                stringBuilder.append(line).append("\n");
+                line = bufferedReader.readLine();
+            }
+            return stringBuilder.toString();
+        } catch (Exception e) {
+            return "[]";
+        }
     }
 
     private static String allOffsResponse() {

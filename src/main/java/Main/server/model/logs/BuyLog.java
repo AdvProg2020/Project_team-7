@@ -27,4 +27,13 @@ public class BuyLog extends Log {
                 "\n\tReceiver Information : " +
                 receiverInfo + "\n";
     }
+
+    public void markDelivered(){
+        this.setDeliveryStatus(DeliveryStatus.DELIVERED);
+        for (Log log : Log.allLogs) {
+            if(log.getLogId().equals(this.getLogId())){
+                log.deliveryStatus = DeliveryStatus.DELIVERED;
+            }
+        }
+    }
 }

@@ -75,9 +75,11 @@ public class Server {
             splitRequest = request.split("#");
             if (splitRequest.length < 2) {
                 response = "invalidRequest";
-            } else if (splitRequest[1].equals("login")) {
+            } else if (splitRequest[1].equals("manager")) {
+                response = ManagerRequestProcessor.process(splitRequest);
+            }  else if (splitRequest[1].equals("login")) {
                 response = GeneralRequestProcessor.loginRequestProcessor(splitRequest);
-            } else if (splitRequest[1].equals("signUp")) {
+            }else if (splitRequest[1].equals("signUp")) {
                 response = GeneralRequestProcessor.signUpRequestProcessor(splitRequest);
             } else if (splitRequest[1].equalsIgnoreCase("signUpSeller")) {
                 response = GeneralRequestProcessor.signUpSellerRequestProcessor(splitRequest);

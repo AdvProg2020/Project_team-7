@@ -23,4 +23,14 @@ public class DataRequestBuilder {
         String allOffsDataRequest = "0000#data#allOffs";
         return ClientMain.client.sendRequest(allOffsDataRequest);
     }
+
+    public static String buildAllBuyersRequest() {
+        String allBuyersDataRequest = "0000#data#allBuyers";
+        return ClientMain.client.sendRequest(allBuyersDataRequest);
+    }
+
+    public static String buildLogRequestWithID(String logID) {
+        String logDataRequest = "0000#data#log#" + logID;
+        return ClientMain.client.sendRequest(logDataRequest);
+    }
 }
