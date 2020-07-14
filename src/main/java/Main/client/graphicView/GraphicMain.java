@@ -119,11 +119,11 @@ public class GraphicMain extends Application {
         return fxmlLoader.getController();
     }
 
-    public static void showInformationAlert(String message){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(null);
-        alert.setContentText(message);
-        alert.setHeaderText(null);
-        alert.showAndWait();
+        public static void showInformationAlert (String message){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setContentText(message);
+            alert.setHeaderText(null);
+            alert.showAndWait();
+        }
     }
-}

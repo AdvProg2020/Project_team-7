@@ -24,7 +24,7 @@ public abstract class Log {
     protected static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private static String inputDateFormat = "yyyy/MM/dd HH:mm:ss";
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(inputDateFormat);
-    private static ArrayList<Log> allLogs = new ArrayList<>();
+    protected static ArrayList<Log> allLogs = new ArrayList<>();
 
     public Log(String logID, Date date, String products, DeliveryStatus deliveryStatus, String receiverInfo, double totalCost) {
         this.logId = logID;
@@ -139,4 +139,7 @@ public abstract class Log {
         }
     }
 
+    public DeliveryStatus getDeliveryStatus() {
+        return deliveryStatus;
+    }
 }
