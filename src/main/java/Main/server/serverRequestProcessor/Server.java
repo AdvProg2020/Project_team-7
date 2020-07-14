@@ -77,9 +77,9 @@ public class Server {
                 response = "invalidRequest";
             } else if (splitRequest[1].equals("manager")) {
                 response = ManagerRequestProcessor.process(splitRequest);
-            }  else if (splitRequest[1].equals("login")) {
+            } else if (splitRequest[1].equals("login")) {
                 response = GeneralRequestProcessor.loginRequestProcessor(splitRequest);
-            }else if (splitRequest[1].equals("signUp")) {
+            } else if (splitRequest[1].equals("signUp")) {
                 response = GeneralRequestProcessor.signUpRequestProcessor(splitRequest);
             } else if (splitRequest[1].equalsIgnoreCase("signUpSeller")) {
                 response = GeneralRequestProcessor.signUpSellerRequestProcessor(splitRequest);
@@ -152,22 +152,18 @@ public class Server {
         return stringBuilder.toString();
     }
 
-    public boolean validateToken(String token) {
-        TokenInfo tokenInfo = null;
-        for (String tokenString : tokens.keySet()) {
-            if (tokenString.equals(token)) {
-                tokenInfo = tokens.get(tokenString);
-                break;
-            }
-        }
+    public boolean validateToken(String token, Class<?> classType) {
+        TokenInfo tokenInfo = tokens.get(token);
         if (tokenInfo == null) {
             return false;
         }
         if (tokenInfo.hasTokenExpired()) {
             removeToken(token);
             return false;
-        } else {
+        }
+        if (tokenInfo.getUser().getClass().equals(classType)) {
             return true;
         }
+        return false;
     }
 }

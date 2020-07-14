@@ -123,7 +123,7 @@ public class GeneralRequestProcessor {
                 email, phoneNumber, password, imagePath);
 
         if (ManagerAccount.isThereAChiefManager()) {
-            if(!ServerMain.server.validateToken(splitRequest[0])){
+            if(!ServerMain.server.validateToken(splitRequest[0],ManagerAccount.class)){
                 return "loginNeeded";
             }
             ManagerAccount.addManager(managerAccount);

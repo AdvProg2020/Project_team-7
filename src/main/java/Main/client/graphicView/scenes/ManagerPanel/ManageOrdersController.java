@@ -80,16 +80,20 @@ public class ManageOrdersController {
             Optional<ButtonType> option = alert.showAndWait();
             if (option.get().equals(mark_as_delivered)) {
                 String response = ManagerRequestBuilder.buildMarkDeliveredRequest(buyLog.getLogId());
-                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                alert1.setTitle("BuyLog Delivery Status");
-                alert1.setHeaderText(null);
                 if (response.equals("success")) {
-                    alert1.setContentText("BuyLog marked as delivered successfully.");
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setTitle("BuyLog Delivery Status");
+                    alert1.setHeaderText(null);
+                    if (response.equals("success")) {
+                        alert1.setContentText("BuyLog marked as delivered successfully.");
+                    } else {
+                        alert1.setContentText("BuyLog couldn't be marked as delivered, try a few moments later.");
+                    }
+                    alert1.showAndWait();
+                    initialize();
                 } else {
-                    alert1.setContentText("BuyLog couldn't be marked as delivered, try a few moments later.");
+                    showResponseMessage(response);
                 }
-                alert1.showAndWait();
-                initialize();
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -100,6 +104,14 @@ public class ManageOrdersController {
             ButtonType cancel = new ButtonType("Cancel");
             alert.getButtonTypes().add(cancel);
             Optional<ButtonType> option = alert.showAndWait();
+        }
+    }
+
+    private void showResponseMessage(String response) {
+        if (response.equals("loginNeeded")) {
+            GraphicMain.showInformationAlert("you must login first !\nyou'r authentication might be expired !");
+        } else {
+            GraphicMain.showInformationAlert("problem connecting the server !\n try a few moments later .");
         }
     }
 

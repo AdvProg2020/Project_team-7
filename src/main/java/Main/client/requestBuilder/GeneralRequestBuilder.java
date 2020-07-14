@@ -14,7 +14,7 @@ public class GeneralRequestBuilder {
         } catch (AccountsException e) {
             return "invalidCharacter#" + e.getErrorMessage();
         }
-        String loginRequest = "0000#login#username:" + userName + "#password:" + password;
+        String loginRequest = GraphicMain.token + "#login#username:" + userName + "#password:" + password;
         return ClientMain.client.sendRequest(loginRequest);
     }
 
@@ -25,7 +25,7 @@ public class GeneralRequestBuilder {
         } catch (AccountsException e) {
             return "invalidCharacter#" + e.getErrorMessage();
         }
-        String signUpRequest = "0000#signUp#userName:" + username + "#password:" + password;
+        String signUpRequest = GraphicMain.token + "#signUp#userName:" + username + "#password:" + password;
         return ClientMain.client.sendRequest(signUpRequest);
     }
 
@@ -48,7 +48,7 @@ public class GeneralRequestBuilder {
             return "invalidPhoneNumber#" + e.getErrorMessage();
         }
 
-        String signUpRequest = "0000#signUpBuyer#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + imagePath;
+        String signUpRequest = GraphicMain.token + "#signUpBuyer#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + imagePath;
         return ClientMain.client.sendRequest(signUpRequest);
     }
 
@@ -73,7 +73,7 @@ public class GeneralRequestBuilder {
             return "invalidPhoneNumber#" + e.getErrorMessage();
         }
 
-        String signUpRequest = "0000#signUpSeller#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + imagePath;
+        String signUpRequest = GraphicMain.token + "#signUpSeller#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + imagePath;
         return ClientMain.client.sendRequest(signUpRequest);
     }
 

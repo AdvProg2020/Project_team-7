@@ -3,6 +3,7 @@ package Main.client.requestBuilder;
 //import Main.client.ClientMainFORMANAGERTEST;
 
 import Main.client.ClientMain;
+import Main.client.graphicView.GraphicMain;
 
 public class ManagerRequestBuilder {
     public static String buildManagerPersonalInformationRequest() {
@@ -11,7 +12,7 @@ public class ManagerRequestBuilder {
     }
 
     public static String buildMarkDeliveredRequest(String logID) {
-        String markDeliveredRequest = "0000#manager#markDelivered#" + logID;
+        String markDeliveredRequest = GraphicMain.token + "#manager#markDelivered#" + logID;
         return ClientMain.client.sendRequest(markDeliveredRequest);
     }
 }
