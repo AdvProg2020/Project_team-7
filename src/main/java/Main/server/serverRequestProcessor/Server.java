@@ -1,5 +1,6 @@
 package Main.server.serverRequestProcessor;
 
+import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.model.accounts.Account;
 
 import java.io.*;
@@ -65,9 +66,9 @@ public class Server {
         }
 
         public void handle() throws Exception {
-            String request = null;
+            String request;
             String response = null;
-            String[] splitRequest = new String[0];
+            String[] splitRequest;
 
             request = dataInputStream.readUTF();
             System.out.println("server read " + request);
@@ -97,6 +98,10 @@ public class Server {
                 response = BuyerRequestProcessor.buyerPersonalInfoRequestProcessor();
             } else if (splitRequest[1].equals("managerPersonalInfo")) {
                 response = ManagerRequestProcessor.managerPersonalInfoRequestProcessor();
+            }
+
+            else if(splitRequest[1].equals("addComment")){
+                response = SellerRequestProcessor.buildCommentResponse(splitRequest);
             }
 
             dataOutputStream.writeUTF(response);

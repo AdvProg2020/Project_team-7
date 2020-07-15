@@ -1,6 +1,7 @@
 package Main.client.graphicView.scenes;
 
 import Main.client.graphicView.GraphicMain;
+import Main.client.requestBuilder.SellerRequestBuilder;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -9,7 +10,7 @@ import java.io.IOException;
 
 public class AddCommentPage {
     public static final String FXML_PATH = "src/main/sceneResources/addCommentPage.fxml";
-    public static final String TITLE = "Seller Panel";
+    public static final String TITLE = "Add Comment";
 
     @FXML
     private TextField title;
@@ -23,13 +24,21 @@ public class AddCommentPage {
     public void submitComment(){
         String commentTitle = title.getText();
         String commentContent = content.getText();
-        try {
-            GraphicMain.generalController.addComment(commentTitle,commentContent);
+//        try {
+//            GraphicMain.generalController.addComment(commentTitle,commentContent);
+//            showInformationAlert("comment added successfully");
+//        } catch (Exception e) {
+//            showErrorAlert(e.getMessage());
+//        }
+        String response = SellerRequestBuilder.buildCommentRequest(commentTitle, commentContent);
+        if(response.equals("success")){
             showInformationAlert("comment added successfully");
-        } catch (Exception e) {
-            showErrorAlert(e.getMessage());
+        }else{
+            String[] splitResponse = response.split("#");
+            showErrorAlert(splitResponse[1]);
         }
     }
+
     public void showErrorAlert(String message){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(null);
