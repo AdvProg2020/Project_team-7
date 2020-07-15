@@ -2,6 +2,7 @@ package Main.client.graphicView.scenes;
 
 import Main.client.graphicView.GraphicMain;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.SellerRequestBuilder;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,7 +31,8 @@ public class AddOffPage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        list.getItems().addAll(GraphicMain.sellerController.getSellerProductNames());
+//        list.getItems().addAll(GraphicMain.sellerController.getSellerProductNames());
+        fillListView();
         list.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -49,6 +51,15 @@ public class AddOffPage implements Initializable {
         });
     }
 
+    public void fillListView(){
+        String[] names = SellerRequestBuilder.getListItemsForAddOffPage().split("#");
+        ArrayList<String> productNames = new ArrayList<>();
+        for(int i=1; i<names.length; i++){
+            productNames.add(names[i]);
+        }
+        list.getItems().addAll(productNames);
+    }
+
     public void goBack(){
         GraphicMain.graphicMain.back();
     }
@@ -58,11 +69,18 @@ public class AddOffPage implements Initializable {
         offInfo.add(startDate.getText());
         offInfo.add(endDate.getText());
         offInfo.add(offAmount.getText());
-        try {
-            GraphicMain.sellerController.addOff(productIdList,offInfo);
+//        try {
+//            GraphicMain.sellerController.addOff(productIdList,offInfo);
+//            showInformationAlert("off created successfully");
+//        } catch (Exception e) {
+//            showErrorAlert(e.getMessage());
+//        }
+        String response = SellerRequestBuilder.buildAddOffRequest(productIdList, offInfo);
+        if(response.equals("success")){
             showInformationAlert("off created successfully");
-        } catch (Exception e) {
-            showErrorAlert(e.getMessage());
+        }else{
+            String[] splitResponse = response.split("#");
+            showErrorAlert(splitResponse[1]);
         }
 
     }

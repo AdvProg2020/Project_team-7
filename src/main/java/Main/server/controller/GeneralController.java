@@ -15,6 +15,7 @@ import Main.server.model.requests.AddCommentRequest;
 import Main.server.model.requests.CreateSellerAccountRequest;
 import Main.server.model.requests.Request;
 import Main.server.model.sorting.ProductsSort;
+import Main.server.serverRequestProcessor.Server;
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
@@ -75,19 +76,19 @@ public class GeneralController {
                 ((BuyerAccount) currentUser).getCart());
     }
 
-    public void addComment(String title, String content) throws Exception {
-        validateInputCommentInfo();
-        Comment comment = new Comment(((BuyerAccount) currentUser), currentProduct, title, content,
-                ((BuyerAccount) currentUser).hasBuyerBoughtProduct(currentProduct));
+    public void addComment(String title, String content, String token, String id) throws Exception {
+        validateInputCommentInfo(token);
+        Comment comment = new Comment(((BuyerAccount) Server.getServer().getTokenInfo(token).getUser()), Product.getProductWithId(id), title, content,
+                ((BuyerAccount) Server.getServer().getTokenInfo(token).getUser()).hasBuyerBoughtProduct(Product.getProductWithId(id)));
         Request commentRequest = new AddCommentRequest(comment, "Add comment request");
         Request.addRequest(commentRequest);
     }
 
-    private void validateInputCommentInfo() throws Exception {
-        if (currentUser == null) {
+    private void validateInputCommentInfo(String token) throws Exception {
+        if (Server.getServer().getTokenInfo(token).getUser() == null) {
             throw new Exception("you must sign in then comment on a product !\n");
         }
-        if (!(currentUser instanceof BuyerAccount)) {
+        if (!(Server.getServer().getTokenInfo(token).getUser() instanceof BuyerAccount)) {
             throw new Exception("only buyers can comment on products !\n");
         }
     }

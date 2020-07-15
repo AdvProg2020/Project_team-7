@@ -1,5 +1,6 @@
 package Main.server.controller;
 
+import Main.client.graphicView.GraphicMain;
 import Main.server.model.Category;
 import Main.server.model.Product;
 import Main.server.model.ProductStatus;
@@ -11,6 +12,7 @@ import Main.server.model.exceptions.CreateProductException;
 import Main.server.model.exceptions.DiscountAndOffTypeServiceException;
 import Main.server.model.logs.SellLog;
 import Main.server.model.requests.*;
+import Main.server.serverRequestProcessor.Server;
 
 import java.util.ArrayList;
 
@@ -294,15 +296,15 @@ public class SellerController {
         }
     }
 
-    public void addOff(ArrayList<String> productIDs, ArrayList<String> offInfo) throws Exception {
-        validateOffInputInfo(productIDs, offInfo);
+    public void addOff(ArrayList<String> productIDs, ArrayList<String> offInfo, String token) throws Exception {
+        validateOffInputInfo(productIDs, offInfo, token);
         ArrayList<Product> products = extractOffProductsList(productIDs);
-        Off off = new Off(products, offInfo.get(0), offInfo.get(1), Double.parseDouble(offInfo.get(2)), (SellerAccount) GeneralController.currentUser);
+        Off off = new Off(products, offInfo.get(0), offInfo.get(1), Double.parseDouble(offInfo.get(2)), (SellerAccount) Server.getServer().getTokenInfo(token).getUser());
         AddOffRequest addOffRequest = new AddOffRequest(off, "Add New Off Request");
         Request.addRequest(addOffRequest);
     }
 
-    private void validateOffInputInfo(ArrayList<String> productIDs, ArrayList<String> offInfo) throws Exception {
+    private void validateOffInputInfo(ArrayList<String> productIDs, ArrayList<String> offInfo, String token) throws Exception {
         StringBuilder addOffErrors = new StringBuilder();
 
         try {
@@ -333,7 +335,7 @@ public class SellerController {
             addOffErrors.append(e.getMessage());
         }
         try {
-            SellerAccount.getSellerWithUserName(GeneralController.currentUser.getUserName());
+            SellerAccount.getSellerWithUserName(Server.getServer().getTokenInfo(token).getUser().getUserName());
         } catch (Exception e) {
             addOffErrors.append(e.getMessage());
         }
@@ -371,9 +373,9 @@ public class SellerController {
         return ((SellerAccount) GeneralController.currentUser).viewBalance();
     }
 
-    public ArrayList<String> getSellerProductNames() {
+    public ArrayList<String> getSellerProductNames(String token) {
         ArrayList<String> arrayList = new ArrayList<>();
-        SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
+        SellerAccount sellerAccount = (SellerAccount) Server.getServer().getTokenInfo(token).getUser();
         if (sellerAccount.getProducts().isEmpty()) {
             arrayList.add("no product to show");
         } else {

@@ -37,6 +37,7 @@ public class GraphicMain extends Application {
     public static GeneralController generalController = new GeneralController();
     public static SellerController sellerController = new SellerController();
     public static String token = "0000";
+    public static String currentProductId = "0000";
 
     public static void main(String[] args) {
         launch(args);

@@ -103,6 +103,10 @@ public class Server {
 
             else if(splitRequest[1].equals("addComment")){
                 response = SellerRequestProcessor.buildCommentResponse(splitRequest);
+            }else if(splitRequest[1].equals("getListItemsForAddOffPage")){
+                response = SellerRequestProcessor.getListItemsForAddOffPage(splitRequest[0]);
+            }else if(splitRequest[1].equals("addOff")){
+                response = SellerRequestProcessor.buildAddOffResponse(splitRequest);
             }
 
             dataOutputStream.writeUTF(response);
