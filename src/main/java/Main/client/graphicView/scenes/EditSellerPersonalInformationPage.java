@@ -1,5 +1,6 @@
 package Main.client.graphicView.scenes;
 
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.server.model.accounts.SellerAccount;
@@ -43,7 +44,8 @@ public class EditSellerPersonalInformationPage implements Initializable {
     }
 
     public void logout() throws IOException {
-        GraphicMain.generalController.logout();
+        //GraphicMain.generalController.logout();
+        GeneralRequestBuilder.buildLogoutRequest();
         //goBack();
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }

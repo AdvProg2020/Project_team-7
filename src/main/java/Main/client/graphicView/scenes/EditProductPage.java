@@ -1,6 +1,7 @@
 package Main.client.graphicView.scenes;
 
 import Main.client.graphicView.GraphicMain;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.model.Product;
 import Main.server.model.requests.EditProductRequest;
 import javafx.fxml.FXML;
@@ -93,7 +94,8 @@ public class EditProductPage implements Initializable {
     }
 
     public void logout() throws IOException {
-        GraphicMain.generalController.logout();
+        //GraphicMain.generalController.logout();
+        GeneralRequestBuilder.buildLogoutRequest();
         //goBack();
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }

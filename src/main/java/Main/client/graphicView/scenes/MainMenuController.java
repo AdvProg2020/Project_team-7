@@ -1,5 +1,6 @@
 package Main.client.graphicView.scenes;
 
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.BuyerPanel.BuyerPanelController;
@@ -22,7 +23,8 @@ public class MainMenuController {
     }
 
     public void logout() throws IOException{
-        GraphicMain.generalController.logout();
+        //GraphicMain.generalController.logout();
+        GeneralRequestBuilder.buildLogoutRequest();
         //goBack();
         GraphicMain.graphicMain.exitProgram();
     }

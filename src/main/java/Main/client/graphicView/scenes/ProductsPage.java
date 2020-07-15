@@ -1,6 +1,7 @@
 package Main.client.graphicView.scenes;
 
 import Main.client.requestBuilder.DataRequestBuilder;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.BuyerPanel.BuyerPanelController;
@@ -192,7 +193,8 @@ public class ProductsPage implements Initializable {
     }
 
     public void logout() throws IOException {
-        GraphicMain.generalController.logout();
+        //GraphicMain.generalController.logout();
+        GeneralRequestBuilder.buildLogoutRequest();
         //goBack();
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }

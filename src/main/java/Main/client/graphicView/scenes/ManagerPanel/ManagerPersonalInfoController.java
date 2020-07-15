@@ -1,6 +1,7 @@
 package Main.client.graphicView.scenes.ManagerPanel;
 
 import Main.client.requestBuilder.BuyerRequestBuilder;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
@@ -70,7 +71,8 @@ public class ManagerPersonalInfoController {
     }
 
     public void logout() throws IOException{
-        GraphicMain.generalController.logout();
+        //GraphicMain.generalController.logout();
+        GeneralRequestBuilder.buildLogoutRequest();
         //goBack();
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }

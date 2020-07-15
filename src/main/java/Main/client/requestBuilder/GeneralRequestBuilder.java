@@ -7,6 +7,11 @@ import Main.server.model.exceptions.AccountsException;
 
 public class GeneralRequestBuilder {
 
+    public static String buildLogoutRequest() {
+        String logoutRequest = GraphicMain.token + "#logout";
+        return ClientMain.client.sendRequest(logoutRequest);
+    }
+
     public static String buildLoginRequest(String userName, String password) {
         try {
             AccountsException.validateUserName(userName);
@@ -101,4 +106,6 @@ public class GeneralRequestBuilder {
         String signUpRequest = GraphicMain.token + "#signUpManager#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + imagePath;
         return ClientMain.client.sendRequest(signUpRequest);
     }
+
+
 }

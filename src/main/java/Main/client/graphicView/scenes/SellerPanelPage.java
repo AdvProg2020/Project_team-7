@@ -1,5 +1,6 @@
 package Main.client.graphicView.scenes;
 
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import javafx.fxml.FXML;
@@ -89,7 +90,8 @@ public class SellerPanelPage implements Initializable {
     }
 
     public void logout() throws IOException {
-        GraphicMain.generalController.logout();
+        //GraphicMain.generalController.logout();
+        GeneralRequestBuilder.buildLogoutRequest();
         goBack();
     }
 }

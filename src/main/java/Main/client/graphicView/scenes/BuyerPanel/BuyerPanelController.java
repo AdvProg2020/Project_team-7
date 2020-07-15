@@ -3,6 +3,7 @@ package Main.client.graphicView.scenes.BuyerPanel;
 import Main.client.ClientMain;
 import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.client.requestBuilder.Client;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
@@ -58,7 +59,8 @@ public class BuyerPanelController {
     }
 
     public void logout() throws IOException{
-        GraphicMain.generalController.logout();
+        //GraphicMain.generalController.logout();
+        GeneralRequestBuilder.buildLogoutRequest();
         //goBack();
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }

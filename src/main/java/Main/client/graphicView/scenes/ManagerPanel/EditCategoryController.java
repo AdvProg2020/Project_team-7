@@ -2,6 +2,7 @@ package Main.client.graphicView.scenes.ManagerPanel;
 
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.model.Category;
 import Main.server.model.requests.EditCategory;
 import javafx.event.ActionEvent;
@@ -73,7 +74,8 @@ public class EditCategoryController {
     }
 
     public void logout() throws IOException{
-        GraphicMain.generalController.logout();
+        //GraphicMain.generalController.logout();
+        GeneralRequestBuilder.buildLogoutRequest();
         //goBack();
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }

@@ -3,6 +3,7 @@ package Main.client.graphicView.scenes.ManagerPanel;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.DataRequestBuilder;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.server.model.Product;
@@ -117,7 +118,8 @@ public class ManageOrdersController {
 
 
     public void logout() throws IOException {
-        GraphicMain.generalController.logout();
+        //GraphicMain.generalController.logout();
+        GeneralRequestBuilder.buildLogoutRequest();
         //goBack();
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }

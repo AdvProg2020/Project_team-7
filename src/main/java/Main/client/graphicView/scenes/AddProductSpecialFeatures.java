@@ -1,6 +1,7 @@
 package Main.client.graphicView.scenes;
 
 import Main.client.graphicView.GraphicMain;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.model.Category;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -59,7 +60,8 @@ public class AddProductSpecialFeatures  implements Initializable {
     }
 
     public void logout() throws IOException {
-        GraphicMain.generalController.logout();
+        //GraphicMain.generalController.logout();
+        GeneralRequestBuilder.buildLogoutRequest();
         //goBack();
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }

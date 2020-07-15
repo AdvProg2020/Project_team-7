@@ -1,6 +1,7 @@
 package Main.client.graphicView.scenes.ManagerPanel;
 
 import Main.client.graphicView.GraphicMain;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 
@@ -67,7 +68,8 @@ public class ManagerPanelController {
     }
 
     public void logout() {
-        GraphicMain.generalController.logout();
+        //GraphicMain.generalController.logout();
+        GeneralRequestBuilder.buildLogoutRequest();
         goBack();
         //GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }

@@ -3,6 +3,7 @@ package Main.client.graphicView.scenes.BuyerPanel;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -88,7 +89,8 @@ public class PurchaseController {
     }
 
     public void logout() throws IOException {
-        GraphicMain.generalController.logout();
+        //GraphicMain.generalController.logout();
+        GeneralRequestBuilder.buildLogoutRequest();
         //goBack();
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }

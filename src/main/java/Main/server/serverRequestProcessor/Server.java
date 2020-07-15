@@ -1,6 +1,5 @@
 package Main.server.serverRequestProcessor;
 
-import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.model.accounts.Account;
 
 import java.io.*;
@@ -66,9 +65,9 @@ public class Server {
         }
 
         public void handle() throws Exception {
-            String request;
+            String request = null;
             String response = null;
-            String[] splitRequest;
+            String[] splitRequest = new String[0];
 
             request = dataInputStream.readUTF();
             System.out.println("server read " + request);
@@ -78,7 +77,9 @@ public class Server {
                 response = "invalidRequest";
             } else if (splitRequest[1].equals("manager")) {
                 response = ManagerRequestProcessor.process(splitRequest);
-            } else if (splitRequest[1].equals("login")) {
+            } else if (splitRequest[1].equals("logout")) {
+                response = logout(splitRequest);
+            }else if (splitRequest[1].equals("login")) {
                 response = GeneralRequestProcessor.loginRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("signUp")) {
                 response = GeneralRequestProcessor.signUpRequestProcessor(splitRequest);
@@ -166,9 +167,14 @@ public class Server {
             removeToken(token);
             return false;
         }
-        if (tokenInfo.getUser().getClass().equals(classType)) {
+        if (tokenInfo.getUser().getClass() == classType || classType == Account.class) {
             return true;
         }
         return false;
+    }
+
+    private String logout(String[] splitRequest){
+        tokens.remove(splitRequest[0]);
+        return "success";
     }
 }
