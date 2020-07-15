@@ -1,6 +1,7 @@
 package Main.client.graphicView.scenes.ManagerPanel;
 
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.ManagerRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
@@ -25,7 +26,8 @@ public class ManageProductsController {
 
     public void initialize() {
         productList.getItems().clear();
-        productList.getItems().addAll(Product.summaryProductInfo());
+        //productList.getItems().addAll(Product.summaryProductInfo());
+        productList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageProductsRequest());
         productList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -33,14 +35,14 @@ public class ManageProductsController {
                     String id = productList.getSelectionModel().getSelectedItem().toString();
                     id = id.substring(1, id.indexOf(' '));
                     productList.getSelectionModel().clearSelection();
-                    Product product = null;
+//                    Product product = null;
+//                    try {
+//                        product = Product.getProductWithId(id);
+//                    } catch (Exception e) {
+//                        ManagerPanelController.alertError(e.getMessage());
+//                    }
                     try {
-                        product = Product.getProductWithId(id);
-                    } catch (Exception e) {
-                        ManagerPanelController.alertError(e.getMessage());
-                    }
-                    try {
-                        goToProductOrDelete(product);
+                        goToProductOrDelete(id);
                     } catch (Exception e) {
                         ManagerPanelController.alertError(e.getMessage());
                     }
@@ -49,10 +51,11 @@ public class ManageProductsController {
         });
     }
 
-    private void goToProductOrDelete(Product product) throws Exception {
+    private void goToProductOrDelete(String id) throws Exception {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Product Information");
-        alert.setHeaderText(product.showProductDigest());
+        //alert.setHeaderText(product.showProductDigest());
+        alert.setHeaderText(ManagerRequestBuilder.buildShowProductDigestWithIdRequest(id));
         alert.setContentText("what do you want to do with this product?");
         ButtonType done = new ButtonType("Done!");
         ButtonType delete = new ButtonType("Delete");
@@ -61,15 +64,17 @@ public class ManageProductsController {
         alert.getButtonTypes().addAll(done, delete, goToPage);
         Optional<ButtonType> option = alert.showAndWait();
         if (option.get().equals(delete)) {
-            GraphicMain.managerController.removeProductWithId(product.getProductId());
+            //GraphicMain.managerController.removeProductWithId(product.getProductId());
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
             alert1.setTitle("Product Deleted");
             alert1.setHeaderText(null);
-            alert1.setContentText("Product deleted successfully.");
+            //alert1.setContentText("Product deleted successfully.");
+            alert1.setContentText(ManagerRequestBuilder.buildDeleteProductWithIdRequest(id));
             alert1.showAndWait();
             initialize();
         } else if (option.get().equals(goToPage)) {
-            GeneralController.currentProduct = product;
+            //GeneralController.currentProduct = product;
+            GraphicMain.currentProductId = id;
             GraphicMain.graphicMain.goToPage(ProductPage.FXML_PATH, ProductPage.TITLE);
         }
     }

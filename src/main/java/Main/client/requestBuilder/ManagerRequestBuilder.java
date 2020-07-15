@@ -35,4 +35,16 @@ public class ManagerRequestBuilder {
     public static String buildDeclineRequestWithIdRequest(String id) {
         return ClientMain.client.sendRequest(GraphicMain.token+"#declineRequestWithId#"+id);
     }
+
+    public static String buildInitializeManageProductsRequest() {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#initializeManageProducts");
+    }
+
+    public static String buildShowProductDigestWithIdRequest(String id) {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#showProductDigestWithId#"+id);
+    }
+
+    public static String buildDeleteProductWithIdRequest(String id) {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#deleteProductWithId#"+id);
+    }
 }

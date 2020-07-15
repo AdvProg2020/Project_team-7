@@ -2,6 +2,7 @@ package Main.server.serverRequestProcessor;
 
 import Main.server.ServerMain;
 import Main.server.controller.GeneralController;
+import Main.server.model.Product;
 import Main.server.model.accounts.Account;
 import Main.server.model.accounts.ManagerAccount;
 import Main.server.model.accounts.SellerAccount;
@@ -64,7 +65,7 @@ public class ManagerRequestProcessor {
             response = response.concat(request);
             response = response.concat("#");
         }
-        response.substring(0, response.length()-1);
+        response = response.substring(0, response.length()-1);
         return response;
     }
 
@@ -94,6 +95,36 @@ public class ManagerRequestProcessor {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return "Error in getting request information";
+        }
+    }
+
+    public static String initializeManageProductsRequestProcessor() {
+        ArrayList<String> products = Product.summaryProductInfo();
+        String response = "";
+        for (String product : products) {
+            response = response.concat(product);
+            response = response.concat("#");
+        }
+        response = response.substring(0, response.length()-1);
+        return response;
+    }
+
+    public static String showProductDigestWithIdRequestProcessor(String[] splitRequest) {
+        try {
+            return Product.getProductWithId(splitRequest[2]).showProductDigest();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "Error in getting product information";
+        }
+    }
+
+    public static String deleteProductWithIdRequestProcessor(String[] splitRequest) {
+        try {
+            ServerMain.managerController.removeProductWithId(splitRequest[2]);
+            return "product deleted successfully.";
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return "Error deleting product";
         }
     }
 }

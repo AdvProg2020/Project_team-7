@@ -109,6 +109,12 @@ public class Server {
                 response = ManagerRequestProcessor.acceptRequestWithIdRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("declineRequestWithId")) {
                 response = ManagerRequestProcessor.declineRequestWithIdRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("initializeManageProducts")) {
+                response = ManagerRequestProcessor.initializeManageProductsRequestProcessor();
+            } else if (splitRequest[1].equals("showProductDigestWithId")) {
+                response = ManagerRequestProcessor.showProductDigestWithIdRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("deleteProductWithId")) {
+                response = ManagerRequestProcessor.deleteProductWithIdRequestProcessor(splitRequest);
             }
 
 
