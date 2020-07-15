@@ -115,6 +115,14 @@ public class Server {
                 response = ManagerRequestProcessor.showProductDigestWithIdRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("deleteProductWithId")) {
                 response = ManagerRequestProcessor.deleteProductWithIdRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("initializeManageUsers")) {
+                response = ManagerRequestProcessor.initializeManageUsersRequestProcessor();
+            } else if (splitRequest[1].equals("userViewMeWithUserName")) {
+                response = ManagerRequestProcessor.userViewMeWithUserNameRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("getMyUserName")) {
+                response = ManagerRequestProcessor.getMyUserNameRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("deleteUserWithUserName")) {
+                response = ManagerRequestProcessor.deleteUserWithUserNameRequestProcessor(splitRequest);
             }
 
 

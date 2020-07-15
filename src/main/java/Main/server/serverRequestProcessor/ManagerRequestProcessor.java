@@ -25,7 +25,7 @@ public class ManagerRequestProcessor {
         return string;
     }
 
-    public static String editManagerPersonalInformationRequestProcessor(String[] data){
+    public static String editManagerPersonalInformationRequestProcessor(String[] data) {
         ManagerAccount managerAccount = ((ManagerAccount) Server.getServer().getTokenInfo(data[0]).getUser());
         managerAccount.setFirstName(data[2]);
         managerAccount.setLastName(data[3]);
@@ -65,7 +65,7 @@ public class ManagerRequestProcessor {
             response = response.concat(request);
             response = response.concat("#");
         }
-        response = response.substring(0, response.length()-1);
+        response = response.substring(0, response.length() - 1);
         return response;
     }
 
@@ -105,7 +105,7 @@ public class ManagerRequestProcessor {
             response = response.concat(product);
             response = response.concat("#");
         }
-        response = response.substring(0, response.length()-1);
+        response = response.substring(0, response.length() - 1);
         return response;
     }
 
@@ -122,9 +122,43 @@ public class ManagerRequestProcessor {
         try {
             ServerMain.managerController.removeProductWithId(splitRequest[2]);
             return "product deleted successfully.";
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return "Error deleting product";
+        }
+    }
+
+    public static String initializeManageUsersRequestProcessor() {
+        ArrayList<String> users = ServerMain.managerController.usersListForGraphic();
+        String response = "";
+        for (String user : users) {
+            response = response.concat(user);
+            response = response.concat("#");
+        }
+        response = response.substring(0, response.length() - 1);
+        return response;
+    }
+
+    public static String userViewMeWithUserNameRequestProcessor(String[] splitRequest) {
+        try {
+            return Account.getUserWithUserName(splitRequest[2]).viewMe();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "Error in getting user data";
+        }
+    }
+
+    public static String getMyUserNameRequestProcessor(String[] splitRequest) {
+        return Server.getServer().getTokenInfo(splitRequest[0]).getUser().getUserName();
+    }
+
+    public static String deleteUserWithUserNameRequestProcessor(String[] splitRequest) {
+        try {
+            ServerMain.managerController.deleteUserWithUserName(splitRequest[2]);
+            return "user with username " + splitRequest[2] + " deleted successfully.";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "Error in deleting user";
         }
     }
 }

@@ -1,6 +1,7 @@
 package Main.client.graphicView.scenes.ManagerPanel;
 
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.ManagerRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
@@ -25,7 +26,8 @@ public class ManageUsersController {
 
     public void initialize() {
         usersList.getItems().clear();
-        usersList.getItems().addAll(GraphicMain.managerController.usersListForGraphic());
+        //usersList.getItems().addAll(GraphicMain.managerController.usersListForGraphic());
+        usersList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageUsersRequest());
         usersList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -34,22 +36,23 @@ public class ManageUsersController {
                     String userName = userInfo.substring(userInfo.indexOf("@") + 1);
                     usersList.getSelectionModel().clearSelection();
                     userName = userName.substring(0, userName.indexOf("\n"));
-                    Account account = null;
-                    try {
-                        account = Account.getUserWithUserName(userName);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    showUserInfoOrDelete(account, userName);
+//                    Account account = null;
+//                    try {
+//                        account = Account.getUserWithUserName(userName);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+                    showUserInfoOrDelete(userName);
                 }
             }
         });
     }
 
-    private void showUserInfoOrDelete(Account account, String userName) {
+    private void showUserInfoOrDelete(String userName) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("USER INFO");
-        alert.setHeaderText(account.viewMe());
+        //alert.setHeaderText(account.viewMe());
+        alert.setHeaderText(ManagerRequestBuilder.buildAccountViewMeWithUserNameRequest(userName));
         alert.setContentText("Do you want to delete this user?");
         Optional<ButtonType> option = alert.showAndWait();
         if (ButtonType.OK.equals(option.get())) {
@@ -74,14 +77,16 @@ public class ManageUsersController {
 
     private void deleteUser(String userName) {
         try {
-            if (Account.getUserWithUserName(userName).equals(GeneralController.currentUser)) {
+            String currentUserUserName = ManagerRequestBuilder.buildGetMyUserNameRequest();
+            if (currentUserUserName.equals(userName)) {
                 cannotDelete();
             } else {
-                GraphicMain.managerController.deleteUserWithUserName(userName);
+                //GraphicMain.managerController.deleteUserWithUserName(userName);
                 Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                 alert1.setTitle("USER DELETED");
                 alert1.setHeaderText(null);
-                alert1.setContentText("User " + userName + " was deleted successfully.");
+                //alert1.setContentText("User " + userName + " was deleted successfully.");
+                alert1.setContentText(ManagerRequestBuilder.buildDeleteUserWithUserNameRequest(userName));
                 alert1.showAndWait();
             }
             initialize();
