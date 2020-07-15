@@ -2,20 +2,36 @@ package Main.server.serverRequestProcessor;
 
 import Main.server.ServerMain;
 import Main.server.controller.GeneralController;
+import Main.server.model.accounts.Account;
 import Main.server.model.accounts.ManagerAccount;
+import Main.server.model.accounts.SellerAccount;
 import Main.server.model.logs.BuyLog;
 import Main.server.model.logs.Log;
+import Main.server.model.requests.Request;
+
+import java.util.ArrayList;
 
 public class ManagerRequestProcessor {
-    public static String managerPersonalInfoRequestProcessor() {
-        String string = GeneralController.currentUser.getFirstName() + "#"
-                + GeneralController.currentUser.getLastName() + "#"
-                + GeneralController.currentUser.getUserName() + "#"
-                + GeneralController.currentUser.getEmail() + "#"
-                + GeneralController.currentUser.getPhoneNumber() + "#"
-                + GeneralController.currentUser.getPassWord() + "#"
-                + GeneralController.currentUser.getProfileImagePath();
+    public static String managerPersonalInfoRequestProcessor(String[] data) {
+        ManagerAccount managerAccount = ((ManagerAccount) Server.getServer().getTokenInfo(data[0]).getUser());
+        String string = managerAccount.getFirstName() + "#"
+                + managerAccount.getLastName() + "#"
+                + managerAccount.getUserName() + "#"
+                + managerAccount.getEmail() + "#"
+                + managerAccount.getPhoneNumber() + "#"
+                + managerAccount.getPassWord() + "#"
+                + managerAccount.getProfileImagePath();
         return string;
+    }
+
+    public static String editManagerPersonalInformationRequestProcessor(String[] data){
+        ManagerAccount managerAccount = ((ManagerAccount) Server.getServer().getTokenInfo(data[0]).getUser());
+        managerAccount.setFirstName(data[2]);
+        managerAccount.setLastName(data[3]);
+        managerAccount.setEmail(data[4]);
+        managerAccount.setPhoneNumber(data[5]);
+        managerAccount.setPassWord(data[6]);
+        return "success";
     }
 
     public static String process(String[] splitRequest) {
@@ -38,6 +54,46 @@ public class ManagerRequestProcessor {
                 e.printStackTrace();
                 return "failure";
             }
+        }
+    }
+
+    public static String initializeManageRequestsRequestProcessor() {
+        ArrayList<String> requests = Request.summaryInfoOfRequests();
+        String response = "";
+        for (String request : requests) {
+            response = response.concat(request);
+            response = response.concat("#");
+        }
+        response.substring(0, response.length()-1);
+        return response;
+    }
+
+    public static String showRequestWithIdRequestProcessor(String[] splitRequest) {
+        try {
+            return Request.getRequestWithId(splitRequest[2]).showRequest();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "Error in getting request information";
+        }
+    }
+
+    public static String acceptRequestWithIdRequestProcessor(String[] splitRequest) {
+        try {
+            Request.getRequestWithId(splitRequest[2]).accept();
+            return "Request accepted!";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "Error in getting request information";
+        }
+    }
+
+    public static String declineRequestWithIdRequestProcessor(String[] splitRequest) {
+        try {
+            Request.getRequestWithId(splitRequest[2]).decline();
+            return "Request declined!";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "Error in getting request information";
         }
     }
 }

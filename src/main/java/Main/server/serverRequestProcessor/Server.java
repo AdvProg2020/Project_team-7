@@ -79,7 +79,7 @@ public class Server {
                 response = ManagerRequestProcessor.process(splitRequest);
             } else if (splitRequest[1].equals("logout")) {
                 response = logout(splitRequest);
-            }else if (splitRequest[1].equals("login")) {
+            } else if (splitRequest[1].equals("login")) {
                 response = GeneralRequestProcessor.loginRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("signUp")) {
                 response = GeneralRequestProcessor.signUpRequestProcessor(splitRequest);
@@ -94,14 +94,26 @@ public class Server {
             } else if (splitRequest[1].equals("disconnect")) {
                 response = "disconnected";
             } else if (splitRequest[1].equals("buyerBalance")) {
-                response = BuyerRequestProcessor.initializeBuyerPanelRequestProcessor();
+                response = BuyerRequestProcessor.initializeBuyerPanelRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("buyerPersonalInfo")) {
-                response = BuyerRequestProcessor.buyerPersonalInfoRequestProcessor();
+                response = BuyerRequestProcessor.buyerPersonalInfoRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("managerPersonalInfo")) {
-                response = ManagerRequestProcessor.managerPersonalInfoRequestProcessor();
+                response = ManagerRequestProcessor.managerPersonalInfoRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("editManagerPersonalInfo")) {
+                response = ManagerRequestProcessor.editManagerPersonalInformationRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("initializeManageRequests")) {
+                response = ManagerRequestProcessor.initializeManageRequestsRequestProcessor();
+            } else if (splitRequest[1].equals("showRequestWithId")) {
+                response = ManagerRequestProcessor.showRequestWithIdRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("acceptRequestWithId")) {
+                response = ManagerRequestProcessor.acceptRequestWithIdRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("declineRequestWithId")) {
+                response = ManagerRequestProcessor.declineRequestWithIdRequestProcessor(splitRequest);
             }
 
-            else if(splitRequest[1].equals("addComment")){
+
+
+            else if (splitRequest[1].equals("addComment")) {
                 response = SellerRequestProcessor.buildCommentResponse(splitRequest);
             }else if(splitRequest[1].equals("getListItemsForAddOffPage")){
                 response = SellerRequestProcessor.getListItemsForAddOffPage(splitRequest[0]);
@@ -177,7 +189,7 @@ public class Server {
         return false;
     }
 
-    private String logout(String[] splitRequest){
+    private String logout(String[] splitRequest) {
         tokens.remove(splitRequest[0]);
         return "success";
     }

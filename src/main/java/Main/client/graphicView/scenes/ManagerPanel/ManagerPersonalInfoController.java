@@ -108,12 +108,12 @@ public class ManagerPersonalInfoController {
                 password.setStyle("-fx-border-width: 0;");
             if (!email.getText().isEmpty() && !firstName.getText().isEmpty() && !lastName.getText().isEmpty() && !phoneNumber.getText().isEmpty() && !password.getText().isEmpty()) {
                 try {
-                    //TODO if there was time, connect this to old edit methods
-                    GeneralController.currentUser.setEmail(email.getText());
-                    GeneralController.currentUser.setFirstName(firstName.getText());
-                    GeneralController.currentUser.setLastName(lastName.getText());
-                    GeneralController.currentUser.setPhoneNumber(phoneNumber.getText());
-                    GeneralController.currentUser.setPassWord(password.getText());
+//                    GeneralController.currentUser.setEmail(email.getText());
+//                    GeneralController.currentUser.setFirstName(firstName.getText());
+//                    GeneralController.currentUser.setLastName(lastName.getText());
+//                    GeneralController.currentUser.setPhoneNumber(phoneNumber.getText());
+//                    GeneralController.currentUser.setPassWord(password.getText());
+                    ManagerRequestBuilder.buildEditManagerPersonalInformationRequest(firstName.getText(),lastName.getText(),email.getText(),phoneNumber.getText(),password.getText());
                 } catch (Exception e) {
                     ManagerPanelController.alertError(e.getMessage());
                 }

@@ -3,6 +3,7 @@ package Main.client.graphicView.scenes.ManagerPanel;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.ManagerRequestBuilder;
 import Main.server.model.requests.Request;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,7 +24,8 @@ public class ManageRequestsController {
 
     public void initialize() {
         requestsList.getItems().clear();
-        requestsList.getItems().addAll(Request.summaryInfoOfRequests());
+        //requestsList.getItems().addAll(Request.summaryInfoOfRequests());
+        requestsList.getItems().removeAll(ManagerRequestBuilder.buildInitializeManageRequestsRequest().split("#"));
         requestsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -31,14 +33,14 @@ public class ManageRequestsController {
                     String id = requestsList.getSelectionModel().getSelectedItem().toString();
                     id = id.substring(1, id.indexOf(' '));
                     requestsList.getSelectionModel().clearSelection();
-                    Request request = null;
+//                    Request request = null;
+//                    try {
+//                        request = Request.getRequestWithId(id);
+//                    } catch (Exception e) {
+//                        //ManagerPanelController.alertError(e.getMessage());
+//                    }
                     try {
-                        request = Request.getRequestWithId(id);
-                    } catch (Exception e) {
-                        //ManagerPanelController.alertError(e.getMessage());
-                    }
-                    try {
-                        showRequestMenu(request);
+                        showRequestMenu(id);
                     } catch (Exception e) {
                         //ManagerPanelController.alertError(e.getMessage());
                     }
@@ -47,11 +49,12 @@ public class ManageRequestsController {
         });
     }
 
-    private void showRequestMenu(Request request) throws Exception {
+    private void showRequestMenu(String id) throws Exception {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.getButtonTypes().clear();
         alert.setTitle("Request Menu");
-        alert.setHeaderText(request.showRequest());
+        //alert.setHeaderText(request.showRequest());
+        alert.setHeaderText(ManagerRequestBuilder.buildShowRequestWithIdRequest(id));
         alert.setContentText("What do you want to do with this request?");
         ButtonType accept = new ButtonType("Accept");
         ButtonType decline = new ButtonType("Decline");
@@ -59,19 +62,21 @@ public class ManageRequestsController {
         alert.getButtonTypes().addAll(cancel, accept, decline);
         Optional<ButtonType> option = alert.showAndWait();
         if (option.get().equals(accept)) {
-            request.accept();
+            //request.accept();
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-            alert1.setTitle("Request Accepted");
+            //alert1.setTitle("Request Accepted");
+            alert1.setTitle(ManagerRequestBuilder.buildAcceptRequestWithIdRequest(id));
             alert1.setHeaderText(null);
-            alert1.setContentText(request.getType() + " with id " + request.getRequestId() + " accepted successfully.");
+            //alert1.setContentText(request.getType() + " with id " + request.getRequestId() + " accepted successfully.");
             alert1.showAndWait();
             initialize();
         } else if (option.get().equals(decline)) {
-            request.decline();
+            //request.decline();
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-            alert1.setTitle("Request Declined");
+            //alert1.setTitle("Request Declined");
+            alert1.setTitle(ManagerRequestBuilder.buildDeclineRequestWithIdRequest(id));
             alert1.setHeaderText(null);
-            alert1.setContentText(request.getType() + " request with id " + request.getRequestId() + " declined successfully.");
+            //alert1.setContentText(request.getType() + " request with id " + request.getRequestId() + " declined successfully.");
             alert1.showAndWait();
             initialize();
         }

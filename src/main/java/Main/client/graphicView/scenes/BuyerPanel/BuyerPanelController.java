@@ -25,7 +25,6 @@ public class BuyerPanelController {
 
         balance.setText(BuyerRequestBuilder.buildInitializeBuyerPanelRequest());
         //balance.setText(Double.toString(((BuyerAccount) GeneralController.currentUser).getBalance()));
-        //TODO here is accessing server directly!
     }
 
     public void goToPersonalInformation() throws IOException {
