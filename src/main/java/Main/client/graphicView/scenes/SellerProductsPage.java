@@ -29,7 +29,8 @@ public class SellerProductsPage implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         list.getItems().clear();
-        list.getItems().addAll(GraphicMain.sellerController.getSellerProductNames());
+        //TODO ALERT: watch out for the null arguments :D
+        list.getItems().addAll(GraphicMain.sellerController.getSellerProductNames(null));
         list.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {

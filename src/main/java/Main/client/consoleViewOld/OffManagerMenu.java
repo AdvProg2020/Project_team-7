@@ -114,7 +114,8 @@ public class OffManagerMenu extends Menu {
                         getOffInfo(offInfo);
                         ArrayList<String> productsList = new ArrayList<>();
                         getProductIdList(productsList);
-                        sellerController.addOff(productsList, offInfo);
+                        //TODO ALERT: watch out for the null arguments :D
+                        sellerController.addOff(productsList, offInfo,null);
                         System.out.println("Off created successfully.\n");
                         this.run();
                     } catch (Exception e) {

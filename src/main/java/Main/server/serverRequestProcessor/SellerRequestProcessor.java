@@ -10,7 +10,8 @@ public class SellerRequestProcessor {
         String title = splitRequest[2];
         String content = splitRequest[3];
         try {
-            GraphicMain.generalController.addComment(title, content, splitRequest[0]);
+            //TODO ALERT: watch out for the null arguments :D
+            GraphicMain.generalController.addComment(title, content, splitRequest[0],null);
             return "success";
         }catch (Exception e){
             return "error#" + e.getMessage();

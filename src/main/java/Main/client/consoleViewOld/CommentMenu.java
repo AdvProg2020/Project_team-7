@@ -26,7 +26,8 @@ public class CommentMenu extends Menu {
                     System.out.println("Insert the content:");
                     String content = scanner.nextLine().trim();
                     try {
-                        generalController.addComment(title, content);
+                        //TODO ALERT: watch out for the null arguments :D
+                        generalController.addComment(title, content,null,null);
                         System.out.println("Your comment sent successfully.\n");
                         this.run();
                     } catch (Exception e){

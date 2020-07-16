@@ -1,6 +1,7 @@
 package Main.client.graphicView;
 
 import Main.client.ClientMain;
+import Main.client.consoleViewOld.MainMenu;
 import Main.client.requestBuilder.Client;
 import Main.server.controller.BuyerController;
 import Main.server.controller.GeneralController;
@@ -57,23 +58,23 @@ public class GraphicMain extends Application {
         stage.setOnCloseRequest(e -> exitProgram());
         Parent root;
 
-        if (!ManagerAccount.isThereAChiefManager()) {
-            root = FXMLLoader.load(new File((RegisterManager.FXML_PATH)).toURI().toURL());
+//        if (!ManagerAccount.isThereAChiefManager()) {
+//            root = FXMLLoader.load(new File((RegisterManager.FXML_PATH)).toURI().toURL());
+//
+//            FXMLLoader loginPageLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
+//            loginPageLoader.load();
+//            //LoginSignUpPage.mediaPlayer.play();
+//
+//            stage.setTitle(RegisterManager.TITLE);
+//            sceneTrace.add(RegisterManager.FXML_PATH);
+//        } else {
+        root = FXMLLoader.load(new File(MainMenuController.FXML_PATH).toURI().toURL());
 
-            FXMLLoader loginPageLoader = new FXMLLoader(new File(LoginSignUpPage.FXML_PATH).toURI().toURL());
-            loginPageLoader.load();
-            //LoginSignUpPage.mediaPlayer.play();
+        //audioClip.play();
 
-            stage.setTitle(RegisterManager.TITLE);
-            sceneTrace.add(RegisterManager.FXML_PATH);
-        } else {
-            root = FXMLLoader.load(new File(MainMenuController.FXML_PATH).toURI().toURL());
-
-            //audioClip.play();
-
-            stage.setTitle(MainMenuController.TITLE);
-            sceneTrace.add(MainMenuController.FXML_PATH);
-        }
+        stage.setTitle(MainMenuController.TITLE);
+        sceneTrace.add(MainMenuController.FXML_PATH);
+        // }
 
         titleTrace.add(stage.getTitle());
 
@@ -85,7 +86,7 @@ public class GraphicMain extends Application {
     public void exitProgram() {
         System.out.println(GeneralController.writeDataAndGetObjectStringRecords());
         System.out.println(GeneralController.readDataAndSetStringRecordObjects());
-        ClientMain.client.closeConnection();
+        // ClientMain.client.closeConnection();
         System.exit(123);
     }
 
@@ -120,11 +121,11 @@ public class GraphicMain extends Application {
         return fxmlLoader.getController();
     }
 
-        public static void showInformationAlert (String message){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle(null);
-            alert.setContentText(message);
-            alert.setHeaderText(null);
-            alert.showAndWait();
-        }
+    public static void showInformationAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(null);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
+}
