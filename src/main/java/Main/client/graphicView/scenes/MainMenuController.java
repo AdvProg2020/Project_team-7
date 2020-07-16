@@ -63,4 +63,7 @@ public class MainMenuController {
         imageView.setFitWidth(imageView.getFitWidth() * 40 / 41);
         imageView.setFitHeight(imageView.getFitHeight() * 40 / 41);
     }
+
+    public void goToAuctions(MouseEvent mouseEvent) {
+    }
 }

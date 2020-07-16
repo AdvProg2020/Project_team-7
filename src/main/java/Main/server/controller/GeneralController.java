@@ -439,6 +439,7 @@ public class GeneralController {
         Product.setLastUsedProductID();
         Request.setLastUsedRequestID();
         Log.setLastUsedLogID();
+        Auction.setLastUsedAuctionID();
     }
 
 

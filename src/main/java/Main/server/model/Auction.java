@@ -47,7 +47,7 @@ public class Auction {
         return auctionUsage;
     }
 
-    private class AuctionUsage {
+    public class AuctionUsage {
 
         public Product getProduct() {
             return product;
@@ -88,15 +88,17 @@ public class Auction {
             }
             return date;
         }
+
+        public String viewSummary() {
+            return "@" + product.getProductId() + " " + product.getName() + "\tstart :\t" + startDate + "\tend :\t" + endDate;
+        }
     }
 
-
-
-    public void addAuction() {
-
+    public static void addAuction(Auction auction) {
+        allAuctions.add(auction);
     }
 
-    public Auction getAuctionById(String id) {
+    public static Auction getAuctionById(String id) {
         for (Auction auction : allAuctions) {
             if (auction.id.equals(id)) {
                 return auction;
@@ -152,5 +154,9 @@ public class Auction {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static ArrayList<Auction> getAllAuctions() {
+        return allAuctions;
     }
 }

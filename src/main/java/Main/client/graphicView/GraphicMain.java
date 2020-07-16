@@ -39,6 +39,7 @@ public class GraphicMain extends Application {
     public static SellerController sellerController = new SellerController();
     public static String token = "0000";
     public static String currentProductId = "0000";
+    public static String currentAuctionId = "0000";
 
     public static void main(String[] args) {
         launch(args);
@@ -50,8 +51,8 @@ public class GraphicMain extends Application {
         //audioClip = new AudioClip(new File("src/main/java/Main/client/graphicView/resources/soundEffects/backgroundMusic.wav").toURI().toString());
         //audioClip.setCycleCount(AudioClip.INDEFINITE);
 
-//        System.out.println(GeneralController.readDataAndSetStringRecordObjects());
-//        generalController.initializeIDs();
+        System.out.println(GeneralController.readDataAndSetStringRecordObjects());
+        generalController.initializeIDs();
 //        generalController.giveDiscountCodeToSpecialBuyers();
 
         stage = primaryStage;
@@ -68,7 +69,7 @@ public class GraphicMain extends Application {
 //            stage.setTitle(RegisterManager.TITLE);
 //            sceneTrace.add(RegisterManager.FXML_PATH);
 //        } else {
-        root = FXMLLoader.load(new File(MainMenuController.FXML_PATH).toURI().toURL());
+        root = FXMLLoader.load(new File(AuctionsPage.FXML_PATH).toURI().toURL());
 
         //audioClip.play();
 

@@ -2,3 +2,16 @@
 -fx-background-image : url(../resources/images/auctionsBG.jpg);
 }
 
+.listView{
+-fx-font-size : 15;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #ccffff;
+    -fx-text-fill: #365c5c;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: linear-gradient(#b6e3e3, #7a9999);
+    -fx-text-fill: #4f7070;
+}
