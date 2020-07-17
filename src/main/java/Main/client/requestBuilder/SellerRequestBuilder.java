@@ -37,4 +37,13 @@ public class SellerRequestBuilder {
         }
         return ClientMain.client.sendRequest(request.toString());
     }
+
+    public static String buildAddSpecialFeaturesRequest(ArrayList<String> specialFeatures, String productId){
+        StringBuilder request = new StringBuilder();
+        request.append(GraphicMain.token + "#" + productId + "#addSpecialFeatures");
+        for (String specialFeature : specialFeatures) {
+            request.append("#" + specialFeature);
+        }
+        return ClientMain.client.sendRequest(request.toString());
+    }
 }

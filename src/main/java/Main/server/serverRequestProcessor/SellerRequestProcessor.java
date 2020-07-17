@@ -66,4 +66,13 @@ public class SellerRequestProcessor {
             return GeneralController.yagsonMapper.toJson(e, CreateProductException.GetCategoryFromUser.class);
         }
     }
+
+    public static String buildAddSpecialFeaturesResponse(String[] splitRequest){
+        ArrayList<String> specialFeatures = new ArrayList<>();
+        for(int i=3; i<splitRequest.length; i++){
+            specialFeatures.add(splitRequest[i]);
+        }
+        ServerMain.sellerController.setSpecialFeatures(splitRequest[1],specialFeatures);
+        return  "success";
+    }
 }

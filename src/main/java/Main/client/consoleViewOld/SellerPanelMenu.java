@@ -95,7 +95,7 @@ public class SellerPanelMenu extends Menu {
                     } catch (CreateProductException.GetCategoryFromUser e) {
                         ArrayList specialFeatures = new ArrayList();
                         getSpecialFeatures(specialFeatures, e.getCategory());
-                        sellerController.setSpecialFeatures(e.getProduct(), specialFeatures);
+                        sellerController.setSpecialFeatures(e.getProduct().getProductId(), specialFeatures);
                         System.out.println("Product created successfully.\n");
                         this.run();
 

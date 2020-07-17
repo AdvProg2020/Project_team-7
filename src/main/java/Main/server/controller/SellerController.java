@@ -149,8 +149,14 @@ public class SellerController {
         throw new CreateProductException.GetCategoryFromUser(category, product);
     }
 
-    public void setSpecialFeatures(Product product, ArrayList<String> specialFeatures) {
-        product.setSpecialFeatures(specialFeatures);
+    public void setSpecialFeatures(String productId, ArrayList<String> specialFeatures) {
+        Product product = null;
+        try {
+            product = Product.getProductWithId(productId);
+            product.setSpecialFeatures(specialFeatures);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void validateAddProductInfo(ArrayList<String> productInfo) throws CreateProductException.InvalidProductInputInfo {

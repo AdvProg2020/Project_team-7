@@ -135,6 +135,8 @@ public class Server {
                 response = SellerRequestProcessor.buildAddOffResponse(splitRequest);
             } else if(splitRequest[1].equals("addProduct")){
                 response=SellerRequestProcessor.buildAddProductResponse(splitRequest);
+            }else if(splitRequest[2].equals("addSpecialFeatures")){
+                response = SellerRequestProcessor.buildAddSpecialFeaturesResponse(splitRequest);
             }
 
             dataOutputStream.writeUTF(response);
