@@ -2,15 +2,18 @@ package Main.server.serverRequestProcessor;
 
 import Main.server.ServerMain;
 import Main.server.controller.GeneralController;
+import Main.server.model.Category;
 import Main.server.model.Product;
 import Main.server.model.accounts.Account;
 import Main.server.model.accounts.ManagerAccount;
 import Main.server.model.accounts.SellerAccount;
 import Main.server.model.logs.BuyLog;
 import Main.server.model.logs.Log;
+import Main.server.model.requests.EditCategory;
 import Main.server.model.requests.Request;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ManagerRequestProcessor {
     public static String managerPersonalInfoRequestProcessor(String[] data) {
@@ -159,6 +162,65 @@ public class ManagerRequestProcessor {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return "Error in deleting user";
+        }
+    }
+
+    public static String initializeManageCategoriesRequestProcessor() {
+        ArrayList<String> categories = Category.categoriesList();
+        String response = "";
+        for (String category : categories) {
+            response = response.concat(category);
+            response = response.concat("#");
+        }
+        response = response.substring(0, response.length() - 1);
+        return response;
+    }
+
+    public static String showCategoryInformationRequestProcessor(String[] splitRequest) {
+        try {
+            return Category.getCategoryWithName(splitRequest[2]).showSpecialFeatures();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "Error getting category information";
+        }
+    }
+
+    public static String removeCategoryWithNameRequestProcessor(String[] splitRequest) {
+        try {
+            ServerMain.managerController.removeCategoryWithName(splitRequest[2]);
+            return "success";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "error removing the category";
+        }
+    }
+
+    public static String editCategoryRequestProcessor(String[] splitRequest) throws Exception {
+        EditCategory editCategory = ServerMain.managerController.getCategoryToEdit(splitRequest[2]);
+        String editOption = splitRequest[4];
+        String newContent = splitRequest[3];
+        if (editOption.equals("Change Category Name")) {
+            editCategory.setName(newContent);
+        } else if (editOption.equals("Add a Product to Category")) {
+            editCategory.addProductToBeAdded(newContent);
+        } else if (editOption.equals("Remove a Product from Category")) {
+            editCategory.addProductToBeRemoved(newContent);
+        } else if (editOption.equals("Add a Special Feature")) {
+            editCategory.addSpecialFeatureToBeAdded(newContent);
+        } else if (editOption.equals("Remove a Special Feature")) {
+            editCategory.addSpecialFeatureToBeRemoved(newContent);
+        }
+        ServerMain.managerController.submitCategoryEdits(editCategory);
+        return "Category edited successfully.";
+    }
+
+    public static String createCategoryRequestProcessor(String[] splitRequest) {
+        ArrayList<String> specials = new ArrayList<>(Arrays.asList(splitRequest[3].split("&")));
+        try {
+            return ServerMain.managerController.createCategory(splitRequest[2],specials,splitRequest[4]);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 }

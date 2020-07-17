@@ -3,6 +3,7 @@ package Main.client.graphicView.scenes.ManagerPanel;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.ManagerRequestBuilder;
 import Main.server.model.Category;
 import Main.server.model.requests.EditCategory;
 import javafx.event.ActionEvent;
@@ -20,7 +21,7 @@ public class EditCategoryController {
     public static final String TITLE = "Edit Category";
 
 
-    private static Category category;
+    private static String categoryName;
     @FXML
     private ComboBox editOption;
     @FXML
@@ -30,8 +31,8 @@ public class EditCategoryController {
     @FXML
     private Button save;
 
-    public static void setCategory(Category category1) {
-        category = category1;
+    public static void setCategoryName(String categoryNamee) {
+        categoryName = categoryNamee;
     }
 
     public void initialize() {
@@ -56,7 +57,7 @@ public class EditCategoryController {
             public void handle(ActionEvent actionEvent) {
                 editOption.setDisable(true);
                 if (editOption.getValue().equals("Change Category Name")) {
-                    guideLable.setText("Enter the new name for category instead of \"" + category.getName() + "\":");
+                    guideLable.setText("Enter the new name for category instead of \"" + categoryName + "\":");
                 } else if (editOption.getValue().equals("Add a Product to Category")) {
                     guideLable.setText("Enter the ID of product you want to add to this category:");
                 } else if (editOption.getValue().equals("Remove a Product from Category")) {
@@ -90,30 +91,30 @@ public class EditCategoryController {
     public void saveChanges() {
         //GraphicMain.buttonSound.stop();
         //GraphicMain.buttonSound.play();
-        EditCategory editCategory = null;
-        try {
-            editCategory = GraphicMain.managerController.getCategoryToEdit(category.getName());
-        } catch (Exception e) {
-            ManagerPanelController.alertError(e.getMessage());
-            initialize();
-        }
+//        EditCategory editCategory = null;
+//        try {
+//            editCategory = GraphicMain.managerController.getCategoryToEdit(category.getName());
+//        } catch (Exception e) {
+//            ManagerPanelController.alertError(e.getMessage());
+//            initialize();
+//        }
         String newContent = editContent.getText();
         editContent.setStyle("-fx-border-width: 0;");
-        if (editOption.getValue().equals("Change Category Name")) {
-            editCategory.setName(newContent);
-        } else if (editOption.getValue().equals("Add a Product to Category")) {
-            editCategory.addProductToBeAdded(newContent);
-        } else if (editOption.getValue().equals("Remove a Product from Category")) {
-            editCategory.addProductToBeRemoved(newContent);
-        } else if (editOption.getValue().equals("Add a Special Feature")) {
-            editCategory.addSpecialFeatureToBeAdded(newContent);
-        } else if (editOption.getValue().equals("Remove a Special Feature")) {
-            editCategory.addSpecialFeatureToBeRemoved(newContent);
-        }
+//        if (editOption.getValue().equals("Change Category Name")) {
+//            editCategory.setName(newContent);
+//        } else if (editOption.getValue().equals("Add a Product to Category")) {
+//            editCategory.addProductToBeAdded(newContent);
+//        } else if (editOption.getValue().equals("Remove a Product from Category")) {
+//            editCategory.addProductToBeRemoved(newContent);
+//        } else if (editOption.getValue().equals("Add a Special Feature")) {
+//            editCategory.addSpecialFeatureToBeAdded(newContent);
+//        } else if (editOption.getValue().equals("Remove a Special Feature")) {
+//            editCategory.addSpecialFeatureToBeRemoved(newContent);
+//        }
         try {
-            GraphicMain.managerController.submitCategoryEdits(editCategory);
-            ManagerPanelController.alertInfo("Category Edited Successfully!");
-            goBack();
+            //GraphicMain.managerController.submitCategoryEdits(editCategory);
+            String editResult = ManagerRequestBuilder.buildEditCategoryRequest(categoryName,newContent,editOption.getValue().toString());
+            ManagerPanelController.alertInfo(editResult);
         } catch (Exception e) {
             ManagerPanelController.alertError(e.getMessage());
             initialize();

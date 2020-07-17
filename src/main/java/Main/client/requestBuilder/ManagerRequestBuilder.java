@@ -5,6 +5,9 @@ package Main.client.requestBuilder;
 import Main.client.ClientMain;
 import Main.client.graphicView.GraphicMain;
 import Main.server.ServerMain;
+import Main.server.model.Category;
+
+import java.util.ArrayList;
 
 public class ManagerRequestBuilder {
 
@@ -63,5 +66,31 @@ public class ManagerRequestBuilder {
 
     public static String buildDeleteUserWithUserNameRequest(String userName) {
         return ClientMain.client.sendRequest(GraphicMain.token + "#deleteUserWithUserName#" + userName);
+    }
+
+    public static String buildinitializeManageCategoriesRequest() {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#initializeManageCategories");
+    }
+
+    public static String buildShowCategoryInformationRequest(String categoryName) {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#showCategoryInformation#"+categoryName);
+    }
+
+    public static String buildRemoveCategoryWithNameRequest(String categoryName) {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#removeCategoryWithName#"+categoryName);
+    }
+
+    public static String buildEditCategoryRequest(String categoryName, String newContent, String editOption) {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#editCategory#"+categoryName+"#"+newContent+"#"+editOption);
+    }
+
+    public static String buildCreateCategoryRequest(String name, ArrayList<String> specials, String path) {
+        String specialsString = "";
+        for (String special : specials) {
+            specialsString = specialsString.concat(special);
+            specialsString = specialsString.concat("&");
+        }
+        specialsString = specialsString.substring(0,specialsString.length()-1);
+        return ClientMain.client.sendRequest(GraphicMain.token+"#createCategory#"+name+"#"+specialsString+"#"+path);
     }
 }

@@ -3,6 +3,8 @@ package Main.client.graphicView.scenes.ManagerPanel;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.ManagerRequestBuilder;
+import Main.server.ServerMain;
 import Main.server.model.Category;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -34,21 +36,22 @@ public class ManageCategoriesController {
 
     public void initialize() {
         categoriesList.getItems().clear();
-        categoriesList.getItems().addAll(Category.categoriesList());
+        //categoriesList.getItems().addAll(Category.categoriesList());
+        categoriesList.getItems().addAll(ManagerRequestBuilder.buildinitializeManageCategoriesRequest().split("#"));
         categoriesList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (categoriesList.getSelectionModel().getSelectedItem() != null) {
                     String name = categoriesList.getSelectionModel().getSelectedItem().toString();
                     categoriesList.getSelectionModel().clearSelection();
-                    Category category = null;
+//                    Category category = null;
+//                    try {
+//                        category = Category.getCategoryWithName(name);
+//                    } catch (Exception e) {
+//                        ManagerPanelController.alertError(e.getMessage());
+//                    }
                     try {
-                        category = Category.getCategoryWithName(name);
-                    } catch (Exception e) {
-                        ManagerPanelController.alertError(e.getMessage());
-                    }
-                    try {
-                        showCategoryOptions(category);
+                        showCategoryOptions(name);
                     } catch (IOException e) {
                         ManagerPanelController.alertError(e.getMessage());
                     }
@@ -59,9 +62,10 @@ public class ManageCategoriesController {
         specialFeatures.clear();
     }
 
-    private void showCategoryOptions(Category category) throws IOException {
+    private void showCategoryOptions(String categoryName) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText(category.getName() + "\n" + category.showSpecialFeatures());
+        //alert.setHeaderText(category.getName() + "\n" + category.showSpecialFeatures());
+        alert.setHeaderText(categoryName+"\n"+ManagerRequestBuilder.buildShowCategoryInformationRequest(categoryName));
         alert.setTitle("Category Menu");
         alert.setContentText("what do you want to do with this category?");
         alert.getButtonTypes().clear();
@@ -71,9 +75,9 @@ public class ManageCategoriesController {
         alert.getButtonTypes().addAll(done, edit, remove);
         Optional<ButtonType> option = alert.showAndWait();
         if (option.get().equals(remove)) {
-            removeTheCategory(category);
+            removeTheCategory(categoryName);
         } else if (option.get().equals(edit)) {
-            editCategory(category);
+            editCategory(categoryName);
         }
     }
 
@@ -85,7 +89,7 @@ public class ManageCategoriesController {
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
-    private void removeTheCategory(Category category) {
+    private void removeTheCategory(String categoryName) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Category");
         alert.setHeaderText("All of products of this category will be deleted.");
@@ -93,12 +97,13 @@ public class ManageCategoriesController {
         Optional<ButtonType> option = alert.showAndWait();
         if (option.get().equals(ButtonType.OK)) {
             try {
-                GraphicMain.managerController.removeCategoryWithName(category.getName());
+                //GraphicMain.managerController.removeCategoryWithName(category.getName());
+                ManagerPanelController.alertInfo(ManagerRequestBuilder.buildRemoveCategoryWithNameRequest(categoryName));
             } catch (Exception e) {
                 ManagerPanelController.alertError(e.getMessage());
             }
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-            alert1.setContentText("Category " + category.getName() + " deleted successfully.");
+            alert1.setContentText("Category " + categoryName + " deleted successfully.");
             alert1.setHeaderText(null);
             alert1.setTitle("Category Deleted");
             alert1.showAndWait();
@@ -106,9 +111,9 @@ public class ManageCategoriesController {
         }
     }
 
-    private void editCategory(Category category) throws IOException {
+    private void editCategory(String categoryName) throws IOException {
         GraphicMain.graphicMain.goToPage(EditCategoryController.FXML_PATH, EditCategoryController.TITLE);
-        EditCategoryController.setCategory(category);
+        EditCategoryController.setCategoryName(categoryName);
     }
 
     public void goBack() {
@@ -128,7 +133,8 @@ public class ManageCategoriesController {
             imageName.setStyle("-fx-text-fill:red;");
         } else {
             try {
-                ManagerPanelController.alertInfo(GraphicMain.managerController.createCategory(name, specials, path));
+                //ManagerPanelController.alertInfo(GraphicMain.managerController.createCategory(name, specials, path));
+                ManagerPanelController.alertInfo(ManagerRequestBuilder.buildCreateCategoryRequest(name,specials,path));
                 initialize();
             } catch (Exception e) {
                 ManagerPanelController.alertError(e.getMessage());

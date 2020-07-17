@@ -25,7 +25,7 @@ public class ManageRequestsController {
     public void initialize() {
         requestsList.getItems().clear();
         //requestsList.getItems().addAll(Request.summaryInfoOfRequests());
-        requestsList.getItems().removeAll(ManagerRequestBuilder.buildInitializeManageRequestsRequest().split("#"));
+        requestsList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageRequestsRequest().split("#"));
         requestsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {

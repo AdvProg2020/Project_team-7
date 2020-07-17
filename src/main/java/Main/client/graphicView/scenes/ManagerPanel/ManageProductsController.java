@@ -27,7 +27,7 @@ public class ManageProductsController {
     public void initialize() {
         productList.getItems().clear();
         //productList.getItems().addAll(Product.summaryProductInfo());
-        productList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageProductsRequest());
+        productList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageProductsRequest().split("#"));
         productList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
