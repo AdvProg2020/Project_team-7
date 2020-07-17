@@ -158,12 +158,13 @@ public class Auction {
     public boolean isAuctionOver(){
         Date dateNow = new Date();
         if(auctionUsage.getEndDate().compareTo(dateNow) < 0){
+            finishAuction();
             return true;
         }
         return false;
     }
 
-    private boolean hasAuctionBeenStarted(){
+    public boolean hasAuctionBeenStarted(){
         Date dateNow = new Date();
         if(auctionUsage.getStartDate().compareTo(dateNow) > 0){
             return true;

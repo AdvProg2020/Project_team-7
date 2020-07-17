@@ -25,6 +25,7 @@ public class MainMenuController {
     public void logout() throws IOException{
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
+        GraphicMain.token = "0000";
         //goBack();
         GraphicMain.graphicMain.exitProgram();
     }

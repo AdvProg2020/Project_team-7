@@ -16,7 +16,13 @@
     -fx-text-fill: #4f7070;
 }
 
-.text-field {
+.text-field{
+-fx-background-radius : 30;
+-fx-background-color : #f5fffe;
+-fx-text-color : #3b5956;
+}
+
+.highestPrice {
 -fx-background-radius : 30;
 -fx-background-color : #f5fffe;
 -fx-text-color : #3b5956;
@@ -24,7 +30,7 @@
 
 .messagePane {
 -fx-background-color: #ebebeb;
--fx-background-radius : 5;
+-fx-background-radius : 10;
 }
 
 .informationBox {

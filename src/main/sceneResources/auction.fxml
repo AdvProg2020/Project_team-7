@@ -3,6 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.AuctionPage">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.AuctionPage">
     <stylesheets>
         <URL value="@../java/Main/client/graphicView/cssFiles/auctions.css" />
     </stylesheets>
@@ -31,37 +32,51 @@
             <Image url="@../java/Main/client/graphicView/resources/images/back.png" />
          </image>
       </ImageView>
-      <VBox fx:id="messagePane" layoutX="664.0" layoutY="65.0" prefHeight="550.0" prefWidth="426.0" styleClass="messagePane" />
       <HBox layoutX="664.0" layoutY="620.0" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" prefWidth="426.0" spacing="10.0">
          <children>
             <TextField fx:id="message" maxHeight="60.0" maxWidth="356.0" minHeight="60.0" minWidth="356.0" promptText="type your message here ..." styleClass="message">
                <padding>
                   <Insets left="20.0" />
                </padding></TextField>
-            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="60.0" fitWidth="60.0" onMouseClicked="#send" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../java/Main/client/graphicView/resources/images/send.png" />
                </image>
             </ImageView>
          </children>
       </HBox>
-      <Label fx:id="informationBox" layoutX="111.0" layoutY="109.0" prefHeight="243.0" prefWidth="433.0" styleClass="informationBox" />
+      <Label fx:id="informationBox" layoutX="63.0" layoutY="75.0" prefHeight="310.0" prefWidth="510.0" styleClass="informationBox" textFill="#614100">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font></Label>
       <Label layoutX="128.0" layoutY="451.0" text="highest Price :">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Label layoutX="335.0" layoutY="451.0" minHeight="45.0" minWidth="80.0" prefHeight="21.0" prefWidth="60.0" styleClass="highestPrice" />
+      <Label fx:id="highestPrice" layoutX="335.0" layoutY="451.0" minHeight="45.0" minWidth="80.0" prefHeight="21.0" prefWidth="60.0" styleClass="highestPrice" />
       <TextField fx:id="increaseAmount" layoutX="335.0" layoutY="519.0" prefHeight="45.0" prefWidth="80.0" />
       <Label layoutX="127.0" layoutY="519.0" text="increase by :">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="424.0" layoutY="519.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="424.0" layoutY="519.0" onMouseClicked="#increasePrice" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../java/Main/client/graphicView/resources/images/increase.png" />
          </image>
       </ImageView>
+      <ScrollPane layoutX="664.0" layoutY="62.0" prefHeight="550.0" prefWidth="426.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="550.0" prefWidth="400.0">
+               <children>
+                  <VBox fx:id="messagePane" prefHeight="550.0" prefWidth="426.0" styleClass="messagePane" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

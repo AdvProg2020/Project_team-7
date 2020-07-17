@@ -70,6 +70,7 @@ public class ManagerPanelController {
     public void logout() {
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
+        GraphicMain.token = "0000";
         goBack();
         //GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }

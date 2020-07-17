@@ -77,6 +77,8 @@ public class Server {
                 response = "invalidRequest";
             } else if (splitRequest[1].equals("manager")) {
                 response = ManagerRequestProcessor.process(splitRequest);
+            }  else if (splitRequest[1].equals("buyer")) {
+                response =BuyerRequestProcessor.process(splitRequest);
             } else if (splitRequest[1].equals("logout")) {
                 response = logout(splitRequest);
             } else if (splitRequest[1].equals("login")) {

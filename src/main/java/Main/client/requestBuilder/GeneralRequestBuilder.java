@@ -2,7 +2,6 @@ package Main.client.requestBuilder;
 
 import Main.client.ClientMain;
 import Main.client.graphicView.GraphicMain;
-import Main.server.controller.GeneralController;
 import Main.server.model.exceptions.AccountsException;
 
 public class GeneralRequestBuilder {
@@ -106,6 +105,4 @@ public class GeneralRequestBuilder {
         String signUpRequest = GraphicMain.token + "#signUpManager#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + imagePath;
         return ClientMain.client.sendRequest(signUpRequest);
     }
-
-
 }
