@@ -2,6 +2,7 @@ package Main.client.consoleViewOld;
 
 import Main.server.model.Category;
 import Main.server.model.exceptions.CreateProductException;
+import Main.server.serverRequestProcessor.Server;
 
 import java.util.ArrayList;
 
@@ -85,7 +86,7 @@ public class SellerPanelMenu extends Menu {
                     try {
                         ArrayList<String> productInfo = new ArrayList<>();
                         getFieldsToCreateProduct(productInfo);
-                        sellerController.addProduct(productInfo);
+                        sellerController.addProduct(productInfo, null);
                         System.out.println("Product created successfully.\n");
                         this.run();
                     } catch (CreateProductException.InvalidProductInputInfo e) {

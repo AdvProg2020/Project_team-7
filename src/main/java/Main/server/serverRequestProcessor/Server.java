@@ -133,6 +133,8 @@ public class Server {
                 response = SellerRequestProcessor.getListItemsForAddOffPage(splitRequest[0]);
             }else if(splitRequest[1].equals("addOff")){
                 response = SellerRequestProcessor.buildAddOffResponse(splitRequest);
+            } else if(splitRequest[1].equals("addProduct")){
+                response=SellerRequestProcessor.buildAddProductResponse(splitRequest);
             }
 
             dataOutputStream.writeUTF(response);

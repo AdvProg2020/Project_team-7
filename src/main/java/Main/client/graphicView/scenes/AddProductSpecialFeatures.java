@@ -32,7 +32,6 @@ public class AddProductSpecialFeatures  implements Initializable {
         for (String feature : category.getSpecialFeatures()) {
             TextField textField = new TextField();
             textField.setPromptText(feature);
-            System.out.println(box.getId());
             box.getChildren().add(textField);
             specialFeaturesTextFields.add(textField);
         }

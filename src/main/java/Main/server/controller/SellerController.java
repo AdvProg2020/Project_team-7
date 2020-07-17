@@ -127,11 +127,11 @@ public class SellerController {
         return Product.getProductWithId(productId).viewBuyers();
     }
 
-    public void addProduct(ArrayList<String> productInfo) throws CreateProductException.InvalidProductInputInfo,
+    public void addProduct(ArrayList<String> productInfo, String token) throws CreateProductException.InvalidProductInputInfo,
             CreateProductException.GetCategoryFromUser {
         validateAddProductInfo(productInfo);
         Product product = new Product(productInfo.get(0), productInfo.get(1), Integer.parseInt(productInfo.get(2)),
-                productInfo.get(3), Double.parseDouble(productInfo.get(4)), (SellerAccount) GeneralController.currentUser);
+                productInfo.get(3), Double.parseDouble(productInfo.get(4)), (SellerAccount) Server.getServer().getTokenInfo(token).getUser());
         Request request = new AddProductRequest(product, "Add product request");
         Request.addRequest(request);
 
@@ -214,46 +214,46 @@ public class SellerController {
     }
 
     private void validateInputEditOffInfo(EditOffRequest editOffRequest) throws Exception {
-        StringBuilder esitOffErrors = new StringBuilder();
+        StringBuilder editOffErrors = new StringBuilder();
 
         if (editOffRequest.getEditedFieldTitles().isEmpty()) {
-            esitOffErrors.append("you must edit at least one field!\n");
+            editOffErrors.append("you must edit at least one field!\n");
         }
         try {
             DiscountAndOffTypeServiceException.validateInputDate(editOffRequest.getStartDate());
         } catch (Exception e) {
-            esitOffErrors.append("start date is invalid :\n").append(e.getMessage());
+            editOffErrors.append("start date is invalid :\n").append(e.getMessage());
         }
         try {
             DiscountAndOffTypeServiceException.validateInputDate(editOffRequest.getEndDate());
         } catch (Exception e) {
-            esitOffErrors.append("end date is invalid :\n").append(e.getMessage());
+            editOffErrors.append("end date is invalid :\n").append(e.getMessage());
         }
-        if (esitOffErrors.length() == 0) {
+        if (editOffErrors.length() == 0) {
             try {
                 DiscountAndOffTypeServiceException.compareStartAndEndDate(editOffRequest.getStartDate(), editOffRequest.getEndDate());
             } catch (Exception e) {
-                esitOffErrors.append(e.getMessage());
+                editOffErrors.append(e.getMessage());
             }
         }
         try {
             DiscountAndOffTypeServiceException.validateInputAmount(editOffRequest.getOffAmount());
         } catch (Exception e) {
-            esitOffErrors.append(e.getMessage());
+            editOffErrors.append(e.getMessage());
         }
         try {
             validateEditOffProductsToBeAdded(editOffRequest);
         } catch (Exception e) {
-            esitOffErrors.append(e.getMessage());
+            editOffErrors.append(e.getMessage());
         }
         try {
             validateEditOffProductsToBeRemoved(editOffRequest);
         } catch (Exception e) {
-            esitOffErrors.append(e.getMessage());
+            editOffErrors.append(e.getMessage());
         }
 
-        if (esitOffErrors.length() != 0) {
-            throw new Exception("there were some errors in editing off : \n" + esitOffErrors);
+        if (editOffErrors.length() != 0) {
+            throw new Exception("there were some errors in editing off : \n" + editOffErrors);
         }
 
     }

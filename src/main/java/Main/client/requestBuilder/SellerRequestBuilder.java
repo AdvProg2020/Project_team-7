@@ -28,4 +28,13 @@ public class SellerRequestBuilder {
         }
         return ClientMain.client.sendRequest(request.toString());
     }
+
+    public static String buildAddProductRequest(ArrayList<String> productInfo){
+        StringBuilder request = new StringBuilder();
+        request.append(GraphicMain.token + "#addProduct");
+        for (String info : productInfo) {
+            request.append("#" + info);
+        }
+        return ClientMain.client.sendRequest(request.toString());
+    }
 }

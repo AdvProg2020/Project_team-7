@@ -1,6 +1,10 @@
 package Main.server.serverRequestProcessor;
 
 import Main.client.graphicView.GraphicMain;
+import Main.server.ServerMain;
+import Main.server.controller.GeneralController;
+import Main.server.model.Category;
+import Main.server.model.exceptions.CreateProductException;
 
 import java.util.ArrayList;
 
@@ -11,7 +15,7 @@ public class SellerRequestProcessor {
         String content = splitRequest[3];
         try {
             //TODO ALERT: watch out for the null arguments :D
-            GraphicMain.generalController.addComment(title, content, splitRequest[0],null);
+            ServerMain.generalController.addComment(title, content, splitRequest[0],null);
             return "success";
         }catch (Exception e){
             return "error#" + e.getMessage();
@@ -21,7 +25,7 @@ public class SellerRequestProcessor {
     public static String getListItemsForAddOffPage(String token){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("productNames");
-        for (String productName : GraphicMain.sellerController.getSellerProductNames(token)) {
+        for (String productName : ServerMain.sellerController.getSellerProductNames(token)) {
             stringBuilder.append("#" + productName);
         }
         return stringBuilder.toString();
@@ -41,10 +45,25 @@ public class SellerRequestProcessor {
             offInfo.add(split.get(i));
         }
         try {
-            GraphicMain.sellerController.addOff(productIdList, offInfo, splitRequest[0]);
+            ServerMain.sellerController.addOff(productIdList, offInfo, splitRequest[0]);
             return "success";
         } catch (Exception e) {
             return "error#" + e.getMessage();
+        }
+    }
+
+    public static String buildAddProductResponse(String[] splitRequest){
+        ArrayList<String> productInfo = new ArrayList<>();
+        for(int i=2; i<splitRequest.length; i++){
+            productInfo.add(splitRequest[i]);
+        }
+        try {
+            ServerMain.sellerController.addProduct(productInfo,splitRequest[0]);
+            return "success";
+        } catch (CreateProductException.InvalidProductInputInfo e) {
+            return "error#" +e.getMessage();
+        } catch (CreateProductException.GetCategoryFromUser e) {
+            return GeneralController.yagsonMapper.toJson(e, CreateProductException.GetCategoryFromUser.class);
         }
     }
 }
