@@ -40,9 +40,7 @@ public class AuctionsPage implements Initializable {
         allAuctions = Auction.getAllAuctions();
         for (Auction auction : allAuctions) {
             try {
-                Auction.AuctionUsage auctionUsage = auction.getAuctionUsage();
-                auctionsList.getItems().add(auctionUsage.viewSummary());
-
+                auctionsList.getItems().add(auction.getAuctionUsage().viewSummary());
             } catch (Exception e) {
             }
         }
@@ -56,8 +54,7 @@ public class AuctionsPage implements Initializable {
                     Auction auction = Auction.getAuctionById(id);
                     auctionsList.getSelectionModel().clearSelection();
                     try {
-                        Auction.AuctionUsage auctionUsage = auction.getAuctionUsage();
-                        GraphicMain.currentAuctionId = auctionUsage.getId();
+                        GraphicMain.currentAuctionId = auction.getAuctionUsage().getId();
                         GraphicMain.graphicMain.goToPage(AuctionPage.FXML_PATH,AuctionPage.TITLE);
                     } catch (Exception e) {
                         GraphicMain.showInformationAlert(e.getMessage());
@@ -73,7 +70,7 @@ public class AuctionsPage implements Initializable {
 
     }
 
-    public void goToUserPanel(MouseEvent mouseEvent) throws IOException {
+    public void goToUserPanelMenu(MouseEvent mouseEvent) throws IOException {
         Account account = GeneralController.currentUser;
         if (account instanceof ManagerAccount) {
             GraphicMain.graphicMain.goToPage(ManagerPanelController.FXML_PATH, ManagerPanelController.TITLE);

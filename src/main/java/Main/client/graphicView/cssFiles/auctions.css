@@ -12,6 +12,25 @@
 }
 
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
-    -fx-background-color: linear-gradient(#b6e3e3, #7a9999);
+    -fx-background-color: #98adb8;
     -fx-text-fill: #4f7070;
+}
+
+.text-field {
+-fx-background-radius : 30;
+-fx-background-color : #f5fffe;
+-fx-text-color : #3b5956;
+}
+
+.messagePane {
+-fx-background-color: #ebebeb;
+-fx-background-radius : 5;
+}
+
+.informationBox {
+-fx-background-color:linear-gradient(#ffcf69 5%, #fffaf2 100%);
+-fx-border-color:#b38422;
+-fx-background-radius: 36% 64% 68% 32% / 39% 24% 76% 61% ;
+-fx-border-radius: 36% 64% 68% 32% / 39% 24% 76% 61% ;
+-fx-border-width : 5;
 }
