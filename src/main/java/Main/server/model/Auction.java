@@ -27,6 +27,8 @@ public class Auction {
     private SellerAccount sellerAccount;
     private String sellerStringRecord;
     private BuyerAccount lastOfferBuyer;
+    private String lastBuyerStringRecord;
+    private ArrayList<String> allMessages = new ArrayList<>();
 
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private static String inputDateFormat = "yyyy/MM/dd HH:mm:ss";
@@ -38,6 +40,7 @@ public class Auction {
         this.highestOffer = 0;
         this.product = product;
         this.productStringRecord = product.getProductId();
+        //TODO validate date
         this.startDate = startDate;
         this.endDate = endDate;
         this.auctionUsage = new AuctionUsage();
@@ -48,7 +51,7 @@ public class Auction {
 
     public AuctionUsage getAuctionUsage() throws Exception {
         if (isAuctionOver()) {
-            finishAuction(highestOffer, lastOfferBuyer);
+            finishAuction();
             throw new Exception("auction is over");
         }
         return auctionUsage;
@@ -97,7 +100,7 @@ public class Auction {
         }
 
         public String viewSummary() {
-            return "@" + product.getProductId() + " " + product.getName() + "\tstart :\t" + startDate + "\tend :\t" + endDate;
+            return "@" + id + " " + product.getName() + "\tstart :\t" + startDate + "\tend :\t" + endDate;
         }
 
         public SellerAccount getSellerAccount() {
@@ -110,6 +113,11 @@ public class Auction {
 
         public void setLastOfferBuyer(BuyerAccount buyerAccount) {
             lastOfferBuyer = buyerAccount;
+            lastBuyerStringRecord = buyerAccount.getUserName();
+        }
+
+        public ArrayList<String> getAllMessages() {
+            return allMessages;
         }
     }
 
@@ -126,16 +134,18 @@ public class Auction {
         return null;
     }
 
-    private void finishAuction(double highestOffer, BuyerAccount buyerAccount) {
+    private void finishAuction() {
         allAuctions.remove(this);
-        sellerAccount.increaseBalanceBy(highestOffer);
-        product.decreaseAvailabilityBy(1);
         product.isOnAuction = false;
-        buyerAccount.isOnAuction = null;
-        try {
-            buyerAccount.decreaseBalanceBy(highestOffer);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (lastOfferBuyer != null) {
+            sellerAccount.increaseBalanceBy(highestOffer);
+            product.decreaseAvailabilityBy(1);
+            lastOfferBuyer.isOnAuction = null;
+            try {
+                lastOfferBuyer.decreaseBalanceBy(highestOffer);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         //TODO : sure more is needed :)
     }
@@ -174,18 +184,23 @@ public class Auction {
         }
     }
 
-    private static void setStringRecords() {
-        Auction auction = null;
-        try {
-            for (Auction auction1 : allAuctions) {
-                auction = auction1;
+    public static void setStringRecords() {
+        for (Auction auction : allAuctions) {
+            try {
                 auction.product = Product.getProductWithId(auction.productStringRecord);
                 auction.sellerAccount = SellerAccount.getSellerWithUserName(auction.sellerStringRecord);
+            } catch (Exception e) {
+                allAuctions.remove(auction);
             }
-        } catch (Exception e) {
-            allAuctions.remove(auction);
+            try {
+                auction.lastOfferBuyer = BuyerAccount.getBuyerWithUserName(auction.lastBuyerStringRecord);
+            } catch (Exception e) {
+                auction.lastOfferBuyer = null;
+                auction.highestOffer = 0;
+            }
         }
     }
+
 
     public boolean isAuctionOver() {
         try {
@@ -197,7 +212,7 @@ public class Auction {
         }
         Date dateNow = new Date();
         if (auctionUsage.getEndDate().compareTo(dateNow) < 0) {
-            finishAuction(highestOffer, lastOfferBuyer);
+            finishAuction();
             return true;
         }
         return false;
@@ -205,7 +220,7 @@ public class Auction {
 
     public boolean hasAuctionBeenStarted() {
         Date dateNow = new Date();
-        if (auctionUsage.getStartDate().compareTo(dateNow) > 0) {
+        if (auctionUsage.getStartDate().compareTo(dateNow) < 0) {
             return true;
         }
         return false;
@@ -214,7 +229,7 @@ public class Auction {
     public static ArrayList<Auction> getAllAuctions() {
         for (Auction auction : allAuctions) {
             if (auction.isAuctionOver()) {
-                auction.finishAuction(auction.highestOffer, auction.lastOfferBuyer);
+                auction.finishAuction();
             }
         }
         return allAuctions;

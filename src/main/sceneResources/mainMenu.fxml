@@ -36,7 +36,7 @@
         </ImageView>
         <Label layoutX="288.0" layoutY="334.0" rotate="350.0" text="OFFS" />
         <Label layoutX="849.0" layoutY="356.0" rotate="10.0" text="PRODUCTS" />
-        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#exit" onMouseEntered="#grow" onMouseExited="#shrink" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#back" onMouseEntered="#grow" onMouseExited="#shrink" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../java/Main/client/graphicView/resources/images/back.png" />
             </image>

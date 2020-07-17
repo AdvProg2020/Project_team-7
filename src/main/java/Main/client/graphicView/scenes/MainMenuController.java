@@ -18,10 +18,6 @@ public class MainMenuController {
     public static final String FXML_PATH = "src/main/sceneResources/mainMenu.fxml";
     public static final String TITLE = "Main Menu";
 
-    public void exit(MouseEvent mouseEvent) {
-        GraphicMain.graphicMain.exitProgram();
-    }
-
     public void logout() throws IOException{
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
@@ -66,5 +62,9 @@ public class MainMenuController {
     }
 
     public void goToAuctions(MouseEvent mouseEvent) {
+    }
+
+    public void back(MouseEvent mouseEvent) {
+        GraphicMain.graphicMain.back();
     }
 }

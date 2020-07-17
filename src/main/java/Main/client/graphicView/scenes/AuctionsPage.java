@@ -29,19 +29,29 @@ public class AuctionsPage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Product product = new Product("apple", "b", 10, "d", 10, null);
-        Product product2 = new Product("laptop", "b", 10, "d", 10, null);
-        Auction auction1 = new Auction(product, "1200/02/02 12:12:12", "2022/02/02 12:12:12");
-        Auction auction2 = new Auction(product2, "1300/02/02 12:12:12", "2032/02/02 12:12:12");
+        SellerAccount sellerAccount = new SellerAccount("username", "firstname", "lastname"
+                , "example@exp.exp", "09000000000", "00000000", "companyName"
+                ,"this company is great!", 100,null);
+        Product product = new Product("apple", "b", 10, "d", 10,sellerAccount);
+        Product product2 = new Product("laptop", "b", 10, "d", 10, sellerAccount);
+        product.addProduct(product);
+        product2.addProduct(product2);
+        SellerAccount.addSeller(sellerAccount);
+        Auction auction1 = new Auction(product, "1200/02/02 12:12:12", "2022/02/02 12:12:12",sellerAccount);
+        Auction auction2 = new Auction(product2, "1300/02/02 12:12:12", "2032/02/02 12:12:12",sellerAccount);
         Auction.addAuction(auction1);
         Auction.addAuction(auction2);
 
         auctionsList.getItems().clear();
         allAuctions = Auction.getAllAuctions();
-        for (Auction auction : allAuctions) {
+        for (int i = 0;i<allAuctions.size();i++) {
+            Auction auction3 = allAuctions.get(i);
             try {
-                auctionsList.getItems().add(auction.getAuctionUsage().viewSummary());
+                auctionsList.getItems().add(auction3.getAuctionUsage().viewSummary());
             } catch (Exception e) {
+                if(i>0){
+                    i--;
+                }
             }
         }
 
@@ -57,7 +67,7 @@ public class AuctionsPage implements Initializable {
                         GraphicMain.currentAuctionId = auction.getAuctionUsage().getId();
                         GraphicMain.graphicMain.goToPage(AuctionPage.FXML_PATH,AuctionPage.TITLE);
                     } catch (Exception e) {
-                        GraphicMain.showInformationAlert(e.getMessage());
+                       // GraphicMain.showInformationAlert(e.getMessage());
                         initialize(location,resources);
                     }
                 }

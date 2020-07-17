@@ -459,6 +459,7 @@ public class GeneralController {
                 "\n" + BuyerAccount.readData() +
                 "\n" + SellerAccount.readData() +
                 "\n" + ManagerAccount.readData() +
+                "\n" + Auction.readData() +
                 "\n";
     }
 
@@ -470,6 +471,7 @@ public class GeneralController {
         Log.setStringRecordObjects();
         Category.setStringRecordObjects();
         Product.setStringRecordObjects();
+        Auction.setStringRecords();
     }
 
     public static void setImagePaths(){
@@ -511,6 +513,7 @@ public class GeneralController {
                 "\n" + BuyerAccount.writeData() +
                 "\n" + SellerAccount.writeData() +
                 "\n" + ManagerAccount.writeData() +
+                "\n" + Auction.writeData() +
                 "\n";
     }
 }

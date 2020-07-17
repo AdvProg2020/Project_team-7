@@ -12,15 +12,20 @@ import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.accounts.ManagerAccount;
 import Main.server.model.accounts.SellerAccount;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static java.lang.Thread.sleep;
@@ -79,14 +84,33 @@ public class AuctionPage implements Initializable {
                 highestOffer.setText("" + auction.getAuctionUsage().getHighestOffer());
                 //TODO messagePane
             }
+            initializeMessagePane();
         } catch (Exception e) {
             GraphicMain.showInformationAlert("the auction is over");
-            try {
-                sleep(4);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-            initialize(location, resources);
+            disablePage();
+        }
+    }
+
+    private void initializeMessagePane() throws Exception {
+        Auction auction = Auction.getAuctionById(GraphicMain.currentAuctionId);
+        if (auction == null) {
+            throw new Exception();
+        }
+        int i = 0;
+        ArrayList<String> allMessages = auction.getAuctionUsage().getAllMessages();
+        allMessages.add("hi");
+        allMessages.add("how's it goin");
+        allMessages.add("hi");
+        allMessages.add("how's it goin");
+        allMessages.add("hi");
+        allMessages.add("how's it goin");
+        allMessages.add("hi");
+        allMessages.add("how's it goin");
+        for (String message : allMessages) {
+            i++;
+            Label label = new Label(message);
+            label.getStyleClass().add("messageType" + i%9);
+            messagePane.getChildren().add(label);
         }
     }
 
@@ -100,23 +124,28 @@ public class AuctionPage implements Initializable {
     public void increasePrice(MouseEvent mouseEvent) {
         String response = BuyerRequestBuilder.buildIncreaseAuctionPriceRequest(increaseAmount.getText());
         if (response.equals("success")) {
-            highestOffer.setText("" + Double.parseDouble(highestOffer.getText()) + Double.parseDouble(increaseAmount.getText()));
-        }else{
+            try {
+                highestOffer.setText(Auction.getAuctionById(GraphicMain.currentAuctionId).getAuctionUsage().getHighestOffer()+"");
+            } catch (Exception e) {
+                informationBox.setText(e.getMessage());
+            }
+        } else {
             showIncrementResponseMessage(response);
         }
     }
 
     private void showIncrementResponseMessage(String response) {
-        if(response.equals("invalidNo")){
-            GraphicMain.showInformationAlert("increase amount must be\n of positive double type");
-        }else if(response.equals("loginNeeded")){
-            GraphicMain.showInformationAlert("you must login first !\nyou'r authentication might be expired !");
-        }else if(response.equals("insufficientBalance")){
-            GraphicMain.showInformationAlert("your balance isn't enough");
-        }else if(response.equals("auctionOver")){
-            GraphicMain.showInformationAlert("sorry auction is over");
-        }else if(response.equals("alreadyOnAuction")){
-            GraphicMain.showInformationAlert("you have an offer in another auction");
+        if (response.equals("invalidNo")) {
+            informationBox.setText("increase amount must be\n of positive double type");
+        } else if (response.equals("loginNeeded")) {
+            informationBox.setText("you must login first !\nyou'r authentication might be expired !");
+        } else if (response.equals("insufficientBalance")) {
+            informationBox.setText("your balance isn't enough");
+        } else if (response.equals("auctionOver")) {
+            informationBox.setText("sorry auction is over");
+            disablePage();
+        } else if (response.equals("alreadyOnAuction")) {
+            informationBox.setText("you have an offer in another auction");
         }
     }
 

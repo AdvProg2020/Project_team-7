@@ -57,8 +57,14 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <Label fx:id="highestOffer" layoutX="335.0" layoutY="451.0" minHeight="45.0" minWidth="80.0" prefHeight="21.0" prefWidth="60.0" styleClass="highestOffer" />
-      <TextField fx:id="increaseAmount" layoutX="335.0" layoutY="519.0" prefHeight="45.0" prefWidth="80.0" />
+      <Label fx:id="highestOffer" layoutX="335.0" layoutY="451.0" minHeight="45.0" minWidth="80.0" prefHeight="21.0" prefWidth="60.0" styleClass="highestOffer">
+         <padding>
+            <Insets left="10.0" />
+         </padding></Label>
+      <TextField fx:id="increaseAmount" layoutX="335.0" layoutY="519.0" prefHeight="45.0" prefWidth="80.0">
+         <padding>
+            <Insets left="10.0" />
+         </padding></TextField>
       <Label layoutX="127.0" layoutY="519.0" text="increase by :">
          <font>
             <Font size="30.0" />

@@ -43,7 +43,7 @@ public class Product {
     private Off off;
     private ArrayList<Rate> rates = new ArrayList<Rate>();
     private HashMap<String, String> specialFeatures = new HashMap<String, String>();
-    private String imagePath ;
+    private String imagePath;
     private static ArrayList<String> allBrands = new ArrayList<>();
     private ArrayList<String> sellersStringRecord = new ArrayList<>();
     private String categoryStringRecord;
@@ -288,7 +288,9 @@ public class Product {
         if (!allBrands.contains(product.getBrand())) {
             allBrands.add(product.getBrand());
         }
-        category.addProduct(this);
+        if (category != null) {
+            category.addProduct(this);
+        }
         for (SellerAccount seller : sellers) {
             seller.addProduct(this);
         }
@@ -566,7 +568,7 @@ public class Product {
         productBox.setOnMouseClicked(event -> {
             GeneralController.currentProduct = this;
             try {
-                GraphicMain.graphicMain.goToPage(ProductPage.FXML_PATH,ProductPage.TITLE);
+                GraphicMain.graphicMain.goToPage(ProductPage.FXML_PATH, ProductPage.TITLE);
             } catch (IOException e) {
             }
         });
@@ -633,7 +635,7 @@ public class Product {
         productBox.setOnMouseClicked(event -> {
             GeneralController.currentProduct = this;
             try {
-                GraphicMain.graphicMain.goToPage(ProductPage.FXML_PATH,ProductPage.TITLE);
+                GraphicMain.graphicMain.goToPage(ProductPage.FXML_PATH, ProductPage.TITLE);
             } catch (IOException e) {
             }
         });
