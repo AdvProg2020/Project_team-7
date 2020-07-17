@@ -361,8 +361,8 @@ public class GeneralController {
         }
     }
 
-    public String editPersonalInfo(String field, String newContent) {
-        return currentUser.editPersonalInfo(field, newContent);
+    public String editPersonalInfo(String field, String newContent, String token) {
+        return Server.getServer().getTokenInfo(token).getUser().editPersonalInfo(field,newContent);
     }
 
     public String showAllProducts() {

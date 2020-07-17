@@ -29,7 +29,7 @@ public class PersonalInfoMenu extends Menu {
                 else {
                     System.out.println("Insert the new content:");
                     String newContent = scanner.nextLine().trim();
-                    System.out.println(generalController.editPersonalInfo(input, newContent));
+                    System.out.println(generalController.editPersonalInfo(input, newContent,null));
                     this.run();
                 }
             }

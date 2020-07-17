@@ -53,9 +53,9 @@ public class OffManagerMenu extends Menu {
                     this.parentMenu.run();
                 else {
                     try {
-                        EditOffRequest editOffRequest = sellerController.getOffToEdit(input);
+                        EditOffRequest editOffRequest = sellerController.getOffToEdit(input,null);
                         getFieldsToEdit(editOffRequest);
-                        sellerController.submitOffEdits(editOffRequest);
+                        sellerController.submitOffEdits(editOffRequest,null);
                         System.out.println("Off edited successfully.");
                         this.run();
                     } catch (Exception e) {

@@ -2,6 +2,8 @@ package Main.client.graphicView.scenes;
 
 import Main.client.graphicView.GraphicMain;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.SellerRequestBuilder;
+import Main.server.controller.GeneralController;
 import Main.server.model.Product;
 import Main.server.model.requests.EditProductRequest;
 import javafx.fxml.FXML;
@@ -11,6 +13,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class EditProductPage implements Initializable {
@@ -33,7 +36,9 @@ public class EditProductPage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setProduct();
+//        setProduct();
+        String response = SellerRequestBuilder.getProductForProductEditPage(SellerProductPage.productId);
+        product = GeneralController.yagsonMapper.fromJson(response, Product.class);
         name.setPromptText(product.getName());
         brand.setPromptText(product.getBrand());
         availability.setPromptText(Integer.toString(product.getAvailability()));
@@ -46,46 +51,79 @@ public class EditProductPage implements Initializable {
 
     }
 
-    public void setProduct(){
-        try {
-            product = Product.getProductWithId(SellerProductPage.productId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public void setProduct(){
+//        try {
+//            product = Product.getProductWithId(SellerProductPage.productId);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void submitEdits(){
-        try {
-            EditProductRequest editProductRequest = GraphicMain.sellerController.getProductToEdit(product.getProductId());
-            if(!name.getText().isEmpty()){
-                editProductRequest.addEditedFieldTitle("name");
-                editProductRequest.setName(name.getText());
-            }
-            if(!brand.getText().isEmpty()){
-                editProductRequest.addEditedFieldTitle("brand");
-                editProductRequest.setBrand(brand.getText());
-            }
-            if(!availability.getText().isEmpty()){
-                editProductRequest.addEditedFieldTitle("availability");
-                editProductRequest.setAvailability(availability.getText());
-            }
-            if(!description.getText().isEmpty()){
-                editProductRequest.addEditedFieldTitle("description");
-                editProductRequest.setDescription(description.getText());
-            }
-            if(!price.getText().isEmpty()){
-                editProductRequest.addEditedFieldTitle("price");
-                editProductRequest.setPrice(price.getText());
-            }
-            if(!offId.getText().isEmpty()){
-                editProductRequest.addEditedFieldTitle("off");
-                editProductRequest.setOffID(offId.getText());
-            }
-            GraphicMain.sellerController.submitProductEdits(editProductRequest);
-            showInformationAlert("product edited successfully");
-        } catch (Exception e) {
-            showErrorAlert(e.getMessage());
+        ArrayList<String> listOfTitles = new ArrayList<>();
+        ArrayList<String> listOfContents = new ArrayList<>();
+        if(!name.getText().isEmpty()){
+            listOfTitles.add("name");
+            listOfContents.add(name.getText());
         }
+        if(!brand.getText().isEmpty()){
+            listOfTitles.add("brand");
+            listOfContents.add(brand.getText());
+        }
+        if(!availability.getText().isEmpty()){
+            listOfTitles.add("availability");
+            listOfContents.add(availability.getText());
+        }
+        if(!description.getText().isEmpty()){
+            listOfTitles.add("description");
+            listOfContents.add(description.getText());
+        }
+        if(!price.getText().isEmpty()){
+            listOfTitles.add("price");
+            listOfContents.add(price.getText());
+        }
+        if(!offId.getText().isEmpty()){
+            listOfTitles.add("off");
+            listOfContents.add(offId.getText());
+        }
+        String response = SellerRequestBuilder.buildEditProductRequest(product.getProductId(), listOfTitles,listOfContents);
+        if(response.equals("success")){
+            showInformationAlert("product edited successfully");
+        }else{
+            String[] splitResponse = response.split("#");
+            showErrorAlert(splitResponse[1]);
+        }
+//        try {
+//            EditProductRequest editProductRequest = GraphicMain.sellerController.getProductToEdit(product.getProductId());
+//            if(!name.getText().isEmpty()){
+//                editProductRequest.addEditedFieldTitle("name");
+//                editProductRequest.setName(name.getText());
+//            }
+//            if(!brand.getText().isEmpty()){
+//                editProductRequest.addEditedFieldTitle("brand");
+//                editProductRequest.setBrand(brand.getText());
+//            }
+//            if(!availability.getText().isEmpty()){
+//                editProductRequest.addEditedFieldTitle("availability");
+//                editProductRequest.setAvailability(availability.getText());
+//            }
+//            if(!description.getText().isEmpty()){
+//                editProductRequest.addEditedFieldTitle("description");
+//                editProductRequest.setDescription(description.getText());
+//            }
+//            if(!price.getText().isEmpty()){
+//                editProductRequest.addEditedFieldTitle("price");
+//                editProductRequest.setPrice(price.getText());
+//            }
+//            if(!offId.getText().isEmpty()){
+//                editProductRequest.addEditedFieldTitle("off");
+//                editProductRequest.setOffID(offId.getText());
+//            }
+//            GraphicMain.sellerController.submitProductEdits(editProductRequest);
+//            showInformationAlert("product edited successfully");
+//        } catch (Exception e) {
+//            showErrorAlert(e.getMessage());
+//        }
 
     }
 

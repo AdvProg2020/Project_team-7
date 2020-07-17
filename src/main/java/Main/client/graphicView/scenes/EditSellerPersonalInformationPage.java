@@ -1,9 +1,11 @@
 package Main.client.graphicView.scenes;
 
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.server.model.accounts.SellerAccount;
+import Main.server.serverRequestProcessor.SellerRequestProcessor;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -27,16 +29,8 @@ public class EditSellerPersonalInformationPage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        allowedFields.setText(getAllowedFieldsToEdit());
-    }
-
-    public String getAllowedFieldsToEdit() {
-        StringBuilder list = new StringBuilder();
-
-        list.append("Allowed fields to edit:\nfirst name\nlast name\nemail\nphone number\npassword");
-        if (GeneralController.currentUser instanceof SellerAccount)
-            list.append("\ncompany name\ncompany extra information");
-        return list.toString();
+        allowedFields.setText("Allowed fields to edit:\nfirst name\nlast name\nemail\nphone number\npassword" +
+                "\ncompany name\ncompany extra information");
     }
 
     public void goBack(){
@@ -52,8 +46,10 @@ public class EditSellerPersonalInformationPage implements Initializable {
     }
 
     public void editPersonalInfo(){
-        String message = GraphicMain.generalController.editPersonalInfo(fieldToEdit.getText(),newContent.getText());
-        showInformationAlert(message);
+        String response = SellerRequestBuilder.buildEditPersonalInformationRequest(fieldToEdit.getText(), newContent.getText());
+        showInformationAlert(response);
+//        String message = GraphicMain.generalController.editPersonalInfo(fieldToEdit.getText(),newContent.getText());
+//        showInformationAlert(message);
     }
 
     public void showInformationAlert(String message){

@@ -139,6 +139,14 @@ public class Server {
                 response=SellerRequestProcessor.buildAddProductResponse(splitRequest);
             }else if(splitRequest[2].equals("addSpecialFeatures")){
                 response = SellerRequestProcessor.buildAddSpecialFeaturesResponse(splitRequest);
+            }else if(splitRequest[1].equals("getProductForProductEditPage")){
+                response = SellerRequestProcessor.getProductForProductEditPage(splitRequest);
+            }else if(splitRequest[1].equals("editProduct")){
+                response = SellerRequestProcessor.buildEditProductResponse(splitRequest);
+            }else if(splitRequest[1].equals("editSellerPersonalInformation")){
+                response = SellerRequestProcessor.buildEditPersonalInformationResponse(splitRequest);
+            }else if(splitRequest[1].equals("editOff")){
+                response = SellerRequestProcessor.buildEditOffResponse(splitRequest);
             }
 
             dataOutputStream.writeUTF(response);
