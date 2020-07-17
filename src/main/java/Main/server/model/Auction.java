@@ -39,8 +39,7 @@ public class Auction {
     }
 
     public AuctionUsage getAuctionUsage() throws Exception {
-        Date dateNow = new Date();
-        if (auctionUsage.getEndDate().compareTo(dateNow) < 0) {
+        if (isAuctionOver()) {
             finishAuction();
             throw new Exception("auction is over");
         }
@@ -156,7 +155,28 @@ public class Auction {
         }
     }
 
+    public boolean isAuctionOver(){
+        Date dateNow = new Date();
+        if(auctionUsage.getEndDate().compareTo(dateNow) < 0){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean hasAuctionBeenStarted(){
+        Date dateNow = new Date();
+        if(auctionUsage.getStartDate().compareTo(dateNow) > 0){
+            return true;
+        }
+        return false;
+    }
+
     public static ArrayList<Auction> getAllAuctions() {
+        for (Auction auction : allAuctions) {
+            if(auction.isAuctionOver()){
+                auction.finishAuction();
+            }
+        }
         return allAuctions;
     }
 }
