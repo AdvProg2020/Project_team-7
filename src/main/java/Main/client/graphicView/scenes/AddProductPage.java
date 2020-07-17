@@ -2,6 +2,8 @@ package Main.client.graphicView.scenes;
 
 import Main.client.graphicView.GraphicMain;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.SellerRequestBuilder;
+import Main.server.controller.GeneralController;
 import Main.server.model.exceptions.CreateProductException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -52,15 +54,25 @@ public class AddProductPage{
             productInfo.add("no");
             productInfo.add("-");
         }
-        try{
-            GraphicMain.sellerController.addProduct(productInfo);
+        String response = SellerRequestBuilder.buildAddProductRequest(productInfo);
+        if(response.equals("success")){
             showInformationAlert("product created successfully");
-        } catch (CreateProductException.InvalidProductInputInfo e) {
-            showErrorAlert(e.getMessage());
-        } catch (CreateProductException.GetCategoryFromUser e) {
-            exception = e;
-            GraphicMain.graphicMain.goToPage(AddProductSpecialFeatures.FXML_PATH,AddProductSpecialFeatures.TITLE);
+        }else if(response.startsWith("error")){
+            String[] splitResponse = response.split("#");
+            showErrorAlert(splitResponse[1]);
+        }else{
+            exception = GeneralController.yagsonMapper.fromJson(response, CreateProductException.GetCategoryFromUser.class);
+            GraphicMain.graphicMain.goToPage(AddProductSpecialFeatures.FXML_PATH, AddProductSpecialFeatures.TITLE);
         }
+//        try{
+//            GraphicMain.sellerController.addProduct(productInfo);
+//            showInformationAlert("product created successfully");
+//        } catch (CreateProductException.InvalidProductInputInfo e) {
+//            showErrorAlert(e.getMessage());
+//        } catch (CreateProductException.GetCategoryFromUser e) {
+//            exception = e;
+//            GraphicMain.graphicMain.goToPage(AddProductSpecialFeatures.FXML_PATH,AddProductSpecialFeatures.TITLE);
+//        }
     }
 
     public void showErrorAlert(String message){

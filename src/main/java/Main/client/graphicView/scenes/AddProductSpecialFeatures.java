@@ -2,6 +2,7 @@ package Main.client.graphicView.scenes;
 
 import Main.client.graphicView.GraphicMain;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.model.Category;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,7 +33,6 @@ public class AddProductSpecialFeatures  implements Initializable {
         for (String feature : category.getSpecialFeatures()) {
             TextField textField = new TextField();
             textField.setPromptText(feature);
-            System.out.println(box.getId());
             box.getChildren().add(textField);
             specialFeaturesTextFields.add(textField);
         }
@@ -43,8 +43,14 @@ public class AddProductSpecialFeatures  implements Initializable {
         for (TextField textField : specialFeaturesTextFields) {
             specialFeatures.add(textField.getText());
         }
-        GraphicMain.sellerController.setSpecialFeatures(AddProductPage.exception.getProduct(),specialFeatures);
-        showInformationAlert("product created successfully");
+        String response = SellerRequestBuilder.buildAddSpecialFeaturesRequest(specialFeatures, AddProductPage.exception.getProduct().getProductId());
+        if(response.equals("success")){
+            showInformationAlert("product created successfully");
+        }else{
+            showErrorAlert("failure");
+        }
+//        GraphicMain.sellerController.setSpecialFeatures(AddProductPage.exception.getProduct(),specialFeatures);
+//        showInformationAlert("product created successfully");
     }
 
     public void goBack(){
@@ -57,6 +63,14 @@ public class AddProductSpecialFeatures  implements Initializable {
         alert.setContentText(message);
         alert.setHeaderText(null);
         alert.showAndWait();
+    }
+
+    public void showErrorAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(null);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.show();
     }
 
     public void logout() throws IOException {
