@@ -93,7 +93,7 @@ public class SellerRequestProcessor {
             allData.add(splitRequest[i]);
         }
         try {
-            EditProductRequest editProductRequest = ServerMain.sellerController.getProductToEdit(splitRequest[2]);
+            EditProductRequest editProductRequest = ServerMain.sellerController.getProductToEdit(splitRequest[2], splitRequest[0]);
             if(allData.contains("name")){
                 editProductRequest.addEditedFieldTitle("name");
                 editProductRequest.setName(allData.get(allData.indexOf("name")+1));
@@ -118,10 +118,14 @@ public class SellerRequestProcessor {
                 editProductRequest.addEditedFieldTitle("off");
                 editProductRequest.setOffID(allData.get(allData.indexOf("off")+1));
             }
-            ServerMain.sellerController.submitProductEdits(editProductRequest);
+            ServerMain.sellerController.submitProductEdits(editProductRequest, splitRequest[0]);
             return "success";
         } catch (Exception e) {
             return "error#" + e.getMessage();
         }
+    }
+
+    public static String buildEditPersonalInformationResponse(String[] splitRequest){
+        return ServerMain.generalController.editPersonalInfo(splitRequest[2],splitRequest[3],splitRequest[0]);
     }
 }

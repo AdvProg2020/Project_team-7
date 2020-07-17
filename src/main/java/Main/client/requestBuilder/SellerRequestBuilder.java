@@ -77,4 +77,10 @@ public class SellerRequestBuilder {
         }
         return ClientMain.client.sendRequest(request.toString());
     }
+
+    public static String buildEditPersonalInformationRequest(String fieldToEdit, String newContent){
+        StringBuilder request = new StringBuilder();
+        request.append(GraphicMain.token + "#editSellerPersonalInformation#" + fieldToEdit + "#" + newContent);
+        return ClientMain.client.sendRequest(request.toString());
+    }
 }

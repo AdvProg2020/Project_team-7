@@ -1,6 +1,7 @@
 package Main.server.controller;
 
 import Main.client.graphicView.GraphicMain;
+import Main.server.ServerMain;
 import Main.server.model.Category;
 import Main.server.model.Product;
 import Main.server.model.ProductStatus;
@@ -50,26 +51,26 @@ public class SellerController {
         return ((SellerAccount) GeneralController.currentUser).viewSellerProductWithId(productId);
     }
 
-    public EditProductRequest getProductToEdit(String productID) throws Exception {
+    public EditProductRequest getProductToEdit(String productID, String token) throws Exception {
         Product product = Product.getProductWithId(productID);
-        validateProductEditPermission(product);
+        validateProductEditPermission(product,token);
         return new EditProductRequest(product);
     }
 
-    private void validateProductEditPermission(Product product) throws Exception {
-        SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
+    private void validateProductEditPermission(Product product, String token) throws Exception {
+        SellerAccount sellerAccount = (SellerAccount) Server.getServer().getTokenInfo(token).getUser();
         if (!sellerAccount.doesSellerHaveProductWithReference(product)) {
             throw new Exception("this product doesn't belong to you !\n");
         }
     }
 
-    public void submitProductEdits(EditProductRequest editProductRequest) throws Exception {
-        validateInputEditEditProductInfo(editProductRequest);
+    public void submitProductEdits(EditProductRequest editProductRequest, String token) throws Exception {
+        validateInputEditEditProductInfo(editProductRequest,token);
         editProductRequest.getProduct().setProductStatus(ProductStatus.PENDING_EDIT_PRODUCT);
         Request.addRequest(editProductRequest);
     }
 
-    private void validateInputEditEditProductInfo(EditProductRequest editProductRequest) throws Exception {
+    private void validateInputEditEditProductInfo(EditProductRequest editProductRequest, String token) throws Exception {
         StringBuilder editProductErrors = new StringBuilder();
 
         try {
@@ -89,7 +90,7 @@ public class SellerController {
         }
         if (editProductRequest.getOffID() != null) {
             try {
-                validateEditProductEditedOff(editProductRequest.getOffID());
+                validateEditProductEditedOff(editProductRequest.getOffID(), token);
             } catch (Exception e) {
                 editProductErrors.append(e.getMessage());
             }
@@ -99,7 +100,7 @@ public class SellerController {
         }
     }
 
-    private void validateEditProductEditedOff(String editedOff) throws Exception {
+    private void validateEditProductEditedOff(String editedOff, String token) throws Exception {
         if (!editedOff.equalsIgnoreCase("delete")) {
             return;
         }
