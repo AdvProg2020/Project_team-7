@@ -83,4 +83,25 @@ public class SellerRequestBuilder {
         request.append(GraphicMain.token + "#editSellerPersonalInformation#" + fieldToEdit + "#" + newContent);
         return ClientMain.client.sendRequest(request.toString());
     }
+
+    public static String buildEditOffRequest(String offId, ArrayList<String> titles, ArrayList<String> contents){
+        StringBuilder request = new StringBuilder();
+        request.append(GraphicMain.token + "#editOff#" + offId);
+        if(titles.contains("start date")){
+            request.append("#start date#" + contents.get(titles.indexOf("start date")));
+        }
+        if(titles.contains("end date")){
+            request.append("#end date#" + contents.get(titles.indexOf("end date")));
+        }
+        if(titles.contains("off amount")){
+            request.append("#off amount#" + contents.get(titles.indexOf("off amount")));
+        }
+        if(titles.contains("add product")){
+            request.append("#add product#" + contents.get(titles.indexOf("add product")));
+        }
+        if(titles.contains("remove product")){
+            request.append("#remove product#" + contents.get(titles.indexOf("remove product")));
+        }
+        return ClientMain.client.sendRequest(request.toString());
+    }
 }

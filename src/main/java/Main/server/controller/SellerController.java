@@ -105,7 +105,7 @@ public class SellerController {
             return;
         }
         Off off = Off.getOffWithId(editedOff);
-        SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
+        SellerAccount sellerAccount = (SellerAccount) Server.getServer().getTokenInfo(token).getUser();
         if (!sellerAccount.doesSellerHaveOffWithReference(off)) {
             throw new Exception("off with ID : " + editedOff + " doesn't belong to you!\n");
         }
@@ -201,26 +201,26 @@ public class SellerController {
         return Off.getOffWithId(offId).viewMe();
     }
 
-    public EditOffRequest getOffToEdit(String offID) throws Exception {
+    public EditOffRequest getOffToEdit(String offID, String token) throws Exception {
         Off off = Off.getOffWithId(offID);
-        validateOffEditPermission(off);
+        validateOffEditPermission(off,token);
         return new EditOffRequest(off);
     }
 
-    private void validateOffEditPermission(Off off) throws Exception {
-        SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
+    private void validateOffEditPermission(Off off, String token) throws Exception {
+        SellerAccount sellerAccount = (SellerAccount) Server.getServer().getTokenInfo(token).getUser();
         if (!sellerAccount.doesSellerHaveOffWithReference(off)) {
             throw new Exception("this off doesn't belong to any of your products !\n");
         }
     }
 
-    public void submitOffEdits(EditOffRequest editOffRequest) throws Exception {
-        validateInputEditOffInfo(editOffRequest);
+    public void submitOffEdits(EditOffRequest editOffRequest, String token) throws Exception {
+        validateInputEditOffInfo(editOffRequest,token);
         editOffRequest.getOff().setOffStatus(OffStatus.PENDING_EDIT_OFF);
         Request.addRequest(editOffRequest);
     }
 
-    private void validateInputEditOffInfo(EditOffRequest editOffRequest) throws Exception {
+    private void validateInputEditOffInfo(EditOffRequest editOffRequest, String token) throws Exception {
         StringBuilder editOffErrors = new StringBuilder();
 
         if (editOffRequest.getEditedFieldTitles().isEmpty()) {
@@ -249,7 +249,7 @@ public class SellerController {
             editOffErrors.append(e.getMessage());
         }
         try {
-            validateEditOffProductsToBeAdded(editOffRequest);
+            validateEditOffProductsToBeAdded(editOffRequest,token);
         } catch (Exception e) {
             editOffErrors.append(e.getMessage());
         }
@@ -266,10 +266,10 @@ public class SellerController {
     }
 
 
-    private void validateEditOffProductsToBeAdded(EditOffRequest editOffRequest) throws Exception {
+    private void validateEditOffProductsToBeAdded(EditOffRequest editOffRequest, String token) throws Exception {
         StringBuilder invalidIDs = new StringBuilder();
 
-        SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
+        SellerAccount sellerAccount = (SellerAccount) Server.getServer().getTokenInfo(token).getUser();
         for (String productIDToBeAdded : editOffRequest.getProductIDsToBeAdded()) {
             Product product = null;
             try {

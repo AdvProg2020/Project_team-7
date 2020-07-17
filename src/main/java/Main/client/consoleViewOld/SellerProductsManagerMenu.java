@@ -73,9 +73,9 @@ public class SellerProductsManagerMenu extends Menu {
                     this.parentMenu.run();
                 else {
                     try {
-                        EditProductRequest editProductRequest = sellerController.getProductToEdit(input);
+                        EditProductRequest editProductRequest = sellerController.getProductToEdit(input,null);
                         getFieldsToEdit(editProductRequest);
-                        sellerController.submitProductEdits(editProductRequest);
+                        sellerController.submitProductEdits(editProductRequest,null);
                         System.out.println("Product edited successfully.\n");
                         this.run();
                     } catch (Exception e) {

@@ -6,6 +6,7 @@ import Main.server.controller.GeneralController;
 import Main.server.model.Category;
 import Main.server.model.Product;
 import Main.server.model.exceptions.CreateProductException;
+import Main.server.model.requests.EditOffRequest;
 import Main.server.model.requests.EditProductRequest;
 
 import java.util.ArrayList;
@@ -127,5 +128,39 @@ public class SellerRequestProcessor {
 
     public static String buildEditPersonalInformationResponse(String[] splitRequest){
         return ServerMain.generalController.editPersonalInfo(splitRequest[2],splitRequest[3],splitRequest[0]);
+    }
+
+    public static String buildEditOffResponse(String[] splitRequest){
+        ArrayList<String> allData = new ArrayList<>();
+        for(int i=0; i<splitRequest.length; i++){
+            allData.add(splitRequest[i]);
+        }
+        try {
+            EditOffRequest editOffRequest = ServerMain.sellerController.getOffToEdit(splitRequest[2],splitRequest[0]);
+            if(allData.contains("start date")){
+                editOffRequest.addEditedFieldTitle("start date");
+                editOffRequest.setStartDate(allData.get(allData.indexOf("start date")+1));
+            }
+            if(allData.contains("end date")){
+                editOffRequest.addEditedFieldTitle("end date");
+                editOffRequest.setEndDate(allData.get(allData.indexOf("end date")+1));
+            }
+            if(allData.contains("off amount")){
+                editOffRequest.addEditedFieldTitle("off amount");
+                editOffRequest.setOffAmount(allData.get(allData.indexOf("off amount")+1));
+            }
+            if(allData.contains("add product")){
+                editOffRequest.addEditedFieldTitle("add product");
+                editOffRequest.addProductIDToBeAdded(allData.get(allData.indexOf("add product")+1));
+            }
+            if(allData.contains("remove product")){
+                editOffRequest.addEditedFieldTitle("remove product");
+                editOffRequest.addProductIDToBeRemoved(allData.get(allData.indexOf("remove product")+1));
+            }
+            ServerMain.sellerController.submitOffEdits(editOffRequest,splitRequest[0]);
+            return "success";
+        } catch (Exception e) {
+            return "error#" + e.getMessage();
+        }
     }
 }

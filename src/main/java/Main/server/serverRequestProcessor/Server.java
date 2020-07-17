@@ -145,6 +145,8 @@ public class Server {
                 response = SellerRequestProcessor.buildEditProductResponse(splitRequest);
             }else if(splitRequest[1].equals("editSellerPersonalInformation")){
                 response = SellerRequestProcessor.buildEditPersonalInformationResponse(splitRequest);
+            }else if(splitRequest[1].equals("editOff")){
+                response = SellerRequestProcessor.buildEditOffResponse(splitRequest);
             }
 
             dataOutputStream.writeUTF(response);
