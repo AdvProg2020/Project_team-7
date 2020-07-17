@@ -4,7 +4,9 @@ import Main.client.graphicView.GraphicMain;
 import Main.server.ServerMain;
 import Main.server.controller.GeneralController;
 import Main.server.model.Category;
+import Main.server.model.Product;
 import Main.server.model.exceptions.CreateProductException;
+import Main.server.model.requests.EditProductRequest;
 
 import java.util.ArrayList;
 
@@ -74,5 +76,52 @@ public class SellerRequestProcessor {
         }
         ServerMain.sellerController.setSpecialFeatures(splitRequest[1],specialFeatures);
         return  "success";
+    }
+
+    public static String getProductForProductEditPage(String[] splitRequest){
+        try {
+            return GeneralController.yagsonMapper.toJson(Product.getProductWithId(splitRequest[2]), Product.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String buildEditProductResponse(String[] splitRequest){
+        ArrayList<String> allData = new ArrayList<>();
+        for(int i=0; i<splitRequest.length; i++){
+            allData.add(splitRequest[i]);
+        }
+        try {
+            EditProductRequest editProductRequest = ServerMain.sellerController.getProductToEdit(splitRequest[2]);
+            if(allData.contains("name")){
+                editProductRequest.addEditedFieldTitle("name");
+                editProductRequest.setName(allData.get(allData.indexOf("name")+1));
+            }
+            if(allData.contains("brand")){
+                editProductRequest.addEditedFieldTitle("brand");
+                editProductRequest.setBrand(allData.get(allData.indexOf("brand")+1));
+            }
+            if(allData.contains("availability")){
+                editProductRequest.addEditedFieldTitle("availability");
+                editProductRequest.setAvailability(allData.get(allData.indexOf("availability")+1));
+            }
+            if(allData.contains("description")){
+                editProductRequest.addEditedFieldTitle("description");
+                editProductRequest.setDescription(allData.get(allData.indexOf("description")+1));
+            }
+            if(allData.contains("price")){
+                editProductRequest.addEditedFieldTitle("price");
+                editProductRequest.setPrice(allData.get(allData.indexOf("price")+1));
+            }
+            if(allData.contains("off")){
+                editProductRequest.addEditedFieldTitle("off");
+                editProductRequest.setOffID(allData.get(allData.indexOf("off")+1));
+            }
+            ServerMain.sellerController.submitProductEdits(editProductRequest);
+            return "success";
+        } catch (Exception e) {
+            return "error#" + e.getMessage();
+        }
     }
 }

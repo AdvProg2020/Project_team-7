@@ -2,21 +2,22 @@ package Main.client.requestBuilder;
 
 import Main.client.ClientMain;
 import Main.client.graphicView.GraphicMain;
+
 import java.util.ArrayList;
 
 public class SellerRequestBuilder {
 
-    public static String buildCommentRequest(String title, String content){
+    public static String buildCommentRequest(String title, String content) {
         String request = GraphicMain.token + "#addComment#" + title + content;
         return ClientMain.client.sendRequest(request);
     }
 
-    public static  String getListItemsForAddOffPage(){
+    public static String getListItemsForAddOffPage() {
         String request = GraphicMain.token + "#getListItemsForAddOffPage";
         return ClientMain.client.sendRequest(request);
     }
 
-    public static String buildAddOffRequest(ArrayList<String> productIdList, ArrayList<String> offInfo){
+    public static String buildAddOffRequest(ArrayList<String> productIdList, ArrayList<String> offInfo) {
         StringBuilder request = new StringBuilder();
         request.append(GraphicMain.token + "#addOff#");
         for (String id : productIdList) {
@@ -24,12 +25,12 @@ public class SellerRequestBuilder {
         }
         request.append("offInfo");
         for (String info : offInfo) {
-            request.append( "#" + info);
+            request.append("#" + info);
         }
         return ClientMain.client.sendRequest(request.toString());
     }
 
-    public static String buildAddProductRequest(ArrayList<String> productInfo){
+    public static String buildAddProductRequest(ArrayList<String> productInfo) {
         StringBuilder request = new StringBuilder();
         request.append(GraphicMain.token + "#addProduct");
         for (String info : productInfo) {
@@ -38,11 +39,41 @@ public class SellerRequestBuilder {
         return ClientMain.client.sendRequest(request.toString());
     }
 
-    public static String buildAddSpecialFeaturesRequest(ArrayList<String> specialFeatures, String productId){
+    public static String buildAddSpecialFeaturesRequest(ArrayList<String> specialFeatures, String productId) {
         StringBuilder request = new StringBuilder();
         request.append(GraphicMain.token + "#" + productId + "#addSpecialFeatures");
         for (String specialFeature : specialFeatures) {
             request.append("#" + specialFeature);
+        }
+        return ClientMain.client.sendRequest(request.toString());
+    }
+
+    public static String getProductForProductEditPage(String productId) {
+        StringBuilder request = new StringBuilder();
+        request.append(GraphicMain.token + "#getProductForProductEditPage#" + productId);
+        return ClientMain.client.sendRequest(request.toString());
+    }
+
+    public static String buildEditProductRequest(String productId, ArrayList<String> titles, ArrayList<String> contents) {
+        StringBuilder request = new StringBuilder();
+        request.append(GraphicMain.token + "#editProduct#" + productId);
+        if (titles.contains("name")) {
+            request.append("#name#" + contents.get(titles.indexOf("name")));
+        }
+        if (titles.contains("brand")) {
+            request.append("#brand#" + contents.get(titles.indexOf("brand")));
+        }
+        if (titles.contains("availability")) {
+            request.append("#availability#" + contents.get(titles.indexOf("availability")));
+        }
+        if (titles.contains("description")) {
+            request.append("#description#" + contents.get(titles.indexOf("description")));
+        }
+        if (titles.contains("price")) {
+            request.append("#price#" + contents.get(titles.indexOf("price")));
+        }
+        if (titles.contains("off")) {
+            request.append("#off#" + contents.get(titles.indexOf("off")));
         }
         return ClientMain.client.sendRequest(request.toString());
     }
