@@ -1,6 +1,8 @@
 package Main.server.model;
 
 import Main.server.controller.GeneralController;
+import Main.server.model.accounts.BuyerAccount;
+import Main.server.model.accounts.SellerAccount;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;
@@ -18,29 +20,35 @@ public class Auction {
     private static ArrayList<Auction> allAuctions = new ArrayList<>();
     private String productStringRecord;
     private Product product;
-    private double highestPrice;
+    private double highestOffer;
     private String startDate;
     private String endDate;
     private AuctionUsage auctionUsage;
+    private SellerAccount sellerAccount;
+    private String sellerStringRecord;
+    private BuyerAccount lastOfferBuyer;
 
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private static String inputDateFormat = "yyyy/MM/dd HH:mm:ss";
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(inputDateFormat);
 
 
-    public Auction(Product product, String startDate, String endDate) {
+    public Auction(Product product, String startDate, String endDate, SellerAccount sellerAccount) {
         this.id = IDGenerator.getNewID(lastUsedAuctionID);
-        this.highestPrice = 0;
+        this.highestOffer = 0;
         this.product = product;
         this.productStringRecord = product.getProductId();
         this.startDate = startDate;
         this.endDate = endDate;
         this.auctionUsage = new AuctionUsage();
+        this.sellerAccount = sellerAccount;
+        this.sellerStringRecord = sellerAccount.getUserName();
+        product.isOnAuction = true;
     }
 
     public AuctionUsage getAuctionUsage() throws Exception {
         if (isAuctionOver()) {
-            finishAuction();
+            finishAuction(highestOffer, lastOfferBuyer);
             throw new Exception("auction is over");
         }
         return auctionUsage;
@@ -52,8 +60,8 @@ public class Auction {
             return product;
         }
 
-        public double getHighestPrice() {
-            return highestPrice;
+        public double getHighestOffer() {
+            return highestOffer;
         }
 
         public String getStartDateInStringFormat() {
@@ -91,6 +99,18 @@ public class Auction {
         public String viewSummary() {
             return "@" + product.getProductId() + " " + product.getName() + "\tstart :\t" + startDate + "\tend :\t" + endDate;
         }
+
+        public SellerAccount getSellerAccount() {
+            return sellerAccount;
+        }
+
+        public void increaseHighestOfferBy(double amount) {
+            highestOffer += amount;
+        }
+
+        public void setLastOfferBuyer(BuyerAccount buyerAccount) {
+            lastOfferBuyer = buyerAccount;
+        }
     }
 
     public static void addAuction(Auction auction) {
@@ -106,8 +126,17 @@ public class Auction {
         return null;
     }
 
-    private void finishAuction() {
+    private void finishAuction(double highestOffer, BuyerAccount buyerAccount) {
         allAuctions.remove(this);
+        sellerAccount.increaseBalanceBy(highestOffer);
+        product.decreaseAvailabilityBy(1);
+        product.isOnAuction = false;
+        buyerAccount.isOnAuction = null;
+        try {
+            buyerAccount.decreaseBalanceBy(highestOffer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //TODO : sure more is needed :)
     }
 
@@ -117,7 +146,7 @@ public class Auction {
             Auction[] allAuc = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Auction[].class);
             allAuctions = (allAuc == null) ? new ArrayList<>() : new ArrayList<>(asList(allAuc));
             setLastUsedAuctionID();
-            setStringRecordProduct();
+            setStringRecords();
             return "Read Auctions Data Successfully.";
         } catch (FileNotFoundException e) {
             return "Problem loading data from auctions.json";
@@ -145,28 +174,38 @@ public class Auction {
         }
     }
 
-    private static void setStringRecordProduct() {
+    private static void setStringRecords() {
+        Auction auction = null;
         try {
-            for (Auction auction : allAuctions) {
+            for (Auction auction1 : allAuctions) {
+                auction = auction1;
                 auction.product = Product.getProductWithId(auction.productStringRecord);
+                auction.sellerAccount = SellerAccount.getSellerWithUserName(auction.sellerStringRecord);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            allAuctions.remove(auction);
         }
     }
 
-    public boolean isAuctionOver(){
+    public boolean isAuctionOver() {
+        try {
+            Product.getProductWithId(productStringRecord);
+            SellerAccount.getSellerWithUserName(sellerStringRecord);
+        } catch (Exception e) {
+            allAuctions.remove(this);
+            return true;
+        }
         Date dateNow = new Date();
-        if(auctionUsage.getEndDate().compareTo(dateNow) < 0){
-            finishAuction();
+        if (auctionUsage.getEndDate().compareTo(dateNow) < 0) {
+            finishAuction(highestOffer, lastOfferBuyer);
             return true;
         }
         return false;
     }
 
-    public boolean hasAuctionBeenStarted(){
+    public boolean hasAuctionBeenStarted() {
         Date dateNow = new Date();
-        if(auctionUsage.getStartDate().compareTo(dateNow) > 0){
+        if (auctionUsage.getStartDate().compareTo(dateNow) > 0) {
             return true;
         }
         return false;
@@ -174,8 +213,8 @@ public class Auction {
 
     public static ArrayList<Auction> getAllAuctions() {
         for (Auction auction : allAuctions) {
-            if(auction.isAuctionOver()){
-                auction.finishAuction();
+            if (auction.isAuctionOver()) {
+                auction.finishAuction(auction.highestOffer, auction.lastOfferBuyer);
             }
         }
         return allAuctions;

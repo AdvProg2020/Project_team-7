@@ -50,14 +50,14 @@
             <Insets left="10.0" />
          </padding>
          <font>
-            <Font name="System Bold" size="30.0" />
+            <Font name="System Bold" size="28.0" />
          </font></Label>
-      <Label layoutX="128.0" layoutY="451.0" text="highest Price :">
+      <Label layoutX="128.0" layoutY="451.0" text="highest offer :">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Label fx:id="highestPrice" layoutX="335.0" layoutY="451.0" minHeight="45.0" minWidth="80.0" prefHeight="21.0" prefWidth="60.0" styleClass="highestPrice" />
+      <Label fx:id="highestOffer" layoutX="335.0" layoutY="451.0" minHeight="45.0" minWidth="80.0" prefHeight="21.0" prefWidth="60.0" styleClass="highestOffer" />
       <TextField fx:id="increaseAmount" layoutX="335.0" layoutY="519.0" prefHeight="45.0" prefWidth="80.0" />
       <Label layoutX="127.0" layoutY="519.0" text="increase by :">
          <font>

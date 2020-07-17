@@ -19,7 +19,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,7 +33,7 @@ public class AuctionPage implements Initializable {
     public javafx.scene.control.TextField message;
     public VBox messagePane;
     public AnchorPane pane;
-    public Label highestPrice;
+    public Label highestOffer;
 
     public void goToUserPanelMenu(MouseEvent mouseEvent) throws IOException {
         Account account = GeneralController.currentUser;
@@ -77,7 +76,7 @@ public class AuctionPage implements Initializable {
                 informationBox.setText("the auction will start at \n" + auction.getAuctionUsage().getStartDate());
             } else {
                 informationBox.setText("auction is underway !\ntake part !");
-                highestPrice.setText("" + auction.getAuctionUsage().getHighestPrice());
+                highestOffer.setText("" + auction.getAuctionUsage().getHighestOffer());
                 //TODO messagePane
             }
         } catch (Exception e) {
@@ -101,7 +100,7 @@ public class AuctionPage implements Initializable {
     public void increasePrice(MouseEvent mouseEvent) {
         String response = BuyerRequestBuilder.buildIncreaseAuctionPriceRequest(increaseAmount.getText());
         if (response.equals("success")) {
-            highestPrice.setText("" + Double.parseDouble(highestPrice.getText()) + Double.parseDouble(increaseAmount.getText()));
+            highestOffer.setText("" + Double.parseDouble(highestOffer.getText()) + Double.parseDouble(increaseAmount.getText()));
         }else{
             showIncrementResponseMessage(response);
         }
@@ -114,6 +113,10 @@ public class AuctionPage implements Initializable {
             GraphicMain.showInformationAlert("you must login first !\nyou'r authentication might be expired !");
         }else if(response.equals("insufficientBalance")){
             GraphicMain.showInformationAlert("your balance isn't enough");
+        }else if(response.equals("auctionOver")){
+            GraphicMain.showInformationAlert("sorry auction is over");
+        }else if(response.equals("alreadyOnAuction")){
+            GraphicMain.showInformationAlert("you have an offer in another auction");
         }
     }
 

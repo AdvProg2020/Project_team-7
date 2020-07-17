@@ -26,6 +26,7 @@ public class BuyerAccount extends Account {
     private double balance;
     private int numberOfBoughtProductsForBonus;
     private static ArrayList<BuyerAccount> allBuyers = new ArrayList<>();
+    public String isOnAuction;
 
     private ArrayList<String> buyHistoryStringRecord = new ArrayList<>();
     private ArrayList<String> discountCodesStringRecord = new ArrayList<>();

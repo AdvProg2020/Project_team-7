@@ -31,7 +31,7 @@ public class BuyerRequestBuilder {
         } catch (Exception e) {
             return "invalidNo";
         }
-        String  increaseAmountRequest = GraphicMain.token + "#buyer#increaseAuction#" + amount;
+        String  increaseAmountRequest = GraphicMain.token + "#buyer#increaseAuction#" + GraphicMain.currentAuctionId + "#" + amount;
         return ClientMain.client.sendRequest(increaseAmountRequest);
     }
 }

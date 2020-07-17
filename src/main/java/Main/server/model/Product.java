@@ -51,6 +51,7 @@ public class Product {
     private int tempNumberOfProduct;
     private double tempTotalPrice;
     private CartProduct tempCartProduct;
+    public boolean isOnAuction;
 
     public Product(String name, String brand, int availability, String description, double price, SellerAccount sellerAccount) {
         this.productId = IDGenerator.getNewID(lastUsedProductID);

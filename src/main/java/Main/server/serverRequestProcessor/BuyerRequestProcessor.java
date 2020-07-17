@@ -1,11 +1,8 @@
 package Main.server.serverRequestProcessor;
 
-import Main.client.graphicView.GraphicMain;
 import Main.server.ServerMain;
-import Main.server.controller.BuyerController;
-import Main.server.controller.GeneralController;
+import Main.server.model.Auction;
 import Main.server.model.accounts.BuyerAccount;
-import Main.server.model.accounts.SellerAccount;
 
 public class BuyerRequestProcessor {
     public static String process(String[] splitRequest) {
@@ -17,13 +14,24 @@ public class BuyerRequestProcessor {
     }
 
     private static String increaseAuctionAmount(String[] splitRequest) {
-        if(!ServerMain.server.validateToken(splitRequest[0],BuyerAccount.class)){
-           return "loginNeeded";
+        if (!ServerMain.server.validateToken(splitRequest[0], BuyerAccount.class)) {
+            return "loginNeeded";
         }
         BuyerAccount buyerAccount = (BuyerAccount) ServerMain.server.getTokenInfo(splitRequest[0]).getUser();
-        if(buyerAccount.getBalance()<Double.parseDouble(splitRequest[3])){
+        if (buyerAccount.getBalance() < Double.parseDouble(splitRequest[4])) {
             return "insufficientBalance";
         }
+        if(buyerAccount.isOnAuction!=null&&!buyerAccount.isOnAuction.equals(splitRequest[3])){
+            return "alreadyOnAuction";
+        }
+        Auction auction = Auction.getAuctionById(splitRequest[3]);
+        try {
+            auction.getAuctionUsage().setLastOfferBuyer(buyerAccount);
+            auction.getAuctionUsage().increaseHighestOfferBy(Double.parseDouble(splitRequest[4]));
+        } catch (Exception e) {
+            return "auctionOver";
+        }
+        buyerAccount.isOnAuction = splitRequest[3];
         return "success";
     }
 

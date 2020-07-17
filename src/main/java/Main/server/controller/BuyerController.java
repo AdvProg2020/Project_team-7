@@ -144,7 +144,12 @@ public class BuyerController {
     private void getProductsFromRepository() throws Exception {
         validateGettingProductsFromRepository();
         for (CartProduct cartProduct : currentBuyersCart.getCartProducts()) {
-            cartProduct.getProduct().decreaseAvailabilityBy(cartProduct.getNumberOfProduct());
+            if (cartProduct.getProduct().isOnAuction) {
+                throw new Exception("this product is on an auction!you cant buy it now.");
+            }
+        }
+        for (CartProduct cartProduct1 : currentBuyersCart.getCartProducts()) {
+            cartProduct1.getProduct().decreaseAvailabilityBy(cartProduct1.getNumberOfProduct());
         }
     }
 
@@ -171,6 +176,9 @@ public class BuyerController {
     }
 
     private void buyerPayment() throws Exception {
+        if (currentBuyer.isOnAuction!=null) {
+            throw new Exception("you have an offer in an auction ! you can't purchase now");
+        }
         currentBuyer.decreaseBalanceBy(getToTalPaymentConsideringDiscount());
     }
 
