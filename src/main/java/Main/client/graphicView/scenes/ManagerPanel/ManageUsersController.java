@@ -15,6 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class ManageUsersController {
@@ -27,7 +28,8 @@ public class ManageUsersController {
     public void initialize() {
         usersList.getItems().clear();
         //usersList.getItems().addAll(GraphicMain.managerController.usersListForGraphic());
-        usersList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageUsersRequest());
+        //ArrayList<String> usersData = new ArrayList<>();
+        usersList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageUsersRequest().split("#"));
         usersList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {

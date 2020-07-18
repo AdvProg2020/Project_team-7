@@ -1,5 +1,6 @@
 package Main.client.graphicView.scenes.BuyerPanel;
 
+import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
@@ -25,7 +26,8 @@ public class MyOrdersController {
 
     public void initialize() {
         ordersList.getItems().clear();
-        ordersList.getItems().addAll(((BuyerAccount) GeneralController.currentUser).buyLogsList());
+        //ordersList.getItems().addAll(((BuyerAccount) GeneralController.currentUser).buyLogsList());
+        ordersList.getItems().addAll(BuyerRequestBuilder.buildInitializeMyOrdersRequest().split("#"));
         ordersList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -33,22 +35,23 @@ public class MyOrdersController {
                     String logInfo = ordersList.getSelectionModel().getSelectedItem().toString();
                     String logId = logInfo.substring(1, logInfo.indexOf(" "));
                     ordersList.getSelectionModel().clearSelection();
-                    BuyLog buyLog = null;
-                    try {
-                        buyLog = (BuyLog) Log.getLogWithID(logId);
-                    } catch (Exception e) {
-                        ManagerPanelController.alertError(e.getMessage());
-                    }
-                    showLogInfo(buyLog);
+//                    BuyLog buyLog = null;
+//                    try {
+//                        buyLog = (BuyLog) Log.getLogWithID(logId);
+//                    } catch (Exception e) {
+//                        ManagerPanelController.alertError(e.getMessage());
+//                    }
+                    showLogInfo(logId);
                 }
             }
         });
     }
 
-    private void showLogInfo(BuyLog buyLog) {
+    private void showLogInfo(String logId) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("ORDER INFO");
-        alert.setHeaderText(buyLog.viewLog());
+        //alert.setHeaderText(buyLog.viewLog());
+        alert.setHeaderText(BuyerRequestBuilder.buildGetBuyLogInfo(logId));
         alert.setContentText(null);
         alert.showAndWait();
     }

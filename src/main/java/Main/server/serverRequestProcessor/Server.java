@@ -125,6 +125,34 @@ public class Server {
                 response = ManagerRequestProcessor.getMyUserNameRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("deleteUserWithUserName")) {
                 response = ManagerRequestProcessor.deleteUserWithUserNameRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("initializeManageCategories")) {
+                response = ManagerRequestProcessor.initializeManageCategoriesRequestProcessor();
+            } else if (splitRequest[1].equals("showCategoryInformation")) {
+                response = ManagerRequestProcessor.showCategoryInformationRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("removeCategoryWithName")) {
+                response = ManagerRequestProcessor.removeCategoryWithNameRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("editCategory")) {
+                response = ManagerRequestProcessor.editCategoryRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("createCategory")) {
+                response = ManagerRequestProcessor.createCategoryRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("initializeManageDiscounts")) {
+                response = ManagerRequestProcessor.initializeManageDiscountsRequestProcessor();
+            } else if (splitRequest[1].equals("viewDiscountAsManager")) {
+                response = ManagerRequestProcessor.viewDiscountAsManagerRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("removeDiscountCode")) {
+                response = ManagerRequestProcessor.removeDiscountCodeRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("getDiscountData")) {
+                response = ManagerRequestProcessor.getDiscountDataRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("editDiscount")) {
+                response = ManagerRequestProcessor.editDiscountRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("createDiscount")) {
+                response = ManagerRequestProcessor.createDiscountRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("editBuyerPersonalInformation")) {
+                response = BuyerRequestProcessor.editBuyerPersonalInformationRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("initializeMyOrders")) {
+                response = BuyerRequestProcessor.initializeMyOrdersRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("getBuyLogInfo")) {
+                response = BuyerRequestProcessor.getBuyLogInfoRequestProcessor(splitRequest);
             }
 
 
