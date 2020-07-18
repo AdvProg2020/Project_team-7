@@ -159,7 +159,7 @@ public class SellerPanelMenu extends Menu {
                     this.parentMenu.run();
                 else {
                     try {
-                        sellerController.removeProductWithID(input);
+                        sellerController.removeProductWithID(input,null);
                         System.out.println("Product removed successfully.\n");
                         this.run();
                     } catch (Exception e) {

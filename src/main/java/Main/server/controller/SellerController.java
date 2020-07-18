@@ -125,14 +125,14 @@ public class SellerController {
         }
     }
 
-    public void removeProductWithID(String productID) throws Exception {
+    public void removeProductWithID(String productID, String token) throws Exception {
         Product product = Product.getProductWithId(productID);
-        validateRemoveProductPermission(product);
+        validateRemoveProductPermission(product, token);
         product.removeProduct();
     }
 
-    private void validateRemoveProductPermission(Product product) throws Exception {
-        SellerAccount sellerAccount = (SellerAccount) GeneralController.currentUser;
+    private void validateRemoveProductPermission(Product product, String token) throws Exception {
+        SellerAccount sellerAccount = (SellerAccount) Server.getServer().getTokenInfo(token).getUser();
         if (!sellerAccount.doesSellerHaveProductWithReference(product)) {
             throw new Exception("this product doesn't belong to you!\n");
         }
@@ -405,5 +405,43 @@ public class SellerController {
             }
         }
         return arrayList;
+    }
+
+    public String makeDigestLabel(String productId){
+        try {
+             Product product = Product.getProductWithId(productId);
+            return "name: " + product.getName() +
+                    "\n\tid: " + product.getProductId() +
+                    "\n\tdescription: " + product.getDescription() +
+                    "\n\tprice: " + product.getPrice() +
+                    "\n\toff amount: " + product.makeOffAmount() +
+                    "\n\tcategory: " + product.getCategory().getName();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public String viewProductBuyers(String productId){
+        try{
+            return Product.getProductWithId(productId).viewBuyers();
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public String getProductImagePath(String productId){
+        try{
+            return Product.getProductWithId(productId).getImagePath();
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public double getProductAverageScore(String productId){
+        try {
+            return Product.getProductWithId(productId).getAverageScore();
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }

@@ -141,4 +141,12 @@ public class SellerRequestBuilder {
     public static String getSellerCategories(){
         return ClientMain.client.sendRequest(GraphicMain.token + "#getSellerCategories");
     }
+
+    public static String getAllProductDataForSellerProductPage(String productId){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getAllProductDataForSellerProductPage#" + productId);
+    }
+
+    public static String buildRemoveProductRequest(String productId){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#removeProduct#" + productId);
+    }
 }

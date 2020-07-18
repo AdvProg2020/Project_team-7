@@ -195,7 +195,11 @@ public class Server {
             }else if(splitRequest[1].equals("getSellerBalance")){
                 response = SellerRequestProcessor.getSellerBalance(splitRequest);
             }else if(splitRequest[1].equals("getSellerCategories")){
-                response = SellerRequestProcessor.getSellerCategories(splitRequest);
+                response = SellerRequestProcessor.getSellerCategories();
+            }else if(splitRequest[1].equals("getAllProductDataForSellerProductPage")){
+                response = SellerRequestProcessor.getAllProductDataForSellerProductPage(splitRequest);
+            }else if(splitRequest[1].equals("removeProduct")){
+                response = SellerRequestProcessor.buildRemoveProductResponse(splitRequest);
             }
 
             dataOutputStream.writeUTF(response);
