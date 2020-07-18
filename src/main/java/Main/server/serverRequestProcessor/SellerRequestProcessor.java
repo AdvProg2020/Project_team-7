@@ -179,4 +179,17 @@ public class SellerRequestProcessor {
     public static String getLogDetails(String[] splitRequest){
         return ServerMain.sellerController.viewLogDetails(splitRequest[2], splitRequest[0]);
     }
+
+    public static String getSellerOffList(String[] splitRequest){
+        StringBuilder response = new StringBuilder();
+        response.append("offIds");
+        for (String offId : ServerMain.sellerController.getSellerOffIds(splitRequest[0])) {
+            response.append("#" + offId);
+        }
+        return response.toString();
+    }
+
+    public static String getOffDetails(String[] splitRequest){
+        return  ServerMain.sellerController.getOffDetails(splitRequest[0], splitRequest[2]);
+    }
 }

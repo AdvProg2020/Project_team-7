@@ -184,6 +184,10 @@ public class Server {
                 response = SellerRequestProcessor.getSellLogList(splitRequest);
             }else if(splitRequest[1].equals("getLogDetails")){
                 response = SellerRequestProcessor.getLogDetails(splitRequest);
+            }else if(splitRequest[1].equals("getSellerOffList")){
+                response = SellerRequestProcessor.getSellerOffList(splitRequest);
+            }else if(splitRequest[1].equals("getOffDetails")){
+                response = SellerRequestProcessor.getOffDetails(splitRequest);
             }
 
             dataOutputStream.writeUTF(response);

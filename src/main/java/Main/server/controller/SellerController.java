@@ -47,6 +47,16 @@ public class SellerController {
         }
     }
 
+    public ArrayList<String> getSellerOffIds(String token){
+        SellerAccount sellerAccount = (SellerAccount) Server.getServer().getTokenInfo(token).getUser();
+        return sellerAccount.getOffIds();
+    }
+
+    public String getOffDetails(String token, String offId){
+        SellerAccount sellerAccount = (SellerAccount) Server.getServer().getTokenInfo(token).getUser();
+        return sellerAccount.getOffWithId(offId).viewMe();
+    }
+
     public String showSellerProducts() {
         return ((SellerAccount) GeneralController.currentUser).showSellerProducts();
     }
