@@ -39,4 +39,14 @@ public class DataRequestBuilder {
         String auctionDataRequest = GraphicMain.token + "#data#auction#" + auctionID;
         return ClientMain.client.sendRequest(auctionDataRequest);
     }
+
+    public static String buildAllAuctionsRequest() {
+        String allAuctionsDataRequest = GraphicMain.token + "#data#allAuctions";
+        return ClientMain.client.sendRequest(allAuctionsDataRequest);
+    }
+
+    public static String buildUserTypeRequest() {
+        String userTypeRequest = GraphicMain.token + "#data#userType";
+        return ClientMain.client.sendRequest(userTypeRequest);
+    }
 }

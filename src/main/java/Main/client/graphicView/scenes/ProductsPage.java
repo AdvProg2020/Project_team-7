@@ -525,19 +525,34 @@ public class ProductsPage implements Initializable {
         imageView.setCursor(Cursor.HAND);
     }
 
-    public void goToUserPanel(MouseEvent mouseEvent) throws IOException {
-        Account account = GeneralController.currentUser;
-        if (account instanceof ManagerAccount) {
+//    public void goToUserPanel(MouseEvent mouseEvent) throws IOException {
+//        Account account = GeneralController.currentUser;
+//        if (account instanceof ManagerAccount) {
+//            GraphicMain.graphicMain.goToPage(ManagerPanelController.FXML_PATH, ManagerPanelController.TITLE);
+//        } else if (account instanceof SellerAccount) {
+//            GraphicMain.graphicMain.goToPage(SellerPanelPage.FXML_PATH, SellerPanelPage.TITLE);
+//        } else if (account instanceof BuyerAccount) {
+//            GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH, BuyerPanelController.TITLE);
+//        } else {
+//            GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
+//            //GraphicMain.audioClip.stop();
+//            //LoginSignUpPage.mediaPlayer.play();
+//        }
+//    }
+
+    public void goToUserPanelMenu(MouseEvent mouseEvent) throws IOException {
+        String response = DataRequestBuilder.buildUserTypeRequest();
+        if (response.equals("manager")) {
             GraphicMain.graphicMain.goToPage(ManagerPanelController.FXML_PATH, ManagerPanelController.TITLE);
-        } else if (account instanceof SellerAccount) {
+        } else if (response.equals("seller")) {
             GraphicMain.graphicMain.goToPage(SellerPanelPage.FXML_PATH, SellerPanelPage.TITLE);
-        } else if (account instanceof BuyerAccount) {
+        } else if (response.equals("buyer")) {
             GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH, BuyerPanelController.TITLE);
         } else {
             GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
-            //GraphicMain.audioClip.stop();
-            //LoginSignUpPage.mediaPlayer.play();
         }
+        //GraphicMain.audioClip.stop();
+        //LoginSignUpPage.mediaPlayer.play();
     }
 
     public void grow(MouseEvent mouseEvent) {
