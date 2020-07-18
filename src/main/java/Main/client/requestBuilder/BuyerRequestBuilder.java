@@ -21,7 +21,7 @@ public class BuyerRequestBuilder {
 
     }
 
-    public static String buildIncreaseAuctionPriceRequest(String incrementAmount) {
+    public static String buildIncreaseAuctionPriceRequest(String incrementAmount,String address) {
         double amount=0;
         try {
             amount = Double.parseDouble(incrementAmount);
@@ -31,7 +31,20 @@ public class BuyerRequestBuilder {
         } catch (Exception e) {
             return "invalidNo";
         }
-        String  increaseAmountRequest = GraphicMain.token + "#buyer#increaseAuction#" + GraphicMain.currentAuctionId + "#" + amount;
+        String  increaseAmountRequest = GraphicMain.token + "#buyer#increaseAuction#" + GraphicMain.currentAuctionId + "#" + amount + "#" + address;
         return ClientMain.client.sendRequest(increaseAmountRequest);
+    }
+
+    public static String buildSendMessageRequest(String text) {
+        if(text.equals("")){
+            return "emptyString";
+        }
+        String  sendMessageRequest = GraphicMain.token + "#buyer#sendMessage#" +GraphicMain.currentAuctionId + "#" + text;
+        return ClientMain.client.sendRequest(sendMessageRequest);
+    }
+
+    public static String buildSetAuctionReceiverAddressRequest(String text) {
+        String auctionReceiverAddressRequest = GraphicMain.token + "#buyer#auctionRecieverAddress#" +GraphicMain.currentAuctionId + "#" + text;
+        return ClientMain.client.sendRequest(auctionReceiverAddressRequest);
     }
 }

@@ -4,6 +4,7 @@ import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.BuyerPanel.BuyerPanelController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.client.requestBuilder.BuyerRequestBuilder;
+import Main.client.requestBuilder.DataRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.server.model.Auction;
@@ -11,17 +12,18 @@ import Main.server.model.accounts.Account;
 import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.accounts.ManagerAccount;
 import Main.server.model.accounts.SellerAccount;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -86,30 +88,31 @@ public class AuctionPage implements Initializable {
             }
             initializeMessagePane();
         } catch (Exception e) {
-            GraphicMain.showInformationAlert("the auction is over");
+            informationBox.setText("the auction is over");
             disablePage();
         }
     }
 
     private void initializeMessagePane() throws Exception {
-        Auction auction = Auction.getAuctionById(GraphicMain.currentAuctionId);
+        String response = DataRequestBuilder.buildAuctionRequestWithID(GraphicMain.currentAuctionId);
+        Auction auction = GeneralController.yagsonMapper.fromJson(response, Auction.class);
         if (auction == null) {
             throw new Exception();
         }
         int i = 0;
         ArrayList<String> allMessages = auction.getAuctionUsage().getAllMessages();
-        allMessages.add("hi");
-        allMessages.add("how's it goin");
-        allMessages.add("hi");
-        allMessages.add("how's it goin");
-        allMessages.add("hi");
-        allMessages.add("how's it goin");
-        allMessages.add("hi");
-        allMessages.add("how's it goin");
+        messagePane.getChildren().clear();
         for (String message : allMessages) {
             i++;
             Label label = new Label(message);
-            label.getStyleClass().add("messageType" + i%9);
+            label.getStyleClass().add("messageType" + ((i % 8) + 1));
+            label.setPadding(new Insets(40, 40, 40, 40));
+            label.setMinHeight(90);
+            label.setMinWidth(250);
+            label.setMaxWidth(250);
+            label.setAlignment(Pos.CENTER);
+            label.setWrapText(true);
+            label.setTranslateX((Math.pow(-1, i) + 1) * (72));
             messagePane.getChildren().add(label);
         }
     }
@@ -122,10 +125,11 @@ public class AuctionPage implements Initializable {
     }
 
     public void increasePrice(MouseEvent mouseEvent) {
-        String response = BuyerRequestBuilder.buildIncreaseAuctionPriceRequest(increaseAmount.getText());
-        if (response.equals("success")) {
+        String address = new ReceiverAddressWindow().getReceiverAddress();
+        String response = BuyerRequestBuilder.buildIncreaseAuctionPriceRequest(increaseAmount.getText(), address);
+        if (response.startsWith("success")) {
             try {
-                highestOffer.setText(Auction.getAuctionById(GraphicMain.currentAuctionId).getAuctionUsage().getHighestOffer()+"");
+                highestOffer.setText(Double.parseDouble(response.split("#")[1]) + "");
             } catch (Exception e) {
                 informationBox.setText(e.getMessage());
             }
@@ -151,5 +155,74 @@ public class AuctionPage implements Initializable {
 
 
     public void send(MouseEvent mouseEvent) {
+        String response = BuyerRequestBuilder.buildSendMessageRequest(message.getText());
+        if (response.equals("success")) {
+            try {
+                message.setText("");
+                initializeMessagePane();
+            } catch (Exception e) {
+                informationBox.setText("the auction is over");
+                disablePage();
+            }
+        } else {
+            showSendMessageResponse(response);
+        }
     }
+
+    private void showSendMessageResponse(String response) {
+        if (response.equals("loginNeeded")) {
+            informationBox.setText("you must login first !\nyou'r authentication might be expired !");
+        } else if (response.equals("auctionOver")) {
+            informationBox.setText("sorry auction is over");
+            disablePage();
+        } else if (response.equals("emptyText")) {
+            informationBox.setText("empty messages can't be sent");
+        }
+    }
+
+    private class ReceiverAddressWindow {
+        private String address;
+
+        public String getReceiverAddress() {
+            //GraphicMain.buttonSound.stop();
+            //GraphicMain.buttonSound.play();
+
+            Stage receiverAddress = new Stage();
+            receiverAddress.setTitle("Receiver Info");
+
+            VBox vBox = new VBox();
+            vBox.setPadding(new Insets(30, 0, 30, 30));
+            vBox.setSpacing(50);
+            vBox.setAlignment(Pos.CENTER);
+
+            Label label = new Label("insert the address for this product to be sent !");
+            TextArea textArea = new TextArea();
+            Button button = new Button("submit");
+
+            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (!textArea.getText().isEmpty()) {
+                        address = textArea.getText();
+                        receiverAddress.close();
+                    }
+                }
+            });
+
+            receiverAddress.initModality(Modality.APPLICATION_MODAL);
+            receiverAddress.setOnCloseRequest(event -> event.consume());
+
+            vBox.getChildren().add(label);
+            vBox.getChildren().add(textArea);
+            vBox.getChildren().add(button);
+
+
+            Scene scene = new Scene(vBox, 750, 400);
+            receiverAddress.setScene(scene);
+            receiverAddress.show();
+
+            return address;
+        }
+    }
+
 }

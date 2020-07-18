@@ -3,6 +3,10 @@ package Main.server.model;
 import Main.server.controller.GeneralController;
 import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.accounts.SellerAccount;
+import Main.server.model.logs.BuyLog;
+import Main.server.model.logs.DeliveryStatus;
+import Main.server.model.logs.Log;
+import Main.server.model.logs.SellLog;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;
@@ -29,6 +33,7 @@ public class Auction {
     private BuyerAccount lastOfferBuyer;
     private String lastBuyerStringRecord;
     private ArrayList<String> allMessages = new ArrayList<>();
+    private String receiverInfo ="";
 
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private static String inputDateFormat = "yyyy/MM/dd HH:mm:ss";
@@ -103,6 +108,10 @@ public class Auction {
             return "@" + id + " " + product.getName() + "\tstart :\t" + startDate + "\tend :\t" + endDate;
         }
 
+        public BuyerAccount getLastBuyer(){
+            return lastOfferBuyer;
+        }
+
         public SellerAccount getSellerAccount() {
             return sellerAccount;
         }
@@ -116,8 +125,16 @@ public class Auction {
             lastBuyerStringRecord = buyerAccount.getUserName();
         }
 
+        public void setReceiverInfo(String info){
+            receiverInfo = info;
+        }
+
         public ArrayList<String> getAllMessages() {
             return allMessages;
+        }
+
+        public void addMessage(String message) {
+            allMessages.add(message);
         }
     }
 
@@ -138,6 +155,7 @@ public class Auction {
         allAuctions.remove(this);
         product.isOnAuction = false;
         if (lastOfferBuyer != null) {
+            buildLogs();
             sellerAccount.increaseBalanceBy(highestOffer);
             product.decreaseAvailabilityBy(1);
             lastOfferBuyer.isOnAuction = null;
@@ -148,6 +166,17 @@ public class Auction {
             }
         }
         //TODO : sure more is needed :)
+    }
+
+    private void buildLogs() {
+        String id = IDGenerator.getNewID(Log.getLastUsedLogID());
+        Date dateNow = new Date();
+
+        SellLog sellLog = new SellLog(id,dateNow,highestOffer,new CartProduct(product,sellerAccount,null).toStringForSellLog(),lastOfferBuyer,0, DeliveryStatus.PENDING_DELIVERY,receiverInfo);
+        sellerAccount.addLog(sellLog);
+
+        BuyLog buyLog = new BuyLog(id,dateNow,highestOffer,0,new CartProduct(product,sellerAccount,null).toStringForBuyLog(),DeliveryStatus.PENDING_DELIVERY,receiverInfo);
+        lastOfferBuyer.addLog(buyLog);
     }
 
     public static String readData() {

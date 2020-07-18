@@ -34,4 +34,9 @@ public class DataRequestBuilder {
         String logDataRequest = GraphicMain.token + "#data#log#" + logID;
         return ClientMain.client.sendRequest(logDataRequest);
     }
+
+    public static String buildAuctionRequestWithID(String auctionID) {
+        String auctionDataRequest = GraphicMain.token + "#data#auction#" + auctionID;
+        return ClientMain.client.sendRequest(auctionDataRequest);
+    }
 }

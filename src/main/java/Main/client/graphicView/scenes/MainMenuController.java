@@ -5,6 +5,7 @@ import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.BuyerPanel.BuyerPanelController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
+import Main.server.model.Auction;
 import Main.server.model.accounts.Account;
 import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.accounts.ManagerAccount;
@@ -61,7 +62,8 @@ public class MainMenuController {
         imageView.setFitHeight(imageView.getFitHeight() * 40 / 41);
     }
 
-    public void goToAuctions(MouseEvent mouseEvent) {
+    public void goToAuctions(MouseEvent mouseEvent) throws IOException {
+        GraphicMain.graphicMain.goToPage(AuctionsPage.FXML_PATH,AuctionsPage.TITLE);
     }
 
     public void back(MouseEvent mouseEvent) {

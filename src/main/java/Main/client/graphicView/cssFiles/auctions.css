@@ -28,11 +28,6 @@
 -fx-text-color : #3b5956;
 }
 
-.messagePane {
--fx-background-color: #ebebeb;
--fx-background-radius : 10;
-}
-
 .informationBox {
 -fx-background-color:linear-gradient(#ffcf69 5%, #fffaf2 100%);
 -fx-border-color:#b38422;
@@ -44,64 +39,64 @@
 .messageType1 {
 -fx-background-color:linear-gradient(#99bfa3 5%, #8affa9 100%);
 -fx-border-color:#8affa9;
--fx-background-radius: 30% 70% 47% 53% / 0% 35% 65% 100% ;
--fx-border-radius: 30% 70% 47% 53% / 0% 35% 65% 100%  ;
+-fx-background-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
+-fx-border-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
 -fx-border-width : 2;
 }
 
 .messageType2 {
 -fx-background-color:linear-gradient(#cca1b2 5%, #fa78ac 100%);
 -fx-border-color:#fa78ac;
--fx-background-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
--fx-border-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
+-fx-background-radius: 30% 70% 47% 53% / 0% 35% 65% 100% ;
+-fx-border-radius: 30% 70% 47% 53% / 0% 35% 65% 100%  ;
 -fx-border-width : 2;
 }
 
 .messageType3 {
 -fx-background-color:linear-gradient(#acc2c2 5%, #b3fffe 100%);
 -fx-border-color:#b3fffe;
--fx-background-radius: 30% 70% 47% 53% / 0% 35% 65% 100% ;
--fx-border-radius: 30% 70% 47% 53% / 0% 35% 65% 100%  ;
+-fx-background-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
+-fx-border-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
 -fx-border-width : 2;
 }
 
 .messageType4 {
 -fx-background-color:linear-gradient(#ae9eb8 5%, #d791ff 100%);
 -fx-border-color:#d791ff;
--fx-background-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
--fx-border-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
+-fx-background-radius: 30% 70% 47% 53% / 0% 35% 65% 100% ;
+-fx-border-radius: 30% 70% 47% 53% / 0% 35% 65% 100%  ;
 -fx-border-width : 2;
 }
 
 .messageType5 {
 -fx-background-color:linear-gradient(#d6d69f 5%, #ffff8a 100%);
 -fx-border-color:#ffff8a ;
--fx-background-radius: 30% 70% 47% 53% / 0% 35% 65% 100% ;
--fx-border-radius: 30% 70% 47% 53% / 0% 35% 65% 100%  ;
+-fx-background-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
+-fx-border-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
 -fx-border-width : 2;
 }
 
 .messageType6 {
 -fx-background-color:linear-gradient(#c48f8f 5%, #ff7a7a 100%);
 -fx-border-color:#ff7a7a;
--fx-background-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
--fx-border-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
+-fx-background-radius: 30% 70% 47% 53% / 0% 35% 65% 100% ;
+-fx-border-radius: 30% 70% 47% 53% / 0% 35% 65% 100%  ;
 -fx-border-width : 2;
 }
 
 .messageType7 {
 -fx-background-color:linear-gradient(#ababc9 5%, #8787ff 100%);
 -fx-border-color:#8787ff;
--fx-background-radius: 30% 70% 47% 53% / 0% 35% 65% 100% ;
--fx-border-radius: 30% 70% 47% 53% / 0% 35% 65% 100%  ;
+-fx-background-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
+-fx-border-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
 -fx-border-width : 2;
 }
 
 .messageType8 {
 -fx-background-color:linear-gradient(#c9b38f 5%, #ffd187 100%);
 -fx-border-color:#ffd187;
--fx-background-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
--fx-border-radius: 30% 70% 47% 53% / 64% 0% 100% 36%  ;
+-fx-background-radius: 30% 70% 47% 53% / 0% 35% 65% 100% ;
+-fx-border-radius: 30% 70% 47% 53% / 0% 35% 65% 100%  ;
 -fx-border-width : 2;
 }
 

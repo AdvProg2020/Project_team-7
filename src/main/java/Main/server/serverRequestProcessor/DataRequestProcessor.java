@@ -1,6 +1,7 @@
 package Main.server.serverRequestProcessor;
 
 import Main.server.controller.GeneralController;
+import Main.server.model.Auction;
 import Main.server.model.logs.BuyLog;
 import Main.server.model.logs.Log;
 
@@ -20,8 +21,14 @@ public class DataRequestProcessor {
             return logResponseWithID(splitRequest[3]);
         } else if (splitRequest[2].equals("allOffs")) {
             return allOffsResponse();
+        } else if (splitRequest[2].equals("auction")) {
+            return auctionResponse(splitRequest[3]);
         }
         return null;
+    }
+
+    private static String auctionResponse(String id) {
+        return GeneralController.yagsonMapper.toJson(Auction.getAuctionById(id),Auction.class);
     }
 
     private static String logResponseWithID(String logID) {
