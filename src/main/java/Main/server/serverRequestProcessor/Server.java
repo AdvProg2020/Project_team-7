@@ -147,6 +147,12 @@ public class Server {
                 response = ManagerRequestProcessor.editDiscountRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("createDiscount")) {
                 response = ManagerRequestProcessor.createDiscountRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("editBuyerPersonalInformation")) {
+                response = BuyerRequestProcessor.editBuyerPersonalInformationRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("initializeMyOrders")) {
+                response = BuyerRequestProcessor.initializeMyOrdersRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("getBuyLogInfo")) {
+                response = BuyerRequestProcessor.getBuyLogInfoRequestProcessor(splitRequest);
             }
 
 

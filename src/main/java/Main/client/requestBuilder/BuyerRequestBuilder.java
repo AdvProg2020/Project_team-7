@@ -1,6 +1,5 @@
 package Main.client.requestBuilder;
 
-//import Main.client.ClientMainFORBUYERTEST;
 
 import Main.client.ClientMain;
 import Main.client.graphicView.GraphicMain;
@@ -8,30 +7,36 @@ import Main.client.graphicView.GraphicMain;
 public class BuyerRequestBuilder {
 
     public static String buildInitializeBuyerPanelRequest() {
-       // return ClientMainFORBUYERTEST.client.sendRequest("0#buyerBalance");
-        return null;
+        return ClientMain.client.sendRequest(GraphicMain.token+"#buyerBalance");
     }
 
     public static String buildBuyerPersonalInformationRequest() {
-       // return ClientMainFORBUYERTEST.client.sendRequest("0#buyerPersonalInfo");
-    return null;
+        return ClientMain.client.sendRequest(GraphicMain.token+"#buyerPersonalInfo");
     }
 
-    public static void buildEditBuyerPersonalInformationRequest(String text, String text1, String text2, String text3, String text4) {
-
+    public static String buildEditBuyerPersonalInformationRequest(String newEmail, String newFirstName, String newLastName, String newPhoneNumber, String newPassword) {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#editBuyerPersonalInformation#"+newFirstName+"#"+newLastName+"#"+newEmail+"#"+newPhoneNumber+"#"+newPassword);
     }
 
     public static String buildIncreaseAuctionPriceRequest(String incrementAmount) {
-        double amount=0;
+        double amount = 0;
         try {
             amount = Double.parseDouble(incrementAmount);
-            if(amount<=0){
+            if (amount <= 0) {
                 throw new Exception("");
             }
         } catch (Exception e) {
             return "invalidNo";
         }
-        String  increaseAmountRequest = GraphicMain.token + "#buyer#increaseAuction#" + GraphicMain.currentAuctionId + "#" + amount;
+        String increaseAmountRequest = GraphicMain.token + "#buyer#increaseAuction#" + GraphicMain.currentAuctionId + "#" + amount;
         return ClientMain.client.sendRequest(increaseAmountRequest);
+    }
+
+    public static String buildInitializeMyOrdersRequest() {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#initializeMyOrders");
+    }
+
+    public static String buildGetBuyLogInfo(String logId) {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#getBuyLogInfo#"+logId);
     }
 }

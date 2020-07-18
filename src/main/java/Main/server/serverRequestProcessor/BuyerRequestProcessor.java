@@ -3,6 +3,12 @@ package Main.server.serverRequestProcessor;
 import Main.server.ServerMain;
 import Main.server.model.Auction;
 import Main.server.model.accounts.BuyerAccount;
+import Main.server.model.accounts.ManagerAccount;
+import Main.server.model.accounts.SellerAccount;
+import Main.server.model.logs.BuyLog;
+import Main.server.model.requests.Request;
+
+import java.util.ArrayList;
 
 public class BuyerRequestProcessor {
     public static String process(String[] splitRequest) {
@@ -50,5 +56,36 @@ public class BuyerRequestProcessor {
                 + buyerAccount.getPassWord() + "#"
                 + buyerAccount.getProfileImagePath();
         return string;
+    }
+
+    public static String editBuyerPersonalInformationRequestProcessor(String[] data) {
+        BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(data[0]).getUser());
+        buyerAccount.setFirstName(data[2]);
+        buyerAccount.setLastName(data[3]);
+        buyerAccount.setEmail(data[4]);
+        buyerAccount.setPhoneNumber(data[5]);
+        buyerAccount.setPassWord(data[6]);
+        return "success";
+    }
+
+    public static String initializeMyOrdersRequestProcessor(String[] data) {
+        BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(data[0]).getUser());
+        ArrayList<String> logs = buyerAccount.buyLogsList();
+        String response = "";
+        for (String log : logs) {
+            response = response.concat(log);
+            response = response.concat("#");
+        }
+        response = response.substring(0, response.length() - 1);
+        return response;
+    }
+
+    public static String getBuyLogInfoRequestProcessor(String[] splitRequest) {
+        try {
+            return BuyLog.getLogWithID(splitRequest[2]).viewLog();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }
     }
 }
