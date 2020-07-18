@@ -48,4 +48,12 @@ public class BuyerRequestBuilder {
     public static String buildGetBuyLogInfo(String logId) {
         return ClientMain.client.sendRequest(GraphicMain.token+"#getBuyLogInfo#"+logId);
     }
+
+    public static String buildInitializeBuyerDiscountsRequest() {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#initializeBuyerDiscounts");
+    }
+
+    public static String buildShowDiscountInfoAsBuyerRequest(String code) {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#showDiscountInfoAsBuyer#"+code);
+    }
 }

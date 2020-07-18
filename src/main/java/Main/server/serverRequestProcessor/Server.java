@@ -153,6 +153,10 @@ public class Server {
                 response = BuyerRequestProcessor.initializeMyOrdersRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("getBuyLogInfo")) {
                 response = BuyerRequestProcessor.getBuyLogInfoRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("initializeBuyerDiscounts")) {
+                response = BuyerRequestProcessor.initializeBuyerDiscountsRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("showDiscountInfoAsBuyer")) {
+                response = BuyerRequestProcessor.showDiscountInfoAsBuyerRequestProcessor(splitRequest);
             }
 
 

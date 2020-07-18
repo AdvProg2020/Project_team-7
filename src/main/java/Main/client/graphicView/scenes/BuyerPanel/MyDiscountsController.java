@@ -1,5 +1,6 @@
 package Main.client.graphicView.scenes.BuyerPanel;
 
+import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
@@ -24,7 +25,8 @@ public class MyDiscountsController {
 
     public void initialize() {
         discountsList.getItems().clear();
-        discountsList.getItems().addAll(((BuyerAccount) GeneralController.currentUser).getDiscountsList());
+        //discountsList.getItems().addAll(((BuyerAccount) GeneralController.currentUser).getDiscountsList());
+        discountsList.getItems().addAll(BuyerRequestBuilder.buildInitializeBuyerDiscountsRequest());
         discountsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -32,13 +34,14 @@ public class MyDiscountsController {
                     String discountInfo = discountsList.getSelectionModel().getSelectedItem().toString();
                     String code = discountInfo.substring(1, discountInfo.indexOf(" "));
                     discountsList.getSelectionModel().clearSelection();
-                    DiscountCode discountCode = null;
-                    try {
-                        discountCode = DiscountCode.getDiscountCodeWithCode(code);
-                        showCodeInfo(discountCode);
-                    } catch (Exception e) {
-                        ManagerPanelController.alertError(e.getMessage());
-                    }
+//                    DiscountCode discountCode = null;
+//                    try {
+//                        discountCode = DiscountCode.getDiscountCodeWithCode(code);
+//                        showCodeInfo(discountCode);
+//                    } catch (Exception e) {
+//                        ManagerPanelController.alertError(e.getMessage());
+//                    }
+                    showCodeInfo(code);
                 }
             }
         });
@@ -51,10 +54,11 @@ public class MyDiscountsController {
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
-    private void showCodeInfo(DiscountCode discountCode) {
+    private void showCodeInfo(String code) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("DISCOUNT INFO");
-        alert.setHeaderText(discountCode.viewMeAsBuyer(((BuyerAccount) GeneralController.currentUser)));
+        //alert.setHeaderText(discountCode.viewMeAsBuyer(((BuyerAccount) GeneralController.currentUser)));
+        alert.setHeaderText(BuyerRequestBuilder.buildShowDiscountInfoAsBuyerRequest(code));
         alert.setContentText(null);
         alert.showAndWait();
     }

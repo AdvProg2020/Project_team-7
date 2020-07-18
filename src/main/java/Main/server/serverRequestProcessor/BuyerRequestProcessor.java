@@ -6,6 +6,7 @@ import Main.server.model.Auction;
 import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.accounts.ManagerAccount;
 import Main.server.model.accounts.SellerAccount;
+import Main.server.model.discountAndOffTypeService.DiscountCode;
 import Main.server.model.logs.BuyLog;
 import Main.server.model.requests.Request;
 
@@ -103,6 +104,28 @@ public class BuyerRequestProcessor {
     public static String getBuyLogInfoRequestProcessor(String[] splitRequest) {
         try {
             return BuyLog.getLogWithID(splitRequest[2]).viewLog();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    public static String initializeBuyerDiscountsRequestProcessor(String[] data) {
+        BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(data[0]).getUser());
+        ArrayList<String> codes = buyerAccount.getDiscountsList();
+        String response = "";
+        for (String code : codes) {
+            response = response.concat(code);
+            response = response.concat("#");
+        }
+        response = response.substring(0, response.length() - 1);
+        return response;
+    }
+
+    public static String showDiscountInfoAsBuyerRequestProcessor(String[] splitRequest) {
+        BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser());
+        try {
+            return DiscountCode.getDiscountCodeWithCode(splitRequest[2]).viewMeAsBuyer(buyerAccount);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return e.getMessage();
