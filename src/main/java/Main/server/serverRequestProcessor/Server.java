@@ -1,11 +1,13 @@
 package Main.server.serverRequestProcessor;
 
-import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.model.accounts.Account;
+import org.apache.commons.lang3.time.DateUtils;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Server {
@@ -16,6 +18,8 @@ public class Server {
     public static int TOKEN_EXPIRATION_MINUTES = 15;
     private ServerSocket serverSocket;
     private static Server serverInstance;
+//    private HashMap<DataInputStream, ArrayList<Date>> requests = new HashMap<>();
+//    private HashMap<DataInputStream, ArrayList<Date>> loginSignUpRequest = new HashMap<>();
 
     private Server() {
         try {
@@ -41,7 +45,7 @@ public class Server {
                 while (true) {
                     try {
                         Socket clientSocket = serverSocket.accept();
-                        new requestHandler(clientSocket).handle();
+                        new requestHandler(clientSocket).start();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -65,23 +69,43 @@ public class Server {
             }
         }
 
+        @Override
+        public void run(){
+            try {
+                handle();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         public void handle() throws Exception {
             String request = null;
             String response = null;
             String[] splitRequest = new String[0];
 
             request = dataInputStream.readUTF();
+//            if(!requests.containsKey(dataInputStream)){
+//                ArrayList<Date> requestsDates = new ArrayList<>();
+//                requestsDates.add(new Date());
+//                requests.put(dataInputStream,requestsDates);
+//            }else {
+//                requests.get(dataInputStream).add(new Date());
+//            }
+
             System.out.println("server read " + request);
 
             splitRequest = request.split("#");
-            if (splitRequest.length < 2) {
+//            if (validateTooManyRequests(dataInputStream)) {
+//                response = "tooManyRequests";
+//            } else
+                if (splitRequest.length < 2) {
                 response = "invalidRequest";
             } else if (splitRequest[1].equals("manager")) {
                 response = ManagerRequestProcessor.process(splitRequest);
-            }  else if (splitRequest[1].equals("buyer")) {
-                response =BuyerRequestProcessor.process(splitRequest);
+            } else if (splitRequest[1].equals("buyer")) {
+                response = BuyerRequestProcessor.process(splitRequest);
             } else if (splitRequest[1].equals("logout")) {
-                response = logout(splitRequest);
+                response = logout(splitRequest,dataInputStream);
             } else if (splitRequest[1].equals("login")) {
                 response = GeneralRequestProcessor.loginRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("signUp")) {
@@ -158,43 +182,39 @@ public class Server {
                 response = BuyerRequestProcessor.initializeBuyerDiscountsRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("showDiscountInfoAsBuyer")) {
                 response = BuyerRequestProcessor.showDiscountInfoAsBuyerRequestProcessor(splitRequest);
-            }
-
-
-
-            else if (splitRequest[1].equals("addComment")) {
+            } else if (splitRequest[1].equals("addComment")) {
                 response = SellerRequestProcessor.buildCommentResponse(splitRequest);
-            }else if(splitRequest[1].equals("getListItemsForAddOffPage")){
+            } else if (splitRequest[1].equals("getListItemsForAddOffPage")) {
                 response = SellerRequestProcessor.getListItemsForAddOffPage(splitRequest[0]);
-            }else if(splitRequest[1].equals("addOff")){
+            } else if (splitRequest[1].equals("addOff")) {
                 response = SellerRequestProcessor.buildAddOffResponse(splitRequest);
-            } else if(splitRequest[1].equals("addProduct")){
-                response=SellerRequestProcessor.buildAddProductResponse(splitRequest);
-            }else if(splitRequest[2].equals("addSpecialFeatures")){
+            } else if (splitRequest[1].equals("addProduct")) {
+                response = SellerRequestProcessor.buildAddProductResponse(splitRequest);
+            } else if (splitRequest[2].equals("addSpecialFeatures")) {
                 response = SellerRequestProcessor.buildAddSpecialFeaturesResponse(splitRequest);
-            }else if(splitRequest[1].equals("getProductForProductEditPage")){
+            } else if (splitRequest[1].equals("getProductForProductEditPage")) {
                 response = SellerRequestProcessor.getProductForProductEditPage(splitRequest);
-            }else if(splitRequest[1].equals("editProduct")){
+            } else if (splitRequest[1].equals("editProduct")) {
                 response = SellerRequestProcessor.buildEditProductResponse(splitRequest);
-            }else if(splitRequest[1].equals("editSellerPersonalInformation")){
+            } else if (splitRequest[1].equals("editSellerPersonalInformation")) {
                 response = SellerRequestProcessor.buildEditPersonalInformationResponse(splitRequest);
-            }else if(splitRequest[1].equals("editOff")){
+            } else if (splitRequest[1].equals("editOff")) {
                 response = SellerRequestProcessor.buildEditOffResponse(splitRequest);
-            }else if(splitRequest[1].equals("getSellLogList")){
+            } else if (splitRequest[1].equals("getSellLogList")) {
                 response = SellerRequestProcessor.getSellLogList(splitRequest);
-            }else if(splitRequest[1].equals("getLogDetails")){
+            } else if (splitRequest[1].equals("getLogDetails")) {
                 response = SellerRequestProcessor.getLogDetails(splitRequest);
-            }else if(splitRequest[1].equals("getSellerOffList")){
+            } else if (splitRequest[1].equals("getSellerOffList")) {
                 response = SellerRequestProcessor.getSellerOffList(splitRequest);
-            }else if(splitRequest[1].equals("getOffDetails")){
+            } else if (splitRequest[1].equals("getOffDetails")) {
                 response = SellerRequestProcessor.getOffDetails(splitRequest);
-            }else if(splitRequest[1].equals("getSellerPersonalInformation")){
+            } else if (splitRequest[1].equals("getSellerPersonalInformation")) {
                 response = SellerRequestProcessor.getSellerPersonalInformation(splitRequest);
-            }else if(splitRequest[1].equals("getCompanyInformation")){
+            } else if (splitRequest[1].equals("getCompanyInformation")) {
                 response = SellerRequestProcessor.getCompanyInformation(splitRequest);
-            }else if(splitRequest[1].equals("getSellerBalance")){
+            } else if (splitRequest[1].equals("getSellerBalance")) {
                 response = SellerRequestProcessor.getSellerBalance(splitRequest);
-            }else if(splitRequest[1].equals("getSellerCategories")){
+            } else if (splitRequest[1].equals("getSellerCategories")) {
                 response = SellerRequestProcessor.getSellerCategories(splitRequest);
             }
 
@@ -266,8 +286,21 @@ public class Server {
         return false;
     }
 
-    private String logout(String[] splitRequest) {
+    private String logout(String[] splitRequest, DataInputStream dataInputStream) {
         tokens.remove(splitRequest[0]);
+//        requests.remove(dataInputStream);
         return "success";
     }
+
+//    private boolean validateTooManyRequests(DataInputStream dataInputStream){
+//            ArrayList<Date> requestDates = requests.get(dataInputStream);
+//            if(requestDates.size()>=5) {
+//                Date date = requestDates.get(requestDates.size() - 5);
+//                date = DateUtils.addSeconds(date,10);
+//                if(date.compareTo(new Date())>0){
+//                    return false;
+//                }
+//            }
+//            return true;
+//    }
 }

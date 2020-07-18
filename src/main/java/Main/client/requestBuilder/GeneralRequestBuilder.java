@@ -77,7 +77,8 @@ public class GeneralRequestBuilder {
             return "invalidPhoneNumber#" + e.getErrorMessage();
         }
 
-        String signUpRequest = GraphicMain.token + "#signUpSeller#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + imagePath;
+        String signUpRequest = GraphicMain.token + "#signUpSeller#userName:" + userName + "#firstName:" + firstName +
+                "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#companyName:" + companyName + "#companyInfo:" + companyInfo + "#imagePath:" + imagePath;
         return ClientMain.client.sendRequest(signUpRequest);
     }
 
