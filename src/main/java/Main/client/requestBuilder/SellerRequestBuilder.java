@@ -104,4 +104,12 @@ public class SellerRequestBuilder {
         }
         return ClientMain.client.sendRequest(request.toString());
     }
+
+    public static String getSellLogList(){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getSellLogList");
+    }
+
+    public static String getLogDetails(String id){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getLogDetails#" + id);
+    }
 }

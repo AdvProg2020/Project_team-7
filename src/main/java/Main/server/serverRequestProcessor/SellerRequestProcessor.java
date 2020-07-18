@@ -163,4 +163,20 @@ public class SellerRequestProcessor {
             return "error#" + e.getMessage();
         }
     }
+
+    public static String getSellLogList(String[] splitRequest){
+        StringBuilder response = new StringBuilder();
+        if(ServerMain.sellerController.getSellLogIds(splitRequest[0])==null){
+            return "empty";
+        } else{
+            for (String sellLogId : ServerMain.sellerController.getSellLogIds(splitRequest[0])) {
+                response.append(sellLogId + "#");
+            }
+            return response.toString();
+        }
+    }
+
+    public static String getLogDetails(String[] splitRequest){
+        return ServerMain.sellerController.viewLogDetails(splitRequest[2], splitRequest[0]);
+    }
 }
