@@ -48,7 +48,7 @@ public class SellerRequestProcessor {
         }
     }
 
-    public static String getListItemsForAddOffPage(String token){
+    public static String getSellerProductsList(String token){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("productNames");
         for (String productName : ServerMain.sellerController.getSellerProductNames(token)) {

@@ -12,8 +12,8 @@ public class SellerRequestBuilder {
         return ClientMain.client.sendRequest(request);
     }
 
-    public static String getListItemsForAddOffPage() {
-        String request = GraphicMain.token + "#getListItemsForAddOffPage";
+    public static String getSellerProductsList() {
+        String request = GraphicMain.token + "#getSellerProductsList";
         return ClientMain.client.sendRequest(request);
     }
 
