@@ -52,12 +52,10 @@ public class AddOffPage implements Initializable {
     }
 
     public void fillListView(){
-        String[] names = SellerRequestBuilder.getListItemsForAddOffPage().split("#");
-        ArrayList<String> productNames = new ArrayList<>();
+        String[] names = SellerRequestBuilder.getSellerProductsList().split("#");
         for(int i=1; i<names.length; i++){
-            productNames.add(names[i]);
+            list.getItems().add(names[i]);
         }
-        list.getItems().addAll(productNames);
     }
 
     public void goBack(){

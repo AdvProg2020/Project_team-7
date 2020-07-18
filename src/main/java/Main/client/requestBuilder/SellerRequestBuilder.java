@@ -12,8 +12,8 @@ public class SellerRequestBuilder {
         return ClientMain.client.sendRequest(request);
     }
 
-    public static String getListItemsForAddOffPage() {
-        String request = GraphicMain.token + "#getListItemsForAddOffPage";
+    public static String getSellerProductsList() {
+        String request = GraphicMain.token + "#getSellerProductsList";
         return ClientMain.client.sendRequest(request);
     }
 
@@ -140,5 +140,13 @@ public class SellerRequestBuilder {
 
     public static String getSellerCategories(){
         return ClientMain.client.sendRequest(GraphicMain.token + "#getSellerCategories");
+    }
+
+    public static String getAllProductDataForSellerProductPage(String productId){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getAllProductDataForSellerProductPage#" + productId);
+    }
+
+    public static String buildRemoveProductRequest(String productId){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#removeProduct#" + productId);
     }
 }

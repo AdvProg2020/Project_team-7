@@ -2,6 +2,7 @@ package Main.client.graphicView.scenes;
 
 import Main.client.graphicView.GraphicMain;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.SellerRequestBuilder;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,7 +17,7 @@ import java.util.ResourceBundle;
 public class SellerProductsPage implements Initializable {
 
     public static final String FXML_PATH = "src/main/sceneResources/SellerPanel/sellerProductsPage.fxml";
-    public static final String TITLE = "Seller Products page";
+    public static final String TITLE = "Seller Products Page";
     public static String selectedProduct;
 
     @FXML
@@ -29,8 +30,11 @@ public class SellerProductsPage implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         list.getItems().clear();
-        //TODO ALERT: watch out for the null arguments :D
-        list.getItems().addAll(GraphicMain.sellerController.getSellerProductNames(null));
+        String[] names = SellerRequestBuilder.getSellerProductsList().split("#");
+        for(int i=1; i<names.length; i++){
+            list.getItems().add(names[i]);
+        }
+//        list.getItems().addAll(GraphicMain.sellerController.getSellerProductNames(null));
         list.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {

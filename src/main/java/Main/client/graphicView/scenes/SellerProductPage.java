@@ -2,6 +2,7 @@ package Main.client.graphicView.scenes;
 
 import Main.client.graphicView.GraphicMain;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.model.Product;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -42,18 +43,23 @@ public class SellerProductPage implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         productId = SellerProductsPage.selectedProduct;
-        try {
-            Product product = Product.getProductWithId(productId);
-            productImage.setImage(new Image(new File(product.getImagePath()).toURI().toString()));
-            digestLabel.setText(makeDigestLabel(product));
-            setScoreImage(product);
-            averageScore.setText((product.getAverageScore()).toString());
-            buyersList.setText(product.viewBuyers());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+//        try {
+//            Product product = Product.getProductWithId(productId);
+//            productImage.setImage(new Image(new File(product.getImagePath()).toURI().toString()));
+//            digestLabel.setText(makeDigestLabel(product));
+//            setScoreImage(product);
+//            averageScore.setText((product.getAverageScore()).toString());
+//            buyersList.setText(product.viewBuyers());
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        String[] response = SellerRequestBuilder.getAllProductDataForSellerProductPage(productId).split("#");
+        productImage.setImage(new Image(new File(response[1]).toURI().toString()));
+        digestLabel.setText(response[0]);
+        setScoreImage(Double.parseDouble(response[2]));
+        averageScore.setText(response[2]);
+        buyersList.setText(response[3]);
     }
 
     public void logout() throws IOException{
@@ -64,17 +70,16 @@ public class SellerProductPage implements Initializable {
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
     }
 
-    public String makeDigestLabel(Product product){
-        return "name: " + product.getName() +
-                "\n\tid: " + product.getProductId() +
-                "\n\tdescription: " + product.getDescription() +
-                "\n\tprice: " + product.getPrice() +
-                "\n\toff amount: " + product.makeOffAmount() +
-                "\n\tcategory: " + product.getCategory().getName();
-    }
+//    public String makeDigestLabel(Product product){
+//        return "name: " + product.getName() +
+//                "\n\tid: " + product.getProductId() +
+//                "\n\tdescription: " + product.getDescription() +
+//                "\n\tprice: " + product.getPrice() +
+//                "\n\toff amount: " + product.makeOffAmount() +
+//                "\n\tcategory: " + product.getCategory().getName();
+//    }
 
-    public void setScoreImage(Product product){
-        double score = product.getAverageScore();
+    public void setScoreImage(double score){
         if(score==0)
             averageScoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score0.png").toURI().toString()));
         else if(score>0 && score<=1)
@@ -101,12 +106,18 @@ public class SellerProductPage implements Initializable {
         alert.setContentText("Are you sure you want to remove this product?");
         Optional<ButtonType> selectedButton = alert.showAndWait();
         if(ButtonType.OK.equals(selectedButton.get())){
-            try {
-                GraphicMain.sellerController.removeProductWithID(productId);
+            String response = SellerRequestBuilder.buildRemoveProductRequest(productId);
+            if(response.equals("success")){
                 goBack();
-            } catch (Exception e) {
-                showErrorAlert(e.getMessage());
+            } else if(response.startsWith("error")){
+                showErrorAlert(response.split("#")[1]);
             }
+//            try {
+//                GraphicMain.sellerController.removeProductWithID(productId);
+//                goBack();
+//            } catch (Exception e) {
+//                showErrorAlert(e.getMessage());
+//            }
         }
     }
 

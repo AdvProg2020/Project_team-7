@@ -1,5 +1,6 @@
 package Main.server.serverRequestProcessor;
 
+import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.model.accounts.Account;
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -214,8 +215,12 @@ public class Server {
                 response = SellerRequestProcessor.getCompanyInformation(splitRequest);
             } else if (splitRequest[1].equals("getSellerBalance")) {
                 response = SellerRequestProcessor.getSellerBalance(splitRequest);
-            } else if (splitRequest[1].equals("getSellerCategories")) {
-                response = SellerRequestProcessor.getSellerCategories(splitRequest);
+            }else if(splitRequest[1].equals("getSellerCategories")){
+                response = SellerRequestProcessor.getSellerCategories();
+            }else if(splitRequest[1].equals("getAllProductDataForSellerProductPage")){
+                response = SellerRequestProcessor.getAllProductDataForSellerProductPage(splitRequest);
+            }else if(splitRequest[1].equals("removeProduct")){
+                response = SellerRequestProcessor.buildRemoveProductResponse(splitRequest);
             }
 
             dataOutputStream.writeUTF(response);

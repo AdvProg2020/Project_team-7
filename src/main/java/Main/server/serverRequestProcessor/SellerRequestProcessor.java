@@ -48,7 +48,7 @@ public class SellerRequestProcessor {
         }
     }
 
-    public static String getListItemsForAddOffPage(String token){
+    public static String getSellerProductsList(String token){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("productNames");
         for (String productName : ServerMain.sellerController.getSellerProductNames(token)) {
@@ -217,10 +217,8 @@ public class SellerRequestProcessor {
     }
 
     public static String getSellerPersonalInformation(String[] splitRequest){
-        StringBuilder response = new StringBuilder();
-        response.append(ServerMain.generalController.viewPersonalInfo(splitRequest[0]) + "#");
-        response.append(ServerMain.generalController.getProfileImagePath(splitRequest[0]));
-        return response.toString();
+        return ServerMain.generalController.viewPersonalInfo(splitRequest[0]) + "#" +
+                ServerMain.generalController.getProfileImagePath(splitRequest[0]);
     }
 
     public static String getCompanyInformation(String[] splitRequest){
@@ -231,7 +229,23 @@ public class SellerRequestProcessor {
         return ServerMain.sellerController.viewSellerBalance(splitRequest[0]);
     }
 
-    public static String getSellerCategories(String[] splitRequest){
+    public static String getSellerCategories(){
         return ServerMain.generalController.showAllCategories();
+    }
+
+    public static String getAllProductDataForSellerProductPage(String[] splitRequest){
+        return ServerMain.sellerController.makeDigestLabel(splitRequest[2]) + "#" +
+                ServerMain.sellerController.getProductImagePath(splitRequest[2]) + "#" +
+                ServerMain.sellerController.getProductAverageScore(splitRequest[2]) + "#" +
+                ServerMain.sellerController.viewProductBuyers(splitRequest[2]);
+    }
+
+    public static String buildRemoveProductResponse(String[] splitRequest){
+        try {
+            ServerMain.sellerController.removeProductWithID(splitRequest[2], splitRequest[0]);
+            return "success";
+        } catch (Exception e) {
+            return "error#" + e.getMessage();
+        }
     }
 }
