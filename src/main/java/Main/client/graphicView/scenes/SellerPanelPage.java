@@ -1,6 +1,7 @@
 package Main.client.graphicView.scenes;
 
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import javafx.fxml.FXML;
@@ -31,8 +32,11 @@ public class SellerPanelPage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        personalInfoLabel.setText("role: seller\n" + GraphicMain.generalController.viewPersonalInfo());
-        ImageView imageView = new ImageView(new Image(new File(GeneralController.currentUser.getProfileImagePath()).toURI().toString()));
+//        personalInfoLabel.setText("role: seller\n" + GraphicMain.generalController.viewPersonalInfo());
+//        ImageView imageView = new ImageView(new Image(new File(GeneralController.currentUser.getProfileImagePath()).toURI().toString()));
+        String[] response = SellerRequestBuilder.getSellerPersonalInformation().split("#");
+        personalInfoLabel.setText("role: seller\n" + response[0]);
+        ImageView imageView = new ImageView(new Image(new File(response[1]).toURI().toString()));
         imageView.setFitHeight(120);
         imageView.setFitWidth(120);
         pane.getChildren().add(imageView);
@@ -49,7 +53,8 @@ public class SellerPanelPage implements Initializable {
 
     public void viewCompanyInformation() {
         titleLabel.setText("company information");
-        personalInfoLabel.setText(GraphicMain.sellerController.viewCompanyInformation());
+        personalInfoLabel.setText(SellerRequestBuilder.getSellerCompanyInformation());
+//        personalInfoLabel.setText(GraphicMain.sellerController.viewCompanyInformation());
     }
 
     public void goToSalesHistoryPage() throws IOException {
@@ -57,7 +62,8 @@ public class SellerPanelPage implements Initializable {
     }
 
     public void viewBalance() {
-        showInformationAlert(GraphicMain.sellerController.viewSellerBalance());
+//        showInformationAlert(GraphicMain.sellerController.viewSellerBalance());
+        showInformationAlert(SellerRequestBuilder.getSellerBalance());
     }
 
     public void showInformationAlert(String message) {
@@ -77,8 +83,9 @@ public class SellerPanelPage implements Initializable {
     }
 
     public void showCategories() {
-        String categories = GraphicMain.generalController.showAllCategories();
-        showInformationAlert(categories);
+//        String categories = GraphicMain.generalController.showAllCategories();
+//        showInformationAlert(categories);
+        showInformationAlert(SellerRequestBuilder.getSellerCategories());
     }
 
     public void goToSellerOffsPage() throws IOException {

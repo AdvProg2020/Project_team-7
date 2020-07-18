@@ -35,7 +35,7 @@ public class SellerPanelMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("continue")) {
-                    System.out.println(sellerController.viewCompanyInformation());
+                    System.out.println(sellerController.viewCompanyInformation(null));
                     this.run();
                 } else {
                     System.out.println("Invalid input!");
@@ -209,7 +209,7 @@ public class SellerPanelMenu extends Menu {
                 if (input.equalsIgnoreCase("back"))
                     this.parentMenu.run();
                 else if (input.equalsIgnoreCase("")) {
-                    System.out.println(sellerController.viewSellerBalance() + "\n");
+                    System.out.println(sellerController.viewSellerBalance(null) + "\n");
                     this.run();
                 } else {
                     System.out.println("Invalid input!\n");

@@ -188,6 +188,14 @@ public class Server {
                 response = SellerRequestProcessor.getSellerOffList(splitRequest);
             }else if(splitRequest[1].equals("getOffDetails")){
                 response = SellerRequestProcessor.getOffDetails(splitRequest);
+            }else if(splitRequest[1].equals("getSellerPersonalInformation")){
+                response = SellerRequestProcessor.getSellerPersonalInformation(splitRequest);
+            }else if(splitRequest[1].equals("getCompanyInformation")){
+                response = SellerRequestProcessor.getCompanyInformation(splitRequest);
+            }else if(splitRequest[1].equals("getSellerBalance")){
+                response = SellerRequestProcessor.getSellerBalance(splitRequest);
+            }else if(splitRequest[1].equals("getSellerCategories")){
+                response = SellerRequestProcessor.getSellerCategories(splitRequest);
             }
 
             dataOutputStream.writeUTF(response);

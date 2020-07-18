@@ -405,8 +405,12 @@ public class GeneralController {
         return offProducts;
     }
 
-    public String viewPersonalInfo() {
-        return currentUser.viewMe();
+    public String viewPersonalInfo(String token) {
+        return Server.getServer().getTokenInfo(token).getUser().viewMe();
+    }
+
+    public String getProfileImagePath(String token){
+        return Server.getServer().getTokenInfo(token).getUser().getProfileImagePath();
     }
 
     public void logout() {

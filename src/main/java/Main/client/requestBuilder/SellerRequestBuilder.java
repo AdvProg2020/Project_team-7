@@ -120,4 +120,20 @@ public class SellerRequestBuilder {
     public static String getOffDetails(String offId){
         return ClientMain.client.sendRequest(GraphicMain.token + "#getOffDetails#" + offId);
     }
+
+    public static String getSellerPersonalInformation(){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getSellerPersonalInformation");
+    }
+
+    public static String getSellerCompanyInformation(){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getCompanyInformation");
+    }
+
+    public static String getSellerBalance(){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getSellerBalance");
+    }
+
+    public static String getSellerCategories(){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getSellerCategories");
+    }
 }

@@ -18,8 +18,8 @@ import Main.server.serverRequestProcessor.Server;
 import java.util.ArrayList;
 
 public class SellerController {
-    public String viewCompanyInformation() {
-        return ((SellerAccount) GeneralController.currentUser).viewCompanyInformation();
+    public String viewCompanyInformation(String token) {
+        return ((SellerAccount) Server.getServer().getTokenInfo(token).getUser()).viewCompanyInformation();
     }
 
     public String viewSalesHistory() {
@@ -390,8 +390,8 @@ public class SellerController {
         }
     }
 
-    public String viewSellerBalance() {
-        return ((SellerAccount) GeneralController.currentUser).viewBalance();
+    public String viewSellerBalance(String token) {
+        return ((SellerAccount) Server.getServer().getTokenInfo(token).getUser()).viewBalance();
     }
 
     public ArrayList<String> getSellerProductNames(String token) {
