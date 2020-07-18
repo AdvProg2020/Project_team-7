@@ -186,4 +186,52 @@ public class SellerRequestProcessor {
             return "error#" + e.getMessage();
         }
     }
+
+    public static String getSellLogList(String[] splitRequest){
+        StringBuilder response = new StringBuilder();
+        if(ServerMain.sellerController.getSellLogIds(splitRequest[0])==null){
+            return "empty";
+        } else{
+            for (String sellLogId : ServerMain.sellerController.getSellLogIds(splitRequest[0])) {
+                response.append(sellLogId + "#");
+            }
+            return response.toString();
+        }
+    }
+
+    public static String getLogDetails(String[] splitRequest){
+        return ServerMain.sellerController.viewLogDetails(splitRequest[2], splitRequest[0]);
+    }
+
+    public static String getSellerOffList(String[] splitRequest){
+        StringBuilder response = new StringBuilder();
+        response.append("offIds");
+        for (String offId : ServerMain.sellerController.getSellerOffIds(splitRequest[0])) {
+            response.append("#" + offId);
+        }
+        return response.toString();
+    }
+
+    public static String getOffDetails(String[] splitRequest){
+        return  ServerMain.sellerController.getOffDetails(splitRequest[0], splitRequest[2]);
+    }
+
+    public static String getSellerPersonalInformation(String[] splitRequest){
+        StringBuilder response = new StringBuilder();
+        response.append(ServerMain.generalController.viewPersonalInfo(splitRequest[0]) + "#");
+        response.append(ServerMain.generalController.getProfileImagePath(splitRequest[0]));
+        return response.toString();
+    }
+
+    public static String getCompanyInformation(String[] splitRequest){
+        return ServerMain.sellerController.viewCompanyInformation(splitRequest[0]);
+    }
+
+    public static String getSellerBalance(String[] splitRequest){
+        return ServerMain.sellerController.viewSellerBalance(splitRequest[0]);
+    }
+
+    public static String getSellerCategories(String[] splitRequest){
+        return ServerMain.generalController.showAllCategories();
+    }
 }

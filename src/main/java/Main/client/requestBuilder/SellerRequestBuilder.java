@@ -109,4 +109,36 @@ public class SellerRequestBuilder {
         String request = GraphicMain.token + "#seller#createAuction#" + startDate + "#" + endDate + "#" + productId;
         return ClientMain.client.sendRequest(request);
     }
+
+    public static String getSellLogList(){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getSellLogList");
+    }
+
+    public static String getLogDetails(String id){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getLogDetails#" + id);
+    }
+
+    public static String getSellerOffList(){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getSellerOffList");
+    }
+
+    public static String getOffDetails(String offId){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getOffDetails#" + offId);
+    }
+
+    public static String getSellerPersonalInformation(){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getSellerPersonalInformation");
+    }
+
+    public static String getSellerCompanyInformation(){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getCompanyInformation");
+    }
+
+    public static String getSellerBalance(){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getSellerBalance");
+    }
+
+    public static String getSellerCategories(){
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getSellerCategories");
+    }
 }

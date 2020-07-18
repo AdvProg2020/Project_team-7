@@ -2,6 +2,7 @@ package Main.client.graphicView.scenes;
 
 import Main.client.graphicView.GraphicMain;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.SellerRequestBuilder;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -51,18 +52,28 @@ public class SalesHistoryPage implements Initializable {
     }
 
     public void FillLogVBox() {
-        if(GraphicMain.sellerController.getSellLogIds().equals(null)){
+        String response = SellerRequestBuilder.getSellLogList();
+        if(response.equals("empty")){
             getLabels().get(0).setText("no sales yet!");
         } else{
-            for(int i=0; i<GraphicMain.sellerController.getSellLogIds().size(); i++){
-                getLabels().get(i).setText(GraphicMain.sellerController.getSellLogIds().get(i));
+            String[] list = response.split("#");
+            for(int i=0; i<list.length; i++){
+                getLabels().get(i).setText(list[i]);
             }
         }
+//        if(GraphicMain.sellerController.getSellLogIds().equals(null)){
+//            getLabels().get(0).setText("no sales yet!");
+//        } else{
+//            for(int i=0; i<GraphicMain.sellerController.getSellLogIds().size(); i++){
+//                getLabels().get(i).setText(GraphicMain.sellerController.getSellLogIds().get(i));
+//            }
+//        }
     }
 
     public void showLogDetails(MouseEvent mouseEvent){
         Label logLabel = (Label) mouseEvent.getSource();
         String id = logLabel.getText();
-        logDetails.setText(GraphicMain.sellerController.viewLogDetails(id));
+        logDetails.setText(SellerRequestBuilder.getLogDetails(id));
+//        logDetails.setText(GraphicMain.sellerController.viewLogDetails(id));
     }
 }

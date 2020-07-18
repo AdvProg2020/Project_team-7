@@ -18,29 +18,43 @@ import Main.server.serverRequestProcessor.Server;
 import java.util.ArrayList;
 
 public class SellerController {
-    public String viewCompanyInformation() {
-        return ((SellerAccount) GeneralController.currentUser).viewCompanyInformation();
+    public String viewCompanyInformation(String token) {
+        return ((SellerAccount) Server.getServer().getTokenInfo(token).getUser()).viewCompanyInformation();
     }
 
     public String viewSalesHistory() {
         return ((SellerAccount) GeneralController.currentUser).viewSalesHistory();
     }
 
-    public ArrayList<String> getSellLogIds() {
+    public ArrayList<String> getSellLogIds(String token) {
         ArrayList<String> arrayList = new ArrayList<>();
-        ArrayList<SellLog> sellHistory = ((SellerAccount) GeneralController.currentUser).getSellHistory();
-        for (SellLog sellLog : sellHistory) {
-            arrayList.add(sellLog.getLogId());
+        ArrayList<SellLog> sellHistory = ((SellerAccount) Server.getServer().getTokenInfo(token).getUser()).getSellHistory();
+        if(sellHistory.isEmpty()){
+            return null;
+        }else{
+            for (SellLog sellLog : sellHistory) {
+                arrayList.add(sellLog.getLogId());
+            }
+            return arrayList;
         }
-        return arrayList;
     }
 
-    public String viewLogDetails(String logId) {
+    public String viewLogDetails(String logId, String token) {
         try {
-            return ((SellerAccount) GeneralController.currentUser).getLogDetails(logId);
+            return ((SellerAccount) Server.getServer().getTokenInfo(token).getUser()).getLogDetails(logId);
         } catch (Exception e) {
             return e.getMessage();
         }
+    }
+
+    public ArrayList<String> getSellerOffIds(String token){
+        SellerAccount sellerAccount = (SellerAccount) Server.getServer().getTokenInfo(token).getUser();
+        return sellerAccount.getOffIds();
+    }
+
+    public String getOffDetails(String token, String offId){
+        SellerAccount sellerAccount = (SellerAccount) Server.getServer().getTokenInfo(token).getUser();
+        return sellerAccount.getOffWithId(offId).viewMe();
     }
 
     public String showSellerProducts() {
@@ -376,8 +390,8 @@ public class SellerController {
         }
     }
 
-    public String viewSellerBalance() {
-        return ((SellerAccount) GeneralController.currentUser).viewBalance();
+    public String viewSellerBalance(String token) {
+        return ((SellerAccount) Server.getServer().getTokenInfo(token).getUser()).viewBalance();
     }
 
     public ArrayList<String> getSellerProductNames(String token) {

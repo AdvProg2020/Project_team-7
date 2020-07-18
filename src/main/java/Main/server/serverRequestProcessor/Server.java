@@ -1,5 +1,6 @@
 package Main.server.serverRequestProcessor;
 
+import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.model.accounts.Account;
 
 import java.io.*;
@@ -179,6 +180,22 @@ public class Server {
                 response = SellerRequestProcessor.buildEditPersonalInformationResponse(splitRequest);
             }else if(splitRequest[1].equals("editOff")){
                 response = SellerRequestProcessor.buildEditOffResponse(splitRequest);
+            }else if(splitRequest[1].equals("getSellLogList")){
+                response = SellerRequestProcessor.getSellLogList(splitRequest);
+            }else if(splitRequest[1].equals("getLogDetails")){
+                response = SellerRequestProcessor.getLogDetails(splitRequest);
+            }else if(splitRequest[1].equals("getSellerOffList")){
+                response = SellerRequestProcessor.getSellerOffList(splitRequest);
+            }else if(splitRequest[1].equals("getOffDetails")){
+                response = SellerRequestProcessor.getOffDetails(splitRequest);
+            }else if(splitRequest[1].equals("getSellerPersonalInformation")){
+                response = SellerRequestProcessor.getSellerPersonalInformation(splitRequest);
+            }else if(splitRequest[1].equals("getCompanyInformation")){
+                response = SellerRequestProcessor.getCompanyInformation(splitRequest);
+            }else if(splitRequest[1].equals("getSellerBalance")){
+                response = SellerRequestProcessor.getSellerBalance(splitRequest);
+            }else if(splitRequest[1].equals("getSellerCategories")){
+                response = SellerRequestProcessor.getSellerCategories(splitRequest);
             }
 
             dataOutputStream.writeUTF(response);

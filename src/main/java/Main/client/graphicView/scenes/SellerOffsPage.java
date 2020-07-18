@@ -1,6 +1,7 @@
 package Main.client.graphicView.scenes;
 
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.server.model.accounts.SellerAccount;
@@ -14,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -41,8 +43,12 @@ public class SellerOffsPage implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         list.getItems().clear();
-        SellerAccount sellerAccount = (SellerAccount)GeneralController.currentUser;
-        list.getItems().addAll(sellerAccount.getOffIds());
+//        SellerAccount sellerAccount = (SellerAccount)GeneralController.currentUser;
+//        list.getItems().addAll(sellerAccount.getOffIds());
+        String[] response = SellerRequestBuilder.getSellerOffList().split("#");
+        for(int i=1; i<response.length; i++){
+            list.getItems().add(response[i]);
+        }
         list.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -52,7 +58,8 @@ public class SellerOffsPage implements Initializable {
                 alert.getButtonTypes().clear();
                 alert.setTitle("off information");
                 alert.setHeaderText(null);
-                alert.setContentText(sellerAccount.getOffWithId(selectedOff).viewMe());
+//                alert.setContentText(sellerAccount.getOffWithId(selectedOff).viewMe());
+                alert.setContentText(SellerRequestBuilder.getOffDetails(selectedOff));
                 ButtonType cancel = new ButtonType("cancel");
                 ButtonType edit = new ButtonType("edit");
                 alert.getButtonTypes().addAll(cancel, edit);
