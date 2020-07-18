@@ -3,8 +3,10 @@ package Main.server.serverRequestProcessor;
 import Main.client.graphicView.GraphicMain;
 import Main.server.ServerMain;
 import Main.server.controller.GeneralController;
+import Main.server.model.Auction;
 import Main.server.model.Category;
 import Main.server.model.Product;
+import Main.server.model.accounts.SellerAccount;
 import Main.server.model.exceptions.CreateProductException;
 import Main.server.model.requests.EditOffRequest;
 import Main.server.model.requests.EditProductRequest;
@@ -12,6 +14,27 @@ import Main.server.model.requests.EditProductRequest;
 import java.util.ArrayList;
 
 public class SellerRequestProcessor {
+
+    public static String process(String[] splitRequest) {
+        if (splitRequest[2].equals("createAuction")) {
+            return createAuction(splitRequest);
+        }
+        return null;
+    }
+
+    private static String createAuction(String[] splitRequest) {
+        if(!ServerMain.server.validateToken(splitRequest[0], SellerAccount.class)){
+           return "loginNeeded";
+        }
+        SellerAccount sellerAccount = (SellerAccount) ServerMain.server.getTokenInfo(splitRequest[0]).getUser();
+        try {
+            Auction auction = new Auction(Product.getProductWithId(splitRequest[5]),splitRequest[3],splitRequest[4],sellerAccount);
+            Auction.addAuction(auction);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "success";
+    }
 
     public static String buildCommentResponse(String[] splitRequest){
         String title = splitRequest[2];

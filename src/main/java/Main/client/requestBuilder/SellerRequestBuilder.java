@@ -104,4 +104,9 @@ public class SellerRequestBuilder {
         }
         return ClientMain.client.sendRequest(request.toString());
     }
+
+    public static String buildCreateAuctionRequest(String startDate, String endDate, String productId) {
+        String request = GraphicMain.token + "#seller#createAuction#" + startDate + "#" + endDate + "#" + productId;
+        return ClientMain.client.sendRequest(request);
+    }
 }

@@ -49,4 +49,9 @@ public class DataRequestBuilder {
         String userTypeRequest = GraphicMain.token + "#data#userType";
         return ClientMain.client.sendRequest(userTypeRequest);
     }
+
+    public static String buildAllProductsForAuctionRequest() {
+        String allProductsForAuctionRequest = GraphicMain.token + "#data#allProductsForAuction";
+        return ClientMain.client.sendRequest(allProductsForAuctionRequest);
+    }
 }

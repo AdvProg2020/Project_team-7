@@ -5,21 +5,26 @@ import Main.client.graphicView.scenes.BuyerPanel.BuyerPanelController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.client.requestBuilder.DataRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.server.model.Auction;
 import Main.server.model.Product;
-import Main.server.model.accounts.Account;
-import Main.server.model.accounts.BuyerAccount;
-import Main.server.model.accounts.ManagerAccount;
-import Main.server.model.accounts.SellerAccount;
+import Main.server.model.exceptions.DiscountAndOffTypeServiceException;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -52,12 +57,12 @@ public class AuctionsPage implements Initializable {
 
         auctionsList.getItems().clear();
 
-        for (int i = 0;i<allAuctions.size();i++) {
+        for (int i = 0; i < allAuctions.size(); i++) {
             Auction auction3 = allAuctions.get(i);
             try {
                 auctionsList.getItems().add(auction3.getAuctionUsage().viewSummary());
             } catch (Exception e) {
-                if(i>0){
+                if (i > 0) {
                     i--;
                 }
             }
@@ -70,13 +75,14 @@ public class AuctionsPage implements Initializable {
                     String id = auctionsList.getSelectionModel().getSelectedItem().toString();
                     id = id.substring(1, id.indexOf(' '));
                     String response = DataRequestBuilder.buildAuctionRequestWithID(GraphicMain.currentAuctionId);
-                    Auction auction = GeneralController.yagsonMapper.fromJson(response, Auction.class);                    auctionsList.getSelectionModel().clearSelection();
+                    Auction auction = GeneralController.yagsonMapper.fromJson(response, Auction.class);
+                    auctionsList.getSelectionModel().clearSelection();
                     try {
                         GraphicMain.currentAuctionId = auction.getAuctionUsage().getId();
-                        GraphicMain.graphicMain.goToPage(AuctionPage.FXML_PATH,AuctionPage.TITLE);
+                        GraphicMain.graphicMain.goToPage(AuctionPage.FXML_PATH, AuctionPage.TITLE);
                     } catch (Exception e) {
-                       // GraphicMain.showInformationAlert(e.getMessage());
-                        initialize(location,resources);
+                        // GraphicMain.showInformationAlert(e.getMessage());
+                        initialize(location, resources);
                     }
                 }
             }
@@ -91,7 +97,96 @@ public class AuctionsPage implements Initializable {
     }
 
     public void addAuction(MouseEvent mouseEvent) {
+        String response = DataRequestBuilder.buildAllProductsForAuctionRequest();
 
+        if(response.equals("loginNeeded")){
+            GraphicMain.showInformationAlert("you must login first !\nyou'r authentication might be expired !");
+        }else {
+            GeneralController.jsonReader = new JsonReader(new StringReader(response));
+            Product[] allPro = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Product[].class);
+            ArrayList<Product> allProducts = (allPro == null) ? new ArrayList<>() : new ArrayList<>(asList(allPro));
+
+            showSellersAllProducts(allProducts);
+        }
+    }
+
+    private void showSellersAllProducts(ArrayList<Product> allProducts) {
+
+        Stage addAuction = new Stage();
+        addAuction.setTitle("Add Auction");
+
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(30, 0, 30, 30));
+        vBox.setSpacing(50);
+        vBox.setAlignment(Pos.CENTER);
+
+        ScrollPane scrollPane = new ScrollPane(vBox);
+
+        Label label = new Label("choose a product to start an auction");
+
+        vBox.getChildren().add(label);
+
+        for (Product product : allProducts) {
+            VBox productBox = product.createProductBoxForCreateAuction();
+            productBox.setOnMouseClicked(event -> {
+                getAuctionInfo(product);
+            });
+            vBox.getChildren().add(productBox);
+        }
+
+        Scene scene = new Scene(scrollPane, 750, 400);
+        addAuction.setScene(scene);
+        addAuction.show();
+    }
+
+    private void getAuctionInfo(Product product) {
+        Stage getInfo = new Stage();
+        getInfo.setTitle("Complete Auction Info");
+
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(30, 0, 30, 30));
+        vBox.setSpacing(50);
+        vBox.setAlignment(Pos.CENTER);
+
+        Label errorMessage = new Label("");
+        errorMessage.setTextFill(Color.RED);
+        Label label = new Label("insert start and end date");
+        TextField startDate = new TextField();
+        startDate.setPromptText("start date");
+        TextField endDate = new TextField();
+        endDate.setPromptText("end date");
+        Button button = new Button("submit");
+
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (startDate.getText().equals("") || endDate.getText().equals("")) {
+                    errorMessage.setText("fields cannot be empty");
+                } else {
+                    try {
+                        DiscountAndOffTypeServiceException.validateInputDate(startDate.getText());
+                        DiscountAndOffTypeServiceException.validateInputDate(endDate.getText());
+                    } catch (Exception e) {
+                        errorMessage.setText(e.getMessage());
+                    }
+                    String response = SellerRequestBuilder.buildCreateAuctionRequest(startDate.getText(), endDate.getText(), product.getProductId());
+                    if (response.equals("success")) {
+                        getInfo.close();
+                        GraphicMain.showInformationAlert("auction added successfully");
+                    } else {
+                        errorMessage.setText("you must login first");
+                    }
+                }
+            }
+        });
+
+        vBox.getChildren().add(label);
+        vBox.getChildren().add(startDate);
+        vBox.getChildren().add(endDate);
+
+        Scene scene = new Scene(vBox, 750, 400);
+        getInfo.setScene(scene);
+        getInfo.show();
     }
 
     //    public void goToUserPanelMenu(MouseEvent mouseEvent) throws IOException {
@@ -124,7 +219,7 @@ public class AuctionsPage implements Initializable {
         //LoginSignUpPage.mediaPlayer.play();
     }
 
-    public void logout() throws IOException{
+    public void logout() throws IOException {
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
@@ -132,7 +227,7 @@ public class AuctionsPage implements Initializable {
         GraphicMain.graphicMain.exitProgram();
     }
 
-    public void back(){
+    public void back() {
         GraphicMain.graphicMain.back();
     }
 }

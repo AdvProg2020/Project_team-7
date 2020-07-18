@@ -100,3 +100,12 @@
 -fx-border-width : 2;
 }
 
+
+.productBox {
+-fx-background-color : linear-gradient(#f4f4f4 ,#e6e6e6 ,#f4f4f4 );
+}
+
+.productBoxHover {
+-fx-background-color : linear-gradient(  #e6e6e6  ,#f4f4f4 , #e6e6e6 );
+-fx-background-width : 500;
+}

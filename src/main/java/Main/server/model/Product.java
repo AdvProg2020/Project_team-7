@@ -589,6 +589,30 @@ public class Product {
         return productBox;
     }
 
+    public VBox createProductBoxForCreateAuction() {
+        VBox productBox = new VBox();
+        productBox.setMinHeight(160);
+        productBox.setMinWidth(200);
+        productBox.setAlignment(Pos.TOP_CENTER);
+        productBox.setId(productId);
+        productBox.getStyleClass().add("productBox");
+        productBox.setOnMouseEntered(event -> {
+            productBox.setCursor(Cursor.HAND);
+            productBox.getStyleClass().remove("productBox");
+            productBox.getStyleClass().add("productBoxHover");
+        });
+        productBox.setOnMouseExited(event -> {
+            productBox.getStyleClass().remove("productBoxHover");
+            productBox.getStyleClass().add("productBox");
+        });
+
+        setProductImage(productBox);
+        setProductInfoLabels(productBox);
+        setProductRateStars(productBox);
+
+        return productBox;
+    }
+
     private void setProductInfoLabels(VBox productBox) {
         productBox.getChildren().add(new Label(name));
         productBox.getChildren().add(new Label(brand));

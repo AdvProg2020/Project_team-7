@@ -3,14 +3,20 @@ package Main.server.serverRequestProcessor;
 import Main.server.ServerMain;
 import Main.server.controller.GeneralController;
 import Main.server.model.Auction;
+import Main.server.model.Product;
 import Main.server.model.accounts.Account;
 import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.accounts.ManagerAccount;
 import Main.server.model.accounts.SellerAccount;
 import Main.server.model.logs.BuyLog;
 import Main.server.model.logs.Log;
+import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;
+import java.util.ArrayList;
+
+import static java.util.Arrays.asList;
+import static java.util.Arrays.spliterator;
 
 public class DataRequestProcessor {
     public static String process(String[] splitRequest) {
@@ -32,8 +38,21 @@ public class DataRequestProcessor {
             return allAuctionResponse();
         } else if (splitRequest[2].equals("userType")) {
             return userTypeResponse(splitRequest[0]);
+        } else if (splitRequest[2].equals("allProductsForAuction")) {
+            return allProductsForAuctionResponse(splitRequest[0]);
         }
         return null;
+    }
+
+    private static String allProductsForAuctionResponse(String token) {
+        if (!ServerMain.server.validateToken(token, SellerAccount.class)) {
+            return "loginNeeded";
+        }
+        SellerAccount sellerAccount = (SellerAccount) ServerMain.server.getTokenInfo(token).getUser();
+
+        Product[] allPro = new Product[sellerAccount.getProducts().size()];
+        allPro = sellerAccount.getProducts().toArray(allPro);
+        return GeneralController.yagsonMapper.toJson(allPro, Product[].class);
     }
 
     private static String userTypeResponse(String token) {
