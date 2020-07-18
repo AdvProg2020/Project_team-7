@@ -135,6 +135,18 @@ public class Server {
                 response = ManagerRequestProcessor.editCategoryRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("createCategory")) {
                 response = ManagerRequestProcessor.createCategoryRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("initializeManageDiscounts")) {
+                response = ManagerRequestProcessor.initializeManageDiscountsRequestProcessor();
+            } else if (splitRequest[1].equals("viewDiscountAsManager")) {
+                response = ManagerRequestProcessor.viewDiscountAsManagerRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("removeDiscountCode")) {
+                response = ManagerRequestProcessor.removeDiscountCodeRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("getDiscountData")) {
+                response = ManagerRequestProcessor.getDiscountDataRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("editDiscount")) {
+                response = ManagerRequestProcessor.editDiscountRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("createDiscount")) {
+                response = ManagerRequestProcessor.createDiscountRequestProcessor(splitRequest);
             }
 
 

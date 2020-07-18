@@ -93,4 +93,40 @@ public class ManagerRequestBuilder {
         specialsString = specialsString.substring(0,specialsString.length()-1);
         return ClientMain.client.sendRequest(GraphicMain.token+"#createCategory#"+name+"#"+specialsString+"#"+path);
     }
+
+    public static String buildInitializeManageDiscountsRequest() {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#initializeManageDiscounts");
+    }
+
+    public static String buildViewDiscountAsManager(String code) {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#viewDiscountAsManager#"+code);
+    }
+
+    public static String buildRemoveDiscountCodeRequest(String code) {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#removeDiscountCode#"+code);
+    }
+
+    public static String buildGetDiscountDataRequest(String code) {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#getDiscountData#"+code);
+    }
+
+    public static String buildEditDiscountRequest(String code, String newContent, String editOption) {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#editDiscount#"+code+"#"+newContent+"#"+editOption);
+    }
+
+    public static String buildCreateDiscountRequest(ArrayList<String> buyersList, ArrayList<String> discountInfo) {
+        String buyers = "";
+        for (String s : buyersList) {
+            buyers = buyers.concat(s);
+            buyers = buyers.concat("&");
+        }
+        buyers = buyers.substring(0,buyers.length()-1);
+        String info = "";
+        for (String s : discountInfo) {
+            info = info.concat(s);
+            info = info.concat("&");
+        }
+        info = info.substring(0,info.length()-1);
+        return ClientMain.client.sendRequest(GraphicMain.token+"#createDiscount#"+buyers+"#"+info);
+    }
 }
