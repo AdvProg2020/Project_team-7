@@ -53,6 +53,10 @@ public class AuctionsPage implements Initializable {
 //        Auction.addAuction(auction2);
 
         String allAuctionsData = DataRequestBuilder.buildAllAuctionsRequest();
+        if (allAuctionsData.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        }
         readAllAuctionsData(allAuctionsData);
 
         auctionsList.getItems().clear();
@@ -75,14 +79,18 @@ public class AuctionsPage implements Initializable {
                     String id = auctionsList.getSelectionModel().getSelectedItem().toString();
                     id = id.substring(1, id.indexOf(' '));
                     String response = DataRequestBuilder.buildAuctionRequestWithID(GraphicMain.currentAuctionId);
-                    Auction auction = GeneralController.yagsonMapper.fromJson(response, Auction.class);
-                    auctionsList.getSelectionModel().clearSelection();
-                    try {
-                        GraphicMain.currentAuctionId = auction.getAuctionUsage().getId();
-                        GraphicMain.graphicMain.goToPage(AuctionPage.FXML_PATH, AuctionPage.TITLE);
-                    } catch (Exception e) {
-                        // GraphicMain.showInformationAlert(e.getMessage());
-                        initialize(location, resources);
+                    if (response.equals("tooManyRequests")) {
+                        GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+                    } else {
+                        Auction auction = GeneralController.yagsonMapper.fromJson(response, Auction.class);
+                        auctionsList.getSelectionModel().clearSelection();
+                        try {
+                            GraphicMain.currentAuctionId = auction.getAuctionUsage().getId();
+                            GraphicMain.graphicMain.goToPage(AuctionPage.FXML_PATH, AuctionPage.TITLE);
+                        } catch (Exception e) {
+                            // GraphicMain.showInformationAlert(e.getMessage());
+                            initialize(location, resources);
+                        }
                     }
                 }
             }
@@ -99,9 +107,11 @@ public class AuctionsPage implements Initializable {
     public void addAuction(MouseEvent mouseEvent) {
         String response = DataRequestBuilder.buildAllProductsForAuctionRequest();
 
-        if(response.equals("loginNeeded")){
+        if (response.equals("loginNeeded")) {
             GraphicMain.showInformationAlert("you must login first !\nyou'r authentication might be expired !");
-        }else {
+        } else if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+        } else {
             GeneralController.jsonReader = new JsonReader(new StringReader(response));
             Product[] allPro = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Product[].class);
             ArrayList<Product> allProducts = (allPro == null) ? new ArrayList<>() : new ArrayList<>(asList(allPro));
@@ -173,6 +183,8 @@ public class AuctionsPage implements Initializable {
                     if (response.equals("success")) {
                         getInfo.close();
                         GraphicMain.showInformationAlert("auction added successfully");
+                    } else if (response.equals("tooManyRequests")) {
+                        GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
                     } else {
                         errorMessage.setText("you must login first");
                     }
@@ -212,8 +224,10 @@ public class AuctionsPage implements Initializable {
             GraphicMain.graphicMain.goToPage(SellerPanelPage.FXML_PATH, SellerPanelPage.TITLE);
         } else if (response.equals("buyer")) {
             GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH, BuyerPanelController.TITLE);
-        } else {
+        } else if (response.equals("loginNeeded")) {
             GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
+        } else {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
         }
         //GraphicMain.audioClip.stop();
         //LoginSignUpPage.mediaPlayer.play();
@@ -221,10 +235,14 @@ public class AuctionsPage implements Initializable {
 
     public void logout() throws IOException {
         //GraphicMain.generalController.logout();
-        GeneralRequestBuilder.buildLogoutRequest();
-        GraphicMain.token = "0000";
-        //goBack();
-        GraphicMain.graphicMain.exitProgram();
+        String response = GeneralRequestBuilder.buildLogoutRequest();
+        if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+        } else {
+            GraphicMain.token = "0000";
+            //goBack();
+            GraphicMain.graphicMain.back();
+        }
     }
 
     public void back() {

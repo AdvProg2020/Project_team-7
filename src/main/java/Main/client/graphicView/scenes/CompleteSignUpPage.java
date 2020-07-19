@@ -142,6 +142,8 @@ public class CompleteSignUpPage implements Initializable {
         } else if (response.startsWith("invalidPhoneNumber")) {
             phoneNumber.setText(response.split("#")[1]);
             phoneNumber.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
+        } else if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
         } else {
             firstName.setText("unknown problem connecting the server ! please try again a few moments later !");
             firstName.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
@@ -247,9 +249,13 @@ public class CompleteSignUpPage implements Initializable {
 
     public void logout() throws IOException {
         //GraphicMain.generalController.logout();
-        GeneralRequestBuilder.buildLogoutRequest();
-        GraphicMain.token = "0000";
-        //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
+        String response = GeneralRequestBuilder.buildLogoutRequest();
+        if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+        } else {
+            GraphicMain.token = "0000";
+            //goBack();
+            GraphicMain.graphicMain.back();
+        }
     }
 }

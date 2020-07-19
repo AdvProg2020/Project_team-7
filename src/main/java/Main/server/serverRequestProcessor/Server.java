@@ -1,12 +1,12 @@
 package Main.server.serverRequestProcessor;
 
-import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.model.accounts.Account;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,8 +19,8 @@ public class Server {
     public static int TOKEN_EXPIRATION_MINUTES = 15;
     private ServerSocket serverSocket;
     private static Server serverInstance;
-//    private HashMap<DataInputStream, ArrayList<Date>> requests = new HashMap<>();
-//    private HashMap<DataInputStream, ArrayList<Date>> loginSignUpRequest = new HashMap<>();
+    private HashMap<SocketAddress, ArrayList<Date>> connectedClients = new HashMap<>();
+    private HashMap<SocketAddress, ArrayList<Date>> loginRequests = new HashMap<>();
 
     private Server() {
         try {
@@ -46,6 +46,7 @@ public class Server {
                 while (true) {
                     try {
                         Socket clientSocket = serverSocket.accept();
+                        addConnectionLog(clientSocket);
                         new requestHandler(clientSocket).start();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -53,6 +54,28 @@ public class Server {
                 }
             }
         }).start();
+    }
+
+    private void addConnectionLog(Socket clientSocket) {
+        SocketAddress socketAddress = clientSocket.getLocalSocketAddress();
+        if (!connectedClients.containsKey(socketAddress)) {
+            ArrayList<Date> dates = new ArrayList<>();
+            dates.add(new Date());
+            connectedClients.put(socketAddress, dates);
+        } else {
+            connectedClients.get(socketAddress).add(new Date());
+        }
+    }
+
+    private void addLoginRequestLog(Socket clientSocket) {
+        SocketAddress socketAddress = clientSocket.getLocalSocketAddress();
+        if (!loginRequests.containsKey(socketAddress)) {
+            ArrayList<Date> dates = new ArrayList<>();
+            dates.add(new Date());
+            loginRequests.put(socketAddress, dates);
+        } else {
+            loginRequests.get(socketAddress).add(new Date());
+        }
     }
 
     private class requestHandler extends Thread {
@@ -71,7 +94,7 @@ public class Server {
         }
 
         @Override
-        public void run(){
+        public void run() {
             try {
                 handle();
             } catch (Exception e) {
@@ -85,30 +108,25 @@ public class Server {
             String[] splitRequest = new String[0];
 
             request = dataInputStream.readUTF();
-//            if(!requests.containsKey(dataInputStream)){
-//                ArrayList<Date> requestsDates = new ArrayList<>();
-//                requestsDates.add(new Date());
-//                requests.put(dataInputStream,requestsDates);
-//            }else {
-//                requests.get(dataInputStream).add(new Date());
-//            }
-
+            addConnectionLog(clientSocket);
             System.out.println("server read " + request);
 
             splitRequest = request.split("#");
-//            if (validateTooManyRequests(dataInputStream)) {
-//                response = "tooManyRequests";
-//            } else
-                if (splitRequest.length < 2) {
+            if (!validateTooManyRequests(clientSocket)) {
+                response = "tooManyRequests";
+            } else if (splitRequest.length < 2) {
                 response = "invalidRequest";
             } else if (splitRequest[1].equals("manager")) {
                 response = ManagerRequestProcessor.process(splitRequest);
             } else if (splitRequest[1].equals("buyer")) {
                 response = BuyerRequestProcessor.process(splitRequest);
             } else if (splitRequest[1].equals("logout")) {
-                response = logout(splitRequest,dataInputStream);
+                response = logout(splitRequest, dataInputStream);
             } else if (splitRequest[1].equals("login")) {
                 response = GeneralRequestProcessor.loginRequestProcessor(splitRequest);
+                if (!response.startsWith("success") && !validateTooManyLoginRequests(clientSocket)) {
+                    response = "tooManyRequests";
+                }
             } else if (splitRequest[1].equals("signUp")) {
                 response = GeneralRequestProcessor.signUpRequestProcessor(splitRequest);
             } else if (splitRequest[1].equalsIgnoreCase("signUpSeller")) {
@@ -186,7 +204,7 @@ public class Server {
             } else if (splitRequest[1].equals("addComment")) {
                 response = SellerRequestProcessor.buildCommentResponse(splitRequest);
             } else if (splitRequest[1].equals("getListItemsForAddOffPage")) {
-                response = SellerRequestProcessor.getListItemsForAddOffPage(splitRequest[0]);
+                //response = SellerRequestProcessor.getListItemsForAddOffPage(splitRequest[0]);
             } else if (splitRequest[1].equals("addOff")) {
                 response = SellerRequestProcessor.buildAddOffResponse(splitRequest);
             } else if (splitRequest[1].equals("addProduct")) {
@@ -215,11 +233,11 @@ public class Server {
                 response = SellerRequestProcessor.getCompanyInformation(splitRequest);
             } else if (splitRequest[1].equals("getSellerBalance")) {
                 response = SellerRequestProcessor.getSellerBalance(splitRequest);
-            }else if(splitRequest[1].equals("getSellerCategories")){
+            } else if (splitRequest[1].equals("getSellerCategories")) {
                 response = SellerRequestProcessor.getSellerCategories();
-            }else if(splitRequest[1].equals("getAllProductDataForSellerProductPage")){
+            } else if (splitRequest[1].equals("getAllProductDataForSellerProductPage")) {
                 response = SellerRequestProcessor.getAllProductDataForSellerProductPage(splitRequest);
-            }else if(splitRequest[1].equals("removeProduct")){
+            } else if (splitRequest[1].equals("removeProduct")) {
                 response = SellerRequestProcessor.buildRemoveProductResponse(splitRequest);
             }
 
@@ -293,19 +311,32 @@ public class Server {
 
     private String logout(String[] splitRequest, DataInputStream dataInputStream) {
         tokens.remove(splitRequest[0]);
-//        requests.remove(dataInputStream);
         return "success";
     }
 
-//    private boolean validateTooManyRequests(DataInputStream dataInputStream){
-//            ArrayList<Date> requestDates = requests.get(dataInputStream);
-//            if(requestDates.size()>=5) {
-//                Date date = requestDates.get(requestDates.size() - 5);
-//                date = DateUtils.addSeconds(date,10);
-//                if(date.compareTo(new Date())>0){
-//                    return false;
-//                }
-//            }
-//            return true;
-//    }
+    private boolean validateTooManyRequests(Socket clientSocket) {
+        SocketAddress socketAddress = clientSocket.getLocalSocketAddress();
+        ArrayList<Date> requestDates = connectedClients.get(socketAddress);
+        if (requestDates.size() >= 20) {
+            Date date = requestDates.get(requestDates.size() - 20);
+            date = DateUtils.addSeconds(date, 10);
+            if (date.compareTo(new Date()) > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean validateTooManyLoginRequests(Socket clientSocket) {
+        SocketAddress socketAddress = clientSocket.getLocalSocketAddress();
+        ArrayList<Date> requestDates = loginRequests.get(socketAddress);
+        if (requestDates.size() >= 3) {
+            Date date = requestDates.get(requestDates.size() - 3);
+            date = DateUtils.addSeconds(date, 5);
+            if (date.compareTo(new Date()) > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -65,8 +65,10 @@ public class AuctionPage implements Initializable {
             GraphicMain.graphicMain.goToPage(SellerPanelPage.FXML_PATH, SellerPanelPage.TITLE);
         } else if (response.equals("buyer")) {
             GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH, BuyerPanelController.TITLE);
-        } else {
+        } else if (response.equals("loginNeeded")) {
             GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
+        } else {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
         }
         //GraphicMain.audioClip.stop();
         //LoginSignUpPage.mediaPlayer.play();
@@ -74,10 +76,14 @@ public class AuctionPage implements Initializable {
 
     public void logout() throws IOException {
         //GraphicMain.generalController.logout();
-        GeneralRequestBuilder.buildLogoutRequest();
-        GraphicMain.token = "0000";
-        //goBack();
-        GraphicMain.graphicMain.exitProgram();
+        String response = GeneralRequestBuilder.buildLogoutRequest();
+        if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+        } else {
+            GraphicMain.token = "0000";
+            //goBack();
+            GraphicMain.graphicMain.back();
+        }
     }
 
     public void back() {
@@ -89,6 +95,10 @@ public class AuctionPage implements Initializable {
         informationBox.setAlignment(Pos.CENTER);
         informationBox.setLineSpacing(15);
         String response = DataRequestBuilder.buildAuctionRequestWithID(GraphicMain.currentAuctionId);
+        if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        }
         Auction auction = GeneralController.yagsonMapper.fromJson(response, Auction.class);
         try {
             if (auction == null || auction.isAuctionOver()) {
@@ -111,6 +121,10 @@ public class AuctionPage implements Initializable {
 
     private void initializeMessagePane() throws Exception {
         String response = DataRequestBuilder.buildAuctionRequestWithID(GraphicMain.currentAuctionId);
+        if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        }
         Auction auction = GeneralController.yagsonMapper.fromJson(response, Auction.class);
         if (auction == null) {
             throw new Exception();
@@ -166,6 +180,8 @@ public class AuctionPage implements Initializable {
             disablePage();
         } else if (response.equals("alreadyOnAuction")) {
             informationBox.setText("you have an offer in another auction");
+        } else if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
         }
     }
 
@@ -193,6 +209,8 @@ public class AuctionPage implements Initializable {
             disablePage();
         } else if (response.equals("emptyText")) {
             informationBox.setText("empty messages can't be sent");
+        } else if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
         }
     }
 

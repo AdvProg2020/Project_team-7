@@ -35,6 +35,10 @@ public class ManageOrdersController {
 
     public void initialize() {
         String allBuyersDataResponse = DataRequestBuilder.buildAllBuyersRequest();
+        if (allBuyersDataResponse.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        }
         readAllBuyersData(allBuyersDataResponse);
 
         ordersList.getItems().clear();
@@ -51,11 +55,15 @@ public class ManageOrdersController {
                     BuyLog buyLog = null;
                     try {
                         String response = DataRequestBuilder.buildLogRequestWithID(logId);
-                        buyLog = GeneralController.yagsonMapper.fromJson(response, BuyLog.class);
+                        if (response.equals("tooManyRequests")) {
+                            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+                        } else {
+                            buyLog = GeneralController.yagsonMapper.fromJson(response, BuyLog.class);
+                            showLogInfo(buyLog);
+                        }
                     } catch (Exception e) {
                         ManagerPanelController.alertError(e.getMessage());
                     }
-                    showLogInfo(buyLog);
                 }
             }
         });
@@ -85,11 +93,7 @@ public class ManageOrdersController {
                     Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                     alert1.setTitle("BuyLog Delivery Status");
                     alert1.setHeaderText(null);
-                    if (response.equals("success")) {
-                        alert1.setContentText("BuyLog marked as delivered successfully.");
-                    } else {
-                        alert1.setContentText("BuyLog couldn't be marked as delivered, try a few moments later.");
-                    }
+                    alert1.setContentText("BuyLog marked as delivered successfully.");
                     alert1.showAndWait();
                     initialize();
                 } else {
@@ -111,6 +115,8 @@ public class ManageOrdersController {
     private void showResponseMessage(String response) {
         if (response.equals("loginNeeded")) {
             GraphicMain.showInformationAlert("you must login first !\nyou'r authentication might be expired !");
+        } else if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
         } else {
             GraphicMain.showInformationAlert("problem connecting the server !\n try a few moments later .");
         }
@@ -119,7 +125,11 @@ public class ManageOrdersController {
 
     public void logout() throws IOException {
         //GraphicMain.generalController.logout();
-        GeneralRequestBuilder.buildLogoutRequest();
+        String response = GeneralRequestBuilder.buildLogoutRequest();
+        if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        }
         GraphicMain.token = "0000";
         //goBack();
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);

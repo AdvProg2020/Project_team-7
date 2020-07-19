@@ -72,13 +72,29 @@ public class OffPage implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         String allProductsResponse = DataRequestBuilder.buildAllProductsRequest();
+        if (allProductsResponse.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        }
         readAllProductsData(allProductsResponse);
         String allOffsResponse = DataRequestBuilder.buildAllOffsRequest();
+        if (allOffsResponse.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        }
         readAllOffsData(allOffsResponse);
         String allCategoriesResponse = DataRequestBuilder.buildAllCategoriesRequest();
+        if (allCategoriesResponse.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        }
         readAllCategoriesData(allCategoriesResponse);
         setAllBrands();
         String allSellersResponse = DataRequestBuilder.buildAllSellersRequest();
+        if (allSellersResponse.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        }
         readAllSellersData(allSellersResponse);
 
         GeneralController.setImagePaths();
@@ -201,10 +217,14 @@ public class OffPage implements Initializable {
 
     public void logout() throws IOException {
         //GraphicMain.generalController.logout();
-        GeneralRequestBuilder.buildLogoutRequest();
-        GraphicMain.token = "0000";
-        //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
+        String response = GeneralRequestBuilder.buildLogoutRequest();
+        if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+        }else {
+            GraphicMain.token = "0000";
+            //goBack();
+            GraphicMain.graphicMain.back();
+        }
     }
 
     private void setPageNumberPane(int startPageNumber) {
@@ -560,7 +580,7 @@ public class OffPage implements Initializable {
 //        }
 //    }
 
-    public void goToUserPanelMenu(MouseEvent mouseEvent) throws IOException {
+    public void goToUserPanel(MouseEvent mouseEvent) throws IOException {
         String response = DataRequestBuilder.buildUserTypeRequest();
         if (response.equals("manager")) {
             GraphicMain.graphicMain.goToPage(ManagerPanelController.FXML_PATH, ManagerPanelController.TITLE);
@@ -568,8 +588,10 @@ public class OffPage implements Initializable {
             GraphicMain.graphicMain.goToPage(SellerPanelPage.FXML_PATH, SellerPanelPage.TITLE);
         } else if (response.equals("buyer")) {
             GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH, BuyerPanelController.TITLE);
-        } else {
+        } else if (response.equals("loginNeeded")) {
             GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
+        } else {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
         }
         //GraphicMain.audioClip.stop();
         //LoginSignUpPage.mediaPlayer.play();

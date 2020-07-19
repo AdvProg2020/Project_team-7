@@ -115,13 +115,13 @@ public class LoginSignUpPage implements Initializable {
                 //mediaPlayer.stop();
                 GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
                 //GraphicMain.audioClip.play();
-            }else{
+            } else {
                 showLoginResponseMessage(response);
             }
         }
     }
 
-    private void showLoginResponseMessage(String response){
+    private void showLoginResponseMessage(String response) {
         if (response.startsWith("invalidCharacter")) {
             loginErrorMessage.setText(response.split("#")[1]);
             loginUsername.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
@@ -131,6 +131,8 @@ public class LoginSignUpPage implements Initializable {
         } else if (response.equals("passwordWrong")) {
             loginPassword.setStyle("-fx-border-color : RED; -fx-text-fill : #6e0113;");
             loginErrorMessage.setText("password is incorrect !");
+        } else if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
         } else {
             loginErrorMessage.setText("unknown problem connecting the server ! please try again a few moments later !");
         }
@@ -163,10 +165,12 @@ public class LoginSignUpPage implements Initializable {
         }
     }
 
-    private void showSignUpResponseMessage(String response){
+    private void showSignUpResponseMessage(String response) {
         if (response.equals("duplicateUserName")) {
             signUpUsername.setText("this username is already token");
             signUpUsername.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
+        } else if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
         } else {
             loginErrorMessage.setText("unknown problem connecting the server ! please try again a few moments later !");
         }
