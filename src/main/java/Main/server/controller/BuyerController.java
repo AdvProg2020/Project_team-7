@@ -9,6 +9,7 @@ import Main.server.model.logs.BuyLog;
 import Main.server.model.logs.DeliveryStatus;
 import Main.server.model.logs.Log;
 import Main.server.model.logs.SellLog;
+import Main.server.serverRequestProcessor.Server;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -64,11 +65,11 @@ public class BuyerController {
         }
     }
 
-    public void rateProductWithId(String productId, String score) throws Exception {
+    public void rateProductWithId(String productId, String score, String token) throws Exception {
         validateInputRateInfo(productId, score);
 
         Product product = Product.getProductWithId(productId);
-        Rate rate = new Rate(currentBuyer, product, Double.parseDouble(score));
+        Rate rate = new Rate((BuyerAccount) Server.getServer().getTokenInfo(token).getUser(), product, Double.parseDouble(score));
         product.addRate(rate);
     }
 

@@ -1,7 +1,10 @@
 package Main.server.serverRequestProcessor;
 
+import Main.client.graphicView.GraphicMain;
 import Main.server.ServerMain;
 import Main.server.controller.GeneralController;
+import Main.server.model.CartProduct;
+import Main.server.model.Product;
 import Main.server.model.accounts.Account;
 import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.accounts.ManagerAccount;
@@ -131,6 +134,55 @@ public class GeneralRequestProcessor {
         } else {
             ManagerAccount.addManager(managerAccount);
             return "success#chief";
+        }
+    }
+
+    public static String getAllDataForProductPage(String[] splitRequest){
+        return ServerMain.sellerController.getProductImagePath(splitRequest[2]) + "#" +
+                ServerMain.sellerController.getProductAverageScore(splitRequest[2]) + "#" +
+                ServerMain.generalController.makeGeneralFeatures(splitRequest[2]) + "#" +
+                ServerMain.generalController.getProductCategoryInfo(splitRequest[2]) + "#" +
+                ServerMain.generalController.getProductSpecialFeaturesInfo(splitRequest[2])  + "#" +
+                ServerMain.generalController.showCommentsOfProduct(splitRequest[2]);
+    }
+
+    public static String selectSeller(String[] splitRequest){
+        try {
+            CartProduct cartProduct = ServerMain.generalController.selectSellerWithUsername(splitRequest[2],splitRequest[0],splitRequest[3]);
+            return "success#" + ServerMain.generalController.addProductToCart(cartProduct, splitRequest[0]);
+        }catch (Exception e){
+            return "error#" + e.getMessage();
+        }
+    }
+
+    public static String buildRateProductPermissionResponse(String[] splitRequest){
+        BuyerAccount buyerAccount = (BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser();
+        try {
+            if(!buyerAccount.hasBuyerBoughtProduct(Product.getProductWithId(splitRequest[2]))){
+                return "you should have bought this product";
+            }else{
+                return "success";
+            }
+        } catch (Exception e) {
+            return "error";
+        }
+    }
+
+    public static String buildRateProductResponse(String[] splitRequest){
+        try {
+            GraphicMain.buyerController.rateProductWithId(splitRequest[2],splitRequest[3],splitRequest[0]);
+            return "success";
+        } catch (Exception e) {
+            return "error#" + e.getMessage();
+        }
+    }
+
+    public static String buildCompareProductResponse(String[] splitRequest){
+        try {
+            return "success#" +
+                    ServerMain.generalController.compareProductWithProductWithId(splitRequest[2] , splitRequest[3]);
+        } catch (Exception e) {
+            return "error#" + e.getMessage();
         }
     }
 }

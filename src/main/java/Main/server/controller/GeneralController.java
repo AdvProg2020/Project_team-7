@@ -54,26 +54,21 @@ public class GeneralController {
         return currentProduct.showProductAttributes();
     }
 
-    public String compareProductWithProductWithId(String id) throws Exception {
-        return currentProduct.compareProductWithProductWithId(id);
+    public String compareProductWithProductWithId(String firstId, String id) throws Exception {
+        return Product.getProductWithId(firstId).compareProductWithProductWithId(id);
     }
 
-    public String addProductToCart() {
-        if (currentCartProduct == null)
-            return "sorry! you should sellect the seller first.";
-        else {
-            ((BuyerAccount) currentUser).getCart().addCartProduct(currentCartProduct);
-            currentCartProduct = null;
-            return "product added to cart successfully.";
-        }
+    public String addProductToCart(CartProduct cartProduct, String token) {
+        ((BuyerAccount) Server.getServer().getTokenInfo(token).getUser()).getCart().addCartProduct(cartProduct);
+        return "product added to cart successfully.";
     }
 
-    public void selectSellerWithUsername(String username) throws Exception {
+    public CartProduct selectSellerWithUsername(String username, String token, String productId) throws Exception {
         if (!currentProduct.getProductStatus().equals(ProductStatus.APPROVED_PRODUCT)) {
             throw new Exception("this product is not available now!\n");
         }
-        currentCartProduct = new CartProduct(currentProduct, SellerAccount.getSellerWithUserName(username),
-                ((BuyerAccount) currentUser).getCart());
+        return new CartProduct(Product.getProductWithId(productId), SellerAccount.getSellerWithUserName(username),
+                ((BuyerAccount) Server.getServer().getTokenInfo(token).getUser()).getCart());
     }
 
     public void addComment(String title, String content, String token, String id) throws Exception {
@@ -93,8 +88,13 @@ public class GeneralController {
         }
     }
 
-    public String showCommentsOfProduct() {
-        return currentProduct.showComments();
+    public String showCommentsOfProduct(String productId) {
+        try {
+            Product product = Product.getProductWithId(productId);
+            return product.showComments();
+        } catch (Exception e) {
+            return "-";
+        }
     }
 
     public String showAllCategories() {
@@ -403,6 +403,53 @@ public class GeneralController {
         if (offProducts.equals(""))
             return "No products with off to show";
         return offProducts;
+    }
+
+    public String makeGeneralFeatures(String productId) {
+        try {
+            Product product = Product.getProductWithId(productId);
+            if (product.getOff() != null && product.getOff().getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
+                product.getOff().removeOff();
+            }
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("name: " + product.getName() + "\n");
+            stringBuilder.append("brand:" + product.getBrand() + "\n");
+            stringBuilder.append("description: " + product.getDescription() + "\n");
+            stringBuilder.append("price: " + product.getProductFinalPriceConsideringOff() + "\n");
+            stringBuilder.append("off amount: " + product.makeOffAmount() + "\n");
+            if (product.getCategory() != null)
+                stringBuilder.append("category: " + product.getCategory().getName() + "\n");
+            stringBuilder.append("seller(s): " + product.makeSellersList());
+            return stringBuilder.toString();
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public String getProductCategoryInfo(String productId){
+        try {
+            Product product = Product.getProductWithId(productId);
+            if(product.getCategory() != null){
+                return product.getCategory().getName();
+            }else{
+                return "-";
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public String getProductSpecialFeaturesInfo(String productId){
+        try {
+            Product product = Product.getProductWithId(productId);
+            if(product.getCategory() != null){
+                return product.showSpecialFeatures();
+            }else{
+                return "-";
+            }
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public String viewPersonalInfo(String token) {

@@ -52,7 +52,7 @@ public class ProductPageMenu extends Menu {
                     this.parentMenu.run();
                 else {
                     try {
-                        System.out.println(generalController.compareProductWithProductWithId(input) + "\n");
+                        System.out.println(generalController.compareProductWithProductWithId(input,null) + "\n");
                         this.run();
                     } catch (Exception e) {
                         System.out.println(e.getMessage() + "\n");

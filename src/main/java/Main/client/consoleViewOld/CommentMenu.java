@@ -44,7 +44,7 @@ public class CommentMenu extends Menu {
 
     @Override
     public void run() throws Exception {
-        System.out.println(generalController.showCommentsOfProduct() + "\n");
+        System.out.println(generalController.showCommentsOfProduct(null) + "\n");
         this.show();
         this.execute();
     }

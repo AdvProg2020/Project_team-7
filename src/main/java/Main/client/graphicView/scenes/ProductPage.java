@@ -1,6 +1,8 @@
 package Main.client.graphicView.scenes;
 
+import Main.client.requestBuilder.DataRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.BuyerPanel.BuyerPanelController;
@@ -34,7 +36,7 @@ import java.util.ResourceBundle;
 public class ProductPage implements Initializable {
     public static final String FXML_PATH = "src/main/sceneResources/productPage.fxml";
     public static final String TITLE = "Seller Panel";
-    private Product currentProduct;
+//    private Product currentProduct;
     private ImageView productImage = new ImageView(new Image(new File("src/main/java/Main/client/graphicView/resources/images/product.png").toURI().toString()));
 
     @FXML
@@ -69,25 +71,33 @@ public class ProductPage implements Initializable {
                     zoomProperty.set(zoomProperty.get() / 1.1);
             }
         });
-        currentProduct = GeneralController.currentProduct;
-        productImage.setImage(new Image(new File(currentProduct.getImagePath()).toURI().toString()));
-
-        setScoreImage();
-        scoreLabel.setText(currentProduct.getAverageScore().toString());
+//        currentProduct = GeneralController.currentProduct;
+//        productImage.setImage(new Image(new File(currentProduct.getImagePath()).toURI().toString()));
+//        setScoreImage();
+//        scoreLabel.setText(currentProduct.getAverageScore().toString());
+//        productImage.preserveRatioProperty().set(true);
+//        scrollImage.setContent(productImage);
+//        generalFeatures.setText(makeGeneralFeatures());
+//        if (currentProduct.getCategory() != null) {
+//            specialFeaturesPane.setVisible(true);
+//            specialFeatures.setText(currentProduct.showSpecialFeatures());
+//        }
+//        showComments();
+        String[] response = GeneralRequestBuilder.getAllDataForProductPage().split("#");
+        productImage.setImage(new Image(new File(response[0]).toURI().toString()));
+        setScoreImage(Double.parseDouble(response[1]));
+        scoreLabel.setText(response[1]);
         productImage.preserveRatioProperty().set(true);
         scrollImage.setContent(productImage);
-        generalFeatures.setText(makeGeneralFeatures());
-        if (currentProduct.getCategory() != null) {
+        generalFeatures.setText(response[2]);
+        if(!response[3].equals("-")){
             specialFeaturesPane.setVisible(true);
-            specialFeatures.setText(currentProduct.showSpecialFeatures());
+            specialFeatures.setText(response[4]);
         }
-        showComments();
-
-
+        showComments(response[5]);
     }
 
-    public void setScoreImage() {
-        double score = currentProduct.getAverageScore();
+    public void setScoreImage(double score) {
         if (score == 0)
             scoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score0.png").toURI().toString()));
         else if (score > 0 && score <= 1)
@@ -107,35 +117,45 @@ public class ProductPage implements Initializable {
     }
 
     public void goToUserPanelPage() throws IOException {
-        Account account = GeneralController.currentUser;
-        if (account instanceof ManagerAccount) {
+//        Account account = GeneralController.currentUser;
+//        if (account instanceof ManagerAccount) {
+//            GraphicMain.graphicMain.goToPage(ManagerPanelController.FXML_PATH, ManagerPanelController.TITLE);
+//        } else if (account instanceof SellerAccount) {
+//            GraphicMain.graphicMain.goToPage(SellerPanelPage.FXML_PATH, SellerPanelPage.TITLE);
+//        } else if (account instanceof BuyerAccount) {
+//            GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH, BuyerPanelController.TITLE);
+//        } else {
+//            GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
+//        }
+        //GraphicMain.buttonSound.stop();
+        //GraphicMain.buttonSound.play();
+        String response = DataRequestBuilder.buildUserTypeRequest();
+        if (response.equals("manager")) {
             GraphicMain.graphicMain.goToPage(ManagerPanelController.FXML_PATH, ManagerPanelController.TITLE);
-        } else if (account instanceof SellerAccount) {
+        } else if (response.equals("seller")) {
             GraphicMain.graphicMain.goToPage(SellerPanelPage.FXML_PATH, SellerPanelPage.TITLE);
-        } else if (account instanceof BuyerAccount) {
+        } else if (response.equals("buyer")) {
             GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH, BuyerPanelController.TITLE);
         } else {
             GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
         }
-        //GraphicMain.buttonSound.stop();
-        //GraphicMain.buttonSound.play();
     }
 
-    public String makeGeneralFeatures() {
-        if (currentProduct.getOff() != null && currentProduct.getOff().getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
-            currentProduct.getOff().removeOff();
-        }
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("name: " + currentProduct.getName() + "\n");
-        stringBuilder.append("brand:" + currentProduct.getBrand() + "\n");
-        stringBuilder.append("description: " + currentProduct.getDescription() + "\n");
-        stringBuilder.append("price: " + currentProduct.getProductFinalPriceConsideringOff() + "\n");
-        stringBuilder.append("off amount: " + currentProduct.makeOffAmount() + "\n");
-        if (currentProduct.getCategory() != null)
-            stringBuilder.append("category: " + currentProduct.getCategory().getName() + "\n");
-        stringBuilder.append("seller(s): " + currentProduct.makeSellersList());
-        return stringBuilder.toString();
-    }
+//    public String makeGeneralFeatures() {
+//        if (currentProduct.getOff() != null && currentProduct.getOff().getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
+//            currentProduct.getOff().removeOff();
+//        }
+//        StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append("name: " + currentProduct.getName() + "\n");
+//        stringBuilder.append("brand:" + currentProduct.getBrand() + "\n");
+//        stringBuilder.append("description: " + currentProduct.getDescription() + "\n");
+//        stringBuilder.append("price: " + currentProduct.getProductFinalPriceConsideringOff() + "\n");
+//        stringBuilder.append("off amount: " + currentProduct.makeOffAmount() + "\n");
+//        if (currentProduct.getCategory() != null)
+//            stringBuilder.append("category: " + currentProduct.getCategory().getName() + "\n");
+//        stringBuilder.append("seller(s): " + currentProduct.makeSellersList());
+//        return stringBuilder.toString();
+//    }
 
     public void logout() throws IOException{
         //GraphicMain.generalController.logout();
@@ -146,8 +166,12 @@ public class ProductPage implements Initializable {
     }
 
     public void goToSelectSellerPage() throws IOException {
-        if (GeneralController.currentUser == null || GeneralController.currentUser instanceof SellerAccount ||
-                GeneralController.currentUser instanceof ManagerAccount) {
+//        if (GeneralController.currentUser == null || GeneralController.currentUser instanceof SellerAccount ||
+//                GeneralController.currentUser instanceof ManagerAccount) {
+//            showErrorAlert("You have not logged in yet!");
+//            GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
+        String userType = DataRequestBuilder.buildUserTypeRequest();
+        if(userType.equals("loginNeeded") || !userType.equals("buyer")){
             showErrorAlert("You have not logged in yet!");
             GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
         } else {
@@ -164,12 +188,19 @@ public class ProductPage implements Initializable {
             submit.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    try {
-                        GraphicMain.generalController.selectSellerWithUsername(textField.getText());
-                        showInformationAlert(GraphicMain.generalController.addProductToCart());
+//                    try {
+//                        GraphicMain.generalController.selectSellerWithUsername(textField.getText());
+//                        showInformationAlert(GraphicMain.generalController.addProductToCart());
+//                        selectSellerBox.close();
+//                    } catch (Exception e) {
+//                        showErrorAlert(e.getMessage());
+//                    }
+                    String response = GeneralRequestBuilder.selectSeller(textField.getText());
+                    if(response.startsWith("success")){
+                        showInformationAlert(response.split("#")[1]);
                         selectSellerBox.close();
-                    } catch (Exception e) {
-                        showErrorAlert(e.getMessage());
+                    } else if(response.startsWith("error")){
+                        showErrorAlert(response.split("#")[1]);
                     }
                 }
             });
@@ -193,13 +224,18 @@ public class ProductPage implements Initializable {
     }
 
     public void rateProduct() {
-        if ((!(GeneralController.currentUser instanceof BuyerAccount)) || GeneralController.currentUser == null) {
+//        if ((!(GeneralController.currentUser instanceof BuyerAccount)) || GeneralController.currentUser == null) {
+//            showErrorAlert("you must login first");
+//        }
+        String userType = DataRequestBuilder.buildUserTypeRequest();
+        if(userType.equals("loginNeeded") || !userType.equals("buyer")){
             showErrorAlert("you must login first");
-        } else {
-            BuyerAccount buyer = (BuyerAccount) GeneralController.currentUser;
-            if (!(buyer.hasBuyerBoughtProduct(currentProduct))) {
+        }
+        else {
+            String response = GeneralRequestBuilder.buildRateProductPermissionRequest();
+            if(response.startsWith("you")){
                 showErrorAlert("you should have bought this product");
-            } else {
+            } else if(response.equals("success")){
                 Stage stage = new Stage();
                 stage.setTitle("Rate product");
                 TextField textField = new TextField();
@@ -213,22 +249,32 @@ public class ProductPage implements Initializable {
                 submit.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        try {
-                            GraphicMain.buyerController.rateProductWithId(currentProduct.getProductId(), textField.getText());
+//                        try {
+//                            GraphicMain.buyerController.rateProductWithId(currentProduct.getProductId(), textField.getText());
+//                            stage.close();
+//                        } catch (Exception e) {
+//                            showErrorAlert(e.getMessage());
+//                        }
+                        String response = GeneralRequestBuilder.buildRateProductRequest(textField.getText());
+                        if(response.equals("success")){
                             stage.close();
-                        } catch (Exception e) {
-                            showErrorAlert(e.getMessage());
+                        } else if(response.startsWith("error")){
+                            showErrorAlert(response.split("#")[1]);
                         }
                     }
                 });
             }
+//            BuyerAccount buyer = (BuyerAccount) GeneralController.currentUser;
+//            if (!(buyer.hasBuyerBoughtProduct(currentProduct))) {
+//                showErrorAlert("you should have bought this product");
         }
 
     }
 
-    public void showComments() {
+    public void showComments(String comments) {
         TextArea textArea = new TextArea();
-        textArea.setText(currentProduct.showComments());
+        textArea.setText(comments);
+//        textArea.setText(currentProduct.showComments());
         textArea.setFont(Font.font(30));
         commentsVBox.getChildren().add(textArea);
     }
@@ -239,12 +285,18 @@ public class ProductPage implements Initializable {
 
     public void compareProduct() {
         String id = productIdToBeCompared.getText();
-        try {
-            String compare = GraphicMain.generalController.compareProductWithProductWithId(id);
-            showInformationAlert(compare);
-        } catch (Exception e) {
-            showErrorAlert(e.getMessage());
+        String response = GeneralRequestBuilder.buildCompareProductRequest(id);
+        if(response.startsWith("success")){
+            showInformationAlert(response.split("#")[1]);
+        } else if(response.startsWith("error")){
+            showErrorAlert(response.split("#")[1]);
         }
+//        try {
+//            String compare = GraphicMain.generalController.compareProductWithProductWithId(id);
+//            showInformationAlert(compare);
+//        } catch (Exception e) {
+//            showErrorAlert(e.getMessage());
+//        }
     }
 
 }

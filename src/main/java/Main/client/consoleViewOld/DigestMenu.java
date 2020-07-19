@@ -27,7 +27,7 @@ public class DigestMenu extends Menu {
                     SignInMenu signInMenu = new SignInMenu(this);
                     signInMenu.run();
                 } else {
-                    System.out.println(generalController.addProductToCart());
+                    System.out.println(generalController.addProductToCart(null,null));
                 }
                 this.parentMenu.run();
             }
@@ -50,7 +50,7 @@ public class DigestMenu extends Menu {
                     this.parentMenu.run();
                 else {
                     try {
-                        generalController.selectSellerWithUsername(input);
+                        generalController.selectSellerWithUsername(input,null,null);
                         System.out.println("Seller selected successfully.\n");
                         this.run();
                     } catch (Exception e) {

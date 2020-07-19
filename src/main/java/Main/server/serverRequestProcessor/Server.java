@@ -203,8 +203,8 @@ public class Server {
                 response = BuyerRequestProcessor.showDiscountInfoAsBuyerRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("addComment")) {
                 response = SellerRequestProcessor.buildCommentResponse(splitRequest);
-            } else if (splitRequest[1].equals("getListItemsForAddOffPage")) {
-                //response = SellerRequestProcessor.getListItemsForAddOffPage(splitRequest[0]);
+            } else if (splitRequest[1].equals("getSellerProductsList")) {
+                response = SellerRequestProcessor.getSellerProductsList(splitRequest[0]);
             } else if (splitRequest[1].equals("addOff")) {
                 response = SellerRequestProcessor.buildAddOffResponse(splitRequest);
             } else if (splitRequest[1].equals("addProduct")) {
@@ -239,6 +239,16 @@ public class Server {
                 response = SellerRequestProcessor.getAllProductDataForSellerProductPage(splitRequest);
             } else if (splitRequest[1].equals("removeProduct")) {
                 response = SellerRequestProcessor.buildRemoveProductResponse(splitRequest);
+            }else if(splitRequest[1].equals("getAllDataForProductPage")){
+                response = GeneralRequestProcessor.getAllDataForProductPage(splitRequest);
+            }else if(splitRequest[1].equals("selectSeller")){
+                response = GeneralRequestProcessor.selectSeller(splitRequest);
+            }else if(splitRequest[1].equals("rateProductPermission")){
+                response = GeneralRequestProcessor.buildRateProductPermissionResponse(splitRequest);
+            } else if(splitRequest[1].equals("rateProduct")){
+                response = GeneralRequestProcessor.buildRateProductResponse(splitRequest);
+            }else if(splitRequest[1].equals("compareProduct")){
+                response = GeneralRequestProcessor.buildCompareProductResponse(splitRequest);
             }
 
             dataOutputStream.writeUTF(response);

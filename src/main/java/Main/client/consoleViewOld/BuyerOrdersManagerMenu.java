@@ -46,7 +46,7 @@ public class BuyerOrdersManagerMenu extends Menu {
                     System.out.println("Insert your score from 1 to 5:");
                     String score = scanner.nextLine().trim();
                     try {
-                        buyerController.rateProductWithId(input, score);
+                        buyerController.rateProductWithId(input, score,null);
                         System.out.println("Rate registered successfully.\n");
                         this.run();
                     } catch (Exception e) {
