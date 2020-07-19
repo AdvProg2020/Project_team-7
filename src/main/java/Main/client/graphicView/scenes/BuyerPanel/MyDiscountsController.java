@@ -4,11 +4,9 @@ import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
@@ -23,13 +21,11 @@ public class MyDiscountsController {
         discountsList.getItems().clear();
         //discountsList.getItems().addAll(((BuyerAccount) GeneralController.currentUser).getDiscountsList());
         discountsList.getItems().addAll(BuyerRequestBuilder.buildInitializeBuyerDiscountsRequest());
-        discountsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (discountsList.getSelectionModel().getSelectedItem() != null) {
-                    String discountInfo = discountsList.getSelectionModel().getSelectedItem().toString();
-                    String code = discountInfo.substring(1, discountInfo.indexOf(" "));
-                    discountsList.getSelectionModel().clearSelection();
+        discountsList.setOnMouseClicked(mouseEvent -> {
+            if (discountsList.getSelectionModel().getSelectedItem() != null) {
+                String discountInfo = discountsList.getSelectionModel().getSelectedItem().toString();
+                String code = discountInfo.substring(1, discountInfo.indexOf(" "));
+                discountsList.getSelectionModel().clearSelection();
 //                    DiscountCode discountCode = null;
 //                    try {
 //                        discountCode = DiscountCode.getDiscountCodeWithCode(code);
@@ -37,8 +33,7 @@ public class MyDiscountsController {
 //                    } catch (Exception e) {
 //                        ManagerPanelController.alertError(e.getMessage());
 //                    }
-                    showCodeInfo(code);
-                }
+                showCodeInfo(code);
             }
         });
     }

@@ -137,9 +137,7 @@ public class AuctionsPage implements Initializable {
 
         for (Product product : allProducts) {
             VBox productBox = product.createProductBoxForCreateAuction();
-            productBox.setOnMouseClicked(event -> {
-                getAuctionInfo(product);
-            });
+            productBox.setOnMouseClicked(event -> getAuctionInfo(product));
             vBox.getChildren().add(productBox);
         }
 

@@ -4,11 +4,9 @@ import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
@@ -23,21 +21,18 @@ public class MyOrdersController {
         ordersList.getItems().clear();
         //ordersList.getItems().addAll(((BuyerAccount) GeneralController.currentUser).buyLogsList());
         ordersList.getItems().addAll(BuyerRequestBuilder.buildInitializeMyOrdersRequest().split("#"));
-        ordersList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (ordersList.getSelectionModel().getSelectedItem() != null) {
-                    String logInfo = ordersList.getSelectionModel().getSelectedItem().toString();
-                    String logId = logInfo.substring(1, logInfo.indexOf(" "));
-                    ordersList.getSelectionModel().clearSelection();
+        ordersList.setOnMouseClicked(mouseEvent -> {
+            if (ordersList.getSelectionModel().getSelectedItem() != null) {
+                String logInfo = ordersList.getSelectionModel().getSelectedItem().toString();
+                String logId = logInfo.substring(1, logInfo.indexOf(" "));
+                ordersList.getSelectionModel().clearSelection();
 //                    BuyLog buyLog = null;
 //                    try {
 //                        buyLog = (BuyLog) Log.getLogWithID(logId);
 //                    } catch (Exception e) {
 //                        ManagerPanelController.alertError(e.getMessage());
 //                    }
-                    showLogInfo(logId);
-                }
+                showLogInfo(logId);
             }
         });
     }

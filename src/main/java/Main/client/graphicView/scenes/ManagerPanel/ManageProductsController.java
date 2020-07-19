@@ -5,12 +5,10 @@ import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.graphicView.scenes.ProductPage;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -26,24 +24,21 @@ public class ManageProductsController {
         productList.getItems().clear();
         //productList.getItems().addAll(Product.summaryProductInfo());
         productList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageProductsRequest().split("#"));
-        productList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (productList.getSelectionModel().getSelectedItem() != null) {
-                    String id = productList.getSelectionModel().getSelectedItem().toString();
-                    id = id.substring(1, id.indexOf(' '));
-                    productList.getSelectionModel().clearSelection();
+        productList.setOnMouseClicked(mouseEvent -> {
+            if (productList.getSelectionModel().getSelectedItem() != null) {
+                String id = productList.getSelectionModel().getSelectedItem().toString();
+                id = id.substring(1, id.indexOf(' '));
+                productList.getSelectionModel().clearSelection();
 //                    Product product = null;
 //                    try {
 //                        product = Product.getProductWithId(id);
 //                    } catch (Exception e) {
 //                        ManagerPanelController.alertError(e.getMessage());
 //                    }
-                    try {
-                        goToProductOrDelete(id);
-                    } catch (Exception e) {
-                        ManagerPanelController.alertError(e.getMessage());
-                    }
+                try {
+                    goToProductOrDelete(id);
+                } catch (Exception e) {
+                    ManagerPanelController.alertError(e.getMessage());
                 }
             }
         });

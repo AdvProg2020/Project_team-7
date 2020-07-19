@@ -4,7 +4,6 @@ import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -61,7 +60,7 @@ public class BuyerPanelController {
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
-    public void goToHelpCenter(ActionEvent actionEvent) throws IOException {
+    public void goToHelpCenter() throws IOException {
         //GraphicMain.buttonSound.stop();
         //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.goToPage(HelpCenterController.FXML_PATH, HelpCenterController.TITLE);

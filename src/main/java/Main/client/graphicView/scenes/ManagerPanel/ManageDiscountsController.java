@@ -4,10 +4,8 @@ import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,24 +35,21 @@ public class ManageDiscountsController {
         discountsList.getItems().clear();
         //discountsList.getItems().addAll(DiscountCode.getDiscountsList());
         discountsList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageDiscountsRequest().split("#"));
-        discountsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (discountsList.getSelectionModel().getSelectedItem() != null) {
-                    String code = discountsList.getSelectionModel().getSelectedItem().toString();
-                    code = code.substring(1, code.indexOf(' '));
-                    discountsList.getSelectionModel().clearSelection();
+        discountsList.setOnMouseClicked(mouseEvent -> {
+            if (discountsList.getSelectionModel().getSelectedItem() != null) {
+                String code = discountsList.getSelectionModel().getSelectedItem().toString();
+                code = code.substring(1, code.indexOf(' '));
+                discountsList.getSelectionModel().clearSelection();
 //                    DiscountCode discountCode = null;
 //                    try {
 //                        discountCode = DiscountCode.getDiscountCodeWithCode(code);
 //                    } catch (Exception e) {
 //                        e.printStackTrace();
 //                    }
-                    try {
-                        showDiscountOptions(code);
-                    } catch (IOException e) {
-                        ManagerPanelController.alertError(e.getMessage());
-                    }
+                try {
+                    showDiscountOptions(code);
+                } catch (IOException e) {
+                    ManagerPanelController.alertError(e.getMessage());
                 }
             }
         });

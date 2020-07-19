@@ -4,12 +4,10 @@ import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -25,24 +23,21 @@ public class ManageRequestsController {
         requestsList.getItems().clear();
         //requestsList.getItems().addAll(Request.summaryInfoOfRequests());
         requestsList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageRequestsRequest().split("#"));
-        requestsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (requestsList.getSelectionModel().getSelectedItem() != null) {
-                    String id = requestsList.getSelectionModel().getSelectedItem().toString();
-                    id = id.substring(1, id.indexOf(' '));
-                    requestsList.getSelectionModel().clearSelection();
+        requestsList.setOnMouseClicked(mouseEvent -> {
+            if (requestsList.getSelectionModel().getSelectedItem() != null) {
+                String id = requestsList.getSelectionModel().getSelectedItem().toString();
+                id = id.substring(1, id.indexOf(' '));
+                requestsList.getSelectionModel().clearSelection();
 //                    Request request = null;
 //                    try {
 //                        request = Request.getRequestWithId(id);
 //                    } catch (Exception e) {
 //                        //ManagerPanelController.alertError(e.getMessage());
 //                    }
-                    try {
-                        showRequestMenu(id);
-                    } catch (Exception e) {
-                        //ManagerPanelController.alertError(e.getMessage());
-                    }
+                try {
+                    showRequestMenu(id);
+                } catch (Exception e) {
+                    //ManagerPanelController.alertError(e.getMessage());
                 }
             }
         });

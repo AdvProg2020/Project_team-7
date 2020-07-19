@@ -5,15 +5,14 @@ import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static java.util.Arrays.asList;
 
 public class Category {
     private String name;
-    private ArrayList<String> specialFeatures = new ArrayList<String>();
-    private ArrayList<Product> products = new ArrayList<Product>();
-    private static ArrayList<Category> allCategories = new ArrayList<Category>();
+    private ArrayList<String> specialFeatures;
+    private ArrayList<Product> products = new ArrayList<>();
+    private static ArrayList<Category> allCategories = new ArrayList<>();
     private String imagePath;
 
     private ArrayList<String> productsStringRecord = new ArrayList<>();
@@ -86,10 +85,6 @@ public class Category {
             }
             return listOfProducts.toString();
         }
-    }
-
-    public void editCategory(HashMap<String, String> changes) {
-
     }
 
     public static Category getCategoryWithName(String categoryName) throws Exception {

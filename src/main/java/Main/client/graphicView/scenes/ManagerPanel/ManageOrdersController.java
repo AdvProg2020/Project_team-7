@@ -10,12 +10,10 @@ import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.logs.BuyLog;
 import Main.server.model.logs.DeliveryStatus;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -44,25 +42,22 @@ public class ManageOrdersController {
         for (BuyerAccount buyer : allBuyers) {
             ordersList.getItems().addAll(buyer.buyLogsList());
         }
-        ordersList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (ordersList.getSelectionModel().getSelectedItem() != null) {
-                    String logInfo = ordersList.getSelectionModel().getSelectedItem().toString();
-                    String logId = logInfo.substring(1, logInfo.indexOf(" "));
-                    ordersList.getSelectionModel().clearSelection();
-                    BuyLog buyLog = null;
-                    try {
-                        String response = DataRequestBuilder.buildLogRequestWithID(logId);
-                        if (response.equals("tooManyRequests")) {
-                            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
-                        } else {
-                            buyLog = GeneralController.yagsonMapper.fromJson(response, BuyLog.class);
-                            showLogInfo(buyLog);
-                        }
-                    } catch (Exception e) {
-                        ManagerPanelController.alertError(e.getMessage());
+        ordersList.setOnMouseClicked(mouseEvent -> {
+            if (ordersList.getSelectionModel().getSelectedItem() != null) {
+                String logInfo = ordersList.getSelectionModel().getSelectedItem().toString();
+                String logId = logInfo.substring(1, logInfo.indexOf(" "));
+                ordersList.getSelectionModel().clearSelection();
+                BuyLog buyLog = null;
+                try {
+                    String response = DataRequestBuilder.buildLogRequestWithID(logId);
+                    if (response.equals("tooManyRequests")) {
+                        GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+                    } else {
+                        buyLog = GeneralController.yagsonMapper.fromJson(response, BuyLog.class);
+                        showLogInfo(buyLog);
                     }
+                } catch (Exception e) {
+                    ManagerPanelController.alertError(e.getMessage());
                 }
             }
         });

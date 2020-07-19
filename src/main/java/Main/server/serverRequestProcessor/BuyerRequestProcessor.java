@@ -62,20 +62,18 @@ public class BuyerRequestProcessor {
     }
 
     public static String initializeBuyerPanelRequestProcessor(String[] data) {
-        String string = Double.toString(((BuyerAccount) Server.getServer().getTokenInfo(data[0]).getUser()).getBalance());
-        return string;
+        return Double.toString(((BuyerAccount) Server.getServer().getTokenInfo(data[0]).getUser()).getBalance());
     }
 
     public static String buyerPersonalInfoRequestProcessor(String[] data) {
         BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(data[0]).getUser());
-        String string = buyerAccount.getFirstName() + "#"
+        return buyerAccount.getFirstName() + "#"
                 + buyerAccount.getLastName() + "#"
                 + buyerAccount.getUserName() + "#"
                 + buyerAccount.getEmail() + "#"
                 + buyerAccount.getPhoneNumber() + "#"
                 + buyerAccount.getPassWord() + "#"
                 + buyerAccount.getProfileImagePath();
-        return string;
     }
 
     public static String editBuyerPersonalInformationRequestProcessor(String[] data) {

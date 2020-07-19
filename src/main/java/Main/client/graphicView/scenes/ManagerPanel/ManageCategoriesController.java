@@ -4,10 +4,8 @@ import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -36,23 +34,20 @@ public class ManageCategoriesController {
         categoriesList.getItems().clear();
         //categoriesList.getItems().addAll(Category.categoriesList());
         categoriesList.getItems().addAll(ManagerRequestBuilder.buildinitializeManageCategoriesRequest().split("#"));
-        categoriesList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (categoriesList.getSelectionModel().getSelectedItem() != null) {
-                    String name = categoriesList.getSelectionModel().getSelectedItem().toString();
-                    categoriesList.getSelectionModel().clearSelection();
+        categoriesList.setOnMouseClicked(mouseEvent -> {
+            if (categoriesList.getSelectionModel().getSelectedItem() != null) {
+                String name = categoriesList.getSelectionModel().getSelectedItem().toString();
+                categoriesList.getSelectionModel().clearSelection();
 //                    Category category = null;
 //                    try {
 //                        category = Category.getCategoryWithName(name);
 //                    } catch (Exception e) {
 //                        ManagerPanelController.alertError(e.getMessage());
 //                    }
-                    try {
-                        showCategoryOptions(name);
-                    } catch (IOException e) {
-                        ManagerPanelController.alertError(e.getMessage());
-                    }
+                try {
+                    showCategoryOptions(name);
+                } catch (IOException e) {
+                    ManagerPanelController.alertError(e.getMessage());
                 }
             }
         });

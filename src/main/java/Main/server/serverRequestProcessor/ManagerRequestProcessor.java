@@ -19,14 +19,13 @@ import java.util.HashMap;
 public class ManagerRequestProcessor {
     public static String managerPersonalInfoRequestProcessor(String[] data) {
         ManagerAccount managerAccount = ((ManagerAccount) Server.getServer().getTokenInfo(data[0]).getUser());
-        String string = managerAccount.getFirstName() + "#"
+        return managerAccount.getFirstName() + "#"
                 + managerAccount.getLastName() + "#"
                 + managerAccount.getUserName() + "#"
                 + managerAccount.getEmail() + "#"
                 + managerAccount.getPhoneNumber() + "#"
                 + managerAccount.getPassWord() + "#"
                 + managerAccount.getProfileImagePath();
-        return string;
     }
 
     public static String editManagerPersonalInformationRequestProcessor(String[] data) {
@@ -42,7 +41,6 @@ public class ManagerRequestProcessor {
     public static String process(String[] splitRequest) {
         if (splitRequest[2].equals("markDelivered")) {
             return markDeliveredResponse(splitRequest);
-        } else if (true) {
         }
         return null;
     }

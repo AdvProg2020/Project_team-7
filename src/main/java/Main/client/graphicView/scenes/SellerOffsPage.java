@@ -3,13 +3,11 @@ package Main.client.graphicView.scenes;
 import Main.client.graphicView.GraphicMain;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.SellerRequestBuilder;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,27 +44,24 @@ public class SellerOffsPage implements Initializable {
         for (int i = 1; i < response.length; i++) {
             list.getItems().add(response[i]);
         }
-        list.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                selectedOff = (String) list.getSelectionModel().getSelectedItem();
-                list.getSelectionModel().clearSelection();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.getButtonTypes().clear();
-                alert.setTitle("off information");
-                alert.setHeaderText(null);
+        list.setOnMouseClicked(event -> {
+            selectedOff = (String) list.getSelectionModel().getSelectedItem();
+            list.getSelectionModel().clearSelection();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.getButtonTypes().clear();
+            alert.setTitle("off information");
+            alert.setHeaderText(null);
 //                alert.setContentText(sellerAccount.getOffWithId(selectedOff).viewMe());
-                alert.setContentText(SellerRequestBuilder.getOffDetails(selectedOff));
-                ButtonType cancel = new ButtonType("cancel");
-                ButtonType edit = new ButtonType("edit");
-                alert.getButtonTypes().addAll(cancel, edit);
-                Optional<ButtonType> option = alert.showAndWait();
-                if (option.get().equals(edit)) {
-                    try {
-                        GraphicMain.graphicMain.goToPage(OffEditPage.FXML_PATH, OffEditPage.TITLE);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            alert.setContentText(SellerRequestBuilder.getOffDetails(selectedOff));
+            ButtonType cancel = new ButtonType("cancel");
+            ButtonType edit = new ButtonType("edit");
+            alert.getButtonTypes().addAll(cancel, edit);
+            Optional<ButtonType> option = alert.showAndWait();
+            if (option.get().equals(edit)) {
+                try {
+                    GraphicMain.graphicMain.goToPage(OffEditPage.FXML_PATH, OffEditPage.TITLE);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });

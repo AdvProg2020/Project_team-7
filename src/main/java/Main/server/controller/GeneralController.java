@@ -232,7 +232,7 @@ public class GeneralController {
         }
         if (filtered.equals("") && currentFilters.isEmpty())
             return showAllProducts();
-        if (filtered.equals("") && !currentFilters.isEmpty())
+        if (filtered.equals(""))
             return "No products to show!";
         return filtered;
     }

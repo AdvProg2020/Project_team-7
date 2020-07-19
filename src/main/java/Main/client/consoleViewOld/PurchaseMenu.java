@@ -46,12 +46,9 @@ public class PurchaseMenu extends Menu {
                             System.out.println(buyerController.showPurchaseInfo());
                             System.out.println("Do you want to pay? Please insert yes or no:");
                             String answer = scanner.nextLine().trim();
-                            if (answer.equalsIgnoreCase("no"))
-                                this.run();
-                            else {
+                            if (!answer.equalsIgnoreCase("no"))
                                 System.out.println(buyerController.finalizePurchaseAndPay(null));
-                                this.run();
-                            }
+                            this.run();
                         } catch (Exception e) {
                             System.out.println(e.getMessage() + "\n");
                             this.run();

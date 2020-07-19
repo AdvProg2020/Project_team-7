@@ -8,6 +8,7 @@ import Main.client.requestBuilder.DataRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.server.model.Auction;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -240,7 +241,7 @@ public class AuctionPage implements Initializable {
             });
 
             receiverAddress.initModality(Modality.APPLICATION_MODAL);
-            receiverAddress.setOnCloseRequest(event -> event.consume());
+            receiverAddress.setOnCloseRequest(Event::consume);
 
             vBox.getChildren().add(label);
             vBox.getChildren().add(textArea);

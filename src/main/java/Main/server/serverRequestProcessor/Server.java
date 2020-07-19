@@ -40,17 +40,14 @@ public class Server {
     }
 
     public void start() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        Socket clientSocket = serverSocket.accept();
-                        addConnectionLog(clientSocket);
-                        new requestHandler(clientSocket).start();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+        new Thread(() -> {
+            while (true) {
+                try {
+                    Socket clientSocket = serverSocket.accept();
+                    addConnectionLog(clientSocket);
+                    new requestHandler(clientSocket).start();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }).start();
@@ -274,7 +271,7 @@ public class Server {
             dataOutputStream.flush();
             System.out.println("server wrote " + response);
 
-            if (response != "disconnected") {
+            if (!response.equals("disconnected")) {
                 handle();
             } else {
                 removeToken(splitRequest[0]);
@@ -295,9 +292,7 @@ public class Server {
     }
 
     public void removeToken(String token) {
-        if (tokens.containsKey(token)) {
-            tokens.remove(token);
-        }
+        tokens.remove(token);
     }
 
     public String addToken(Account account) {
@@ -325,9 +320,8 @@ public class Server {
 
     public boolean validateToken(String token, Class<?> classType) {
         TokenInfo tokenInfo = tokens.get(token);
-        if (tokenInfo == null) {
+        if (tokenInfo == null)
             return false;
-        }
         if (tokenInfo.hasTokenExpired()) {
             removeToken(token);
             return false;

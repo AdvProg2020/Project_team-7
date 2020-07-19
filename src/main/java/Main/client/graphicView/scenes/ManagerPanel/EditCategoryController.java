@@ -4,8 +4,6 @@ import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -50,25 +48,22 @@ public class EditCategoryController {
         editOption.getItems().addAll(options);
         editOption.setVisibleRowCount(5);
         //TODO here after calling initialize more than once combobox items are repeated.
-        editOption.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                editOption.setDisable(true);
-                if (editOption.getValue().equals("Change Category Name")) {
-                    guideLable.setText("Enter the new name for category instead of \"" + categoryName + "\":");
-                } else if (editOption.getValue().equals("Add a Product to Category")) {
-                    guideLable.setText("Enter the ID of product you want to add to this category:");
-                } else if (editOption.getValue().equals("Remove a Product from Category")) {
-                    guideLable.setText("Enter the ID of product you want to remove:");
-                } else if (editOption.getValue().equals("Add a Special Feature")) {
-                    guideLable.setText("Enter the special feature name you want to add:");
-                } else if (editOption.getValue().equals("Remove a Special Feature")) {
-                    guideLable.setText("Enter the special feature you want to remove:");
-                }
-                guideLable.setVisible(true);
-                editContent.setVisible(true);
-                save.setVisible(true);
+        editOption.setOnAction(actionEvent -> {
+            editOption.setDisable(true);
+            if (editOption.getValue().equals("Change Category Name")) {
+                guideLable.setText("Enter the new name for category instead of \"" + categoryName + "\":");
+            } else if (editOption.getValue().equals("Add a Product to Category")) {
+                guideLable.setText("Enter the ID of product you want to add to this category:");
+            } else if (editOption.getValue().equals("Remove a Product from Category")) {
+                guideLable.setText("Enter the ID of product you want to remove:");
+            } else if (editOption.getValue().equals("Add a Special Feature")) {
+                guideLable.setText("Enter the special feature name you want to add:");
+            } else if (editOption.getValue().equals("Remove a Special Feature")) {
+                guideLable.setText("Enter the special feature you want to remove:");
             }
+            guideLable.setVisible(true);
+            editContent.setVisible(true);
+            save.setVisible(true);
         });
     }
 

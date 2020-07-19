@@ -25,10 +25,6 @@ public class BuyerController {
         currentBuyersCart = currentBuyer.getCart();
     }
 
-    public static BuyerAccount getCurrentBuyer() {
-        return currentBuyer;
-    }
-
     public String showCartProducts() {
         return currentBuyersCart.toStringForBuyer();
     }

@@ -49,9 +49,7 @@ public class SellerRequestBuilder {
     }
 
     public static String getProductForProductEditPage(String productId) {
-        StringBuilder request = new StringBuilder();
-        request.append(GraphicMain.token + "#getProductForProductEditPage#" + productId);
-        return ClientMain.client.sendRequest(request.toString());
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getProductForProductEditPage#" + productId);
     }
 
     public static String buildEditProductRequest(String productId, ArrayList<String> titles, ArrayList<String> contents) {
@@ -79,9 +77,7 @@ public class SellerRequestBuilder {
     }
 
     public static String buildEditPersonalInformationRequest(String fieldToEdit, String newContent) {
-        StringBuilder request = new StringBuilder();
-        request.append(GraphicMain.token + "#editSellerPersonalInformation#" + fieldToEdit + "#" + newContent);
-        return ClientMain.client.sendRequest(request.toString());
+        return ClientMain.client.sendRequest(GraphicMain.token + "#editSellerPersonalInformation#" + fieldToEdit + "#" + newContent);
     }
 
     public static String buildEditOffRequest(String offId, ArrayList<String> titles, ArrayList<String> contents) {

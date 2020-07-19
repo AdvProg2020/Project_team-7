@@ -15,10 +15,10 @@ public class Off extends DiscountAndOffTypeService {
     private static StringBuilder lastUsedOffID;
     private SellerAccount seller;
     private String offId;
-    private ArrayList<Product> products = new ArrayList<>();
+    private ArrayList<Product> products;
     private double offAmount;
     private OffStatus offStatus;
-    public static ArrayList<Off> allOffs = new ArrayList<Off>();
+    public static ArrayList<Off> allOffs = new ArrayList<>();
 
     private String sellerStringRecord;
     private ArrayList<String> productsStringRecord = new ArrayList<>();

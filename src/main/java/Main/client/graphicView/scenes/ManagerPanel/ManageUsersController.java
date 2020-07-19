@@ -5,12 +5,10 @@ import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.graphicView.scenes.RegisterManager;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -27,22 +25,19 @@ public class ManageUsersController {
         //usersList.getItems().addAll(GraphicMain.managerController.usersListForGraphic());
         //ArrayList<String> usersData = new ArrayList<>();
         usersList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageUsersRequest().split("#"));
-        usersList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (usersList.getSelectionModel().getSelectedItem() != null) {
-                    String userInfo = usersList.getSelectionModel().getSelectedItem().toString();
-                    String userName = userInfo.substring(userInfo.indexOf("@") + 1);
-                    usersList.getSelectionModel().clearSelection();
-                    userName = userName.substring(0, userName.indexOf("\n"));
+        usersList.setOnMouseClicked(mouseEvent -> {
+            if (usersList.getSelectionModel().getSelectedItem() != null) {
+                String userInfo = usersList.getSelectionModel().getSelectedItem().toString();
+                String userName = userInfo.substring(userInfo.indexOf("@") + 1);
+                usersList.getSelectionModel().clearSelection();
+                userName = userName.substring(0, userName.indexOf("\n"));
 //                    Account account = null;
 //                    try {
 //                        account = Account.getUserWithUserName(userName);
 //                    } catch (Exception e) {
 //                        e.printStackTrace();
 //                    }
-                    showUserInfoOrDelete(userName);
-                }
+                showUserInfoOrDelete(userName);
             }
         });
     }

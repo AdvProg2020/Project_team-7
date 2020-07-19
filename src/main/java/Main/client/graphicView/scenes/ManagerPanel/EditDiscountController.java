@@ -4,8 +4,6 @@ import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -51,35 +49,32 @@ public class EditDiscountController {
         editOption.getItems().addAll(options);
         editOption.setVisibleRowCount(7);
         //TODO here after calling initialize more than once combobox items are repeated.
-        editOption.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                String[] discountData = ManagerRequestBuilder.buildGetDiscountDataRequest(code).split("#");
-                String startDate = discountData[0];
-                String endDate = discountData[1];
-                String percent = discountData[2];
-                String maxAmount = discountData[3];
-                String maxNumberOfUse = discountData[4];
-                editOption.setDisable(true);
-                if (editOption.getValue().equals("Start Date")) {
-                    guideLable.setText("Enter the new Start Date for Discount instead of \"" + startDate + "\":");
-                } else if (editOption.getValue().equals("End Date")) {
-                    guideLable.setText("Enter the new End Date for Discount instead of\"" + endDate + "\":");
-                } else if (editOption.getValue().equals("Percent")) {
-                    guideLable.setText("Enter the new percent for discount instead of\"" + percent + "\":");
-                } else if (editOption.getValue().equals("Max Amount")) {
-                    guideLable.setText("Enter the new max amount for discount instead of\"" + maxAmount + "\":");
-                } else if (editOption.getValue().equals("Max Number Of Use")) {
-                    guideLable.setText("Enter the new max number of use instead of\"" + maxNumberOfUse + "\":");
-                } else if (editOption.getValue().equals("Add Buyer UserName")) {
-                    guideLable.setText("Enter the buyer username you want to add:");
-                } else if (editOption.getValue().equals("Remove Buyer UserName")) {
-                    guideLable.setText("Enter the buyer username you want to remove:");
-                }
-                guideLable.setVisible(true);
-                editContent.setVisible(true);
-                save.setVisible(true);
+        editOption.setOnAction(actionEvent -> {
+            String[] discountData = ManagerRequestBuilder.buildGetDiscountDataRequest(code).split("#");
+            String startDate = discountData[0];
+            String endDate = discountData[1];
+            String percent = discountData[2];
+            String maxAmount = discountData[3];
+            String maxNumberOfUse = discountData[4];
+            editOption.setDisable(true);
+            if (editOption.getValue().equals("Start Date")) {
+                guideLable.setText("Enter the new Start Date for Discount instead of \"" + startDate + "\":");
+            } else if (editOption.getValue().equals("End Date")) {
+                guideLable.setText("Enter the new End Date for Discount instead of\"" + endDate + "\":");
+            } else if (editOption.getValue().equals("Percent")) {
+                guideLable.setText("Enter the new percent for discount instead of\"" + percent + "\":");
+            } else if (editOption.getValue().equals("Max Amount")) {
+                guideLable.setText("Enter the new max amount for discount instead of\"" + maxAmount + "\":");
+            } else if (editOption.getValue().equals("Max Number Of Use")) {
+                guideLable.setText("Enter the new max number of use instead of\"" + maxNumberOfUse + "\":");
+            } else if (editOption.getValue().equals("Add Buyer UserName")) {
+                guideLable.setText("Enter the buyer username you want to add:");
+            } else if (editOption.getValue().equals("Remove Buyer UserName")) {
+                guideLable.setText("Enter the buyer username you want to remove:");
             }
+            guideLable.setVisible(true);
+            editContent.setVisible(true);
+            save.setVisible(true);
         });
     }
 

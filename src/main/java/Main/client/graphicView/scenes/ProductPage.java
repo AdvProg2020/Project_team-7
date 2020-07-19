@@ -7,8 +7,6 @@ import Main.client.requestBuilder.DataRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -177,9 +175,7 @@ public class ProductPage implements Initializable {
             Scene scene = new Scene(vBox, 750, 400);
             selectSellerBox.setScene(scene);
             selectSellerBox.show();
-            submit.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
+            submit.setOnAction(event -> {
 //                    try {
 //                        GraphicMain.generalController.selectSellerWithUsername(textField.getText());
 //                        showInformationAlert(GraphicMain.generalController.addProductToCart());
@@ -187,13 +183,12 @@ public class ProductPage implements Initializable {
 //                    } catch (Exception e) {
 //                        showErrorAlert(e.getMessage());
 //                    }
-                    String response = GeneralRequestBuilder.selectSeller(textField.getText());
-                    if (response.startsWith("success")) {
-                        showInformationAlert(response.split("#")[1]);
-                        selectSellerBox.close();
-                    } else if (response.startsWith("error")) {
-                        showErrorAlert(response.split("#")[1]);
-                    }
+                String response = GeneralRequestBuilder.selectSeller(textField.getText());
+                if (response.startsWith("success")) {
+                    showInformationAlert(response.split("#")[1]);
+                    selectSellerBox.close();
+                } else if (response.startsWith("error")) {
+                    showErrorAlert(response.split("#")[1]);
                 }
             });
         }
@@ -237,21 +232,18 @@ public class ProductPage implements Initializable {
                 Scene scene = new Scene(vBox, 750, 400);
                 stage.setScene(scene);
                 stage.show();
-                submit.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
+                submit.setOnAction(event -> {
 //                        try {
 //                            GraphicMain.buyerController.rateProductWithId(currentProduct.getProductId(), textField.getText());
 //                            stage.close();
 //                        } catch (Exception e) {
 //                            showErrorAlert(e.getMessage());
 //                        }
-                        String response = GeneralRequestBuilder.buildRateProductRequest(textField.getText());
-                        if (response.equals("success")) {
-                            stage.close();
-                        } else if (response.startsWith("error")) {
-                            showErrorAlert(response.split("#")[1]);
-                        }
+                    String response1 = GeneralRequestBuilder.buildRateProductRequest(textField.getText());
+                    if (response1.equals("success")) {
+                        stage.close();
+                    } else if (response1.startsWith("error")) {
+                        showErrorAlert(response1.split("#")[1]);
                     }
                 });
             }
