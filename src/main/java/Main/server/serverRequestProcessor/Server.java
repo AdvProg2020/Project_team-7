@@ -239,19 +239,28 @@ public class Server {
                 response = SellerRequestProcessor.getAllProductDataForSellerProductPage(splitRequest);
             } else if (splitRequest[1].equals("removeProduct")) {
                 response = SellerRequestProcessor.buildRemoveProductResponse(splitRequest);
-            }else if(splitRequest[1].equals("getAllDataForProductPage")){
+            } else if (splitRequest[1].equals("getAllDataForProductPage")) {
                 response = GeneralRequestProcessor.getAllDataForProductPage(splitRequest);
-            }else if(splitRequest[1].equals("selectSeller")){
+            } else if (splitRequest[1].equals("selectSeller")) {
                 response = GeneralRequestProcessor.selectSeller(splitRequest);
-            }else if(splitRequest[1].equals("rateProductPermission")){
+            } else if (splitRequest[1].equals("rateProductPermission")) {
                 response = GeneralRequestProcessor.buildRateProductPermissionResponse(splitRequest);
-            } else if(splitRequest[1].equals("rateProduct")){
+            } else if (splitRequest[1].equals("rateProduct")) {
                 response = GeneralRequestProcessor.buildRateProductResponse(splitRequest);
-            }else if(splitRequest[1].equals("compareProduct")){
+            } else if (splitRequest[1].equals("compareProduct")) {
                 response = GeneralRequestProcessor.buildCompareProductResponse(splitRequest);
+            } else if (splitRequest[1].equals("getCartProducts")) {
+                response = "do not write UTF";
+                ObjectOutputStream oos = new ObjectOutputStream(dataOutputStream);
+                oos.writeObject(new ArrayList<>(BuyerRequestProcessor.getCartProductsRequestProcessor(splitRequest)));
+            }else if (splitRequest[1].equals("increaseCartProduct")) {
+                response = BuyerRequestProcessor.buildIncreaseCartProductResponse(splitRequest);
+            }else if (splitRequest[1].equals("decreaseCartProduct")) {
+                response = BuyerRequestProcessor.buildDecreaseCartProductResponse(splitRequest);
             }
 
-            dataOutputStream.writeUTF(response);
+            if (!response.equals("do not write UTF"))
+                dataOutputStream.writeUTF(response);
             dataOutputStream.flush();
             System.out.println("server wrote " + response);
 

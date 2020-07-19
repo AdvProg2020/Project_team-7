@@ -248,4 +248,8 @@ public class SellerRequestProcessor {
             return "error#" + e.getMessage();
         }
     }
+
+    public static String getListItemsForAddOffPage(String s) {
+        return null;
+    }
 }

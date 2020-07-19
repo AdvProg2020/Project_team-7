@@ -4,6 +4,8 @@ package Main.client.requestBuilder;
 
 import Main.client.ClientMain;
 import Main.client.graphicView.GraphicMain;
+import Main.server.serverRequestProcessor.Server;
+import javafx.collections.ObservableList;
 
 public class BuyerRequestBuilder {
 
@@ -55,5 +57,21 @@ public class BuyerRequestBuilder {
 
     public static String buildShowDiscountInfoAsBuyerRequest(String code) {
         return ClientMain.client.sendRequest(GraphicMain.token+"#showDiscountInfoAsBuyer#"+code);
+    }
+
+    public static String buildInitializeCartAndPriceRequest() {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#initializeCartAndPrice");
+    }
+
+    public static ObservableList buildGetCartProductsRequest() throws ClassNotFoundException {
+        return ClientMain.client.sendRequestObject(GraphicMain.token+"#getCartProducts");
+    }
+
+    public static String buildDecreaseCartProductRequest(String productId) {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#decreaseCartProduct#"+productId);
+    }
+
+    public static String buildIncreaseCartProductRequest(String productId) {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#increaseCartProduct#"+productId);
     }
 }

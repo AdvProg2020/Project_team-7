@@ -1,7 +1,11 @@
 package Main.client.requestBuilder;
 
+import Main.server.model.Product;
+import javafx.collections.ObservableList;
+
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 
 public class Client {
     /**
@@ -40,6 +44,22 @@ public class Client {
             e.printStackTrace();
         }
         return "failure";
+    }
+
+    public ObservableList sendRequestObject(String request) throws ClassNotFoundException {
+        try {
+            dataOutputStream.writeUTF(request);
+            dataOutputStream.flush();
+            System.out.println("client wrote " + request);
+            //String s = dataInputStream.readUTF();
+            ObjectInputStream ois = new ObjectInputStream(dataInputStream);
+            System.out.println("client read " + "object");
+            return ((ObservableList) ois.readObject());
+            //return s;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void closeConnection() {

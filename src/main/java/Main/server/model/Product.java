@@ -9,6 +9,8 @@ import Main.server.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.server.model.discountAndOffTypeService.Off;
 import Main.server.model.discountAndOffTypeService.OffStatus;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -79,6 +81,14 @@ public class Product {
 
     public void setTempNumberOfProduct(int tempNumberOfProduct) {
         this.tempNumberOfProduct = tempNumberOfProduct;
+    }
+
+    public static ObservableList<Product> getCartProductsAsPro(BuyerAccount buyerAccount) {
+        ObservableList<Product> cartProducts = FXCollections.observableArrayList();
+        for (Product cartProduct : (buyerAccount.getCart().getCartsProductList())) {
+            cartProducts.add(cartProduct);
+        }
+        return cartProducts;
     }
 
     public int getTempNumberOfProduct() { //it is not unused :)

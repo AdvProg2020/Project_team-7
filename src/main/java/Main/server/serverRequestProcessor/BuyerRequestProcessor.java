@@ -2,13 +2,17 @@ package Main.server.serverRequestProcessor;
 
 import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.server.ServerMain;
+import Main.server.controller.BuyerController;
 import Main.server.model.Auction;
+import Main.server.model.Product;
 import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.accounts.ManagerAccount;
 import Main.server.model.accounts.SellerAccount;
 import Main.server.model.discountAndOffTypeService.DiscountCode;
 import Main.server.model.logs.BuyLog;
 import Main.server.model.requests.Request;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ButtonType;
 
 import java.util.ArrayList;
 
@@ -126,6 +130,37 @@ public class BuyerRequestProcessor {
         BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser());
         try {
             return DiscountCode.getDiscountCodeWithCode(splitRequest[2]).viewMeAsBuyer(buyerAccount);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    public static String initializeCartAndPriceRequestProcessor(String[] splitRequest) {
+        BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser());
+        BuyerController.setBuyerController();
+        return Double.toString(buyerAccount.getCart().getCartTotalPriceConsideringOffs());
+    }
+
+    public static ObservableList<Product> getCartProductsRequestProcessor(String[] splitRequest) {
+        BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser());
+        return Product.getCartProductsAsPro(buyerAccount);
+    }
+
+    public static String buildIncreaseCartProductResponse(String[] splitRequest) {
+        try {
+            Product.getProductWithId(splitRequest[2]).getTempCartProduct().increaseNumberByOne();
+            return "increased";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    public static String buildDecreaseCartProductResponse(String[] splitRequest) {
+        try {
+            Product.getProductWithId(splitRequest[2]).getTempCartProduct().decreaseNumberByOne();
+            return "decreased";
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return e.getMessage();
