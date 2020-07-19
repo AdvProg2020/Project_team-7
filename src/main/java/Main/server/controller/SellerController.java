@@ -1,7 +1,5 @@
 package Main.server.controller;
 
-import Main.client.graphicView.GraphicMain;
-import Main.server.ServerMain;
 import Main.server.model.Category;
 import Main.server.model.Product;
 import Main.server.model.ProductStatus;

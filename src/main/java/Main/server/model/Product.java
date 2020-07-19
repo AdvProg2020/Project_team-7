@@ -85,9 +85,7 @@ public class Product {
 
     public static ObservableList<Product> getCartProductsAsPro(BuyerAccount buyerAccount) {
         ObservableList<Product> cartProducts = FXCollections.observableArrayList();
-        for (Product cartProduct : (buyerAccount.getCart().getCartsProductList())) {
-            cartProducts.add(cartProduct);
-        }
+        cartProducts.addAll((buyerAccount.getCart().getCartsProductList()));
         return cartProducts;
     }
 

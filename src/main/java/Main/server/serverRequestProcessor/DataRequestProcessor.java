@@ -6,17 +6,11 @@ import Main.server.model.Auction;
 import Main.server.model.Product;
 import Main.server.model.accounts.Account;
 import Main.server.model.accounts.BuyerAccount;
-import Main.server.model.accounts.ManagerAccount;
 import Main.server.model.accounts.SellerAccount;
 import Main.server.model.logs.BuyLog;
 import Main.server.model.logs.Log;
-import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 
 import java.io.*;
-import java.util.ArrayList;
-
-import static java.util.Arrays.asList;
-import static java.util.Arrays.spliterator;
 
 public class DataRequestProcessor {
     public static String process(String[] splitRequest) {

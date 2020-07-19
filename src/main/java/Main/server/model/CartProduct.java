@@ -56,10 +56,7 @@ public class CartProduct{
     }
 
     public boolean isProductAvailabilityEnough(){
-        if(product.getAvailability()<this.numberOfProduct){
-            return false;
-        }
-        return true;
+        return product.getAvailability() >= this.numberOfProduct;
     }
 
     public Product getProduct() {

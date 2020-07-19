@@ -1,18 +1,10 @@
 package Main.client.graphicView.scenes;
 
-import Main.client.requestBuilder.DataRequestBuilder;
-import Main.client.requestBuilder.GeneralRequestBuilder;
-import Main.client.requestBuilder.SellerRequestBuilder;
-import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.BuyerPanel.BuyerPanelController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
-import Main.server.model.Product;
-import Main.server.model.accounts.Account;
-import Main.server.model.accounts.BuyerAccount;
-import Main.server.model.accounts.ManagerAccount;
-import Main.server.model.accounts.SellerAccount;
-import Main.server.model.discountAndOffTypeService.DiscountAndOffStat;
+import Main.client.requestBuilder.DataRequestBuilder;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;

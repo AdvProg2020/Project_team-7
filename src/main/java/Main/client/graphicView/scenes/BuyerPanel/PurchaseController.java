@@ -5,7 +5,6 @@ import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
-import Main.server.ServerMain;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 

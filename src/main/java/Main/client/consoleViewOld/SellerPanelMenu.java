@@ -2,7 +2,6 @@ package Main.client.consoleViewOld;
 
 import Main.server.model.Category;
 import Main.server.model.exceptions.CreateProductException;
-import Main.server.serverRequestProcessor.Server;
 
 import java.util.ArrayList;
 

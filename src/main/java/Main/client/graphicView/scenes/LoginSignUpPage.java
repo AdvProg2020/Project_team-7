@@ -1,21 +1,14 @@
 package Main.client.graphicView.scenes;
 
-import Main.client.requestBuilder.GeneralRequestBuilder;
-import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
-import Main.server.model.accounts.Account;
-import Main.server.model.exceptions.AccountsException;
-import javafx.event.Event;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 public class LoginSignUpPage implements Initializable {

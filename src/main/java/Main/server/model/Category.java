@@ -50,9 +50,7 @@ public class Category {
                 return true;
             }
         }
-        if (name.equals("-"))
-            return true;
-        return false;
+        return name.equals("-");
     }
 
     public static String showAllCategories() {

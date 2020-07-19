@@ -8,17 +8,15 @@ import Main.client.requestBuilder.DataRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.server.model.Auction;
-import Main.server.model.accounts.Account;
-import Main.server.model.accounts.BuyerAccount;
-import Main.server.model.accounts.ManagerAccount;
-import Main.server.model.accounts.SellerAccount;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -29,8 +27,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import static java.lang.Thread.sleep;
 
 public class AuctionPage implements Initializable {
     public static final String FXML_PATH = "src/main/sceneResources/auction.fxml";

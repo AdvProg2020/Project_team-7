@@ -1,28 +1,20 @@
 package Main.client.graphicView;
 
-import Main.client.ClientMain;
-import Main.client.consoleViewOld.MainMenu;
-import Main.client.requestBuilder.Client;
+import Main.client.graphicView.scenes.MainMenuController;
 import Main.server.controller.BuyerController;
 import Main.server.controller.GeneralController;
 import Main.server.controller.ManagerController;
 import Main.server.controller.SellerController;
-import Main.client.graphicView.scenes.*;
-import Main.server.model.accounts.ManagerAccount;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class GraphicMain extends Application {

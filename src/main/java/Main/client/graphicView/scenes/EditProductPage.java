@@ -5,7 +5,6 @@ import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.server.model.Product;
-import Main.server.model.requests.EditProductRequest;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;

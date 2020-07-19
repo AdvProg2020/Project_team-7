@@ -1,10 +1,8 @@
 package Main.server.serverRequestProcessor;
 
-import Main.client.graphicView.GraphicMain;
 import Main.server.ServerMain;
 import Main.server.controller.GeneralController;
 import Main.server.model.Auction;
-import Main.server.model.Category;
 import Main.server.model.Product;
 import Main.server.model.accounts.SellerAccount;
 import Main.server.model.exceptions.CreateProductException;
@@ -12,6 +10,7 @@ import Main.server.model.requests.EditOffRequest;
 import Main.server.model.requests.EditProductRequest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SellerRequestProcessor {
 
@@ -61,9 +60,7 @@ public class SellerRequestProcessor {
         ArrayList<String> split = new ArrayList<>();
         ArrayList<String> productIdList = new ArrayList<>();
         ArrayList<String> offInfo = new ArrayList<>();
-        for(int i=0; i<splitRequest.length; i++){
-           split.add(splitRequest[i]);
-        }
+        split.addAll(Arrays.asList(splitRequest));
         for(int i=2; i<split.indexOf("offInfo"); i++){
             productIdList.add(split.get(i));
         }
@@ -113,9 +110,7 @@ public class SellerRequestProcessor {
 
     public static String buildEditProductResponse(String[] splitRequest){
         ArrayList<String> allData = new ArrayList<>();
-        for(int i=0; i<splitRequest.length; i++){
-            allData.add(splitRequest[i]);
-        }
+        allData.addAll(Arrays.asList(splitRequest));
         try {
             EditProductRequest editProductRequest = ServerMain.sellerController.getProductToEdit(splitRequest[2], splitRequest[0]);
             if(allData.contains("name")){
@@ -155,9 +150,7 @@ public class SellerRequestProcessor {
 
     public static String buildEditOffResponse(String[] splitRequest){
         ArrayList<String> allData = new ArrayList<>();
-        for(int i=0; i<splitRequest.length; i++){
-            allData.add(splitRequest[i]);
-        }
+        allData.addAll(Arrays.asList(splitRequest));
         try {
             EditOffRequest editOffRequest = ServerMain.sellerController.getOffToEdit(splitRequest[2],splitRequest[0]);
             if(allData.contains("start date")){

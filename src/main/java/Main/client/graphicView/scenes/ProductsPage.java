@@ -1,21 +1,16 @@
 package Main.client.graphicView.scenes;
 
-import Main.client.requestBuilder.DataRequestBuilder;
-import Main.client.requestBuilder.GeneralRequestBuilder;
-import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.BuyerPanel.BuyerPanelController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
+import Main.client.requestBuilder.DataRequestBuilder;
+import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.server.controller.GeneralController;
 import Main.server.model.Category;
 import Main.server.model.Product;
-import Main.server.model.accounts.Account;
-import Main.server.model.accounts.BuyerAccount;
-import Main.server.model.accounts.ManagerAccount;
 import Main.server.model.accounts.SellerAccount;
 import Main.server.model.filters.*;
 import Main.server.model.sorting.ProductsSort;
-import com.gilecode.yagson.com.google.gson.JsonIOException;
-import com.gilecode.yagson.com.google.gson.JsonSyntaxException;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableList;
@@ -23,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
@@ -30,17 +26,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-
-import java.io.*;
-import java.net.URL;
-import java.util.Random;
-import java.util.ResourceBundle;
-
-import javafx.scene.Node;
-import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.ResourceBundle;
 
 import static java.util.Arrays.asList;
 

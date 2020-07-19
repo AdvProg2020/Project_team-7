@@ -21,10 +21,6 @@ public class TokenInfo {
 
     public boolean hasTokenExpired(){
         Date dateNow = new Date();
-        if(this.expirationDate.compareTo(dateNow)<0){
-            return true;
-        }
-
-        return false;
+        return this.expirationDate.compareTo(dateNow) < 0;
     }
 }

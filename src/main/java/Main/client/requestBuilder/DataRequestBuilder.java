@@ -2,7 +2,6 @@ package Main.client.requestBuilder;
 
 import Main.client.ClientMain;
 import Main.client.graphicView.GraphicMain;
-import Main.server.model.exceptions.AccountsException;
 
 public class DataRequestBuilder {
     public static String buildAllProductsRequest() {

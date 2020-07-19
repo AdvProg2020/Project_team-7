@@ -249,10 +249,7 @@ public class Auction {
 
     public boolean hasAuctionBeenStarted() {
         Date dateNow = new Date();
-        if (auctionUsage.getStartDate().compareTo(dateNow) < 0) {
-            return true;
-        }
-        return false;
+        return auctionUsage.getStartDate().compareTo(dateNow) < 0;
     }
 
     public static ArrayList<Auction> getAllAuctions() {

@@ -2,7 +2,6 @@ package Main.server.serverRequestProcessor;
 
 import Main.client.graphicView.GraphicMain;
 import Main.server.ServerMain;
-import Main.server.controller.GeneralController;
 import Main.server.model.CartProduct;
 import Main.server.model.Product;
 import Main.server.model.accounts.Account;

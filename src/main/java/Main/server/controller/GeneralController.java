@@ -386,9 +386,7 @@ public class GeneralController {
             if (allOff.getDiscountOrOffStat().equals(DiscountAndOffStat.EXPIRED)) {
                 allOff.removeOff();
             } else {
-                for (Product product : allOff.getProducts()) {
-                    sorted.add(product);
-                }
+                sorted.addAll(allOff.getProducts());
             }
         }
         sortProducts(sorted);

@@ -332,10 +332,7 @@ public class Server {
             removeToken(token);
             return false;
         }
-        if (tokenInfo.getUser().getClass() == classType || classType == Account.class) {
-            return true;
-        }
-        return false;
+        return tokenInfo.getUser().getClass() == classType || classType == Account.class;
     }
 
     private String logout(String[] splitRequest, DataInputStream dataInputStream) {
@@ -349,9 +346,7 @@ public class Server {
         if (requestDates.size() >= 20) {
             Date date = requestDates.get(requestDates.size() - 20);
             date = DateUtils.addSeconds(date, 10);
-            if (date.compareTo(new Date()) > 0) {
-                return false;
-            }
+            return date.compareTo(new Date()) <= 0;
         }
         return true;
     }
@@ -362,9 +357,7 @@ public class Server {
         if (requestDates.size() >= 3) {
             Date date = requestDates.get(requestDates.size() - 3);
             date = DateUtils.addSeconds(date, 5);
-            if (date.compareTo(new Date()) > 0) {
-                return false;
-            }
+            return date.compareTo(new Date()) <= 0;
         }
         return true;
     }

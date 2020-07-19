@@ -1,11 +1,10 @@
 package Main.server;
 
-import Main.client.graphicView.GraphicMain;
 import Main.server.controller.BuyerController;
 import Main.server.controller.GeneralController;
-import Main.server.serverRequestProcessor.Server;
 import Main.server.controller.ManagerController;
 import Main.server.controller.SellerController;
+import Main.server.serverRequestProcessor.Server;
 
 public class ServerMain {
     public static Server server;
@@ -16,7 +15,7 @@ public class ServerMain {
 
     public static void main(String[] args) {
         System.out.println(GeneralController.readDataAndSetStringRecordObjects());
-        GraphicMain.generalController.initializeIDs();
+        ServerMain.generalController.initializeIDs();
         try {
             generalController.giveDiscountCodeToSpecialBuyers();
         } catch (Exception e) {

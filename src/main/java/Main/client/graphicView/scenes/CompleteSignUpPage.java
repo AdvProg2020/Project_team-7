@@ -1,25 +1,19 @@
 package Main.client.graphicView.scenes;
 
-import Main.client.requestBuilder.GeneralRequestBuilder;
-import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
-import Main.server.model.accounts.Account;
-import Main.server.model.accounts.BuyerAccount;
-import Main.server.model.accounts.SellerAccount;
-import Main.server.model.exceptions.AccountsException;
-import Main.server.model.requests.CreateSellerAccountRequest;
-import Main.server.model.requests.Request;
-import Main.server.serverRequestProcessor.GeneralRequestProcessor;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,16 +1,10 @@
 package Main.client.graphicView.scenes;
 
-import Main.client.requestBuilder.DataRequestBuilder;
-import Main.client.requestBuilder.GeneralRequestBuilder;
-import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.BuyerPanel.BuyerPanelController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
-import Main.server.model.Auction;
-import Main.server.model.accounts.Account;
-import Main.server.model.accounts.BuyerAccount;
-import Main.server.model.accounts.ManagerAccount;
-import Main.server.model.accounts.SellerAccount;
+import Main.client.requestBuilder.DataRequestBuilder;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 

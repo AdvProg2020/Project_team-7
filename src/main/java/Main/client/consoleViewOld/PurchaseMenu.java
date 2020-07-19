@@ -33,7 +33,7 @@ public class PurchaseMenu extends Menu {
                             this.run();
                         else {
                             try {
-                                System.out.println(buyerController.finalizePurchaseAndPay());
+                                System.out.println(buyerController.finalizePurchaseAndPay(null));
                                 this.run();
                             } catch (Exception e) {
                                 System.out.println(e.getMessage() + "\n");
@@ -49,7 +49,7 @@ public class PurchaseMenu extends Menu {
                             if (answer.equalsIgnoreCase("no"))
                                 this.run();
                             else {
-                                System.out.println(buyerController.finalizePurchaseAndPay());
+                                System.out.println(buyerController.finalizePurchaseAndPay(null));
                                 this.run();
                             }
                         } catch (Exception e) {

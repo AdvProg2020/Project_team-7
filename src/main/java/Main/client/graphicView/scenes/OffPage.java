@@ -1,16 +1,13 @@
 package Main.client.graphicView.scenes;
 
-import Main.client.requestBuilder.DataRequestBuilder;
-import Main.client.requestBuilder.GeneralRequestBuilder;
-import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.BuyerPanel.BuyerPanelController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
+import Main.client.requestBuilder.DataRequestBuilder;
+import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.server.controller.GeneralController;
 import Main.server.model.Category;
 import Main.server.model.Product;
-import Main.server.model.accounts.Account;
-import Main.server.model.accounts.BuyerAccount;
-import Main.server.model.accounts.ManagerAccount;
 import Main.server.model.accounts.SellerAccount;
 import Main.server.model.discountAndOffTypeService.Off;
 import Main.server.model.filters.*;
@@ -32,7 +29,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;

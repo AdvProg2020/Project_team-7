@@ -1,11 +1,9 @@
 package Main.client.requestBuilder;
 
-import Main.server.model.Product;
 import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.List;
 
 public class Client {
     /**
