@@ -16,6 +16,7 @@ import Main.server.model.requests.Request;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class ManagerRequestProcessor {
     public static String managerPersonalInfoRequestProcessor(String[] data) {
@@ -138,10 +139,23 @@ public class ManagerRequestProcessor {
         String response = "";
         for (String user : users) {
             response = response.concat(user);
+            concatOnlineStatus(response, user);
             response = response.concat("#");
         }
         response = response.substring(0, response.length() - 1);
         return response;
+    }
+
+    private static void concatOnlineStatus(String response, String user) {
+        String userName = user.substring(user.indexOf("@") + 1, user.indexOf("\n"));
+        HashMap<String,TokenInfo> tokens = ServerMain.server.getTokens();
+        for (TokenInfo value : tokens.values()) {
+            if(value.getUser().getUserName().equals(userName)){
+                response = response.concat(" <<online>>");
+                return;
+            }
+        }
+        response = response.concat(" <<offline>>");
     }
 
     public static String userViewMeWithUserNameRequestProcessor(String[] splitRequest) {
@@ -219,7 +233,7 @@ public class ManagerRequestProcessor {
     public static String createCategoryRequestProcessor(String[] splitRequest) {
         ArrayList<String> specials = new ArrayList<>(Arrays.asList(splitRequest[3].split("&")));
         try {
-            return ServerMain.managerController.createCategory(splitRequest[2],specials,splitRequest[4]);
+            return ServerMain.managerController.createCategory(splitRequest[2], specials, splitRequest[4]);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return e.getMessage();
@@ -258,7 +272,7 @@ public class ManagerRequestProcessor {
 
     public static String getDiscountDataRequestProcessor(String[] splitRequest) throws Exception {
         DiscountCode discountCode = DiscountCode.getDiscountCodeWithCode(splitRequest[2]);
-        return discountCode.getStartDateInStringFormat()+"#"+discountCode.getEndDateInStringFormat()+"#"+discountCode.getPercent()+"#"+discountCode.getMaxAmount()+"#"+discountCode.getMaxNumberOfUse();
+        return discountCode.getStartDateInStringFormat() + "#" + discountCode.getEndDateInStringFormat() + "#" + discountCode.getPercent() + "#" + discountCode.getMaxAmount() + "#" + discountCode.getMaxNumberOfUse();
     }
 
     public static String editDiscountRequestProcessor(String[] splitRequest) throws Exception {

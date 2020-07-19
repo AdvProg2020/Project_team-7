@@ -349,4 +349,8 @@ public class Server {
         }
         return true;
     }
+
+    public HashMap<String, TokenInfo> getTokens() {
+        return tokens;
+    }
 }
