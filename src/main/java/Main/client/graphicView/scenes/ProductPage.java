@@ -36,7 +36,7 @@ import java.util.ResourceBundle;
 public class ProductPage implements Initializable {
     public static final String FXML_PATH = "src/main/sceneResources/productPage.fxml";
     public static final String TITLE = "Seller Panel";
-//    private Product currentProduct;
+    //    private Product currentProduct;
     private ImageView productImage = new ImageView(new Image(new File("src/main/java/Main/client/graphicView/resources/images/product.png").toURI().toString()));
 
     @FXML
@@ -90,7 +90,7 @@ public class ProductPage implements Initializable {
         productImage.preserveRatioProperty().set(true);
         scrollImage.setContent(productImage);
         generalFeatures.setText(response[2]);
-        if(!response[3].equals("-")){
+        if (!response[3].equals("-")) {
             specialFeaturesPane.setVisible(true);
             specialFeatures.setText(response[4]);
         }
@@ -157,12 +157,12 @@ public class ProductPage implements Initializable {
 //        return stringBuilder.toString();
 //    }
 
-    public void logout() throws IOException{
+    public void logout() throws IOException {
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
     public void goToSelectSellerPage() throws IOException {
@@ -171,7 +171,7 @@ public class ProductPage implements Initializable {
 //            showErrorAlert("You have not logged in yet!");
 //            GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
         String userType = DataRequestBuilder.buildUserTypeRequest();
-        if(userType.equals("loginNeeded") || !userType.equals("buyer")){
+        if (userType.equals("loginNeeded") || !userType.equals("buyer")) {
             showErrorAlert("You have not logged in yet!");
             GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
         } else {
@@ -196,10 +196,10 @@ public class ProductPage implements Initializable {
 //                        showErrorAlert(e.getMessage());
 //                    }
                     String response = GeneralRequestBuilder.selectSeller(textField.getText());
-                    if(response.startsWith("success")){
+                    if (response.startsWith("success")) {
                         showInformationAlert(response.split("#")[1]);
                         selectSellerBox.close();
-                    } else if(response.startsWith("error")){
+                    } else if (response.startsWith("error")) {
                         showErrorAlert(response.split("#")[1]);
                     }
                 }
@@ -228,14 +228,13 @@ public class ProductPage implements Initializable {
 //            showErrorAlert("you must login first");
 //        }
         String userType = DataRequestBuilder.buildUserTypeRequest();
-        if(userType.equals("loginNeeded") || !userType.equals("buyer")){
+        if (userType.equals("loginNeeded") || !userType.equals("buyer")) {
             showErrorAlert("you must login first");
-        }
-        else {
+        } else {
             String response = GeneralRequestBuilder.buildRateProductPermissionRequest();
-            if(response.startsWith("you")){
+            if (response.startsWith("you")) {
                 showErrorAlert("you should have bought this product");
-            } else if(response.equals("success")){
+            } else if (response.equals("success")) {
                 Stage stage = new Stage();
                 stage.setTitle("Rate product");
                 TextField textField = new TextField();
@@ -256,9 +255,9 @@ public class ProductPage implements Initializable {
 //                            showErrorAlert(e.getMessage());
 //                        }
                         String response = GeneralRequestBuilder.buildRateProductRequest(textField.getText());
-                        if(response.equals("success")){
+                        if (response.equals("success")) {
                             stage.close();
-                        } else if(response.startsWith("error")){
+                        } else if (response.startsWith("error")) {
                             showErrorAlert(response.split("#")[1]);
                         }
                     }
@@ -286,9 +285,9 @@ public class ProductPage implements Initializable {
     public void compareProduct() {
         String id = productIdToBeCompared.getText();
         String response = GeneralRequestBuilder.buildCompareProductRequest(id);
-        if(response.startsWith("success")){
+        if (response.startsWith("success")) {
             showInformationAlert(response.split("#")[1]);
-        } else if(response.startsWith("error")){
+        } else if (response.startsWith("error")) {
             showErrorAlert(response.split("#")[1]);
         }
 //        try {

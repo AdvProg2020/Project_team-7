@@ -1,11 +1,7 @@
 package Main.client.requestBuilder;
 
-//import Main.client.ClientMainFORMANAGERTEST;
-
 import Main.client.ClientMain;
 import Main.client.graphicView.GraphicMain;
-import Main.server.ServerMain;
-import Main.server.model.Category;
 
 import java.util.ArrayList;
 
@@ -69,19 +65,19 @@ public class ManagerRequestBuilder {
     }
 
     public static String buildinitializeManageCategoriesRequest() {
-        return ClientMain.client.sendRequest(GraphicMain.token+"#initializeManageCategories");
+        return ClientMain.client.sendRequest(GraphicMain.token + "#initializeManageCategories");
     }
 
     public static String buildShowCategoryInformationRequest(String categoryName) {
-        return ClientMain.client.sendRequest(GraphicMain.token+"#showCategoryInformation#"+categoryName);
+        return ClientMain.client.sendRequest(GraphicMain.token + "#showCategoryInformation#" + categoryName);
     }
 
     public static String buildRemoveCategoryWithNameRequest(String categoryName) {
-        return ClientMain.client.sendRequest(GraphicMain.token+"#removeCategoryWithName#"+categoryName);
+        return ClientMain.client.sendRequest(GraphicMain.token + "#removeCategoryWithName#" + categoryName);
     }
 
     public static String buildEditCategoryRequest(String categoryName, String newContent, String editOption) {
-        return ClientMain.client.sendRequest(GraphicMain.token+"#editCategory#"+categoryName+"#"+newContent+"#"+editOption);
+        return ClientMain.client.sendRequest(GraphicMain.token + "#editCategory#" + categoryName + "#" + newContent + "#" + editOption);
     }
 
     public static String buildCreateCategoryRequest(String name, ArrayList<String> specials, String path) {
@@ -90,28 +86,28 @@ public class ManagerRequestBuilder {
             specialsString = specialsString.concat(special);
             specialsString = specialsString.concat("&");
         }
-        specialsString = specialsString.substring(0,specialsString.length()-1);
-        return ClientMain.client.sendRequest(GraphicMain.token+"#createCategory#"+name+"#"+specialsString+"#"+path);
+        specialsString = specialsString.substring(0, specialsString.length() - 1);
+        return ClientMain.client.sendRequest(GraphicMain.token + "#createCategory#" + name + "#" + specialsString + "#" + path);
     }
 
     public static String buildInitializeManageDiscountsRequest() {
-        return ClientMain.client.sendRequest(GraphicMain.token+"#initializeManageDiscounts");
+        return ClientMain.client.sendRequest(GraphicMain.token + "#initializeManageDiscounts");
     }
 
     public static String buildViewDiscountAsManager(String code) {
-        return ClientMain.client.sendRequest(GraphicMain.token+"#viewDiscountAsManager#"+code);
+        return ClientMain.client.sendRequest(GraphicMain.token + "#viewDiscountAsManager#" + code);
     }
 
     public static String buildRemoveDiscountCodeRequest(String code) {
-        return ClientMain.client.sendRequest(GraphicMain.token+"#removeDiscountCode#"+code);
+        return ClientMain.client.sendRequest(GraphicMain.token + "#removeDiscountCode#" + code);
     }
 
     public static String buildGetDiscountDataRequest(String code) {
-        return ClientMain.client.sendRequest(GraphicMain.token+"#getDiscountData#"+code);
+        return ClientMain.client.sendRequest(GraphicMain.token + "#getDiscountData#" + code);
     }
 
     public static String buildEditDiscountRequest(String code, String newContent, String editOption) {
-        return ClientMain.client.sendRequest(GraphicMain.token+"#editDiscount#"+code+"#"+newContent+"#"+editOption);
+        return ClientMain.client.sendRequest(GraphicMain.token + "#editDiscount#" + code + "#" + newContent + "#" + editOption);
     }
 
     public static String buildCreateDiscountRequest(ArrayList<String> buyersList, ArrayList<String> discountInfo) {
@@ -120,13 +116,13 @@ public class ManagerRequestBuilder {
             buyers = buyers.concat(s);
             buyers = buyers.concat("&");
         }
-        buyers = buyers.substring(0,buyers.length()-1);
+        buyers = buyers.substring(0, buyers.length() - 1);
         String info = "";
         for (String s : discountInfo) {
             info = info.concat(s);
             info = info.concat("&");
         }
-        info = info.substring(0,info.length()-1);
-        return ClientMain.client.sendRequest(GraphicMain.token+"#createDiscount#"+buyers+"#"+info);
+        info = info.substring(0, info.length() - 1);
+        return ClientMain.client.sendRequest(GraphicMain.token + "#createDiscount#" + buyers + "#" + info);
     }
 }

@@ -15,11 +15,12 @@ public class HelpCenterController {
         //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.back();
     }
+
     public void logout() throws IOException {
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 }

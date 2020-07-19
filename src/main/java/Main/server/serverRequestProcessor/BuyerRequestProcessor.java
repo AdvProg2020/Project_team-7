@@ -1,18 +1,13 @@
 package Main.server.serverRequestProcessor;
 
-import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.server.ServerMain;
 import Main.server.controller.BuyerController;
 import Main.server.model.Auction;
 import Main.server.model.Product;
 import Main.server.model.accounts.BuyerAccount;
-import Main.server.model.accounts.ManagerAccount;
-import Main.server.model.accounts.SellerAccount;
 import Main.server.model.discountAndOffTypeService.DiscountCode;
 import Main.server.model.logs.BuyLog;
-import Main.server.model.requests.Request;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ButtonType;
 
 import java.util.ArrayList;
 
@@ -138,7 +133,7 @@ public class BuyerRequestProcessor {
 
     public static String initializeCartAndPriceRequestProcessor(String[] splitRequest) {
         BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser());
-        BuyerController.setBuyerController();
+        BuyerController.setBuyerController(buyerAccount);
         return Double.toString(buyerAccount.getCart().getCartTotalPriceConsideringOffs());
     }
 
@@ -165,5 +160,33 @@ public class BuyerRequestProcessor {
             System.out.println(e.getMessage());
             return e.getMessage();
         }
+    }
+
+    public static String setReceiverInformationRequestProcessor(String[] splitRequest) {
+        BuyerController.setBuyerController(((BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser()));
+        ServerMain.buyerController.setReceiverInformation(splitRequest[2]);
+        return "set receiver information successfully";
+    }
+
+    public static String setPurchaseDiscountRequestProcessor(String[] splitRequest) {
+        BuyerController.setBuyerController(((BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser()));
+        try {
+            ServerMain.buyerController.setPurchaseDiscountCode(splitRequest[2]);
+            return "set code successfully";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    public static String showPurchaseInfoRequestProcessor(String[] splitRequest) {
+        BuyerController.setBuyerController(((BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser()));
+        return ServerMain.buyerController.showPurchaseInfo();
+    }
+
+    public static String finalizePaymentRequestProcessor(String[] splitRequest) {
+        BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser());
+        BuyerController.setBuyerController(buyerAccount);
+        return ServerMain.buyerController.finalizePurchaseAndPay(buyerAccount);
     }
 }

@@ -134,7 +134,7 @@ public class OffPage implements Initializable {
     public ArrayList<String> getAllSellers() {
         ArrayList<String> allUniqueSellers = new ArrayList<>();
         for (SellerAccount seller : allSellers) {
-            if(!allUniqueSellers.contains(seller.getUserName())){
+            if (!allUniqueSellers.contains(seller.getUserName())) {
                 allUniqueSellers.add(seller.getUserName());
             }
         }
@@ -220,7 +220,7 @@ public class OffPage implements Initializable {
         String response = GeneralRequestBuilder.buildLogoutRequest();
         if (response.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
-        }else {
+        } else {
             GraphicMain.token = "0000";
             //goBack();
             GraphicMain.graphicMain.back();

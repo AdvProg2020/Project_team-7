@@ -24,16 +24,16 @@ public class SalesHistoryPage implements Initializable {
     @FXML
     private Label logDetails;
 
-    public ArrayList<Label> getLabels(){
+    public ArrayList<Label> getLabels() {
         ArrayList<Label> idList = new ArrayList<>();
-        for(int i=0;i<10;i++){
-            Label label =(Label) logIdBox.getChildren().get(i);
+        for (int i = 0; i < 10; i++) {
+            Label label = (Label) logIdBox.getChildren().get(i);
             idList.add(label);
         }
         return idList;
     }
 
-    public void goBack(){
+    public void goBack() {
         GraphicMain.graphicMain.back();
     }
 
@@ -42,7 +42,7 @@ public class SalesHistoryPage implements Initializable {
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
 
@@ -53,11 +53,11 @@ public class SalesHistoryPage implements Initializable {
 
     public void FillLogVBox() {
         String response = SellerRequestBuilder.getSellLogList();
-        if(response.equals("empty")){
+        if (response.equals("empty")) {
             getLabels().get(0).setText("no sales yet!");
-        } else{
+        } else {
             String[] list = response.split("#");
-            for(int i=0; i<list.length; i++){
+            for (int i = 0; i < list.length; i++) {
                 getLabels().get(i).setText(list[i]);
             }
         }
@@ -70,7 +70,7 @@ public class SalesHistoryPage implements Initializable {
 //        }
     }
 
-    public void showLogDetails(MouseEvent mouseEvent){
+    public void showLogDetails(MouseEvent mouseEvent) {
         Label logLabel = (Label) mouseEvent.getSource();
         String id = logLabel.getText();
         logDetails.setText(SellerRequestBuilder.getLogDetails(id));

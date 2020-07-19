@@ -76,6 +76,6 @@ public class ManagerPanelController {
     }
 
     public void goToManageBuyLogs(ActionEvent actionEvent) throws IOException {
-        GraphicMain.graphicMain.goToPage(ManageOrdersController.FXML_PATH,ManageOrdersController.TITLE);
+        GraphicMain.graphicMain.goToPage(ManageOrdersController.FXML_PATH, ManageOrdersController.TITLE);
     }
 }

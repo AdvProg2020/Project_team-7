@@ -28,16 +28,16 @@ public class SellerOffsPage implements Initializable {
     @FXML
     private ListView list;
 
-    public void goBack(){
+    public void goBack() {
         GraphicMain.graphicMain.back();
     }
 
-    public void logout() throws IOException{
+    public void logout() throws IOException {
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class SellerOffsPage implements Initializable {
 //        SellerAccount sellerAccount = (SellerAccount)GeneralController.currentUser;
 //        list.getItems().addAll(sellerAccount.getOffIds());
         String[] response = SellerRequestBuilder.getSellerOffList().split("#");
-        for(int i=1; i<response.length; i++){
+        for (int i = 1; i < response.length; i++) {
             list.getItems().add(response[i]);
         }
         list.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -64,7 +64,7 @@ public class SellerOffsPage implements Initializable {
                 ButtonType edit = new ButtonType("edit");
                 alert.getButtonTypes().addAll(cancel, edit);
                 Optional<ButtonType> option = alert.showAndWait();
-                if(option.get().equals(edit)){
+                if (option.get().equals(edit)) {
                     try {
                         GraphicMain.graphicMain.goToPage(OffEditPage.FXML_PATH, OffEditPage.TITLE);
                     } catch (IOException e) {

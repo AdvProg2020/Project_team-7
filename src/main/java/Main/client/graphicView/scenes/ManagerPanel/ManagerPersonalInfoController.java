@@ -1,11 +1,9 @@
 package Main.client.graphicView.scenes.ManagerPanel;
 
-import Main.client.requestBuilder.BuyerRequestBuilder;
-import Main.client.requestBuilder.GeneralRequestBuilder;
-import Main.client.requestBuilder.ManagerRequestBuilder;
-import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
+import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.ManagerRequestBuilder;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -70,12 +68,12 @@ public class ManagerPersonalInfoController {
         }
     }
 
-    public void logout() throws IOException{
+    public void logout() throws IOException {
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
     public void saveChanges() {
@@ -114,7 +112,7 @@ public class ManagerPersonalInfoController {
 //                    GeneralController.currentUser.setLastName(lastName.getText());
 //                    GeneralController.currentUser.setPhoneNumber(phoneNumber.getText());
 //                    GeneralController.currentUser.setPassWord(password.getText());
-                    ManagerRequestBuilder.buildEditManagerPersonalInformationRequest(firstName.getText(),lastName.getText(),email.getText(),phoneNumber.getText(),password.getText());
+                    ManagerRequestBuilder.buildEditManagerPersonalInformationRequest(firstName.getText(), lastName.getText(), email.getText(), phoneNumber.getText(), password.getText());
                 } catch (Exception e) {
                     ManagerPanelController.alertError(e.getMessage());
                 }

@@ -1,12 +1,10 @@
 package Main.server.serverRequestProcessor;
 
 import Main.server.ServerMain;
-import Main.server.controller.GeneralController;
 import Main.server.model.Category;
 import Main.server.model.Product;
 import Main.server.model.accounts.Account;
 import Main.server.model.accounts.ManagerAccount;
-import Main.server.model.accounts.SellerAccount;
 import Main.server.model.discountAndOffTypeService.DiscountCode;
 import Main.server.model.logs.BuyLog;
 import Main.server.model.logs.Log;
@@ -148,9 +146,9 @@ public class ManagerRequestProcessor {
 
     private static void concatOnlineStatus(String response, String user) {
         String userName = user.substring(user.indexOf("@") + 1, user.indexOf("\n"));
-        HashMap<String,TokenInfo> tokens = ServerMain.server.getTokens();
+        HashMap<String, TokenInfo> tokens = ServerMain.server.getTokens();
         for (TokenInfo value : tokens.values()) {
-            if(value.getUser().getUserName().equals(userName)){
+            if (value.getUser().getUserName().equals(userName)) {
                 response = response.concat(" <<online>>");
                 return;
             }

@@ -18,11 +18,11 @@ public class AddCommentPage {
     @FXML
     private TextField content;
 
-    public void goBack(){
+    public void goBack() {
         GraphicMain.graphicMain.back();
     }
 
-    public void submitComment(){
+    public void submitComment() {
         String commentTitle = title.getText();
         String commentContent = content.getText();
 //        try {
@@ -32,15 +32,15 @@ public class AddCommentPage {
 //            showErrorAlert(e.getMessage());
 //        }
         String response = SellerRequestBuilder.buildCommentRequest(commentTitle, commentContent);
-        if(response.equals("success")){
+        if (response.equals("success")) {
             showInformationAlert("comment added successfully");
-        }else{
+        } else {
             String[] splitResponse = response.split("#");
             showErrorAlert(splitResponse[1]);
         }
     }
 
-    public void showErrorAlert(String message){
+    public void showErrorAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(null);
         alert.setContentText(message);
@@ -48,7 +48,7 @@ public class AddCommentPage {
         alert.show();
     }
 
-    public void showInformationAlert(String message){
+    public void showInformationAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setContentText(message);
@@ -61,6 +61,6 @@ public class AddCommentPage {
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 }

@@ -44,7 +44,7 @@ public class EditProductPage implements Initializable {
         availability.setPromptText(Integer.toString(product.getAvailability()));
         description.setPromptText(product.getDescription());
         price.setPromptText(Double.toString(product.getPrice()));
-        if(product.getOff() !=null)
+        if (product.getOff() != null)
             offId.setPromptText(product.getOff().getOffId());
         else
             offId.setPromptText("-");
@@ -59,37 +59,37 @@ public class EditProductPage implements Initializable {
 //        }
 //    }
 
-    public void submitEdits(){
+    public void submitEdits() {
         ArrayList<String> listOfTitles = new ArrayList<>();
         ArrayList<String> listOfContents = new ArrayList<>();
-        if(!name.getText().isEmpty()){
+        if (!name.getText().isEmpty()) {
             listOfTitles.add("name");
             listOfContents.add(name.getText());
         }
-        if(!brand.getText().isEmpty()){
+        if (!brand.getText().isEmpty()) {
             listOfTitles.add("brand");
             listOfContents.add(brand.getText());
         }
-        if(!availability.getText().isEmpty()){
+        if (!availability.getText().isEmpty()) {
             listOfTitles.add("availability");
             listOfContents.add(availability.getText());
         }
-        if(!description.getText().isEmpty()){
+        if (!description.getText().isEmpty()) {
             listOfTitles.add("description");
             listOfContents.add(description.getText());
         }
-        if(!price.getText().isEmpty()){
+        if (!price.getText().isEmpty()) {
             listOfTitles.add("price");
             listOfContents.add(price.getText());
         }
-        if(!offId.getText().isEmpty()){
+        if (!offId.getText().isEmpty()) {
             listOfTitles.add("off");
             listOfContents.add(offId.getText());
         }
-        String response = SellerRequestBuilder.buildEditProductRequest(product.getProductId(), listOfTitles,listOfContents);
-        if(response.equals("success")){
+        String response = SellerRequestBuilder.buildEditProductRequest(product.getProductId(), listOfTitles, listOfContents);
+        if (response.equals("success")) {
             showInformationAlert("product edited successfully");
-        }else{
+        } else {
             String[] splitResponse = response.split("#");
             showErrorAlert(splitResponse[1]);
         }
@@ -127,7 +127,7 @@ public class EditProductPage implements Initializable {
 
     }
 
-    public void goBack(){
+    public void goBack() {
         GraphicMain.graphicMain.back();
     }
 
@@ -136,17 +136,18 @@ public class EditProductPage implements Initializable {
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
-    public void showErrorAlert(String message){
+    public void showErrorAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(null);
         alert.setContentText(message);
         alert.setHeaderText(null);
         alert.show();
     }
-    public void showInformationAlert(String message){
+
+    public void showInformationAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setContentText(message);

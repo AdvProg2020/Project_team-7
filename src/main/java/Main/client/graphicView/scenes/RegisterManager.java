@@ -166,7 +166,7 @@ public class RegisterManager implements Initializable {
         } else if (response.equals("tooManyRequests")) {
             username.setText("too many requests sent to server, slow down !!");
             username.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
-        }else {
+        } else {
             username.setText("unknown problem connecting the server ! please try again a few moments later !");
             username.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
         }

@@ -21,7 +21,7 @@ public class ManagerController {
         return ManagerAccount.showManagersList() + SellerAccount.showSellersList() + BuyerAccount.showBuyersList();
     }
 
-    public ArrayList<String> usersListForGraphic(){
+    public ArrayList<String> usersListForGraphic() {
         ArrayList<String> users = new ArrayList<>();
         users.addAll(ManagerAccount.allManagersForGraphic());
         users.addAll(SellerAccount.allSellersForGraphic());
@@ -67,7 +67,7 @@ public class ManagerController {
     public void createManagerProfile(ArrayList<String> managerInfo, String userName) throws Exception {
         GeneralController.validateInputAccountInfo(managerInfo, userName);
         ManagerAccount managerAccount = new ManagerAccount(userName, managerInfo.get(1), managerInfo.get(2),
-                managerInfo.get(3), managerInfo.get(4), managerInfo.get(0),null);
+                managerInfo.get(3), managerInfo.get(4), managerInfo.get(0), null);
         ManagerAccount.addManager(managerAccount);
     }
 
@@ -209,9 +209,9 @@ public class ManagerController {
         request.decline();
     }
 
-    public String createCategory(String name, ArrayList<String> specialFeatures,String imagePath) throws Exception {
+    public String createCategory(String name, ArrayList<String> specialFeatures, String imagePath) throws Exception {
         validateInputCategoryInfo(name);
-        Category category = new Category(name, specialFeatures,imagePath);
+        Category category = new Category(name, specialFeatures, imagePath);
         Category.addCategory(category);
         return "Created category successfully!";
     }

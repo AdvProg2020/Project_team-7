@@ -36,7 +36,7 @@ public class SellerProductPage implements Initializable {
     private Label buyersList;
 
 
-    public void goBack(){
+    public void goBack() {
         GraphicMain.graphicMain.back();
     }
 
@@ -62,12 +62,12 @@ public class SellerProductPage implements Initializable {
         buyersList.setText(response[3]);
     }
 
-    public void logout() throws IOException{
+    public void logout() throws IOException {
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
 //    public String makeDigestLabel(Product product){
@@ -79,37 +79,37 @@ public class SellerProductPage implements Initializable {
 //                "\n\tcategory: " + product.getCategory().getName();
 //    }
 
-    public void setScoreImage(double score){
-        if(score==0)
+    public void setScoreImage(double score) {
+        if (score == 0)
             averageScoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score0.png").toURI().toString()));
-        else if(score>0 && score<=1)
+        else if (score > 0 && score <= 1)
             averageScoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score1.png").toURI().toString()));
-        else if(score>1 && score<=2)
+        else if (score > 1 && score <= 2)
             averageScoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score2.png").toURI().toString()));
-        else if(score>2 && score<=3)
+        else if (score > 2 && score <= 3)
             averageScoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score3.png").toURI().toString()));
-        else if(score>3 && score<=4)
+        else if (score > 3 && score <= 4)
             averageScoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score4.png").toURI().toString()));
-        else if(score>4 && score<=5)
+        else if (score > 4 && score <= 5)
             averageScoreImage.setImage(new Image(new File("src/main/java/Main/client/graphicView/resources/images/score5.png").toURI().toString()));
 
     }
 
     public void goToEditProductPage() throws IOException {
-        GraphicMain.graphicMain.goToPage(EditProductPage.FXML_PATH,EditProductPage.TITLE);
+        GraphicMain.graphicMain.goToPage(EditProductPage.FXML_PATH, EditProductPage.TITLE);
     }
 
-    public void removeProduct(){
+    public void removeProduct() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(null);
         alert.setTitle(null);
         alert.setContentText("Are you sure you want to remove this product?");
         Optional<ButtonType> selectedButton = alert.showAndWait();
-        if(ButtonType.OK.equals(selectedButton.get())){
+        if (ButtonType.OK.equals(selectedButton.get())) {
             String response = SellerRequestBuilder.buildRemoveProductRequest(productId);
-            if(response.equals("success")){
+            if (response.equals("success")) {
                 goBack();
-            } else if(response.startsWith("error")){
+            } else if (response.startsWith("error")) {
                 showErrorAlert(response.split("#")[1]);
             }
 //            try {
@@ -121,7 +121,7 @@ public class SellerProductPage implements Initializable {
         }
     }
 
-    public void showErrorAlert(String message){
+    public void showErrorAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(null);
         alert.setContentText(message);

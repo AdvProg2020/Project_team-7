@@ -1,14 +1,9 @@
 package Main.client.graphicView.scenes.BuyerPanel;
 
-import Main.client.requestBuilder.BuyerRequestBuilder;
-import Main.client.requestBuilder.GeneralRequestBuilder;
-import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
-import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
-import Main.server.model.accounts.BuyerAccount;
-import Main.server.model.logs.BuyLog;
-import Main.server.model.logs.Log;
+import Main.client.requestBuilder.BuyerRequestBuilder;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -56,12 +51,12 @@ public class MyOrdersController {
         alert.showAndWait();
     }
 
-    public void logout() throws IOException{
+    public void logout() throws IOException {
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
     public void goBack() {

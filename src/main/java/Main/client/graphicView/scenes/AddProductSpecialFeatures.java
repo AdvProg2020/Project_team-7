@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class AddProductSpecialFeatures  implements Initializable {
+public class AddProductSpecialFeatures implements Initializable {
 
     public static final String FXML_PATH = "src/main/sceneResources/SellerPanel/addProductSpecialFeatures.fxml";
     public static final String TITLE = "special features";
@@ -29,7 +29,7 @@ public class AddProductSpecialFeatures  implements Initializable {
         addSpecialFeatures(AddProductPage.exception.getCategory());
     }
 
-    public void addSpecialFeatures(Category category){
+    public void addSpecialFeatures(Category category) {
         for (String feature : category.getSpecialFeatures()) {
             TextField textField = new TextField();
             textField.setPromptText(feature);
@@ -38,26 +38,26 @@ public class AddProductSpecialFeatures  implements Initializable {
         }
     }
 
-    public void submitFeatures(){
+    public void submitFeatures() {
         ArrayList<String> specialFeatures = new ArrayList<>();
         for (TextField textField : specialFeaturesTextFields) {
             specialFeatures.add(textField.getText());
         }
         String response = SellerRequestBuilder.buildAddSpecialFeaturesRequest(specialFeatures, AddProductPage.exception.getProduct().getProductId());
-        if(response.equals("success")){
+        if (response.equals("success")) {
             showInformationAlert("product created successfully");
-        }else{
+        } else {
             showErrorAlert("failure");
         }
 //        GraphicMain.sellerController.setSpecialFeatures(AddProductPage.exception.getProduct(),specialFeatures);
 //        showInformationAlert("product created successfully");
     }
 
-    public void goBack(){
+    public void goBack() {
         GraphicMain.graphicMain.back();
     }
 
-    public void showInformationAlert(String message){
+    public void showInformationAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setContentText(message);
@@ -65,7 +65,7 @@ public class AddProductSpecialFeatures  implements Initializable {
         alert.showAndWait();
     }
 
-    public void showErrorAlert(String message){
+    public void showErrorAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(null);
         alert.setContentText(message);
@@ -78,7 +78,7 @@ public class AddProductSpecialFeatures  implements Initializable {
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
 }

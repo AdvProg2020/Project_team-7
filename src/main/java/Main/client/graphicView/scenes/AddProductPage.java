@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AddProductPage{
+public class AddProductPage {
 
     public static final String FXML_PATH = "src/main/sceneResources/SellerPanel/addProductPage.fxml";
     public static final String TITLE = "Add Product";
@@ -36,7 +36,7 @@ public class AddProductPage{
     public static CreateProductException.GetCategoryFromUser exception;
 
 
-    public void goBack(){
+    public void goBack() {
         GraphicMain.graphicMain.back();
     }
 
@@ -47,20 +47,20 @@ public class AddProductPage{
         productInfo.add(availability.getText());
         productInfo.add(description.getText());
         productInfo.add(price.getText());
-        if(hasCategory.isSelected()){
+        if (hasCategory.isSelected()) {
             productInfo.add("yes");
             productInfo.add(categoryName.getText());
-        } else{
+        } else {
             productInfo.add("no");
             productInfo.add("-");
         }
         String response = SellerRequestBuilder.buildAddProductRequest(productInfo);
-        if(response.equals("success")){
+        if (response.equals("success")) {
             showInformationAlert("product created successfully");
-        }else if(response.startsWith("error")){
+        } else if (response.startsWith("error")) {
             String[] splitResponse = response.split("#");
             showErrorAlert(splitResponse[1]);
-        }else{
+        } else {
             exception = GeneralController.yagsonMapper.fromJson(response, CreateProductException.GetCategoryFromUser.class);
             GraphicMain.graphicMain.goToPage(AddProductSpecialFeatures.FXML_PATH, AddProductSpecialFeatures.TITLE);
         }
@@ -75,7 +75,7 @@ public class AddProductPage{
 //        }
     }
 
-    public void showErrorAlert(String message){
+    public void showErrorAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(null);
         alert.setContentText(message);
@@ -83,7 +83,7 @@ public class AddProductPage{
         alert.show();
     }
 
-    public void showInformationAlert(String message){
+    public void showInformationAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setContentText(message);
@@ -91,11 +91,11 @@ public class AddProductPage{
         alert.showAndWait();
     }
 
-    public void logout() throws IOException{
+    public void logout() throws IOException {
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 }

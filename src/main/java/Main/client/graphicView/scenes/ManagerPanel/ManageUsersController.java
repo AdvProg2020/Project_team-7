@@ -1,12 +1,10 @@
 package Main.client.graphicView.scenes.ManagerPanel;
 
-import Main.client.requestBuilder.GeneralRequestBuilder;
-import Main.client.requestBuilder.ManagerRequestBuilder;
-import Main.server.controller.GeneralController;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.graphicView.scenes.RegisterManager;
-import Main.server.model.accounts.Account;
+import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.ManagerRequestBuilder;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -15,7 +13,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Optional;
 
 public class ManageUsersController {
@@ -62,12 +59,12 @@ public class ManageUsersController {
         }
     }
 
-    public void logout() throws IOException{
+    public void logout() throws IOException {
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
     private void cannotDelete() {

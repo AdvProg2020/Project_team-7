@@ -4,8 +4,6 @@ import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
-import Main.server.model.Category;
-import Main.server.model.requests.EditCategory;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -74,12 +72,12 @@ public class EditCategoryController {
         });
     }
 
-    public void logout() throws IOException{
+    public void logout() throws IOException {
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
     public void goBack() {
@@ -113,7 +111,7 @@ public class EditCategoryController {
 //        }
         try {
             //GraphicMain.managerController.submitCategoryEdits(editCategory);
-            String editResult = ManagerRequestBuilder.buildEditCategoryRequest(categoryName,newContent,editOption.getValue().toString());
+            String editResult = ManagerRequestBuilder.buildEditCategoryRequest(categoryName, newContent, editOption.getValue().toString());
             ManagerPanelController.alertInfo(editResult);
         } catch (Exception e) {
             ManagerPanelController.alertError(e.getMessage());

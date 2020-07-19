@@ -6,11 +6,9 @@ import Main.client.requestBuilder.DataRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
 import Main.server.controller.GeneralController;
-import Main.server.model.Product;
 import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.logs.BuyLog;
 import Main.server.model.logs.DeliveryStatus;
-import Main.server.model.logs.Log;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,7 +17,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Optional;
 

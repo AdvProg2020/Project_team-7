@@ -20,7 +20,7 @@ public class MainMenuController {
     public static final String FXML_PATH = "src/main/sceneResources/mainMenu.fxml";
     public static final String TITLE = "Main Menu";
 
-    public void logout() throws IOException{
+    public void logout() throws IOException {
         //GraphicMain.generalController.logout();
         String response = GeneralRequestBuilder.buildLogoutRequest();
         if (response.equals("tooManyRequests")) {
@@ -70,7 +70,7 @@ public class MainMenuController {
     }
 
     public void goToAuctions(MouseEvent mouseEvent) throws IOException {
-        GraphicMain.graphicMain.goToPage(AuctionsPage.FXML_PATH,AuctionsPage.TITLE);
+        GraphicMain.graphicMain.goToPage(AuctionsPage.FXML_PATH, AuctionsPage.TITLE);
     }
 
     public void back(MouseEvent mouseEvent) {

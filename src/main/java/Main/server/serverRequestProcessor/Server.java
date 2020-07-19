@@ -247,16 +247,26 @@ public class Server {
                 response = GeneralRequestProcessor.buildRateProductPermissionResponse(splitRequest);
             } else if (splitRequest[1].equals("rateProduct")) {
                 response = GeneralRequestProcessor.buildRateProductResponse(splitRequest);
+            } else if (splitRequest[1].equals("initializeCartAndPrice")) {
+                response = BuyerRequestProcessor.initializeCartAndPriceRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("compareProduct")) {
                 response = GeneralRequestProcessor.buildCompareProductResponse(splitRequest);
             } else if (splitRequest[1].equals("getCartProducts")) {
                 response = "do not write UTF";
                 ObjectOutputStream oos = new ObjectOutputStream(dataOutputStream);
                 oos.writeObject(new ArrayList<>(BuyerRequestProcessor.getCartProductsRequestProcessor(splitRequest)));
-            }else if (splitRequest[1].equals("increaseCartProduct")) {
+            } else if (splitRequest[1].equals("increaseCartProduct")) {
                 response = BuyerRequestProcessor.buildIncreaseCartProductResponse(splitRequest);
-            }else if (splitRequest[1].equals("decreaseCartProduct")) {
+            } else if (splitRequest[1].equals("decreaseCartProduct")) {
                 response = BuyerRequestProcessor.buildDecreaseCartProductResponse(splitRequest);
+            } else if (splitRequest[1].equals("setReceiverInformation")) {
+                response = BuyerRequestProcessor.setReceiverInformationRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("setPurchaseDiscount")) {
+                response = BuyerRequestProcessor.setPurchaseDiscountRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("showPurchaseInfo")) {
+                response = BuyerRequestProcessor.showPurchaseInfoRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("finalizePayment")) {
+                response = BuyerRequestProcessor.finalizePaymentRequestProcessor(splitRequest);
             }
 
             if (!response.equals("do not write UTF"))

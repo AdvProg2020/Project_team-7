@@ -355,7 +355,7 @@ public class GeneralController {
         else {
             currentUser = Account.getUserWithUserName(userName);
             if (currentUser instanceof BuyerAccount) {
-                BuyerController.setBuyerController();
+                BuyerController.setBuyerController(((BuyerAccount) currentUser));
             }
             return "Logged in successfully.";
         }

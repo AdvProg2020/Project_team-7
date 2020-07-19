@@ -4,8 +4,6 @@ import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
-import Main.server.model.discountAndOffTypeService.DiscountCode;
-import Main.server.model.requests.EditDiscountCode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -128,7 +126,7 @@ public class EditDiscountController {
 //        }
         try {
             //GraphicMain.managerController.submitDiscountCodeEdits(editDiscountCode);
-            ManagerPanelController.alertInfo(ManagerRequestBuilder.buildEditDiscountRequest(code,newContent,editOption.getValue().toString()));
+            ManagerPanelController.alertInfo(ManagerRequestBuilder.buildEditDiscountRequest(code, newContent, editOption.getValue().toString()));
             goBack();
         } catch (Exception e) {
             ManagerPanelController.alertError(e.getMessage());

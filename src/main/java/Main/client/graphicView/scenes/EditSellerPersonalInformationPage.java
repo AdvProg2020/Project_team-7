@@ -33,7 +33,7 @@ public class EditSellerPersonalInformationPage implements Initializable {
                 "\ncompany name\ncompany extra information");
     }
 
-    public void goBack(){
+    public void goBack() {
         GraphicMain.graphicMain.back();
     }
 
@@ -42,17 +42,17 @@ public class EditSellerPersonalInformationPage implements Initializable {
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
-    public void editPersonalInfo(){
+    public void editPersonalInfo() {
         String response = SellerRequestBuilder.buildEditPersonalInformationRequest(fieldToEdit.getText(), newContent.getText());
         showInformationAlert(response);
 //        String message = GraphicMain.generalController.editPersonalInfo(fieldToEdit.getText(),newContent.getText());
 //        showInformationAlert(message);
     }
 
-    public void showInformationAlert(String message){
+    public void showInformationAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setContentText(message);

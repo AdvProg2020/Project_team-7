@@ -107,23 +107,23 @@ public class GeneralRequestBuilder {
         return ClientMain.client.sendRequest(signUpRequest);
     }
 
-    public static String getAllDataForProductPage(){
+    public static String getAllDataForProductPage() {
         return ClientMain.client.sendRequest(GraphicMain.token + "#getAllDataForProductPage#" + GraphicMain.currentProductId);
     }
 
-    public static String selectSeller(String username){
+    public static String selectSeller(String username) {
         return ClientMain.client.sendRequest(GraphicMain.token + "#selectSeller#" + username + "#" + GraphicMain.currentProductId);
     }
 
-    public static String buildRateProductPermissionRequest(){
+    public static String buildRateProductPermissionRequest() {
         return ClientMain.client.sendRequest(GraphicMain.token + "#rateProductPermission#" + GraphicMain.currentProductId);
     }
 
-    public static String buildRateProductRequest(String score){
+    public static String buildRateProductRequest(String score) {
         return ClientMain.client.sendRequest(GraphicMain.token + "#rateProduct#" + GraphicMain.currentProductId + "#" + score);
     }
 
-    public static String buildCompareProductRequest(String id){
+    public static String buildCompareProductRequest(String id) {
         return ClientMain.client.sendRequest(GraphicMain.token + "#compareProduct#" + GraphicMain.currentProductId + "#" + id);
     }
 }

@@ -4,8 +4,6 @@ import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
-import Main.server.ServerMain;
-import Main.server.model.Category;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -65,7 +63,7 @@ public class ManageCategoriesController {
     private void showCategoryOptions(String categoryName) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         //alert.setHeaderText(category.getName() + "\n" + category.showSpecialFeatures());
-        alert.setHeaderText(categoryName+"\n"+ManagerRequestBuilder.buildShowCategoryInformationRequest(categoryName));
+        alert.setHeaderText(categoryName + "\n" + ManagerRequestBuilder.buildShowCategoryInformationRequest(categoryName));
         alert.setTitle("Category Menu");
         alert.setContentText("what do you want to do with this category?");
         alert.getButtonTypes().clear();
@@ -81,12 +79,12 @@ public class ManageCategoriesController {
         }
     }
 
-    public void logout() throws IOException{
+    public void logout() throws IOException {
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
     private void removeTheCategory(String categoryName) {
@@ -134,7 +132,7 @@ public class ManageCategoriesController {
         } else {
             try {
                 //ManagerPanelController.alertInfo(GraphicMain.managerController.createCategory(name, specials, path));
-                ManagerPanelController.alertInfo(ManagerRequestBuilder.buildCreateCategoryRequest(name,specials,path));
+                ManagerPanelController.alertInfo(ManagerRequestBuilder.buildCreateCategoryRequest(name, specials, path));
                 initialize();
             } catch (Exception e) {
                 ManagerPanelController.alertError(e.getMessage());

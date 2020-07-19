@@ -29,9 +29,9 @@ public class SellerController {
     public ArrayList<String> getSellLogIds(String token) {
         ArrayList<String> arrayList = new ArrayList<>();
         ArrayList<SellLog> sellHistory = ((SellerAccount) Server.getServer().getTokenInfo(token).getUser()).getSellHistory();
-        if(sellHistory.isEmpty()){
+        if (sellHistory.isEmpty()) {
             return null;
-        }else{
+        } else {
             for (SellLog sellLog : sellHistory) {
                 arrayList.add(sellLog.getLogId());
             }
@@ -47,12 +47,12 @@ public class SellerController {
         }
     }
 
-    public ArrayList<String> getSellerOffIds(String token){
+    public ArrayList<String> getSellerOffIds(String token) {
         SellerAccount sellerAccount = (SellerAccount) Server.getServer().getTokenInfo(token).getUser();
         return sellerAccount.getOffIds();
     }
 
-    public String getOffDetails(String token, String offId){
+    public String getOffDetails(String token, String offId) {
         SellerAccount sellerAccount = (SellerAccount) Server.getServer().getTokenInfo(token).getUser();
         return sellerAccount.getOffWithId(offId).viewMe();
     }
@@ -67,7 +67,7 @@ public class SellerController {
 
     public EditProductRequest getProductToEdit(String productID, String token) throws Exception {
         Product product = Product.getProductWithId(productID);
-        validateProductEditPermission(product,token);
+        validateProductEditPermission(product, token);
         return new EditProductRequest(product);
     }
 
@@ -79,7 +79,7 @@ public class SellerController {
     }
 
     public void submitProductEdits(EditProductRequest editProductRequest, String token) throws Exception {
-        validateInputEditEditProductInfo(editProductRequest,token);
+        validateInputEditEditProductInfo(editProductRequest, token);
         editProductRequest.getProduct().setProductStatus(ProductStatus.PENDING_EDIT_PRODUCT);
         Request.addRequest(editProductRequest);
     }
@@ -217,7 +217,7 @@ public class SellerController {
 
     public EditOffRequest getOffToEdit(String offID, String token) throws Exception {
         Off off = Off.getOffWithId(offID);
-        validateOffEditPermission(off,token);
+        validateOffEditPermission(off, token);
         return new EditOffRequest(off);
     }
 
@@ -229,7 +229,7 @@ public class SellerController {
     }
 
     public void submitOffEdits(EditOffRequest editOffRequest, String token) throws Exception {
-        validateInputEditOffInfo(editOffRequest,token);
+        validateInputEditOffInfo(editOffRequest, token);
         editOffRequest.getOff().setOffStatus(OffStatus.PENDING_EDIT_OFF);
         Request.addRequest(editOffRequest);
     }
@@ -263,7 +263,7 @@ public class SellerController {
             editOffErrors.append(e.getMessage());
         }
         try {
-            validateEditOffProductsToBeAdded(editOffRequest,token);
+            validateEditOffProductsToBeAdded(editOffRequest, token);
         } catch (Exception e) {
             editOffErrors.append(e.getMessage());
         }
@@ -407,9 +407,9 @@ public class SellerController {
         return arrayList;
     }
 
-    public String makeDigestLabel(String productId){
+    public String makeDigestLabel(String productId) {
         try {
-             Product product = Product.getProductWithId(productId);
+            Product product = Product.getProductWithId(productId);
             return "name: " + product.getName() +
                     "\n\tid: " + product.getProductId() +
                     "\n\tdescription: " + product.getDescription() +
@@ -421,23 +421,23 @@ public class SellerController {
         }
     }
 
-    public String viewProductBuyers(String productId){
-        try{
+    public String viewProductBuyers(String productId) {
+        try {
             return Product.getProductWithId(productId).viewBuyers();
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public String getProductImagePath(String productId){
-        try{
+    public String getProductImagePath(String productId) {
+        try {
             return Product.getProductWithId(productId).getImagePath();
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public double getProductAverageScore(String productId){
+    public double getProductAverageScore(String productId) {
         try {
             return Product.getProductWithId(productId).getAverageScore();
         } catch (Exception e) {

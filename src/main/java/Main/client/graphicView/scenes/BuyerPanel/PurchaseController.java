@@ -3,7 +3,9 @@ package Main.client.graphicView.scenes.BuyerPanel;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
+import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.server.ServerMain;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -116,7 +118,8 @@ public class PurchaseController {
         else
             receiverAddress.setStyle("-fx-border-width: 0;");
         if (!receiverFirstName.getText().isEmpty() && !receiverLastName.getText().isEmpty() && !receiverEmail.getText().isEmpty() && !receiverAddress.getText().isEmpty()) {
-            GraphicMain.buyerController.setReceiverInformation(getReceiverInformation());
+            //GraphicMain.buyerController.setReceiverInformation(getReceiverInformation());
+            BuyerRequestBuilder.buildSetReceiverInformationRequest(getReceiverInformation());
             receiverFirstName.setDisable(true);
             receiverLastName.setDisable(true);
             receiverEmail.setDisable(true);
@@ -134,7 +137,10 @@ public class PurchaseController {
         //GraphicMain.buttonSound.play();
         if (!discountCode.getText().isEmpty()) {
             try {
-                GraphicMain.buyerController.setPurchaseDiscountCode(discountCode.getText());
+                //GraphicMain.buyerController.setPurchaseDiscountCode(discountCode.getText());
+                String result = BuyerRequestBuilder.buildSetPurchaseDiscountRequest(discountCode.getText());
+                if (!result.equals("set code successfully"))
+                    ManagerPanelController.alertError(result);
                 discountCode.setStyle("-fx-border-color:green; -fx-border-width: 5;");
                 payment.setVisible(true);
             } catch (Exception e) {
@@ -169,7 +175,8 @@ public class PurchaseController {
         purchaseInfo.setId("purchaseInfo");
         purchaseInfo.setEditable(false);
         purchaseInfo.setWrapText(true);
-        purchaseInfo.setText(GraphicMain.buyerController.showPurchaseInfo() + "\nDo you want to finalize your purchase?");
+        //purchaseInfo.setText(GraphicMain.buyerController.showPurchaseInfo() + "\nDo you want to finalize your purchase?");
+        purchaseInfo.setText(BuyerRequestBuilder.buildShowPurchaseInfoRequest() + "\nDo you want to finalize your purchase?");
     }
 
     public String getReceiverInformation() {
@@ -182,7 +189,8 @@ public class PurchaseController {
     public void finalizePayment() {
         //GraphicMain.buttonSound.stop();
         //GraphicMain.buttonSound.play();
-        String result = GraphicMain.buyerController.finalizePurchaseAndPay();
+        //String result = GraphicMain.buyerController.finalizePurchaseAndPay();
+        String result = BuyerRequestBuilder.buildFinalizePaymentRequestProcessor();
         if (result.equals("Purchase finished successfully.")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Successful");

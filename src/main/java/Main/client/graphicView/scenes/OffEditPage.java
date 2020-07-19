@@ -28,33 +28,33 @@ public class OffEditPage {
     @FXML
     private TextField productIdToBeRemoved;
 
-    public void submitEdits(){
+    public void submitEdits() {
         ArrayList<String> listOfTitles = new ArrayList<>();
         ArrayList<String> listOfContents = new ArrayList<>();
-        if(!startDate.getText().isEmpty()){
+        if (!startDate.getText().isEmpty()) {
             listOfTitles.add("start date");
             listOfContents.add(startDate.getText());
         }
-        if(!endDate.getText().isEmpty()){
+        if (!endDate.getText().isEmpty()) {
             listOfTitles.add("end date");
             listOfContents.add(endDate.getText());
         }
-        if(!offAmount.getText().isEmpty()){
+        if (!offAmount.getText().isEmpty()) {
             listOfTitles.add("off amount");
             listOfContents.add(offAmount.getText());
         }
-        if(!productIdToBeAdded.getText().isEmpty()){
+        if (!productIdToBeAdded.getText().isEmpty()) {
             listOfTitles.add("add product");
             listOfContents.add(productIdToBeAdded.getText());
         }
-        if(!productIdToBeRemoved.getText().isEmpty()){
+        if (!productIdToBeRemoved.getText().isEmpty()) {
             listOfTitles.add("remove product");
             listOfContents.add(productIdToBeRemoved.getText());
         }
-        String response = SellerRequestBuilder.buildEditOffRequest(SellerOffsPage.selectedOff, listOfTitles,listOfContents);
-        if(response.equals("success")){
+        String response = SellerRequestBuilder.buildEditOffRequest(SellerOffsPage.selectedOff, listOfTitles, listOfContents);
+        if (response.equals("success")) {
             showInformationAlert("off edited successfully");
-        }else{
+        } else {
             String[] splitResponse = response.split("#");
             showErrorAlert(splitResponse[1]);
         }
@@ -86,7 +86,7 @@ public class OffEditPage {
 //        }
     }
 
-    public void goBack(){
+    public void goBack() {
         GraphicMain.graphicMain.back();
     }
 
@@ -95,10 +95,10 @@ public class OffEditPage {
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";
         //goBack();
-        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
-    public void showErrorAlert(String message){
+    public void showErrorAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(null);
         alert.setContentText(message);
@@ -106,7 +106,7 @@ public class OffEditPage {
         alert.show();
     }
 
-    public void showInformationAlert(String message){
+    public void showInformationAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setContentText(message);

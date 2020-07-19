@@ -20,8 +20,8 @@ public class BuyerController {
     private String receiverInformation = null;
     private DiscountCode discountCode = null;
 
-    public static void setBuyerController() {
-        currentBuyer = (BuyerAccount) GeneralController.currentUser;
+    public static void setBuyerController(BuyerAccount buyerAccount) {
+        currentBuyer = buyerAccount;
         currentBuyersCart = currentBuyer.getCart();
     }
 
@@ -127,8 +127,8 @@ public class BuyerController {
         return currentBuyersCart.getCartTotalPriceConsideringOffs() * percentOfCostToBePaid / 100;
     }
 
-    public String finalizePurchaseAndPay() {
-        if (((BuyerAccount) GeneralController.currentUser).getCart().getCartsProductList().isEmpty()) {
+    public String finalizePurchaseAndPay(BuyerAccount buyerAccount) {
+        if (buyerAccount.getCart().getCartsProductList().isEmpty()) {
             return "your cart is empty!";
         }
         try {
@@ -177,7 +177,7 @@ public class BuyerController {
     }
 
     private void buyerPayment() throws Exception {
-        if (currentBuyer.isOnAuction!=null) {
+        if (currentBuyer.isOnAuction != null) {
             throw new Exception("you have an offer in an auction ! you can't purchase now");
         }
         currentBuyer.decreaseBalanceBy(getToTalPaymentConsideringDiscount());

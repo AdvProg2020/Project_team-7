@@ -17,7 +17,7 @@ public class ClientMain {
             String port = scanner.nextLine();
 
             try {
-                client = Client.getClient(IP,port);
+                client = Client.getClient(IP, port);
                 break;
             } catch (Exception e) {
                 System.err.println("connection failed :(");
