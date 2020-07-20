@@ -1,5 +1,6 @@
 package Main.client.graphicView;
 
+import Main.client.graphicView.scenes.AuctionsPage;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.server.controller.BuyerController;
 import Main.server.controller.GeneralController;
@@ -61,7 +62,7 @@ public class GraphicMain extends Application {
 //            stage.setTitle(RegisterManager.TITLE);
 //            sceneTrace.add(RegisterManager.FXML_PATH);
 //        } else {
-        root = FXMLLoader.load(new File(MainMenuController.FXML_PATH).toURI().toURL());
+        root = FXMLLoader.load(new File(AuctionsPage.FXML_PATH).toURI().toURL());
 
         //audioClip.play();
 

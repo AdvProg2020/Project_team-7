@@ -77,6 +77,7 @@ public class AuctionsPage implements Initializable {
                 if (auctionsList.getSelectionModel().getSelectedItem() != null) {
                     String id = auctionsList.getSelectionModel().getSelectedItem().toString();
                     id = id.substring(1, id.indexOf(' '));
+                    GraphicMain.currentAuctionId = id;
                     String response = DataRequestBuilder.buildAuctionRequestWithID(GraphicMain.currentAuctionId);
                     if (response.equals("tooManyRequests")) {
                         GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
@@ -85,6 +86,7 @@ public class AuctionsPage implements Initializable {
                         auctionsList.getSelectionModel().clearSelection();
                         try {
                             GraphicMain.currentAuctionId = auction.getAuctionUsage().getId();
+                            System.out.println("*");
                             GraphicMain.graphicMain.goToPage(AuctionPage.FXML_PATH, AuctionPage.TITLE);
                         } catch (Exception e) {
                             // GraphicMain.showInformationAlert(e.getMessage());

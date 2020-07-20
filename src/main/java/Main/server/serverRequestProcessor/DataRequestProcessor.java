@@ -34,8 +34,32 @@ public class DataRequestProcessor {
             return userTypeResponse(splitRequest[0]);
         } else if (splitRequest[2].equals("allProductsForAuction")) {
             return allProductsForAuctionResponse(splitRequest[0]);
+        } else if (splitRequest[2].equals("highestOffer")) {
+            return highestOfferResponse(splitRequest);
+        }else if (splitRequest[2].equals("messageNo")) {
+            return messageNoResponse(splitRequest);
         }
         return null;
+    }
+
+    private static String messageNoResponse(String[] splitRequest) {
+        Auction auction = Auction.getAuctionById(splitRequest[3]);
+        try {
+            int messageNo = auction.getAuctionUsage().getAllMessages().size();
+            return messageNo + "";
+        } catch (Exception e) {
+            return "auctionOver";
+        }
+    }
+
+    private static String highestOfferResponse(String[] splitRequest) {
+        Auction auction = Auction.getAuctionById(splitRequest[3]);
+        try {
+            String highestOffer = auction.getAuctionUsage().getHighestOffer() + "";
+            return highestOffer;
+        } catch (Exception e) {
+            return "auction Over";
+        }
     }
 
     private static String allProductsForAuctionResponse(String token) {

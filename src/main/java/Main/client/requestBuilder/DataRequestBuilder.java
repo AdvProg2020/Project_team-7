@@ -53,4 +53,14 @@ public class DataRequestBuilder {
         String allProductsForAuctionRequest = GraphicMain.token + "#data#allProductsForAuction";
         return ClientMain.client.sendRequest(allProductsForAuctionRequest);
     }
+
+    public static String buildHighestOfferRequest() {
+        String highestOfferRequest = GraphicMain.token + "#data#highestOffer#" + GraphicMain.currentAuctionId + "#timer";
+        return ClientMain.client.sendRequest(highestOfferRequest);
+    }
+
+    public static String buildMessageNoRequest() {
+        String messageNoRequest = GraphicMain.token + "#data#messageNo#" + GraphicMain.currentAuctionId + "#timer";
+        return ClientMain.client.sendRequest(messageNoRequest);
+    }
 }

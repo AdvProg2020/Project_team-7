@@ -8,6 +8,9 @@ import Main.client.requestBuilder.DataRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.server.model.Auction;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -23,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,6 +42,7 @@ public class AuctionPage implements Initializable {
     public VBox messagePane;
     public AnchorPane pane;
     public Label highestOffer;
+    private int messageNo;
 
 //    public void goToUserPanelMenu(MouseEvent mouseEvent) throws IOException {
 //        Account account = GeneralController.currentUser;
@@ -107,12 +112,52 @@ public class AuctionPage implements Initializable {
             } else {
                 informationBox.setText("auction is underway !\ntake part !");
                 highestOffer.setText("" + auction.getAuctionUsage().getHighestOffer());
-                //TODO messagePane
+                initializeMessagePane();
+                Timeline update = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        updatePage();
+                    }
+                }));
+                update.setCycleCount(Timeline.INDEFINITE);
+                update.play();
             }
-            initializeMessagePane();
         } catch (Exception e) {
             informationBox.setText("the auction is over");
             disablePage();
+        }
+    }
+
+    private void updatePage() {
+        String response = DataRequestBuilder.buildHighestOfferRequest();
+        if (response.equals("auctionOver")) {
+            GraphicMain.showInformationAlert("auction is over");
+            disablePage();
+            return;
+        } else if (response.equals("tooManyRequests")) {
+
+        } else {
+            highestOffer.setText(response);
+        }
+
+        String response2 = DataRequestBuilder.buildMessageNoRequest();
+        if (response2.equals("auctionOver")) {
+            GraphicMain.showInformationAlert("auction is over");
+            disablePage();
+            return;
+        } else if (response2.equals("tooManyRequests")) {
+
+        } else {
+            int messageNo = Integer.parseInt(response2);
+            if (messageNo != this.messageNo) {
+                try {
+                    initializeMessagePane();
+                } catch (Exception e) {
+                    informationBox.setText("the auction is over");
+                    disablePage();
+                }
+            }
         }
     }
 
@@ -128,6 +173,7 @@ public class AuctionPage implements Initializable {
         }
         int i = 0;
         ArrayList<String> allMessages = auction.getAuctionUsage().getAllMessages();
+        messageNo = allMessages.size();
         messagePane.getChildren().clear();
         for (String message : allMessages) {
             i++;

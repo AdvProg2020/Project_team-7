@@ -19,7 +19,7 @@ public class Server {
     public static int TOKEN_EXPIRATION_MINUTES = 15;
     private ServerSocket serverSocket;
     private static Server serverInstance;
-    private HashMap<SocketAddress, ArrayList<Date>> connectedClients = new HashMap<>();
+    private HashMap<SocketAddress, ArrayList<Date>> requests = new HashMap<>();
     private HashMap<SocketAddress, ArrayList<Date>> loginRequests = new HashMap<>();
 
     private Server() {
@@ -55,12 +55,12 @@ public class Server {
 
     private void addConnectionLog(Socket clientSocket) {
         SocketAddress socketAddress = clientSocket.getLocalSocketAddress();
-        if (!connectedClients.containsKey(socketAddress)) {
+        if (!requests.containsKey(socketAddress)) {
             ArrayList<Date> dates = new ArrayList<>();
             dates.add(new Date());
-            connectedClients.put(socketAddress, dates);
+            requests.put(socketAddress, dates);
         } else {
-            connectedClients.get(socketAddress).add(new Date());
+            requests.get(socketAddress).add(new Date());
         }
     }
 
@@ -105,7 +105,9 @@ public class Server {
             String[] splitRequest = new String[0];
 
             request = dataInputStream.readUTF();
-            addConnectionLog(clientSocket);
+            if (!request.contains("timer")) {
+                addConnectionLog(clientSocket);
+            }
             System.out.println("server read " + request);
 
             splitRequest = request.split("#");
@@ -336,7 +338,7 @@ public class Server {
 
     private boolean validateTooManyRequests(Socket clientSocket) {
         SocketAddress socketAddress = clientSocket.getLocalSocketAddress();
-        ArrayList<Date> requestDates = connectedClients.get(socketAddress);
+        ArrayList<Date> requestDates = requests.get(socketAddress);
         if (requestDates.size() >= 20) {
             Date date = requestDates.get(requestDates.size() - 20);
             date = DateUtils.addSeconds(date, 10);
