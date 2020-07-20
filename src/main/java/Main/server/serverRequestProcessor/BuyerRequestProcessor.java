@@ -40,7 +40,7 @@ public class BuyerRequestProcessor {
             return "loginNeeded";
         }
         BuyerAccount buyerAccount = (BuyerAccount) ServerMain.server.getTokenInfo(splitRequest[0]).getUser();
-        if (buyerAccount.getBalance() < Double.parseDouble(splitRequest[4])) {
+        if (buyerAccount.getWalletBalance() < Double.parseDouble(splitRequest[4])) {
             return "insufficientBalance";
         }
         if (buyerAccount.isOnAuction != null && !buyerAccount.isOnAuction.equals(splitRequest[3])) {
@@ -62,7 +62,7 @@ public class BuyerRequestProcessor {
     }
 
     public static String initializeBuyerPanelRequestProcessor(String[] data) {
-        return Double.toString(((BuyerAccount) Server.getServer().getTokenInfo(data[0]).getUser()).getBalance());
+        return Double.toString(((BuyerAccount) Server.getServer().getTokenInfo(data[0]).getUser()).getWalletBalance());
     }
 
     public static String buyerPersonalInfoRequestProcessor(String[] data) {

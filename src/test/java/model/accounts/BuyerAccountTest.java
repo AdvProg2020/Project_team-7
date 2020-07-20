@@ -89,7 +89,7 @@ public class BuyerAccountTest {
                 "sampleEmail@sample.sample", "09001112233", "password123", 100,null);
 
         buyerAccount.decreaseBalanceBy(20);
-        Assert.assertEquals(80, buyerAccount.getBalance(), 0);
+        Assert.assertEquals(80, buyerAccount.getWalletBalance(), 0);
     }
 
     //TODO : write test for : addCartsProductsToBoughtProducts, viewOrders, emptyCart, addLog, removeDiscountCode, addDiscountCod, getLogWithId, hasBuyerBoughtProduct

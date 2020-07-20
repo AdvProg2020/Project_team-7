@@ -266,6 +266,8 @@ public class Server {
                 response = BuyerRequestProcessor.showPurchaseInfoRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("finalizePayment")) {
                 response = BuyerRequestProcessor.finalizePaymentRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("financeSetup")) {
+                response = GeneralRequestProcessor.setUpFinanceRequestProcessor(splitRequest);
             }
 
             if (!response.equals("do not write UTF"))

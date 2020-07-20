@@ -63,4 +63,9 @@ public class DataRequestBuilder {
         String messageNoRequest = GraphicMain.token + "#data#messageNo#" + GraphicMain.currentAuctionId + "#timer";
         return ClientMain.client.sendRequest(messageNoRequest);
     }
+
+    public static String buildProgramStartModeRequest() {
+        String startModeRequest = GraphicMain.token + "#data#startMode";
+        return ClientMain.client.sendRequest(startModeRequest);
+    }
 }

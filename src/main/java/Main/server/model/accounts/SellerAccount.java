@@ -21,7 +21,7 @@ public class SellerAccount extends Account {
     private ArrayList<Product> products = new ArrayList<>();
     private ArrayList<Off> offList = new ArrayList<>();
     private static ArrayList<SellerAccount> allSellers = new ArrayList<>();
-    private double balance;
+    private double walletBalance;
 
     private ArrayList<String> sellHistoryStringRecord = new ArrayList<>();
     private ArrayList<String> productsStringRecord = new ArrayList<>();
@@ -40,7 +40,7 @@ public class SellerAccount extends Account {
         super(userName, firstName, lastName, email, phoneNumber, passWord, profileImagePath);
         this.companyName = companyName;
         this.companyExtraInformation = companyExtraInformation;
-        this.balance = balance;
+        this.walletBalance = balance;
     }
 
     public static ArrayList<String> allSellersForGraphic(){
@@ -161,11 +161,11 @@ public class SellerAccount extends Account {
     }
 
     public void increaseBalanceBy(double money) {
-        this.balance += money;
+        this.walletBalance += money;
     }
 
     public String viewBalance() {
-        return "balance : " + balance + "\n";
+        return "balance : " + walletBalance + "\n";
     }
 
 
@@ -213,8 +213,8 @@ public class SellerAccount extends Account {
         return false;
     }
 
-    public double getBalance() {
-        return balance;
+    public double getWalletBalance() {
+        return walletBalance;
     }
 
     public String getCompanyName() {

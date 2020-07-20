@@ -137,7 +137,8 @@ public class RegisterManager implements Initializable {
 
             if (response.startsWith("success")) {
                 if (response.split("#")[1].equals("chief")) {
-                    GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
+                    GraphicMain.token = response.split("#")[2];
+                    GraphicMain.graphicMain.goToPage(FinanceSetupPage.FXML_PATH, MainMenuController.TITLE);
                 } else {
                     GraphicMain.graphicMain.goToPage(ManageUsersController.FXML_PATH, ManageUsersController.TITLE);
                 }
@@ -177,7 +178,6 @@ public class RegisterManager implements Initializable {
         textField.setStyle("-fx-border-color: #230038;-fx-prompt-text-fill : #4d4254;");
         textField.setText("");
     }
-
 
     public void chooseImage() {
         List<String> extensions = new ArrayList<>();

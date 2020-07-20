@@ -1,6 +1,7 @@
 package Main.client.graphicView.scenes;
 
 import Main.client.graphicView.GraphicMain;
+import Main.client.requestBuilder.DataRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

@@ -23,7 +23,7 @@ public class BuyerAccount extends Account {
     private ArrayList<BuyLog> buyHistory = new ArrayList<>();
     private ArrayList<DiscountCode> discountCodes = new ArrayList<>();
     private ArrayList<Product> boughtProducts = new ArrayList<>();
-    private double balance;
+    private double walletBalance;
     private int numberOfBoughtProductsForBonus;
     private static ArrayList<BuyerAccount> allBuyers = new ArrayList<>();
     public String isOnAuction;
@@ -41,7 +41,7 @@ public class BuyerAccount extends Account {
                         double balance,
                         String profileImagePath) {
         super(userName, firstName, lastName, email, phoneNumber, passWord,profileImagePath);
-        this.balance = balance;
+        this.walletBalance = balance;
         this.cart = new Cart();
     }
 
@@ -88,7 +88,7 @@ public class BuyerAccount extends Account {
             else if (field.equalsIgnoreCase("password"))
                 passWord = newContent;
             else if (field.equalsIgnoreCase("balance"))
-                balance = Double.parseDouble(newContent);
+                walletBalance = Double.parseDouble(newContent);
             else return "wrong field to edit";
             return "edit done successfully.";
         }
@@ -169,7 +169,7 @@ public class BuyerAccount extends Account {
     }
 
     public String viewBalance() {
-        return "balance : " + balance + "\n";
+        return "balance : " + walletBalance + "\n";
     }
 
     public String viewOrders() {
@@ -182,10 +182,10 @@ public class BuyerAccount extends Account {
     }
 
     public void decreaseBalanceBy(double money) throws Exception {
-        if (balance < money) {
+        if (walletBalance < money) {
             throw new Exception("Your balance isn't enough ! Purchase couldn't be done !\n");
         }
-        this.balance -= money;
+        this.walletBalance -= money;
     }
 
     public void addCartsProductsToBoughtProducts() {
@@ -203,8 +203,8 @@ public class BuyerAccount extends Account {
         allAccounts.add(buyer);
     }
 
-    public double getBalance() {
-        return balance;
+    public double getWalletBalance() {
+        return walletBalance;
     }
 
     public Cart getCart() {

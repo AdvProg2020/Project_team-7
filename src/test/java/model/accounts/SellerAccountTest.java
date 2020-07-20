@@ -80,7 +80,7 @@ public class SellerAccountTest {
                 ,"this company is great!", 100,null);
 
         sellerAccount.increaseBalanceBy(20);
-        Assert.assertEquals(120,sellerAccount.getBalance(),0);
+        Assert.assertEquals(120,sellerAccount.getWalletBalance(),0);
     }
 
     @Test

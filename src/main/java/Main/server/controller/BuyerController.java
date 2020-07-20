@@ -42,7 +42,7 @@ public class BuyerController {
     }
 
     public String viewBuyerBalance() {
-        return "balance : " + currentBuyer.getBalance();
+        return "balance : " + currentBuyer.getWalletBalance();
     }
 
     public String viewBuyerDiscountCodes() {

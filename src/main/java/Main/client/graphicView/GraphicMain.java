@@ -1,7 +1,11 @@
 package Main.client.graphicView;
 
+import Main.client.consoleViewOld.MainMenu;
 import Main.client.graphicView.scenes.AuctionsPage;
+import Main.client.graphicView.scenes.FinanceSetupPage;
 import Main.client.graphicView.scenes.MainMenuController;
+import Main.client.graphicView.scenes.RegisterManager;
+import Main.client.requestBuilder.DataRequestBuilder;
 import Main.server.controller.BuyerController;
 import Main.server.controller.GeneralController;
 import Main.server.controller.ManagerController;
@@ -62,12 +66,18 @@ public class GraphicMain extends Application {
 //            stage.setTitle(RegisterManager.TITLE);
 //            sceneTrace.add(RegisterManager.FXML_PATH);
 //        } else {
-        root = FXMLLoader.load(new File(AuctionsPage.FXML_PATH).toURI().toURL());
 
+        String response = DataRequestBuilder.buildProgramStartModeRequest();
+        if (response.equals("1")) {
+            root = FXMLLoader.load(new File(RegisterManager.FXML_PATH).toURI().toURL());
+            stage.setTitle(RegisterManager.TITLE);
+            sceneTrace.add(RegisterManager.FXML_PATH);
+        } else {
+            root = FXMLLoader.load(new File(MainMenuController.FXML_PATH).toURI().toURL());
+            stage.setTitle(MainMenuController.TITLE);
+            sceneTrace.add(MainMenuController.FXML_PATH);
+        }
         //audioClip.play();
-
-        stage.setTitle(MainMenuController.TITLE);
-        sceneTrace.add(MainMenuController.FXML_PATH);
         // }
 
         titleTrace.add(stage.getTitle());

@@ -2,7 +2,9 @@ package Main.client.requestBuilder;
 
 import Main.client.ClientMain;
 import Main.client.graphicView.GraphicMain;
+import Main.server.ServerMain;
 import Main.server.model.exceptions.AccountsException;
+import Main.server.serverRequestProcessor.Server;
 
 public class GeneralRequestBuilder {
 
@@ -125,5 +127,29 @@ public class GeneralRequestBuilder {
 
     public static String buildCompareProductRequest(String id) {
         return ClientMain.client.sendRequest(GraphicMain.token + "#compareProduct#" + GraphicMain.currentProductId + "#" + id);
+    }
+
+    public static String buildSetUpFinanceRequest(String port, String IP, String walletMinimumBalance, String commission) {
+        try{
+            Integer.parseInt(port);
+        } catch (NumberFormatException e) {
+            return "invalidPort";
+        }
+        try {
+            Double.parseDouble(walletMinimumBalance);
+        } catch (NumberFormatException e) {
+            return "invalidWalletBalance";
+        }
+        try {
+            double commission1 = Double.parseDouble(commission);
+            if(commission1>=100){
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            return "invalidCommission";
+        }
+
+        String setUpFinanceRequest = GraphicMain.token + "#financeSetup#" + port + "#" + IP + "#" + walletMinimumBalance + "#" + commission;
+        return ClientMain.client.sendRequest(setUpFinanceRequest);
     }
 }

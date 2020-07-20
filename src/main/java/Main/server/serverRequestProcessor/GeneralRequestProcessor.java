@@ -1,6 +1,7 @@
 package Main.server.serverRequestProcessor;
 
 import Main.client.graphicView.GraphicMain;
+import Main.server.BankClient;
 import Main.server.ServerMain;
 import Main.server.model.CartProduct;
 import Main.server.model.Product;
@@ -11,6 +12,8 @@ import Main.server.model.accounts.SellerAccount;
 import Main.server.model.exceptions.AccountsException;
 import Main.server.model.requests.CreateSellerAccountRequest;
 import Main.server.model.requests.Request;
+
+import java.io.IOException;
 
 public class GeneralRequestProcessor {
     public static String loginRequestProcessor(String[] splitRequest) {
@@ -125,41 +128,42 @@ public class GeneralRequestProcessor {
                 email, phoneNumber, password, imagePath);
 
         if (ManagerAccount.isThereAChiefManager()) {
-            if(!ServerMain.server.validateToken(splitRequest[0],ManagerAccount.class)){
+            if (!ServerMain.server.validateToken(splitRequest[0], ManagerAccount.class)) {
                 return "loginNeeded";
             }
             ManagerAccount.addManager(managerAccount);
             return "success#ordinary";
         } else {
             ManagerAccount.addManager(managerAccount);
-            return "success#chief";
+            String token = ServerMain.server.addToken(managerAccount);
+            return "success#chief#" + token;
         }
     }
 
-    public static String getAllDataForProductPage(String[] splitRequest){
+    public static String getAllDataForProductPage(String[] splitRequest) {
         return ServerMain.sellerController.getProductImagePath(splitRequest[2]) + "#" +
                 ServerMain.sellerController.getProductAverageScore(splitRequest[2]) + "#" +
                 ServerMain.generalController.makeGeneralFeatures(splitRequest[2]) + "#" +
                 ServerMain.generalController.getProductCategoryInfo(splitRequest[2]) + "#" +
-                ServerMain.generalController.getProductSpecialFeaturesInfo(splitRequest[2])  + "#" +
+                ServerMain.generalController.getProductSpecialFeaturesInfo(splitRequest[2]) + "#" +
                 ServerMain.generalController.showCommentsOfProduct(splitRequest[2]);
     }
 
-    public static String selectSeller(String[] splitRequest){
+    public static String selectSeller(String[] splitRequest) {
         try {
-            CartProduct cartProduct = ServerMain.generalController.selectSellerWithUsername(splitRequest[2],splitRequest[0],splitRequest[3]);
+            CartProduct cartProduct = ServerMain.generalController.selectSellerWithUsername(splitRequest[2], splitRequest[0], splitRequest[3]);
             return "success#" + ServerMain.generalController.addProductToCart(cartProduct, splitRequest[0]);
-        }catch (Exception e){
+        } catch (Exception e) {
             return "error#" + e.getMessage();
         }
     }
 
-    public static String buildRateProductPermissionResponse(String[] splitRequest){
+    public static String buildRateProductPermissionResponse(String[] splitRequest) {
         BuyerAccount buyerAccount = (BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser();
         try {
-            if(!buyerAccount.hasBuyerBoughtProduct(Product.getProductWithId(splitRequest[2]))){
+            if (!buyerAccount.hasBuyerBoughtProduct(Product.getProductWithId(splitRequest[2]))) {
                 return "you should have bought this product";
-            }else{
+            } else {
                 return "success";
             }
         } catch (Exception e) {
@@ -167,21 +171,32 @@ public class GeneralRequestProcessor {
         }
     }
 
-    public static String buildRateProductResponse(String[] splitRequest){
+    public static String buildRateProductResponse(String[] splitRequest) {
         try {
-            GraphicMain.buyerController.rateProductWithId(splitRequest[2],splitRequest[3],splitRequest[0]);
+            GraphicMain.buyerController.rateProductWithId(splitRequest[2], splitRequest[3], splitRequest[0]);
             return "success";
         } catch (Exception e) {
             return "error#" + e.getMessage();
         }
     }
 
-    public static String buildCompareProductResponse(String[] splitRequest){
+    public static String buildCompareProductResponse(String[] splitRequest) {
         try {
             return "success#" +
-                    ServerMain.generalController.compareProductWithProductWithId(splitRequest[2] , splitRequest[3]);
+                    ServerMain.generalController.compareProductWithProductWithId(splitRequest[2], splitRequest[3]);
         } catch (Exception e) {
             return "error#" + e.getMessage();
+        }
+    }
+
+    public static String setUpFinanceRequestProcessor(String[] splitRequest) {
+        BankClient.setBankClient(Integer.parseInt(splitRequest[2]), splitRequest[3], Double.parseDouble(splitRequest[4]), Double.parseDouble(splitRequest[5]));
+        try {
+            BankClient.ConnectToBankServer();
+            BankClient.StartListeningOnInput();
+            return "success";
+        } catch (IOException e) {
+            return "InvalidSocketInfo";
         }
     }
 }

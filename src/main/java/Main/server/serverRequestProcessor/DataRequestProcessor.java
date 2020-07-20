@@ -1,11 +1,13 @@
 package Main.server.serverRequestProcessor;
 
+import Main.server.BankClient;
 import Main.server.ServerMain;
 import Main.server.controller.GeneralController;
 import Main.server.model.Auction;
 import Main.server.model.Product;
 import Main.server.model.accounts.Account;
 import Main.server.model.accounts.BuyerAccount;
+import Main.server.model.accounts.ManagerAccount;
 import Main.server.model.accounts.SellerAccount;
 import Main.server.model.logs.BuyLog;
 import Main.server.model.logs.Log;
@@ -36,10 +38,20 @@ public class DataRequestProcessor {
             return allProductsForAuctionResponse(splitRequest[0]);
         } else if (splitRequest[2].equals("highestOffer")) {
             return highestOfferResponse(splitRequest);
-        }else if (splitRequest[2].equals("messageNo")) {
+        } else if (splitRequest[2].equals("messageNo")) {
             return messageNoResponse(splitRequest);
+        } else if (splitRequest[2].equals("startMode")) {
+            return startModeResponse();
         }
         return null;
+    }
+
+    private static String startModeResponse() {
+        if (!ManagerAccount.isThereAChiefManager()) {
+            return "1";
+        } else {
+            return "2";
+        }
     }
 
     private static String messageNoResponse(String[] splitRequest) {
