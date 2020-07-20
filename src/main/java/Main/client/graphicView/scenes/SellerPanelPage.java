@@ -60,9 +60,13 @@ public class SellerPanelPage implements Initializable {
         GraphicMain.graphicMain.goToPage(SalesHistoryPage.FXML_PATH, SalesHistoryPage.TITLE);
     }
 
-    public void viewBalance() {
+//    public void viewBalance() {
 //        showInformationAlert(GraphicMain.sellerController.viewSellerBalance());
-        showInformationAlert(SellerRequestBuilder.getSellerBalance());
+//        showInformationAlert(SellerRequestBuilder.getSellerBalance());
+//    }
+
+    public void goToWalletPage() throws IOException {
+        GraphicMain.graphicMain.goToPage(WalletPage.FXML_PATH, WalletPage.TITLE);
     }
 
     public void showInformationAlert(String message) {

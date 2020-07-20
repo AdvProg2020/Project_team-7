@@ -2,6 +2,7 @@ package Main.client.graphicView.scenes.BuyerPanel;
 
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.MainMenuController;
+import Main.client.graphicView.scenes.WalletPage;
 import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import javafx.fxml.FXML;
@@ -13,14 +14,11 @@ public class BuyerPanelController {
     public static final String FXML_PATH = "src/main/sceneResources/BuyerPanel/BuyerPanel.fxml";
     public static final String TITLE = "Buyer user panel";
 
-    @FXML
-    private Label balance;
-
-    public void initialize() {
-
-        balance.setText(BuyerRequestBuilder.buildInitializeBuyerPanelRequest());
-        //balance.setText(Double.toString(((BuyerAccount) GeneralController.currentUser).getBalance()));
-    }
+//    public void initialize() {
+//
+//        balance.setText(BuyerRequestBuilder.buildInitializeBuyerPanelRequest());
+//        //balance.setText(Double.toString(((BuyerAccount) GeneralController.currentUser).getBalance()));
+//    }
 
     public void goToPersonalInformation() throws IOException {
         //GraphicMain.buttonSound.stop();
@@ -64,5 +62,9 @@ public class BuyerPanelController {
         //GraphicMain.buttonSound.stop();
         //GraphicMain.buttonSound.play();
         GraphicMain.graphicMain.goToPage(HelpCenterController.FXML_PATH, HelpCenterController.TITLE);
+    }
+
+    public void goToWalletPage() throws IOException {
+        GraphicMain.graphicMain.goToPage(WalletPage.FXML_PATH, WalletPage.TITLE);
     }
 }
