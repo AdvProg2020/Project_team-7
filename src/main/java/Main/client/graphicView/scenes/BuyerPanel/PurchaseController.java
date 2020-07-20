@@ -6,7 +6,10 @@ import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -37,7 +40,9 @@ public class PurchaseController {
     @FXML
     private TextArea purchaseInfo;
     @FXML
-    private Button yes;
+    private Button walletPay;
+    @FXML
+    private Button bankPay;
     @FXML
     private Button no;
     @FXML
@@ -64,7 +69,8 @@ public class PurchaseController {
         discountCode.setVisible(false);
         payment.setVisible(false);
         purchaseInfo.setVisible(false);
-        yes.setVisible(false);
+        walletPay.setVisible(false);
+        bankPay.setVisible(false);
         no.setVisible(false);
         receiverFirstName.setVisible(true);
         receiverLastName.setVisible(true);
@@ -168,7 +174,8 @@ public class PurchaseController {
         discountCode.setVisible(false);
         payment.setVisible(false);
         acceptCode.setVisible(false);
-        yes.setVisible(true);
+        walletPay.setVisible(true);
+        bankPay.setVisible(true);
         no.setVisible(true);
         purchaseInfo.setVisible(true);
         purchaseInfo.setId("purchaseInfo");
@@ -185,22 +192,47 @@ public class PurchaseController {
                 receiverAddress.getText() + "\n\t";
     }
 
-    public void finalizePayment() {
-        //GraphicMain.buttonSound.stop();
-        //GraphicMain.buttonSound.play();
-        //String result = GraphicMain.buyerController.finalizePurchaseAndPay();
-        String result = BuyerRequestBuilder.buildFinalizePaymentRequestProcessor();
-        if (result.equals("Purchase finished successfully.")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Successful");
-            alert.setHeaderText("Your purchase completed successfully.");
-            alert.setContentText("Thank you!");
-            alert.showAndWait();
-            goBack();
-            goBack();
-        } else {
-            ManagerPanelController.alertError(result);
-            initialize();
-        }
+//    public void finalizePayment() {
+//        //GraphicMain.buttonSound.stop();
+//        //GraphicMain.buttonSound.play();
+//        //String result = GraphicMain.buyerController.finalizePurchaseAndPay();
+//        String result = BuyerRequestBuilder.buildFinalizePaymentRequestProcessor();
+//        if (result.equals("Purchase finished successfully.")) {
+//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//            alert.setTitle("Successful");
+//            alert.setHeaderText("Your purchase completed successfully.");
+//            alert.setContentText("Thank you!");
+//            alert.showAndWait();
+//            goBack();
+//            goBack();
+//        } else {
+//            ManagerPanelController.alertError(result);
+//            initialize();
+//        }
+//    }
+
+    public void finalizeWalletPayment(){
+        //TODO complete purchase process
+    }
+
+    public void finalizeBankPayment(){
+        Stage stage = new Stage();
+        stage.setTitle("get bank information");
+        Label label = new Label();
+        label.setText("enter your bank account username and password.\n" +
+                "(They are same with your account username and password)");
+        TextField username = new TextField();
+        TextField password = new TextField();
+        username.setPromptText("username");
+        password.setPromptText("password");
+        Button submit = new Button("submit");
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(label, username, password, submit);
+        Scene scene = new Scene(vBox, 750, 400);
+        stage.setScene(scene);
+        stage.show();
+        submit.setOnAction(event -> {
+            //TODO complete purchase process
+        });
     }
 }
