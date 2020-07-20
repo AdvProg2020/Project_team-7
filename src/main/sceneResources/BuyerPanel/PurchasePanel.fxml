@@ -5,50 +5,40 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="subAnchor" fx:id="subAnchor" prefHeight="750.0" prefWidth="1200.0"
-            xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Main.client.graphicView.scenes.BuyerPanel.PurchaseController">
+<AnchorPane id="subAnchor" fx:id="subAnchor" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.BuyerPanel.PurchaseController">
     <stylesheets>
-        <URL value="@../../java/Main/client/graphicView/cssFiles/basicStyles.css"/>
-        <URL value="@../../java/Main/client/graphicView/cssFiles/buyerManagerPanel.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/basicStyles.css" />
+        <URL value="@../../java/Main/client/graphicView/cssFiles/buyerManagerPanel.css" />
     </stylesheets>
     <children>
-        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goBack"
-                   pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/client/graphicView/resources/images/back.png"/>
+                <Image url="@../../java/Main/client/graphicView/resources/images/back.png" />
             </image>
         </ImageView>
-        <Label fx:id="pleaseLabel" layoutX="198.0" layoutY="36.0" text="Please enter receiver information:"/>
-        <TextField fx:id="receiverFirstName" layoutX="100.0" layoutY="170.0" promptText="receiver first name"/>
-        <TextField fx:id="receiverLastName" layoutX="446.0" layoutY="170.0" promptText="receiver last name"/>
-        <TextField fx:id="receiverEmail" layoutX="794.0" layoutY="170.0" promptText="receiver email"/>
-        <Label fx:id="firstnameLabel" layoutX="107.0" layoutY="100.0" text="First Name:"/>
-        <Label fx:id="lastnameLabel" layoutX="446.0" layoutY="100.0" text="Last Name:"/>
-        <Label fx:id="emailLabel" layoutX="794.0" layoutY="100.0" text="E-Mail:"/>
-        <Label fx:id="addressLabel" layoutX="100.0" layoutY="266.0" text="Address:"/>
-        <TextField fx:id="receiverAddress" layoutX="242.0" layoutY="267.0" prefHeight="63.0" prefWidth="827.0"
-                   promptText="receiver address"/>
-        <Button fx:id="continueButton" layoutX="438.0" layoutY="356.0" mnemonicParsing="false"
-                onAction="#showDiscountGetter" text="Continue"/>
-        <Label fx:id="enterCodeLabel" layoutX="39.0" layoutY="473.0" text="Enter your Discount Code:"/>
-        <Label id="smallerLabel" fx:id="ifYouHave" layoutX="78.0" layoutY="537.0"
-               text="(If you do not have one, skip empty)"/>
-        <TextField fx:id="discountCode" layoutX="446.0" layoutY="481.0" prefHeight="63.0" prefWidth="328.0"
-                   promptText="your discount code"/>
-        <Button fx:id="acceptCode" layoutX="809.0" layoutY="461.0" mnemonicParsing="false" onAction="#acceptCode"
-                text="Accept Code"/>
-        <Button fx:id="payment" layoutX="438.0" layoutY="614.0" mnemonicParsing="false" onAction="#payment"
-                text="Payment"/>
-        <Button fx:id="yes" layoutX="326.0" layoutY="612.0" mnemonicParsing="false" onAction="#finalizePayment"
-                text="YES"/>
-        <Button fx:id="no" layoutX="610.0" layoutY="614.0" mnemonicParsing="false" onAction="#initialize" text="NO"/>
-        <TextArea fx:id="purchaseInfo" layoutX="134.0" layoutY="60.0" prefHeight="526.0" prefWidth="892.0"/>
-        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1081.0" layoutY="650.0" onMouseClicked="#logout"
-                   pickOnBounds="true" preserveRatio="true">
+        <Label fx:id="pleaseLabel" layoutX="198.0" layoutY="36.0" text="Please enter receiver information:" />
+        <TextField fx:id="receiverFirstName" layoutX="100.0" layoutY="170.0" promptText="receiver first name" />
+        <TextField fx:id="receiverLastName" layoutX="446.0" layoutY="170.0" promptText="receiver last name" />
+        <TextField fx:id="receiverEmail" layoutX="794.0" layoutY="170.0" promptText="receiver email" />
+        <Label fx:id="firstnameLabel" layoutX="107.0" layoutY="100.0" text="First Name:" />
+        <Label fx:id="lastnameLabel" layoutX="446.0" layoutY="100.0" text="Last Name:" />
+        <Label fx:id="emailLabel" layoutX="794.0" layoutY="100.0" text="E-Mail:" />
+        <Label fx:id="addressLabel" layoutX="100.0" layoutY="266.0" text="Address:" />
+        <TextField fx:id="receiverAddress" layoutX="242.0" layoutY="267.0" prefHeight="63.0" prefWidth="827.0" promptText="receiver address" />
+        <Button fx:id="continueButton" layoutX="438.0" layoutY="356.0" mnemonicParsing="false" onAction="#showDiscountGetter" text="Continue" />
+        <Label fx:id="enterCodeLabel" layoutX="39.0" layoutY="473.0" text="Enter your Discount Code:" />
+        <Label id="smallerLabel" fx:id="ifYouHave" layoutX="78.0" layoutY="537.0" text="(If you do not have one, skip empty)" />
+        <TextField fx:id="discountCode" layoutX="446.0" layoutY="481.0" prefHeight="63.0" prefWidth="328.0" promptText="your discount code" />
+        <Button fx:id="acceptCode" layoutX="809.0" layoutY="461.0" mnemonicParsing="false" onAction="#acceptCode" text="Accept Code" />
+        <Button fx:id="payment" layoutX="438.0" layoutY="614.0" mnemonicParsing="false" onAction="#payment" text="Payment" />
+        <Button fx:id="walletPay" layoutX="457.0" layoutY="614.0" mnemonicParsing="false" onAction="#finalizeWalletPayment" prefHeight="91.0" prefWidth="240.0" text="pay(wallet)" />
+        <Button fx:id="no" layoutX="723.0" layoutY="614.0" mnemonicParsing="false" onAction="#initialize" text="NO" />
+        <TextArea fx:id="purchaseInfo" layoutX="134.0" layoutY="60.0" prefHeight="526.0" prefWidth="892.0" />
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1081.0" layoutY="650.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/client/graphicView/resources/images/logout.png"/>
+                <Image url="@../../java/Main/client/graphicView/resources/images/logout.png" />
             </image>
         </ImageView>
+      <Button fx:id="bankPay" layoutX="212.0" layoutY="614.0" mnemonicParsing="false" onAction="#finalizeBankPayment" prefHeight="91.0" prefWidth="240.0" text="pay(bank)" />
     </children>
 </AnchorPane>
