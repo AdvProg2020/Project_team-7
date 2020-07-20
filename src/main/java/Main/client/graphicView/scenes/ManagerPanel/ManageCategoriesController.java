@@ -33,7 +33,9 @@ public class ManageCategoriesController {
     public void initialize() {
         categoriesList.getItems().clear();
         //categoriesList.getItems().addAll(Category.categoriesList());
-        categoriesList.getItems().addAll(ManagerRequestBuilder.buildinitializeManageCategoriesRequest().split("#"));
+        String categoryData = ManagerRequestBuilder.buildinitializeManageCategoriesRequest();
+        if (!categoryData.equals(""))
+            categoriesList.getItems().addAll(categoryData.split("#"));
         categoriesList.setOnMouseClicked(mouseEvent -> {
             if (categoriesList.getSelectionModel().getSelectedItem() != null) {
                 String name = categoriesList.getSelectionModel().getSelectedItem().toString();

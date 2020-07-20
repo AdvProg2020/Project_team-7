@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 
 public class Client {
     /**
@@ -44,7 +45,7 @@ public class Client {
         return "failure";
     }
 
-    public ObservableList sendRequestObject(String request) throws ClassNotFoundException {
+    public List sendRequestObject(String request) throws ClassNotFoundException {
         try {
             dataOutputStream.writeUTF(request);
             dataOutputStream.flush();
@@ -52,7 +53,7 @@ public class Client {
             //String s = dataInputStream.readUTF();
             ObjectInputStream ois = new ObjectInputStream(dataInputStream);
             System.out.println("client read " + "object");
-            return ((ObservableList) ois.readObject());
+            return ((List) ois.readObject());
             //return s;
         } catch (IOException e) {
             e.printStackTrace();

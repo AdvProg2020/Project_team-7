@@ -5,10 +5,7 @@ import Main.server.BankClient;
 import Main.server.ServerMain;
 import Main.server.model.CartProduct;
 import Main.server.model.Product;
-import Main.server.model.accounts.Account;
-import Main.server.model.accounts.BuyerAccount;
-import Main.server.model.accounts.ManagerAccount;
-import Main.server.model.accounts.SellerAccount;
+import Main.server.model.accounts.*;
 import Main.server.model.exceptions.AccountsException;
 import Main.server.model.requests.CreateSellerAccountRequest;
 import Main.server.model.requests.Request;
@@ -198,5 +195,26 @@ public class GeneralRequestProcessor {
         } catch (IOException e) {
             return "InvalidSocketInfo";
         }
+    }
+
+    public static String signUpSupporterRequestProcessor(String[] splitRequest) {
+        String username = splitRequest[2].split(":")[1];
+        String firstName = splitRequest[3].split(":")[1];
+        String lastName = splitRequest[4].split(":")[1];
+        String email = splitRequest[5].split(":")[1];
+        String phoneNumber = splitRequest[6].split(":")[1];
+        String password = splitRequest[7].split(":")[1];
+        String imagePath = splitRequest[8].split(":")[1];
+
+        try {
+            AccountsException.validateUsernameUniqueness(username);
+        } catch (AccountsException e) {
+            return "duplicateUserName";
+        }
+
+        SupporterAccount supporterAccount = new SupporterAccount(username, firstName, lastName,
+                email, phoneNumber, password, imagePath);
+
+        return "success#supporter";
     }
 }

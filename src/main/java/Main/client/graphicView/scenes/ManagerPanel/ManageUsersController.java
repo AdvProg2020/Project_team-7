@@ -5,6 +5,7 @@ import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.graphicView.scenes.RegisterManager;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -24,7 +25,9 @@ public class ManageUsersController {
         usersList.getItems().clear();
         //usersList.getItems().addAll(GraphicMain.managerController.usersListForGraphic());
         //ArrayList<String> usersData = new ArrayList<>();
-        usersList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageUsersRequest().split("#"));
+        String userData = ManagerRequestBuilder.buildInitializeManageUsersRequest();
+        if (!userData.equals(""))
+            usersList.getItems().addAll(userData.split("#"));
         usersList.setOnMouseClicked(mouseEvent -> {
             if (usersList.getSelectionModel().getSelectedItem() != null) {
                 String userInfo = usersList.getSelectionModel().getSelectedItem().toString();
@@ -98,5 +101,9 @@ public class ManageUsersController {
 
     public void goToRegisterManager() throws IOException {
         GraphicMain.graphicMain.goToPage(RegisterManager.FXML_PATH, RegisterManager.TITLE);
+    }
+
+    public void goToRegisterSupporter() throws IOException {
+        GraphicMain.graphicMain.goToPage(RegisterSupporterController.FXML_PATH, RegisterSupporterController.TITLE);
     }
 }

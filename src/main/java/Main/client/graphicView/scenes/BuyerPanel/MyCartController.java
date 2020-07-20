@@ -5,6 +5,7 @@ import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.function.Function;
 
 public class MyCartController {
@@ -89,7 +91,7 @@ public class MyCartController {
         cartTable.sortPolicyProperty();
         //cartTable.setItems(Product.getCartProductsAsPro());
         try {
-            cartTable.setItems(BuyerRequestBuilder.buildGetCartProductsRequest());
+            cartTable.setItems(FXCollections.observableArrayList(BuyerRequestBuilder.buildGetCartProductsRequest()));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             ManagerPanelController.alertError(e.getMessage());
@@ -152,7 +154,7 @@ class ActionButtonTableCell<S> extends TableCell<S, Button> {
     }
 }
 
-class Product {
+class Product implements Serializable {
     public String productId;
     private String name;
     private double price;

@@ -90,6 +90,8 @@ public class BuyerRequestProcessor {
         BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(data[0]).getUser());
         ArrayList<String> logs = buyerAccount.buyLogsList();
         String response = "";
+        if (logs.isEmpty())
+            return response;
         for (String log : logs) {
             response = response.concat(log);
             response = response.concat("#");
@@ -111,6 +113,8 @@ public class BuyerRequestProcessor {
         BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(data[0]).getUser());
         ArrayList<String> codes = buyerAccount.getDiscountsList();
         String response = "";
+        if (codes.isEmpty())
+            return response;
         for (String code : codes) {
             response = response.concat(code);
             response = response.concat("#");

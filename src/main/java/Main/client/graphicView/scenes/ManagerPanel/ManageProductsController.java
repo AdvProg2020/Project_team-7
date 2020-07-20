@@ -23,7 +23,9 @@ public class ManageProductsController {
     public void initialize() {
         productList.getItems().clear();
         //productList.getItems().addAll(Product.summaryProductInfo());
-        productList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageProductsRequest().split("#"));
+        String productData = ManagerRequestBuilder.buildInitializeManageProductsRequest();
+        if (!productData.equals(""))
+            productList.getItems().addAll(productData.split("#"));
         productList.setOnMouseClicked(mouseEvent -> {
             if (productList.getSelectionModel().getSelectedItem() != null) {
                 String id = productList.getSelectionModel().getSelectedItem().toString();

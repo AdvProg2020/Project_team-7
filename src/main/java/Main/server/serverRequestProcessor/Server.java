@@ -134,6 +134,8 @@ public class Server {
                 response = GeneralRequestProcessor.signUpBuyerRequestProcessor(splitRequest);
             } else if (splitRequest[1].equalsIgnoreCase("signUpManager")) {
                 response = GeneralRequestProcessor.signUpManagerRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equalsIgnoreCase("signUpSupporter")) {
+                response = GeneralRequestProcessor.signUpSupporterRequestProcessor(splitRequest);
             } else if (splitRequest[1].equalsIgnoreCase("data")) {
                 response = DataRequestProcessor.process(splitRequest);
             } else if (splitRequest[1].equals("disconnect")) {
@@ -208,7 +210,7 @@ public class Server {
                 response = SellerRequestProcessor.buildAddOffResponse(splitRequest);
             } else if (splitRequest[1].equals("addProduct")) {
                 response = SellerRequestProcessor.buildAddProductResponse(splitRequest);
-            } else if (splitRequest[2].equals("addSpecialFeatures")) {
+            } else if (splitRequest[1].equals("addSpecialFeatures")) {
                 response = SellerRequestProcessor.buildAddSpecialFeaturesResponse(splitRequest);
             } else if (splitRequest[1].equals("getProductForProductEditPage")) {
                 response = SellerRequestProcessor.getProductForProductEditPage(splitRequest);

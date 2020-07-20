@@ -20,7 +20,9 @@ public class MyDiscountsController {
     public void initialize() {
         discountsList.getItems().clear();
         //discountsList.getItems().addAll(((BuyerAccount) GeneralController.currentUser).getDiscountsList());
-        discountsList.getItems().addAll(BuyerRequestBuilder.buildInitializeBuyerDiscountsRequest());
+        String discountData = BuyerRequestBuilder.buildInitializeBuyerDiscountsRequest();
+        if (!discountData.equals(""))
+            discountsList.getItems().addAll(discountData.split("#"));
         discountsList.setOnMouseClicked(mouseEvent -> {
             if (discountsList.getSelectionModel().getSelectedItem() != null) {
                 String discountInfo = discountsList.getSelectionModel().getSelectedItem().toString();

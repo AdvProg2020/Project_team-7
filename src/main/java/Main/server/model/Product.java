@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 import static java.util.Arrays.asList;
 
-public class Product {
+public class Product implements Serializable{
     private static StringBuilder lastUsedProductID;
     private String productId;
     private String name;

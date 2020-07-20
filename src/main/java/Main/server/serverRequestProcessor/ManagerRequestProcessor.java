@@ -63,6 +63,8 @@ public class ManagerRequestProcessor {
     public static String initializeManageRequestsRequestProcessor() {
         ArrayList<String> requests = Request.summaryInfoOfRequests();
         String response = "";
+        if (requests.isEmpty())
+            return response;
         for (String request : requests) {
             response = response.concat(request);
             response = response.concat("#");
@@ -103,6 +105,8 @@ public class ManagerRequestProcessor {
     public static String initializeManageProductsRequestProcessor() {
         ArrayList<String> products = Product.summaryProductInfo();
         String response = "";
+        if (products.isEmpty())
+            return response;
         for (String product : products) {
             response = response.concat(product);
             response = response.concat("#");
@@ -133,6 +137,8 @@ public class ManagerRequestProcessor {
     public static String initializeManageUsersRequestProcessor() {
         ArrayList<String> users = ServerMain.managerController.usersListForGraphic();
         String response = "";
+        if (users.isEmpty())
+            return response;
         for (String user : users) {
             response = response.concat(user);
             concatOnlineStatus(response, user);
@@ -180,6 +186,8 @@ public class ManagerRequestProcessor {
     public static String initializeManageCategoriesRequestProcessor() {
         ArrayList<String> categories = Category.categoriesList();
         String response = "";
+        if (categories.isEmpty())
+            return response;
         for (String category : categories) {
             response = response.concat(category);
             response = response.concat("#");
@@ -239,6 +247,8 @@ public class ManagerRequestProcessor {
     public static String initializeManageDiscountsRequestProcessor() {
         ArrayList<String> discounts = DiscountCode.getDiscountsList();
         String response = "";
+        if (discounts.isEmpty())
+            return response;
         for (String discount : discounts) {
             response = response.concat(discount);
             response = response.concat("#");

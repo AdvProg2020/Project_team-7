@@ -20,7 +20,9 @@ public class MyOrdersController {
     public void initialize() {
         ordersList.getItems().clear();
         //ordersList.getItems().addAll(((BuyerAccount) GeneralController.currentUser).buyLogsList());
-        ordersList.getItems().addAll(BuyerRequestBuilder.buildInitializeMyOrdersRequest().split("#"));
+        String orderData = BuyerRequestBuilder.buildInitializeMyOrdersRequest();
+        if (!orderData.equals(""))
+            ordersList.getItems().addAll(orderData.split("#"));
         ordersList.setOnMouseClicked(mouseEvent -> {
             if (ordersList.getSelectionModel().getSelectedItem() != null) {
                 String logInfo = ordersList.getSelectionModel().getSelectedItem().toString();

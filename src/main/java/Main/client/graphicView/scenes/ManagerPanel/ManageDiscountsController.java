@@ -34,7 +34,9 @@ public class ManageDiscountsController {
     public void initialize() {
         discountsList.getItems().clear();
         //discountsList.getItems().addAll(DiscountCode.getDiscountsList());
-        discountsList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageDiscountsRequest().split("#"));
+        String discountData = ManagerRequestBuilder.buildInitializeManageDiscountsRequest();
+        if (!discountData.equals(""))
+            discountsList.getItems().addAll(discountData.split("#"));
         discountsList.setOnMouseClicked(mouseEvent -> {
             if (discountsList.getSelectionModel().getSelectedItem() != null) {
                 String code = discountsList.getSelectionModel().getSelectedItem().toString();

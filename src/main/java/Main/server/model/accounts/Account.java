@@ -29,6 +29,9 @@ public abstract class Account {
         }
     }
 
+    protected Account() {
+    }
+
     public static boolean isThereUserWithUserName(String userName) {
         for (Account account : allAccounts) {
             if (account.userName.equals(userName)) {

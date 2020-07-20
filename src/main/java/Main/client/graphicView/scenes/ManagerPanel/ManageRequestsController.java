@@ -22,7 +22,9 @@ public class ManageRequestsController {
     public void initialize() {
         requestsList.getItems().clear();
         //requestsList.getItems().addAll(Request.summaryInfoOfRequests());
-        requestsList.getItems().addAll(ManagerRequestBuilder.buildInitializeManageRequestsRequest().split("#"));
+        String requestData = ManagerRequestBuilder.buildInitializeManageRequestsRequest();
+        if (!requestData.equals(""))
+            requestsList.getItems().addAll(requestData.split("#"));
         requestsList.setOnMouseClicked(mouseEvent -> {
             if (requestsList.getSelectionModel().getSelectedItem() != null) {
                 String id = requestsList.getSelectionModel().getSelectedItem().toString();

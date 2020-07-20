@@ -4,6 +4,8 @@ import Main.client.ClientMain;
 import Main.client.graphicView.GraphicMain;
 import javafx.collections.ObservableList;
 
+import java.util.List;
+
 public class BuyerRequestBuilder {
 
     public static String buildInitializeBuyerPanelRequest() {
@@ -60,7 +62,7 @@ public class BuyerRequestBuilder {
         return ClientMain.client.sendRequest(GraphicMain.token + "#initializeCartAndPrice");
     }
 
-    public static ObservableList buildGetCartProductsRequest() throws ClassNotFoundException {
+    public static List buildGetCartProductsRequest() throws ClassNotFoundException {
         return ClientMain.client.sendRequestObject(GraphicMain.token + "#getCartProducts");
     }
 

@@ -152,4 +152,29 @@ public class GeneralRequestBuilder {
         String setUpFinanceRequest = GraphicMain.token + "#financeSetup#" + port + "#" + IP + "#" + walletMinimumBalance + "#" + commission;
         return ClientMain.client.sendRequest(setUpFinanceRequest);
     }
+
+    public static String buildSupporterSignUpRequest(String userName, String firstName, String lastName, String email, String phoneNumber, String password, String imagePath) {
+        try {
+            AccountsException.validateUserName(userName);
+            AccountsException.validatePassWord(password);
+            AccountsException.validateNameTypeInfo("firstName", firstName);
+            AccountsException.validateNameTypeInfo("lastName", lastName);
+            AccountsException.validateNameTypeInfo("firstName", firstName);
+        } catch (AccountsException e) {
+            return "invalidCharacter#" + e.getErrorMessage();
+        }
+        try {
+            AccountsException.validateEmail(email);
+        } catch (AccountsException e) {
+            return "invalidEmail#" + e.getErrorMessage();
+        }
+        try {
+            AccountsException.validatePhoneNumber(phoneNumber);
+        } catch (AccountsException e) {
+            return "invalidPhoneNumber#" + e.getErrorMessage();
+        }
+
+        String signUpRequest = GraphicMain.token + "#signUpSupporter#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + imagePath;
+        return ClientMain.client.sendRequest(signUpRequest);
+    }
 }
