@@ -21,15 +21,27 @@ public class Server {
     private static Server serverInstance;
     private HashMap<SocketAddress, ArrayList<Date>> requests = new HashMap<>();
     private HashMap<SocketAddress, ArrayList<Date>> loginRequests = new HashMap<>();
+    private final HashMap<Character, Character> KEY_MAP = new HashMap<>();
+    private static final String KEY_STRING = "FHxdjYSEL#TcMZIG4qKO9fWXPNnU23vVm7i1gbRDesthyBaAr5op8C6kQu0lzJw";
 
     private Server() {
         try {
+            setKeyMap(KEY_STRING, KEY_MAP);
             serverSocket = new ServerSocket(0);
             System.out.println(serverSocket.getLocalPort());
         } catch (IOException e) {
             e.printStackTrace();
         }
         serverInstance = this;
+    }
+
+    private void setKeyMap(String keyString, HashMap<Character, Character> keyMap) {
+        char[] key = keyString.toCharArray();
+        char[] alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#".toCharArray();
+        for (int i = 0; i < key.length; i++) {
+            char c = key[i];
+            keyMap.put(c, alphaNumericString[i]);
+        }
     }
 
     public static Server getServer() {
@@ -105,12 +117,21 @@ public class Server {
             String[] splitRequest = new String[0];
 
             request = dataInputStream.readUTF();
+
             if (!request.contains("timer")) {
                 addConnectionLog(clientSocket);
             }
-            System.out.println("server read " + request);
 
             splitRequest = request.split("#");
+            String decryptionKey = decryptMessage(splitRequest[splitRequest.length - 2].concat("#").concat(splitRequest[splitRequest.length - 1]), KEY_MAP);
+            request = request.substring(0,request.length()-decryptionKey.length()-1);
+            System.out.println(decryptionKey);
+            HashMap<Character, Character> keyMap = new HashMap<>();
+            setKeyMap(decryptionKey, keyMap);
+            request = decryptMessage(request, keyMap);
+            System.out.println("server read " + request);
+            splitRequest = request.split("#");
+
             if (!validateTooManyRequests(clientSocket)) {
                 response = "tooManyRequests";
             } else if (splitRequest.length < 2) {
@@ -311,16 +332,16 @@ public class Server {
     }
 
     private String getRandomString(int stringLength) {
-        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        String alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 + "0123456789"
-                + "abcdefghijklmnopqrstuvxyz";
+                + "abcdefghijklmnopqrstuvwxyz";
 
         StringBuilder stringBuilder = new StringBuilder(stringLength);
 
         for (int i = 0; i < stringLength; i++) {
 
-            int index = (int) (AlphaNumericString.length() * Math.random());
-            stringBuilder.append(AlphaNumericString.charAt(index));
+            int index = (int) (alphaNumericString.length() * Math.random());
+            stringBuilder.append(alphaNumericString.charAt(index));
         }
 
         return stringBuilder.toString();
@@ -367,4 +388,15 @@ public class Server {
     public HashMap<String, TokenInfo> getTokens() {
         return tokens;
     }
+
+    private String decryptMessage(String message, HashMap<Character, Character> keyMap) {
+        char[] messageChars = message.toCharArray();
+        StringBuilder m = new StringBuilder(message);
+        for (int i = 0; i < messageChars.length; i++) {
+            char c = messageChars[i];
+            m.setCharAt(i,keyMap.get(c));
+        }
+        return m.toString();
+    }
+
 }
