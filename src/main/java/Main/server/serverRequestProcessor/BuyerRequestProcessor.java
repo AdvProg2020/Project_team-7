@@ -5,6 +5,7 @@ import Main.server.controller.BuyerController;
 import Main.server.model.Auction;
 import Main.server.model.Product;
 import Main.server.model.accounts.BuyerAccount;
+import Main.server.model.accounts.SupporterAccount;
 import Main.server.model.discountAndOffTypeService.DiscountCode;
 import Main.server.model.logs.BuyLog;
 import javafx.collections.ObservableList;
@@ -174,5 +175,19 @@ public class BuyerRequestProcessor {
         BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser());
         BuyerController.setBuyerController(buyerAccount);
         return ServerMain.buyerController.finalizePurchaseAndPay(buyerAccount);
+    }
+
+    public static String initializeHelpCenterRequestProcessor(String[] splitRequest) {
+        ArrayList<String> supporters = SupporterAccount.allSupportersForHelpCenter();
+        String response = "";
+        if (supporters.isEmpty())
+            return response;
+        for (String supporter : supporters) {
+            response = response.concat(supporter);
+            response = ManagerRequestProcessor.concatOnlineStatus(response,supporter);
+            response = response.concat("#");
+        }
+        response = response.substring(0, response.length() - 1);
+        return response;
     }
 }

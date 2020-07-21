@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="subAnchor" fx:id="subAnchor" prefHeight="679.0" prefWidth="555.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.ChatPageController">
+    <stylesheets>
+<!--        <URL value="@../java/Main/client/graphicView/cssFiles/basicStyles.css" />-->
+        <URL value="@../java/Main/client/graphicView/cssFiles/chatPage.css" />
+    </stylesheets>
+    <children>
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../java/Main/client/graphicView/resources/images/back.png" />
+            </image>
+        </ImageView>
+      <Button fx:id="send" layoutX="457.0" layoutY="600.0" mnemonicParsing="false" onAction="#send" prefHeight="55.0" prefWidth="88.0" text="Send" />
+      <TextArea fx:id="messageBox" layoutX="20.0" layoutY="600.0" prefHeight="55.0" prefWidth="430.0" />
+        <ScrollPane fx:id="scrollPane" layoutX="34.0" layoutY="129.0" prefHeight="458.0" prefWidth="484.0">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="400.0">
+                    <children>
+                        <VBox fx:id="chatBox" prefHeight="0.0" prefWidth="484.0" spacing="10.0" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+      <Label layoutX="118.0" layoutY="38.0" text="Chat with:" />
+      <Label layoutX="135.0" layoutY="75.0" text="I am:" />
+      <Label layoutX="225.0" layoutY="38.0" text=" " fx:id="chatWith"/>
+      <Label layoutX="225.0" layoutY="75.0" text=" " fx:id="iAm"/>
+    </children>
+</AnchorPane>

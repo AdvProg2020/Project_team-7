@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import java.net.URL?>
-<AnchorPane id="subAnchor" fx:id="subAnchor" prefHeight="750.0" prefWidth="1200.0"
-            xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Main.client.graphicView.scenes.BuyerPanel.HelpCenterController">
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="subAnchor" fx:id="subAnchor" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.BuyerPanel.HelpCenterController">
     <stylesheets>
-        <URL value="@../../java/Main/client/graphicView/cssFiles/basicStyles.css"/>
-        <URL value="@../../java/Main/client/graphicView/cssFiles/buyerManagerPanel.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/basicStyles.css" />
+        <URL value="@../../java/Main/client/graphicView/cssFiles/buyerManagerPanel.css" />
     </stylesheets>
     <children>
-        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goBack"
-                   pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/client/graphicView/resources/images/back.png"/>
+                <Image url="@../../java/Main/client/graphicView/resources/images/back.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1081.0" layoutY="650.0" onMouseClicked="#logout"
-                   pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1081.0" layoutY="650.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/client/graphicView/resources/images/logout.png"/>
+                <Image url="@../../java/Main/client/graphicView/resources/images/logout.png" />
             </image>
         </ImageView>
+      <ListView layoutX="221.0" layoutY="186.0" prefHeight="474.0" prefWidth="754.0" fx:id="supportersList"/>
+      <Label layoutX="221.0" layoutY="20.0" text="All Supporters: " />
+      <Label layoutX="224.0" layoutY="83.0" text="(you can select an online supporter to chat with them)" />
     </children>
 </AnchorPane>

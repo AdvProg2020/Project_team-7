@@ -1,37 +1,37 @@
-package Main.client.graphicView.scenes.BuyerPanel;
+package Main.client.graphicView.scenes;
 
 import Main.client.graphicView.GraphicMain;
-import Main.client.graphicView.scenes.ChatPageController;
-import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.ManagerRequestBuilder;
+import Main.server.serverRequestProcessor.GeneralRequestProcessor;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
 
 import java.io.IOException;
 
-public class HelpCenterController {
-    public static final String FXML_PATH = "src/main/sceneResources/BuyerPanel/HelpCenter.fxml";
-    public static final String TITLE = "Help Center";
+public class SupporterPanelController {
+    public static final String FXML_PATH = "src/main/sceneResources/SupporterPanel.fxml";
+    public static final String TITLE = "Supporter Panel Page";
 
     @FXML
-    private ListView supportersList;
+    private ListView chatList;
 
-    public void initialize() {
-        supportersList.getItems().clear();
-        String userData = ManagerRequestBuilder.buildInitializeHelpCenterRequest();
+
+    public void initialize(){
+        chatList.getItems().clear();
+        String userData = GeneralRequestBuilder.buildInitializeSupporterPanelRequest();
         if (!userData.equals(""))
-            supportersList.getItems().addAll(userData.split("#"));
-        supportersList.setOnMouseClicked(mouseEvent -> {
-            if (supportersList.getSelectionModel().getSelectedItem() != null) {
-                String userInfo = supportersList.getSelectionModel().getSelectedItem().toString();
+            chatList.getItems().addAll(userData.split("#"));
+        chatList.setOnMouseClicked(mouseEvent -> {
+            if (chatList.getSelectionModel().getSelectedItem() != null) {
+                String userInfo = chatList.getSelectionModel().getSelectedItem().toString();
                 String userName = userInfo.substring(userInfo.indexOf("@") + 1);
-                supportersList.getSelectionModel().clearSelection();
+                chatList.getSelectionModel().clearSelection();
                 userName = userName.substring(0, userName.indexOf("\n"));
                 if (userInfo.endsWith("(offline)"))
-                    ManagerPanelController.alertError("You can only chat with online supporters!");
+                    ManagerPanelController.alertError("This buyer is offline now!");
                 else {
                     try {
                         openChatPage(GraphicMain.token,userName);
@@ -42,12 +42,6 @@ public class HelpCenterController {
                 }
             }
         });
-    }
-
-    private void openChatPage(String myToken, String theirUsername) throws IOException {
-        FXMLLoader fxmlLoader = GraphicMain.graphicMain.goToPageReturnLoader(ChatPageController.FXML_PATH, ChatPageController.TITLE);
-        ChatPageController chatPageController = fxmlLoader.getController();
-        chatPageController.setPeople(myToken,theirUsername);
     }
 
     public void goBack() {
@@ -62,5 +56,11 @@ public class HelpCenterController {
         GraphicMain.token = "0000";
         //goBack();
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
+    }
+
+    private void openChatPage(String myToken, String theirUsername) throws IOException {
+        FXMLLoader fxmlLoader = GraphicMain.graphicMain.goToPageReturnLoader(ChatPageController.FXML_PATH, ChatPageController.TITLE);
+        ChatPageController chatPageController = fxmlLoader.getController();
+        chatPageController.setPeople(myToken,theirUsername);
     }
 }

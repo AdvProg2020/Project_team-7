@@ -1,0 +1,41 @@
+@font-face {
+    font-family: 'a letter to you',Arial;
+    src: url('letter.ttf');
+}
+
+#myMessage{
+    -fx-background-color:linear-gradient(to right bottom, #fff6d8, #eaf8c9, #c6fbc7, #91fed5, #2afff4);
+    -fx-background-radius: 50% 0% 50% 50% / 50% 50% 50% 50% ;
+    -fx-border-radius: 50% 0% 50% 50% / 50% 50% 50% 50% ;
+    -fx-background-border: 1px;
+    -fx-background-border-color:#84bbf3;
+    -fx-cursor:pointer;
+    -fx-text-fill:#000000;
+    -fx-font-size : 40px;
+    -fx-font-family: 'a letter to you';
+}
+
+#theirMessage{
+    -fx-background-color:linear-gradient(to right bottom, #fff6d8, #f2f5b3, #d2f796, #9efb85, #2aff85);
+    -fx-background-radius: 0% 50% 50% 50% / 50% 50% 50% 50%;
+    -fx-border-radius: 0% 50% 50% 50% / 50% 50% 50% 50%;
+    -fx-background-border: 1px;
+    -fx-background-border-color:#84bbf3;
+    -fx-cursor:pointer;
+    -fx-text-fill:#000000;
+    -fx-font-size : 40px;
+    -fx-font-family: 'a letter to you';
+}
+
+#parentAnchor{
+    -fx-background-image: url(../resources/images/mainUserPanelsBG.jpg);
+}
+
+#subAnchor{
+    -fx-background-image: url(../resources/images/subUserPanelsBG.jpg);
+}
+
+#parentAnchor, #subAnchor{
+   -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}

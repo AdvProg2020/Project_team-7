@@ -12,6 +12,7 @@ import Main.server.model.requests.CreateSellerAccountRequest;
 import Main.server.model.requests.Request;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class GeneralRequestProcessor {
     public static String loginRequestProcessor(String[] splitRequest) {
@@ -248,4 +249,34 @@ public class GeneralRequestProcessor {
 
         return "success#supporter";
     }
+
+    public static String openChatWithRequestProcessor(String[] splitRequest) {
+        String myToken = splitRequest[0];
+        String theirUsername = splitRequest[2];
+        BuyerAccount buyerAccount;
+        SupporterAccount supporterAccount;
+        if (Server.getServer().validateToken(myToken, BuyerAccount.class)) {
+            buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(myToken).getUser());
+            return "meBuyer#" + buyerAccount.getUserName();
+        } else {
+            supporterAccount = ((SupporterAccount) Server.getServer().getTokenInfo(myToken).getUser());
+            return "meSupporter#" + supporterAccount.getUserName();
+        }
+    }
+
+    public static String initializeSupporterPanelRequestProcessor(String[] splitRequest) throws Exception {
+        SupporterAccount supporterAccount = ((SupporterAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser());
+        ArrayList<String> chats = ((SupporterAccount) Account.getUserWithUserName(supporterAccount.getUserName())).myChatsList();
+        String response = "";
+        if (chats.isEmpty())
+            return response;
+        for (String chat : chats) {
+            response = response.concat(chat);
+            response = ManagerRequestProcessor.concatOnlineStatus(response, chat);
+            response = response.concat("#");
+        }
+        response = response.substring(0, response.length() - 1);
+        return response;
+    }
 }
+

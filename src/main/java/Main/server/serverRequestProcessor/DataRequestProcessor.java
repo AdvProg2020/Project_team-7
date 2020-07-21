@@ -95,9 +95,11 @@ public class DataRequestProcessor {
         }
         if (account instanceof SellerAccount) {
             return "seller";
-        } else {
-            return "manager";
         }
+        if (account instanceof ManagerAccount) {
+            return "manager";
+        } else
+            return "supporter";
     }
 
     private static String allAuctionResponse() {

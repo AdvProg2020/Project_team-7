@@ -185,4 +185,12 @@ public class GeneralRequestBuilder {
         String sendMessageRequest = GraphicMain.token + "#sendMessage#" + GraphicMain.currentAuctionId + "#" + text;
         return ClientMain.client.sendRequest(sendMessageRequest);
     }
+
+    public static String buildOpenChatRequest(String myToken, String theirUsername) {
+        return ClientMain.client.sendRequest(myToken+"#openChatWith#"+theirUsername);
+    }
+
+    public static String buildInitializeSupporterPanelRequest() {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#initializeSupporterPanel");
+    }
 }

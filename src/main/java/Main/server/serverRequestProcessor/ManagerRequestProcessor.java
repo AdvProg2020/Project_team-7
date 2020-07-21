@@ -141,23 +141,24 @@ public class ManagerRequestProcessor {
             return response;
         for (String user : users) {
             response = response.concat(user);
-            concatOnlineStatus(response, user);
+            response = concatOnlineStatus(response, user);
             response = response.concat("#");
         }
         response = response.substring(0, response.length() - 1);
         return response;
     }
 
-    private static void concatOnlineStatus(String response, String user) {
+    public static String concatOnlineStatus(String response, String user) {
         String userName = user.substring(user.indexOf("@") + 1, user.indexOf("\n"));
         HashMap<String, TokenInfo> tokens = ServerMain.server.getTokens();
         for (TokenInfo value : tokens.values()) {
             if (value.getUser().getUserName().equals(userName)) {
-                response = response.concat(" <<online>>");
-                return;
+                response = response.concat(" (online)");
+                return response;
             }
         }
-        response = response.concat(" <<offline>>");
+        response = response.concat(" (offline)");
+        return response;
     }
 
     public static String userViewMeWithUserNameRequestProcessor(String[] splitRequest) {

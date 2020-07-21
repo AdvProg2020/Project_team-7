@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="parentAnchor" fx:id="parentAnchor" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.SupporterPanelController">
+    <stylesheets>
+        <URL value="@../java/Main/client/graphicView/cssFiles/basicStyles.css" />
+        <URL value="@../java/Main/client/graphicView/cssFiles/buyerManagerPanel.css" />
+    </stylesheets>
+    <children>
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../java/Main/client/graphicView/resources/images/back.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1081.0" layoutY="650.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../java/Main/client/graphicView/resources/images/logout.png" />
+            </image>
+        </ImageView>
+      <ListView layoutX="286.0" layoutY="113.0" prefHeight="586.0" prefWidth="628.0" fx:id="chatList"/>
+      <Label layoutX="286.0" layoutY="36.0" text="All Chats:" />
+    </children>
+</AnchorPane>

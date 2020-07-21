@@ -293,6 +293,12 @@ public class Server {
                 response = GeneralRequestProcessor.sendMessage(splitRequest);
             } else if (splitRequest[1].equals("financeSetup")) {
                 response = GeneralRequestProcessor.setUpFinanceRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("initializeHelpCenter")) {
+                response = BuyerRequestProcessor.initializeHelpCenterRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("openChatWith")) {
+                response = GeneralRequestProcessor.openChatWithRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("initializeSupporterPanel")) {
+                response = GeneralRequestProcessor.initializeSupporterPanelRequestProcessor(splitRequest);
             }
 
             if (!response.equals("do not write UTF"))
