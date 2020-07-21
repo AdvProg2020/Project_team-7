@@ -15,24 +15,8 @@ public class BuyerRequestProcessor {
     public static String process(String[] splitRequest) {
         if (splitRequest[2].equals("increaseAuction")) {
             return increaseAuctionAmount(splitRequest);
-        } else if (splitRequest[2].equals("sendMessage")) {
-            return sendMessage(splitRequest);
         }
         return null;
-    }
-
-    private static String sendMessage(String[] splitRequest) {
-        if (!ServerMain.server.validateToken(splitRequest[0], BuyerAccount.class)) {
-            return "loginNeeded";
-        }
-        Auction auction = Auction.getAuctionById(splitRequest[3]);
-        BuyerAccount buyerAccount = (BuyerAccount) ServerMain.server.getTokenInfo(splitRequest[0]).getUser();
-        try {
-            auction.getAuctionUsage().addMessage("\"" + buyerAccount.getUserName() + "\"\n" + splitRequest[4]);
-            return "success";
-        } catch (Exception e) {
-            return "auctionOver";
-        }
     }
 
     private static String increaseAuctionAmount(String[] splitRequest) {

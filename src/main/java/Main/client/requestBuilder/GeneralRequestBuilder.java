@@ -177,4 +177,12 @@ public class GeneralRequestBuilder {
         String signUpRequest = GraphicMain.token + "#signUpSupporter#userName:" + userName + "#firstName:" + firstName + "#lastName:" + lastName + "#email:" + email + "#phoneNumber:" + phoneNumber + "#password:" + password + "#imagePath:" + imagePath;
         return ClientMain.client.sendRequest(signUpRequest);
     }
+
+    public static String buildSendMessageRequest(String text) {
+        if (text.equals("")) {
+            return "emptyString";
+        }
+        String sendMessageRequest = GraphicMain.token + "#sendMessage#" + GraphicMain.currentAuctionId + "#" + text;
+        return ClientMain.client.sendRequest(sendMessageRequest);
+    }
 }

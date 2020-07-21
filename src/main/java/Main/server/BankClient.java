@@ -10,7 +10,6 @@ public class BankClient {
     private static String IP;
     private static double minimumWalletBalance;
     private static double commission;
-    public static boolean isSetup;
 
     private static DataOutputStream outputStream;
     private static DataInputStream inputStream;
@@ -20,7 +19,6 @@ public class BankClient {
             Socket socket = new Socket(IP, port);
             outputStream = new DataOutputStream(socket.getOutputStream());
             inputStream = new DataInputStream(socket.getInputStream());
-            isSetup = true;
         } catch (IOException e) {
             throw new IOException("Exception while initiating connection:");
         }

@@ -230,7 +230,7 @@ public class AuctionPage implements Initializable {
 
 
     public void send(MouseEvent mouseEvent) {
-        String response = BuyerRequestBuilder.buildSendMessageRequest(message.getText());
+        String response = GeneralRequestBuilder.buildSendMessageRequest(message.getText());
         if (response.equals("success")) {
             try {
                 message.setText("");

@@ -34,14 +34,6 @@ public class BuyerRequestBuilder {
         return ClientMain.client.sendRequest(increaseAmountRequest);
     }
 
-    public static String buildSendMessageRequest(String text) {
-        if (text.equals("")) {
-            return "emptyString";
-        }
-        String sendMessageRequest = GraphicMain.token + "#buyer#sendMessage#" + GraphicMain.currentAuctionId + "#" + text;
-        return ClientMain.client.sendRequest(sendMessageRequest);
-    }
-
     public static String buildInitializeMyOrdersRequest() {
         return ClientMain.client.sendRequest(GraphicMain.token + "#initializeMyOrders");
     }

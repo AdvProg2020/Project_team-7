@@ -3,6 +3,7 @@ package Main.server.serverRequestProcessor;
 import Main.client.graphicView.GraphicMain;
 import Main.server.BankClient;
 import Main.server.ServerMain;
+import Main.server.model.Auction;
 import Main.server.model.CartProduct;
 import Main.server.model.Product;
 import Main.server.model.accounts.*;
@@ -175,6 +176,36 @@ public class GeneralRequestProcessor {
         } catch (Exception e) {
             return "error#" + e.getMessage();
         }
+    }
+
+    public static String sendMessage(String[] splitRequest) {
+        Auction auction = Auction.getAuctionById(splitRequest[3]);
+
+        if (ServerMain.server.validateToken(splitRequest[0], BuyerAccount.class)) {
+            BuyerAccount buyerAccount = (BuyerAccount) ServerMain.server.getTokenInfo(splitRequest[0]).getUser();
+            try {
+                auction.getAuctionUsage().addMessage("\"" + buyerAccount.getUserName() + "\"\n" + splitRequest[4]);
+                return "success";
+            } catch (Exception e) {
+                return "auctionOver";
+            }
+        }
+
+
+        if (ServerMain.server.validateToken(splitRequest[0], SellerAccount.class)) {
+            SellerAccount sellerAccount = (SellerAccount) ServerMain.server.getTokenInfo(splitRequest[0]).getUser();
+            SellerAccount auctionSeller = null;
+            try {
+                auctionSeller = auction.getAuctionUsage().getSellerAccount();
+                if (sellerAccount.equals(auctionSeller)) {
+                    auction.getAuctionUsage().addMessage("\"<<Seller>> " + sellerAccount.getUserName() + "\"\n" + splitRequest[4]);
+                    return "success";
+                }
+            } catch (Exception e) {
+                return "auctionOver";
+            }
+        }
+        return "loginNeeded";
     }
 
     public static String buildCompareProductResponse(String[] splitRequest) {
