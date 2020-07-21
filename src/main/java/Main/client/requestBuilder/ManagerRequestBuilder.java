@@ -125,4 +125,8 @@ public class ManagerRequestBuilder {
         info = info.substring(0, info.length() - 1);
         return ClientMain.client.sendRequest(GraphicMain.token + "#createDiscount#" + buyers + "#" + info);
     }
+
+    public static String buildInitializeHelpCenterRequest() {
+        return ClientMain.client.sendRequest(GraphicMain.token+"#initializeHelpCenter");
+    }
 }

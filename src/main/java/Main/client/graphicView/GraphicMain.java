@@ -1,10 +1,7 @@
 package Main.client.graphicView;
 
 import Main.client.consoleViewOld.MainMenu;
-import Main.client.graphicView.scenes.AuctionsPage;
-import Main.client.graphicView.scenes.FinanceSetupPage;
-import Main.client.graphicView.scenes.MainMenuController;
-import Main.client.graphicView.scenes.RegisterManager;
+import Main.client.graphicView.scenes.*;
 import Main.client.requestBuilder.DataRequestBuilder;
 import Main.server.controller.BuyerController;
 import Main.server.controller.GeneralController;
@@ -67,6 +64,8 @@ public class GraphicMain extends Application {
 //            sceneTrace.add(RegisterManager.FXML_PATH);
 //        } else {
 
+
+        //this scope
         String response = DataRequestBuilder.buildProgramStartModeRequest();
         if (response.equals("1")) {
             root = FXMLLoader.load(new File(RegisterManager.FXML_PATH).toURI().toURL());
@@ -77,6 +76,11 @@ public class GraphicMain extends Application {
             stage.setTitle(MainMenuController.TITLE);
             sceneTrace.add(MainMenuController.FXML_PATH);
         }
+
+//        root = FXMLLoader.load(new File(ChatPageController.FXML_PATH).toURI().toURL());
+//        stage.setTitle(RegisterManager.TITLE);
+//        sceneTrace.add(RegisterManager.FXML_PATH);
+
         //audioClip.play();
         // }
 
@@ -118,6 +122,19 @@ public class GraphicMain extends Application {
         GraphicMain.stage.setTitle(title);
         GraphicMain.stage.setScene(scene);
         return root;
+    }
+
+    public FXMLLoader goToPageReturnLoader(String fxmlPath, String title) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(new File(fxmlPath).toURI().toURL());
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        if (!fxmlPath.equals(sceneTrace.get(sceneTrace.size() - 1))) {
+            sceneTrace.add(fxmlPath);
+            titleTrace.add(title);
+        }
+        GraphicMain.stage.setTitle(title);
+        GraphicMain.stage.setScene(scene);
+        return fxmlLoader;
     }
 
     public Object getController(String fxmlName) throws MalformedURLException {

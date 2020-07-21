@@ -2,10 +2,7 @@ package Main.server.controller;
 
 import Main.server.model.Category;
 import Main.server.model.Product;
-import Main.server.model.accounts.Account;
-import Main.server.model.accounts.BuyerAccount;
-import Main.server.model.accounts.ManagerAccount;
-import Main.server.model.accounts.SellerAccount;
+import Main.server.model.accounts.*;
 import Main.server.model.discountAndOffTypeService.DiscountCode;
 import Main.server.model.exceptions.AccountsException;
 import Main.server.model.exceptions.DiscountAndOffTypeServiceException;
@@ -24,6 +21,7 @@ public class ManagerController {
     public ArrayList<String> usersListForGraphic() {
         ArrayList<String> users = new ArrayList<>();
         users.addAll(ManagerAccount.allManagersForGraphic());
+        users.addAll(SupporterAccount.allSupportersForHelpCenter());
         users.addAll(SellerAccount.allSellersForGraphic());
         users.addAll(BuyerAccount.allBuyersForGraphic());
         return users;
@@ -58,9 +56,12 @@ public class ManagerController {
         } else if (account instanceof SellerAccount) {
             SellerAccount sellerAccount = (SellerAccount) account;
             sellerAccount.deleteSeller();
-        } else {
+        } else if (account instanceof BuyerAccount){
             BuyerAccount buyerAccount = (BuyerAccount) account;
             buyerAccount.deleteBuyer();
+        } else {
+            SupporterAccount supporterAccount = ((SupporterAccount) account);
+            supporterAccount.deleteSupporter();
         }
     }
 

@@ -34,6 +34,8 @@ public class MainMenuController {
             GraphicMain.graphicMain.goToPage(SellerPanelPage.FXML_PATH, SellerPanelPage.TITLE);
         } else if (response.equals("buyer")) {
             GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH, BuyerPanelController.TITLE);
+        } else if (response.equals("supporter")) {
+            GraphicMain.graphicMain.goToPage(SupporterPanelController.FXML_PATH, SupporterPanelController.TITLE);
         } else if (response.equals("loginNeeded")) {
             GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
         } else {
