@@ -97,6 +97,8 @@ public class Server {
         private DataOutputStream dataOutputStream;
         private DataInputStream dataInputStream;
         private HashMap<String, ArrayList<String>> clientRequestsLog = new HashMap<>();
+        private Date loginAllowedDate;
+        private Date requestAllowedDate;
 
         public requestHandler(Socket clientSocket) {
             this.clientSocket = clientSocket;
@@ -106,6 +108,8 @@ public class Server {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            loginAllowedDate = new Date();
+            requestAllowedDate = new Date();
         }
 
         @Override
@@ -349,6 +353,52 @@ public class Server {
             }
             return false;
         }
+
+        private boolean validateTooManyLoginRequests(Socket clientSocket) {
+            if (loginAllowedDate.compareTo(new Date()) > 0) {
+                return false;
+            }
+            SocketAddress socketAddress = clientSocket.getLocalSocketAddress();
+            if (!loginRequests.containsKey(socketAddress)) {
+                ArrayList<Date> dates = new ArrayList<>();
+                dates.add(new Date());
+                loginRequests.put(socketAddress, dates);
+                return true;
+            }
+            ArrayList<Date> requestDates = loginRequests.get(socketAddress);
+            if (requestDates.size() >= 3) {
+                Date date = requestDates.get(requestDates.size() - 3);
+                date = DateUtils.addSeconds(date, 5);
+                if (date.compareTo(new Date()) > 0) {
+                    loginAllowedDate = DateUtils.addSeconds(new Date(), 10);
+                    requestDates.clear();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            return true;
+        }
+
+        private boolean validateTooManyRequests(Socket clientSocket) {
+            if (requestAllowedDate.compareTo(new Date()) > 0) {
+                return false;
+            }
+            SocketAddress socketAddress = clientSocket.getLocalSocketAddress();
+            ArrayList<Date> requestDates = requests.get(socketAddress);
+            if (requestDates.size() >= 20) {
+                Date date = requestDates.get(requestDates.size() - 20);
+                date = DateUtils.addSeconds(date, 10);
+                if (date.compareTo(new Date()) > 0) {
+                    requestAllowedDate = DateUtils.addSeconds(new Date(), 20);
+                    requestDates.clear();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            return true;
+        }
     }
 
     public TokenInfo getTokenInfo(String token) {
@@ -414,23 +464,6 @@ public class Server {
         return true;
     }
 
-    private boolean validateTooManyLoginRequests(Socket clientSocket) {
-        SocketAddress socketAddress = clientSocket.getLocalSocketAddress();
-        if(!loginRequests.containsKey(socketAddress)){
-            ArrayList<Date> dates = new ArrayList<>();
-            dates.add(new Date());
-            loginRequests.put(socketAddress,dates);
-            return true;
-        }
-        ArrayList<Date> requestDates = loginRequests.get(socketAddress);
-        if (requestDates.size() >= 3) {
-            Date date = requestDates.get(requestDates.size() - 3);
-            date = DateUtils.addSeconds(date, 5);
-            return date.compareTo(new Date()) <= 0;
-        }
-        return true;
-    }
-
     public HashMap<String, TokenInfo> getTokens() {
         return tokens;
     }
@@ -442,10 +475,9 @@ public class Server {
             char c = messageChars[i];
             try {
                 m.setCharAt(i, keyMap.get(c));
-            }catch (Exception e){
+            } catch (Exception e) {
             }
         }
         return m.toString();
     }
-
 }
