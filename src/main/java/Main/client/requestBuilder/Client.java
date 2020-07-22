@@ -2,6 +2,9 @@ package Main.client.requestBuilder;
 
 import java.io.*;
 import java.net.Socket;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,18 +19,20 @@ public class Client {
     private DataInputStream dataInputStream;
     private static Client clientInstance;
     private final HashMap<Character, Character> KEY_MAP = new HashMap<>();
-    private static final String KEY_STRING = "FHxdjYSEL#TcMZIG4qKO9fWXPNnU23vVm7i1gbRDesthyBaAr5op8C6kQu0lzJw";
+    private static final String KEY_STRING = "FHxdjYSEL#TcMZIG4qKO9fWXPNnU23/vVm7i1gbRDesthyBaAr5:op8C6kQu0lzJw";
+    protected static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
 
     private Client(String IP, String port) throws Exception {
         socket = new Socket(IP, Integer.parseInt(port));
         dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-        setKeyMap(KEY_STRING,KEY_MAP);
+        setKeyMap(KEY_STRING, KEY_MAP);
     }
 
-    private void setKeyMap(String keyString, HashMap<Character,Character> keyMap) {
+    private void setKeyMap(String keyString, HashMap<Character, Character> keyMap) {
         char[] key = keyString.toCharArray();
-        char[] alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#".toCharArray();
+        char[] alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#/:".toCharArray();
         for (int i = 0; i < alphaNumericString.length; i++) {
             char c = alphaNumericString[i];
             keyMap.put(c, key[i]);
@@ -44,17 +49,22 @@ public class Client {
 
     public String sendRequest(String request) {
         try {
+            String originalRequest = new String(request);
             String randomKey = getRandomKey();
-            System.out.println(randomKey);
-            System.out.println(encryptMessage(randomKey,KEY_MAP));
-            HashMap<Character,Character> keyMap = new HashMap<>();
-            setKeyMap(randomKey,keyMap);
-            request = encryptMessage(request,keyMap);
-            request = request .concat("#").concat(encryptMessage(randomKey,KEY_MAP));
+            HashMap<Character, Character> keyMap = new HashMap<>();
+            setKeyMap(randomKey, keyMap);
+            request = encryptMessage(request, keyMap);
+            String dateNow = dateFormat.format(new Date());
+            request = request.concat("#").concat(dateNow).concat("#").concat(getRandomString(5));
+            request = request.concat("#").concat(encryptMessage(randomKey, KEY_MAP));
+
             dataOutputStream.writeUTF(request);
             dataOutputStream.flush();
             System.out.println("client wrote " + request);
             String s = dataInputStream.readUTF();
+            if(s.equals("tryAgain")){
+                sendRequest(originalRequest);
+            }
             System.out.println("client read " + s);
             return s;
         } catch (IOException e) {
@@ -65,6 +75,14 @@ public class Client {
 
     public List sendRequestObject(String request) throws ClassNotFoundException {
         try {
+            String randomKey = getRandomKey();
+            HashMap<Character, Character> keyMap = new HashMap<>();
+            setKeyMap(randomKey, keyMap);
+            request = encryptMessage(request, keyMap);
+            String dateNow = dateFormat.format(new Date());
+            request = request.concat("#").concat(dateNow).concat("#").concat(getRandomString(5));
+            request = request.concat("#").concat(encryptMessage(randomKey, KEY_MAP));
+
             dataOutputStream.writeUTF(request);
             dataOutputStream.flush();
             System.out.println("client wrote " + request);
@@ -95,18 +113,18 @@ public class Client {
         }
     }
 
-    private String encryptMessage(String message, HashMap<Character,Character> keyMap) {
+    private String encryptMessage(String message, HashMap<Character, Character> keyMap) {
         char[] messageChars = message.toCharArray();
         StringBuilder m = new StringBuilder(message);
         for (int i = 0; i < messageChars.length; i++) {
             char c = messageChars[i];
-            m.setCharAt(i,keyMap.get(c));
+            m.setCharAt(i, keyMap.get(c));
         }
         return m.toString();
     }
 
     private static String getRandomKey() {
-        StringBuilder alphaNumericString = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#");
+        StringBuilder alphaNumericString = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#/:");
 
         for (int i = 0; i < 50; i++) {
             int index1 = (int) (alphaNumericString.length() * Math.random());
@@ -117,5 +135,21 @@ public class Client {
         }
 
         return alphaNumericString.toString();
+    }
+
+    private String getRandomString(int stringLength) {
+        String alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvwxyz";
+
+        StringBuilder stringBuilder = new StringBuilder(stringLength);
+
+        for (int i = 0; i < stringLength; i++) {
+
+            int index = (int) (alphaNumericString.length() * Math.random());
+            stringBuilder.append(alphaNumericString.charAt(index));
+        }
+
+        return stringBuilder.toString();
     }
 }

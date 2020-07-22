@@ -7,6 +7,8 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,7 +24,10 @@ public class Server {
     private HashMap<SocketAddress, ArrayList<Date>> requests = new HashMap<>();
     private HashMap<SocketAddress, ArrayList<Date>> loginRequests = new HashMap<>();
     private final HashMap<Character, Character> KEY_MAP = new HashMap<>();
-    private static final String KEY_STRING = "FHxdjYSEL#TcMZIG4qKO9fWXPNnU23vVm7i1gbRDesthyBaAr5op8C6kQu0lzJw";
+    private static final String KEY_STRING = "FHxdjYSEL#TcMZIG4qKO9fWXPNnU23/vVm7i1gbRDesthyBaAr5:op8C6kQu0lzJw";
+
+    private static String inputDateFormat = "yyyy/MM/dd HH:mm:ss";
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(inputDateFormat);
 
     private Server() {
         try {
@@ -37,7 +42,7 @@ public class Server {
 
     private void setKeyMap(String keyString, HashMap<Character, Character> keyMap) {
         char[] key = keyString.toCharArray();
-        char[] alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#".toCharArray();
+        char[] alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#/:".toCharArray();
         for (int i = 0; i < key.length; i++) {
             char c = key[i];
             keyMap.put(c, alphaNumericString[i]);
@@ -91,6 +96,7 @@ public class Server {
         private Socket clientSocket;
         private DataOutputStream dataOutputStream;
         private DataInputStream dataInputStream;
+        private HashMap<String, ArrayList<String>> clientRequestsLog = new HashMap<>();
 
         public requestHandler(Socket clientSocket) {
             this.clientSocket = clientSocket;
@@ -124,15 +130,17 @@ public class Server {
 
             splitRequest = request.split("#");
             String decryptionKey = decryptMessage(splitRequest[splitRequest.length - 2].concat("#").concat(splitRequest[splitRequest.length - 1]), KEY_MAP);
-            request = request.substring(0,request.length()-decryptionKey.length()-1);
-            System.out.println(decryptionKey);
+            request = request.substring(0, request.length() - decryptionKey.length() - 1);
             HashMap<Character, Character> keyMap = new HashMap<>();
             setKeyMap(decryptionKey, keyMap);
             request = decryptMessage(request, keyMap);
             System.out.println("server read " + request);
+
             splitRequest = request.split("#");
 
-            if (!validateTooManyRequests(clientSocket)) {
+            if (isReplayAttack(splitRequest)) {
+                response = "tryAgain";
+            } else if (!validateTooManyRequests(clientSocket)) {
                 response = "tooManyRequests";
             } else if (splitRequest.length < 2) {
                 response = "invalidRequest";
@@ -299,12 +307,15 @@ public class Server {
                 response = GeneralRequestProcessor.openChatWithRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("initializeSupporterPanel")) {
                 response = GeneralRequestProcessor.initializeSupporterPanelRequestProcessor(splitRequest);
+            } else {
+                response = "invalidRequest";
             }
 
-            if (!response.equals("do not write UTF"))
+            if (!response.equals("do not write UTF") && !response.equals("invalidRequest")) {
                 dataOutputStream.writeUTF(response);
-            dataOutputStream.flush();
-            System.out.println("server wrote " + response);
+                dataOutputStream.flush();
+                System.out.println("server wrote " + response);
+            }
 
             if (!response.equals("disconnected")) {
                 handle();
@@ -314,6 +325,29 @@ public class Server {
                 dataOutputStream.close();
                 dataInputStream.close();
             }
+        }
+
+        private boolean isReplayAttack(String[] splitRequest) {
+            Date requestDate = null;
+            try {
+                requestDate = simpleDateFormat.parse(splitRequest[splitRequest.length - 2]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (DateUtils.addMinutes(requestDate, 1).compareTo(new Date()) < 0) {
+                return true;
+            }
+            String requestStarting = splitRequest[1].concat("#").concat((splitRequest.length > 2 ? splitRequest[2] : ""));
+            if (clientRequestsLog.containsKey(requestStarting)) {
+                if (clientRequestsLog.get(requestStarting).contains(splitRequest[splitRequest.length - 1])) {
+                    return true;
+                }
+            } else {
+                ArrayList<String> arrayList = new ArrayList<>();
+                arrayList.add(splitRequest[splitRequest.length - 1]);
+                clientRequestsLog.put(requestStarting, arrayList);
+            }
+            return false;
         }
     }
 
@@ -400,7 +434,7 @@ public class Server {
         StringBuilder m = new StringBuilder(message);
         for (int i = 0; i < messageChars.length; i++) {
             char c = messageChars[i];
-            m.setCharAt(i,keyMap.get(c));
+            m.setCharAt(i, keyMap.get(c));
         }
         return m.toString();
     }
