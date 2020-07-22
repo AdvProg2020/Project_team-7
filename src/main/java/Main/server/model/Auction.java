@@ -42,7 +42,7 @@ public class Auction {
 
     public Auction(Product product, String startDate, String endDate, SellerAccount sellerAccount) {
         this.id = IDGenerator.getNewID(lastUsedAuctionID);
-        this.highestOffer = 0;
+        this.highestOffer = this.product.getPrice();
         this.product = product;
         this.productStringRecord = product.getProductId();
         //TODO validate date

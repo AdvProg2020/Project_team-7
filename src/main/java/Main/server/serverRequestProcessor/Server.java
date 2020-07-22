@@ -24,7 +24,7 @@ public class Server {
     private HashMap<SocketAddress, ArrayList<Date>> requests = new HashMap<>();
     private HashMap<SocketAddress, ArrayList<Date>> loginRequests = new HashMap<>();
     private final HashMap<Character, Character> KEY_MAP = new HashMap<>();
-    private static final String KEY_STRING = "FHxdjYSEL#TcMZIG4qKO9fW XPNnU23/vVm7i1gbRDesthyBaAr5:op8C6kQu0lzJw";
+    private static final String KEY_STRING = "FH.xdjYSEL#TcMZIG4qKO9fW XPNnU23/vVm7i1gbRDesthyBaAr5:op8C6kQu0lz@Jw";
 
     private static String inputDateFormat = "yyyy/MM/dd HH:mm:ss";
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(inputDateFormat);
@@ -42,7 +42,7 @@ public class Server {
 
     private void setKeyMap(String keyString, HashMap<Character, Character> keyMap) {
         char[] key = keyString.toCharArray();
-        char[] alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#/: ".toCharArray();
+        char[] alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#/: @.".toCharArray();
         for (int i = 0; i < key.length; i++) {
             char c = key[i];
             keyMap.put(c, alphaNumericString[i]);

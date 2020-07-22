@@ -19,7 +19,7 @@ public class Client {
     private DataInputStream dataInputStream;
     private static Client clientInstance;
     private final HashMap<Character, Character> KEY_MAP = new HashMap<>();
-    private static final String KEY_STRING = "FHxdjYSEL#TcMZIG4qKO9fW XPNnU23/vVm7i1gbRDesthyBaAr5:op8C6kQu0lzJw";
+    private static final String KEY_STRING = "FH.xdjYSEL#TcMZIG4qKO9fW XPNnU23/vVm7i1gbRDesthyBaAr5:op8C6kQu0lz@Jw";
     protected static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 
@@ -32,7 +32,7 @@ public class Client {
 
     private void setKeyMap(String keyString, HashMap<Character, Character> keyMap) {
         char[] key = keyString.toCharArray();
-        char[] alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#/: ".toCharArray();
+        char[] alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#/: @.".toCharArray();
         for (int i = 0; i < alphaNumericString.length; i++) {
             char c = alphaNumericString[i];
             keyMap.put(c, key[i]);
@@ -49,6 +49,7 @@ public class Client {
 
     public String sendRequest(String request) {
         try {
+            System.out.println(request);
             String originalRequest = new String(request);
             String randomKey = getRandomKey();
             HashMap<Character, Character> keyMap = new HashMap<>();
@@ -132,7 +133,7 @@ public class Client {
     }
 
     private static String getRandomKey() {
-        StringBuilder alphaNumericString = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#/: ");
+        StringBuilder alphaNumericString = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#/: @.");
 
         for (int i = 0; i < 50; i++) {
             int index1 = (int) (alphaNumericString.length() * Math.random());
