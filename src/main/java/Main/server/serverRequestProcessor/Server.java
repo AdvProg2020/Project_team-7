@@ -416,6 +416,12 @@ public class Server {
 
     private boolean validateTooManyLoginRequests(Socket clientSocket) {
         SocketAddress socketAddress = clientSocket.getLocalSocketAddress();
+        if(!loginRequests.containsKey(socketAddress)){
+            ArrayList<Date> dates = new ArrayList<>();
+            dates.add(new Date());
+            loginRequests.put(socketAddress,dates);
+            return true;
+        }
         ArrayList<Date> requestDates = loginRequests.get(socketAddress);
         if (requestDates.size() >= 3) {
             Date date = requestDates.get(requestDates.size() - 3);
@@ -434,7 +440,10 @@ public class Server {
         StringBuilder m = new StringBuilder(message);
         for (int i = 0; i < messageChars.length; i++) {
             char c = messageChars[i];
-            m.setCharAt(i, keyMap.get(c));
+            try {
+                m.setCharAt(i, keyMap.get(c));
+            }catch (Exception e){
+            }
         }
         return m.toString();
     }

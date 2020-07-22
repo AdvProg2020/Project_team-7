@@ -127,7 +127,10 @@ public class Client {
         StringBuilder m = new StringBuilder(message);
         for (int i = 0; i < messageChars.length; i++) {
             char c = messageChars[i];
-            m.setCharAt(i, keyMap.get(c));
+            try {
+                m.setCharAt(i, keyMap.get(c));
+            }catch (Exception e){
+            }
         }
         return m.toString();
     }
