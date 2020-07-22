@@ -6,8 +6,6 @@ import java.net.Socket;
 public class BankClient {
     private static int port;
     private static String IP;
-    private static double minimumWalletBalance;
-    private static double commission;
 
     private static DataOutputStream outputStream;
     private static DataInputStream inputStream;
@@ -48,19 +46,11 @@ public class BankClient {
         }
     }
 
-    public static void setBankClient(int port, String IP, double minimumWalletBalance,double commission){
+    public static void setPort(int port) {
         BankClient.port = port;
+    }
+
+    public static void setIP(String IP) {
         BankClient.IP = IP;
-        BankClient.minimumWalletBalance = minimumWalletBalance;
-        BankClient.commission = commission;
-
-    }
-
-    public static double getMinimumWalletBalance() {
-        return minimumWalletBalance;
-    }
-
-    public static double getCommission() {
-        return commission;
     }
 }

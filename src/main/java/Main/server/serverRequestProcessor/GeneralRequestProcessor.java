@@ -5,6 +5,7 @@ import Main.server.ServerMain;
 import Main.server.model.Auction;
 import Main.server.model.CartProduct;
 import Main.server.model.Product;
+import Main.server.model.ShopFinance;
 import Main.server.model.accounts.*;
 import Main.server.model.exceptions.AccountsException;
 import Main.server.model.requests.CreateSellerAccountRequest;
@@ -220,14 +221,20 @@ public class GeneralRequestProcessor {
     }
 
     public static String setUpFinanceRequestProcessor(String[] splitRequest) {
-        BankClient.setBankClient(Integer.parseInt(splitRequest[2]), splitRequest[3], Double.parseDouble(splitRequest[4]), Double.parseDouble(splitRequest[5]));
-        try {
-            BankClient.ConnectToBankServer();
-            BankClient.StartListeningOnInput();
-            return "success";
-        } catch (IOException e) {
-            return "InvalidSocketInfo";
+        if (!(ServerMain.server.validateToken(splitRequest[0], ManagerAccount.class) &&
+                ServerMain.server.getTokenInfo(splitRequest[0]).getUser() == ManagerAccount.getAllManagers().get(0))) {
+            return "loginNeeded";
         }
+        String response = BankClient.getResponseFromBankServer("create_account shop shop " + splitRequest[2] + " " + splitRequest[3] + " " + splitRequest[3]);
+        if (response.equals("username is not available")) {
+            return "duplicateUsername";
+        }
+        ShopFinance.getInstance().setAccountID(response);
+        ShopFinance.getInstance().setUsername(splitRequest[2]);
+        ShopFinance.getInstance().setPassword(splitRequest[3]);
+        ShopFinance.getInstance().setMinimumWalletBalance(Double.parseDouble(splitRequest[4]));
+        ShopFinance.getInstance().setCommission(Double.parseDouble(splitRequest[5]));
+        return "success";
     }
 
     public static String signUpSupporterRequestProcessor(String[] splitRequest) {
@@ -310,7 +317,7 @@ public class GeneralRequestProcessor {
             System.out.println("I AM THE ERROR");
             e.printStackTrace();
             System.err.println(e.getMessage());
-            return "error"+e.getMessage();
+            return "error" + e.getMessage();
         }
     }
 
@@ -335,7 +342,7 @@ public class GeneralRequestProcessor {
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getMessage());
-            return "error"+e.getMessage();
+            return "error" + e.getMessage();
         }
     }
 }

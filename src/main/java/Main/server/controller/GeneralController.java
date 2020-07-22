@@ -509,6 +509,7 @@ public class GeneralController {
                 "\n" + SellerAccount.readData() +
                 "\n" + ManagerAccount.readData() +
                 "\n" + Auction.readData() +
+                "\n" + ShopFinance.readData() +
                 "\n";
     }
 
@@ -563,6 +564,7 @@ public class GeneralController {
                 "\n" + SellerAccount.writeData() +
                 "\n" + ManagerAccount.writeData() +
                 "\n" + Auction.writeData() +
+                "\n" + ShopFinance.writeData() +
                 "\n";
     }
 }

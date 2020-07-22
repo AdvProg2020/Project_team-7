@@ -131,16 +131,16 @@ public class GeneralRequestBuilder {
         return ClientMain.client.sendRequest(GraphicMain.token + "#compareProduct#" + GraphicMain.currentProductId + "#" + id);
     }
 
-    public static String buildSetUpFinanceRequest(String port, String IP, String walletMinimumBalance, String commission) {
+    public static String buildSetUpFinanceRequest(String username, String password, String walletMinimumBalance, String commission) {
         try {
-            Integer.parseInt(port);
-        } catch (NumberFormatException e) {
-            return "invalidPort";
+            AccountsException.validateUserName(username);
+        } catch (AccountsException.invalidUserNameException e) {
+            return "invalidUsername";
         }
         try {
-            Double.parseDouble(walletMinimumBalance);
-        } catch (NumberFormatException e) {
-            return "invalidWalletBalance";
+            AccountsException.validatePassWord(password);
+        } catch (AccountsException e) {
+            return "invalidPassword";
         }
         try {
             double commission1 = Double.parseDouble(commission);
@@ -150,8 +150,13 @@ public class GeneralRequestBuilder {
         } catch (Exception e) {
             return "invalidCommission";
         }
+        try {
+            double balance = Double.parseDouble(walletMinimumBalance);
+        } catch (Exception e) {
+            return "invalidWalletBalance";
+        }
 
-        String setUpFinanceRequest = GraphicMain.token + "#financeSetup#" + port + "#" + IP + "#" + walletMinimumBalance + "#" + commission;
+        String setUpFinanceRequest = GraphicMain.token + "#financeSetup#" + username + "#" + password + "#" + walletMinimumBalance + "#" + commission;
         return ClientMain.client.sendRequest(setUpFinanceRequest);
     }
 

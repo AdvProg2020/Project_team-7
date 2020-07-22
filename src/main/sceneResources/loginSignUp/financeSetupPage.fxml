@@ -25,12 +25,12 @@
                             <children>
                                 <HBox layoutX="10.0" layoutY="20.0" prefHeight="51.0" prefWidth="1086.0" spacing="10.0">
                                     <children>
-                                        <Label minWidth="150.0" prefWidth="400.0" text="Bank Port :" textFill="#ff9500">
+                                        <Label minWidth="150.0" prefWidth="400.0" text="Account Username :" textFill="#ff9500">
                                             <HBox.margin>
                                                 <Insets left="70.0" top="35.0" />
                                             </HBox.margin>
                                         </Label>
-                                        <TextField fx:id="bankPort" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="609.0">
+                                        <TextField fx:id="username" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="609.0">
                                             <HBox.margin>
                                                 <Insets right="100.0" top="20.0" />
                                             </HBox.margin>
@@ -42,12 +42,12 @@
                                 </HBox>
                                 <HBox layoutX="10.0" layoutY="110.0" prefHeight="50.0" prefWidth="1086.0" spacing="10.0">
                                     <children>
-                                        <Label minWidth="150.0" prefHeight="21.0" prefWidth="400.0" text="Bank IP :" textFill="#ff9500">
+                                        <Label minWidth="150.0" prefHeight="21.0" prefWidth="400.0" text="Account Password :" textFill="#ff9500">
                                             <HBox.margin>
                                                 <Insets left="70.0" top="15.0" />
                                             </HBox.margin>
                                         </Label>
-                                        <PasswordField fx:id="bankIP" minHeight="50.0" minWidth="-Infinity" onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="609.0">
+                                        <PasswordField fx:id="password" minHeight="50.0" minWidth="-Infinity" onMouseClicked="#resetTextField" prefHeight="50.0" prefWidth="609.0">
                                             <HBox.margin>
                                                 <Insets right="100.0" />
                                             </HBox.margin>
