@@ -37,6 +37,9 @@ public class BankClient {
             ConnectToBankServer(socket);
             String response = sendMessage(message);
             sendMessage("exit");
+            socket.close();
+            inputStream.close();
+            outputStream.close();
             return response;
 
         } catch (IOException e) {
