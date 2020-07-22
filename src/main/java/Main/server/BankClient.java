@@ -1,8 +1,6 @@
 package Main.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class BankClient {
@@ -17,31 +15,33 @@ public class BankClient {
     public static void ConnectToBankServer() throws IOException {
         try {
             Socket socket = new Socket(IP, port);
-            outputStream = new DataOutputStream(socket.getOutputStream());
-            inputStream = new DataInputStream(socket.getInputStream());
+            outputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            inputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         } catch (IOException e) {
             throw new IOException("Exception while initiating connection:");
         }
     }
 
-    public static void StartListeningOnInput() {
-        new Thread(() -> {
-            while (true) {
-                try {
-                    System.out.println(inputStream.readUTF());
-                } catch (IOException e) {
-                    System.out.println("disconnected");
-                    System.exit(0);
-                }
-            }
-        }).start();
-    }
-
-    public static void SendMessage(String msg) throws IOException {
+    public static String sendMessage(String message) throws IOException {
         try {
-            outputStream.writeUTF(msg);
+            outputStream.writeUTF(message);
+            outputStream.flush();
+            return inputStream.readUTF();
         } catch (IOException e) {
             throw new IOException("Exception while sending message:");
+        }
+    }
+
+    public static String getResponseFromBankServer(String message){
+        try {
+            ConnectToBankServer();
+            String response = sendMessage(message);
+            sendMessage("exit");
+            return response;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "failure";
         }
     }
 
