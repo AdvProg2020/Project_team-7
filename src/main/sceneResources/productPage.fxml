@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.ProductPage">
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.ProductPage">
     <stylesheets>
-        <URL value="@../java/Main/client/graphicView/cssFiles/basicStyles.css"/>
-        <URL value="@../java/Main/client/graphicView/cssFiles/listView.css"/>
+        <URL value="@../java/Main/client/graphicView/cssFiles/basicStyles.css" />
+        <URL value="@../java/Main/client/graphicView/cssFiles/listView.css" />
     </stylesheets>
     <children>
-        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack"
-                   pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../java/Main/client/graphicView/resources/images/back.png"/>
+                <Image url="@../java/Main/client/graphicView/resources/images/back.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1021.0" layoutY="651.0" onMouseClicked="#goToUserPanelPage"
-                   pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1021.0" layoutY="651.0" onMouseClicked="#goToUserPanelPage" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../java/Main/client/graphicView/resources/images/avatar.png"/>
+                <Image url="@../java/Main/client/graphicView/resources/images/avatar.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="scoreImage" fitHeight="50.0" fitWidth="200.0" layoutX="151.0" layoutY="311.0"
-                   pickOnBounds="true" preserveRatio="true"/>
-        <Label fx:id="scoreLabel" alignment="CENTER" layoutX="50.0" layoutY="311.0" prefHeight="50.0" prefWidth="100.0"
-               text="Label">
+        <ImageView fx:id="scoreImage" fitHeight="50.0" fitWidth="200.0" layoutX="151.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="scoreLabel" alignment="CENTER" layoutX="50.0" layoutY="311.0" prefHeight="50.0" prefWidth="100.0" text="Label">
             <font>
-                <Font size="30.0"/>
+                <Font size="30.0" />
             </font>
         </Label>
-        <ScrollPane fx:id="scrollImage" layoutX="50.0" layoutY="50.0" prefHeight="244.0" prefWidth="301.0"/>
+        <ScrollPane fx:id="scrollImage" layoutX="50.0" layoutY="50.0" prefHeight="244.0" prefWidth="301.0" />
         <ScrollPane layoutX="460.0" layoutY="50.0" prefHeight="140.0" prefWidth="704.0">
             <content>
                 <VBox prefHeight="137.0" prefWidth="703.0">
                     <children>
                         <TextArea fx:id="generalFeatures" editable="false" prefHeight="137.0" prefWidth="703.0">
                             <font>
-                                <Font size="30.0"/>
+                                <Font size="30.0" />
                             </font>
                         </TextArea>
                     </children>
@@ -53,23 +54,21 @@
                     <children>
                         <TextArea fx:id="specialFeatures" editable="false" prefHeight="200.0" prefWidth="703.0">
                             <font>
-                                <Font size="30.0"/>
+                                <Font size="30.0" />
                             </font>
                         </TextArea>
                     </children>
                 </VBox>
             </content>
         </ScrollPane>
-        <ImageView fitHeight="73.0" fitWidth="73.0" layoutX="934.0" layoutY="646.0"
-                   onMouseClicked="#goToSelectSellerPage" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="73.0" fitWidth="73.0" layoutX="853.0" layoutY="646.0" onMouseClicked="#goToSelectSellerPage" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../java/Main/client/graphicView/resources/images/addToCart.png"/>
+                <Image url="@../java/Main/client/graphicView/resources/images/addToCart.png" />
             </image>
         </ImageView>
-        <Button layoutX="115.0" layoutY="394.0" mnemonicParsing="false" onAction="#rateProduct" prefHeight="81.0"
-                prefWidth="172.0" text="rate this product">
+        <Button layoutX="115.0" layoutY="394.0" mnemonicParsing="false" onAction="#rateProduct" prefHeight="81.0" prefWidth="172.0" text="rate this product">
             <font>
-                <Font size="30.0"/>
+                <Font size="30.0" />
             </font>
         </Button>
         <ScrollPane layoutX="460.0" layoutY="375.0" prefHeight="230.0" prefWidth="704.0">
@@ -78,35 +77,37 @@
                     <children>
                         <Label prefHeight="46.0" prefWidth="703.0" text="comments:" textFill="#ee4d0d">
                             <font>
-                                <Font size="30.0"/>
+                                <Font size="30.0" />
                             </font>
                         </Label>
                     </children>
                 </VBox>
             </content>
         </ScrollPane>
-        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="470.0" layoutY="610.0" onMouseClicked="#addComment"
-                   pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="470.0" layoutY="610.0" onMouseClicked="#addComment" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../java/Main/client/graphicView/resources/images/addComment.png"/>
+                <Image url="@../java/Main/client/graphicView/resources/images/addComment.png" />
             </image>
         </ImageView>
-        <TextField fx:id="productIdToBeCompared" layoutX="55.0" layoutY="505.0" prefHeight="63.0" prefWidth="292.0"
-                   promptText="enter a product Id to compare">
+        <TextField fx:id="productIdToBeCompared" layoutX="55.0" layoutY="505.0" prefHeight="63.0" prefWidth="292.0" promptText="enter a product Id to compare">
             <font>
-                <Font size="25.0"/>
+                <Font size="25.0" />
             </font>
         </TextField>
-        <Button layoutX="142.0" layoutY="599.0" mnemonicParsing="false" onAction="#compareProduct" prefHeight="63.0"
-                prefWidth="118.0" text="compare">
+        <Button layoutX="142.0" layoutY="599.0" mnemonicParsing="false" onAction="#compareProduct" prefHeight="63.0" prefWidth="118.0" text="compare">
             <font>
-                <Font size="30.0"/>
+                <Font size="30.0" />
             </font>
         </Button>
-        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="26.0" layoutY="651.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="934.0" layoutY="643.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../java/Main/client/graphicView/resources/images/logout.png" />
             </image>
         </ImageView>
+      <Button layoutX="80.0" layoutY="673.0" mnemonicParsing="false" onMouseClicked="#viewRelatedProducts" prefHeight="63.0" prefWidth="242.0" text="view related products">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

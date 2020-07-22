@@ -68,4 +68,9 @@ public class DataRequestBuilder {
         String startModeRequest = GraphicMain.token + "#data#startMode";
         return ClientMain.client.sendRequest(startModeRequest);
     }
+
+    public static String buildCategoryProductsRequest(String currentProductId) {
+        String categoryProductsRequest = GraphicMain.token + "#data#categoryProducts#" + currentProductId;
+        return ClientMain.client.sendRequest(categoryProductsRequest);
+    }
 }

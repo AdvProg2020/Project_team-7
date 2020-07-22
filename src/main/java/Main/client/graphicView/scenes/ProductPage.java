@@ -5,14 +5,21 @@ import Main.client.graphicView.scenes.BuyerPanel.BuyerPanelController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.client.requestBuilder.DataRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.server.controller.GeneralController;
+import Main.server.model.Product;
+import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -20,14 +27,19 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import static java.util.Arrays.asList;
 
 public class ProductPage implements Initializable {
     public static final String FXML_PATH = "src/main/sceneResources/productPage.fxml";
     public static final String TITLE = "Seller Panel";
     //    private Product currentProduct;
     private ImageView productImage = new ImageView(new Image(new File("src/main/java/Main/client/graphicView/resources/images/product.png").toURI().toString()));
+    private ArrayList<Product> relatedProducts = new ArrayList<>();
 
     @FXML
     private ImageView scoreImage;
@@ -284,4 +296,39 @@ public class ProductPage implements Initializable {
 //        }
     }
 
+    public void viewRelatedProducts(MouseEvent mouseEvent) {
+        String response = DataRequestBuilder.buildCategoryProductsRequest(GraphicMain.currentProductId);
+        if (response.equals("nullCategory")) {
+            GraphicMain.showInformationAlert("no related products found !");
+        } else if (response.equals("tooManyRequests")) {
+            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+        } else {
+            GeneralController.jsonReader = new JsonReader(new StringReader(response));
+            Product[] allPro = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Product[].class);
+            relatedProducts = (allPro == null) ? new ArrayList<>() : new ArrayList<>(asList(allPro));
+            showRelatedProducts(relatedProducts);
+        }
+    }
+
+
+    private void showRelatedProducts(ArrayList<Product> allProducts) {
+        Stage addAuction = new Stage();
+        addAuction.setTitle("Related Products");
+
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(30, 0, 30, 30));
+        vBox.setSpacing(50);
+        vBox.setAlignment(Pos.CENTER);
+
+        ScrollPane scrollPane = new ScrollPane(vBox);
+
+        for (Product product : allProducts) {
+            VBox productBox = product.createProductBoxForUI();
+            vBox.getChildren().add(productBox);
+        }
+
+        Scene scene = new Scene(scrollPane, 750, 400);
+        addAuction.setScene(scene);
+        addAuction.show();
+    }
 }

@@ -19,7 +19,7 @@ public class Client {
     private DataInputStream dataInputStream;
     private static Client clientInstance;
     private final HashMap<Character, Character> KEY_MAP = new HashMap<>();
-    private static final String KEY_STRING = "FHxdjYSEL#TcMZIG4qKO9fWXPNnU23/vVm7i1gbRDesthyBaAr5:op8C6kQu0lzJw";
+    private static final String KEY_STRING = "FHxdjYSEL#TcMZIG4qKO9fW XPNnU23/vVm7i1gbRDesthyBaAr5:op8C6kQu0lzJw";
     protected static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 
@@ -32,7 +32,7 @@ public class Client {
 
     private void setKeyMap(String keyString, HashMap<Character, Character> keyMap) {
         char[] key = keyString.toCharArray();
-        char[] alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#/:".toCharArray();
+        char[] alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#/: ".toCharArray();
         for (int i = 0; i < alphaNumericString.length; i++) {
             char c = alphaNumericString[i];
             keyMap.put(c, key[i]);
@@ -53,16 +53,16 @@ public class Client {
             String randomKey = getRandomKey();
             HashMap<Character, Character> keyMap = new HashMap<>();
             setKeyMap(randomKey, keyMap);
-            request = encryptMessage(request, keyMap);
             String dateNow = dateFormat.format(new Date());
             request = request.concat("#").concat(dateNow).concat("#").concat(getRandomString(5));
+            request = encryptMessage(request, keyMap);
             request = request.concat("#").concat(encryptMessage(randomKey, KEY_MAP));
 
             dataOutputStream.writeUTF(request);
             dataOutputStream.flush();
             System.out.println("client wrote " + request);
             String s = dataInputStream.readUTF();
-            if(s.equals("tryAgain")){
+            if (s.equals("tryAgain")) {
                 sendRequest(originalRequest);
             }
             System.out.println("client read " + s);
@@ -74,26 +74,34 @@ public class Client {
     }
 
     public List sendRequestObject(String request) throws ClassNotFoundException {
+        String originalRequest = new String(request);
         try {
             String randomKey = getRandomKey();
             HashMap<Character, Character> keyMap = new HashMap<>();
             setKeyMap(randomKey, keyMap);
-            request = encryptMessage(request, keyMap);
             String dateNow = dateFormat.format(new Date());
             request = request.concat("#").concat(dateNow).concat("#").concat(getRandomString(5));
+            request = encryptMessage(request, keyMap);
             request = request.concat("#").concat(encryptMessage(randomKey, KEY_MAP));
 
             dataOutputStream.writeUTF(request);
             dataOutputStream.flush();
             System.out.println("client wrote " + request);
             //String s = dataInputStream.readUTF();
-            ObjectInputStream ois = new ObjectInputStream(dataInputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ObjectInputStream ois = null;
+        try {
+            ois = new ObjectInputStream(dataInputStream);
             System.out.println("client read " + "object");
             return ((List) ois.readObject());
             //return s;
         } catch (IOException e) {
-            e.printStackTrace();
+            sendRequestObject(originalRequest);
         }
+
         return null;
     }
 
@@ -124,7 +132,7 @@ public class Client {
     }
 
     private static String getRandomKey() {
-        StringBuilder alphaNumericString = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#/:");
+        StringBuilder alphaNumericString = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz#/: ");
 
         for (int i = 0; i < 50; i++) {
             int index1 = (int) (alphaNumericString.length() * Math.random());

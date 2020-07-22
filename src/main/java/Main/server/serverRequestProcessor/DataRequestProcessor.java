@@ -4,6 +4,7 @@ import Main.server.BankClient;
 import Main.server.ServerMain;
 import Main.server.controller.GeneralController;
 import Main.server.model.Auction;
+import Main.server.model.Category;
 import Main.server.model.Product;
 import Main.server.model.accounts.Account;
 import Main.server.model.accounts.BuyerAccount;
@@ -13,6 +14,7 @@ import Main.server.model.logs.BuyLog;
 import Main.server.model.logs.Log;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class DataRequestProcessor {
     public static String process(String[] splitRequest) {
@@ -42,8 +44,27 @@ public class DataRequestProcessor {
             return messageNoResponse(splitRequest);
         } else if (splitRequest[2].equals("startMode")) {
             return startModeResponse();
+        } else if (splitRequest[2].equals("categoryProducts")) {
+            return categoryProductsResponse(splitRequest[3]);
         }
         return null;
+    }
+
+    private static String categoryProductsResponse(String productID) {
+        Product product = null;
+        try {
+            product = Product.getProductWithId(productID);
+        } catch (Exception e) {
+        }
+        Category category = product.getCategory();
+        if (category == null) {
+            return "nullCategory";
+        }
+        ArrayList<Product> allProducts = category.getProducts();
+
+        Product[] allPro = new Product[allProducts.size()];
+        allPro = allProducts.toArray(allPro);
+        return GeneralController.yagsonMapper.toJson(allPro, Product[].class);
     }
 
     private static String startModeResponse() {
