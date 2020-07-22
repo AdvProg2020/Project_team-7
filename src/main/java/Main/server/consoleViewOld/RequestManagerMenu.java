@@ -1,4 +1,4 @@
-package Main.client.consoleViewOld;
+package Main.server.consoleViewOld;
 
 public class RequestManagerMenu extends Menu {
     public RequestManagerMenu(Menu parentMenu) {

@@ -1,12 +1,9 @@
 package Main.client.graphicView;
 
-import Main.client.consoleViewOld.MainMenu;
-import Main.client.graphicView.scenes.*;
+import Main.client.ClientMain;
+import Main.client.graphicView.scenes.MainMenuController;
+import Main.client.graphicView.scenes.RegisterManager;
 import Main.client.requestBuilder.DataRequestBuilder;
-import Main.server.controller.BuyerController;
-import Main.server.controller.GeneralController;
-import Main.server.controller.ManagerController;
-import Main.server.controller.SellerController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,10 +24,10 @@ public class GraphicMain extends Application {
     public static ArrayList<String> sceneTrace = new ArrayList<>();
     public static Stage stage;
     public static GraphicMain graphicMain = new GraphicMain();
-    public static BuyerController buyerController = new BuyerController();
-    public static ManagerController managerController = new ManagerController();
-    public static GeneralController generalController = new GeneralController();
-    public static SellerController sellerController = new SellerController();
+//    public static BuyerController buyerController = new BuyerController();
+//    public static ManagerController managerController = new ManagerController();
+//    public static GeneralController generalController = new GeneralController();
+//    public static SellerController sellerController = new SellerController();
     public static String token = "0000";
     public static String currentProductId = "0000";
     public static String currentAuctionId = "0000";
@@ -45,8 +42,8 @@ public class GraphicMain extends Application {
         //audioClip = new AudioClip(new File("src/main/java/Main/client/graphicView/resources/soundEffects/backgroundMusic.wav").toURI().toString());
         //audioClip.setCycleCount(AudioClip.INDEFINITE);
 
-        System.out.println(GeneralController.readDataAndSetStringRecordObjects());
-        generalController.initializeIDs();
+//        System.out.println(GeneralController.readDataAndSetStringRecordObjects());
+//        generalController.initializeIDs();
 //        generalController.giveDiscountCodeToSpecialBuyers();
 
         stage = primaryStage;
@@ -92,9 +89,9 @@ public class GraphicMain extends Application {
     }
 
     public void exitProgram() {
-        System.out.println(GeneralController.writeDataAndGetObjectStringRecords());
-        System.out.println(GeneralController.readDataAndSetStringRecordObjects());
-        // ClientMain.client.closeConnection();
+//        System.out.println(GeneralController.writeDataAndGetObjectStringRecords());
+//        System.out.println(GeneralController.readDataAndSetStringRecordObjects());
+        ClientMain.client.closeConnection();
         System.exit(123);
     }
 

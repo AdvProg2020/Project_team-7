@@ -142,6 +142,7 @@ public class Server {
 
             splitRequest = request.split("#");
 
+            //if(false){
             if (isReplayAttack(splitRequest)) {
                 response = "tryAgain";
             } else if (!validateTooManyRequests(clientSocket)) {
@@ -311,23 +312,31 @@ public class Server {
                 response = GeneralRequestProcessor.openChatWithRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("initializeSupporterPanel")) {
                 response = GeneralRequestProcessor.initializeSupporterPanelRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("setChatMessages")) {
+                response = GeneralRequestProcessor.setChatMessagesRequestBuilder(splitRequest);
+            } else if (splitRequest[1].equals("saveChatMessages")) {
+                response = GeneralRequestProcessor.saveChatMessagesRequestBuilder(splitRequest);
             } else {
                 response = "invalidRequest";
+            }
+            if (request.equals("do not write UTF")) {
+                dataOutputStream.flush();
+                System.out.println("server wrote " + response);
             }
 
             if (!response.equals("do not write UTF") && !response.equals("invalidRequest")) {
                 dataOutputStream.writeUTF(response);
                 dataOutputStream.flush();
                 System.out.println("server wrote " + response);
-            }
 
-            if (!response.equals("disconnected")) {
-                handle();
-            } else {
-                removeToken(splitRequest[0]);
-                clientSocket.close();
-                dataOutputStream.close();
-                dataInputStream.close();
+                if (!response.equals("disconnected")) {
+                    handle();
+                } else {
+                    removeToken(splitRequest[0]);
+                    clientSocket.close();
+                    dataOutputStream.close();
+                    dataInputStream.close();
+                }
             }
         }
 

@@ -1,4 +1,4 @@
-package Main.client.consoleViewOld;
+package Main.server.consoleViewOld;
 
 public class MainMenu extends Menu {
     public MainMenu() {

@@ -1,4 +1,4 @@
-package Main.client.consoleViewOld;
+package Main.server.consoleViewOld;
 
 import java.util.ArrayList;
 

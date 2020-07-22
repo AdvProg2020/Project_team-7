@@ -1,4 +1,4 @@
-package Main.client.consoleViewOld;
+package Main.server.consoleViewOld;
 
 public class FilteringMenu extends Menu {
     public FilteringMenu(Menu parentMenu) {

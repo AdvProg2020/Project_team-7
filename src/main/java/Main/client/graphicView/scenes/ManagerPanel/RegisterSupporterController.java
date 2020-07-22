@@ -4,7 +4,6 @@ import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.FinanceSetupPage;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
-import Main.server.model.exceptions.AccountsException;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;

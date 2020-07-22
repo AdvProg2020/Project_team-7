@@ -1,4 +1,4 @@
-package Main.client.consoleViewOld;
+package Main.server.consoleViewOld;
 
 public class CartManagerMenu extends Menu {
     public CartManagerMenu(Menu parentMenu) {

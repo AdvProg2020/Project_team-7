@@ -3,13 +3,12 @@ package Main.client.graphicView.scenes;
 import Main.client.graphicView.GraphicMain;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
-import Main.client.requestBuilder.ManagerRequestBuilder;
-import Main.server.serverRequestProcessor.GeneralRequestProcessor;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class SupporterPanelController {
     public static final String FXML_PATH = "src/main/sceneResources/SupporterPanel.fxml";
@@ -58,9 +57,17 @@ public class SupporterPanelController {
         GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
-    private void openChatPage(String myToken, String theirUsername) throws IOException {
+    public void openChatPage(String myToken, String theirUsername) throws IOException {
         FXMLLoader fxmlLoader = GraphicMain.graphicMain.goToPageReturnLoader(ChatPageController.FXML_PATH, ChatPageController.TITLE);
         ChatPageController chatPageController = fxmlLoader.getController();
-        chatPageController.setPeople(myToken,theirUsername);
+        chatPageController.setPeople(myToken,theirUsername,null,this);
+        //GeneralRequestBuilder.buildSaveChatMessages(theirUsername,new ArrayList<>());
+        try {
+            chatPageController.setMessages(GeneralRequestBuilder.buildSetChatMessagesRequest(theirUsername));
+        } catch (Exception e) {
+            e.printStackTrace();
+            ManagerPanelController.alertError(e.getMessage());
+        }
+        chatPageController.initialize();
     }
 }

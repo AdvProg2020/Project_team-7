@@ -1,15 +1,16 @@
-package Main.client.consoleViewOld;
+package Main.server.consoleViewOld;
 
-public class AllProductsManagerMenu extends Menu {
-    public AllProductsManagerMenu(Menu parentMenu) {
-        super("Manage all products", parentMenu);
-        this.subMenus.put(1, removeProduct());
+public class OffMenu extends Menu {
+    public OffMenu(Menu parentMenu) {
+        super("Off Menu", parentMenu);
+        this.subMenus.put(1, new FilteringMenu(this));
         this.subMenus.put(2, new SortingMenu(this));
-
+        this.subMenus.put(3, showProduct());
+        this.subMenus.put(4, new UserPanelMenu(this));
     }
 
-    private Menu removeProduct() {
-        return new Menu("Remove product", this) {
+    private Menu showProduct() {
+        return new Menu("Show product", this) {
             @Override
             public void show() {
                 System.out.println(this.getName() + ":");
@@ -23,9 +24,9 @@ public class AllProductsManagerMenu extends Menu {
                     this.parentMenu.run();
                 else {
                     try {
-                        managerController.removeProductWithId(input);
-                        System.out.println("Product removed successfully.\n");
-                        this.run();
+                        System.out.println(generalController.setCurrentProductWithId(input));
+                        ProductPageMenu productPageMenu = new ProductPageMenu(this);
+                        productPageMenu.run();
                     } catch (Exception e) {
                         System.out.println(e.getMessage() + "\n");
                         this.run();
@@ -37,7 +38,7 @@ public class AllProductsManagerMenu extends Menu {
 
     @Override
     public void run() throws Exception {
-        System.out.println(generalController.showAllProducts() + "\n");
+        System.out.println(generalController.showAllOffProducts() + "\n");
         this.show();
         this.execute();
     }

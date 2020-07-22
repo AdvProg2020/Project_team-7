@@ -1,4 +1,4 @@
-package Main.client.consoleViewOld;
+package Main.server.consoleViewOld;
 
 import Main.server.model.Category;
 import Main.server.model.exceptions.CreateProductException;

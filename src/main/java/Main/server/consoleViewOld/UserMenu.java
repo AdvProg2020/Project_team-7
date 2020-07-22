@@ -1,4 +1,4 @@
-package Main.client.consoleViewOld;
+package Main.server.consoleViewOld;
 
 import Main.server.controller.GeneralController;
 import Main.server.model.accounts.ManagerAccount;

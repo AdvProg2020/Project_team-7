@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class HelpCenterController {
     public static final String FXML_PATH = "src/main/sceneResources/BuyerPanel/HelpCenter.fxml";
@@ -34,7 +35,7 @@ public class HelpCenterController {
                     ManagerPanelController.alertError("You can only chat with online supporters!");
                 else {
                     try {
-                        openChatPage(GraphicMain.token,userName);
+                        openChatPage(GraphicMain.token, userName);
                     } catch (IOException e) {
                         System.out.println(e.getMessage());
                         ManagerPanelController.alertError(e.getMessage());
@@ -44,10 +45,18 @@ public class HelpCenterController {
         });
     }
 
-    private void openChatPage(String myToken, String theirUsername) throws IOException {
+    public void openChatPage(String myToken, String theirUsername) throws IOException {
         FXMLLoader fxmlLoader = GraphicMain.graphicMain.goToPageReturnLoader(ChatPageController.FXML_PATH, ChatPageController.TITLE);
         ChatPageController chatPageController = fxmlLoader.getController();
-        chatPageController.setPeople(myToken,theirUsername);
+        chatPageController.setPeople(myToken, theirUsername, this, null);
+        //GeneralRequestBuilder.buildSaveChatMessages(theirUsername,new ArrayList<>());
+        try {
+            chatPageController.setMessages(GeneralRequestBuilder.buildSetChatMessagesRequest(theirUsername));
+        } catch (Exception e) {
+            e.printStackTrace();
+            ManagerPanelController.alertError(e.getMessage());
+        }
+        chatPageController.initialize();
     }
 
     public void goBack() {

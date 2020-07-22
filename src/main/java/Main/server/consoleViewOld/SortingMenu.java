@@ -1,4 +1,4 @@
-package Main.client.consoleViewOld;
+package Main.server.consoleViewOld;
 
 public class SortingMenu extends Menu {
     public SortingMenu(Menu parentMenu) {

@@ -1,4 +1,4 @@
-package Main.client.consoleViewOld;
+package Main.server.consoleViewOld;
 
 public class CommentMenu extends Menu {
     public CommentMenu(Menu parentMenu) {

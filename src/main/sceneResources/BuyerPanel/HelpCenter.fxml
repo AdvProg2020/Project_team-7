@@ -16,12 +16,17 @@
                 <Image url="@../../java/Main/client/graphicView/resources/images/back.png" />
             </image>
         </ImageView>
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1093.0" layoutY="15.0" onMouseClicked="#initialize" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../java/Main/client/graphicView/resources/images/refresh.png" />
+            </image>
+        </ImageView>
         <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1081.0" layoutY="650.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../java/Main/client/graphicView/resources/images/logout.png" />
             </image>
         </ImageView>
-      <ListView layoutX="221.0" layoutY="186.0" prefHeight="474.0" prefWidth="754.0" fx:id="supportersList"/>
+      <ListView fx:id="supportersList" layoutX="221.0" layoutY="186.0" prefHeight="474.0" prefWidth="754.0" />
       <Label layoutX="221.0" layoutY="20.0" text="All Supporters: " />
       <Label layoutX="224.0" layoutY="83.0" text="(you can select an online supporter to chat with them)" />
     </children>

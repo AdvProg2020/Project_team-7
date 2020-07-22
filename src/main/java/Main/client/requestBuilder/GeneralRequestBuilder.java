@@ -2,9 +2,11 @@ package Main.client.requestBuilder;
 
 import Main.client.ClientMain;
 import Main.client.graphicView.GraphicMain;
-import Main.server.ServerMain;
 import Main.server.model.exceptions.AccountsException;
-import Main.server.serverRequestProcessor.Server;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class GeneralRequestBuilder {
 
@@ -130,7 +132,7 @@ public class GeneralRequestBuilder {
     }
 
     public static String buildSetUpFinanceRequest(String port, String IP, String walletMinimumBalance, String commission) {
-        try{
+        try {
             Integer.parseInt(port);
         } catch (NumberFormatException e) {
             return "invalidPort";
@@ -142,7 +144,7 @@ public class GeneralRequestBuilder {
         }
         try {
             double commission1 = Double.parseDouble(commission);
-            if(commission1>=100){
+            if (commission1 >= 100) {
                 throw new Exception();
             }
         } catch (Exception e) {
@@ -187,10 +189,32 @@ public class GeneralRequestBuilder {
     }
 
     public static String buildOpenChatRequest(String myToken, String theirUsername) {
-        return ClientMain.client.sendRequest(myToken+"#openChatWith#"+theirUsername);
+        return ClientMain.client.sendRequest(myToken + "#openChatWith#" + theirUsername);
     }
 
     public static String buildInitializeSupporterPanelRequest() {
-        return ClientMain.client.sendRequest(GraphicMain.token+"#initializeSupporterPanel");
+        return ClientMain.client.sendRequest(GraphicMain.token + "#initializeSupporterPanel");
+    }
+
+    public static ArrayList<String> buildSetChatMessagesRequest(String theirUsername) throws Exception {
+        String allMessages = ClientMain.client.sendRequest(GraphicMain.token + "#setChatMessages#" + theirUsername);
+        if (allMessages.equals(""))
+            return new ArrayList<>();
+        if (allMessages.startsWith("error"))
+            throw new Exception(allMessages);
+        String[] messages = allMessages.split("#");
+        ArrayList<String> messageList = new ArrayList<>(Arrays.asList(messages));
+        return messageList;
+    }
+
+    public static void buildSaveChatMessages(String theirUsername, ArrayList<String> messages) {
+        String messagesAsString = "";
+        for (String message : messages) {
+            messagesAsString = messagesAsString.concat(message);
+            messagesAsString = messagesAsString.concat("&&&");
+        }
+        if (!messagesAsString.equals(""))
+            messagesAsString = messagesAsString.substring(0, messagesAsString.length() - 3);
+        ClientMain.client.sendRequest(GraphicMain.token + "#saveChatMessages#" + theirUsername + "#" + messagesAsString);
     }
 }

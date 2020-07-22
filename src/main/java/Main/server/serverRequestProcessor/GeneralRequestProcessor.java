@@ -1,6 +1,5 @@
 package Main.server.serverRequestProcessor;
 
-import Main.client.graphicView.GraphicMain;
 import Main.server.BankClient;
 import Main.server.ServerMain;
 import Main.server.model.Auction;
@@ -13,6 +12,8 @@ import Main.server.model.requests.Request;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class GeneralRequestProcessor {
     public static String loginRequestProcessor(String[] splitRequest) {
@@ -172,7 +173,7 @@ public class GeneralRequestProcessor {
 
     public static String buildRateProductResponse(String[] splitRequest) {
         try {
-            GraphicMain.buyerController.rateProductWithId(splitRequest[2], splitRequest[3], splitRequest[0]);
+            ServerMain.buyerController.rateProductWithId(splitRequest[2], splitRequest[3], splitRequest[0]);
             return "success";
         } catch (Exception e) {
             return "error#" + e.getMessage();
@@ -250,13 +251,15 @@ public class GeneralRequestProcessor {
         return "success#supporter";
     }
 
-    public static String openChatWithRequestProcessor(String[] splitRequest) {
+    public static String openChatWithRequestProcessor(String[] splitRequest) throws Exception {
         String myToken = splitRequest[0];
         String theirUsername = splitRequest[2];
         BuyerAccount buyerAccount;
         SupporterAccount supporterAccount;
+
         if (Server.getServer().validateToken(myToken, BuyerAccount.class)) {
             buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(myToken).getUser());
+            ((SupporterAccount) Account.getUserWithUserName(theirUsername)).addBuyerToChatList(buyerAccount.getUserName());
             return "meBuyer#" + buyerAccount.getUserName();
         } else {
             supporterAccount = ((SupporterAccount) Server.getServer().getTokenInfo(myToken).getUser());
@@ -277,6 +280,63 @@ public class GeneralRequestProcessor {
         }
         response = response.substring(0, response.length() - 1);
         return response;
+    }
+
+    public static String setChatMessagesRequestBuilder(String[] splitRequest) {
+        try {
+            String myToken = splitRequest[0];
+            String theirUsername = splitRequest[2];
+            BuyerAccount buyerAccount;
+            SupporterAccount supporterAccount;
+            if (Server.getServer().validateToken(myToken, BuyerAccount.class)) {
+                buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(myToken).getUser());
+                supporterAccount = ((SupporterAccount) Account.getUserWithUserName(theirUsername));
+            } else {
+                supporterAccount = ((SupporterAccount) Server.getServer().getTokenInfo(myToken).getUser());
+                buyerAccount = BuyerAccount.getBuyerWithUserName(theirUsername);
+            }
+            String massagesAsString = "";
+            if (!supporterAccount.getMyChatsMessages().containsKey(buyerAccount.getUserName()))
+                supporterAccount.getMyChatsMessages().put(buyerAccount.getUserName(), new ArrayList<>());
+            for (String s : supporterAccount.getMyChatsMessages().get(buyerAccount.getUserName())) {
+                massagesAsString = massagesAsString.concat(s);
+                massagesAsString = massagesAsString.concat("#");
+            }
+            if (massagesAsString.equals(""))
+                return massagesAsString;
+            massagesAsString = massagesAsString.substring(0, massagesAsString.length() - 1);
+            return massagesAsString;
+        } catch (Exception e) {
+            System.out.println("I AM THE ERROR");
+            e.printStackTrace();
+            System.err.println(e.getMessage());
+            return "error"+e.getMessage();
+        }
+    }
+
+    public static String saveChatMessagesRequestBuilder(String[] splitRequest) {
+        try {
+            String myToken = splitRequest[0];
+            String theirUsername = splitRequest[2];
+            BuyerAccount buyerAccount;
+            SupporterAccount supporterAccount;
+            if (Server.getServer().validateToken(myToken, BuyerAccount.class)) {
+                buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(myToken).getUser());
+                supporterAccount = ((SupporterAccount) Account.getUserWithUserName(theirUsername));
+            } else {
+                supporterAccount = ((SupporterAccount) Server.getServer().getTokenInfo(myToken).getUser());
+                buyerAccount = BuyerAccount.getBuyerWithUserName(theirUsername);
+            }
+            if (!splitRequest[3].equals("")) {
+                String[] messages = splitRequest[3].split("&&&");
+                supporterAccount.setMyChatsMessages(buyerAccount.getUserName(), new ArrayList<>(Arrays.asList(messages)));
+            }
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getMessage());
+            return "error"+e.getMessage();
+        }
     }
 }
 

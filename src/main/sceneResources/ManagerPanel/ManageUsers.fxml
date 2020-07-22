@@ -16,6 +16,11 @@
                 <Image url="@../../java/Main/client/graphicView/resources/images/back.png" />
             </image>
         </ImageView>
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1093.0" layoutY="15.0" onMouseClicked="#initialize" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../java/Main/client/graphicView/resources/images/refresh.png" />
+            </image>
+        </ImageView>
         <Button layoutX="32.0" layoutY="618.0" mnemonicParsing="false" onAction="#goToRegisterManager" prefHeight="104.0" prefWidth="512.0" text="Create a Manager Account" />
         <ListView fx:id="usersList" layoutX="227.0" layoutY="60.0" prefHeight="530.0" prefWidth="746.0" />
         <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1081.0" layoutY="650.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">

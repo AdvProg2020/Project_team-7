@@ -1,4 +1,4 @@
-package Main.client.consoleViewOld;
+package Main.server.consoleViewOld;
 
 public class LoginMenu extends Menu {
     public LoginMenu(Menu parentMenu) {

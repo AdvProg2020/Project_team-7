@@ -1,4 +1,4 @@
-package Main.client.consoleViewOld;
+package Main.server.consoleViewOld;
 
 public class InCartProductManagerMenu extends Menu {
     public InCartProductManagerMenu(Menu parentMenu) {
