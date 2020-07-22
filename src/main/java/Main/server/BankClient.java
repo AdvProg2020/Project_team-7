@@ -12,9 +12,8 @@ public class BankClient {
     private static DataOutputStream outputStream;
     private static DataInputStream inputStream;
 
-    public static void ConnectToBankServer() throws IOException {
+    public static void ConnectToBankServer(Socket socket) throws IOException {
         try {
-            Socket socket = new Socket(IP, port);
             outputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             inputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         } catch (IOException e) {
@@ -34,7 +33,8 @@ public class BankClient {
 
     public static String getResponseFromBankServer(String message){
         try {
-            ConnectToBankServer();
+            Socket socket = new Socket(IP, port);
+            ConnectToBankServer(socket);
             String response = sendMessage(message);
             sendMessage("exit");
             return response;
