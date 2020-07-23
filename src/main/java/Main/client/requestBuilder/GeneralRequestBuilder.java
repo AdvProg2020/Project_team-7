@@ -6,7 +6,6 @@ import Main.server.model.exceptions.AccountsException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class GeneralRequestBuilder {
 
@@ -250,5 +249,10 @@ public class GeneralRequestBuilder {
 
         String withdrawFromWalletRequest = GraphicMain.token + "#withdrawFromWallet#" + username + "#" + password + "#" + amount;
         return ClientMain.client.sendRequest(withdrawFromWalletRequest);
+    }
+
+    public static String buildDisconnectionRequest() {
+        String disconnectionRequest = GraphicMain.token + "#disconnect";
+        return ClientMain.client.sendRequest(disconnectionRequest);
     }
 }

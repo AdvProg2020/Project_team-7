@@ -257,12 +257,19 @@ public class Auction {
     }
 
     public static ArrayList<Auction> getAllAuctions() {
-        for (Auction auction : allAuctions) {
+        for (int i = 0; i < allAuctions.size(); i++) {
+            Auction auction = allAuctions.get(i);
             if (auction.isAuctionOver()) {
                 auction.finishAuction();
+                if(i>0){
+                    i--;
+                }
             }
             if (!auction.isAuctionValid()) {
                 allAuctions.remove(auction);
+                if(i>0){
+                    i--;
+                }
             }
         }
         return allAuctions;

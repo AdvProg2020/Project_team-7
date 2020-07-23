@@ -52,30 +52,32 @@ public class Client {
             System.out.println("original request was: " + request);
             String originalRequest = new String(request);
             String randomKey = getRandomKey();
-            if(randomKey.charAt(randomKey.length()-1)=='K'){
+            if (randomKey.charAt(randomKey.length() - 1) == 'K') {
+                System.err.println("again");
                 sendRequest(originalRequest);
-            }
-            HashMap<Character, Character> keyMap = new HashMap<>();
-            setKeyMap(randomKey, keyMap);
-            String dateNow = dateFormat.format(new Date());
-            request = request.concat("#").concat(dateNow).concat("#").concat(getRandomString(5));
-            request = encryptMessage(request, keyMap);
-            System.out.println("key : "+ randomKey);
-            String encryptedKey = encryptMessage(randomKey, KEY_MAP);
-            System.out.println("encrypted key : " +encryptedKey);
-            request = request.concat("#").concat(encryptedKey);
-            System.out.println("request : " + request);
+            } else {
+                HashMap<Character, Character> keyMap = new HashMap<>();
+                setKeyMap(randomKey, keyMap);
+                String dateNow = dateFormat.format(new Date());
+                request = request.concat("#").concat(dateNow).concat("#").concat(getRandomString(5));
+                request = encryptMessage(request, keyMap);
+                System.out.println("key : " + randomKey);
+                String encryptedKey = encryptMessage(randomKey, KEY_MAP);
+                System.out.println("encrypted key : " + encryptedKey);
+                request = request.concat("#").concat(encryptedKey);
+                System.out.println("request : " + request);
 
 
-            dataOutputStream.writeUTF(request);
-            dataOutputStream.flush();
-            System.out.println("client wrote " + request);
-            String s = dataInputStream.readUTF();
-            if (s.equals("tryAgain")) {
-                sendRequest(originalRequest);
+                dataOutputStream.writeUTF(request);
+                dataOutputStream.flush();
+                System.out.println("client wrote " + request);
+                String s = dataInputStream.readUTF();
+                if (s.equals("tryAgain")) {
+                    sendRequest(originalRequest);
+                }
+                System.out.println("client read " + s);
+                return s;
             }
-            System.out.println("client read " + s);
-            return s;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,36 +88,38 @@ public class Client {
         try {
             String originalRequest = new String(request);
             String randomKey = getRandomKey();
-            if(randomKey.charAt(randomKey.length()-1)=='K'){
+            if (randomKey.charAt(randomKey.length() - 1) == 'K') {
                 sendRequest(originalRequest);
-            }
-            HashMap<Character, Character> keyMap = new HashMap<>();
-            setKeyMap(randomKey, keyMap);
-            String dateNow = dateFormat.format(new Date());
-            request = request.concat("#").concat(dateNow).concat("#").concat(getRandomString(5));
-            request = encryptMessage(request, keyMap);
-            String encryptedKey = encryptMessage(randomKey, KEY_MAP);
-            request = request.concat("#").concat(encryptedKey);
+            } else {
+                HashMap<Character, Character> keyMap = new HashMap<>();
+                setKeyMap(randomKey, keyMap);
+                String dateNow = dateFormat.format(new Date());
+                request = request.concat("#").concat(dateNow).concat("#").concat(getRandomString(5));
+                request = encryptMessage(request, keyMap);
+                String encryptedKey = encryptMessage(randomKey, KEY_MAP);
+                request = request.concat("#").concat(encryptedKey);
 
-            dataOutputStream.writeUTF(request);
-            dataOutputStream.flush();
-            System.out.println("client wrote " + request);
-            String s = dataInputStream.readUTF();
-            System.out.println("client read "+s);
-            if (s.startsWith("Ok! send me the file")) {
-                byte[] mybytearray = new byte[(int) file.length()];
-                FileInputStream fileInputStream = new FileInputStream(file);
-                BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-                bufferedInputStream.read(mybytearray, 0, mybytearray.length);
-                System.out.println("Sending " + file.getName() + "(" + mybytearray.length + " bytes)");
-                dataOutputStream.write(mybytearray, 0, mybytearray.length);
+                dataOutputStream.writeUTF(request);
                 dataOutputStream.flush();
-                s = dataInputStream.readUTF();
-                System.out.println("client read after uploading file: " + s);
-                return s;
-            } else
-                return "error#error uploading the file";
-        } catch (IOException e){
+                System.out.println("client wrote " + request);
+                String s = dataInputStream.readUTF();
+                System.out.println("client read " + s);
+                if (s.startsWith("Ok! send me the file")) {
+                    byte[] mybytearray = new byte[(int) file.length()];
+                    FileInputStream fileInputStream = new FileInputStream(file);
+                    BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+                    bufferedInputStream.read(mybytearray, 0, mybytearray.length);
+                    System.out.println("Sending " + file.getName() + "(" + mybytearray.length + " bytes)");
+                    dataOutputStream.write(mybytearray, 0, mybytearray.length);
+                    dataOutputStream.flush();
+                    s = dataInputStream.readUTF();
+                    System.out.println("client read after uploading file: " + s);
+                    return s;
+                } else {
+                    return "error#error uploading the file";
+                }
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return "unreachable";
@@ -125,20 +129,21 @@ public class Client {
         String originalRequest = new String(request);
         try {
             String randomKey = getRandomKey();
-            if(randomKey.charAt(randomKey.length()-1)=='K'){
+            if (randomKey.charAt(randomKey.length() - 1) == 'K') {
                 sendRequest(originalRequest);
-            }
-            HashMap<Character, Character> keyMap = new HashMap<>();
-            setKeyMap(randomKey, keyMap);
-            String dateNow = dateFormat.format(new Date());
-            request = request.concat("#").concat(dateNow).concat("#").concat(getRandomString(5));
-            request = encryptMessage(request, keyMap);
-            request = request.concat("#").concat(encryptMessage(randomKey, KEY_MAP));
+            }else {
+                HashMap<Character, Character> keyMap = new HashMap<>();
+                setKeyMap(randomKey, keyMap);
+                String dateNow = dateFormat.format(new Date());
+                request = request.concat("#").concat(dateNow).concat("#").concat(getRandomString(5));
+                request = encryptMessage(request, keyMap);
+                request = request.concat("#").concat(encryptMessage(randomKey, KEY_MAP));
 
-            dataOutputStream.writeUTF(request);
-            dataOutputStream.flush();
-            System.out.println("client wrote " + request);
-            //String s = dataInputStream.readUTF();
+                dataOutputStream.writeUTF(request);
+                dataOutputStream.flush();
+                System.out.println("client wrote " + request);
+                //String s = dataInputStream.readUTF();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

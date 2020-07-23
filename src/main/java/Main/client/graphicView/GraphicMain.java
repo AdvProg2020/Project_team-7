@@ -5,6 +5,7 @@ import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.graphicView.scenes.RegisterManager;
 import Main.client.graphicView.scenes.WalletPage;
 import Main.client.requestBuilder.DataRequestBuilder;
+import Main.client.requestBuilder.GeneralRequestBuilder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -91,8 +92,7 @@ public class GraphicMain extends Application {
     }
 
     public void exitProgram() {
-//        System.out.println(GeneralController.writeDataAndGetObjectStringRecords());
-//        System.out.println(GeneralController.readDataAndSetStringRecordObjects());
+        GeneralRequestBuilder.buildDisconnectionRequest();
         ClientMain.client.closeConnection();
         System.exit(123);
     }

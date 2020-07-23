@@ -1,5 +1,6 @@
 package Main.server.serverRequestProcessor;
 
+import Main.server.controller.GeneralController;
 import Main.server.model.accounts.Account;
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -138,7 +139,7 @@ public class Server {
             request = request.substring(0, request.length() - decryptionKey.length());
             System.out.println("encrypted key : " + encryptedKey);
             System.out.println("decryptionKey : " + decryptionKey);
-            System.out.println("request :" + request );
+            System.out.println("request :" + request);
             HashMap<Character, Character> keyMap = new HashMap<>();
             setKeyMap(decryptionKey, keyMap);
             request = decryptMessage(request, keyMap);
@@ -324,7 +325,7 @@ public class Server {
                 response = "Ok! send me the file###" + splitRequest[2];
             } else if (splitRequest[1].equals("chargeWallet")) {
                 response = GeneralRequestProcessor.chargeWalletRequestProcessor(splitRequest);
-            }  else if (splitRequest[1].equals("withdrawFromWallet")) {
+            } else if (splitRequest[1].equals("withdrawFromWallet")) {
                 response = GeneralRequestProcessor.withdrawFromWalletRequestProcessor(splitRequest);
             } else {
                 response = "invalidRequest";
@@ -361,6 +362,7 @@ public class Server {
                 if (!response.equals("disconnected")) {
                     handle();
                 } else {
+                    System.out.println(GeneralController.writeDataAndGetObjectStringRecords());
                     removeToken(splitRequest[0]);
                     clientSocket.close();
                     dataOutputStream.close();
