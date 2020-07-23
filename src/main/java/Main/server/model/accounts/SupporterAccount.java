@@ -1,13 +1,17 @@
 package Main.server.model.accounts;
 
+import Main.server.controller.GeneralController;
+import com.gilecode.yagson.com.google.gson.stream.JsonReader;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static java.util.Arrays.asList;
+
 public class SupporterAccount extends Account {
     private static ArrayList<SupporterAccount> allSupporters = new ArrayList<>();
-    private ArrayList<BuyerAccount> myChats = new ArrayList<>();
-
-    //first string buyer username, second the message number and third message text.
+    private ArrayList<String> myChats = new ArrayList<>();
     private HashMap<String,ArrayList<String>> myChatsMessages = new HashMap<>();
 
     public HashMap<String, ArrayList<String>> getMyChatsMessages() {
@@ -31,14 +35,15 @@ public class SupporterAccount extends Account {
     }
 
     public void addBuyerToChatList(String buyerUserName) throws Exception {
-        if (!myChats.contains(BuyerAccount.getBuyerWithUserName(buyerUserName)))
-            myChats.add(BuyerAccount.getBuyerWithUserName(buyerUserName));
+        if (!myChats.contains(buyerUserName))
+            myChats.add(buyerUserName);
     }
 
-    public ArrayList<String> myChatsList() {
+    public ArrayList<String> myChatsList() throws Exception {
         ArrayList<String> list = new ArrayList<>();
-        for (BuyerAccount myChat : myChats) {
-            list.add("@" + myChat.userName + "\n" + myChat.firstName + "\t" + myChat.lastName);
+        for (String myChat : myChats) {
+            BuyerAccount buyerAccount = BuyerAccount.getBuyerWithUserName(myChat);
+            list.add("@" + myChat + "\n" + buyerAccount.firstName + "\t" + buyerAccount.lastName);
         }
         return list;
     }
@@ -67,5 +72,30 @@ public class SupporterAccount extends Account {
     public void deleteSupporter() {
         allSupporters.remove(this);
         allAccounts.remove(this);
+    }
+
+    public static String readData() {
+        try {
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/supporters.json")));
+            SupporterAccount[] allSup = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, SupporterAccount[].class);
+            allSupporters = (allSup == null) ? new ArrayList<>() : new ArrayList<>(asList(allSup));
+            allAccounts.addAll(allSupporters);
+            return "Read Supporters Data Successfully.";
+        } catch (FileNotFoundException e) {
+            return "Problem loading data from supporters.json";
+        }
+    }
+
+    public static String writeData() {
+        try {
+            GeneralController.fileWriter = new FileWriter("src/main/JSON/supporters.json");
+            SupporterAccount[] allSup = new SupporterAccount[allSupporters.size()];
+            allSup = allSupporters.toArray(allSup);
+            GeneralController.yagsonMapper.toJson(allSup, SupporterAccount[].class, GeneralController.fileWriter);
+            GeneralController.fileWriter.close();
+            return "Saved Supporters Data Successfully.";
+        } catch (IOException e) {
+            return "Problem saving supporters data.";
+        }
     }
 }
