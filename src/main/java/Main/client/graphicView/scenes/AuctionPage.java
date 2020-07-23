@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -42,6 +43,9 @@ public class AuctionPage implements Initializable {
     public VBox messagePane;
     public AnchorPane pane;
     public Label highestOffer;
+    public ImageView userPanel;
+    public ImageView back;
+    public ImageView logout;
     private int messageNo;
     private Timeline update;
 
@@ -141,7 +145,7 @@ public class AuctionPage implements Initializable {
     private void updatePage() {
         String response = DataRequestBuilder.buildHighestOfferRequest();
         if (response.equals("auctionOver")) {
-            GraphicMain.showInformationAlert("auction is over");
+            informationBox.setText("auction is over");
             disablePage();
             return;
         } else if (response.equals("tooManyRequests")) {
@@ -152,12 +156,12 @@ public class AuctionPage implements Initializable {
 
         String response2 = DataRequestBuilder.buildMessageNoRequest();
         if (response2.equals("auctionOver")) {
-            GraphicMain.showInformationAlert("auction is over");
+            informationBox.setText("auction is over");
             disablePage();
             return;
         } else if (response2.equals("tooManyRequests")) {
 
-        } else {
+        } else if(!response2.equals("failure")){
             int messageNo = Integer.parseInt(response2);
             if (messageNo != this.messageNo) {
                 try {
@@ -173,11 +177,11 @@ public class AuctionPage implements Initializable {
     private void initializeMessagePane() throws Exception {
         String response = DataRequestBuilder.buildAuctionRequestWithID(GraphicMain.currentAuctionId);
         if (response.equals("tooManyRequests")) {
-            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            informationBox.setText("too many requests sent to server, slow down !!");
             return;
         }
         if(response.equals("auctionOver")){
-            GraphicMain.showInformationAlert("this auction is over !!");
+            informationBox.setText("this auction is over !!");
             disablePage();
             return;
         }
@@ -209,6 +213,9 @@ public class AuctionPage implements Initializable {
             child.setDisable(true);
         }
         informationBox.setDisable(false);
+        back.setDisable(false);
+        logout.setDisable(false);
+        userPanel.setDisable(false);
     }
 
     public void increasePrice(MouseEvent mouseEvent) {

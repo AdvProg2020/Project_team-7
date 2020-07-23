@@ -82,9 +82,9 @@ public class AuctionsPage implements Initializable {
                     String response = DataRequestBuilder.buildAuctionRequestWithID(GraphicMain.currentAuctionId);
                     if (response.equals("tooManyRequests")) {
                         GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
-                    } else if(response.equals("auctionOver")){
+                    } else if (response.equals("auctionOver")) {
                         GraphicMain.showInformationAlert("this auction is over !!");
-                    } else{
+                    } else {
                         Auction auction = GeneralController.yagsonMapper.fromJson(response, Auction.class);
                         auctionsList.getSelectionModel().clearSelection();
                         try {
@@ -185,6 +185,7 @@ public class AuctionsPage implements Initializable {
                     if (response.equals("success")) {
                         getInfo.close();
                         GraphicMain.showInformationAlert("auction added successfully");
+                        initialize(null,null);
                     } else if (response.equals("tooManyRequests")) {
                         GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
                     } else {
@@ -197,6 +198,7 @@ public class AuctionsPage implements Initializable {
         vBox.getChildren().add(label);
         vBox.getChildren().add(startDate);
         vBox.getChildren().add(endDate);
+        vBox.getChildren().add(button);
 
         Scene scene = new Scene(vBox, 750, 400);
         getInfo.setScene(scene);

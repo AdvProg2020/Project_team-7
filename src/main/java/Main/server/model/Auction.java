@@ -42,7 +42,7 @@ public class Auction {
 
     public Auction(Product product, String startDate, String endDate, SellerAccount sellerAccount) {
         this.id = IDGenerator.getNewID(lastUsedAuctionID);
-        this.highestOffer = this.product.getPrice();
+        this.highestOffer = product.getPrice();
         this.product = product;
         this.productStringRecord = product.getProductId();
         //TODO validate date
@@ -56,7 +56,6 @@ public class Auction {
 
     public AuctionUsage getAuctionUsage() throws Exception {
         if (isAuctionOver()) {
-            finishAuction();
             throw new Exception("auction is over");
         }
         return auctionUsage;
@@ -165,7 +164,6 @@ public class Auction {
                 e.printStackTrace();
             }
         }
-        //TODO : sure more is needed :)
     }
 
     private void buildLogs() {
@@ -229,7 +227,7 @@ public class Auction {
                 auction.lastOfferBuyer = BuyerAccount.getBuyerWithUserName(auction.lastBuyerStringRecord);
             } catch (Exception e) {
                 auction.lastOfferBuyer = null;
-                auction.highestOffer = 0;
+                auction.highestOffer = auction.product.getPrice();
             }
         }
     }

@@ -158,7 +158,9 @@ public class Server {
                 response = ManagerRequestProcessor.process(splitRequest);
             } else if (splitRequest[1].equals("buyer")) {
                 response = BuyerRequestProcessor.process(splitRequest);
-            } else if (splitRequest[1].equals("logout")) {
+            }  else if (splitRequest[1].equals("seller")) {
+                response = SellerRequestProcessor.process(splitRequest);
+            }else if (splitRequest[1].equals("logout")) {
                 response = logout(splitRequest, dataInputStream);
             } else if (splitRequest[1].equals("login")) {
                 response = GeneralRequestProcessor.loginRequestProcessor(splitRequest);

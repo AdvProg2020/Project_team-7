@@ -17,17 +17,17 @@
         <URL value="@../java/Main/client/graphicView/cssFiles/auctions.css" />
     </stylesheets>
    <children>
-      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="1136.0" layoutY="24.0" onMouseClicked="#goToUserPanelMenu" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="userPanel" fitHeight="60.0" fitWidth="60.0" layoutX="1136.0" layoutY="24.0" onMouseClicked="#goToUserPanelMenu" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../java/Main/client/graphicView/resources/images/avatar.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="1126.0" layoutY="84.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="logout" fitHeight="80.0" fitWidth="80.0" layoutX="1126.0" layoutY="84.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../java/Main/client/graphicView/resources/images/logout.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="1136.0" layoutY="170.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="back" fitHeight="60.0" fitWidth="60.0" layoutX="1136.0" layoutY="170.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../java/Main/client/graphicView/resources/images/back.png" />
          </image>
