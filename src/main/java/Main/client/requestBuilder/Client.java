@@ -21,13 +21,25 @@ public class Client {
     private final HashMap<Character, Character> KEY_MAP = new HashMap<>();
     private static final String KEY_STRING = "FH.xdjYSEL#TcMZIG4qKO9fW XPNnU23/vVm7i1gbRDesthyBaAr5:op8C6kQu0lz@Jw";
     protected static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private String IP;
+    private String port;
 
 
     private Client(String IP, String port) throws Exception {
+        this.IP = IP;
+        this.port = port;
         socket = new Socket(IP, Integer.parseInt(port));
         dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         setKeyMap(KEY_STRING, KEY_MAP);
+    }
+
+    private void renewConnections() throws IOException {
+        System.out.println("waiting to renew connection");
+        socket = new Socket(IP, 9999);
+        System.out.println("socket renewed");
+        dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
     }
 
     private void setKeyMap(String keyString, HashMap<Character, Character> keyMap) {
@@ -67,6 +79,8 @@ public class Client {
                 System.out.println("request : " + request);
 
 
+//                if (isSocketClosedNow)
+//                    dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
                 dataOutputStream.writeUTF(request);
                 dataOutputStream.flush();
                 System.out.println("client wrote " + request);
@@ -104,21 +118,37 @@ public class Client {
                 String s = dataInputStream.readUTF();
                 System.out.println("client read " + s);
                 if (s.startsWith("Ok! send me the file")) {
-                    byte[] mybytearray = new byte[(int) file.length()];
-                    FileInputStream fileInputStream = new FileInputStream(file);
-                    BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-                    bufferedInputStream.read(mybytearray, 0, mybytearray.length);
-                    System.out.println("Sending " + file.getName() + "(" + mybytearray.length + " bytes)");
-                    dataOutputStream.write(mybytearray, 0, mybytearray.length);
-                    dataOutputStream.flush();
-                    s = dataInputStream.readUTF();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Socket socket1 = new Socket(IP, 9999);
+                                OutputStream outputStream = socket1.getOutputStream();
+                                byte[] mybytearray = new byte[(int) file.length()];
+                                FileInputStream fileInputStream = new FileInputStream(file);
+                                BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+                                bufferedInputStream.read(mybytearray, 0, mybytearray.length);
+                                System.out.println("Sending " + file.getName() + "(" + mybytearray.length + " bytes)");
+                                outputStream.write(mybytearray, 0, mybytearray.length);
+                                outputStream.flush();
+                                System.out.println("I AM THE SELLER I SENT THE FILE");
+                                bufferedInputStream.close();
+                                outputStream.close();
+                                socket1.close();
+                                System.out.println("everything closed");
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+                    String ss = dataInputStream.readUTF();
                     System.out.println("client read after uploading file: " + s);
-                    return s;
+                    return ss;
                 } else {
                     return "error#error uploading the file";
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "unreachable";
