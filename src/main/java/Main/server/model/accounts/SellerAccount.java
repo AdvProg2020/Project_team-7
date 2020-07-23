@@ -363,4 +363,9 @@ public class SellerAccount extends Account {
         }
         return null;
     }
+
+    public double getBankAccountID(){
+        return 1;
+    }
 }
+

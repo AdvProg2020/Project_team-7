@@ -222,4 +222,33 @@ public class GeneralRequestBuilder {
             messagesAsString = messagesAsString.substring(0, messagesAsString.length() - 3);
         ClientMain.client.sendRequest(GraphicMain.token + "#saveChatMessages#" + theirUsername + "#" + messagesAsString);
     }
+
+    public static String buildChargeWalletRequest(String username, String password, String amount) {
+        try {
+            double amountOfCharge = Double.parseDouble(amount);
+            if(amountOfCharge<=0){
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            return "invalidAmount";
+        }
+
+        String chargeWalletRequest = GraphicMain.token + "#chargeWallet#" + username + "#" + password + "#" + amount;
+        return ClientMain.client.sendRequest(chargeWalletRequest);
+
+    }
+
+    public static String buildWithdrawFromWalletRequest(String username, String password, String amount) {
+        try {
+            double amountOfCharge = Double.parseDouble(amount);
+            if(amountOfCharge<=0){
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            return "invalidAmount";
+        }
+
+        String withdrawFromWalletRequest = GraphicMain.token + "#withdrawFromWallet#" + username + "#" + password + "#" + amount;
+        return ClientMain.client.sendRequest(withdrawFromWalletRequest);
+    }
 }

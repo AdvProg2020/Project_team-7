@@ -316,7 +316,11 @@ public class Server {
                 response = GeneralRequestProcessor.setChatMessagesRequestBuilder(splitRequest);
             } else if (splitRequest[1].equals("saveChatMessages")) {
                 response = GeneralRequestProcessor.saveChatMessagesRequestBuilder(splitRequest);
-            } else {
+            } else if (splitRequest[1].equals("chargeWallet")) {
+                response = GeneralRequestProcessor.chargeWalletRequestProcessor(splitRequest);
+            }  else if (splitRequest[1].equals("withdrawFromWallet")) {
+                response = GeneralRequestProcessor.withdrawFromWalletRequestProcessor(splitRequest);
+            }else {
                 response = "invalidRequest";
             }
             if (request.equals("do not write UTF")) {

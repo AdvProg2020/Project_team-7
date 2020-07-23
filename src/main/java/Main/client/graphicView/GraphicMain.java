@@ -3,6 +3,7 @@ package Main.client.graphicView;
 import Main.client.ClientMain;
 import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.graphicView.scenes.RegisterManager;
+import Main.client.graphicView.scenes.WalletPage;
 import Main.client.requestBuilder.DataRequestBuilder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +25,7 @@ public class GraphicMain extends Application {
     public static ArrayList<String> sceneTrace = new ArrayList<>();
     public static Stage stage;
     public static GraphicMain graphicMain = new GraphicMain();
-//    public static BuyerController buyerController = new BuyerController();
+    //    public static BuyerController buyerController = new BuyerController();
 //    public static ManagerController managerController = new ManagerController();
 //    public static GeneralController generalController = new GeneralController();
 //    public static SellerController sellerController = new SellerController();
@@ -63,16 +64,19 @@ public class GraphicMain extends Application {
 
 
         //this scope
-        String response = DataRequestBuilder.buildProgramStartModeRequest();
-        if (response.equals("1")) {
-            root = FXMLLoader.load(new File(RegisterManager.FXML_PATH).toURI().toURL());
-            stage.setTitle(RegisterManager.TITLE);
-            sceneTrace.add(RegisterManager.FXML_PATH);
-        } else {
-            root = FXMLLoader.load(new File(MainMenuController.FXML_PATH).toURI().toURL());
-            stage.setTitle(MainMenuController.TITLE);
-            sceneTrace.add(MainMenuController.FXML_PATH);
-        }
+//        String response = DataRequestBuilder.buildProgramStartModeRequest();
+//        if (response.equals("1")) {
+//            root = FXMLLoader.load(new File(RegisterManager.FXML_PATH).toURI().toURL());
+//            stage.setTitle(RegisterManager.TITLE);
+//            sceneTrace.add(RegisterManager.FXML_PATH);
+//        } else {
+//            root = FXMLLoader.load(new File(MainMenuController.FXML_PATH).toURI().toURL());
+//            stage.setTitle(MainMenuController.TITLE);
+//            sceneTrace.add(MainMenuController.FXML_PATH);
+//        }
+
+        root = FXMLLoader.load(new File(WalletPage.FXML_PATH).toURI().toURL());
+
 
 //        root = FXMLLoader.load(new File(ChatPageController.FXML_PATH).toURI().toURL());
 //        stage.setTitle(RegisterManager.TITLE);

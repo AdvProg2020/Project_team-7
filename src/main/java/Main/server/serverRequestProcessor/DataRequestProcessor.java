@@ -46,8 +46,23 @@ public class DataRequestProcessor {
             return startModeResponse();
         } else if (splitRequest[2].equals("categoryProducts")) {
             return categoryProductsResponse(splitRequest[3]);
+        } else if (splitRequest[2].equals("walletBalance")) {
+            return walletBalanceResponse(splitRequest[0]);
         }
         return null;
+    }
+
+    private static String walletBalanceResponse(String token) {
+        if (ServerMain.server.validateToken(token, SellerAccount.class)) {
+            SellerAccount sellerAccount = (SellerAccount) ServerMain.server.getTokenInfo(token).getUser();
+            return sellerAccount.getWalletBalance() + "";
+        }
+        if (ServerMain.server.validateToken(token, BuyerAccount.class)) {
+            BuyerAccount buyerAccount = (BuyerAccount) ServerMain.server.getTokenInfo(token).getUser();
+            return buyerAccount.getWalletBalance() + "";
+        } else {
+            return "loginNeeded";
+        }
     }
 
     private static String categoryProductsResponse(String productID) {

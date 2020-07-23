@@ -344,4 +344,7 @@ public class BuyerAccount extends Account {
         }
     }
 
+    public double getBankAccountID(){
+        return 1;
+    }
 }

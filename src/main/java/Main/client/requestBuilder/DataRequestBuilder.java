@@ -73,4 +73,9 @@ public class DataRequestBuilder {
         String categoryProductsRequest = GraphicMain.token + "#data#categoryProducts#" + currentProductId;
         return ClientMain.client.sendRequest(categoryProductsRequest);
     }
+
+    public static String buildWalletBalanceRequest() {
+        String walletBalanceRequest = GraphicMain.token + "#data#walletBalance";
+        return ClientMain.client.sendRequest(walletBalanceRequest);
+    }
 }
