@@ -24,7 +24,7 @@ public class MainMenuController {
         }else {
             GraphicMain.token = "0000";
             //goBack();
-            GraphicMain.graphicMain.back();
+            //GraphicMain.graphicMain.back();
         }
     }
 
