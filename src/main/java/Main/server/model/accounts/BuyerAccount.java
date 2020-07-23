@@ -3,6 +3,7 @@ package Main.server.model.accounts;
 import Main.server.controller.GeneralController;
 import Main.server.model.Cart;
 import Main.server.model.Product;
+import Main.server.model.ShopFinance;
 import Main.server.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.server.model.discountAndOffTypeService.DiscountCode;
 import Main.server.model.logs.BuyLog;
@@ -182,7 +183,7 @@ public class BuyerAccount extends Account {
     }
 
     public void decreaseBalanceBy(double money) throws Exception {
-        if (walletBalance < money) {
+        if (walletBalance < money + ShopFinance.getInstance().getMinimumWalletBalance()) {
             throw new Exception("Your balance isn't enough ! Purchase couldn't be done !\n");
         }
         this.walletBalance -= money;

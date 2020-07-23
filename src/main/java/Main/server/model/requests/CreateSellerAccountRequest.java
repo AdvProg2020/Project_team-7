@@ -28,4 +28,8 @@ public class CreateSellerAccountRequest extends Request {
         allRequests.remove(this);
         Account.getReservedUserNames().remove(sellerAccount.getUserName());
     }
+
+    public SellerAccount getSellerAccount() {
+        return sellerAccount;
+    }
 }

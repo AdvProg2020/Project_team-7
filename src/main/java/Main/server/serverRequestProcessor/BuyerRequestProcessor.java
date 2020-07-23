@@ -4,6 +4,7 @@ import Main.server.ServerMain;
 import Main.server.controller.BuyerController;
 import Main.server.model.Auction;
 import Main.server.model.Product;
+import Main.server.model.ShopFinance;
 import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.accounts.SupporterAccount;
 import Main.server.model.discountAndOffTypeService.DiscountCode;
@@ -25,7 +26,7 @@ public class BuyerRequestProcessor {
             return "loginNeeded";
         }
         BuyerAccount buyerAccount = (BuyerAccount) ServerMain.server.getTokenInfo(splitRequest[0]).getUser();
-        if (buyerAccount.getWalletBalance() < Double.parseDouble(splitRequest[4])) {
+        if (buyerAccount.getWalletBalance() < Double.parseDouble(splitRequest[4]) + ShopFinance.getInstance().getMinimumWalletBalance()) {
             return "insufficientBalance";
         }
         if (buyerAccount.isOnAuction != null && !buyerAccount.isOnAuction.equals(splitRequest[3])) {

@@ -2,6 +2,7 @@ package Main.server.model.accounts;
 
 import Main.server.controller.GeneralController;
 import Main.server.model.Product;
+import Main.server.model.ShopFinance;
 import Main.server.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.server.model.discountAndOffTypeService.Off;
 import Main.server.model.logs.Log;
@@ -43,6 +44,7 @@ public class SellerAccount extends Account {
         this.companyName = companyName;
         this.companyExtraInformation = companyExtraInformation;
         this.walletBalance = balance;
+        this.accountID = accountID;
     }
 
     public static ArrayList<String> allSellersForGraphic(){
@@ -368,6 +370,17 @@ public class SellerAccount extends Account {
 
     public String getBankAccountID(){
         return accountID;
+    }
+
+    public void decreaseBalanceBy(double money) throws Exception {
+        if (walletBalance < money + ShopFinance.getInstance().getMinimumWalletBalance()) {
+            throw new Exception("Your balance isn't enough ! Purchase couldn't be done !\n");
+        }
+        this.walletBalance -= money;
+    }
+
+    public void setAccountID(String accountID){
+        this.accountID = accountID;
     }
 }
 

@@ -12,6 +12,7 @@ public class ShopFinance {
     private String username;
     private String password;
     private static ShopFinance shopFinance;
+    public static final double initialAccountBalanceForUsers = 1000000;
 
     public static ShopFinance getInstance(){
         if(shopFinance == null){
@@ -63,5 +64,21 @@ public class ShopFinance {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public double getMinimumWalletBalance() {
+        return minimumWalletBalance;
+    }
+
+    public double getCommission() {
+        return commission;
     }
 }

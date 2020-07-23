@@ -73,9 +73,28 @@ public class GeneralRequestProcessor {
         String password = splitRequest[7].split(":")[1];
         String imagePath = splitRequest[8].split(":")[1];
 
-        String response = BankClient.getResponseFromBankServer("create_account " + firstName + " " + lastName + " " + username + " " + password + " " + password);
+        String accountID = BankClient.getResponseFromBankServer("create_account " + firstName + " " + lastName + " " + username + " " + password + " " + password);
+        String token = BankClient.getResponseFromBankServer("get_token " + username + " " + password);
+        String receiptID = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + ShopFinance.initialAccountBalanceForUsers + " -1 " + accountID + " initializeAccountBalance");
+        if (receiptID.equals("invalid token") || receiptID.equals("token expired")) {
+            return "failure";
+        }
+        String result = BankClient.getResponseFromBankServer("pay " + receiptID);
+        if (result.equals("invalid token") || result.equals("token expired")) {
+            return "failure";
+        }
+
+        String receiptID2 = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + ShopFinance.getInstance().getMinimumWalletBalance() + " -1 " + ShopFinance.getInstance().getAccountID() + " chargeShopAccountForNewUser");
+        if (receiptID2.equals("invalid token") || receiptID2.equals("token expired")) {
+            return "failure";
+        }
+        String result2 = BankClient.getResponseFromBankServer("pay " + receiptID);
+        if (result2.equals("invalid token") || result2.equals("token expired")) {
+            return "failure";
+        }
+
         BuyerAccount buyerAccount = new BuyerAccount(username, firstName,
-                lastName, email, phoneNumber, password, 1000000, imagePath, response);
+                lastName, email, phoneNumber, password, ShopFinance.getInstance().getMinimumWalletBalance(), imagePath, accountID);
         BuyerAccount.addBuyer(buyerAccount);
 
         return "success";
@@ -92,16 +111,37 @@ public class GeneralRequestProcessor {
         String companyInfo = splitRequest[9].split(":")[1];
         String imagePath = splitRequest[10].split(":")[1];
 
-        String response = BankClient.getResponseFromBankServer("create_account " + firstName + " " + lastName + " " + username + " " + password + " " + password);
-
         SellerAccount sellerAccount = new SellerAccount(username, firstName,
-                lastName, email, phoneNumber, password, companyName, companyInfo, 1000000, imagePath, response);
+                lastName, email, phoneNumber, password, companyName, companyInfo, ShopFinance.getInstance().getMinimumWalletBalance(), imagePath, null);
         CreateSellerAccountRequest createSellerAccountRequest = new CreateSellerAccountRequest(sellerAccount, "create seller account");
         Request.addRequest(createSellerAccountRequest);
         Account.getReservedUserNames().add(username);
 
         return "success";
     }
+
+
+//     String accountID = BankClient.getResponseFromBankServer("create_account " + firstName + " " + lastName + " " + username + " " + password + " " + password);
+//     String token = BankClient.getResponseFromBankServer("get_token " + username + " " + password);
+//     String receiptID = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + ShopFinance.initialAccountBalanceForUsers + " -1 " + accountID + " initializeAccountBalance");
+//     if (receiptID.equals("invalid token") || receiptID.equals("token expired")) {
+//     return "failure";
+//     }
+//     String result = BankClient.getResponseFromBankServer("pay " + receiptID);
+//     if (result.equals("invalid token") || result.equals("token expired")) {
+//     return "failure";
+//     }
+//
+//     String receiptID2 = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + ShopFinance.getInstance().getMinimumWalletBalance() + " -1 " + ShopFinance.getInstance().getAccountID() + " chargeShopAccountForNewUser");
+//     if (receiptID2.equals("invalid token") || receiptID2.equals("token expired")) {
+//     return "failure";
+//     }
+//     String result2 = BankClient.getResponseFromBankServer("pay " + receiptID);
+//     if (result2.equals("invalid token") || result2.equals("token expired")) {
+//     return "failure";
+//     }
+
+
 
     public static String signUpManagerRequestProcessor(String[] splitRequest) {
         /**
@@ -364,8 +404,19 @@ public class GeneralRequestProcessor {
             }
             String token = BankClient.getResponseFromBankServer("get_token " + splitRequest[2] + " " + splitRequest[3]);
             String receiptID = BankClient.getResponseFromBankServer("create_receipt " + token + " withdraw " + Double.parseDouble(splitRequest[4]) + " " + sellerAccount.getBankAccountID() + " -1 chargeWallet");
+            if (receiptID.equals("invalid token") || receiptID.equals("token expired")) {
+                return "failure";
+            }
             String result = BankClient.getResponseFromBankServer("pay " + receiptID);
             if (result.equals("invalid token") || result.equals("token expired")) {
+                return "failure";
+            }
+            String receiptID2 = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + Double.parseDouble(splitRequest[4]) + " -1 " + ShopFinance.getInstance().getAccountID() + " chargeShopAccountForWalletCharge");
+            if (receiptID2.equals("invalid token") || receiptID2.equals("token expired")) {
+                return "failure";
+            }
+            String result2 = BankClient.getResponseFromBankServer("pay " + receiptID);
+            if (result2.equals("invalid token") || result2.equals("token expired")) {
                 return "failure";
             }
         }
@@ -379,8 +430,20 @@ public class GeneralRequestProcessor {
             }
             String token = BankClient.getResponseFromBankServer("get_token " + splitRequest[2] + " " + splitRequest[3]);
             String receiptID = BankClient.getResponseFromBankServer("create_receipt " + token + " withdraw " + Double.parseDouble(splitRequest[4]) + " " + buyerAccount.getBankAccountID() + " -1 chargeWallet");
+            if (receiptID.equals("invalid token") || receiptID.equals("token expired")) {
+                return "failure";
+            }
             String result = BankClient.getResponseFromBankServer("pay " + receiptID);
             if (result.equals("invalid token") || result.equals("token expired")) {
+                return "failure";
+            }
+
+            String receiptID2 = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + Double.parseDouble(splitRequest[4]) + " -1 " + ShopFinance.getInstance().getAccountID() + " chargeShopAccountForWalletCharge");
+            if (receiptID2.equals("invalid token") || receiptID2.equals("token expired")) {
+                return "failure";
+            }
+            String result2 = BankClient.getResponseFromBankServer("pay " + receiptID);
+            if (result2.equals("invalid token") || result2.equals("token expired")) {
                 return "failure";
             }
         }
@@ -398,15 +461,35 @@ public class GeneralRequestProcessor {
         if (!sellerAccount.getPassWord().equals(splitRequest[3])) {
             return "invalidPassword";
         }
-        if (sellerAccount.getWalletBalance() < Double.parseDouble(splitRequest[4])) {
+        if (sellerAccount.getWalletBalance() < Double.parseDouble(splitRequest[4]) + ShopFinance.getInstance().getMinimumWalletBalance()) {
             return "insufficientBalance";
         }
         String token = BankClient.getResponseFromBankServer("get_token " + splitRequest[2] + " " + splitRequest[3]);
         String receiptID = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + Double.parseDouble(splitRequest[4]) + " " + " -1 " + sellerAccount.getBankAccountID() + " withdrawFromWallet");
+        if (receiptID.equals("invalid token") || receiptID.equals("token expired")) {
+            return "failure";
+        }
         String result = BankClient.getResponseFromBankServer("pay " + receiptID);
         if (result.equals("invalid token") || result.equals("token expired")) {
             return "failure";
         }
+
+        try {
+            sellerAccount.decreaseBalanceBy(Double.parseDouble(splitRequest[4]));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String token2 = BankClient.getResponseFromBankServer("get_token " + ShopFinance.getInstance().getUsername() + " " + ShopFinance.getInstance().getPassword());
+        String receiptID2 = BankClient.getResponseFromBankServer("create_receipt " + token2 + " withdraw " + Double.parseDouble(splitRequest[4]) + " " + ShopFinance.getInstance().getAccountID() + " -1 withdrawFromShopAccountForWithdrawFromWallet");
+        if (receiptID2.equals("invalid token") || receiptID2.equals("token expired")) {
+            return "failure";
+        }
+        String result2 = BankClient.getResponseFromBankServer("pay " + receiptID2);
+        if (result2.equals("invalid token") || result2.equals("token expired")) {
+            return "failure";
+        }
+
         return "success";
     }
 }

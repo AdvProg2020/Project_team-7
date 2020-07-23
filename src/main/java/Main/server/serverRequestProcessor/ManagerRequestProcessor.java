@@ -1,13 +1,17 @@
 package Main.server.serverRequestProcessor;
 
+import Main.server.BankClient;
 import Main.server.ServerMain;
 import Main.server.model.Category;
 import Main.server.model.Product;
+import Main.server.model.ShopFinance;
 import Main.server.model.accounts.Account;
 import Main.server.model.accounts.ManagerAccount;
+import Main.server.model.accounts.SellerAccount;
 import Main.server.model.discountAndOffTypeService.DiscountCode;
 import Main.server.model.logs.BuyLog;
 import Main.server.model.logs.Log;
+import Main.server.model.requests.CreateSellerAccountRequest;
 import Main.server.model.requests.EditCategory;
 import Main.server.model.requests.EditDiscountCode;
 import Main.server.model.requests.Request;
@@ -84,7 +88,30 @@ public class ManagerRequestProcessor {
 
     public static String acceptRequestWithIdRequestProcessor(String[] splitRequest) {
         try {
-            Request.getRequestWithId(splitRequest[2]).accept();
+            Request request = Request.getRequestWithId(splitRequest[2]);
+            if(request instanceof CreateSellerAccountRequest){
+                SellerAccount sellerAccount = ((CreateSellerAccountRequest) request).getSellerAccount();
+                String accountID = BankClient.getResponseFromBankServer("create_account " + sellerAccount.getFirstName() + " " + sellerAccount.getLastName() + " " + sellerAccount.getUserName() + " " + sellerAccount.getPassWord() + " " + sellerAccount.getPassWord());
+                String token = BankClient.getResponseFromBankServer("get_token " + sellerAccount.getUserName() + " " + sellerAccount.getPassWord());
+                String receiptID = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + ShopFinance.initialAccountBalanceForUsers + " -1 " + accountID + " initializeAccountBalance");
+                if (receiptID.equals("invalid token") || receiptID.equals("token expired")) {
+                    return "failure";
+                }
+                String result = BankClient.getResponseFromBankServer("pay " + receiptID);
+                if (result.equals("invalid token") || result.equals("token expired")) {
+                    return "failure";
+                }
+
+                String receiptID2 = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + ShopFinance.getInstance().getMinimumWalletBalance() + " -1 " + ShopFinance.getInstance().getAccountID() + " chargeShopAccountForNewUser");
+                if (receiptID2.equals("invalid token") || receiptID2.equals("token expired")) {
+                    return "failure";
+                }
+                String result2 = BankClient.getResponseFromBankServer("pay " + receiptID);
+                if (result2.equals("invalid token") || result2.equals("token expired")) {
+                    return "failure";
+                }
+            }
+            request.accept();
             return "Request accepted!";
         } catch (Exception e) {
             System.out.println(e.getMessage());
