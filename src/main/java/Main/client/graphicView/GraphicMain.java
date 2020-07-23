@@ -92,7 +92,6 @@ public class GraphicMain extends Application {
     }
 
     public void exitProgram() {
-        GeneralRequestBuilder.buildDisconnectionRequest();
         ClientMain.client.closeConnection();
         System.exit(123);
     }

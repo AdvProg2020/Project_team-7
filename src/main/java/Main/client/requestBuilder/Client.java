@@ -53,7 +53,6 @@ public class Client {
             String originalRequest = new String(request);
             String randomKey = getRandomKey();
             if (randomKey.charAt(randomKey.length() - 1) == 'K') {
-                System.err.println("again");
                 sendRequest(originalRequest);
             } else {
                 HashMap<Character, Character> keyMap = new HashMap<>();
@@ -131,7 +130,7 @@ public class Client {
             String randomKey = getRandomKey();
             if (randomKey.charAt(randomKey.length() - 1) == 'K') {
                 sendRequest(originalRequest);
-            }else {
+            } else {
                 HashMap<Character, Character> keyMap = new HashMap<>();
                 setKeyMap(randomKey, keyMap);
                 String dateNow = dateFormat.format(new Date());
@@ -163,11 +162,7 @@ public class Client {
 
     public void closeConnection() {
         try {
-            dataOutputStream.writeUTF("0000#disconnect");
-            dataOutputStream.flush();
-            System.out.println("client wrote 0000#disconnect");
-            String s = dataInputStream.readUTF();
-            System.out.println("client read " + s);
+            GeneralRequestBuilder.buildDisconnectionRequest();
             socket.close();
             dataInputStream.close();
             dataOutputStream.close();

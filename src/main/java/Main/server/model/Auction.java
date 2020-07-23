@@ -214,12 +214,16 @@ public class Auction {
     }
 
     public static void setStringRecords() {
-        for (Auction auction : allAuctions) {
+        for (int i = 0; i < allAuctions.size(); i++) {
+            Auction auction = allAuctions.get(i);
             try {
                 auction.product = Product.getProductWithId(auction.productStringRecord);
                 auction.sellerAccount = SellerAccount.getSellerWithUserName(auction.sellerStringRecord);
             } catch (Exception e) {
                 allAuctions.remove(auction);
+                if(i>0){
+                    i--;
+                }
             }
             try {
                 auction.lastOfferBuyer = BuyerAccount.getBuyerWithUserName(auction.lastBuyerStringRecord);

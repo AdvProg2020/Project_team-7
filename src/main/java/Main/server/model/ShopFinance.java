@@ -41,7 +41,7 @@ public class ShopFinance {
     public static String writeData() {
         try {
             GeneralController.fileWriter = new FileWriter("src/main/JSON/finance.json");
-            GeneralController.yagsonMapper.toJson(ShopFinance.class, GeneralController.fileWriter);
+            GeneralController.yagsonMapper.toJson(shopFinance, GeneralController.fileWriter);
             GeneralController.fileWriter.close();
             return "Saved ShopFinance Data Successfully.";
         } catch (IOException e) {
