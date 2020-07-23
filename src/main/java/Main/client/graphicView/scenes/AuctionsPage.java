@@ -55,6 +55,8 @@ public class AuctionsPage implements Initializable {
         if (allAuctionsData.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
             return;
+        } else if (allAuctionsData.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
         }
         readAllAuctionsData(allAuctionsData);
 
@@ -84,12 +86,13 @@ public class AuctionsPage implements Initializable {
                         GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
                     } else if (response.equals("auctionOver")) {
                         GraphicMain.showInformationAlert("this auction is over !!");
+                    }  else if (response.equals("failure")) {
+                        GraphicMain.showInformationAlert("try again !");
                     } else {
                         Auction auction = GeneralController.yagsonMapper.fromJson(response, Auction.class);
                         auctionsList.getSelectionModel().clearSelection();
                         try {
                             GraphicMain.currentAuctionId = auction.getAuctionUsage().getId();
-                            System.out.println("*");
                             GraphicMain.graphicMain.goToPage(AuctionPage.FXML_PATH, AuctionPage.TITLE);
                         } catch (Exception e) {
                             // GraphicMain.showInformationAlert(e.getMessage());
@@ -115,7 +118,9 @@ public class AuctionsPage implements Initializable {
             GraphicMain.showInformationAlert("you must login first !\nyou'r authentication might be expired !");
         } else if (response.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
-        } else {
+        }  else if (response.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
+        }else {
             GeneralController.jsonReader = new JsonReader(new StringReader(response));
             Product[] allPro = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Product[].class);
             ArrayList<Product> allProducts = (allPro == null) ? new ArrayList<>() : new ArrayList<>(asList(allPro));
@@ -188,7 +193,9 @@ public class AuctionsPage implements Initializable {
                         initialize(null,null);
                     } else if (response.equals("tooManyRequests")) {
                         GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
-                    } else {
+                    }  else if (response.equals("failure")) {
+                        GraphicMain.showInformationAlert("try again !");
+                    }else {
                         errorMessage.setText("you must login first");
                     }
                 }
@@ -244,7 +251,9 @@ public class AuctionsPage implements Initializable {
         String response = GeneralRequestBuilder.buildLogoutRequest();
         if (response.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
-        } else {
+        }  else if (response.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
+        }else {
             GraphicMain.token = "0000";
             //goBack();
             GraphicMain.graphicMain.back();

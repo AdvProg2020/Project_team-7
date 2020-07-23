@@ -74,11 +74,17 @@ public class OffPage implements Initializable {
         if (allProductsResponse.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
             return;
+        } else if (allProductsResponse.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
+            return;
         }
         readAllProductsData(allProductsResponse);
         String allOffsResponse = DataRequestBuilder.buildAllOffsRequest();
         if (allOffsResponse.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        } else if (allOffsResponse.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
             return;
         }
         readAllOffsData(allOffsResponse);
@@ -86,12 +92,18 @@ public class OffPage implements Initializable {
         if (allCategoriesResponse.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
             return;
+        } else if (allCategoriesResponse.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
+            return;
         }
         readAllCategoriesData(allCategoriesResponse);
         setAllBrands();
         String allSellersResponse = DataRequestBuilder.buildAllSellersRequest();
         if (allSellersResponse.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        } else if (allSellersResponse.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
             return;
         }
         readAllSellersData(allSellersResponse);
@@ -219,6 +231,8 @@ public class OffPage implements Initializable {
         String response = GeneralRequestBuilder.buildLogoutRequest();
         if (response.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+        } else if (response.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
         } else {
             GraphicMain.token = "0000";
             //goBack();

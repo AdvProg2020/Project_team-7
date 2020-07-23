@@ -182,7 +182,7 @@ public class GeneralRequestProcessor {
     }
 
     public static String sendMessage(String[] splitRequest) {
-        Auction auction = Auction.getAuctionById(splitRequest[3]);
+        Auction auction = Auction.getAuctionById(splitRequest[2]);
 
         if (ServerMain.server.validateToken(splitRequest[0], BuyerAccount.class)) {
             BuyerAccount buyerAccount = (BuyerAccount) ServerMain.server.getTokenInfo(splitRequest[0]).getUser();
@@ -190,7 +190,7 @@ public class GeneralRequestProcessor {
                 if(!auction.isAuctionValid()){
                     throw new Exception();
                 }
-                auction.getAuctionUsage().addMessage("\"" + buyerAccount.getUserName() + "\"\n" + splitRequest[4]);
+                auction.getAuctionUsage().addMessage("\"" + buyerAccount.getUserName() + "\"\n" + splitRequest[3]);
                 return "success";
             } catch (Exception e) {
                 return "auctionOver";
@@ -204,7 +204,7 @@ public class GeneralRequestProcessor {
             try {
                 auctionSeller = auction.getAuctionUsage().getSellerAccount();
                 if (sellerAccount.equals(auctionSeller)) {
-                    auction.getAuctionUsage().addMessage("\"<<Seller>> " + sellerAccount.getUserName() + "\"\n" + splitRequest[4]);
+                    auction.getAuctionUsage().addMessage("\"<<Seller>> " + sellerAccount.getUserName() + "\"\n" + splitRequest[3]);
                     return "success";
                 }
             } catch (Exception e) {

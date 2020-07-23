@@ -19,7 +19,9 @@ public class MainMenuController {
         String response = GeneralRequestBuilder.buildLogoutRequest();
         if (response.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
-        } else {
+        }  else if (response.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
+        }else {
             GraphicMain.token = "0000";
             //goBack();
             GraphicMain.graphicMain.back();

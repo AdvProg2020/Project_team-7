@@ -88,6 +88,8 @@ public class AuctionPage implements Initializable {
         String response = GeneralRequestBuilder.buildLogoutRequest();
         if (response.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+        } else if (response.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
         } else {
             GraphicMain.token = "0000";
             //goBack();
@@ -107,6 +109,9 @@ public class AuctionPage implements Initializable {
         String response = DataRequestBuilder.buildAuctionRequestWithID(GraphicMain.currentAuctionId);
         if (response.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        } else if (response.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
             return;
         }
         if(response.equals("auctionOver")){
@@ -150,6 +155,8 @@ public class AuctionPage implements Initializable {
             return;
         } else if (response.equals("tooManyRequests")) {
 
+        } else if (response.equals("failure")) {
+
         } else {
             highestOffer.setText(response);
         }
@@ -178,6 +185,9 @@ public class AuctionPage implements Initializable {
         String response = DataRequestBuilder.buildAuctionRequestWithID(GraphicMain.currentAuctionId);
         if (response.equals("tooManyRequests")) {
             informationBox.setText("too many requests sent to server, slow down !!");
+            return;
+        } else if (response.equals("failure")) {
+            informationBox.setText("try again !");
             return;
         }
         if(response.equals("auctionOver")){
@@ -246,6 +256,8 @@ public class AuctionPage implements Initializable {
             informationBox.setText("you have an offer in another auction");
         } else if (response.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+        } else if (response.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
         }
     }
 
@@ -275,6 +287,8 @@ public class AuctionPage implements Initializable {
             informationBox.setText("empty messages can't be sent");
         } else if (response.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+        } else if (response.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
         }
     }
 

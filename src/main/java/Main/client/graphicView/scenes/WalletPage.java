@@ -35,6 +35,9 @@ public class WalletPage implements Initializable {
         if (response.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
             return;
+        } else if (response.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
+            return;
         }
         if (response.equals("loginNeeded")) {
             GraphicMain.showInformationAlert("you must login first !\nyou'r authentication might be expired !");
@@ -49,6 +52,8 @@ public class WalletPage implements Initializable {
         } else if (userType.equals("buyer")) {
             walletBalance.setText(BuyerRequestBuilder.buildInitializeBuyerPanelRequest());
             withdrawButton.setVisible(false);
+        } else if (response.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
         }
     }
 

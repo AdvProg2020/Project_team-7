@@ -35,6 +35,9 @@ public class ManageOrdersController {
         if (allBuyersDataResponse.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
             return;
+        } else if (allBuyersDataResponse.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
+            return;
         }
         readAllBuyersData(allBuyersDataResponse);
 
@@ -52,7 +55,9 @@ public class ManageOrdersController {
                     String response = DataRequestBuilder.buildLogRequestWithID(logId);
                     if (response.equals("tooManyRequests")) {
                         GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
-                    } else {
+                    }  else if (response.equals("failure")) {
+                        GraphicMain.showInformationAlert("try again !");
+                    }else {
                         buyLog = GeneralController.yagsonMapper.fromJson(response, BuyLog.class);
                         showLogInfo(buyLog);
                     }
@@ -122,6 +127,9 @@ public class ManageOrdersController {
         String response = GeneralRequestBuilder.buildLogoutRequest();
         if (response.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        } else if (response.equals("failure")) {
+            GraphicMain.showInformationAlert("try again !");
             return;
         }
         GraphicMain.token = "0000";
