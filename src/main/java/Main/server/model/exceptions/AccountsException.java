@@ -76,7 +76,7 @@ public abstract class AccountsException extends Exception {
 
     public static class invalidPassWordException extends AccountsException {
         public invalidPassWordException() {
-            this.errorMessage = "This password is weak!,at least 8 characters, two uppercase, three lowercase, two digits\nalso, it can only contain English letters, numbers" +
+            this.errorMessage = "invalid char or weak password! use at least 8 characters, two uppercase, three lowercase, two digits\nalso, it can only contain English letters, numbers" +
                     ", '_','.' and '-' . make sure that it doesn't contain spaces !\n";
         }
     }

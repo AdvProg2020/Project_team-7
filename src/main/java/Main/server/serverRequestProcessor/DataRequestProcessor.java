@@ -71,6 +71,7 @@ public class DataRequestProcessor {
         try {
             product = Product.getProductWithId(productID);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         Category category = product.getCategory();
         if (category == null) {

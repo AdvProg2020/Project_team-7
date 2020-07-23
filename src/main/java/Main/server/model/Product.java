@@ -575,6 +575,7 @@ public class Product implements Serializable{
         productBox.getStyleClass().add("productBox");
         productBox.setOnMouseClicked(event -> {
             GeneralController.currentProduct = this;
+            GraphicMain.currentProductId = productId;
             try {
                 GraphicMain.graphicMain.goToPage(ProductPage.FXML_PATH, ProductPage.TITLE);
             } catch (IOException e) {

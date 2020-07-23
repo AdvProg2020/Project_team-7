@@ -33,6 +33,8 @@ public class LoginSignUpPage implements Initializable {
         //mediaPlayer = new MediaPlayer(bgMusic);
         //mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         //mediaPlayer.setVolume(0.2);
+        signUpErrorMessage.setWrapText(true);
+        loginErrorMessage.setWrapText(true);
     }
 
     private boolean areTextFieldsFilled(TextField userName, PasswordField passWord) {
