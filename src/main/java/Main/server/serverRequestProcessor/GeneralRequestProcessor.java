@@ -73,8 +73,9 @@ public class GeneralRequestProcessor {
         String password = splitRequest[7].split(":")[1];
         String imagePath = splitRequest[8].split(":")[1];
 
+        String response = BankClient.getResponseFromBankServer("create_account " + firstName + " " + lastName + " " + username + " " + password + " " + password);
         BuyerAccount buyerAccount = new BuyerAccount(username, firstName,
-                lastName, email, phoneNumber, password, 1000000, imagePath);
+                lastName, email, phoneNumber, password, 1000000, imagePath, response);
         BuyerAccount.addBuyer(buyerAccount);
 
         return "success";
@@ -91,8 +92,10 @@ public class GeneralRequestProcessor {
         String companyInfo = splitRequest[9].split(":")[1];
         String imagePath = splitRequest[10].split(":")[1];
 
+        String response = BankClient.getResponseFromBankServer("create_account " + firstName + " " + lastName + " " + username + " " + password + " " + password);
+
         SellerAccount sellerAccount = new SellerAccount(username, firstName,
-                lastName, email, phoneNumber, password, companyName, companyInfo, 1000000, imagePath);
+                lastName, email, phoneNumber, password, companyName, companyInfo, 1000000, imagePath, response);
         CreateSellerAccountRequest createSellerAccountRequest = new CreateSellerAccountRequest(sellerAccount, "create seller account");
         Request.addRequest(createSellerAccountRequest);
         Account.getReservedUserNames().add(username);
@@ -187,7 +190,7 @@ public class GeneralRequestProcessor {
         if (ServerMain.server.validateToken(splitRequest[0], BuyerAccount.class)) {
             BuyerAccount buyerAccount = (BuyerAccount) ServerMain.server.getTokenInfo(splitRequest[0]).getUser();
             try {
-                if(!auction.isAuctionValid()){
+                if (!auction.isAuctionValid()) {
                     throw new Exception();
                 }
                 auction.getAuctionUsage().addMessage("\"" + buyerAccount.getUserName() + "\"\n" + splitRequest[3]);
@@ -237,6 +240,7 @@ public class GeneralRequestProcessor {
         ShopFinance.getInstance().setPassword(splitRequest[3]);
         ShopFinance.getInstance().setMinimumWalletBalance(Double.parseDouble(splitRequest[4]));
         ShopFinance.getInstance().setCommission(Double.parseDouble(splitRequest[5]));
+        Account.getReservedUserNames().add(splitRequest[2]);
         return "success";
     }
 
@@ -394,7 +398,7 @@ public class GeneralRequestProcessor {
         if (!sellerAccount.getPassWord().equals(splitRequest[3])) {
             return "invalidPassword";
         }
-        if(sellerAccount.getWalletBalance()<Double.parseDouble(splitRequest[4])){
+        if (sellerAccount.getWalletBalance() < Double.parseDouble(splitRequest[4])) {
             return "insufficientBalance";
         }
         String token = BankClient.getResponseFromBankServer("get_token " + splitRequest[2] + " " + splitRequest[3]);

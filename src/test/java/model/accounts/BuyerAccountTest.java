@@ -16,7 +16,7 @@ public class BuyerAccountTest {
     @Test(expected = AccountsException.class)
     public void duplicateUserNameException() throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("userName", "firstName", "last Name",
-                "sampleEmail@sample.sample", "09001112233", "password123", 100,null);
+                "sampleEmail@sample.sample", "09001112233", "password123", 100,null,null);
         BuyerAccount.addBuyer(buyerAccount);
         AccountsException.validateUsernameUniqueness("userName");
     }
@@ -34,7 +34,7 @@ public class BuyerAccountTest {
     @Test
     public void addBuyerAndIsThereBuyerTest() throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("username", "firstname", "lastname"
-                , "example@exp.exp", "09000000000", "00000000", 100,null);
+                , "example@exp.exp", "09000000000", "00000000", 100,null,null);
 
         BuyerAccount.addBuyer(buyerAccount);
 
@@ -44,7 +44,7 @@ public class BuyerAccountTest {
     @Test
     public void viewMeTest() throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("userName", "firstName", "last Name",
-                "sampleEmail@sample.sample", "09001112233", "password123", 100,null);
+                "sampleEmail@sample.sample", "09001112233", "password123", 100,null,null);
         BuyerAccount.addBuyer(buyerAccount);
 
         Assert.assertEquals("Buyer :\n\tfirst name : firstName\n\tlast name : last Name\n\tuser name : userName" +
@@ -54,10 +54,10 @@ public class BuyerAccountTest {
     @Test
     public void showBuyerList() throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("userName", "firstName", "last Name",
-                "sampleEmail@sample.sample", "09001112233", "password123", 100,null);
+                "sampleEmail@sample.sample", "09001112233", "password123", 100,null,null);
         BuyerAccount.addBuyer(buyerAccount);
         BuyerAccount buyerAccount2 = new BuyerAccount("userName2", "firstName2", "last Name2",
-                "sampleEmail@sample.sample2", "09001112234", "password124", 100,null);
+                "sampleEmail@sample.sample2", "09001112234", "password124", 100,null,null);
         BuyerAccount.addBuyer(buyerAccount2);
 
         Assert.assertEquals("Buyers :\n\tuser name : userName\tfull name : firstName last Name\n\tuser name : " +
@@ -67,7 +67,7 @@ public class BuyerAccountTest {
     @Test
     public void getBuyerWithNameTest() throws Exception {
         BuyerAccount buyerAccount = new BuyerAccount("userName", "firstName", "last Name",
-                "sampleEmail@sample.sample", "09001112233", "password123", 100,null);
+                "sampleEmail@sample.sample", "09001112233", "password123", 100,null,null);
         BuyerAccount.addBuyer(buyerAccount);
 
         Assert.assertEquals(buyerAccount, BuyerAccount.getBuyerWithUserName("userName"));
@@ -76,7 +76,7 @@ public class BuyerAccountTest {
     @Test
     public void deleteBuyerTest() throws Exception {
         BuyerAccount buyerAccount = new BuyerAccount("userName", "firstName", "last Name",
-                "sampleEmail@sample.sample", "09001112233", "password123", 100,null);
+                "sampleEmail@sample.sample", "09001112233", "password123", 100,null,null);
         BuyerAccount.addBuyer(buyerAccount);
         buyerAccount.deleteBuyer();
 
@@ -86,7 +86,7 @@ public class BuyerAccountTest {
     @Test
     public void decreaseBalanceByTest() throws Exception {
         BuyerAccount buyerAccount = new BuyerAccount("userName", "firstName", "last Name",
-                "sampleEmail@sample.sample", "09001112233", "password123", 100,null);
+                "sampleEmail@sample.sample", "09001112233", "password123", 100,null,null);
 
         buyerAccount.decreaseBalanceBy(20);
         Assert.assertEquals(80, buyerAccount.getWalletBalance(), 0);
@@ -97,7 +97,7 @@ public class BuyerAccountTest {
     @Test
     public void viewBalanceTest() throws AccountsException {
         BuyerAccount buyerAccount = new BuyerAccount("userName", "firstName", "last Name",
-                "sampleEmail@sample.sample", "09001112233", "password123", 100,null);
+                "sampleEmail@sample.sample", "09001112233", "password123", 100,null,null);
 
         Assert.assertEquals("balance : 100.0\n", buyerAccount.viewBalance());
     }

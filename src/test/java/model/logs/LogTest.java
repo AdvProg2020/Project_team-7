@@ -30,7 +30,7 @@ public class LogTest {
                 "nice thing it is:)", 100, null);
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
-                , "this company is great!", 100,null);
+                , "this company is great!", 100,null,null);
         Cart cart = new Cart();
         CartProduct cartProduct = new CartProduct(product, sellerAccount, cart);
         cart.addCartProduct(cartProduct);
@@ -72,10 +72,10 @@ public class LogTest {
                 "nice thing it is:)", 100, null);
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
-                , "this company is great!", 100,null);
+                , "this company is great!", 100,null,null);
 
         BuyerAccount buyerAccount = new BuyerAccount("userName", "firstName", "last Name",
-                "sampleEmail@sample.sample", "09001112233", "password123", 100,null);
+                "sampleEmail@sample.sample", "09001112233", "password123", 100,null,null);
 
         Cart cart = new Cart();
         CartProduct cartProduct = new CartProduct(product, sellerAccount, cart);

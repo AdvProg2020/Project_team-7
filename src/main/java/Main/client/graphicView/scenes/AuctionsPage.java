@@ -40,7 +40,7 @@ public class AuctionsPage implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 //        SellerAccount sellerAccount = new SellerAccount("username", "firstname", "lastname"
 //                , "example@exp.exp", "09000000000", "00000000", "companyName"
-//                ,"this company is great!", 100,null);
+//                ,"this company is great!", 100,null,null);
 //        Product product = new Product("apple", "b", 10, "d", 10,sellerAccount);
 //        Product product2 = new Product("laptop", "b", 10, "d", 10, sellerAccount);
 //        product.addProduct(product);

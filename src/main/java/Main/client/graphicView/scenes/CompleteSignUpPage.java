@@ -87,13 +87,13 @@ public class CompleteSignUpPage implements Initializable {
 //            System.out.println(LoginSignUpPage.getSignUpInputUsername);
 //            if (isSeller.isSelected()) {
 //                SellerAccount sellerAccount = new SellerAccount(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
-//                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, companyNameField.getText(), companyInfoField.getText(), 1000000, profileImagePath);
+//                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, companyNameField.getText(), companyInfoField.getText(), 1000000, profileImagePath,null);
 //                CreateSellerAccountRequest createSellerAccountRequest = new CreateSellerAccountRequest(sellerAccount, "create seller account");
 //                Request.addRequest(createSellerAccountRequest);
 //                Account.getReservedUserNames().add(LoginSignUpPage.getSignUpInputUsername);
 //            } else {
 //                BuyerAccount buyerAccount = new BuyerAccount(LoginSignUpPage.getSignUpInputUsername, firstName.getText(),
-//                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, 1000000, profileImagePath);
+//                        lastName.getText(), email.getText(), phoneNumber.getText(), LoginSignUpPage.signUpInputPassword, 1000000, profileImagePath,null);
 //                BuyerAccount.addBuyer(buyerAccount);
 //                GeneralController.currentUser = buyerAccount;
 //            }

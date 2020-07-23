@@ -53,6 +53,7 @@ public class DataRequestProcessor {
     }
 
     private static String walletBalanceResponse(String token) {
+        Auction.getAllAuctions();
         if (ServerMain.server.validateToken(token, SellerAccount.class)) {
             SellerAccount sellerAccount = (SellerAccount) ServerMain.server.getTokenInfo(token).getUser();
             return sellerAccount.getWalletBalance() + "";

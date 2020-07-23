@@ -15,7 +15,7 @@ public class GeneralControllerTest {
         String type = "buyer";
         String username = "username";
         BuyerAccount buyerAccount = new BuyerAccount("username", "firstName",
-                "lastName", "email@email.email", "09101111111", "password", 5000.5,null);
+                "lastName", "email@email.email", "09101111111", "password", 5000.5,null,null);
         BuyerAccount.addBuyer(buyerAccount);
         Assert.assertEquals("this userName is already taken.", generalController.createAccount(type, username));
     }

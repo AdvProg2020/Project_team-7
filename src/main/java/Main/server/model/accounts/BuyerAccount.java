@@ -24,6 +24,7 @@ public class BuyerAccount extends Account {
     private int numberOfBoughtProductsForBonus;
     private static ArrayList<BuyerAccount> allBuyers = new ArrayList<>();
     public String isOnAuction;
+    private String accountID;
 
     private ArrayList<String> buyHistoryStringRecord = new ArrayList<>();
     private ArrayList<String> discountCodesStringRecord = new ArrayList<>();
@@ -36,10 +37,12 @@ public class BuyerAccount extends Account {
                         String phoneNumber,
                         String passWord,
                         double balance,
-                        String profileImagePath) {
+                        String profileImagePath,
+                        String accountID) {
         super(userName, firstName, lastName, email, phoneNumber, passWord, profileImagePath);
         this.walletBalance = balance;
         this.cart = new Cart();
+        this.accountID = accountID;
     }
 
     public ArrayList<String> getDiscountsList() {
@@ -341,7 +344,7 @@ public class BuyerAccount extends Account {
         }
     }
 
-    public double getBankAccountID(){
-        return 1;
+    public String getBankAccountID(){
+        return accountID;
     }
 }

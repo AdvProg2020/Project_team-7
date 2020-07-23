@@ -11,7 +11,7 @@ public class SellerAccountTest {
     public void addSellerAndIsThereSellerTest() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("username", "firstname", "lastname"
                 , "example@exp.exp", "09000000000", "00000000", "companyName"
-                ,"this company is great!", 100,null);
+                ,"this company is great!", 100,null,null);
         SellerAccount.addSeller(sellerAccount);
 
         Assert.assertTrue(sellerAccount.isThereSellerWithUserName("username") && Account.isThereUserWithUserName("username"));
@@ -21,7 +21,7 @@ public class SellerAccountTest {
     public void viewMeTest() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
-                ,"this company is great!", 100,null);
+                ,"this company is great!", 100,null,null);
 
         Assert.assertEquals("Seller :\n\tfirst name : firstName\n\tlast name : last Name\n\tuser name : userName" +
                 "\n\tcompany name : companyName\n\tcompany information : this company is great!\n\temail : " +
@@ -32,11 +32,11 @@ public class SellerAccountTest {
     public void showSellerList() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
-                ,"this company is great!", 100,null);
+                ,"this company is great!", 100,null,null);
         SellerAccount.addSeller(sellerAccount);
         SellerAccount sellerAccount2 = new SellerAccount("userName2", "firstName2", "last Name2",
                 "sampleEmail@sample.sample2", "09001112234", "password124", "companyName"
-                ,"this company is great!", 100,null);
+                ,"this company is great!", 100,null,null);
         SellerAccount.addSeller(sellerAccount2);
 
         Assert.assertEquals("Sellers :\n\tuser name : userName\tfull name : firstName last Name\n\tuser name : " +
@@ -47,7 +47,7 @@ public class SellerAccountTest {
     public void getSellerWithNameTest() throws Exception {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
-                ,"this company is great!", 100,null);
+                ,"this company is great!", 100,null,null);
         SellerAccount.addSeller(sellerAccount);
 
         Assert.assertEquals(sellerAccount,SellerAccount.getSellerWithUserName("userName"));
@@ -57,7 +57,7 @@ public class SellerAccountTest {
     public void deleteSellerTest() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
-                ,"this company is great!", 100,null);
+                ,"this company is great!", 100,null,null);
         SellerAccount.addSeller(sellerAccount);
         sellerAccount.deleteSeller();
 
@@ -68,7 +68,7 @@ public class SellerAccountTest {
     public void viewCompanyInformationTest() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
-                ,"this company is great!", 100,null);
+                ,"this company is great!", 100,null,null);
 
         Assert.assertEquals("company name : companyName\n\tcompany information : this company is great!\n",sellerAccount.viewCompanyInformation());
     }
@@ -77,7 +77,7 @@ public class SellerAccountTest {
     public void increaseBalanceByTest() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
-                ,"this company is great!", 100,null);
+                ,"this company is great!", 100,null,null);
 
         sellerAccount.increaseBalanceBy(20);
         Assert.assertEquals(120,sellerAccount.getWalletBalance(),0);
@@ -87,7 +87,7 @@ public class SellerAccountTest {
     public void viewBalanceTest() throws AccountsException {
         SellerAccount sellerAccount = new SellerAccount("userName", "firstName", "last Name",
                 "sampleEmail@sample.sample", "09001112233", "password123", "companyName"
-                ,"this company is great!", 100,null);
+                ,"this company is great!", 100,null,null);
 
         Assert.assertEquals("balance : 100.0\n",sellerAccount.viewBalance());
     }

@@ -271,7 +271,7 @@ public class GeneralController {
                 buyerInfo.get(3),
                 buyerInfo.get(4),
                 buyerInfo.get(0),
-                Double.parseDouble(buyerInfo.get(5)), null);
+                Double.parseDouble(buyerInfo.get(5)), null,null);
         BuyerAccount.addBuyer(buyerAccount);
     }
 
@@ -285,7 +285,7 @@ public class GeneralController {
                 sellerInfo.get(0),
                 sellerInfo.get(5),
                 sellerInfo.get(6),
-                0, null);
+                0, null,null);
         CreateSellerAccountRequest createSellerAccountRequest = new CreateSellerAccountRequest(sellerAccount, "create seller account");
         Request.addRequest(createSellerAccountRequest);
         Account.getReservedUserNames().add(userName);
