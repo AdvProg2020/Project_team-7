@@ -12,7 +12,7 @@ public abstract class AccountsException extends Exception {
 
 
     public static void validateUsernameUniqueness(String userName) throws AccountsException {
-        if (Account.isThereUserWithUserName(userName)&&Account.getReservedUserNames().contains(userName)) {
+        if (Account.isThereUserWithUserName(userName) && Account.getReservedUserNames().contains(userName)) {
             throw new AccountsException.duplicateUserNameException();
         }
     }
@@ -42,7 +42,10 @@ public abstract class AccountsException extends Exception {
     }
 
     public static void validatePassWord(String passWord) throws AccountsException {
-        if (!passWord.matches(".{8,}")||!passWord.matches("[A-Za-z_0-9.\\-][A-Za-z_0-9. \\-]*[A-Za-z_0-9.\\-]")) {
+        if (!passWord.matches(".{8,}") || !passWord.matches("[A-Za-z_0-9.\\-][A-Za-z_0-9. \\-]*[A-Za-z_0-9.\\-]")) {
+            throw new AccountsException.invalidPassWordException();
+        } else if (!passWord.matches("^(?=.*[A-Z].*[A-Z])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$") ||
+                passWord.matches("(.*pass.*|.*word.*|.*1234.*|.*qwer.*|.*asdf.*|.*qaz.*|.*5678.*|.*0123.*)")) {
             throw new AccountsException.invalidPassWordException();
         }
     }
@@ -73,7 +76,7 @@ public abstract class AccountsException extends Exception {
 
     public static class invalidPassWordException extends AccountsException {
         public invalidPassWordException() {
-            this.errorMessage = "PassWord must be at least 8 valid characters\nalso, it can only contain English letters, numbers" +
+            this.errorMessage = "This password is weak!,at least 8 characters, two uppercase, three lowercase, two digits\nalso, it can only contain English letters, numbers" +
                     ", '_','.' and '-' . make sure that it doesn't contain spaces !\n";
         }
     }

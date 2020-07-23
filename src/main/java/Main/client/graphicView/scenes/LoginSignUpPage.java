@@ -165,8 +165,10 @@ public class LoginSignUpPage implements Initializable {
             signUpUsername.setStyle("-fx-text-fill : #6e0113; -fx-border-color : RED; ");
         } else if (response.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+        } else if (response.startsWith("invalidCharacter")) {
+            signUpErrorMessage.setText(response.split("#")[1]);
         } else {
-            loginErrorMessage.setText("unknown problem connecting the server ! please try again a few moments later !");
+            signUpErrorMessage.setText("unknown problem connecting the server ! please try again a few moments later !");
         }
     }
 
