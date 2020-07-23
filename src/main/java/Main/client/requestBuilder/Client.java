@@ -49,7 +49,7 @@ public class Client {
 
     public String sendRequest(String request) {
         try {
-            System.out.println("original request was: "+request);
+            System.out.println("original request was: " + request);
             String originalRequest = new String(request);
             String randomKey = getRandomKey();
             HashMap<Character, Character> keyMap = new HashMap<>();
@@ -57,7 +57,12 @@ public class Client {
             String dateNow = dateFormat.format(new Date());
             request = request.concat("#").concat(dateNow).concat("#").concat(getRandomString(5));
             request = encryptMessage(request, keyMap);
-            request = request.concat("#").concat(encryptMessage(randomKey, KEY_MAP));
+            System.out.println("key : "+ randomKey);
+            String encryptedKey = encryptMessage(randomKey, KEY_MAP);
+            System.out.println("encrypted key : " +encryptedKey);
+            request = request.concat("#").concat(encryptedKey);
+            System.out.println("request : " + request);
+
 
             dataOutputStream.writeUTF(request);
             dataOutputStream.flush();
@@ -83,7 +88,8 @@ public class Client {
             String dateNow = dateFormat.format(new Date());
             request = request.concat("#").concat(dateNow).concat("#").concat(getRandomString(5));
             request = encryptMessage(request, keyMap);
-            request = request.concat("#").concat(encryptMessage(randomKey, KEY_MAP));
+            String encryptedKey = encryptMessage(randomKey, KEY_MAP);
+            request = request.concat("#").concat(encryptedKey);
 
             dataOutputStream.writeUTF(request);
             dataOutputStream.flush();

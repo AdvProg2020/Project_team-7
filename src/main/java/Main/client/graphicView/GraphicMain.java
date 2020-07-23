@@ -64,18 +64,16 @@ public class GraphicMain extends Application {
 
 
         //this scope
-//        String response = DataRequestBuilder.buildProgramStartModeRequest();
-//        if (response.equals("1")) {
-//            root = FXMLLoader.load(new File(RegisterManager.FXML_PATH).toURI().toURL());
-//            stage.setTitle(RegisterManager.TITLE);
-//            sceneTrace.add(RegisterManager.FXML_PATH);
-//        } else {
-//            root = FXMLLoader.load(new File(MainMenuController.FXML_PATH).toURI().toURL());
-//            stage.setTitle(MainMenuController.TITLE);
-//            sceneTrace.add(MainMenuController.FXML_PATH);
-//        }
-
-        root = FXMLLoader.load(new File(WalletPage.FXML_PATH).toURI().toURL());
+        String response = DataRequestBuilder.buildProgramStartModeRequest();
+        if (response.equals("1")) {
+            root = FXMLLoader.load(new File(RegisterManager.FXML_PATH).toURI().toURL());
+            stage.setTitle(RegisterManager.TITLE);
+            sceneTrace.add(RegisterManager.FXML_PATH);
+        } else {
+            root = FXMLLoader.load(new File(MainMenuController.FXML_PATH).toURI().toURL());
+            stage.setTitle(MainMenuController.TITLE);
+            sceneTrace.add(MainMenuController.FXML_PATH);
+        }
 
 
 //        root = FXMLLoader.load(new File(ChatPageController.FXML_PATH).toURI().toURL());

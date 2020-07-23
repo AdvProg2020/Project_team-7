@@ -43,6 +43,7 @@ public class AuctionPage implements Initializable {
     public AnchorPane pane;
     public Label highestOffer;
     private int messageNo;
+    private Timeline update;
 
 //    public void goToUserPanelMenu(MouseEvent mouseEvent) throws IOException {
 //        Account account = GeneralController.currentUser;
@@ -91,6 +92,7 @@ public class AuctionPage implements Initializable {
     }
 
     public void back() {
+        update.stop();
         GraphicMain.graphicMain.back();
     }
 
@@ -101,6 +103,11 @@ public class AuctionPage implements Initializable {
         String response = DataRequestBuilder.buildAuctionRequestWithID(GraphicMain.currentAuctionId);
         if (response.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        }
+        if(response.equals("auctionOver")){
+            GraphicMain.showInformationAlert("this auction is over !!");
+            disablePage();
             return;
         }
         Auction auction = GeneralController.yagsonMapper.fromJson(response, Auction.class);
@@ -115,7 +122,7 @@ public class AuctionPage implements Initializable {
                 informationBox.setText("auction is underway !\ntake part !");
                 highestOffer.setText("" + auction.getAuctionUsage().getHighestOffer());
                 initializeMessagePane();
-                Timeline update = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+                update = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
                     @Override
                     public void handle(ActionEvent event) {
@@ -167,6 +174,11 @@ public class AuctionPage implements Initializable {
         String response = DataRequestBuilder.buildAuctionRequestWithID(GraphicMain.currentAuctionId);
         if (response.equals("tooManyRequests")) {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            return;
+        }
+        if(response.equals("auctionOver")){
+            GraphicMain.showInformationAlert("this auction is over !!");
+            disablePage();
             return;
         }
         Auction auction = GeneralController.yagsonMapper.fromJson(response, Auction.class);

@@ -187,6 +187,9 @@ public class GeneralRequestProcessor {
         if (ServerMain.server.validateToken(splitRequest[0], BuyerAccount.class)) {
             BuyerAccount buyerAccount = (BuyerAccount) ServerMain.server.getTokenInfo(splitRequest[0]).getUser();
             try {
+                if(!auction.isAuctionValid()){
+                    throw new Exception();
+                }
                 auction.getAuctionUsage().addMessage("\"" + buyerAccount.getUserName() + "\"\n" + splitRequest[4]);
                 return "success";
             } catch (Exception e) {

@@ -64,6 +64,7 @@ public class AuctionsPage implements Initializable {
             Auction auction3 = allAuctions.get(i);
             try {
                 auctionsList.getItems().add(auction3.getAuctionUsage().viewSummary());
+                allAuctions.remove(auction3);
             } catch (Exception e) {
                 if (i > 0) {
                     i--;
@@ -81,7 +82,9 @@ public class AuctionsPage implements Initializable {
                     String response = DataRequestBuilder.buildAuctionRequestWithID(GraphicMain.currentAuctionId);
                     if (response.equals("tooManyRequests")) {
                         GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
-                    } else {
+                    } else if(response.equals("auctionOver")){
+                        GraphicMain.showInformationAlert("this auction is over !!");
+                    } else{
                         Auction auction = GeneralController.yagsonMapper.fromJson(response, Auction.class);
                         auctionsList.getSelectionModel().clearSelection();
                         try {

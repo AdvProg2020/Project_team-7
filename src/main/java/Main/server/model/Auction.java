@@ -33,7 +33,7 @@ public class Auction {
     private BuyerAccount lastOfferBuyer;
     private String lastBuyerStringRecord;
     private ArrayList<String> allMessages = new ArrayList<>();
-    private String receiverInfo ="";
+    private String receiverInfo = "";
 
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private static String inputDateFormat = "yyyy/MM/dd HH:mm:ss";
@@ -108,7 +108,7 @@ public class Auction {
             return "@" + id + " " + product.getName() + "\tstart :\t" + startDate + "\tend :\t" + endDate;
         }
 
-        public BuyerAccount getLastBuyer(){
+        public BuyerAccount getLastBuyer() {
             return lastOfferBuyer;
         }
 
@@ -125,7 +125,7 @@ public class Auction {
             lastBuyerStringRecord = buyerAccount.getUserName();
         }
 
-        public void setReceiverInfo(String info){
+        public void setReceiverInfo(String info) {
             receiverInfo = info;
         }
 
@@ -172,10 +172,10 @@ public class Auction {
         String id = IDGenerator.getNewID(Log.getLastUsedLogID());
         Date dateNow = new Date();
 
-        SellLog sellLog = new SellLog(id,dateNow,highestOffer,new CartProduct(product,sellerAccount,null).toStringForSellLog(),lastOfferBuyer,0, DeliveryStatus.PENDING_DELIVERY,receiverInfo);
+        SellLog sellLog = new SellLog(id, dateNow, highestOffer, new CartProduct(product, sellerAccount, null).toStringForSellLog(), lastOfferBuyer, 0, DeliveryStatus.PENDING_DELIVERY, receiverInfo);
         sellerAccount.addLog(sellLog);
 
-        BuyLog buyLog = new BuyLog(id,dateNow,highestOffer,0,new CartProduct(product,sellerAccount,null).toStringForBuyLog(),DeliveryStatus.PENDING_DELIVERY,receiverInfo);
+        BuyLog buyLog = new BuyLog(id, dateNow, highestOffer, 0, new CartProduct(product, sellerAccount, null).toStringForBuyLog(), DeliveryStatus.PENDING_DELIVERY, receiverInfo);
         lastOfferBuyer.addLog(buyLog);
     }
 
@@ -232,19 +232,23 @@ public class Auction {
 
 
     public boolean isAuctionOver() {
-        try {
-            Product.getProductWithId(productStringRecord);
-            SellerAccount.getSellerWithUserName(sellerStringRecord);
-        } catch (Exception e) {
-            allAuctions.remove(this);
-            return true;
-        }
         Date dateNow = new Date();
         if (auctionUsage.getEndDate().compareTo(dateNow) < 0) {
             finishAuction();
             return true;
         }
         return false;
+    }
+
+    public boolean isAuctionValid() {
+        try {
+            Product.getProductWithId(productStringRecord);
+            SellerAccount.getSellerWithUserName(sellerStringRecord);
+        } catch (Exception e) {
+            allAuctions.remove(this);
+            return false;
+        }
+        return true;
     }
 
     public boolean hasAuctionBeenStarted() {
@@ -256,6 +260,9 @@ public class Auction {
         for (Auction auction : allAuctions) {
             if (auction.isAuctionOver()) {
                 auction.finishAuction();
+            }
+            if (!auction.isAuctionValid()) {
+                allAuctions.remove(auction);
             }
         }
         return allAuctions;

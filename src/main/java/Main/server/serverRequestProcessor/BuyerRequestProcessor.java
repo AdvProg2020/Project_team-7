@@ -34,6 +34,9 @@ public class BuyerRequestProcessor {
         Auction auction = Auction.getAuctionById(splitRequest[3]);
         double highestOffer = 0;
         try {
+            if(!auction.isAuctionValid()){
+                throw new Exception();
+            }
             auction.getAuctionUsage().setReceiverInfo("first name : " + buyerAccount.getFirstName() + " last name : " +
                     buyerAccount.getLastName() + " address : " + splitRequest[5]);
             auction.getAuctionUsage().setLastOfferBuyer(buyerAccount);

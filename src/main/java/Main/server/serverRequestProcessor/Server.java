@@ -133,8 +133,12 @@ public class Server {
             }
 
             splitRequest = request.split("#");
-            String decryptionKey = decryptMessage(splitRequest[splitRequest.length - 2].concat("#").concat(splitRequest[splitRequest.length - 1]), KEY_MAP);
-            request = request.substring(0, request.length() - decryptionKey.length() - 1);
+            String encryptedKey = splitRequest[splitRequest.length - 2].concat("#").concat(splitRequest[splitRequest.length - 1]);
+            String decryptionKey = decryptMessage(encryptedKey, KEY_MAP);
+            request = request.substring(0, request.length() - decryptionKey.length());
+            System.out.println("encrypted key : " + encryptedKey);
+            System.out.println("decryptionKey : " + decryptionKey);
+            System.out.println("request :" + request );
             HashMap<Character, Character> keyMap = new HashMap<>();
             setKeyMap(decryptionKey, keyMap);
             request = decryptMessage(request, keyMap);

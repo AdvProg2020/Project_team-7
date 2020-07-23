@@ -94,6 +94,9 @@ public class DataRequestProcessor {
         Auction auction = Auction.getAuctionById(splitRequest[3]);
         try {
             int messageNo = auction.getAuctionUsage().getAllMessages().size();
+            if(!auction.isAuctionValid()){
+                throw new Exception();
+            }
             return messageNo + "";
         } catch (Exception e) {
             return "auctionOver";
@@ -104,6 +107,9 @@ public class DataRequestProcessor {
         Auction auction = Auction.getAuctionById(splitRequest[3]);
         try {
             String highestOffer = auction.getAuctionUsage().getHighestOffer() + "";
+            if(!auction.isAuctionValid()){
+                throw new Exception();
+            }
             return highestOffer;
         } catch (Exception e) {
             return "auction Over";
@@ -139,23 +145,18 @@ public class DataRequestProcessor {
     }
 
     private static String allAuctionResponse() {
-        try {
-            InputStream inputStream = new FileInputStream(new File("src/main/JSON/auctions.json"));
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line = bufferedReader.readLine();
-            StringBuilder stringBuilder = new StringBuilder();
-            while (line != null) {
-                stringBuilder.append(line).append("\n");
-                line = bufferedReader.readLine();
-            }
-            return stringBuilder.toString();
-        } catch (Exception e) {
-            return "[]";
-        }
+        ArrayList<Auction> allAuctions = Auction.getAllAuctions();
+        Auction[] allAuc = new Auction[allAuctions.size()];
+        allAuc = allAuctions.toArray(allAuc);
+        return GeneralController.yagsonMapper.toJson(allAuc, Auction[].class);
     }
 
     private static String auctionResponse(String id) {
-        return GeneralController.yagsonMapper.toJson(Auction.getAuctionById(id), Auction.class);
+        Auction auction = Auction.getAuctionById(id);
+        if(!auction.isAuctionValid()||auction.isAuctionOver()){
+            return "auctionOver";
+        }
+        return GeneralController.yagsonMapper.toJson(auction, Auction.class);
     }
 
     private static String logResponseWithID(String logID) {
