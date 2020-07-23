@@ -64,7 +64,7 @@ public class AddProductPage {
         FileChooser fileChooser = new FileChooser();
         file = fileChooser.showOpenDialog(GraphicMain.stage);
         fileName.setText(file.getName());
-        name.setText(file.getName()+"&&&(FILE PRODUCT)");
+        name.setText(file.getName()+"___FILEPRODUCT");
         name.setDisable(true);
         description.setText(file.getPath());
         description.setDisable(true);
