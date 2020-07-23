@@ -39,17 +39,22 @@ public class FinanceSetupPage {
     }
 
     public void submitFinance(MouseEvent mouseEvent) {
-        if (areTextFieldsFilled()) {
-            String response = GeneralRequestBuilder.buildSetUpFinanceRequest(username.getText(), password.getText(), walletMinimumBalance.getText(), commission.getText());
-            if (response.equals("success")) {
-                try {
-                    GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                showResponseMessage(response);
-            }
+//        if (areTextFieldsFilled()) {
+//            String response = GeneralRequestBuilder.buildSetUpFinanceRequest(username.getText(), password.getText(), walletMinimumBalance.getText(), commission.getText());
+//            if (response.equals("success")) {
+//                try {
+//                    GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            } else {
+//                showResponseMessage(response);
+//            }
+//        }
+        try {
+            GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH,MainMenuController.TITLE);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

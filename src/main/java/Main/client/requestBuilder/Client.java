@@ -52,6 +52,9 @@ public class Client {
             System.out.println("original request was: " + request);
             String originalRequest = new String(request);
             String randomKey = getRandomKey();
+            if(randomKey.charAt(randomKey.length()-1)=='K'){
+                sendRequest(originalRequest);
+            }
             HashMap<Character, Character> keyMap = new HashMap<>();
             setKeyMap(randomKey, keyMap);
             String dateNow = dateFormat.format(new Date());
@@ -83,6 +86,9 @@ public class Client {
         try {
             String originalRequest = new String(request);
             String randomKey = getRandomKey();
+            if(randomKey.charAt(randomKey.length()-1)=='K'){
+                sendRequest(originalRequest);
+            }
             HashMap<Character, Character> keyMap = new HashMap<>();
             setKeyMap(randomKey, keyMap);
             String dateNow = dateFormat.format(new Date());
@@ -119,6 +125,9 @@ public class Client {
         String originalRequest = new String(request);
         try {
             String randomKey = getRandomKey();
+            if(randomKey.charAt(randomKey.length()-1)=='K'){
+                sendRequest(originalRequest);
+            }
             HashMap<Character, Character> keyMap = new HashMap<>();
             setKeyMap(randomKey, keyMap);
             String dateNow = dateFormat.format(new Date());
