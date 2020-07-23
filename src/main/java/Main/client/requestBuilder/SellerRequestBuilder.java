@@ -3,6 +3,7 @@ package Main.client.requestBuilder;
 import Main.client.ClientMain;
 import Main.client.graphicView.GraphicMain;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class SellerRequestBuilder {
@@ -37,6 +38,15 @@ public class SellerRequestBuilder {
             request.append("#" + info);
         }
         return ClientMain.client.sendRequest(request.toString());
+    }
+
+    public static String buildAddFileRequest(ArrayList<String> productInfo, File file) {
+        StringBuilder request = new StringBuilder();
+        request.append(GraphicMain.token + "#addFileProduct");
+        for (String info : productInfo) {
+            request.append("#" + info);
+        }
+        return ClientMain.client.sendRequestFile(request.toString(),file);
     }
 
     public static String buildAddSpecialFeaturesRequest(ArrayList<String> specialFeatures, String productId) {

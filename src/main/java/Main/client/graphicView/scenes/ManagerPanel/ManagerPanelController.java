@@ -1,6 +1,7 @@
 package Main.client.graphicView.scenes.ManagerPanel;
 
 import Main.client.graphicView.GraphicMain;
+import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -47,10 +48,11 @@ public class ManagerPanelController {
         GraphicMain.graphicMain.goToPage(ManageCategoriesController.FXML_PATH, ManageCategoriesController.TITLE);
     }
 
-    public void goBack() {
+    public void goBack() throws IOException {
         //GraphicMain.buttonSound.stop();
         //GraphicMain.buttonSound.play();
-        GraphicMain.graphicMain.back();
+        //GraphicMain.graphicMain.back();
+        GraphicMain.graphicMain.goToPage(MainMenuController.FXML_PATH, MainMenuController.TITLE);
     }
 
     public static void alertError(String text) {
@@ -67,7 +69,7 @@ public class ManagerPanelController {
         alert.showAndWait();
     }
 
-    public void logout() {
+    public void logout() throws IOException {
         //GraphicMain.generalController.logout();
         GeneralRequestBuilder.buildLogoutRequest();
         GraphicMain.token = "0000";

@@ -5,11 +5,13 @@ import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.SellerRequestBuilder;
 import Main.server.controller.GeneralController;
 import Main.server.model.exceptions.CreateProductException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -32,37 +34,89 @@ public class AddProductPage {
     private TextField price;
     @FXML
     private TextField categoryName;
+    @FXML
+    private CheckBox isFile;
+    @FXML
+    private Pane pane;
+    @FXML
+    private Button selectFile;
+    @FXML
+    private Pane notFilePane;
+    @FXML
+    private Label fileName;
+    @FXML
+    private Label uploading;
 
     public static CreateProductException.GetCategoryFromUser exception;
+    private File file;
 
+    public void isProductFile(ActionEvent actionEvent) {
+        if (isFile.isSelected()) {
+            pane.setVisible(true);
+            notFilePane.setVisible(false);
+        } else {
+            pane.setVisible(false);
+            notFilePane.setVisible(true);
+        }
+    }
+
+    public void select(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        file = fileChooser.showOpenDialog(GraphicMain.stage);
+        fileName.setText(file.getName());
+        name.setText(file.getName()+"&&&(FILE PRODUCT)");
+        name.setDisable(true);
+        description.setText(file.getPath());
+        description.setDisable(true);
+    }
 
     public void goBack() {
         GraphicMain.graphicMain.back();
+    }
+
+    public void initialize() {
+        pane.setVisible(false);
     }
 
     public void submit() throws IOException {
         ArrayList<String> productInfo = new ArrayList<>();
         productInfo.add(name.getText());
         productInfo.add(brand.getText());
-        productInfo.add(availability.getText());
+        if (isFile.isSelected())
+            productInfo.add("100");
+        else
+            productInfo.add(availability.getText());
         productInfo.add(description.getText());
         productInfo.add(price.getText());
-        if (hasCategory.isSelected()) {
-            productInfo.add("yes");
-            productInfo.add(categoryName.getText());
-        } else {
+        if (isFile.isSelected()) {
             productInfo.add("no");
             productInfo.add("-");
+        } else {
+            if (hasCategory.isSelected()) {
+                productInfo.add("yes");
+                productInfo.add(categoryName.getText());
+            } else {
+                productInfo.add("no");
+                productInfo.add("-");
+            }
         }
-        String response = SellerRequestBuilder.buildAddProductRequest(productInfo);
+        String response;
+        if (isFile.isSelected())
+            response = SellerRequestBuilder.buildAddFileRequest(productInfo, file);
+        else
+            response = SellerRequestBuilder.buildAddProductRequest(productInfo);
         if (response.equals("success")) {
             showInformationAlert("product created successfully");
         } else if (response.startsWith("error")) {
             String[] splitResponse = response.split("#");
             showErrorAlert(splitResponse[1]);
         } else {
-            exception = GeneralController.yagsonMapper.fromJson(response, CreateProductException.GetCategoryFromUser.class);
-            GraphicMain.graphicMain.goToPage(AddProductSpecialFeatures.FXML_PATH, AddProductSpecialFeatures.TITLE);
+            if (!isFile.isSelected()) {
+                exception = GeneralController.yagsonMapper.fromJson(response, CreateProductException.GetCategoryFromUser.class);
+                GraphicMain.graphicMain.goToPage(AddProductSpecialFeatures.FXML_PATH, AddProductSpecialFeatures.TITLE);
+            } else {
+                GraphicMain.graphicMain.back();
+            }
         }
 //        try{
 //            GraphicMain.sellerController.addProduct(productInfo);

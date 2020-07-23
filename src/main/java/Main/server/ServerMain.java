@@ -21,30 +21,30 @@ public class ServerMain {
         System.out.println(GeneralController.readDataAndSetStringRecordObjects());
         ServerMain.generalController.initializeIDs();
 
-        while (true) {
-            System.out.println("enter server IP");
-            Scanner scanner = new Scanner(System.in);
-            String IP = scanner.nextLine();
-            System.out.println("enter server port");
-            String port = scanner.nextLine();
-            try{
-                Integer.parseInt(port);
-            }catch (Exception e){
-                System.err.println("connection to bank failed :(");
-                System.err.println("IP or port might be invalid invalid");
-                main(null);
-            }
-            BankClient.setIP(IP);
-            BankClient.setPort(Integer.parseInt(port));
-
-            if (BankClient.getResponseFromBankServer("hi").equals("failure")) {
-                System.err.println("connection to bank failed :(");
-                System.err.println("IP or port might be invalid invalid");
-                main(null);
-            } else {
-                break;
-            }
-        }
+//        while (true) {
+//            System.out.println("enter server IP");
+//            Scanner scanner = new Scanner(System.in);
+//            String IP = scanner.nextLine();
+//            System.out.println("enter server port");
+//            String port = scanner.nextLine();
+//            try{
+//                Integer.parseInt(port);
+//            }catch (Exception e){
+//                System.err.println("connection to bank failed :(");
+//                System.err.println("IP or port might be invalid invalid");
+//                main(null);
+//            }
+//            BankClient.setIP(IP);
+//            BankClient.setPort(Integer.parseInt(port));
+//
+//            if (BankClient.getResponseFromBankServer("hi").equals("failure")) {
+//                System.err.println("connection to bank failed :(");
+//                System.err.println("IP or port might be invalid invalid");
+//                main(null);
+//            } else {
+//                break;
+//            }
+//        }
 
         try {
             generalController.giveDiscountCodeToSpecialBuyers();

@@ -1,10 +1,7 @@
 package Main.server.controller;
 
 import Main.server.model.*;
-import Main.server.model.accounts.Account;
-import Main.server.model.accounts.BuyerAccount;
-import Main.server.model.accounts.ManagerAccount;
-import Main.server.model.accounts.SellerAccount;
+import Main.server.model.accounts.*;
 import Main.server.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.server.model.discountAndOffTypeService.DiscountCode;
 import Main.server.model.discountAndOffTypeService.Off;
@@ -274,7 +271,7 @@ public class GeneralController {
                 buyerInfo.get(3),
                 buyerInfo.get(4),
                 buyerInfo.get(0),
-                Double.parseDouble(buyerInfo.get(5)),null);
+                Double.parseDouble(buyerInfo.get(5)), null);
         BuyerAccount.addBuyer(buyerAccount);
     }
 
@@ -288,7 +285,7 @@ public class GeneralController {
                 sellerInfo.get(0),
                 sellerInfo.get(5),
                 sellerInfo.get(6),
-                0,null);
+                0, null);
         CreateSellerAccountRequest createSellerAccountRequest = new CreateSellerAccountRequest(sellerAccount, "create seller account");
         Request.addRequest(createSellerAccountRequest);
         Account.getReservedUserNames().add(userName);
@@ -301,7 +298,7 @@ public class GeneralController {
                 managerInfo.get(2),
                 managerInfo.get(3),
                 managerInfo.get(4),
-                managerInfo.get(0),null);
+                managerInfo.get(0), null);
         ManagerAccount.addManager(managerAccount);
     }
 
@@ -362,7 +359,7 @@ public class GeneralController {
     }
 
     public String editPersonalInfo(String field, String newContent, String token) {
-        return Server.getServer().getTokenInfo(token).getUser().editPersonalInfo(field,newContent);
+        return Server.getServer().getTokenInfo(token).getUser().editPersonalInfo(field, newContent);
     }
 
     public String showAllProducts() {
@@ -419,17 +416,17 @@ public class GeneralController {
                 stringBuilder.append("category: " + product.getCategory().getName() + "\n");
             stringBuilder.append("seller(s): " + product.makeSellersList());
             return stringBuilder.toString();
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public String getProductCategoryInfo(String productId){
+    public String getProductCategoryInfo(String productId) {
         try {
             Product product = Product.getProductWithId(productId);
-            if(product.getCategory() != null){
+            if (product.getCategory() != null) {
                 return product.getCategory().getName();
-            }else{
+            } else {
                 return "-";
             }
         } catch (Exception e) {
@@ -437,12 +434,12 @@ public class GeneralController {
         }
     }
 
-    public String getProductSpecialFeaturesInfo(String productId){
+    public String getProductSpecialFeaturesInfo(String productId) {
         try {
             Product product = Product.getProductWithId(productId);
-            if(product.getCategory() != null){
+            if (product.getCategory() != null) {
                 return product.showSpecialFeatures();
-            }else{
+            } else {
                 return "-";
             }
         } catch (Exception e) {
@@ -454,7 +451,7 @@ public class GeneralController {
         return Server.getServer().getTokenInfo(token).getUser().viewMe();
     }
 
-    public String getProfileImagePath(String token){
+    public String getProfileImagePath(String token) {
         return Server.getServer().getTokenInfo(token).getUser().getProfileImagePath();
     }
 
@@ -508,6 +505,7 @@ public class GeneralController {
                 "\n" + BuyerAccount.readData() +
                 "\n" + SellerAccount.readData() +
                 "\n" + ManagerAccount.readData() +
+                "\n" + SupporterAccount.readData() +
                 "\n" + Auction.readData() +
                 "\n" + ShopFinance.readData() +
                 "\n";
@@ -524,16 +522,16 @@ public class GeneralController {
         Auction.setStringRecords();
     }
 
-    public static void setImagePaths(){
+    public static void setImagePaths() {
         for (Product product : Product.allProducts) {
-            if(product.getCategory()==null||product.getCategory().getImagePath().equals("")) {
+            if (product.getCategory() == null || product.getCategory().getImagePath().equals("")) {
                 product.setImagePath("src/main/java/Main/client/graphicView/resources/images/product.png");
-            }else{
+            } else {
                 product.setImagePath(product.getCategory().getImagePath());
             }
         }
         for (Account account : Account.getAllAccounts()) {
-            if(account.getProfileImagePath().equals("")){
+            if (account.getProfileImagePath().equals("")) {
                 account.setProfileImagePath("src/main/java/Main/client/graphicView/resources/images/avatars/1.png");
             }
         }
@@ -563,6 +561,7 @@ public class GeneralController {
                 "\n" + BuyerAccount.writeData() +
                 "\n" + SellerAccount.writeData() +
                 "\n" + ManagerAccount.writeData() +
+                "\n" + SupporterAccount.writeData() +
                 "\n" + Auction.writeData() +
                 "\n" + ShopFinance.writeData() +
                 "\n";

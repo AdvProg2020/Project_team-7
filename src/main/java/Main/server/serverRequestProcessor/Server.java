@@ -316,6 +316,8 @@ public class Server {
                 response = GeneralRequestProcessor.setChatMessagesRequestBuilder(splitRequest);
             } else if (splitRequest[1].equals("saveChatMessages")) {
                 response = GeneralRequestProcessor.saveChatMessagesRequestBuilder(splitRequest);
+            } else if (splitRequest[1].equals("addFileProduct")) {
+                response = "Ok! send me the file###" + splitRequest[2];
             } else {
                 response = "invalidRequest";
             }
@@ -328,6 +330,25 @@ public class Server {
                 dataOutputStream.writeUTF(response);
                 dataOutputStream.flush();
                 System.out.println("server wrote " + response);
+
+                if (response.startsWith("Ok! send me the file")) {
+                    String fileName = response.split("###")[1];
+                    fileName = fileName.split("&&&")[0];
+                    byte[] mybytearray = new byte[Integer.MAX_VALUE];
+                    FileOutputStream fileOutputStream = new FileOutputStream("src/main/java/Main/server/fileResources/" + fileName);
+                    BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+                    int bytesRead = dataInputStream.read(mybytearray, 0, mybytearray.length);
+                    int current = bytesRead;
+                    do {
+                        bytesRead = dataInputStream.read(mybytearray, current, (mybytearray.length - current));
+                        if (bytesRead >= 0) current += bytesRead;
+                    } while (bytesRead > -1);
+                    bufferedOutputStream.write(mybytearray, 0, current);
+                    bufferedOutputStream.flush();
+                    System.out.println("File " + fileName + " downloaded (" + current + " bytes read)");
+                    dataOutputStream.writeUTF("file " + fileName + "uploaded to server");
+                    dataOutputStream.flush();
+                }
 
                 if (!response.equals("disconnected")) {
                     handle();

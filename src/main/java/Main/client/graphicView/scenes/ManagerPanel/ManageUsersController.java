@@ -93,10 +93,11 @@ public class ManageUsersController {
         }
     }
 
-    public void goBack() {
+    public void goBack() throws IOException {
         //GraphicMain.buttonSound.stop();
         //GraphicMain.buttonSound.play();
-        GraphicMain.graphicMain.back();
+        //GraphicMain.graphicMain.back();
+        GraphicMain.graphicMain.goToPage(ManagerPanelController.FXML_PATH, ManagerPanelController.TITLE);
     }
 
     public void goToRegisterManager() throws IOException {

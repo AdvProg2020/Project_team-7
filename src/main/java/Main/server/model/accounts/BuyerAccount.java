@@ -16,9 +16,6 @@ import java.util.ArrayList;
 import static java.util.Arrays.asList;
 
 public class BuyerAccount extends Account {
-
-    //TODO : not allowing more than one editRequest???
-
     private Cart cart;
     private ArrayList<BuyLog> buyHistory = new ArrayList<>();
     private ArrayList<DiscountCode> discountCodes = new ArrayList<>();
@@ -40,7 +37,7 @@ public class BuyerAccount extends Account {
                         String passWord,
                         double balance,
                         String profileImagePath) {
-        super(userName, firstName, lastName, email, phoneNumber, passWord,profileImagePath);
+        super(userName, firstName, lastName, email, phoneNumber, passWord, profileImagePath);
         this.walletBalance = balance;
         this.cart = new Cart();
     }
@@ -343,5 +340,4 @@ public class BuyerAccount extends Account {
             }
         }
     }
-
 }

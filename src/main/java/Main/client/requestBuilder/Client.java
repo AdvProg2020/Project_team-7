@@ -49,7 +49,7 @@ public class Client {
 
     public String sendRequest(String request) {
         try {
-            System.out.println(request);
+            System.out.println("original request was: "+request);
             String originalRequest = new String(request);
             String randomKey = getRandomKey();
             HashMap<Character, Character> keyMap = new HashMap<>();
@@ -72,6 +72,41 @@ public class Client {
             e.printStackTrace();
         }
         return "failure";
+    }
+
+    public String sendRequestFile(String request, File file) {
+        try {
+            String originalRequest = new String(request);
+            String randomKey = getRandomKey();
+            HashMap<Character, Character> keyMap = new HashMap<>();
+            setKeyMap(randomKey, keyMap);
+            String dateNow = dateFormat.format(new Date());
+            request = request.concat("#").concat(dateNow).concat("#").concat(getRandomString(5));
+            request = encryptMessage(request, keyMap);
+            request = request.concat("#").concat(encryptMessage(randomKey, KEY_MAP));
+
+            dataOutputStream.writeUTF(request);
+            dataOutputStream.flush();
+            System.out.println("client wrote " + request);
+            String s = dataInputStream.readUTF();
+            System.out.println("client read "+s);
+            if (s.startsWith("Ok! send me the file")) {
+                byte[] mybytearray = new byte[(int) file.length()];
+                FileInputStream fileInputStream = new FileInputStream(file);
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+                bufferedInputStream.read(mybytearray, 0, mybytearray.length);
+                System.out.println("Sending " + file.getName() + "(" + mybytearray.length + " bytes)");
+                dataOutputStream.write(mybytearray, 0, mybytearray.length);
+                dataOutputStream.flush();
+                s = dataInputStream.readUTF();
+                System.out.println("client read after uploading file: " + s);
+                return s;
+            } else
+                return "error#error uploading the file";
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return "unreachable";
     }
 
     public List sendRequestObject(String request) throws ClassNotFoundException {
@@ -129,7 +164,7 @@ public class Client {
             char c = messageChars[i];
             try {
                 m.setCharAt(i, keyMap.get(c));
-            }catch (Exception e){
+            } catch (Exception e) {
             }
         }
         return m.toString();
@@ -164,4 +199,6 @@ public class Client {
 
         return stringBuilder.toString();
     }
+
+
 }

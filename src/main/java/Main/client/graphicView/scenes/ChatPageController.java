@@ -58,7 +58,8 @@ public class ChatPageController {
             iAm.setText("BUYER: " + chatPeople.split("#")[1]);
         } else {
             chatWith.setText("BUYER: " + theirUsername);
-            iAm.setText("SUPPORTER: " + chatPeople.split("#")[1]);
+            iAm.setText("SUPPORTER: " + chatPeople.split("#")
+                    [1]);
         }
         if (helpCenterController != null)
             theOtherControllerAsHelpCenter = helpCenterController;
@@ -99,6 +100,7 @@ public class ChatPageController {
     }
 
     public void send() throws IOException {
+        refreshChatPage();
         if (!messageBox.getText().isEmpty()) {
             if (iAm.getText().startsWith("BUYER")) {
                 messages.add("buyer: " + messageBox.getText());
@@ -106,7 +108,6 @@ public class ChatPageController {
                 messages.add("supporter: " + messageBox.getText());
             }
             messageBox.clear();
-            refreshChatPage(myToken, theirUsername);
         }
     }
 
@@ -128,7 +129,7 @@ public class ChatPageController {
         initialize();
     }
 
-    public void refreshChatPage(MouseEvent mouseEvent) throws IOException {
+    public void refreshChatPage() throws IOException {
         refreshChatPage(myToken, theirUsername);
     }
 }
