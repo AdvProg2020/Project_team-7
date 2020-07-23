@@ -78,7 +78,11 @@ public class BuyerRequestBuilder {
         return ClientMain.client.sendRequest(GraphicMain.token + "#showPurchaseInfo");
     }
 
-    public static String buildFinalizePaymentRequestProcessor() {
-        return ClientMain.client.sendRequest(GraphicMain.token + "#finalizePayment");
+    public static String buildFinalizeBankPaymentRequestProcessor() {
+        return ClientMain.client.sendRequest(GraphicMain.token + "#finalizeBankPayment");
+    }
+
+    public static String buildFinalizeWalletPaymentRequestProcessor() {
+        return ClientMain.client.sendRequest(GraphicMain.token + "#finalizeWalletPayment");
     }
 }

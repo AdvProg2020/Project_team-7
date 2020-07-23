@@ -212,7 +212,36 @@ public class PurchaseController {
 //    }
 
     public void finalizeWalletPayment(){
-        //TODO complete purchase process
+        Stage stage = new Stage();
+        stage.setTitle("get bank information");
+        Label label = new Label();
+        label.setText("enter your bank account username and password.\n" +
+                "(They are same with your account username and password)");
+        TextField username = new TextField();
+        TextField password = new TextField();
+        username.setPromptText("username");
+        password.setPromptText("password");
+        Button submit = new Button("submit");
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(label, username, password, submit);
+        Scene scene = new Scene(vBox, 750, 400);
+        stage.setScene(scene);
+        stage.show();
+        submit.setOnAction(event -> {
+            String result = BuyerRequestBuilder.buildFinalizeWalletPaymentRequestProcessor();
+            if (result.equals("Purchase finished successfully.")) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Successful");
+                alert.setHeaderText("Your purchase completed successfully.");
+                alert.setContentText("Thank you!");
+                alert.showAndWait();
+                goBack();
+                goBack();
+            } else {
+                ManagerPanelController.alertError(result);
+                initialize();
+            }
+        });
     }
 
     public void finalizeBankPayment(){
@@ -232,7 +261,19 @@ public class PurchaseController {
         stage.setScene(scene);
         stage.show();
         submit.setOnAction(event -> {
-            //TODO complete purchase process
+            String result = BuyerRequestBuilder.buildFinalizeBankPaymentRequestProcessor();
+            if (result.equals("Purchase finished successfully.")) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Successful");
+                alert.setHeaderText("Your purchase completed successfully.");
+                alert.setContentText("Thank you!");
+                alert.showAndWait();
+                goBack();
+                goBack();
+            } else {
+                ManagerPanelController.alertError(result);
+                initialize();
+            }
         });
     }
 }

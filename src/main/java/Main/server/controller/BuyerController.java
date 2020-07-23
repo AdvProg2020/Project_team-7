@@ -1,5 +1,6 @@
 package Main.server.controller;
 
+import Main.server.BankClient;
 import Main.server.model.*;
 import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.accounts.SellerAccount;
@@ -123,19 +124,55 @@ public class BuyerController {
         return currentBuyersCart.getCartTotalPriceConsideringOffs() * percentOfCostToBePaid / 100;
     }
 
-    public String finalizePurchaseAndPay(BuyerAccount buyerAccount) {
+    public String finalizeBankPurchaseAndPay(BuyerAccount buyerAccount) {
         if (buyerAccount.getCart().getCartsProductList().isEmpty()) {
             return "your cart is empty!";
         }
         try {
             getProductsFromRepository();
-            pay();
+            bankPay();
         } catch (Exception e) {
             return e.getMessage();
         }
         createPurchaseHistoryElements();
         currentBuyersCart.emptyCart();
         return "Purchase finished successfully.";
+    }
+
+    public String finalizeWalletPurchaseAndPay(BuyerAccount buyerAccount) {
+        if (buyerAccount.getCart().getCartsProductList().isEmpty()) {
+            return "your cart is empty!";
+        }
+        if(currentBuyer.getWalletBalance()<getToTalPaymentConsideringDiscount() + ShopFinance.getInstance().getMinimumWalletBalance()){
+            return "insufficient wallet balance";
+        }
+        try {
+            getProductsFromRepository();
+            walletPay();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+        createPurchaseHistoryElements();
+        currentBuyersCart.emptyCart();
+        return "Purchase finished successfully.";
+    }
+
+    private void walletPay() throws Exception {
+        buyerAndSellerWalletPayment();
+        if (discountCode != null) {
+            discountCode.removeDiscountCodeIfBuyerHasUsedUpDiscountCode(currentBuyer);
+        }
+    }
+
+    private void buyerAndSellerWalletPayment() throws Exception {
+        if (currentBuyer.isOnAuction != null) {
+            throw new Exception("you have an offer in an auction ! you can't purchase now");
+        }
+        currentBuyer.decreaseBalanceBy(getToTalPaymentConsideringDiscount());
+        HashMap<SellerAccount, Cart> sellers = currentBuyersCart.getAllSellersCarts();
+        for (SellerAccount sellerAccount : sellers.keySet()) {
+            sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs()*(100-ShopFinance.getInstance().getCommission())/100);
+        }
     }
 
     private void getProductsFromRepository() throws Exception {
@@ -164,27 +201,41 @@ public class BuyerController {
         }
     }
 
-    private void pay() throws Exception {
-        buyerPayment();
+    private void bankPay() throws Exception {
+        buyerAndSellerBankPayment();
         if (discountCode != null) {
             discountCode.removeDiscountCodeIfBuyerHasUsedUpDiscountCode(currentBuyer);
         }
-        sellersPayment();
     }
 
-    private void buyerPayment() throws Exception {
+//    private void buyerPayment() throws Exception {
+//        if (currentBuyer.isOnAuction != null) {
+//            throw new Exception("you have an offer in an auction ! you can't purchase now");
+//        }
+//        currentBuyer.decreaseBalanceBy(getToTalPaymentConsideringDiscount());
+//    }
+
+    private void buyerAndSellerBankPayment() throws Exception {
         if (currentBuyer.isOnAuction != null) {
             throw new Exception("you have an offer in an auction ! you can't purchase now");
         }
-        currentBuyer.decreaseBalanceBy(getToTalPaymentConsideringDiscount());
-    }
-
-    private void sellersPayment() {
+        String token = BankClient.getResponseFromBankServer("get_token " + currentBuyer.getUserName() + " " + currentBuyer.getPassWord());
+        String receiptID = BankClient.getResponseFromBankServer("create_receipt " + token + " withdraw " + getToTalPaymentConsideringDiscount() + " " + currentBuyer.getBankAccountID() + " -1 bankPurchase");
+        String result = BankClient.getResponseFromBankServer("pay " + receiptID);
         HashMap<SellerAccount, Cart> sellers = currentBuyersCart.getAllSellersCarts();
         for (SellerAccount sellerAccount : sellers.keySet()) {
-            sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs());
+            String receiptID1 = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + sellers.get(sellerAccount).getCartTotalPriceConsideringOffs() + " -1 " + ShopFinance.getInstance().getAccountID() + " bankPurchase");
+            String result1 = BankClient.getResponseFromBankServer("pay " + receiptID1);
+            sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs()*(100-ShopFinance.getInstance().getCommission())/100);
         }
     }
+
+//    private void sellersPayment() {
+//        HashMap<SellerAccount, Cart> sellers = currentBuyersCart.getAllSellersCarts();
+//        for (SellerAccount sellerAccount : sellers.keySet()) {
+//            sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs());
+//        }
+//    }
 
     private void createPurchaseHistoryElements() {
         String logID = IDGenerator.getNewID(Log.getLastUsedLogID());

@@ -175,10 +175,16 @@ public class BuyerRequestProcessor {
         return ServerMain.buyerController.showPurchaseInfo();
     }
 
-    public static String finalizePaymentRequestProcessor(String[] splitRequest) {
+    public static String finalizeBankPaymentRequestProcessor(String[] splitRequest) {
         BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser());
         BuyerController.setBuyerController(buyerAccount);
-        return ServerMain.buyerController.finalizePurchaseAndPay(buyerAccount);
+        return ServerMain.buyerController.finalizeBankPurchaseAndPay(buyerAccount);
+    }
+
+    public static String finalizeWalletPaymentRequestProcessor(String[] splitRequest) {
+        BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser());
+        BuyerController.setBuyerController(buyerAccount);
+        return ServerMain.buyerController.finalizeWalletPurchaseAndPay(buyerAccount);
     }
 
     public static String initializeHelpCenterRequestProcessor(String[] splitRequest) {

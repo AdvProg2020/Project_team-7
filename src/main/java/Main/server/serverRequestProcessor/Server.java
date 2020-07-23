@@ -317,9 +317,11 @@ public class Server {
                 response = BuyerRequestProcessor.setPurchaseDiscountRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("showPurchaseInfo")) {
                 response = BuyerRequestProcessor.showPurchaseInfoRequestProcessor(splitRequest);
-            } else if (splitRequest[1].equals("finalizePayment")) {
-                response = BuyerRequestProcessor.finalizePaymentRequestProcessor(splitRequest);
-            } else if (splitRequest[1].equals("sendMessage")) {
+            } else if (splitRequest[1].equals("finalizeBankPayment")) {
+                response = BuyerRequestProcessor.finalizeBankPaymentRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("finalizeWalletPayment")) {
+                response = BuyerRequestProcessor.finalizeWalletPaymentRequestProcessor(splitRequest);
+            }  else if (splitRequest[1].equals("sendMessage")) {
                 response = GeneralRequestProcessor.sendMessage(splitRequest);
             } else if (splitRequest[1].equals("financeSetup")) {
                 response = GeneralRequestProcessor.setUpFinanceRequestProcessor(splitRequest);
