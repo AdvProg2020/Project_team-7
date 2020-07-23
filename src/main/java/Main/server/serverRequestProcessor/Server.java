@@ -336,7 +336,8 @@ public class Server {
             } else if (splitRequest[1].equals("saveChatMessages")) {
                 response = GeneralRequestProcessor.saveChatMessagesRequestBuilder(splitRequest);
             } else if (splitRequest[1].equals("addFileProduct")) {
-                response = "Ok! send me the file###" + splitRequest[2];
+                response = SellerRequestProcessor.buildAddProductResponse(splitRequest);
+                receiveFile(splitRequest[2]);
             } else if (splitRequest[1].equals("chargeWallet")) {
                 response = GeneralRequestProcessor.chargeWalletRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("withdrawFromWallet")) {
@@ -350,53 +351,6 @@ public class Server {
             }
 
             if (!response.equals("do not write UTF") && !response.equals("invalidRequest")) {
-
-
-                if (response.startsWith("Ok! send me the file")) {
-                    String finalResponse = response;
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                ServerSocket serverSocket1 = new ServerSocket(9999);
-                                System.out.println("new server socket created");
-                                Socket socket1 = serverSocket1.accept();
-                                InputStream inputStream = socket1.getInputStream();
-                                String fileName = finalResponse.split("###")[1];
-                                fileName = fileName.split("&&&")[0];
-                                byte[] mybytearray = new byte[6022386];
-                                FileOutputStream fileOutputStream = new FileOutputStream("src/main/java/Main/server/fileResources/" + fileName);
-                                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
-                                System.out.println("I AM SERVER I AM READY TO READ THE FILE");
-                                int bytesRead = inputStream.read(mybytearray, 0, mybytearray.length);
-                                System.out.println("NOW I READ ITS LENGTH");
-                                int current = bytesRead;
-                                do {
-                                    bytesRead = inputStream.read(mybytearray, current, (mybytearray.length - current));
-                                    System.out.println("DO WHILE IS IN PROGRESS");
-                                    if (bytesRead >= 0)
-                                        current += bytesRead;
-                                } while (bytesRead > -1);
-                                System.out.println("FINISHED LOADING FILE");
-                                bufferedOutputStream.write(mybytearray, 0, current);
-                                bufferedOutputStream.flush();
-                                System.out.println("File " + fileName + " downloaded (" + current + " bytes read)");
-                                fileOutputStream.close();
-                                bufferedOutputStream.close();
-                                socket1.close();
-                                serverSocket1.close();
-                                System.out.println("everything closed");
-                                dataOutputStream.writeUTF("success#file " + fileName + "uploaded to server");
-                                dataOutputStream.flush();
-                                System.out.println("i wrote success");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                System.err.println("ERROR IN RECEIVING FILE IN SERVER");
-                            }
-                        }
-                    }).start();
-                }
-
                 dataOutputStream.writeUTF(response);
                 dataOutputStream.flush();
                 System.out.println("server wrote " + response);
@@ -411,6 +365,48 @@ public class Server {
                     dataInputStream.close();
                 }
             }
+        }
+
+        private void receiveFile(String fileName) throws IOException {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        ServerSocket serverSocket1 = new ServerSocket(9999);
+                        System.out.println("new server socket created");
+                        Socket socket1 = serverSocket1.accept();
+                        InputStream inputStream = socket1.getInputStream();
+                        byte[] mybytearray = new byte[6022386];
+                        FileOutputStream fileOutputStream = new FileOutputStream("src/main/java/Main/server/fileResources/" + fileName);
+                        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+                        System.out.println("I AM SERVER I AM READY TO READ THE FILE");
+                        int bytesRead = inputStream.read(mybytearray, 0, mybytearray.length);
+                        System.out.println("NOW I READ ITS LENGTH");
+                        int current = bytesRead;
+                        do {
+                            bytesRead = inputStream.read(mybytearray, current, (mybytearray.length - current));
+                            System.out.println("DO WHILE IS IN PROGRESS");
+                            if (bytesRead >= 0)
+                                current += bytesRead;
+                        } while (bytesRead > -1);
+                        System.out.println("FINISHED LOADING FILE");
+                        bufferedOutputStream.write(mybytearray, 0, current);
+                        bufferedOutputStream.flush();
+                        System.out.println("File " + fileName + " downloaded (" + current + " bytes read)");
+                        fileOutputStream.close();
+                        bufferedOutputStream.close();
+                        socket1.close();
+                        serverSocket1.close();
+                        System.out.println("everything closed");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.err.println("ERROR IN RECEIVING FILE IN SERVER");
+                    }
+                }
+            }).start();
+            dataOutputStream.writeUTF("success#file " + fileName + "uploaded to server");
+            dataOutputStream.flush();
+            System.out.println("i wrote success");
         }
 
         private boolean isReplayAttack(String[] splitRequest) {
