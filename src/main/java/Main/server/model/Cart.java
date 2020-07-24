@@ -5,10 +5,11 @@ import Main.server.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.server.model.discountAndOffTypeService.Off;
 import Main.server.model.discountAndOffTypeService.OffStatus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Cart {
+public class Cart implements Serializable {
     private ArrayList<CartProduct> cartProducts = new ArrayList<>();
 
     public double getCartTotalPriceConsideringOffs() {

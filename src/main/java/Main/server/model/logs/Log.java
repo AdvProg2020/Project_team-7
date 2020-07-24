@@ -13,7 +13,7 @@ import java.util.Date;
 
 import static java.util.Arrays.asList;
 
-public abstract class Log {
+public abstract class Log implements Serializable{
     private static StringBuilder lastUsedLogID;
     protected String logId;
     protected String date;

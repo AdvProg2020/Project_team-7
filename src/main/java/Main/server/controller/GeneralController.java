@@ -61,7 +61,7 @@ public class GeneralController {
     }
 
     public CartProduct selectSellerWithUsername(String username, String token, String productId) throws Exception {
-        if (!currentProduct.getProductStatus().equals(ProductStatus.APPROVED_PRODUCT)) {
+        if (!Product.getProductWithId(productId).getProductStatus().equals(ProductStatus.APPROVED_PRODUCT)) {
             throw new Exception("this product is not available now!\n");
         }
         return new CartProduct(Product.getProductWithId(productId), SellerAccount.getSellerWithUserName(username),

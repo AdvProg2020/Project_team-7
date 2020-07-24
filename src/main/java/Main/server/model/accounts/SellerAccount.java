@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import static java.util.Arrays.asList;
 
-public class SellerAccount extends Account {
+public class SellerAccount extends Account implements Serializable{
     private String companyName;
     private String companyExtraInformation;
     private ArrayList<SellLog> sellHistory = new ArrayList<>();

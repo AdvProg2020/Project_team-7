@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import static java.util.Arrays.asList;
 
-public class BuyerAccount extends Account {
+public class BuyerAccount extends Account implements Serializable{
     private Cart cart;
     private ArrayList<BuyLog> buyHistory = new ArrayList<>();
     private ArrayList<DiscountCode> discountCodes = new ArrayList<>();

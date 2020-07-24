@@ -1,6 +1,8 @@
 package Main.server.model;
 
-public enum ProductStatus {
+import java.io.Serializable;
+
+public enum ProductStatus implements Serializable {
     APPROVED_PRODUCT,
     PENDING_CREATION_PRODUCT,
     PENDING_EDIT_PRODUCT

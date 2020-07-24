@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import static java.util.Arrays.asList;
 
-public class Off extends DiscountAndOffTypeService {
+public class Off extends DiscountAndOffTypeService implements Serializable{
     private static StringBuilder lastUsedOffID;
     private SellerAccount seller;
     private String offId;

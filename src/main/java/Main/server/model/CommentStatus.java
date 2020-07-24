@@ -1,6 +1,8 @@
 package Main.server.model;
 
-public enum CommentStatus {
+import java.io.Serializable;
+
+public enum CommentStatus implements Serializable {
     PENDING_APPROVAL_COMMENT,
     APPROVED_COMMENT,
     DECLINED_COMMENT

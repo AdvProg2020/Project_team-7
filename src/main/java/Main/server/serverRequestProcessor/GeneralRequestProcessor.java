@@ -198,6 +198,7 @@ public class GeneralRequestProcessor {
             CartProduct cartProduct = ServerMain.generalController.selectSellerWithUsername(splitRequest[2], splitRequest[0], splitRequest[3]);
             return "success#" + ServerMain.generalController.addProductToCart(cartProduct, splitRequest[0]);
         } catch (Exception e) {
+            e.printStackTrace();
             return "error#" + e.getMessage();
         }
     }

@@ -2,7 +2,9 @@ package Main.server.model;
 
 import Main.server.model.accounts.BuyerAccount;
 
-public class Rate {
+import java.io.Serializable;
+
+public class Rate implements Serializable {
     private BuyerAccount buyer;
     private Product product;
     private double score;
