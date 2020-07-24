@@ -59,7 +59,7 @@ public class Bank {
     public String createReceipt(String token, String type, String money, String sourceId, String destId, String description){
          if(!(type.equals("deposit") || type.equals("withdraw") || type.equals("move"))){
              return "invalid receipt type";
-         }else if(!money.matches("\\d+\\.\\d+") || Integer.parseInt(money)==0){
+         }else if(!money.matches("\\d+\\.\\d+") || Double.parseDouble(money)==0){
              return "invalid money";
          }else if(!isAccountIdValid(sourceId) && !sourceId.equals("-1")){
              return "source account id is invalid";
