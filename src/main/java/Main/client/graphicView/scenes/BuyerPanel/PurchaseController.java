@@ -5,6 +5,7 @@ import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.client.requestBuilder.ManagerRequestBuilder;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -12,6 +13,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Optional;
 
 public class PurchaseController {
     public static final String FXML_PATH = "src/main/sceneResources/BuyerPanel/PurchasePanel.fxml";
@@ -229,12 +233,14 @@ public class PurchaseController {
         stage.show();
         submit.setOnAction(event -> {
             String result = BuyerRequestBuilder.buildFinalizeWalletPaymentRequestProcessor();
-            if (result.equals("Purchase finished successfully.")) {
+            if (result.startsWith("Purchase finished successfully.")) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Successful");
                 alert.setHeaderText("Your purchase completed successfully.");
                 alert.setContentText("Thank you!");
                 alert.showAndWait();
+                if (result.contains("File detected"))
+                    downloadFiles(result);
                 goBack();
                 goBack();
             } else {
@@ -262,12 +268,14 @@ public class PurchaseController {
         stage.show();
         submit.setOnAction(event -> {
             String result = BuyerRequestBuilder.buildFinalizeBankPaymentRequestProcessor();
-            if (result.equals("Purchase finished successfully.")) {
+            if (result.startsWith("Purchase finished successfully.")) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Successful");
                 alert.setHeaderText("Your purchase completed successfully.");
                 alert.setContentText("Thank you!");
                 alert.showAndWait();
+                if (result.contains("File detected"))
+                    downloadFiles(result);
                 goBack();
                 goBack();
             } else {
@@ -275,5 +283,20 @@ public class PurchaseController {
                 initialize();
             }
         });
+    }
+
+    private void downloadFiles(String result) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("FILES DETECTED");
+        alert.setHeaderText(result);
+        alert.setContentText("Do you want to download files?");
+        Optional<ButtonType> option = alert.showAndWait();
+        if (ButtonType.OK.equals(option.get())) {
+            result = result.replaceAll("File detected: ", "");
+            result = result.replace("Purchase finished successfully.", "");
+            String[] names = result.split("\n");
+            ArrayList<String> fileNames = new ArrayList<>(Arrays.asList(names));
+            ManagerPanelController.alertInfo(BuyerRequestBuilder.buildDownloadFileRequest(fileNames));
+        }
     }
 }

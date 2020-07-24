@@ -2,6 +2,7 @@ package Main.server.serverRequestProcessor;
 
 import Main.server.controller.GeneralController;
 import Main.server.model.accounts.Account;
+import Main.server.model.accounts.BuyerAccount;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.io.*;
@@ -11,6 +12,7 @@ import java.net.SocketAddress;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -321,7 +323,7 @@ public class Server {
                 response = BuyerRequestProcessor.finalizeBankPaymentRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("finalizeWalletPayment")) {
                 response = BuyerRequestProcessor.finalizeWalletPaymentRequestProcessor(splitRequest);
-            }  else if (splitRequest[1].equals("sendMessage")) {
+            } else if (splitRequest[1].equals("sendMessage")) {
                 response = GeneralRequestProcessor.sendMessage(splitRequest);
             } else if (splitRequest[1].equals("financeSetup")) {
                 response = GeneralRequestProcessor.setUpFinanceRequestProcessor(splitRequest);
@@ -342,6 +344,9 @@ public class Server {
                 response = GeneralRequestProcessor.chargeWalletRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("withdrawFromWallet")) {
                 response = GeneralRequestProcessor.withdrawFromWalletRequestProcessor(splitRequest);
+            } else if (splitRequest[1].equals("downloadFiles")) {
+                response = BuyerRequestProcessor.downloadFilesRequestProcessor(splitRequest);
+                sendFiles(splitRequest);
             } else {
                 response = "invalidRequest";
             }
@@ -364,6 +369,45 @@ public class Server {
                     dataOutputStream.close();
                     dataInputStream.close();
                 }
+            }
+        }
+
+        private void sendFiles(String[] splitRequest) {
+            BuyerAccount buyerAccount = ((BuyerAccount) Server.getServer().getTokenInfo(splitRequest[0]).getUser());
+            ArrayList<String> fileNames = new ArrayList<>(Arrays.asList(splitRequest[2].split("&")));
+            int howManyFiles = fileNames.size();
+            for (String fileName : fileNames) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            String name = fileName;
+                            ServerSocket serverSocket1 = new ServerSocket(9999);
+                            System.out.println("new server socket created");
+                            Socket socket1 = serverSocket1.accept();
+                            OutputStream outputStream = socket1.getOutputStream();
+                            File file = new File("src/main/java/Main/server/fileResources/"+name);
+                            byte[] mybytearray = new byte[(int) file.length()];
+                            FileInputStream fileInputStream = new FileInputStream(file);
+                            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+                            bufferedInputStream.read(mybytearray, 0, mybytearray.length);
+                            System.out.println("Sending " + file.getName() + "(" + mybytearray.length + " bytes)");
+                            outputStream.write(mybytearray, 0, mybytearray.length);
+                            outputStream.flush();
+                            System.out.println("I AM THE SERVER I SENT THE FILE TO BUYER");
+                            bufferedInputStream.close();
+                            outputStream.close();
+                            socket1.close();
+                            System.out.println("everything closed");
+                            dataOutputStream.writeUTF("success#file " + name + "uploaded to client");
+                            dataOutputStream.flush();
+                            System.out.println("i wrote success");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            System.err.println("ERROR IN RECEIVING FILE IN SERVER");
+                        }
+                    }
+                }).start();
             }
         }
 

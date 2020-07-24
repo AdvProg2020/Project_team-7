@@ -125,36 +125,38 @@ public class BuyerController {
     }
 
     public String finalizeBankPurchaseAndPay(BuyerAccount buyerAccount) {
+        String files = "";
         if (buyerAccount.getCart().getCartsProductList().isEmpty()) {
             return "your cart is empty!";
         }
         try {
-            getProductsFromRepository();
+            files = getProductsFromRepository();
             bankPay();
         } catch (Exception e) {
             return e.getMessage();
         }
         createPurchaseHistoryElements();
         currentBuyersCart.emptyCart();
-        return "Purchase finished successfully.";
+        return "Purchase finished successfully.\n" + files;
     }
 
     public String finalizeWalletPurchaseAndPay(BuyerAccount buyerAccount) {
+        String files = "";
         if (buyerAccount.getCart().getCartsProductList().isEmpty()) {
             return "your cart is empty!";
         }
-        if(currentBuyer.getWalletBalance()<getToTalPaymentConsideringDiscount() + ShopFinance.getInstance().getMinimumWalletBalance()){
+        if (currentBuyer.getWalletBalance() < getToTalPaymentConsideringDiscount() + ShopFinance.getInstance().getMinimumWalletBalance()) {
             return "insufficient wallet balance";
         }
         try {
-            getProductsFromRepository();
+            files = getProductsFromRepository();
             walletPay();
         } catch (Exception e) {
             return e.getMessage();
         }
         createPurchaseHistoryElements();
         currentBuyersCart.emptyCart();
-        return "Purchase finished successfully.";
+        return "Purchase finished successfully.\n" + files;
     }
 
     private void walletPay() throws Exception {
@@ -171,11 +173,12 @@ public class BuyerController {
         currentBuyer.decreaseBalanceBy(getToTalPaymentConsideringDiscount());
         HashMap<SellerAccount, Cart> sellers = currentBuyersCart.getAllSellersCarts();
         for (SellerAccount sellerAccount : sellers.keySet()) {
-            sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs()*(100-ShopFinance.getInstance().getCommission())/100);
+            sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs() * (100 - ShopFinance.getInstance().getCommission()) / 100);
         }
     }
 
-    private void getProductsFromRepository() throws Exception {
+    private String getProductsFromRepository() throws Exception {
+        String files = "";
         validateGettingProductsFromRepository();
         for (CartProduct cartProduct : currentBuyersCart.getCartProducts()) {
             if (cartProduct.getProduct().isOnAuction) {
@@ -184,7 +187,10 @@ public class BuyerController {
         }
         for (CartProduct cartProduct1 : currentBuyersCart.getCartProducts()) {
             cartProduct1.getProduct().decreaseAvailabilityBy(cartProduct1.getNumberOfProduct());
+            if (cartProduct1.getProduct().getName().endsWith("___FILEPRODUCT"))
+                files = files.concat("File detected: " + cartProduct1.getProduct().getName().substring(0, cartProduct1.getProduct().getName().indexOf("___")) + "\n");
         }
+        return files;
     }
 
     private void validateGettingProductsFromRepository() throws Exception {
@@ -226,7 +232,7 @@ public class BuyerController {
         for (SellerAccount sellerAccount : sellers.keySet()) {
             String receiptID1 = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + sellers.get(sellerAccount).getCartTotalPriceConsideringOffs() + " -1 " + ShopFinance.getInstance().getAccountID() + " bankPurchase");
             String result1 = BankClient.getResponseFromBankServer("pay " + receiptID1);
-            sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs()*(100-ShopFinance.getInstance().getCommission())/100);
+            sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs() * (100 - ShopFinance.getInstance().getCommission()) / 100);
         }
     }
 

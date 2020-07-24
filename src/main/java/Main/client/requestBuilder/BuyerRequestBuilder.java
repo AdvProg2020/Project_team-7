@@ -4,6 +4,7 @@ import Main.client.ClientMain;
 import Main.client.graphicView.GraphicMain;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BuyerRequestBuilder {
@@ -84,5 +85,15 @@ public class BuyerRequestBuilder {
 
     public static String buildFinalizeWalletPaymentRequestProcessor() {
         return ClientMain.client.sendRequest(GraphicMain.token + "#finalizeWalletPayment");
+    }
+
+    public static String buildDownloadFileRequest(ArrayList<String> fileNames) {
+        String names = "";
+        for (String fileName : fileNames) {
+            names = names.concat(fileName);
+            names = names.concat("&");
+        }
+        names = names.substring(0, names.length()-1);
+        return ClientMain.client.sendRequest(GraphicMain.token+"#downloadFiles#"+fileNames);
     }
 }
