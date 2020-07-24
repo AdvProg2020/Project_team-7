@@ -5,6 +5,7 @@ import Main.client.graphicView.scenes.MainMenuController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
+import Main.server.model.Product;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,17 +53,17 @@ public class MyCartController {
         currentNumberCol.setMinWidth(105);
         increaseNumberCol.setMinWidth(115);
         increaseNumberCol.setSortable(false);
-        imageCol.setCellValueFactory(new PropertyValueFactory<>("imagePath"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        idCol.setCellValueFactory(new PropertyValueFactory<>("productId"));
-        onePriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        allPriceCol.setCellValueFactory(new PropertyValueFactory<>("tempTotalPrice"));
-        currentNumberCol.setCellValueFactory(new PropertyValueFactory<>("tempNumberOfProduct"));
+        imageCol.setCellValueFactory(new PropertyValueFactory<Product,String>("imagePath"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<Product,String>("name"));
+        idCol.setCellValueFactory(new PropertyValueFactory<Product,String>("productId"));
+        onePriceCol.setCellValueFactory(new PropertyValueFactory<Product,Double>("price"));
+        allPriceCol.setCellValueFactory(new PropertyValueFactory<Product,Double>("tempTotalPrice"));
+        currentNumberCol.setCellValueFactory(new PropertyValueFactory<Product,Integer>("tempNumberOfProduct"));
         priceCol.getColumns().addAll(onePriceCol, allPriceCol);
         decreaseCol.setCellFactory(ActionButtonTableCell.forTableColumn("-", (Product p) -> {
             try {
                 //p.getTempCartProduct().decreaseNumberByOne();
-                String decreaseResult = BuyerRequestBuilder.buildDecreaseCartProductRequest(p.productId);
+                String decreaseResult = BuyerRequestBuilder.buildDecreaseCartProductRequest(p.getProductId());
                 if (!decreaseResult.equals("decreased"))
                     ManagerPanelController.alertError(decreaseResult);
             } catch (Exception e) {
@@ -75,7 +76,9 @@ public class MyCartController {
         increaseNumberCol.setCellFactory(ActionButtonTableCell.forTableColumn("+", (Product p) -> {
             try {
                 //p.getTempCartProduct().increaseNumberByOne();
-                String increaseResult = BuyerRequestBuilder.buildIncreaseCartProductRequest(p.productId);
+                System.out.println("reached line 78");
+                String increaseResult = BuyerRequestBuilder.buildIncreaseCartProductRequest(p.getProductId());
+                System.out.println("increase result:"+increaseResult);
                 if (!increaseResult.equals("increased"))
                     ManagerPanelController.alertError(increaseResult);
             } catch (Exception e) {
@@ -154,11 +157,11 @@ class ActionButtonTableCell<S> extends TableCell<S, Button> {
     }
 }
 
-class Product implements Serializable {
-    public String productId;
-    private String name;
-    private double price;
-    private String imagePath;
-    private int tempNumberOfProduct;
-    private double tempTotalPrice;
-}
+//class Product implements Serializable {
+//    public String productId;
+//    private String name;
+//    private double price;
+//    private String imagePath;
+//    private int tempNumberOfProduct;
+//    private double tempTotalPrice;
+//}

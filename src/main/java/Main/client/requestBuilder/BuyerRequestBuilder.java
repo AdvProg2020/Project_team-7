@@ -64,6 +64,7 @@ public class BuyerRequestBuilder {
     }
 
     public static String buildIncreaseCartProductRequest(String productId) {
+        System.out.println("im building");
         return ClientMain.client.sendRequest(GraphicMain.token + "#increaseCartProduct#" + productId);
     }
 

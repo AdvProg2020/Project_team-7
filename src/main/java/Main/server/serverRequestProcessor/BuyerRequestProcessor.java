@@ -148,7 +148,9 @@ public class BuyerRequestProcessor {
 
     public static String buildIncreaseCartProductResponse(String[] splitRequest) {
         try {
+            System.out.println("im ready");
             Product.getProductWithId(splitRequest[2]).getTempCartProduct().increaseNumberByOne();
+            System.out.println("im getting");
             return "increased";
         } catch (Exception e) {
             System.out.println(e.getMessage());
