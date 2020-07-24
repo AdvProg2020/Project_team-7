@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class BankAPI {
-    public static int port= 1676;
+    public static int port;
     public static final String IP = "127.0.0.1";
 
     private static DataOutputStream outputStream;
@@ -49,6 +49,8 @@ public class BankAPI {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("insert bank port:");
+        port = Integer.parseInt(scanner.nextLine());
         while (true){
             System.out.println(getResponseFromBankServer(scanner.nextLine()));
         }
