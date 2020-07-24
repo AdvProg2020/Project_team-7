@@ -2,7 +2,9 @@ package Main.server.model;
 
 import Main.server.model.accounts.BuyerAccount;
 
-public class Comment {
+import java.io.Serializable;
+
+public class Comment implements Serializable {
     private BuyerAccount user;
     private String title;
     private String content;

@@ -5,7 +5,9 @@ import Main.server.model.discountAndOffTypeService.DiscountAndOffStat;
 import Main.server.model.discountAndOffTypeService.Off;
 import Main.server.model.discountAndOffTypeService.OffStatus;
 
-public class CartProduct{
+import java.io.Serializable;
+
+public class CartProduct implements Serializable {
     private SellerAccount finalSeller;
     private Product product;
     private int numberOfProduct;

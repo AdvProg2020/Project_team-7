@@ -1,8 +1,9 @@
 package Main.server.model.logs;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BuyLog extends Log {
+public class BuyLog extends Log implements Serializable {
     private double discountAmount;
 
     public BuyLog(String logID, Date date, double paidAmountConsideringDiscount, double discountAmount, String boughtProducts

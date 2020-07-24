@@ -2,9 +2,10 @@ package Main.server.model.logs;
 
 import Main.server.model.accounts.BuyerAccount;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SellLog extends Log {
+public class SellLog extends Log implements Serializable {
     private double offAmount;
     protected BuyerAccount buyer;
 

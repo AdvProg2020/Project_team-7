@@ -206,7 +206,8 @@ public class Bank {
                     (receipt.getReceiptType().equals("withdraw") && receipt.getSourceId().equals("-1")) ||
                     (receipt.getReceiptType().equals("move") && receipt.getDestId().equals("-1")) ||
                     (receipt.getReceiptType().equals("move") && receipt.getSourceId().equals("-1")) ||
-                    isAccountIdValid(receipt.getDestId()) || isAccountIdValid(receipt.getSourceId())){
+                    (!receipt.getReceiptType().equals("withdraw") && !isAccountIdValid(receipt.getDestId())) ||
+                    (!receipt.getReceiptType().equals("deposit") && !isAccountIdValid(receipt.getSourceId()))){
                 return "invalid account id";
             }else if(!receipt.getReceiptType().equals("deposit") && getAccountWithId(receipt.getSourceId()).getBalance()<receipt.getMoney()){
                 return "source account does not have enough money";

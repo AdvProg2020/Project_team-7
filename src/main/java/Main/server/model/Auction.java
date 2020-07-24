@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 import static java.util.Arrays.asList;
 
-public class Auction {
+public class Auction implements Serializable{
     private static StringBuilder lastUsedAuctionID;
     private String id;
     private static ArrayList<Auction> allAuctions = new ArrayList<>();
