@@ -33,7 +33,7 @@ public class PurchaseMenu extends Menu {
                             this.run();
                         else {
                             try {
-                                System.out.println(buyerController.finalizePurchaseAndPay(null));
+                                //System.out.println(buyerController.finalizePurchaseAndPay(null));
                                 this.run();
                             } catch (Exception e) {
                                 System.out.println(e.getMessage() + "\n");
@@ -47,7 +47,7 @@ public class PurchaseMenu extends Menu {
                             System.out.println("Do you want to pay? Please insert yes or no:");
                             String answer = scanner.nextLine().trim();
                             if (!answer.equalsIgnoreCase("no"))
-                                System.out.println(buyerController.finalizePurchaseAndPay(null));
+                                //System.out.println(buyerController.finalizePurchaseAndPay(null));
                             this.run();
                         } catch (Exception e) {
                             System.out.println(e.getMessage() + "\n");

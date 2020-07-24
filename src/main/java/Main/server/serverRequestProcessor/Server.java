@@ -307,8 +307,11 @@ public class Server {
                 response = GeneralRequestProcessor.buildCompareProductResponse(splitRequest);
             } else if (splitRequest[1].equals("getCartProducts")) {
                 response = "do not write UTF";
+                System.out.println("response = do not");
                 ObjectOutputStream oos = new ObjectOutputStream(dataOutputStream);
+                System.out.println("oos created");
                 oos.writeObject(new ArrayList<>(BuyerRequestProcessor.getCartProductsRequestProcessor(splitRequest)));
+                System.out.println("oos wrote");
             } else if (splitRequest[1].equals("increaseCartProduct")) {
                 response = BuyerRequestProcessor.buildIncreaseCartProductResponse(splitRequest);
             } else if (splitRequest[1].equals("decreaseCartProduct")) {
@@ -350,8 +353,9 @@ public class Server {
             } else {
                 response = "invalidRequest";
             }
-            if (request.equals("do not write UTF")) {
+            if (response.equals("do not write UTF")) {
                 dataOutputStream.flush();
+                System.out.println("oos flushed");
                 System.out.println("server wrote " + response);
             }
 

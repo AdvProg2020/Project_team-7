@@ -198,6 +198,7 @@ public class Client {
 
     public List sendRequestObject(String request) throws ClassNotFoundException {
         String originalRequest = new String(request);
+        System.out.println("original was: ");
         try {
             String randomKey = getRandomKey();
             if (randomKey.charAt(randomKey.length() - 1) == 'K') {
@@ -226,6 +227,7 @@ public class Client {
             return ((List) ois.readObject());
             //return s;
         } catch (IOException e) {
+            e.printStackTrace();
             sendRequestObject(originalRequest);
         }
 
