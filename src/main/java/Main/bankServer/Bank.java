@@ -232,7 +232,6 @@ public class Bank {
                     sourceAccount.getTransactionsFromThisAccount().add(receipt);
                 }
                 allPaidReceipts.add(receipt);
-                allReceipts.remove(receipt);
                 return "done successfully";
             }
         }
@@ -258,10 +257,6 @@ public class Bank {
 
     public boolean isReceiptIdValid(String id){
         for (Receipt receipt : allReceipts) {
-            if(receipt.getReceiptId().equals(id))
-                return true;
-        }
-        for (Receipt receipt : allPaidReceipts) {
             if(receipt.getReceiptId().equals(id))
                 return true;
         }
