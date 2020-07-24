@@ -179,9 +179,9 @@ public class Server {
                 response = GeneralRequestProcessor.loginRequestProcessor(splitRequest);
                 if(!response.startsWith("success")&&loginAllowedDate.compareTo(new Date())<0){
                     addLoginRequestLog(clientSocket);
-                }
-                if (!validateTooManyLoginRequests(clientSocket)) {
-                    response = "tooManyRequests";
+                    if (!validateTooManyLoginRequests(clientSocket)) {
+                        response = "tooManyRequests";
+                    }
                 }
             } else if (splitRequest[1].equals("signUp")) {
                 response = GeneralRequestProcessor.signUpRequestProcessor(splitRequest);
