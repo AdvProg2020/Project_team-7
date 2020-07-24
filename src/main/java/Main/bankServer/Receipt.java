@@ -20,7 +20,7 @@ public class Receipt {
 
     public String generateAccountId() {
         if (Bank.getAllReceipts().isEmpty())
-            return "100";
+            return "500";
         else {
             int lastUsedId = Integer.parseInt(Bank.getAllReceipts().get(Bank.getAllReceipts().size() - 1).getReceiptId());
             return Integer.toString(lastUsedId + 1);
