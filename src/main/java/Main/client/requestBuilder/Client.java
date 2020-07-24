@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -228,9 +229,10 @@ public class Client {
             //return s;
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
-            //sendRequestObject(originalRequest);
+            //return null;
+            sendRequestObject(originalRequest);
         }
+        return new ArrayList();
     }
 
     public void closeConnection() {
