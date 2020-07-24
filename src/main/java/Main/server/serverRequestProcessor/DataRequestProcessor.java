@@ -64,6 +64,7 @@ public class DataRequestProcessor {
             if (result.equals("invalid token") || result.equals("token expired")) {
                 return "failure";
             }
+            System.err.println(result);
             return result;
         }else if(ServerMain.server.validateToken(token,ManagerAccount.class)){
             String token1 = BankClient.getResponseFromBankServer("get_token " + ShopFinance.getInstance().getUsername() + " " + ShopFinance.getInstance().getPassword());
@@ -83,7 +84,7 @@ public class DataRequestProcessor {
             SellerAccount sellerAccount = (SellerAccount) ServerMain.server.getTokenInfo(token).getUser();
             return sellerAccount.getWalletBalance() + "";
         }
-        if (ServerMain.server.validateToken(token, BuyerAccount.class)) {
+        else if (ServerMain.server.validateToken(token, BuyerAccount.class)) {
             BuyerAccount buyerAccount = (BuyerAccount) ServerMain.server.getTokenInfo(token).getUser();
             return buyerAccount.getWalletBalance() + "";
         } else {

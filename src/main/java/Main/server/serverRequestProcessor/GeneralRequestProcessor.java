@@ -417,17 +417,20 @@ public class GeneralRequestProcessor {
                 return "invalidPassword";
             }
             String token = BankClient.getResponseFromBankServer("get_token " + splitRequest[2] + " " + splitRequest[3]);
+            System.err.println(token);
             String receiptID = BankClient.getResponseFromBankServer("create_receipt " + token + " withdraw " + Double.parseDouble(splitRequest[4]) + " " + sellerAccount.getBankAccountID() + " -1 chargeWallet");
+            System.err.println(sellerAccount.getBankAccountID());
+            System.err.println(receiptID);
             if (receiptID.equals("invalid token") || receiptID.equals("token expired")) {
                 return "failure";
             }
             String result = BankClient.getResponseFromBankServer("pay " + receiptID);
+            System.err.println(result);
             if (result.equals("invalid token") || result.equals("token expired")) {
                 return "failure";
             }
             String shopToken = BankClient.getResponseFromBankServer("get_token " + ShopFinance.getInstance().getUsername() + " " + ShopFinance.getInstance().getPassword());
             String receiptID2 = BankClient.getResponseFromBankServer("create_receipt " + shopToken + " deposit " + Double.parseDouble(splitRequest[4]) + " -1 " + ShopFinance.getInstance().getAccountID() + " chargeShopAccountForWalletCharge");
-            System.out.println(receiptID2);
             if (receiptID2.equals("invalid token") || receiptID2.equals("token expired")) {
                 return "failure";
             }
@@ -457,7 +460,6 @@ public class GeneralRequestProcessor {
             }
             String shopToken = BankClient.getResponseFromBankServer("get_token " + ShopFinance.getInstance().getUsername() + " " + ShopFinance.getInstance().getPassword());
             String receiptID2 = BankClient.getResponseFromBankServer("create_receipt " + shopToken + " deposit " + Double.parseDouble(splitRequest[4]) + " -1 " + ShopFinance.getInstance().getAccountID() + " chargeShopAccountForWalletCharge");
-            System.out.println(receiptID2);
             if (receiptID2.equals("invalid token") || receiptID2.equals("token expired")) {
                 return "failure";
             }

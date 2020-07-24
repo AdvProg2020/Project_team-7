@@ -49,7 +49,7 @@ public class WalletPage implements Initializable {
 
         String userType = DataRequestBuilder.buildUserTypeRequest();
         if (userType.equals("seller")) {
-            walletBalance.setText(SellerRequestBuilder.getSellerBalance());
+            //walletBalance.setText(SellerRequestBuilder.getSellerBalance());
             String response2 = DataRequestBuilder.buildAccountBalanceRequest();
             if (response2.equals("failure")) {
                 GraphicMain.showInformationAlert("try again");
@@ -61,7 +61,7 @@ public class WalletPage implements Initializable {
                 accountBalance.setText(response2);
             }
         } else if (userType.equals("buyer")) {
-            walletBalance.setText(BuyerRequestBuilder.buildInitializeBuyerPanelRequest());
+            //walletBalance.setText(BuyerRequestBuilder.buildInitializeBuyerPanelRequest());
             withdrawButton.setVisible(false);
             String response3 = DataRequestBuilder.buildAccountBalanceRequest();
             if (response3.equals("failure")) {

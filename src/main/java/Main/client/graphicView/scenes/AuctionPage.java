@@ -308,7 +308,8 @@ public class AuctionPage implements Initializable {
                         String response = BuyerRequestBuilder.buildIncreaseAuctionPriceRequest(increaseAmount.getText(), address);
                         if (response.startsWith("success")) {
                             try {
-                                highestOffer.setText(Double.parseDouble(response.split("#")[1]) + "");
+                                informationBox.setText("offer increased successfully");
+                                //highestOffer.setText(Double.parseDouble(response.split("#")[1]) + "");
                             } catch (Exception e) {
                                 informationBox.setText(e.getMessage());
                             }

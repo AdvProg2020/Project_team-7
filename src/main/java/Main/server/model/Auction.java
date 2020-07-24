@@ -263,7 +263,6 @@ public class Auction implements Serializable{
         for (int i = 0; i < allAuctions.size(); i++) {
             Auction auction = allAuctions.get(i);
             if (auction.isAuctionOver()) {
-                auction.finishAuction();
                 if(i>0){
                     i--;
                 }
