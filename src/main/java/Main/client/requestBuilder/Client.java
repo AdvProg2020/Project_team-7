@@ -117,7 +117,7 @@ public class Client {
                 System.out.println("client wrote " + request);
                 String s = dataInputStream.readUTF();
                 System.out.println("client read " + s);
-                if (s.startsWith("Ok! send me the file")) {
+                if (s.startsWith("success")) {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {

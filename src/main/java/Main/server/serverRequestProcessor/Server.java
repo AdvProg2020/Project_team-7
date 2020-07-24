@@ -372,12 +372,13 @@ public class Server {
                 @Override
                 public void run() {
                     try {
+                        String name = fileName.split("___")[0];
                         ServerSocket serverSocket1 = new ServerSocket(9999);
                         System.out.println("new server socket created");
                         Socket socket1 = serverSocket1.accept();
                         InputStream inputStream = socket1.getInputStream();
                         byte[] mybytearray = new byte[6022386];
-                        FileOutputStream fileOutputStream = new FileOutputStream("src/main/java/Main/server/fileResources/" + fileName);
+                        FileOutputStream fileOutputStream = new FileOutputStream("src/main/java/Main/server/fileResources/" + name);
                         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
                         System.out.println("I AM SERVER I AM READY TO READ THE FILE");
                         int bytesRead = inputStream.read(mybytearray, 0, mybytearray.length);
@@ -392,21 +393,21 @@ public class Server {
                         System.out.println("FINISHED LOADING FILE");
                         bufferedOutputStream.write(mybytearray, 0, current);
                         bufferedOutputStream.flush();
-                        System.out.println("File " + fileName + " downloaded (" + current + " bytes read)");
+                        System.out.println("File " + name + " downloaded (" + current + " bytes read)");
                         fileOutputStream.close();
                         bufferedOutputStream.close();
                         socket1.close();
                         serverSocket1.close();
                         System.out.println("everything closed");
+                        dataOutputStream.writeUTF("success#file " + name + "uploaded to server");
+                        dataOutputStream.flush();
+                        System.out.println("i wrote success");
                     } catch (Exception e) {
                         e.printStackTrace();
                         System.err.println("ERROR IN RECEIVING FILE IN SERVER");
                     }
                 }
             }).start();
-            dataOutputStream.writeUTF("success#file " + fileName + "uploaded to server");
-            dataOutputStream.flush();
-            System.out.println("i wrote success");
         }
 
         private boolean isReplayAttack(String[] splitRequest) {

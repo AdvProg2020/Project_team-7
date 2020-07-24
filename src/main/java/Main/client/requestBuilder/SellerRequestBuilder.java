@@ -51,7 +51,7 @@ public class SellerRequestBuilder {
 
     public static String buildAddSpecialFeaturesRequest(ArrayList<String> specialFeatures, String productId) {
         StringBuilder request = new StringBuilder();
-        request.append(GraphicMain.token + "#" + productId + "#addSpecialFeatures");
+        request.append(GraphicMain.token +  "#addSpecialFeatures"+"#" + productId );
         for (String specialFeature : specialFeatures) {
             request.append("#" + specialFeature);
         }
