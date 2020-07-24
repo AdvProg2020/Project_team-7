@@ -5,7 +5,6 @@ import Main.client.requestBuilder.BuyerRequestBuilder;
 import Main.client.requestBuilder.DataRequestBuilder;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.SellerRequestBuilder;
-import Main.server.BankClient;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;

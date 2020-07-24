@@ -1,8 +1,10 @@
 package Main.server.serverRequestProcessor;
 
 import Main.server.ServerMain;
+import Main.server.consoleViewOld.CategoryManagerMenu;
 import Main.server.controller.GeneralController;
 import Main.server.model.Auction;
+import Main.server.model.Category;
 import Main.server.model.Product;
 import Main.server.model.accounts.SellerAccount;
 import Main.server.model.exceptions.CreateProductException;
@@ -247,5 +249,24 @@ public class SellerRequestProcessor {
 
     public static String getListItemsForAddOffPage(String s) {
         return null;
+    }
+
+    public static String getCategorySpecialFeatures(String[] splitRequest) {
+        Category category;
+        try {
+            category = Category.getCategoryWithName(splitRequest[2]);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+        String specials = "";
+        for (String specialFeature : category.getSpecialFeatures()) {
+            specials = specials.concat(specialFeature);
+            specials = specials.concat("#");
+        }
+        if (specials.equals(""))
+            return specials;
+        specials = specials.substring(0, specials.length()-1);
+        return specials;
     }
 }

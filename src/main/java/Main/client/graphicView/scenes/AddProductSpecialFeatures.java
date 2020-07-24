@@ -3,7 +3,6 @@ package Main.client.graphicView.scenes;
 import Main.client.graphicView.GraphicMain;
 import Main.client.requestBuilder.GeneralRequestBuilder;
 import Main.client.requestBuilder.SellerRequestBuilder;
-import Main.server.model.Category;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -26,11 +25,12 @@ public class AddProductSpecialFeatures implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        addSpecialFeatures(AddProductPage.exception.getCategory());
+        addSpecialFeatures(AddProductPage.exception.getCategory().getName());
     }
 
-    public void addSpecialFeatures(Category category) {
-        for (String feature : category.getSpecialFeatures()) {
+    public void addSpecialFeatures(String categoryName) {
+        ArrayList<String> features = SellerRequestBuilder.buildGetCategorySpecialFeatures(categoryName);
+        for (String feature : features) {
             TextField textField = new TextField();
             textField.setPromptText(feature);
             box.getChildren().add(textField);

@@ -2,11 +2,11 @@ package Main.client.requestBuilder;
 
 import Main.client.ClientMain;
 import Main.client.graphicView.GraphicMain;
-import Main.server.model.discountAndOffTypeService.DiscountAndOffTypeService;
 import Main.server.model.exceptions.DiscountAndOffTypeServiceException;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SellerRequestBuilder {
 
@@ -48,12 +48,12 @@ public class SellerRequestBuilder {
         for (String info : productInfo) {
             request.append("#" + info);
         }
-        return ClientMain.client.sendRequestFile(request.toString(),file);
+        return ClientMain.client.sendRequestFile(request.toString(), file);
     }
 
     public static String buildAddSpecialFeaturesRequest(ArrayList<String> specialFeatures, String productId) {
         StringBuilder request = new StringBuilder();
-        request.append(GraphicMain.token +  "#addSpecialFeatures"+"#" + productId );
+        request.append(GraphicMain.token + "#addSpecialFeatures" + "#" + productId);
         for (String specialFeature : specialFeatures) {
             request.append("#" + specialFeature);
         }
@@ -118,7 +118,7 @@ public class SellerRequestBuilder {
             DiscountAndOffTypeServiceException.validateInputDate(startDate);
             DiscountAndOffTypeServiceException.validateInputDate(endDate);
             DiscountAndOffTypeServiceException.compareStartAndEndDate(startDate, endDate);
-        }catch (Exception e){
+        } catch (Exception e) {
             return "invalidDate";
         }
         String request = GraphicMain.token + "#seller#createAuction#" + startDate + "#" + endDate + "#" + productId;
@@ -163,5 +163,11 @@ public class SellerRequestBuilder {
 
     public static String buildRemoveProductRequest(String productId) {
         return ClientMain.client.sendRequest(GraphicMain.token + "#removeProduct#" + productId);
+    }
+
+    public static ArrayList<String> buildGetCategorySpecialFeatures(String categoryName) {
+        String features = ClientMain.client.sendRequest(GraphicMain.token + "#getCategorySpecialFeatures#" + categoryName);
+        ArrayList<String> featureList = new ArrayList<>(Arrays.asList(features.split("#")));
+        return featureList;
     }
 }
