@@ -12,14 +12,15 @@ import static java.util.Arrays.asList;
 public class SupporterAccount extends Account {
     private static ArrayList<SupporterAccount> allSupporters = new ArrayList<>();
     private ArrayList<String> myChats = new ArrayList<>();
-    private HashMap<String,ArrayList<String>> myChatsMessages = new HashMap<>();
+    private HashMap<String, ArrayList<String>> myChatsMessages = new HashMap<>();
 
     public HashMap<String, ArrayList<String>> getMyChatsMessages() {
         return myChatsMessages;
     }
 
-    public void setMyChatsMessages(String buyerUserName, ArrayList<String> messages){
-        myChatsMessages.put(buyerUserName, messages);
+    public void setMyChatsMessages(String buyerUserName, ArrayList<String> messages) {
+        if (messages.size() >= myChatsMessages.get(buyerUserName).size())
+            myChatsMessages.put(buyerUserName, messages);
     }
 
     public SupporterAccount(String userName,

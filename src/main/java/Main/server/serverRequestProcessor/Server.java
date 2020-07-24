@@ -356,7 +356,6 @@ public class Server {
                 sendFiles(splitRequest);
             } else if (splitRequest[1].equals("getCategorySpecialFeatures")) {
                 response = SellerRequestProcessor.getCategorySpecialFeatures(splitRequest);
-                sendFiles(splitRequest);
             } else {
                 response = "invalidRequest";
             }

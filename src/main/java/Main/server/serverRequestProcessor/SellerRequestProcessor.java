@@ -266,7 +266,7 @@ public class SellerRequestProcessor {
         }
         if (specials.equals(""))
             return specials;
-        specials = specials.substring(0, specials.length()-1);
+        specials = specials.substring(0, specials.length() - 1);
         return specials;
     }
 }

@@ -29,7 +29,7 @@ public class BankClient {
         }
     }
 
-    public static String getResponseFromBankServer(String message){
+    public static String getResponseFromBankServer(String message) {
         try {
             Socket socket = new Socket(IP, port);
             ConnectToBankServer(socket);

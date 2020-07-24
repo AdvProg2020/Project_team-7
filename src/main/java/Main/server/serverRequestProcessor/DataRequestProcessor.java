@@ -57,7 +57,7 @@ public class DataRequestProcessor {
     }
 
     private static String accountBalanceResponse(String token) {
-        if(ServerMain.server.validateToken(token,SellerAccount.class)||ServerMain.server.validateToken(token,BuyerAccount.class)){
+        if (ServerMain.server.validateToken(token, SellerAccount.class) || ServerMain.server.validateToken(token, BuyerAccount.class)) {
             Account account = ServerMain.server.getTokenInfo(token).getUser();
             String token1 = BankClient.getResponseFromBankServer("get_token " + account.getUserName() + " " + account.getPassWord());
             String result = BankClient.getResponseFromBankServer("get_balance " + token1);
@@ -66,14 +66,14 @@ public class DataRequestProcessor {
             }
             System.err.println(result);
             return result;
-        }else if(ServerMain.server.validateToken(token,ManagerAccount.class)){
+        } else if (ServerMain.server.validateToken(token, ManagerAccount.class)) {
             String token1 = BankClient.getResponseFromBankServer("get_token " + ShopFinance.getInstance().getUsername() + " " + ShopFinance.getInstance().getPassword());
             String result = BankClient.getResponseFromBankServer("get_balance " + token1);
             if (result.equals("invalid token") || result.equals("token expired")) {
                 return "failure";
             }
             return result;
-        } else{
+        } else {
             return "loginNeeded";
         }
     }
@@ -83,8 +83,7 @@ public class DataRequestProcessor {
         if (ServerMain.server.validateToken(token, SellerAccount.class)) {
             SellerAccount sellerAccount = (SellerAccount) ServerMain.server.getTokenInfo(token).getUser();
             return sellerAccount.getWalletBalance() + "";
-        }
-        else if (ServerMain.server.validateToken(token, BuyerAccount.class)) {
+        } else if (ServerMain.server.validateToken(token, BuyerAccount.class)) {
             BuyerAccount buyerAccount = (BuyerAccount) ServerMain.server.getTokenInfo(token).getUser();
             return buyerAccount.getWalletBalance() + "";
         } else {
@@ -122,7 +121,7 @@ public class DataRequestProcessor {
         Auction auction = Auction.getAuctionById(splitRequest[3]);
         try {
             int messageNo = auction.getAuctionUsage().getAllMessages().size();
-            if(!auction.isAuctionValid()){
+            if (!auction.isAuctionValid()) {
                 throw new Exception();
             }
             return messageNo + "";
@@ -135,7 +134,7 @@ public class DataRequestProcessor {
         Auction auction = Auction.getAuctionById(splitRequest[3]);
         try {
             String highestOffer = auction.getAuctionUsage().getHighestOffer() + "";
-            if(!auction.isAuctionValid()){
+            if (!auction.isAuctionValid()) {
                 throw new Exception();
             }
             return highestOffer;
@@ -181,7 +180,7 @@ public class DataRequestProcessor {
 
     private static String auctionResponse(String id) {
         Auction auction = Auction.getAuctionById(id);
-        if(!auction.isAuctionValid()||auction.isAuctionOver()){
+        if (!auction.isAuctionValid() || auction.isAuctionOver()) {
             return "auctionOver";
         }
         return GeneralController.yagsonMapper.toJson(auction, Auction.class);

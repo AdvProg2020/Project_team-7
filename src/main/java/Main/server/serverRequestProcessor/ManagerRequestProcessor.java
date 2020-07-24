@@ -89,7 +89,7 @@ public class ManagerRequestProcessor {
     public static String acceptRequestWithIdRequestProcessor(String[] splitRequest) {
         try {
             Request request = Request.getRequestWithId(splitRequest[2]);
-            if(request instanceof CreateSellerAccountRequest){
+            if (request instanceof CreateSellerAccountRequest) {
                 SellerAccount sellerAccount = ((CreateSellerAccountRequest) request).getSellerAccount();
                 String accountID = BankClient.getResponseFromBankServer("create_account " + sellerAccount.getFirstName() + " " + sellerAccount.getLastName() + " " + sellerAccount.getUserName() + " " + sellerAccount.getPassWord() + " " + sellerAccount.getPassWord());
                 System.err.println("here" + accountID);

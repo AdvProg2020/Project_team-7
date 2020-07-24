@@ -32,7 +32,7 @@ public class BuyerRequestProcessor {
         Auction.AuctionUsage auctionUsage;
         try {
             auctionUsage = auction.getAuctionUsage();
-            if(!auction.isAuctionValid()){
+            if (!auction.isAuctionValid()) {
                 throw new Exception();
             }
         } catch (Exception e) {
@@ -48,7 +48,7 @@ public class BuyerRequestProcessor {
 
         double highestOffer = 0;
         try {
-            if(!auction.isAuctionValid()){
+            if (!auction.isAuctionValid()) {
                 throw new Exception();
             }
             auction.getAuctionUsage().setReceiverInfo("first name : " + buyerAccount.getFirstName() + " last name : " +
@@ -209,7 +209,7 @@ public class BuyerRequestProcessor {
             return response;
         for (String supporter : supporters) {
             response = response.concat(supporter);
-            response = ManagerRequestProcessor.concatOnlineStatus(response,supporter);
+            response = ManagerRequestProcessor.concatOnlineStatus(response, supporter);
             response = response.concat("#");
         }
         response = response.substring(0, response.length() - 1);
@@ -217,6 +217,6 @@ public class BuyerRequestProcessor {
     }
 
     public static String downloadFilesRequestProcessor(String[] splitRequest) {
-        return "downloading files in progress";
+        return "downloading#" + splitRequest[2];
     }
 }
