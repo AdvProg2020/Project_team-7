@@ -11,7 +11,9 @@ import Main.server.model.discountAndOffTypeService.DiscountCode;
 import Main.server.model.logs.BuyLog;
 import javafx.collections.ObservableList;
 
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BuyerRequestProcessor {
     public static String process(String[] splitRequest) {
@@ -210,5 +212,9 @@ public class BuyerRequestProcessor {
         }
         response = response.substring(0, response.length() - 1);
         return response;
+    }
+
+    public static String downloadFilesRequestProcessor(String[] splitRequest) {
+        return "downloading files in progress";
     }
 }

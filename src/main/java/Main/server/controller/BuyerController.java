@@ -125,21 +125,23 @@ public class BuyerController {
     }
 
     public String finalizeBankPurchaseAndPay(BuyerAccount buyerAccount) {
+        String files = "";
         if (buyerAccount.getCart().getCartsProductList().isEmpty()) {
             return "your cart is empty!";
         }
         try {
-            getProductsFromRepository();
+            files = getProductsFromRepository();
             bankPay();
         } catch (Exception e) {
             return e.getMessage();
         }
         createPurchaseHistoryElements();
         currentBuyersCart.emptyCart();
-        return "Purchase finished successfully.";
+        return "Purchase finished successfully.\n" + files;
     }
 
     public String finalizeWalletPurchaseAndPay(BuyerAccount buyerAccount) {
+        String files = "";
         if (buyerAccount.getCart().getCartsProductList().isEmpty()) {
             return "your cart is empty!";
         }
@@ -147,14 +149,14 @@ public class BuyerController {
             return "insufficient wallet balance";
         }
         try {
-            getProductsFromRepository();
+            files = getProductsFromRepository();
             walletPay();
         } catch (Exception e) {
             return e.getMessage();
         }
         createPurchaseHistoryElements();
         currentBuyersCart.emptyCart();
-        return "Purchase finished successfully.";
+        return "Purchase finished successfully.\n" + files;
     }
 
     private void walletPay() throws Exception {
@@ -176,7 +178,8 @@ public class BuyerController {
         }
     }
 
-    private void getProductsFromRepository() throws Exception {
+    private String getProductsFromRepository() throws Exception {
+        String files = "";
         validateGettingProductsFromRepository();
         for (CartProduct cartProduct : currentBuyersCart.getCartProducts()) {
             if (cartProduct.getProduct().isOnAuction) {
@@ -185,7 +188,10 @@ public class BuyerController {
         }
         for (CartProduct cartProduct1 : currentBuyersCart.getCartProducts()) {
             cartProduct1.getProduct().decreaseAvailabilityBy(cartProduct1.getNumberOfProduct());
+            if (cartProduct1.getProduct().getName().endsWith("___FILEPRODUCT"))
+                files = files.concat("File detected: " + cartProduct1.getProduct().getName().substring(0, cartProduct1.getProduct().getName().indexOf("___")) + "\n");
         }
+        return files;
     }
 
     private void validateGettingProductsFromRepository() throws Exception {

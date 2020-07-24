@@ -1,6 +1,7 @@
 package Main.client.requestBuilder;
 
 import java.io.*;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -88,6 +89,8 @@ public class Client {
                 if (s.equals("tryAgain")) {
                     sendRequest(originalRequest);
                 }
+                if (s.startsWith("downloading"))
+                    receiveFile();
                 System.out.println("client read " + s);
                 return s;
             }
@@ -95,6 +98,45 @@ public class Client {
             e.printStackTrace();
         }
         return "failure";
+    }
+
+    private void receiveFile() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Socket socket1 = new Socket(IP,9999);
+                    InputStream inputStream = socket1.getInputStream();
+                    byte[] mybytearray = new byte[6022386];
+                    FileOutputStream fileOutputStream = new FileOutputStream("src/main/java/Main/client/buyersFiles/" + "testFile");
+                    BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+                    System.out.println("I AM SERVER I AM READY TO READ THE FILE");
+                    int bytesRead = inputStream.read(mybytearray, 0, mybytearray.length);
+                    System.out.println("NOW I READ ITS LENGTH");
+                    int current = bytesRead;
+                    do {
+                        bytesRead = inputStream.read(mybytearray, current, (mybytearray.length - current));
+                        System.out.println("DO WHILE IS IN PROGRESS");
+                        if (bytesRead >= 0)
+                            current += bytesRead;
+                    } while (bytesRead > -1);
+                    System.out.println("FINISHED LOADING FILE");
+                    bufferedOutputStream.write(mybytearray, 0, current);
+                    bufferedOutputStream.flush();
+                    System.out.println("File " + "test" + " downloaded (" + current + " bytes read)");
+                    fileOutputStream.close();
+                    bufferedOutputStream.close();
+                    socket1.close();
+                    System.out.println("everything closed");
+                    dataOutputStream.writeUTF("success#file " + "test" + "uploaded to server");
+                    dataOutputStream.flush();
+                    System.out.println("i wrote success");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.err.println("ERROR IN RECEIVING FILE IN CLIENT");
+                }
+            }
+        }).start();
     }
 
     public String sendRequestFile(String request, File file) {
@@ -117,7 +159,7 @@ public class Client {
                 System.out.println("client wrote " + request);
                 String s = dataInputStream.readUTF();
                 System.out.println("client read " + s);
-                if (s.startsWith("Ok! send me the file")) {
+                if (s.startsWith("success")) {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -156,6 +198,7 @@ public class Client {
 
     public List sendRequestObject(String request) throws ClassNotFoundException {
         String originalRequest = new String(request);
+        System.out.println("original was: ");
         try {
             String randomKey = getRandomKey();
             if (randomKey.charAt(randomKey.length() - 1) == 'K') {
@@ -184,6 +227,7 @@ public class Client {
             return ((List) ois.readObject());
             //return s;
         } catch (IOException e) {
+            e.printStackTrace();
             sendRequestObject(originalRequest);
         }
 

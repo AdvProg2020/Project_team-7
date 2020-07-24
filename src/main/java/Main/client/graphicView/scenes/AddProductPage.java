@@ -105,13 +105,16 @@ public class AddProductPage {
             response = SellerRequestBuilder.buildAddFileRequest(productInfo, file);
         else
             response = SellerRequestBuilder.buildAddProductRequest(productInfo);
-        if (response.equals("success")) {
-            showInformationAlert("product created successfully");
+        System.out.println("\n\n"+response+"\n\n");
+        if (response.startsWith("success")) {
+            showInformationAlert("product created successfully\n"+response);
+            GraphicMain.graphicMain.back();
         } else if (response.startsWith("error")) {
             String[] splitResponse = response.split("#");
             showErrorAlert(splitResponse[1]);
+            GraphicMain.graphicMain.back();
         } else {
-            if (!isFile.isSelected()) {
+            if (hasCategory.isSelected()) {
                 exception = GeneralController.yagsonMapper.fromJson(response, CreateProductException.GetCategoryFromUser.class);
                 GraphicMain.graphicMain.goToPage(AddProductSpecialFeatures.FXML_PATH, AddProductSpecialFeatures.TITLE);
             } else {
@@ -134,7 +137,7 @@ public class AddProductPage {
         alert.setTitle(null);
         alert.setContentText(message);
         alert.setHeaderText(null);
-        alert.show();
+        alert.showAndWait();
     }
 
     public void showInformationAlert(String message) {

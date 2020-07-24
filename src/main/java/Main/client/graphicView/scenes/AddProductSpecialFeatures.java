@@ -70,7 +70,7 @@ public class AddProductSpecialFeatures implements Initializable {
         alert.setTitle(null);
         alert.setContentText(message);
         alert.setHeaderText(null);
-        alert.show();
+        alert.showAndWait();
     }
 
     public void logout() throws IOException {
