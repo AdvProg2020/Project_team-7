@@ -26,13 +26,24 @@ public class BuyerRequestProcessor {
             return "loginNeeded";
         }
         BuyerAccount buyerAccount = (BuyerAccount) ServerMain.server.getTokenInfo(splitRequest[0]).getUser();
-        if (buyerAccount.getWalletBalance() < Double.parseDouble(splitRequest[4]) + ShopFinance.getInstance().getMinimumWalletBalance()) {
+        Auction auction = Auction.getAuctionById(splitRequest[3]);
+        Auction.AuctionUsage auctionUsage;
+        try {
+            auctionUsage = auction.getAuctionUsage();
+            if(!auction.isAuctionValid()){
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            return "auctionOver";
+        }
+
+        if (buyerAccount.getWalletBalance() < auctionUsage.getHighestOffer() + Double.parseDouble(splitRequest[4]) + ShopFinance.getInstance().getMinimumWalletBalance()) {
             return "insufficientBalance";
         }
         if (buyerAccount.isOnAuction != null && !buyerAccount.isOnAuction.equals(splitRequest[3])) {
             return "alreadyOnAuction";
         }
-        Auction auction = Auction.getAuctionById(splitRequest[3]);
+
         double highestOffer = 0;
         try {
             if(!auction.isAuctionValid()){

@@ -114,7 +114,7 @@ public class AuctionPage implements Initializable {
             GraphicMain.showInformationAlert("try again !");
             return;
         }
-        if(response.equals("auctionOver")){
+        if (response.equals("auctionOver")) {
             GraphicMain.showInformationAlert("this auction is over !!");
             disablePage();
             return;
@@ -132,7 +132,6 @@ public class AuctionPage implements Initializable {
                 highestOffer.setText("" + auction.getAuctionUsage().getHighestOffer());
                 initializeMessagePane();
                 update = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
-
                     @Override
                     public void handle(ActionEvent event) {
                         updatePage();
@@ -168,7 +167,7 @@ public class AuctionPage implements Initializable {
             return;
         } else if (response2.equals("tooManyRequests")) {
 
-        } else if(!response2.equals("failure")){
+        } else if (!response2.equals("failure")) {
             int messageNo = Integer.parseInt(response2);
             if (messageNo != this.messageNo) {
                 try {
@@ -190,7 +189,7 @@ public class AuctionPage implements Initializable {
             informationBox.setText("try again !");
             return;
         }
-        if(response.equals("auctionOver")){
+        if (response.equals("auctionOver")) {
             informationBox.setText("this auction is over !!");
             disablePage();
             return;
@@ -230,16 +229,6 @@ public class AuctionPage implements Initializable {
 
     public void increasePrice(MouseEvent mouseEvent) {
         String address = new ReceiverAddressWindow().getReceiverAddress();
-        String response = BuyerRequestBuilder.buildIncreaseAuctionPriceRequest(increaseAmount.getText(), address);
-        if (response.startsWith("success")) {
-            try {
-                highestOffer.setText(Double.parseDouble(response.split("#")[1]) + "");
-            } catch (Exception e) {
-                informationBox.setText(e.getMessage());
-            }
-        } else {
-            showIncrementResponseMessage(response);
-        }
     }
 
     private void showIncrementResponseMessage(String response) {
@@ -316,6 +305,16 @@ public class AuctionPage implements Initializable {
                 public void handle(MouseEvent event) {
                     if (!textArea.getText().isEmpty()) {
                         address = textArea.getText();
+                        String response = BuyerRequestBuilder.buildIncreaseAuctionPriceRequest(increaseAmount.getText(), address);
+                        if (response.startsWith("success")) {
+                            try {
+                                highestOffer.setText(Double.parseDouble(response.split("#")[1]) + "");
+                            } catch (Exception e) {
+                                informationBox.setText(e.getMessage());
+                            }
+                        } else {
+                            showIncrementResponseMessage(response);
+                        }
                         receiverAddress.close();
                     }
                 }

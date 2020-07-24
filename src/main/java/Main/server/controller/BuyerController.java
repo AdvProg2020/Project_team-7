@@ -143,7 +143,7 @@ public class BuyerController {
         if (buyerAccount.getCart().getCartsProductList().isEmpty()) {
             return "your cart is empty!";
         }
-        if(currentBuyer.getWalletBalance()<getToTalPaymentConsideringDiscount() + ShopFinance.getInstance().getMinimumWalletBalance()){
+        if (currentBuyer.getWalletBalance() < getToTalPaymentConsideringDiscount() + ShopFinance.getInstance().getMinimumWalletBalance()) {
             return "insufficient wallet balance";
         }
         try {
@@ -160,6 +160,7 @@ public class BuyerController {
     private void walletPay() throws Exception {
         buyerAndSellerWalletPayment();
         if (discountCode != null) {
+            discountCode.increaseBuyersTimesOfUse(currentBuyer);
             discountCode.removeDiscountCodeIfBuyerHasUsedUpDiscountCode(currentBuyer);
         }
     }
@@ -171,7 +172,7 @@ public class BuyerController {
         currentBuyer.decreaseBalanceBy(getToTalPaymentConsideringDiscount());
         HashMap<SellerAccount, Cart> sellers = currentBuyersCart.getAllSellersCarts();
         for (SellerAccount sellerAccount : sellers.keySet()) {
-            sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs()*(100-ShopFinance.getInstance().getCommission())/100);
+            sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs() * (100 - ShopFinance.getInstance().getCommission()) / 100);
         }
     }
 
@@ -204,6 +205,7 @@ public class BuyerController {
     private void bankPay() throws Exception {
         buyerAndSellerBankPayment();
         if (discountCode != null) {
+            discountCode.increaseBuyersTimesOfUse(currentBuyer);
             discountCode.removeDiscountCodeIfBuyerHasUsedUpDiscountCode(currentBuyer);
         }
     }
@@ -226,7 +228,7 @@ public class BuyerController {
         for (SellerAccount sellerAccount : sellers.keySet()) {
             String receiptID1 = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + sellers.get(sellerAccount).getCartTotalPriceConsideringOffs() + " -1 " + ShopFinance.getInstance().getAccountID() + " bankPurchase");
             String result1 = BankClient.getResponseFromBankServer("pay " + receiptID1);
-            sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs()*(100-ShopFinance.getInstance().getCommission())/100);
+            sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs() * (100 - ShopFinance.getInstance().getCommission()) / 100);
         }
     }
 

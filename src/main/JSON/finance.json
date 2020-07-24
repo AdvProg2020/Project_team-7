@@ -1,1 +1,1 @@
-null
+{"@type":"Main.server.model.ShopFinance","@val":{"minimumWalletBalance":0.0,"commission":0.0}}

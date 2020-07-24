@@ -139,9 +139,6 @@ public class Server {
                     d.printStackTrace();
                 }
             }
-            if (!request.contains("timer")) {
-                addConnectionLog(clientSocket);
-            }
 
             splitRequest = request.split("#");
             String encryptedKey = splitRequest[splitRequest.length - 2].concat("#").concat(splitRequest[splitRequest.length - 1]);
@@ -154,6 +151,10 @@ public class Server {
             setKeyMap(decryptionKey, keyMap);
             request = decryptMessage(request, keyMap);
             System.out.println("server read " + request);
+
+            if (!request.contains("timer")&&requestAllowedDate.compareTo(new Date())<0) {
+                addConnectionLog(clientSocket);
+            }
 
             splitRequest = request.split("#");
 
@@ -174,7 +175,10 @@ public class Server {
                 response = logout(splitRequest, dataInputStream);
             } else if (splitRequest[1].equals("login")) {
                 response = GeneralRequestProcessor.loginRequestProcessor(splitRequest);
-                if (!response.startsWith("success") && !validateTooManyLoginRequests(clientSocket)) {
+                if(!response.startsWith("success")&&loginAllowedDate.compareTo(new Date())<0){
+                    addLoginRequestLog(clientSocket);
+                }
+                if (!validateTooManyLoginRequests(clientSocket)) {
                     response = "tooManyRequests";
                 }
             } else if (splitRequest[1].equals("signUp")) {
@@ -437,12 +441,12 @@ public class Server {
                 return false;
             }
             SocketAddress socketAddress = clientSocket.getLocalSocketAddress();
-            if (!loginRequests.containsKey(socketAddress)) {
-                ArrayList<Date> dates = new ArrayList<>();
-                dates.add(new Date());
-                loginRequests.put(socketAddress, dates);
-                return true;
-            }
+//            if (!loginRequests.containsKey(socketAddress)) {
+//                ArrayList<Date> dates = new ArrayList<>();
+//                dates.add(new Date());
+//                loginRequests.put(socketAddress, dates);
+//                return true;
+//            }
             ArrayList<Date> requestDates = loginRequests.get(socketAddress);
             if (requestDates.size() >= 3) {
                 Date date = requestDates.get(requestDates.size() - 3);
@@ -464,8 +468,8 @@ public class Server {
             }
             SocketAddress socketAddress = clientSocket.getLocalSocketAddress();
             ArrayList<Date> requestDates = requests.get(socketAddress);
-            if (requestDates.size() >= 20) {
-                Date date = requestDates.get(requestDates.size() - 20);
+            if (requestDates.size() >= 10) {
+                Date date = requestDates.get(requestDates.size() - 10);
                 date = DateUtils.addSeconds(date, 10);
                 if (date.compareTo(new Date()) > 0) {
                     requestAllowedDate = DateUtils.addSeconds(new Date(), 20);
@@ -531,16 +535,16 @@ public class Server {
         return "success";
     }
 
-    private boolean validateTooManyRequests(Socket clientSocket) {
-        SocketAddress socketAddress = clientSocket.getLocalSocketAddress();
-        ArrayList<Date> requestDates = requests.get(socketAddress);
-        if (requestDates.size() >= 20) {
-            Date date = requestDates.get(requestDates.size() - 20);
-            date = DateUtils.addSeconds(date, 10);
-            return date.compareTo(new Date()) <= 0;
-        }
-        return true;
-    }
+//    private boolean validateTooManyRequests(Socket clientSocket) {
+//        SocketAddress socketAddress = clientSocket.getLocalSocketAddress();
+//        ArrayList<Date> requestDates = requests.get(socketAddress);
+//        if (requestDates.size() >= 50) {
+//            Date date = requestDates.get(requestDates.size() - 50);
+//            date = DateUtils.addSeconds(date, 10);
+//            return date.compareTo(new Date()) <= 0;
+//        }
+//        return true;
+//    }
 
     public HashMap<String, TokenInfo> getTokens() {
         return tokens;

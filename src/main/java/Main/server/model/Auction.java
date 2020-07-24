@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import static java.util.Arrays.asList;
 
@@ -155,7 +156,7 @@ public class Auction {
         product.isOnAuction = false;
         if (lastOfferBuyer != null) {
             buildLogs();
-            sellerAccount.increaseBalanceBy(highestOffer);
+            sellerAccount.increaseBalanceBy(highestOffer*(100-ShopFinance.getInstance().getCommission())/100);
             product.decreaseAvailabilityBy(1);
             lastOfferBuyer.isOnAuction = null;
             try {

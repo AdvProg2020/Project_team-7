@@ -2,6 +2,8 @@ package Main.client.requestBuilder;
 
 import Main.client.ClientMain;
 import Main.client.graphicView.GraphicMain;
+import Main.server.model.discountAndOffTypeService.DiscountAndOffTypeService;
+import Main.server.model.exceptions.DiscountAndOffTypeServiceException;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -112,6 +114,13 @@ public class SellerRequestBuilder {
     }
 
     public static String buildCreateAuctionRequest(String startDate, String endDate, String productId) {
+        try {
+            DiscountAndOffTypeServiceException.validateInputDate(startDate);
+            DiscountAndOffTypeServiceException.validateInputDate(endDate);
+            DiscountAndOffTypeServiceException.compareStartAndEndDate(startDate, endDate);
+        }catch (Exception e){
+            return "invalidDate";
+        }
         String request = GraphicMain.token + "#seller#createAuction#" + startDate + "#" + endDate + "#" + productId;
         return ClientMain.client.sendRequest(request);
     }

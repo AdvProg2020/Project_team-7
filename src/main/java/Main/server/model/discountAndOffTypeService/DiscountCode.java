@@ -142,7 +142,7 @@ public class DiscountCode extends DiscountAndOffTypeService {
     }
 
     public void removeDiscountCodeIfBuyerHasUsedUpDiscountCode(BuyerAccount buyerAccount) {
-        if (users.get(buyerAccount) == maxNumberOfUse) {
+        if (users.get(buyerAccount) >= maxNumberOfUse) {
             this.removeUser(buyerAccount);
             buyerAccount.removeDiscountCode(this);
         }
@@ -276,6 +276,12 @@ public class DiscountCode extends DiscountAndOffTypeService {
                 discountCode.usersStringRecord.put(buyerAccount.getUserName(), discountCode.users.get(buyerAccount));
             }
         }
+    }
+
+    public void increaseBuyersTimesOfUse(BuyerAccount buyerAccount){
+        int timesOfUse = users.get(buyerAccount);
+        timesOfUse++;
+        users.replace(buyerAccount,timesOfUse);
     }
 
 }

@@ -193,6 +193,8 @@ public class AuctionsPage implements Initializable {
                         initialize(null,null);
                     } else if (response.equals("tooManyRequests")) {
                         GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+                    } else if (response.equals("invalidDate")) {
+                        GraphicMain.showInformationAlert("invalid date !\n");
                     }  else if (response.equals("failure")) {
                         GraphicMain.showInformationAlert("try again !");
                     }else {
