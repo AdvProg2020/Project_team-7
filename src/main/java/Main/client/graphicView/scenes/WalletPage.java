@@ -106,6 +106,7 @@ public class WalletPage implements Initializable {
             if (response.equals("success")) {
                 GraphicMain.showInformationAlert("charged successfully !");
                 initialize(null,null);
+                stage.close();
             } else {
                 showChargeResponseMessages(response, errorMessage);
             }
@@ -151,6 +152,7 @@ public class WalletPage implements Initializable {
             if (response.equals("success")) {
                 GraphicMain.showInformationAlert("withdraw successful !");
                 initialize(null,null);
+                stage.close();
             } else {
                 showWithdrawResponseMessages(response, errorMessage);
             }

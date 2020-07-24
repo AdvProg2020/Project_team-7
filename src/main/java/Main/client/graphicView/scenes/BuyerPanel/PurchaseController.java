@@ -243,6 +243,7 @@ public class PurchaseController {
                     downloadFiles(result);
                 goBack();
                 goBack();
+                stage.close();
             } else {
                 ManagerPanelController.alertError(result);
                 initialize();
@@ -278,6 +279,7 @@ public class PurchaseController {
                     downloadFiles(result);
                 goBack();
                 goBack();
+                stage.close();
             } else {
                 ManagerPanelController.alertError(result);
                 initialize();
