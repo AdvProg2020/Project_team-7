@@ -10,7 +10,6 @@ import Main.server.model.Product;
 import com.gilecode.yagson.com.google.gson.stream.JsonReader;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;

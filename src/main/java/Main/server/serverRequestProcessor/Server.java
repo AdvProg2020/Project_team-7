@@ -154,7 +154,7 @@ public class Server {
             request = decryptMessage(request, keyMap);
             System.out.println("server read " + request);
 
-            if (!request.contains("timer")&&requestAllowedDate.compareTo(new Date())<0) {
+            if (!request.contains("timer") && requestAllowedDate.compareTo(new Date()) < 0) {
                 addConnectionLog(clientSocket);
             }
 
@@ -177,7 +177,7 @@ public class Server {
                 response = logout(splitRequest, dataInputStream);
             } else if (splitRequest[1].equals("login")) {
                 response = GeneralRequestProcessor.loginRequestProcessor(splitRequest);
-                if(!response.startsWith("success")&&loginAllowedDate.compareTo(new Date())<0){
+                if (!response.startsWith("success") && loginAllowedDate.compareTo(new Date()) < 0) {
                     addLoginRequestLog(clientSocket);
                     if (!validateTooManyLoginRequests(clientSocket)) {
                         response = "tooManyRequests";
@@ -354,6 +354,9 @@ public class Server {
             } else if (splitRequest[1].equals("downloadFiles")) {
                 response = BuyerRequestProcessor.downloadFilesRequestProcessor(splitRequest);
                 sendFiles(splitRequest);
+            } else if (splitRequest[1].equals("getCategorySpecialFeatures")) {
+                response = SellerRequestProcessor.getCategorySpecialFeatures(splitRequest);
+                sendFiles(splitRequest);
             } else {
                 response = "invalidRequest";
             }
@@ -393,7 +396,7 @@ public class Server {
                             System.out.println("new server socket created");
                             Socket socket1 = serverSocket1.accept();
                             OutputStream outputStream = socket1.getOutputStream();
-                            File file = new File("src/main/java/Main/server/fileResources/"+name);
+                            File file = new File("src/main/java/Main/server/fileResources/" + name);
                             byte[] mybytearray = new byte[(int) file.length()];
                             FileInputStream fileInputStream = new FileInputStream(file);
                             BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);

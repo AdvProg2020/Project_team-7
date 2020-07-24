@@ -12,7 +12,7 @@ public class BankServer {
 
     private BankServer() {
         try {
-            serverSocket = new ServerSocket(7777);
+            serverSocket = new ServerSocket(0);
             System.out.println(serverSocket.getLocalPort());
         } catch (IOException e) {
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class BankServer {
         }).start();
     }
 
-    private class RequestHandler extends Thread{
+    private class RequestHandler extends Thread {
         private Socket clientSocket;
         private DataOutputStream dataOutputStream;
         private DataInputStream dataInputStream;
@@ -64,36 +64,38 @@ public class BankServer {
             }
         }
 
-        public void handle() throws Exception{
+        public void handle() throws Exception {
             String request = dataInputStream.readUTF();
+            System.out.println("bank read:" + request);
             String response = null;
             String[] splitRequest = request.split(" ");
-            if(splitRequest[0].equals("create_account")){
+            if (splitRequest[0].equals("create_account")) {
                 response = bank.createAccount(splitRequest[1], splitRequest[2], splitRequest[3], splitRequest[4], splitRequest[5]);
-            } else if(splitRequest[0].equals("get_token")){
+            } else if (splitRequest[0].equals("get_token")) {
                 response = bank.getToken(splitRequest[1], splitRequest[2]);
-            } else if(splitRequest[0].equals("create_receipt")){
-                if(splitRequest.length == 7){
-                    response = bank.createReceipt(splitRequest[1],splitRequest[2],splitRequest[3],splitRequest[4],splitRequest[5],splitRequest[6]);
-                }else if(splitRequest.length == 6){
-                    response = bank.createReceipt(splitRequest[1],splitRequest[2],splitRequest[3],splitRequest[4],splitRequest[5],"");
+            } else if (splitRequest[0].equals("create_receipt")) {
+                if (splitRequest.length == 7) {
+                    response = bank.createReceipt(splitRequest[1], splitRequest[2], splitRequest[3], splitRequest[4], splitRequest[5], splitRequest[6]);
+                } else if (splitRequest.length == 6) {
+                    response = bank.createReceipt(splitRequest[1], splitRequest[2], splitRequest[3], splitRequest[4], splitRequest[5], "");
                 }
-            }else if(splitRequest[0].equals("get_transactions")){
-                response = bank.getTransactions(splitRequest[1],splitRequest[2]);
-            }else if(splitRequest[0].equals("pay")){
+            } else if (splitRequest[0].equals("get_transactions")) {
+                response = bank.getTransactions(splitRequest[1], splitRequest[2]);
+            } else if (splitRequest[0].equals("pay")) {
                 response = bank.payReceipt(splitRequest[1]);
-            }else if(splitRequest[0].equals("get_balance")){
+            } else if (splitRequest[0].equals("get_balance")) {
                 response = bank.getBalance(splitRequest[1]);
-            }else if(splitRequest[0].equals("exit")){
+            } else if (splitRequest[0].equals("exit")) {
                 response = "disconnected";
-            }else{
+            } else {
                 response = "invalidInput";
             }
             dataOutputStream.writeUTF(response);
             dataOutputStream.flush();
-            if(!response.equals("disconnected")){
+            System.out.println("bank wrote: " + response);
+            if (!response.equals("disconnected")) {
                 handle();
-            }else{
+            } else {
                 clientSocket.close();
                 dataInputStream.close();
                 dataOutputStream.close();

@@ -33,7 +33,7 @@ public class ServerMain {
             }catch (Exception e){
                 System.err.println("connection to bank failed :(");
                 System.err.println("IP or port might be invalid invalid");
-                main(null);
+                main(args);
             }
             BankClient.setIP(IP);
             BankClient.setPort(Integer.parseInt(port));
@@ -41,7 +41,7 @@ public class ServerMain {
             if (BankClient.getResponseFromBankServer("hi").equals("failure")) {
                 System.err.println("connection to bank failed :(");
                 System.err.println("IP or port might be invalid invalid");
-                main(null);
+                main(args);
             } else {
                 break;
             }
