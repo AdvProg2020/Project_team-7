@@ -102,7 +102,7 @@ public class ManagerRequestProcessor {
                     return "failure";
                 }
 
-                String receiptID2 = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + ShopFinance.getInstance().getMinimumWalletBalance() + " -1 " + ShopFinance.getInstance().getAccountID() + " chargeShopAccountForNewUser");
+                String receiptID2 = BankClient.getResponseFromBankServer("create_receipt " + token + " move " + ShopFinance.getInstance().getMinimumWalletBalance() + " " + accountID + " " + ShopFinance.getInstance().getAccountID() + " chargeShopAccountForNewUser");
                 if (receiptID2.equals("invalid token") || receiptID2.equals("token expired")) {
                     return "failure";
                 }

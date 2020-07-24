@@ -227,12 +227,13 @@ public class BuyerController {
         if (currentBuyer.isOnAuction != null) {
             throw new Exception("you have an offer in an auction ! you can't purchase now");
         }
+        String shopToken = BankClient.getResponseFromBankServer("get_token " + ShopFinance.getInstance().getUsername() + " " + ShopFinance.getInstance().getPassword());
         String token = BankClient.getResponseFromBankServer("get_token " + currentBuyer.getUserName() + " " + currentBuyer.getPassWord());
         String receiptID = BankClient.getResponseFromBankServer("create_receipt " + token + " withdraw " + getToTalPaymentConsideringDiscount() + " " + currentBuyer.getBankAccountID() + " -1 bankPurchase");
         String result = BankClient.getResponseFromBankServer("pay " + receiptID);
         HashMap<SellerAccount, Cart> sellers = currentBuyersCart.getAllSellersCarts();
         for (SellerAccount sellerAccount : sellers.keySet()) {
-            String receiptID1 = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + sellers.get(sellerAccount).getCartTotalPriceConsideringOffs() + " -1 " + ShopFinance.getInstance().getAccountID() + " bankPurchase");
+            String receiptID1 = BankClient.getResponseFromBankServer("create_receipt " + shopToken + " deposit " + sellers.get(sellerAccount).getCartTotalPriceConsideringOffs() + " -1 " + ShopFinance.getInstance().getAccountID() + " bankPurchase");
             String result1 = BankClient.getResponseFromBankServer("pay " + receiptID1);
             sellerAccount.increaseBalanceBy(sellers.get(sellerAccount).getCartTotalPriceConsideringOffs() * (100 - ShopFinance.getInstance().getCommission()) / 100);
         }

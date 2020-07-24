@@ -12,7 +12,7 @@ public abstract class AccountsException extends Exception {
 
 
     public static void validateUsernameUniqueness(String userName) throws AccountsException {
-        if (Account.isThereUserWithUserName(userName) && Account.getReservedUserNames().contains(userName)) {
+        if (Account.isThereUserWithUserName(userName) || Account.getReservedUserNames().contains(userName)) {
             throw new AccountsException.duplicateUserNameException();
         }
     }

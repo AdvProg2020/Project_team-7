@@ -106,6 +106,7 @@ public class WalletPage implements Initializable {
             String response = GeneralRequestBuilder.buildChargeWalletRequest(username.getText(), password.getText(), amount.getText());
             if (response.equals("success")) {
                 GraphicMain.showInformationAlert("charged successfully !");
+                initialize(null,null);
             } else {
                 showChargeResponseMessages(response, errorMessage);
             }
@@ -150,6 +151,7 @@ public class WalletPage implements Initializable {
             String response = GeneralRequestBuilder.buildWithdrawFromWalletRequest(username.getText(), password.getText(), amount.getText());
             if (response.equals("success")) {
                 GraphicMain.showInformationAlert("withdraw successful !");
+                initialize(null,null);
             } else {
                 showWithdrawResponseMessages(response, errorMessage);
             }
