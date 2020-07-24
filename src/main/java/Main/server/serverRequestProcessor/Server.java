@@ -35,7 +35,7 @@ public class Server {
     private Server() {
         try {
             setKeyMap(KEY_STRING, KEY_MAP);
-            serverSocket = new ServerSocket(0);
+            serverSocket = new ServerSocket(8888);
             System.out.println(serverSocket.getLocalPort());
         } catch (IOException e) {
             e.printStackTrace();

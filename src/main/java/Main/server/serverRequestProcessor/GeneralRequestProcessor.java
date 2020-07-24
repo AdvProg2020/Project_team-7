@@ -142,7 +142,6 @@ public class GeneralRequestProcessor {
 //     }
 
 
-
     public static String signUpManagerRequestProcessor(String[] splitRequest) {
         /**
          if (splitRequest.length != 9) {
@@ -419,6 +418,8 @@ public class GeneralRequestProcessor {
             if (result2.equals("invalid token") || result2.equals("token expired")) {
                 return "failure";
             }
+            sellerAccount.increaseBalanceBy(Double.parseDouble(splitRequest[4]));
+            return "success";
         }
         if (ServerMain.server.validateToken(splitRequest[0], BuyerAccount.class)) {
             BuyerAccount buyerAccount = (BuyerAccount) ServerMain.server.getTokenInfo(splitRequest[0]).getUser();
@@ -437,7 +438,6 @@ public class GeneralRequestProcessor {
             if (result.equals("invalid token") || result.equals("token expired")) {
                 return "failure";
             }
-
             String receiptID2 = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + Double.parseDouble(splitRequest[4]) + " -1 " + ShopFinance.getInstance().getAccountID() + " chargeShopAccountForWalletCharge");
             if (receiptID2.equals("invalid token") || receiptID2.equals("token expired")) {
                 return "failure";
@@ -446,8 +446,10 @@ public class GeneralRequestProcessor {
             if (result2.equals("invalid token") || result2.equals("token expired")) {
                 return "failure";
             }
+            buyerAccount.increaseBalanceBy(Double.parseDouble(splitRequest[4]));
+            return "success";
         }
-        return "success";
+        return "loginNeeded";
     }
 
     public static String withdrawFromWalletRequestProcessor(String[] splitRequest) {

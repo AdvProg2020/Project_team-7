@@ -78,4 +78,9 @@ public class DataRequestBuilder {
         String walletBalanceRequest = GraphicMain.token + "#data#walletBalance";
         return ClientMain.client.sendRequest(walletBalanceRequest);
     }
+
+    public static String buildAccountBalanceRequest() {
+        String accountBalanceRequest = GraphicMain.token + "#data#accountBalance";
+        return ClientMain.client.sendRequest(accountBalanceRequest);
+    }
 }

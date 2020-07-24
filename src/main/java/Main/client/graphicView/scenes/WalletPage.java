@@ -23,6 +23,7 @@ public class WalletPage implements Initializable {
 
     public static final String FXML_PATH = "src/main/sceneResources/walletPage.fxml";
     public static final String TITLE = "wallet page";
+    public Label accountBalance;
 
     @FXML
     private Label walletBalance;
@@ -49,9 +50,29 @@ public class WalletPage implements Initializable {
         String userType = DataRequestBuilder.buildUserTypeRequest();
         if (userType.equals("seller")) {
             walletBalance.setText(SellerRequestBuilder.getSellerBalance());
+            String response2 = DataRequestBuilder.buildAccountBalanceRequest();
+            if (response2.equals("failure")) {
+                GraphicMain.showInformationAlert("try again");
+            } else if (response2.equals("tooManyRequests")) {
+                GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            } else if (response2.equals("loginNeeded")) {
+                GraphicMain.showInformationAlert("you must login first !\nyou'r authentication might be expired !");
+            } else {
+                accountBalance.setText(response2);
+            }
         } else if (userType.equals("buyer")) {
             walletBalance.setText(BuyerRequestBuilder.buildInitializeBuyerPanelRequest());
             withdrawButton.setVisible(false);
+            String response3 = DataRequestBuilder.buildAccountBalanceRequest();
+            if (response3.equals("failure")) {
+                GraphicMain.showInformationAlert("try again");
+            } else if (response3.equals("tooManyRequests")) {
+                GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+            } else if (response3.equals("loginNeeded")) {
+                GraphicMain.showInformationAlert("you must login first !\nyou'r authentication might be expired !");
+            } else {
+                accountBalance.setText(response3);
+            }
         } else if (response.equals("failure")) {
             GraphicMain.showInformationAlert("try again !");
         }

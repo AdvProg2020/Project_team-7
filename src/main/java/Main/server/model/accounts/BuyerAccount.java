@@ -46,6 +46,10 @@ public class BuyerAccount extends Account {
         this.accountID = accountID;
     }
 
+    public void increaseBalanceBy(double money) {
+        this.walletBalance += money;
+    }
+
     public ArrayList<String> getDiscountsList() {
         ArrayList<String> list = new ArrayList<>();
         for (DiscountCode discountCode : discountCodes) {

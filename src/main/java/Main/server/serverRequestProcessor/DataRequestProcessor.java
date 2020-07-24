@@ -1,10 +1,13 @@
 package Main.server.serverRequestProcessor;
 
+import Main.bankServer.Bank;
+import Main.server.BankClient;
 import Main.server.ServerMain;
 import Main.server.controller.GeneralController;
 import Main.server.model.Auction;
 import Main.server.model.Category;
 import Main.server.model.Product;
+import Main.server.model.ShopFinance;
 import Main.server.model.accounts.Account;
 import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.accounts.ManagerAccount;
@@ -47,8 +50,31 @@ public class DataRequestProcessor {
             return categoryProductsResponse(splitRequest[3]);
         } else if (splitRequest[2].equals("walletBalance")) {
             return walletBalanceResponse(splitRequest[0]);
+        } else if (splitRequest[2].equals("accountBalance")) {
+            return accountBalanceResponse(splitRequest[0]);
         }
-        return null;
+        return "failure";
+    }
+
+    private static String accountBalanceResponse(String token) {
+        if(ServerMain.server.validateToken(token,SellerAccount.class)||ServerMain.server.validateToken(token,BuyerAccount.class)){
+            Account account = ServerMain.server.getTokenInfo(token).getUser();
+            String token1 = BankClient.getResponseFromBankServer("get_token " + account.getUserName() + " " + account.getPassWord());
+            String result = BankClient.getResponseFromBankServer("get_balance " + token1);
+            if (result.equals("invalid token") || result.equals("token expired")) {
+                return "failure";
+            }
+            return result;
+        }else if(ServerMain.server.validateToken(token,ManagerAccount.class)){
+            String token1 = BankClient.getResponseFromBankServer("get_token " + ShopFinance.getInstance().getUsername() + " " + ShopFinance.getInstance().getPassword());
+            String result = BankClient.getResponseFromBankServer("get_balance " + token1);
+            if (result.equals("invalid token") || result.equals("token expired")) {
+                return "failure";
+            }
+            return result;
+        } else{
+            return "loginNeeded";
+        }
     }
 
     private static String walletBalanceResponse(String token) {
