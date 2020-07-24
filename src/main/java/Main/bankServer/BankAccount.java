@@ -19,7 +19,7 @@ public class BankAccount {
         this.username = username;
         this.password = password;
         this.accountId = generateAccountId();
-        this.balance = 1000000000;
+        this.balance = 10000;
     }
 
     public void setFirstName(String firstName) {
