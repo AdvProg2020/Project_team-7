@@ -92,7 +92,7 @@ public class ManagerRequestProcessor {
             if (request instanceof CreateSellerAccountRequest) {
                 SellerAccount sellerAccount = ((CreateSellerAccountRequest) request).getSellerAccount();
                 String accountID = BankClient.getResponseFromBankServer("create_account " + sellerAccount.getFirstName() + " " + sellerAccount.getLastName() + " " + sellerAccount.getUserName() + " " + sellerAccount.getPassWord() + " " + sellerAccount.getPassWord());
-                System.err.println("here" + accountID);
+                sellerAccount.setAccountID(accountID);
                 String token = BankClient.getResponseFromBankServer("get_token " + sellerAccount.getUserName() + " " + sellerAccount.getPassWord());
                 String receiptID = BankClient.getResponseFromBankServer("create_receipt " + token + " deposit " + ShopFinance.initialAccountBalanceForUsers + " -1 " + accountID + " initializeAccountBalance");
                 if (receiptID.equals("invalid token") || receiptID.equals("token expired")) {

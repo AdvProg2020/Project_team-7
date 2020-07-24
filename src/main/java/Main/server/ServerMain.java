@@ -6,6 +6,7 @@ import Main.server.controller.GeneralController;
 import Main.server.controller.ManagerController;
 import Main.server.controller.SellerController;
 import Main.server.model.ShopFinance;
+import Main.server.model.accounts.SellerAccount;
 import Main.server.serverRequestProcessor.Server;
 
 import java.util.Date;

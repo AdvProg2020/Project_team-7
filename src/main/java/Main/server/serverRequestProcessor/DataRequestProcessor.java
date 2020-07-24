@@ -64,7 +64,6 @@ public class DataRequestProcessor {
             if (result.equals("invalid token") || result.equals("token expired")) {
                 return "failure";
             }
-            System.err.println(result);
             return result;
         } else if (ServerMain.server.validateToken(token, ManagerAccount.class)) {
             String token1 = BankClient.getResponseFromBankServer("get_token " + ShopFinance.getInstance().getUsername() + " " + ShopFinance.getInstance().getPassword());
