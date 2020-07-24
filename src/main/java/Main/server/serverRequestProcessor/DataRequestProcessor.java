@@ -1,6 +1,5 @@
 package Main.server.serverRequestProcessor;
 
-import Main.server.BankClient;
 import Main.server.ServerMain;
 import Main.server.controller.GeneralController;
 import Main.server.model.Auction;
@@ -10,6 +9,7 @@ import Main.server.model.accounts.Account;
 import Main.server.model.accounts.BuyerAccount;
 import Main.server.model.accounts.ManagerAccount;
 import Main.server.model.accounts.SellerAccount;
+import Main.server.model.discountAndOffTypeService.Off;
 import Main.server.model.logs.BuyLog;
 import Main.server.model.logs.Log;
 
@@ -172,84 +172,37 @@ public class DataRequestProcessor {
     }
 
     private static String allBuyersResponse() {
-        try {
-            InputStream inputStream = new FileInputStream(new File("src/main/JSON/buyers.json"));
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line = bufferedReader.readLine();
-            StringBuilder stringBuilder = new StringBuilder();
-            while (line != null) {
-                stringBuilder.append(line).append("\n");
-                line = bufferedReader.readLine();
-            }
-            return stringBuilder.toString();
-        } catch (Exception e) {
-            return "[]";
-        }
+        ArrayList<BuyerAccount> allBuyers = BuyerAccount.getAllBuyers();
+        BuyerAccount[] allBu = new BuyerAccount[allBuyers.size()];
+        allBu = allBuyers.toArray(allBu);
+        return GeneralController.yagsonMapper.toJson(allBu, BuyerAccount[].class);
     }
 
     private static String allOffsResponse() {
-        try {
-            InputStream inputStream = new FileInputStream(new File("src/main/JSON/offs.json"));
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line = bufferedReader.readLine();
-            StringBuilder stringBuilder = new StringBuilder();
-            while (line != null) {
-                stringBuilder.append(line).append("\n");
-                line = bufferedReader.readLine();
-            }
-            return stringBuilder.toString();
-        } catch (Exception e) {
-            return "[]";
-        }
+        ArrayList<Off> allOffs = Off.getAllOffs();
+        Off[] allOff = new Off[allOffs.size()];
+        allOff = allOffs.toArray(allOff);
+        return GeneralController.yagsonMapper.toJson(allOff, Off[].class);
     }
 
     private static String allSellersResponse() {
-        try {
-            InputStream inputStream = new FileInputStream(new File("src/main/JSON/sellers.json"));
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line = bufferedReader.readLine();
-            StringBuilder stringBuilder = new StringBuilder();
-            while (line != null) {
-                stringBuilder.append(line).append("\n");
-                line = bufferedReader.readLine();
-            }
-            return stringBuilder.toString();
-        } catch (Exception e) {
-            return "[]";
-        }
+        ArrayList<SellerAccount> allSellers = SellerAccount.getAllSellers();
+        SellerAccount[] allSe = new SellerAccount[allSellers.size()];
+        allSe = allSellers.toArray(allSe);
+        return GeneralController.yagsonMapper.toJson(allSe, SellerAccount[].class);
     }
 
     private static String allCategoriesResponse() {
-        try {
-            InputStream inputStream = new FileInputStream(new File("src/main/JSON/categories.json"));
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line = bufferedReader.readLine();
-            StringBuilder stringBuilder = new StringBuilder();
-            while (line != null) {
-                stringBuilder.append(line).append("\n");
-                line = bufferedReader.readLine();
-            }
-            return stringBuilder.toString();
-        } catch (Exception e) {
-            return "[]";
-        }
+        ArrayList<Category> allCategories = Category.getAllCategories();
+        Category[] allCa = new Category[allCategories.size()];
+        allCa = allCategories.toArray(allCa);
+        return GeneralController.yagsonMapper.toJson(allCa, Category[].class);
     }
 
     private static String allProductsResponse() {
-        try {
-            InputStream inputStream = new FileInputStream(new File("src/main/JSON/products.json"));
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line = bufferedReader.readLine();
-            StringBuilder stringBuilder = new StringBuilder();
-            while (line != null) {
-                stringBuilder.append(line).append("\n");
-                line = bufferedReader.readLine();
-            }
-            return stringBuilder.toString();
-        } catch (Exception e) {
-            return "[]";
-        }
+        ArrayList<Product> allProducts = Product.getAllProducts();
+        Product[] allPr = new Product[allProducts.size()];
+        allPr = allProducts.toArray(allPr);
+        return GeneralController.yagsonMapper.toJson(allPr, Product[].class);
     }
-
-
 }

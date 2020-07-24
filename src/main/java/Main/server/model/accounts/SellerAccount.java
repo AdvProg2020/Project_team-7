@@ -351,7 +351,7 @@ public class SellerAccount extends Account {
         return products;
     }
 
-    public static ArrayList<String> getAllSellers() {
+    public static ArrayList<String> getAllSellersUsernames() {
         ArrayList<String> allUniqueSellers = new ArrayList<>();
         for (SellerAccount seller : allSellers) {
             if(!allUniqueSellers.contains(seller.getUserName())){
@@ -381,6 +381,10 @@ public class SellerAccount extends Account {
 
     public void setAccountID(String accountID){
         this.accountID = accountID;
+    }
+
+    public static ArrayList<SellerAccount> getAllSellers() {
+        return allSellers;
     }
 }
 

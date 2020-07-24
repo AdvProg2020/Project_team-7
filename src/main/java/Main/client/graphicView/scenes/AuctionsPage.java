@@ -130,7 +130,6 @@ public class AuctionsPage implements Initializable {
     }
 
     private void showSellersAllProducts(ArrayList<Product> allProducts) {
-
         Stage addAuction = new Stage();
         addAuction.setTitle("Add Auction");
 

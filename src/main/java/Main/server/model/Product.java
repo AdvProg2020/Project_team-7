@@ -705,4 +705,8 @@ public class Product implements Serializable{
     public void setImage(String imagePath) {
         this.imagePath = imagePath;
     }
+
+    public static ArrayList<Product> getAllProducts() {
+        return allProducts;
+    }
 }
