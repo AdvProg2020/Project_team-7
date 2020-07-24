@@ -12,14 +12,14 @@ public class TokenInfo {
     public TokenInfo(Account user) {
         this.user = user;
         expirationDate = new Date();
-        this.expirationDate = DateUtils.addMinutes(expirationDate,Server.TOKEN_EXPIRATION_MINUTES);
+        this.expirationDate = DateUtils.addMinutes(expirationDate, Server.TOKEN_EXPIRATION_MINUTES);
     }
 
     public Account getUser() {
         return user;
     }
 
-    public boolean hasTokenExpired(){
+    public boolean hasTokenExpired() {
         Date dateNow = new Date();
         return this.expirationDate.compareTo(dateNow) < 0;
     }

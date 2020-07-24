@@ -95,6 +95,6 @@ public class BuyerRequestBuilder {
             names = names.concat("&");
         }
         names = names.substring(0, names.length()-1);
-        return ClientMain.client.sendRequest(GraphicMain.token+"#downloadFiles#"+fileNames);
+        return ClientMain.client.sendRequest(GraphicMain.token+"#downloadFiles#"+names);
     }
 }

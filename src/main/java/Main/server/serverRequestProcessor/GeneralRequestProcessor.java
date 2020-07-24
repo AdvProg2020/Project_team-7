@@ -276,7 +276,7 @@ public class GeneralRequestProcessor {
                 ServerMain.server.getTokenInfo(splitRequest[0]).getUser() == ManagerAccount.getAllManagers().get(0))) {
             return "loginNeeded";
         }
-        try{
+        try {
             for (Account allAccount : Account.getAllAccounts()) {
                 System.out.println(allAccount.getUserName());
             }

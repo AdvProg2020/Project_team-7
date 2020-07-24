@@ -90,7 +90,7 @@ public class Client {
                     sendRequest(originalRequest);
                 }
                 if (s.startsWith("downloading"))
-                    receiveFile();
+                    receiveFile(s.split("#")[1]);
                 System.out.println("client read " + s);
                 return s;
             }
@@ -100,17 +100,18 @@ public class Client {
         return "failure";
     }
 
-    private void receiveFile() {
+    private void receiveFile(String names) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
+                    String name = names.split("&")[0];
                     Socket socket1 = new Socket(IP, 9999);
                     InputStream inputStream = socket1.getInputStream();
                     byte[] mybytearray = new byte[6022386];
-                    FileOutputStream fileOutputStream = new FileOutputStream("src/main/java/Main/client/buyersFiles/" + "testFile");
+                    FileOutputStream fileOutputStream = new FileOutputStream("src/main/java/Main/client/buyersFiles/" + name);
                     BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
-                    System.out.println("I AM SERVER I AM READY TO READ THE FILE");
+                    System.out.println("I AM BUYER I AM READY TO READ THE FILE");
                     int bytesRead = inputStream.read(mybytearray, 0, mybytearray.length);
                     System.out.println("NOW I READ ITS LENGTH");
                     int current = bytesRead;
@@ -123,12 +124,12 @@ public class Client {
                     System.out.println("FINISHED LOADING FILE");
                     bufferedOutputStream.write(mybytearray, 0, current);
                     bufferedOutputStream.flush();
-                    System.out.println("File " + "test" + " downloaded (" + current + " bytes read)");
+                    System.out.println("File " + name + " downloaded (" + current + " bytes read)");
                     fileOutputStream.close();
                     bufferedOutputStream.close();
                     socket1.close();
                     System.out.println("everything closed");
-                    dataOutputStream.writeUTF("success#file " + "test" + "uploaded to server");
+                    dataOutputStream.writeUTF("success#file " + name + "downloaded to client");
                     dataOutputStream.flush();
                     System.out.println("i wrote success");
                 } catch (Exception e) {
@@ -223,7 +224,7 @@ public class Client {
         try {
             ois = new ObjectInputStream(dataInputStream);
             System.out.println("client read " + "object");
-            List list =  ((List) ois.readObject());
+            List list = ((List) ois.readObject());
             dataInputStream.readUTF();
             return list;
             //return s;
