@@ -38,18 +38,15 @@ public class ChatPageController {
     @FXML
     private Label iAm;
 
-    private int messageNumber = 0;
     private String myToken;
     private String theirUsername;
     private ArrayList<String> messages = new ArrayList<>();
-    private HelpCenterController theOtherControllerAsHelpCenter;
-    private SupporterPanelController theOtherControllerAsSupporterPanel;
 
     public void setMessages(ArrayList<String> messages) {
         this.messages = messages;
     }
 
-    public void setPeople(String myToken, String theirUsername, HelpCenterController helpCenterController, SupporterPanelController supporterPanelController) {
+    public void setPeople(String myToken, String theirUsername) {
         this.myToken = myToken;
         this.theirUsername = theirUsername;
         String chatPeople = GeneralRequestBuilder.buildOpenChatRequest(myToken, theirUsername);
@@ -58,13 +55,8 @@ public class ChatPageController {
             iAm.setText("BUYER: " + chatPeople.split("#")[1]);
         } else {
             chatWith.setText("BUYER: " + theirUsername);
-            iAm.setText("SUPPORTER: " + chatPeople.split("#")
-                    [1]);
+            iAm.setText("SUPPORTER: " + chatPeople.split("#")[1]);
         }
-        if (helpCenterController != null)
-            theOtherControllerAsHelpCenter = helpCenterController;
-        if (supporterPanelController != null)
-            theOtherControllerAsSupporterPanel = supporterPanelController;
     }
 
     public void initialize() {
@@ -100,7 +92,6 @@ public class ChatPageController {
     }
 
     public void send() throws IOException {
-        refreshChatPage();
         if (!messageBox.getText().isEmpty()) {
             if (iAm.getText().startsWith("BUYER")) {
                 messages.add("buyer: " + messageBox.getText());
@@ -109,27 +100,20 @@ public class ChatPageController {
             }
             messageBox.clear();
         }
+        refreshChatPage();
     }
 
-    public void refreshChatPage(String myToken, String theirUsername) throws IOException {
+    public void refreshChatPage() throws IOException {
         FXMLLoader fxmlLoader = GraphicMain.graphicMain.goToPageReturnLoader(ChatPageController.FXML_PATH, ChatPageController.TITLE);
         ChatPageController chatPageController = fxmlLoader.getController();
-        chatPageController.setPeople(myToken, theirUsername, theOtherControllerAsHelpCenter, theOtherControllerAsSupporterPanel);
-        GeneralRequestBuilder.buildSaveChatMessages(theirUsername, messages);
+        chatPageController.setPeople(myToken, theirUsername);
+        GeneralRequestBuilder.buildSaveChatMessages(theirUsername, this.messages);
         try {
-            chatPageController.setMessages(GeneralRequestBuilder.buildSetChatMessagesRequest(theirUsername));
+            chatPageController.setMessages(this.messages);
         } catch (Exception e) {
             e.printStackTrace();
             ManagerPanelController.alertError(e.getMessage());
         }
-        if (theOtherControllerAsSupporterPanel != null)
-            theOtherControllerAsSupporterPanel.openChatPage(myToken, theirUsername);
-        if (theOtherControllerAsHelpCenter != null)
-            theOtherControllerAsHelpCenter.openChatPage(myToken, theirUsername);
-        initialize();
-    }
-
-    public void refreshChatPage() throws IOException {
-        refreshChatPage(myToken, theirUsername);
+        chatPageController.initialize();
     }
 }

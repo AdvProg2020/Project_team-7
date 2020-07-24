@@ -12,7 +12,7 @@ public class BankServer {
 
     private BankServer() {
         try {
-            serverSocket = new ServerSocket(0);
+            serverSocket = new ServerSocket(7777);
             System.out.println(serverSocket.getLocalPort());
         } catch (IOException e) {
             e.printStackTrace();

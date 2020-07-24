@@ -317,6 +317,7 @@ public class GeneralRequestProcessor {
             return "meBuyer#" + buyerAccount.getUserName();
         } else {
             supporterAccount = ((SupporterAccount) Server.getServer().getTokenInfo(myToken).getUser());
+            System.out.println("reach here");
             return "meSupporter#" + supporterAccount.getUserName();
         }
     }

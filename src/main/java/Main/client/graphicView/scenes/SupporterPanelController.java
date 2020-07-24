@@ -60,7 +60,7 @@ public class SupporterPanelController {
     public void openChatPage(String myToken, String theirUsername) throws IOException {
         FXMLLoader fxmlLoader = GraphicMain.graphicMain.goToPageReturnLoader(ChatPageController.FXML_PATH, ChatPageController.TITLE);
         ChatPageController chatPageController = fxmlLoader.getController();
-        chatPageController.setPeople(myToken,theirUsername,null,this);
+        chatPageController.setPeople(myToken,theirUsername);
         //GeneralRequestBuilder.buildSaveChatMessages(theirUsername,new ArrayList<>());
         try {
             chatPageController.setMessages(GeneralRequestBuilder.buildSetChatMessagesRequest(theirUsername));

@@ -360,10 +360,9 @@ public class Server {
             if (response.equals("do not write UTF")) {
                 dataOutputStream.flush();
                 System.out.println("oos flushed");
-                System.out.println("server wrote " + response);
             }
 
-            if (!response.equals("do not write UTF") && !response.equals("invalidRequest")) {
+            if (!response.equals("invalidRequest")) {
                 dataOutputStream.writeUTF(response);
                 dataOutputStream.flush();
                 System.out.println("server wrote " + response);

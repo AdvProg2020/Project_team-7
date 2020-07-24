@@ -18,7 +18,7 @@
         </ImageView>
       <Button fx:id="send" layoutX="457.0" layoutY="600.0" mnemonicParsing="false" onAction="#send" prefHeight="55.0" prefWidth="88.0" text="Send" />
       <TextArea fx:id="messageBox" layoutX="20.0" layoutY="600.0" prefHeight="55.0" prefWidth="430.0" />
-        <ScrollPane fx:id="scrollPane" layoutX="34.0" layoutY="129.0" prefHeight="458.0" prefWidth="484.0" onMouseEntered="#refreshChatPage">
+        <ScrollPane fx:id="scrollPane" layoutX="34.0" layoutY="129.0" prefHeight="458.0" prefWidth="484.0">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="400.0">
                     <children>

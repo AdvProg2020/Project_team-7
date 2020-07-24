@@ -105,7 +105,7 @@ public class Client {
             @Override
             public void run() {
                 try {
-                    Socket socket1 = new Socket(IP,9999);
+                    Socket socket1 = new Socket(IP, 9999);
                     InputStream inputStream = socket1.getInputStream();
                     byte[] mybytearray = new byte[6022386];
                     FileOutputStream fileOutputStream = new FileOutputStream("src/main/java/Main/client/buyersFiles/" + "testFile");
@@ -178,7 +178,7 @@ public class Client {
                                 outputStream.close();
                                 socket1.close();
                                 System.out.println("everything closed");
-                            } catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
@@ -214,7 +214,6 @@ public class Client {
                 dataOutputStream.writeUTF(request);
                 dataOutputStream.flush();
                 System.out.println("client wrote " + request);
-                //String s = dataInputStream.readUTF();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -224,14 +223,15 @@ public class Client {
         try {
             ois = new ObjectInputStream(dataInputStream);
             System.out.println("client read " + "object");
-            return ((List) ois.readObject());
+            List list =  ((List) ois.readObject());
+            dataInputStream.readUTF();
+            return list;
             //return s;
         } catch (IOException e) {
             e.printStackTrace();
-            sendRequestObject(originalRequest);
+            return null;
+            //sendRequestObject(originalRequest);
         }
-
-        return null;
     }
 
     public void closeConnection() {
