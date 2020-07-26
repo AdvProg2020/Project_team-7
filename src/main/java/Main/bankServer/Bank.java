@@ -1,7 +1,13 @@
 package Main.bankServer;
 
+import Main.server.controller.GeneralController;
+import com.gilecode.yagson.com.google.gson.stream.JsonReader;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static java.util.Arrays.asList;
 
 public class Bank {
 
@@ -286,5 +292,77 @@ public class Bank {
 
     public static ArrayList<Receipt> getAllReceipts() {
         return allReceipts;
+    }
+
+    public static String readBankAccountsData() {
+        try {
+            GeneralController.fileWriter = new FileWriter(new File("src/main/JSON/bankAccounts.json"));
+            BankAccount[] bankAccounts = new BankAccount[allAccounts.size()];
+            bankAccounts = allAccounts.toArray(bankAccounts);
+            GeneralController.yagsonMapper.toJson(bankAccounts, BankAccount[].class, GeneralController.fileWriter);
+            GeneralController.fileWriter.close();
+            return "saved bank accounts data successfully";
+        } catch (IOException e) {
+            return "problem writing bank accounts data to bankAccounts.json";
+        }
+    }
+
+    public static String writeBankAccountsData() {
+        try {
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/bankAccounts.json")));
+            BankAccount[] bankAccounts = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, BankAccount[].class);
+            allAccounts = (bankAccounts == null) ? new ArrayList<>() : new ArrayList<>(asList(bankAccounts));
+            return "read bank accounts data successfully";
+        } catch (FileNotFoundException e) {
+            return "problem reading bank accounts data from bankAccounts.json";
+        }
+    }
+
+    public static String readBankReceiptsData() {
+        try {
+            GeneralController.fileWriter = new FileWriter(new File("src/main/JSON/bankReceipts.json"));
+            Receipt[] bankReceipts = new Receipt[allReceipts.size()];
+            bankReceipts = allReceipts.toArray(bankReceipts);
+            GeneralController.yagsonMapper.toJson(bankReceipts, Receipt[].class, GeneralController.fileWriter);
+            GeneralController.fileWriter.close();
+            return "saved bank receipts data successfully";
+        } catch (IOException e) {
+            return "problem writing bank receipts data to bankReceipts.json";
+        }
+    }
+
+    public static String writeBankReceiptsData() {
+        try {
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/bankReceipts.json")));
+            Receipt[] bankReceipts = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Receipt[].class);
+            allReceipts = (bankReceipts == null) ? new ArrayList<>() : new ArrayList<>(asList(bankReceipts));
+            return "read bank receipts data successfully";
+        } catch (FileNotFoundException e) {
+            return "problem reading bank receipts data from bankReceipts.json";
+        }
+    }
+
+    public static String readBankPaidRecepitsData() {
+        try {
+            GeneralController.fileWriter = new FileWriter(new File("src/main/JSON/bankPaidReceipts.json"));
+            Receipt[] bankPaidReceipts = new Receipt[allPaidReceipts.size()];
+            bankPaidReceipts = allPaidReceipts.toArray(bankPaidReceipts);
+            GeneralController.yagsonMapper.toJson(bankPaidReceipts, Receipt[].class, GeneralController.fileWriter);
+            GeneralController.fileWriter.close();
+            return "saved bank paid receipts data successfully";
+        } catch (IOException e) {
+            return "problem writing bank paid receipts data to bankPaidReceipts.json";
+        }
+    }
+
+    public static String writeBankPaidReceiptsData() {
+        try {
+            GeneralController.jsonReader = new JsonReader(new FileReader(new File("src/main/JSON/bankPaidReceipts.json")));
+            Receipt[] bankPaidReceipts = GeneralController.yagsonMapper.fromJson(GeneralController.jsonReader, Receipt[].class);
+            allPaidReceipts = (bankPaidReceipts == null) ? new ArrayList<>() : new ArrayList<>(asList(bankPaidReceipts));
+            return "read bank paid receipts data successfully";
+        } catch (FileNotFoundException e) {
+            return "problem reading bank paid receipts data from bankPaidReceipts.json";
+        }
     }
 }
