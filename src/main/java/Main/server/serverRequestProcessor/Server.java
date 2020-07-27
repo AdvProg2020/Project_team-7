@@ -24,6 +24,7 @@ public class Server {
     private HashMap<String, TokenInfo> tokens = new HashMap<>();
     public static int TOKEN_EXPIRATION_MINUTES = 15;
     private ServerSocket serverSocket;
+    private ServerSocket serverSocket1;
     private static Server serverInstance;
     private HashMap<SocketAddress, ArrayList<Date>> requests = new HashMap<>();
     private HashMap<SocketAddress, ArrayList<Date>> loginRequests = new HashMap<>();
@@ -161,7 +162,6 @@ public class Server {
 
             splitRequest = request.split("#");
 
-            //if(false){
             if (isReplayAttack(splitRequest)) {
                 response = "tryAgain";
             } else if (!validateTooManyRequests(clientSocket)) {
@@ -353,6 +353,8 @@ public class Server {
             } else if (splitRequest[1].equals("withdrawFromWallet")) {
                 response = GeneralRequestProcessor.withdrawFromWalletRequestProcessor(splitRequest);
             } else if (splitRequest[1].equals("downloadFiles")) {
+                serverSocket1 = new ServerSocket(9999);
+                System.out.println("\n\nnew server socket created");
                 response = BuyerRequestProcessor.downloadFilesRequestProcessor(splitRequest);
                 sendFiles(splitRequest);
             } else if (splitRequest[1].equals("getCategorySpecialFeatures")) {
@@ -390,10 +392,9 @@ public class Server {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        System.out.println("\n\nfile to download is: " + fileName);
                         try {
                             String name = fileName;
-                            ServerSocket serverSocket1 = new ServerSocket(9999);
-                            System.out.println("new server socket created");
                             Socket socket1 = serverSocket1.accept();
                             OutputStream outputStream = socket1.getOutputStream();
                             File file = new File("src/main/java/Main/server/fileResources/" + name);
@@ -401,20 +402,20 @@ public class Server {
                             FileInputStream fileInputStream = new FileInputStream(file);
                             BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
                             bufferedInputStream.read(mybytearray, 0, mybytearray.length);
-                            System.out.println("Sending " + file.getName() + "(" + mybytearray.length + " bytes)");
+                            System.out.println("\n\nSending " + file.getName() + "(" + mybytearray.length + " bytes)");
                             outputStream.write(mybytearray, 0, mybytearray.length);
                             outputStream.flush();
-                            System.out.println("I AM THE SERVER I SENT THE FILE TO BUYER");
+                            System.out.println("\n\nI AM THE SERVER I SENT THE FILE TO BUYER");
                             bufferedInputStream.close();
                             outputStream.close();
                             socket1.close();
-                            System.out.println("everything closed");
-                            dataOutputStream.writeUTF("success#file " + name + "uploaded to client");
+                            System.out.println("\n\neverything closed");
+                            dataOutputStream.writeUTF("success#file " + name + "#uploaded to client");
                             dataOutputStream.flush();
-                            System.out.println("i wrote success");
+                            System.out.println("\n\ni wrote success");
                         } catch (Exception e) {
                             e.printStackTrace();
-                            System.err.println("ERROR IN RECEIVING FILE IN SERVER");
+                            System.err.println("\n\nERROR IN SENDING FILE FROM SERVER");
                         }
                     }
                 }).start();

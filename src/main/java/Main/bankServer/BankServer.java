@@ -12,7 +12,7 @@ public class BankServer {
 
     private BankServer() {
         try {
-            serverSocket = new ServerSocket(0);
+            serverSocket = new ServerSocket(6666);
             System.out.println(serverSocket.getLocalPort());
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,9 +96,9 @@ public class BankServer {
             if (!response.equals("disconnected")) {
                 handle();
             } else {
-                System.out.println(Bank.writeBankAccountsData());
-                System.out.println(Bank.writeBankReceiptsData());
-                System.out.println(Bank.writeBankPaidReceiptsData());
+//                System.out.println(Bank.writeBankAccountsData());
+//                System.out.println(Bank.writeBankReceiptsData());
+//                System.out.println(Bank.writeBankPaidReceiptsData());
                 clientSocket.close();
                 dataInputStream.close();
                 dataOutputStream.close();
@@ -107,9 +107,9 @@ public class BankServer {
     }
 
     public static void main(String[] args) {
-        System.out.println(Bank.readBankAccountsData());
-        System.out.println(Bank.readBankReceiptsData());
-        System.out.println(Bank.readBankPaidReceiptsData());
+//        System.out.println(Bank.readBankAccountsData());
+//        System.out.println(Bank.readBankReceiptsData());
+//        System.out.println(Bank.readBankPaidRecepitsData());
         BankServer bankServer = BankServer.getServer();
         bankServer.start();
     }

@@ -53,9 +53,11 @@ public class ChatPageController {
         if (chatPeople.startsWith("meBuyer")) {
             chatWith.setText("SUPPORTER: " + theirUsername);
             iAm.setText("BUYER: " + chatPeople.split("#")[1]);
-        } else {
+        } else if (chatPeople.startsWith("meSupporter")) {
             chatWith.setText("BUYER: " + theirUsername);
             iAm.setText("SUPPORTER: " + chatPeople.split("#")[1]);
+        } else {
+            ManagerPanelController.alertError("Too many request! Please try again later!");
         }
     }
 
@@ -95,8 +97,10 @@ public class ChatPageController {
         if (!messageBox.getText().isEmpty()) {
             if (iAm.getText().startsWith("BUYER")) {
                 messages.add("buyer: " + messageBox.getText());
-            } else {
+            } else if (iAm.getText().startsWith("SUPPORTER")) {
                 messages.add("supporter: " + messageBox.getText());
+            } else {
+                ManagerPanelController.alertError("an error occurred. Please try again later.");
             }
             messageBox.clear();
         }
@@ -109,11 +113,12 @@ public class ChatPageController {
         chatPageController.setPeople(myToken, theirUsername);
         GeneralRequestBuilder.buildSaveChatMessages(theirUsername, this.messages);
         try {
-            chatPageController.setMessages(this.messages);
+            chatPageController.setMessages(GeneralRequestBuilder.buildSetChatMessagesRequest(theirUsername));
         } catch (Exception e) {
             e.printStackTrace();
             ManagerPanelController.alertError(e.getMessage());
         }
+        GeneralRequestBuilder.buildSaveChatMessages(theirUsername, this.messages);
         chatPageController.initialize();
     }
 }

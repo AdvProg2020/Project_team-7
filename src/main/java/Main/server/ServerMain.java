@@ -1,15 +1,11 @@
 package Main.server;
 
-import Main.client.requestBuilder.Client;
 import Main.server.controller.BuyerController;
 import Main.server.controller.GeneralController;
 import Main.server.controller.ManagerController;
 import Main.server.controller.SellerController;
-import Main.server.model.ShopFinance;
-import Main.server.model.accounts.SellerAccount;
 import Main.server.serverRequestProcessor.Server;
 
-import java.util.Date;
 import java.util.Scanner;
 
 public class ServerMain {

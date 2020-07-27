@@ -1,5 +1,7 @@
 package Main.client.requestBuilder;
 
+import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
+
 import java.io.*;
 import java.net.Socket;
 import java.text.DateFormat;
@@ -78,10 +80,6 @@ public class Client {
                 System.out.println("encrypted key : " + encryptedKey);
                 request = request.concat("#").concat(encryptedKey);
                 System.out.println("request : " + request);
-
-
-//                if (isSocketClosedNow)
-//                    dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
                 dataOutputStream.writeUTF(request);
                 dataOutputStream.flush();
                 System.out.println("client wrote " + request);
@@ -109,7 +107,7 @@ public class Client {
                     Socket socket1 = new Socket(IP, 9999);
                     InputStream inputStream = socket1.getInputStream();
                     byte[] mybytearray = new byte[6022386];
-                    FileOutputStream fileOutputStream = new FileOutputStream("src/main/java/Main/client/buyersFiles/" + name);
+                    FileOutputStream fileOutputStream = new FileOutputStream(new File("src/main/java/Main/client/buyersFiles/" + name));
                     BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
                     System.out.println("I AM BUYER I AM READY TO READ THE FILE");
                     int bytesRead = inputStream.read(mybytearray, 0, mybytearray.length);
@@ -129,12 +127,13 @@ public class Client {
                     bufferedOutputStream.close();
                     socket1.close();
                     System.out.println("everything closed");
-                    dataOutputStream.writeUTF("success#file " + name + "downloaded to client");
-                    dataOutputStream.flush();
+                    sendRequest("success#"+name+"#downloaded");
                     System.out.println("i wrote success");
+                    ManagerPanelController.alertInfo("File downloaded successfully!");
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.err.println("ERROR IN RECEIVING FILE IN CLIENT");
+                    ManagerPanelController.alertError("error in downloading file");
                 }
             }
         }).start();
@@ -142,7 +141,7 @@ public class Client {
 
     public String sendRequestFile(String request, File file) {
         try {
-            String originalRequest = new String(request);
+            String originalRequest = request;
             String randomKey = getRandomKey();
             if (randomKey.charAt(randomKey.length() - 1) == 'K') {
                 sendRequest(originalRequest);
@@ -198,7 +197,7 @@ public class Client {
     }
 
     public List sendRequestObject(String request) throws ClassNotFoundException {
-        String originalRequest = new String(request);
+        String originalRequest = request;
         System.out.println("original was: ");
         try {
             String randomKey = getRandomKey();
@@ -231,7 +230,7 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
             //return null;
-            sendRequestObject(originalRequest);
+            //sendRequestObject(originalRequest);
         }
         return new ArrayList();
     }

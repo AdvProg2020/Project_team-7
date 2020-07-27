@@ -298,6 +298,7 @@ public class PurchaseController {
             result = result.replace("Purchase finished successfully.", "");
             String[] names = result.split("\n");
             ArrayList<String> fileNames = new ArrayList<>(Arrays.asList(names));
+            fileNames.remove(0);
             ManagerPanelController.alertInfo(BuyerRequestBuilder.buildDownloadFileRequest(fileNames));
         }
     }
