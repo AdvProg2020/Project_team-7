@@ -109,7 +109,7 @@ public class BankServer {
     public static void main(String[] args) {
         System.out.println(Bank.readBankAccountsData());
         System.out.println(Bank.readBankReceiptsData());
-        System.out.println(Bank.readBankPaidRecepitsData());
+        System.out.println(Bank.readBankPaidReceiptsData());
         BankServer bankServer = BankServer.getServer();
         bankServer.start();
     }
