@@ -43,8 +43,7 @@ public class SellerRequestProcessor {
         String title = splitRequest[2];
         String content = splitRequest[3];
         try {
-            //TODO ALERT: watch out for the null arguments :D
-            ServerMain.generalController.addComment(title, content, splitRequest[0], null);
+            ServerMain.generalController.addComment(title, content, splitRequest[0], splitRequest[4]);
             return "success";
         } catch (Exception e) {
             return "error#" + e.getMessage();

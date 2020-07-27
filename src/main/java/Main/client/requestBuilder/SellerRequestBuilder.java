@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class SellerRequestBuilder {
 
     public static String buildCommentRequest(String title, String content) {
-        String request = GraphicMain.token + "#addComment#" + title + content;
+        String request = GraphicMain.token + "#addComment#" + title +"#" + content + "#" + GraphicMain.currentProductId;
         return ClientMain.client.sendRequest(request);
     }
 
