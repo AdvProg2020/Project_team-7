@@ -109,7 +109,7 @@ public class Client {
                     Socket socket1 = new Socket(IP, 9999);
                     InputStream inputStream = socket1.getInputStream();
                     byte[] mybytearray = new byte[6022386];
-                    FileOutputStream fileOutputStream = new FileOutputStream("src/main/java/Main/client/buyersFiles/" + name);
+                    FileOutputStream fileOutputStream = new FileOutputStream(new File("src/main/java/Main/client/buyersFiles/" + name));
                     BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
                     System.out.println("I AM BUYER I AM READY TO READ THE FILE");
                     int bytesRead = inputStream.read(mybytearray, 0, mybytearray.length);
@@ -129,8 +129,7 @@ public class Client {
                     bufferedOutputStream.close();
                     socket1.close();
                     System.out.println("everything closed");
-                    dataOutputStream.writeUTF("success#file " + name + "downloaded to client");
-                    dataOutputStream.flush();
+
                     System.out.println("i wrote success");
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -231,7 +230,7 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
             //return null;
-            sendRequestObject(originalRequest);
+            //sendRequestObject(originalRequest);
         }
         return new ArrayList();
     }

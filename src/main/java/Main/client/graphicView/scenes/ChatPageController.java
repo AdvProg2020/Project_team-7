@@ -1,27 +1,19 @@
 package Main.client.graphicView.scenes;
 
 import Main.client.graphicView.GraphicMain;
-import Main.client.graphicView.scenes.BuyerPanel.HelpCenterController;
 import Main.client.graphicView.scenes.ManagerPanel.ManagerPanelController;
 import Main.client.requestBuilder.GeneralRequestBuilder;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ChatPageController {
     public static final String FXML_PATH = "src/main/sceneResources/ChatPage.fxml";
@@ -53,9 +45,11 @@ public class ChatPageController {
         if (chatPeople.startsWith("meBuyer")) {
             chatWith.setText("SUPPORTER: " + theirUsername);
             iAm.setText("BUYER: " + chatPeople.split("#")[1]);
-        } else {
+        } else if (chatPeople.startsWith("meSupporter")) {
             chatWith.setText("BUYER: " + theirUsername);
             iAm.setText("SUPPORTER: " + chatPeople.split("#")[1]);
+        } else {
+            ManagerPanelController.alertError("Too many request! Please try again later!");
         }
     }
 
@@ -95,8 +89,10 @@ public class ChatPageController {
         if (!messageBox.getText().isEmpty()) {
             if (iAm.getText().startsWith("BUYER")) {
                 messages.add("buyer: " + messageBox.getText());
-            } else {
+            } else if (iAm.getText().startsWith("SUPPORTER")){
                 messages.add("supporter: " + messageBox.getText());
+            } else {
+                ManagerPanelController.alertError("an error occurred.");
             }
             messageBox.clear();
         }
@@ -109,11 +105,12 @@ public class ChatPageController {
         chatPageController.setPeople(myToken, theirUsername);
         GeneralRequestBuilder.buildSaveChatMessages(theirUsername, this.messages);
         try {
-            chatPageController.setMessages(this.messages);
+            chatPageController.setMessages(GeneralRequestBuilder.buildSetChatMessagesRequest(theirUsername));
         } catch (Exception e) {
             e.printStackTrace();
             ManagerPanelController.alertError(e.getMessage());
         }
+        GeneralRequestBuilder.buildSaveChatMessages(theirUsername, this.messages);
         chatPageController.initialize();
     }
 }
