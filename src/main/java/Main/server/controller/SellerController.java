@@ -11,6 +11,7 @@ import Main.server.model.exceptions.CreateProductException;
 import Main.server.model.exceptions.DiscountAndOffTypeServiceException;
 import Main.server.model.logs.SellLog;
 import Main.server.model.requests.*;
+import Main.server.serverRequestProcessor.SellerRequestProcessor;
 import Main.server.serverRequestProcessor.Server;
 
 import java.util.ArrayList;
@@ -162,10 +163,9 @@ public class SellerController {
         throw new CreateProductException.GetCategoryFromUser(category, product);
     }
 
-    public void setSpecialFeatures(String productId, ArrayList<String> specialFeatures) {
-        Product product = null;
+    public void setSpecialFeatures(ArrayList<String> specialFeatures) {
+        Product product = SellerRequestProcessor.productToBeAddedToCategory;
         try {
-            product = Product.getProductWithId(productId);
             product.setSpecialFeatures(specialFeatures);
         } catch (Exception e) {
             e.printStackTrace();

@@ -16,6 +16,8 @@ import java.util.Arrays;
 
 public class SellerRequestProcessor {
 
+    public static Product productToBeAddedToCategory;
+
     public static String process(String[] splitRequest) {
         if (splitRequest[2].equals("createAuction")) {
             return createAuction(splitRequest);
@@ -90,8 +92,11 @@ public class SellerRequestProcessor {
         } catch (CreateProductException.GetCategoryFromUser e) {
             if (productInfo.get(0).endsWith("___FILEPRODUCT"))
                 return "success";
-            else
+            else{
+                productToBeAddedToCategory = e.getProduct();
                 return GeneralController.yagsonMapper.toJson(e, CreateProductException.GetCategoryFromUser.class);
+            }
+
         }
     }
 
@@ -100,7 +105,7 @@ public class SellerRequestProcessor {
         for (int i = 3; i < splitRequest.length; i++) {
             specialFeatures.add(splitRequest[i]);
         }
-        ServerMain.sellerController.setSpecialFeatures(splitRequest[2], specialFeatures);
+        ServerMain.sellerController.setSpecialFeatures(specialFeatures);
         return "success";
     }
 

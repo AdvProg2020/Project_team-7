@@ -43,7 +43,7 @@ public class AddProductSpecialFeatures implements Initializable {
         for (TextField textField : specialFeaturesTextFields) {
             specialFeatures.add(textField.getText());
         }
-        String response = SellerRequestBuilder.buildAddSpecialFeaturesRequest(specialFeatures, AddProductPage.exception.getProduct().getProductId());
+        String response = SellerRequestBuilder.buildAddSpecialFeaturesRequest(specialFeatures);
         if (response.equals("success")) {
             showInformationAlert("product created successfully");
         } else {

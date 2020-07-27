@@ -51,9 +51,9 @@ public class SellerRequestBuilder {
         return ClientMain.client.sendRequestFile(request.toString(), file);
     }
 
-    public static String buildAddSpecialFeaturesRequest(ArrayList<String> specialFeatures, String productId) {
+    public static String buildAddSpecialFeaturesRequest(ArrayList<String> specialFeatures) {
         StringBuilder request = new StringBuilder();
-        request.append(GraphicMain.token + "#addSpecialFeatures" + "#" + productId);
+        request.append(GraphicMain.token + "#addSpecialFeatures");
         for (String specialFeature : specialFeatures) {
             request.append("#" + specialFeature);
         }
