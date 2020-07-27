@@ -44,8 +44,7 @@ public class SellerRequestProcessor {
         String title = splitRequest[2];
         String content = splitRequest[3];
         try {
-            //TODO ALERT: watch out for the null arguments :D
-            ServerMain.generalController.addComment(title, content, splitRequest[0], null);
+            ServerMain.generalController.addComment(title, content, splitRequest[0], splitRequest[4]);
             return "success";
         } catch (Exception e) {
             return "error#" + e.getMessage();
@@ -103,7 +102,7 @@ public class SellerRequestProcessor {
 
     public static String buildAddSpecialFeaturesResponse(String[] splitRequest) {
         ArrayList<String> specialFeatures = new ArrayList<>();
-        for (int i = 3; i < splitRequest.length; i++) {
+        for (int i = 2; i < splitRequest.length; i++) {
             specialFeatures.add(splitRequest[i]);
         }
         ServerMain.sellerController.setSpecialFeatures(specialFeatures);
