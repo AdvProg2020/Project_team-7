@@ -97,8 +97,8 @@ public class BankServer {
                 handle();
             } else {
                 System.out.println(Bank.writeBankAccountsData());
-//                System.out.println(Bank.writeBankReceiptsData());
-//                System.out.println(Bank.writeBankPaidReceiptsData());
+                System.out.println(Bank.writeBankReceiptsData());
+                System.out.println(Bank.writeBankPaidReceiptsData());
                 clientSocket.close();
                 dataInputStream.close();
                 dataOutputStream.close();
@@ -108,8 +108,8 @@ public class BankServer {
 
     public static void main(String[] args) {
         System.out.println(Bank.readBankAccountsData());
-//        System.out.println(Bank.readBankReceiptsData());
-//        System.out.println(Bank.readBankPaidReceiptsData());
+        System.out.println(Bank.readBankReceiptsData());
+        System.out.println(Bank.readBankPaidReceiptsData());
         BankServer bankServer = BankServer.getServer();
         bankServer.start();
     }
