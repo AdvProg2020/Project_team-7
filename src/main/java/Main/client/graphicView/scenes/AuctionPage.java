@@ -68,14 +68,19 @@ public class AuctionPage implements Initializable {
         String response = DataRequestBuilder.buildUserTypeRequest();
         if (response.equals("manager")) {
             GraphicMain.graphicMain.goToPage(ManagerPanelController.FXML_PATH, ManagerPanelController.TITLE);
+            update.stop();
         } else if (response.equals("seller")) {
             GraphicMain.graphicMain.goToPage(SellerPanelPage.FXML_PATH, SellerPanelPage.TITLE);
+            update.stop();
         } else if (response.equals("buyer")) {
             GraphicMain.graphicMain.goToPage(BuyerPanelController.FXML_PATH, BuyerPanelController.TITLE);
+            update.stop();
         } else if (response.equals("supporter")) {
             GraphicMain.graphicMain.goToPage(SupporterPanelController.FXML_PATH, SupporterPanelController.TITLE);
+            update.stop();
         } else if (response.equals("loginNeeded")) {
             GraphicMain.graphicMain.goToPage(LoginSignUpPage.FXML_PATH, LoginSignUpPage.TITLE);
+            update.stop();
         } else {
             GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
         }
@@ -93,6 +98,7 @@ public class AuctionPage implements Initializable {
         } else {
             GraphicMain.token = "0000";
             //goBack();
+            update.stop();
             GraphicMain.graphicMain.back();
         }
     }

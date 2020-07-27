@@ -22,6 +22,7 @@ public class ServerMain {
     public static void main(String[] args) {
         System.out.println(GeneralController.readDataAndSetStringRecordObjects());
         ServerMain.generalController.initializeIDs();
+        GeneralController.setImagePaths();
 
         while (true) {
             System.out.println("enter server IP");

@@ -53,6 +53,9 @@ public class BuyerRequestProcessor {
             }
             auction.getAuctionUsage().setReceiverInfo("first name : " + buyerAccount.getFirstName() + " last name : " +
                     buyerAccount.getLastName() + " address : " + splitRequest[5]);
+            if (auction.getAuctionUsage().getLastBuyer() != null) {
+                auction.getAuctionUsage().getLastBuyer().isOnAuction = null;
+            }
             auction.getAuctionUsage().setLastOfferBuyer(buyerAccount);
             auction.getAuctionUsage().increaseHighestOfferBy(Double.parseDouble(splitRequest[4]));
             highestOffer = auction.getAuctionUsage().getHighestOffer() + Double.parseDouble(splitRequest[4]);

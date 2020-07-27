@@ -25,7 +25,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import static java.util.Arrays.asList;
@@ -66,7 +68,7 @@ public class AuctionsPage implements Initializable {
             Auction auction3 = allAuctions.get(i);
             try {
                 auctionsList.getItems().add(auction3.getAuctionUsage().viewSummary());
-                allAuctions.remove(auction3);
+//                allAuctions.remove(auction3);
             } catch (Exception e) {
                 if (i > 0) {
                     i--;
@@ -180,24 +182,32 @@ public class AuctionsPage implements Initializable {
                     errorMessage.setText("fields cannot be empty");
                 } else {
                     try {
+                        String inputDateFormat = "yyyy/MM/dd HH:mm:ss";
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(inputDateFormat);
+
                         DiscountAndOffTypeServiceException.validateInputDate(startDate.getText());
                         DiscountAndOffTypeServiceException.validateInputDate(endDate.getText());
+                        DiscountAndOffTypeServiceException.compareStartAndEndDate(startDate.getText(),endDate.getText());
+                        Date date = simpleDateFormat.parse(endDate.getText());
+                        if(date.compareTo(new Date())<0){
+                            throw new Exception("end date has passed");
+                        }
+                        String response = SellerRequestBuilder.buildCreateAuctionRequest(startDate.getText(), endDate.getText(), product.getProductId());
+                        if (response.equals("success")) {
+                            getInfo.close();
+                            GraphicMain.showInformationAlert("auction added successfully");
+                            initialize(null,null);
+                        } else if (response.equals("tooManyRequests")) {
+                            GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
+                        } else if (response.equals("invalidDate")) {
+                            GraphicMain.showInformationAlert("invalid date !\n");
+                        }  else if (response.equals("failure")) {
+                            GraphicMain.showInformationAlert("try again !");
+                        }else {
+                            errorMessage.setText("you must login first");
+                        }
                     } catch (Exception e) {
                         errorMessage.setText(e.getMessage());
-                    }
-                    String response = SellerRequestBuilder.buildCreateAuctionRequest(startDate.getText(), endDate.getText(), product.getProductId());
-                    if (response.equals("success")) {
-                        getInfo.close();
-                        GraphicMain.showInformationAlert("auction added successfully");
-                        initialize(null,null);
-                    } else if (response.equals("tooManyRequests")) {
-                        GraphicMain.showInformationAlert("too many requests sent to server, slow down !!");
-                    } else if (response.equals("invalidDate")) {
-                        GraphicMain.showInformationAlert("invalid date !\n");
-                    }  else if (response.equals("failure")) {
-                        GraphicMain.showInformationAlert("try again !");
-                    }else {
-                        errorMessage.setText("you must login first");
                     }
                 }
             }
@@ -207,6 +217,7 @@ public class AuctionsPage implements Initializable {
         vBox.getChildren().add(startDate);
         vBox.getChildren().add(endDate);
         vBox.getChildren().add(button);
+        vBox.getChildren().add(errorMessage);
 
         Scene scene = new Scene(vBox, 750, 400);
         getInfo.setScene(scene);

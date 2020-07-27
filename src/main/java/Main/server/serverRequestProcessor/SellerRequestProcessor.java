@@ -33,10 +33,11 @@ public class SellerRequestProcessor {
         try {
             Auction auction = new Auction(Product.getProductWithId(splitRequest[5]), splitRequest[3], splitRequest[4], sellerAccount);
             Auction.addAuction(auction);
+            return "success";
         } catch (Exception e) {
             e.printStackTrace();
+            return "failure";
         }
-        return "success";
     }
 
     public static String buildCommentResponse(String[] splitRequest) {

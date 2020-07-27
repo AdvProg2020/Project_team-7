@@ -98,7 +98,7 @@ public class ProductsPage implements Initializable {
         }
         readAllSellersData(allSellersResponse);
 
-        GeneralController.setImagePaths();
+//        GeneralController.setImagePaths();
         currentFilterResult.addAll(allProducts);
         setPageElementsDueToCurrentFilters();
         setCategoriesFilter();

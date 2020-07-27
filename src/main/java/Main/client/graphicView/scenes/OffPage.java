@@ -108,7 +108,7 @@ public class OffPage implements Initializable {
         }
         readAllSellersData(allSellersResponse);
 
-        GeneralController.setImagePaths();
+        //GeneralController.setImagePaths();
         for (Off off : allOffs) {
             allOffProducts.addAll(off.getProducts());
         }

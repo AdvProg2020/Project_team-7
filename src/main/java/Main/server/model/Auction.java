@@ -173,9 +173,11 @@ public class Auction implements Serializable{
 
         SellLog sellLog = new SellLog(id, dateNow, highestOffer, new CartProduct(product, sellerAccount, null).toStringForSellLog(), lastOfferBuyer, 0, DeliveryStatus.PENDING_DELIVERY, receiverInfo);
         sellerAccount.addLog(sellLog);
+        Log.addLog(sellLog);
 
         BuyLog buyLog = new BuyLog(id, dateNow, highestOffer, 0, new CartProduct(product, sellerAccount, null).toStringForBuyLog(), DeliveryStatus.PENDING_DELIVERY, receiverInfo);
         lastOfferBuyer.addLog(buyLog);
+        Log.addLog(buyLog);
     }
 
     public static String readData() {

@@ -224,6 +224,7 @@ public class DataRequestProcessor {
     }
 
     private static String allProductsResponse() {
+        GeneralController.setImagePaths();
         ArrayList<Product> allProducts = Product.getAllProducts();
         Product[] allPr = new Product[allProducts.size()];
         allPr = allProducts.toArray(allPr);
