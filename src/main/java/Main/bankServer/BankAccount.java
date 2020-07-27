@@ -10,8 +10,8 @@ public class BankAccount {
     private String password;
     private String accountId;
     private double balance;
-    private ArrayList<Receipt> transactionsToThisAccount = new ArrayList<>();
-    private ArrayList<Receipt> transactionsFromThisAccount = new ArrayList<>();
+    //private ArrayList<Receipt> transactionsToThisAccount = new ArrayList<>();
+    //private ArrayList<Receipt> transactionsFromThisAccount = new ArrayList<>();
 
     public BankAccount(String firstName, String lastName, String username, String password) {
         this.firstName = firstName;
@@ -75,11 +75,11 @@ public class BankAccount {
         return balance;
     }
 
-    public ArrayList<Receipt> getTransactionsFromThisAccount() {
-        return transactionsFromThisAccount;
-    }
-
-    public ArrayList<Receipt> getTransactionsToThisAccount() {
-        return transactionsToThisAccount;
-    }
+//    public ArrayList<Receipt> getTransactionsFromThisAccount() {
+//        return transactionsFromThisAccount;
+//    }
+//
+//    public ArrayList<Receipt> getTransactionsToThisAccount() {
+//        return transactionsToThisAccount;
+//    }
 }

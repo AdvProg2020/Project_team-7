@@ -101,7 +101,7 @@ public class SellerRequestProcessor {
 
     public static String buildAddSpecialFeaturesResponse(String[] splitRequest) {
         ArrayList<String> specialFeatures = new ArrayList<>();
-        for (int i = 3; i < splitRequest.length; i++) {
+        for (int i = 2; i < splitRequest.length; i++) {
             specialFeatures.add(splitRequest[i]);
         }
         ServerMain.sellerController.setSpecialFeatures(specialFeatures);

@@ -162,44 +162,44 @@ public class Bank {
         return false;
     }
 
-    public String getTransactions(String token, String type){
-        if(!tokens.containsKey(token)){
-            return "token is invalid";
-        }else if(hasTokenExpired(token)){
-            return "token expired";
-        }else if(!(type.equals("+") || type.equals("-") || type.equals("*")) && (!isReceiptIdValid(type) ||
-                (getReceiptWithId(type).getReceiptType().equals("deposit") &&
-                        !getAccountWithUsername(getTokenInfo(token).getUsername()).getAccountId().equals(getReceiptWithId(type).getDestId())) ||
-                (!getReceiptWithId(type).getReceiptType().equals("deposit") &&
-                !getAccountWithUsername(getTokenInfo(token).getUsername()).getAccountId().equals(getReceiptWithId(type).getSourceId())))){
-            return "invalid receipt id";
-        }else{
-            BankAccount bankAccount = getAccountWithUsername(getTokenInfo(token).getUsername());
-            StringBuilder stringBuilder = new StringBuilder();
-            if(!(type.equals("+") || type.equals("-") || type.equals("*"))){
-                return getReceiptWithId(type).makeJsonList();
-            }else{
-                if(type.equals("+")){
-                    for (Receipt receipt : bankAccount.getTransactionsToThisAccount()) {
-                        stringBuilder.append(receipt.makeJsonList() + "*");
-                    }
-                }else if(type.equals("-")){
-                    for (Receipt receipt : bankAccount.getTransactionsFromThisAccount()) {
-                        stringBuilder.append(receipt.makeJsonList() + "*");
-                    }
-                }else if(type.equals("*")){
-                    for (Receipt receipt : bankAccount.getTransactionsToThisAccount()) {
-                        stringBuilder.append(receipt.makeJsonList() + "*");
-                    }
-                    for (Receipt receipt : bankAccount.getTransactionsFromThisAccount()) {
-                        stringBuilder.append(receipt.makeJsonList() + "*");
-                    }
-                }
-                stringBuilder.deleteCharAt(stringBuilder.length()-1);
-                return stringBuilder.toString();
-            }
-        }
-    }
+//    public String getTransactions(String token, String type){
+//        if(!tokens.containsKey(token)){
+//            return "token is invalid";
+//        }else if(hasTokenExpired(token)){
+//            return "token expired";
+//        }else if(!(type.equals("+") || type.equals("-") || type.equals("*")) && (!isReceiptIdValid(type) ||
+//                (getReceiptWithId(type).getReceiptType().equals("deposit") &&
+//                        !getAccountWithUsername(getTokenInfo(token).getUsername()).getAccountId().equals(getReceiptWithId(type).getDestId())) ||
+//                (!getReceiptWithId(type).getReceiptType().equals("deposit") &&
+//                !getAccountWithUsername(getTokenInfo(token).getUsername()).getAccountId().equals(getReceiptWithId(type).getSourceId())))){
+//            return "invalid receipt id";
+//        }else{
+//            BankAccount bankAccount = getAccountWithUsername(getTokenInfo(token).getUsername());
+//            StringBuilder stringBuilder = new StringBuilder();
+//            if(!(type.equals("+") || type.equals("-") || type.equals("*"))){
+//                return getReceiptWithId(type).makeJsonList();
+//            }else{
+//                if(type.equals("+")){
+//                    for (Receipt receipt : bankAccount.getTransactionsToThisAccount()) {
+//                        stringBuilder.append(receipt.makeJsonList() + "*");
+//                    }
+//                }else if(type.equals("-")){
+//                    for (Receipt receipt : bankAccount.getTransactionsFromThisAccount()) {
+//                        stringBuilder.append(receipt.makeJsonList() + "*");
+//                    }
+//                }else if(type.equals("*")){
+//                    for (Receipt receipt : bankAccount.getTransactionsToThisAccount()) {
+//                        stringBuilder.append(receipt.makeJsonList() + "*");
+//                    }
+//                    for (Receipt receipt : bankAccount.getTransactionsFromThisAccount()) {
+//                        stringBuilder.append(receipt.makeJsonList() + "*");
+//                    }
+//                }
+//                stringBuilder.deleteCharAt(stringBuilder.length()-1);
+//                return stringBuilder.toString();
+//            }
+//        }
+//    }
 
     public String payReceipt(String receiptId){
         if(!isReceiptIdValid(receiptId)){
@@ -222,20 +222,20 @@ public class Bank {
                     receipt.setSourceId("-1");
                     BankAccount bankAccount = getAccountWithId(receipt.getDestId());
                     bankAccount.setBalance(bankAccount.getBalance()+receipt.getMoney());
-                    bankAccount.getTransactionsToThisAccount().add(receipt);
+                    //bankAccount.getTransactionsToThisAccount().add(receipt);
 
                 }else if(receipt.getReceiptType().equals("withdraw")){
                     receipt.setDestId("-1");
                     BankAccount bankAccount = getAccountWithId(receipt.getSourceId());
                     bankAccount.setBalance(bankAccount.getBalance()-receipt.getMoney());
-                    bankAccount.getTransactionsFromThisAccount().add(receipt);
+                    //bankAccount.getTransactionsFromThisAccount().add(receipt);
                 }else{
                     BankAccount sourceAccount = getAccountWithId(receipt.getSourceId());
                     BankAccount destAccount = getAccountWithId(receipt.getDestId());
                     destAccount.setBalance(destAccount.getBalance()+receipt.getMoney());
-                    destAccount.getTransactionsToThisAccount().add(receipt);
+                    //destAccount.getTransactionsToThisAccount().add(receipt);
                     sourceAccount.setBalance(sourceAccount.getBalance()-receipt.getMoney());
-                    sourceAccount.getTransactionsFromThisAccount().add(receipt);
+                    //sourceAccount.getTransactionsFromThisAccount().add(receipt);
                 }
                 allPaidReceipts.add(receipt);
                 return "done successfully";

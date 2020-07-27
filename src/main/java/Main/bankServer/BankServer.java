@@ -79,8 +79,8 @@ public class BankServer {
                 } else if (splitRequest.length == 6) {
                     response = bank.createReceipt(splitRequest[1], splitRequest[2], splitRequest[3], splitRequest[4], splitRequest[5], "");
                 }
-            } else if (splitRequest[0].equals("get_transactions")) {
-                response = bank.getTransactions(splitRequest[1], splitRequest[2]);
+           // }else if (splitRequest[0].equals("get_transactions")) {
+                //response = bank.getTransactions(splitRequest[1], splitRequest[2]);
             } else if (splitRequest[0].equals("pay")) {
                 response = bank.payReceipt(splitRequest[1]);
             } else if (splitRequest[0].equals("get_balance")) {
