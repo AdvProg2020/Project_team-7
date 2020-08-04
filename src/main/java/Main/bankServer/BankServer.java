@@ -79,8 +79,8 @@ public class BankServer {
                 } else if (splitRequest.length == 6) {
                     response = bank.createReceipt(splitRequest[1], splitRequest[2], splitRequest[3], splitRequest[4], splitRequest[5], "");
                 }
-           // }else if (splitRequest[0].equals("get_transactions")) {
-                //response = bank.getTransactions(splitRequest[1], splitRequest[2]);
+//            }else if (splitRequest[0].equals("get_transactions")) {
+//                response = bank.getTransactions(splitRequest[1], splitRequest[2]);
             } else if (splitRequest[0].equals("pay")) {
                 response = bank.payReceipt(splitRequest[1]);
             } else if (splitRequest[0].equals("get_balance")) {
@@ -96,9 +96,9 @@ public class BankServer {
             if (!response.equals("disconnected")) {
                 handle();
             } else {
-                System.out.println(Bank.writeBankAccountsData());
-                System.out.println(Bank.writeBankReceiptsData());
-                System.out.println(Bank.writeBankPaidReceiptsData());
+//                System.out.println(Bank.writeBankAccountsData());
+//                System.out.println(Bank.writeBankReceiptsData());
+//                System.out.println(Bank.writeBankPaidReceiptsData());
                 clientSocket.close();
                 dataInputStream.close();
                 dataOutputStream.close();
@@ -107,9 +107,9 @@ public class BankServer {
     }
 
     public static void main(String[] args) {
-        System.out.println(Bank.readBankAccountsData());
-        System.out.println(Bank.readBankReceiptsData());
-        System.out.println(Bank.readBankPaidReceiptsData());
+//        System.out.println(Bank.readBankAccountsData());
+//        System.out.println(Bank.readBankReceiptsData());
+//        System.out.println(Bank.readBankPaidReceiptsData());
         BankServer bankServer = BankServer.getServer();
         bankServer.start();
     }

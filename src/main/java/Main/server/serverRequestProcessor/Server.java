@@ -162,9 +162,9 @@ public class Server {
             splitRequest = request.split("#");
 
             //if(false){
-            if (isReplayAttack(splitRequest)) {
+            if (/*isReplayAttack(splitRequest)*/false) {
                 response = "tryAgain";
-            } else if (!validateTooManyRequests(clientSocket)) {
+            } else if (/*!validateTooManyRequests(clientSocket)*/ false) {
                 response = "tooManyRequests";
             } else if (splitRequest.length < 2) {
                 response = "invalidRequest";
@@ -521,7 +521,7 @@ public class Server {
             ArrayList<Date> requestDates = requests.get(socketAddress);
             if (requestDates.size() >= 10) {
                 Date date = requestDates.get(requestDates.size() - 10);
-                date = DateUtils.addSeconds(date, 10);
+                date = DateUtils.addSeconds(date, 60);
                 if (date.compareTo(new Date()) > 0) {
                     requestAllowedDate = DateUtils.addSeconds(new Date(), 20);
                     requestDates.clear();
