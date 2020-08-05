@@ -74,4 +74,12 @@ public class MainMenuController {
     public void back(MouseEvent mouseEvent) {
         GraphicMain.graphicMain.back();
     }
+
+    public void about(MouseEvent mouseEvent) {
+        try {
+            GraphicMain.graphicMain.goToPage(AboutPage.FXML_PATH,AboutPage.TITLE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

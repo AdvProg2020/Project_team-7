@@ -24,7 +24,7 @@
                 <Image url="@../../java/Main/client/graphicView/resources/images/back.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="1081.0" layoutY="650.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="20.0" layoutY="100.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../java/Main/client/graphicView/resources/images/logout.png" />
             </image>
@@ -32,5 +32,10 @@
       <Button layoutX="379.0" layoutY="574.0" mnemonicParsing="false" onAction="#goToManageBuyLogs" prefHeight="104.0" prefWidth="420.0" text="Manage Buy Logs" />
       <Label layoutX="293.0" layoutY="20.0" text="shop account balance : " />
       <Label fx:id="shopAccountBalance" layoutX="662.0" layoutY="20.0" text="0.0" />
+      <ImageView fitHeight="268.0" fitWidth="111.0" layoutX="1103.0" layoutY="498.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../java/Main/client/graphicView/resources/images/logo.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

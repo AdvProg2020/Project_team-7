@@ -1,0 +1,14 @@
+.pane{
+-fx-background-image : url(../resources/images/mainMenuBG.jpg);
+-fx-background-repeat : no-repeat;
+}
+
+@font-face {
+    font-family: 'a letter to you',Arial;
+    src: url('letter.ttf');
+}
+
+.label {
+-fx-font-size : 20;
+    -fx-font-family: 'a letter to you';
+}

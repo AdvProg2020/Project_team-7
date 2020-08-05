@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.AboutPage">
+   <stylesheets>
+      <URL value="@../java/Main/client/graphicView/cssFiles/aboutPage.css" />
+   </stylesheets>
+   <children>
+      <ImageView fitHeight="478.0" fitWidth="244.0" layoutX="467.0" layoutY="-96.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../java/Main/client/graphicView/resources/images/logo.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="aboutLabel" layoutX="204.0" layoutY="309.0" prefHeight="77.0" prefWidth="261.0" text="about" />
+   </children>
+</AnchorPane>

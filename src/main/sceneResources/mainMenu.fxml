@@ -36,12 +36,12 @@
         </ImageView>
         <Label layoutX="288.0" layoutY="334.0" rotate="350.0" text="OFFS" />
         <Label layoutX="849.0" layoutY="356.0" rotate="10.0" text="PRODUCTS" />
-        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#back" onMouseEntered="#grow" onMouseExited="#shrink" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="23.0" layoutY="604.0" onMouseClicked="#back" onMouseEntered="#grow" onMouseExited="#shrink" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../java/Main/client/graphicView/resources/images/back.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="26.0" layoutY="651.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="14.0" layoutY="109.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../java/Main/client/graphicView/resources/images/logout.png" />
             </image>
@@ -55,5 +55,16 @@
          </effect>
       </ImageView>
       <Label layoutX="544.0" layoutY="635.0" text="AUCTIONS" />
+      <Label layoutX="94.0" layoutY="651.0" onMouseClicked="#about" text="ABOUT" />
+      <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="23.0" layoutY="667.0" onMouseClicked="#about" onMouseEntered="#grow" onMouseExited="#shrink" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../java/Main/client/graphicView/resources/images/about.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="268.0" fitWidth="111.0" layoutX="1103.0" layoutY="498.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../java/Main/client/graphicView/resources/images/logo.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

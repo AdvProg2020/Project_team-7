@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.SellerProductsPage">
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.client.graphicView.scenes.SellerProductsPage">
     <stylesheets>
-        <URL value="@../../java/Main/client/graphicView/cssFiles/salesHistory.css"/>
-        <URL value="@../../java/Main/client/graphicView/cssFiles/basicStyles.css"/>
-        <URL value="@../../java/Main/client/graphicView/cssFiles/listView.css"/>
+        <URL value="@../../java/Main/client/graphicView/cssFiles/salesHistory.css" />
+        <URL value="@../../java/Main/client/graphicView/cssFiles/basicStyles.css" />
+        <URL value="@../../java/Main/client/graphicView/cssFiles/listView.css" />
 
     </stylesheets>
     <children>
-        <ListView fx:id="list" layoutX="395.0" layoutY="100.0" prefHeight="550.0" prefWidth="410.0"/>
-        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="1101.0" layoutY="651.0" onMouseClicked="#goBack"
-                   pickOnBounds="true" preserveRatio="true">
+        <ListView fx:id="list" layoutX="395.0" layoutY="100.0" prefHeight="550.0" prefWidth="410.0" />
+        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="35.0" layoutY="588.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../java/Main/client/graphicView/resources/images/back.png"/>
+                <Image url="@../../java/Main/client/graphicView/resources/images/back.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="104.0" fitWidth="80.0" layoutX="26.0" layoutY="651.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
@@ -26,6 +25,11 @@
                 <Image url="@../../java/Main/client/graphicView/resources/images/logout.png" />
             </image>
         </ImageView>
+      <ImageView fitHeight="268.0" fitWidth="111.0" layoutX="1103.0" layoutY="498.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../java/Main/client/graphicView/resources/images/logo.png" />
+         </image>
+      </ImageView>
     </children>
 
 </AnchorPane>

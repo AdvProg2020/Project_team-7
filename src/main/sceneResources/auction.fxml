@@ -87,5 +87,10 @@
             </AnchorPane>
         </content>
       </ScrollPane>
+      <ImageView fitHeight="268.0" fitWidth="111.0" layoutX="72.0" layoutY="571.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../java/Main/client/graphicView/resources/images/logo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
