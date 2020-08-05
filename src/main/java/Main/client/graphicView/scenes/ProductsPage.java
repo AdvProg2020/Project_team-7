@@ -199,9 +199,9 @@ public class ProductsPage implements Initializable {
 
     private void setProductsPane(int pageNumber) {
         productsPane.getChildren().clear();
-        int startingIndex = (pageNumber - 1) * 5;
+        int startingIndex = (pageNumber - 1) * 10;
         int endingIndex = currentFilterResult.size();
-        for (int i = startingIndex; i < startingIndex + 5 && i < endingIndex; i++) {
+        for (int i = startingIndex; i < startingIndex + 10 && i < endingIndex; i++) {
             Product product = currentFilterResult.get(i);
             productsPane.getChildren().add(product.createProductBoxForUI());
         }
@@ -230,9 +230,9 @@ public class ProductsPage implements Initializable {
         showLessPages.setMinHeight(BUTTON_MIN_HEIGHT);
         pageNumberPane.getChildren().add(showLessPages);
 
-        int pageNumberButtonsNo = (int) Math.ceil(currentFilterResult.size() / 5.0);
+        int pageNumberButtonsNo = (int) Math.ceil(currentFilterResult.size() / 10.0);
         pageNumberButtonsNo = (pageNumberButtonsNo == 0 ? 1 : pageNumberButtonsNo);
-        for (int i = startPageNumber; i <= startPageNumber + 5 && i <= pageNumberButtonsNo; i++) {
+        for (int i = startPageNumber; i <= startPageNumber + 12 && i <= pageNumberButtonsNo; i++) {
             Button number = new Button(i + "");
             number.setStyle("-fx-background-radius : 30;");
             int finalI = i;

@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -54,6 +55,7 @@ public class Product implements Serializable{
     private double tempTotalPrice;
     private CartProduct tempCartProduct;
     public boolean isOnAuction;
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     public Product(String name, String brand, int availability, String description, double price, SellerAccount sellerAccount) {
         this.productId = IDGenerator.getNewID(lastUsedProductID);
@@ -629,7 +631,7 @@ public class Product implements Serializable{
         productBox.getChildren().add(productPrice);
         if (getProductFinalPriceConsideringOff() != price) {
             productPrice.getStyleClass().add("strikethrough");
-            productBox.getChildren().add(new Label("price considering off : " + getProductFinalPriceConsideringOff()));
+            productBox.getChildren().add(new Label("price considering off : " + df2.format(getProductFinalPriceConsideringOff())));
         }
         if (availability == 0) {
             Label availability = new Label("unavailable !");
